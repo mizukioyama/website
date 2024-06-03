@@ -146,7 +146,7 @@
     }
     .card__slide:nth-child(even) .image {
         left: 60%;
-        background-image: url('https://github.com/MizukiOyama/Portfolio/blob/main/img/%2323%2C0019-2.png');
+        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/#23,0053-2.jpg);
         pointer-events: none;
         transition: transform 600ms 300ms linear, opacity 300ms 500ms linear;
     }
