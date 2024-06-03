@@ -1,0 +1,199 @@
+@charset "UTF-8";
+/*== NAV ==*/
+nav {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    bottom: 0;
+    width: 50%;
+    background: var(--def);
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: 0.8s ease;
+    z-index: 999;
+}
+.open nav {
+    right: 0;
+}
+.inner {
+    padding: 150px;
+}
+.inner ul {
+    margin: 0;
+    padding: 0;
+}
+.inner ul li {
+    position: relative;
+    width: fit-content;
+    margin: 2% 0 0;
+    border-bottom: 1px solid rgba(40, 40, 40, .25);
+}
+#navArea .inner li a {
+    font-family: "poiret-one", sans-serif;
+    display: block;
+    position: relative;
+    font-size: clamp(1.8rem, calc( 1.8rem + 0.5vw), 2rem);
+    font-weight: bold;
+    color: var(--inv);
+    height: 100%;
+    margin-top: 1.5rem;
+    padding: .35em .65em 0 .2em;
+    text-decoration: none;
+    overflow: hidden;
+}
+#navArea .inner li a::before {
+    content: '-';
+    width: 3px;
+    left: 0;
+}
+#navArea .inner li a:hover {
+    text-shadow: 0 1px 3px var(--inv);
+    opacity: 1;
+}
+/* .toggle_btn styles */
+.toggle_btn {
+    display: block;
+    position: fixed;
+    top: 4.5%;
+    right: 5%;
+    width: 40px;
+    height: 30px;
+    transition: all 1.3s;
+    cursor: pointer;
+    z-index: 9999;
+    transform: translate(0, 0);
+}
+.toggle_btn span {
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 1px;
+    background: #c0c0c0;
+    overflow: hidden;
+    z-index: 10000;
+}
+.toggle_btn span::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            #000 0%,
+            #000 100%,
+            transparent);
+    animation: scroll-left 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+    background-size: 200% 100%;
+    transition: all 2s;
+    animation-delay: 2s;
+    animation-duration: 3.5s;
+}
+@keyframes scroll-left {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+/*== OPEN ==*/
+.open nav {
+    right: 0;
+}
+.open .toggle_btn {
+    transition: all 1s ease;
+}
+.open .toggle_btn span {
+    background-color: #000;
+    box-shadow: 0 0 25px 5px #f2f2f2;
+    width: 100%;
+    height: 1%;
+    z-index: 100;
+    transition: all 1s ease;
+}
+.toggle_btn span:nth-child(1) {
+    transition: all 1s ease;
+}
+.open .toggle_btn span:nth-child(1) {
+    transform: translate(310%, 0);
+    transition: all 1s ease;
+    opacity: .5;
+}
+.toggle_btn span:nth-child(2) {
+    top: -200%;
+    animation-delay: 0.56s;
+    transform: translate(0%, 0%) rotate(90deg);
+    transition: all 1s ease;
+    opacity: 1;
+}
+.open .toggle_btn span:nth-child(2) {
+    top: 3%;
+    transform: translate(0%, 0%) rotate(90deg);
+    transition: all 1s ease;
+    opacity: 1;
+}
+.toggle_btn span:nth-child(3) {
+    transform: translate(320%, 0);
+    transition: all 1s ease;
+    animation-delay: 0.56s;
+    opacity: 1;
+}
+.open .toggle_btn span:nth-child(3) {
+    transform: translate(0%, 0%) rotate(0deg);
+    transition: all 1s ease;
+    opacity: 1;
+}
+/* Mask */
+#mask {
+    display: none;
+    right: -100%;
+    top: 0;
+    transition: 0.8s ease;
+}
+.open #mask {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10);
+    cursor: pointer;
+    transition: all 1s ease;
+    animation: menu-left 1s ease;
+    z-index: 998;
+}
+@keyframes menu-left {
+    0% {
+        transform: translateX(200%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.open #mask ul {
+    width: calc(80% - 10vw);
+    margin: calc(30% - 5vw) 0 0 calc(5% - 5vw);
+}
+.open #mask ul p {
+    font-size: clamp(1.2rem, calc( 1.2rem + 0.5vw), 1.4rem);
+    color: var(--def);
+    position: relative;
+    left: 6%;
+    margin: calc(10% - 5vw) 0 0 0;
+}
+.open #mask li {
+    width: calc(60% - 10vw);
+    color: #999;
+    margin-top: 3em;
+    left: 0;
+    padding: 0 1em 0 .5em;
+    border-bottom: 1px solid;
+}

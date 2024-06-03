@@ -1,0 +1,238 @@
+@charset "UTF-8";
+
+/* Just the background stuff */
+span.s1 {
+    position: absolute;
+    top: 0;
+    font-size: 15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #3C4447;
+}
+
+span.s2 {
+    font-weight: 800;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 15rem;
+    text-transform: uppercase;
+    color: #3C4447;
+}
+
+/* card */
+.img-card {
+    position: relative;
+    width: 100%;
+    max-width: 1150px;
+    height: 600px;
+    margin: 200px auto;
+    background-color: #FFF;
+    box-shadow: 10px 10px 93px 0px rgba(250, 250, 250, 0.75);
+}
+
+/* Image on the left side */
+.thumbnail {
+    float: left;
+    position: relative;
+    left: 30px;
+    top: 10px;
+    height: 320px;
+    width: 530px;
+    box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+}
+
+img.left {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: auto;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}
+
+/* Right side of the card */
+.right {
+    margin-left: 620px;
+    margin-right: 50px;
+}
+
+h1 {
+    font-family: "Noto Serif JP", serif;
+    width: 100%;
+    margin-bottom: 80px;
+    margin-left: 90px;
+    padding-top: 30px;
+    font-size: 1.5rem;
+    color: #4B4B4B;
+}
+
+.author {
+    background-color: #000;
+    margin-top: -10px;
+    height: 30px;
+    width: 150px;
+    border-radius: 20px;
+}
+
+.author > img {
+    padding-top: 5px;
+    margin-left: 10px;
+    float: left;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+h2 {
+    padding-top: 8px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.separator {
+    margin-top: 10px;
+    border: 1px solid #C3C3C3;
+}
+
+p {
+    margin-left: 0px;
+    text-align: justify;
+    padding-top: 10px;
+    font-size: 0.95rem;
+    color: #4B4B4B;
+}
+
+/* DATE of release */
+h5 {
+    position: absolute;
+    left: 30px;
+    top: -230px;
+    bottom: -120px;
+    font-size: 6rem;
+    color: #C3C3C3;
+}
+
+h6 {
+    position: absolute;
+    left: 30px;
+    bottom: 0px;
+    font-size: 2rem;
+    color: #C3C3C3;
+}
+
+/* Those futur buttons */
+ul {
+    margin-left: 250px;
+}
+
+ul li {
+    display: inline;
+    list-style: none;
+    padding-right: 40px;
+    color: #7B7B7B;
+}
+
+/* Floating action button */
+.fab {
+    position: absolute;
+    right: 50px;
+    bottom: 30px;
+    box-sizing: border-box;
+    padding-top: 18px;
+    background-color: #545454;
+    width: 40px;
+    height: 40px;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+    border: 6px ridge #959595;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+}
+
+/*btn*/
+button {
+    color: #000;
+    width: 20%;
+    height: 5%;
+    margin-left: 30%;
+    margin-top: -140px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    background: none;
+    border: none;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 5px;
+    cursor: pointer;
+}
+
+button:after,
+button:before {
+    content: "";
+    color: #ddd;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 1px solid #000;
+    transition: transform 0.5s;
+}
+
+button:after {
+    transform: translate(5px, 5px);
+}
+
+button:before {
+    transform: translate(-5px, -5px);
+}
+
+button:hover:after,
+button:hover:before {
+    transform: translate(0);
+}
+
+.bottn {
+    display: flex;
+    color: #ddd;
+    width: 20%;
+    text-align: center;
+    margin-top: 20%;
+    margin-left: 30%;
+    border: 0;
+}
+
+.Container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    scroll-snap-type: x mandatory;
+}
+
+.Box-Container {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s ease;
+    transform: translateX(0); /* Changed to 0 to fix the slide animation */
+}
+
+.Box {
+    flex-shrink: 0;
+    width: 50vw;
+    height: 100vh;
+    margin-right: 10px;
+    border-radius: 0px;
+    scroll-snap-align: start;
+}

@@ -1,0 +1,229 @@
+@charset "UTF-8";
+
+    /*== text ==*/
+    .wrap {
+      width: auto;
+      height: 400px;
+      margin: 0 auto;
+      position: relative;
+    }
+/*== Text ==*/
+    .typing {
+        letter-spacing: .5rem;
+        word-break: break-all;
+        display: inline-block;
+        position: absolute;
+    }
+    .typing span {
+        display: none;
+    }
+    .typing:after {
+        content: "|";
+        animation: typingCursor .8s ease infinite;
+        display: inline-block;
+    }
+/*= Style =*/
+    .animation1 span {
+        color: rgba(255, 255, 255, 0.3);
+    }
+    .animation2 span {
+        color: rgba(25, 25, 25, 0.3);
+    }
+
+    @keyframes typingCursor {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .text_typing {
+        letter-spacing: .5rem;
+        word-break: break-all;
+        display: inline-block;
+    }
+    .text_typing span {
+        display: none;
+    }
+    .text_typing:after {
+        content: "|";
+        animation: typing .8s ease infinite;
+        display: inline-block;
+    }
+
+    @keyframes typing {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+
+/*== 背景アニメーション
+  canvas {
+      display: block;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: rgba(255, 255, 255, 0.2);
+  }
+  .noise::after {
+    animation: noise 8s steps(10) infinite;
+    background: url("");
+    content: "";
+    display: block;
+    height: 300%;
+    left: -100%;
+    position: absolute;
+    top: -100%;
+    width: 300%;
+    color: #fff;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  @keyframes noise {
+    to {
+      background-position: 0 0;
+    }
+    10% {
+      background-position: -5% -10%;
+    }
+    20% {
+      background-position: -15% 5%;
+    }
+    30% {
+      background-position: 7% -25%;
+    }
+    40% {
+      background-position: 20% 25%;
+    }
+    50% {
+      background-position: -25% 10%;
+    }
+    60% {
+      background-position: 15% 5%;
+    }
+    70% {
+      background-position: 0 15%;
+    }
+    80% {
+      background-position: 25% 35%;
+    }
+    90% {
+      background-position: -10% 10%;
+    }
+  }==*/
+
+#imgbox-01,
+#imgbox-02,
+#imgbox-03,
+#imgbox-04,
+#imgbox-05,
+#imgbox-06 {
+    position: absolute;
+}
+/*== img 1 ==*/
+.img-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  mix-blend-mode: overlay;
+  transition: transform 0.5s, top 0.5s, width 0.5s;
+  opacity: 0.14;
+}
+#imgbox-01 {
+    width: 130px;
+    height: 210px;
+    left: calc(10% - -30px);
+    transform: translate(0%, 60%) scale(1);
+    transition: transform 1.5s, top 1.5s, width 1.5s;
+    opacity: 0.14;
+}
+#imgbox-02 {
+    width: 190px;
+    height: 330px;
+    left: calc(60% - -300px);
+    transform: translate(0%, -80%) scale(1);
+    transition: transform 1.2s, top 1.2s, width 1.2s;
+}
+#imgbox-03 {
+    width: 140px;
+    height: 300px;
+    left: calc(5% - -430px);
+    transform: translate(0%, 70%) scale(1);
+    transition: transform 1.8s, top 1.8s, width 1.8s;
+}
+/*== img 2 ==*/
+.img-wrapper_2 {
+  position: relative;
+  width: 100%;
+  height: 40vh;
+  overflow: hidden;
+  mix-blend-mode: difference;
+  transition: transform 0.85s, top 0.85s, width 0.85s;
+  opacity: .8;
+}
+#imgbox-04 {
+  top: 0%;
+  width: 190px;
+  height: 330px;
+  left: calc(5% - -430px);
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform .8s, top .8s, width .8s;
+}
+#imgbox-05 {
+  top: 10%;
+  width: 190px;
+  height: 330px;
+  left: calc(15% - -430px);
+  transform: translate(-10%, -5%) scale(1);
+  transition: transform 2.2s, top 2.2s, width 2.2s;
+}
+#imgbox-06 {
+  top: 15%;
+  width: 190px;
+  height: 330px;
+  left: calc(20% - -430px);
+  transform: translate(-30%, -10%) scale(1);
+  transition: transform 1.8s, top 1.8s, width 1.8s;
+}
+/*== img 3 ==*/
+.img-wrapper_3 {
+  position: relative;
+  width: 60%;
+  height: 50vh;
+  overflow: hidden;
+  mix-blend-mode: difference;
+  transition: transform 0.65s, top 0.65s, width 0.65s;
+  opacity: .4;
+}
+#imgbox-07 {
+  top: 0%;
+  width: 190px;
+  height: 330px;
+  left: calc(5% - -530px);
+  transform: translate(-50%, 50%) scale(1);
+  transition: transform 1.8s, top 1.8s, width 1.8s;
+}
+#imgbox-08 {
+  top: 10%;
+  width: 140px;
+  height: 230px;
+  left: calc(15% - 430px);
+  transform: translate(-50%, 50%) scale(1);
+  transition: transform 1.2s, top 1.2s, width 1.2s;
+}
+#imgbox-09 {
+  top: 15%;
+  width: 100px;
+  height: 250px;
+  left: calc( 40% - -230px);
+  transform: translate(-30%, 0%) scale(1);
+  transition: transform 1s, top 1s, width 1s;
+}

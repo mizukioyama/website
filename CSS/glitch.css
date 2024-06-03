@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+/*    .wrap {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+    }*/
+    .inner span {
+        z-index: 1;
+        animation: glitch .2s .3s steps(10) infinite;
+    }
+    .inner .is-active {
+        animation: glitch .1s .2s steps(100) infinite;
+    }
+
+@keyframes glitch {
+    0% {
+        text-shadow: 3px 1px 0 #010101, -3px -2px 0 #010101, -1px -3px 0 #343434, -1px -3px 0 #343434;
+    }
+    5% {
+        text-shadow: -3px -5px 0 #010101, 3px 2px 0 #010101, -1 3px 0 #909090, 10px 5px 0 #909090;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    10% {
+        text-shadow: 0px 0 0 #010101, 0px 0 0 #010101, 2px 3px 0 #161616, 0px -5px 0 #161616;
+    }
+    15% {
+        text-shadow: -3px -15px 0 #010101, -5px -10px 0 #530000, 5px 10px 0 #aaa, 10px 0px 0 #aaa;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    20% {
+        text-shadow: 3px 10px 0 #010101, -3px -15px 0 #010101, -10px -2px 0 #575757, 0px 0px 0 #575757;
+    }
+    25% {
+        text-shadow: 0px -1px 0 #010101, 5px 2px 0 #530000, 1px 0px 0 #500000, 2px 3px 0 #595959;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    30% {
+        text-shadow: 1px 0px 0 #010101, -3px -5px 0 #010101, -1px -2px 0 #4a4a4a, -5px -15px 0 #575757;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    35% {
+        text-shadow: -2px -5px 0 #010101, 1px 2px 0 #530000, 0px 0px 0 #530000, 2px 3px 0 #595959;
+    }
+    40% {
+        text-shadow: 3px 10px 0 #010101, -3px -5px 0 #010101, -1px 2px 0 #000, -10px -5px 0 #000;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    45% {
+        text-shadow: -1px -5px 0 #010101, -1px -5px 0 #530000, 0px -5px 0 #530000, 0px -3px 0 #595959;
+        filter: blur(0.5px);
+    }
+    50% {
+        text-shadow: 0px 0px 0 #010101, 3px 5px 0 #010101, 3px 0px 0 #530000, 0px 3px 0 #111;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    55% {
+        text-shadow: -2px -5px 0 #010101, 1px 5px 0 #530000, 10px 0px 0 #000, 0px -2px 0 #fff;
+    }
+    60% {
+        text-shadow: 10px 2px 0 #010101, 5px 5px 0 #515151, 0px 0px 0 #000, 5px 2px 0 #575757;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    65% {
+        text-shadow: 0px -1px 0 #010101, -1px 0px 0 #070707, -10px 0px 0 #030303, 2px 3px 0 #595959;
+    }
+    70% {
+        text-shadow: 0px -5px 0 #010101, 5px -2px 0 #ddd, 0px 0px 0 #a1a1a1a1, 0px 2px 0 #000;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    75% {
+        text-shadow: 10px 5px 0 #010101, -5px -4px 0 #530000, -10px 2px 0 #aaa, 0px 1px 0 #fff;
+    }
+    80% {
+        text-shadow: 0px -5px 0 #010101, 0px 0px 0 #000, 1px 3px 0 #500000, 0px 10px 0 #aaa;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    85% {
+        text-shadow: 2px 0px 0 #010101, 3px 1px 0 #626262, -1px -3px 0 #000, 1px 0px 0 #575757;
+    }
+    90% {
+        text-shadow: 0px -5px 0 #010101, 0px 5px 0 #000, 10px 0px 0 #500000, 0px -10px 0 #575757;
+    }
+    95% {
+        text-shadow: 25px 10px 0 #010101, 15px 25px 0 #530000, 15px 10px 0 #fff, 10px 20px 0 #010101;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+    100% {
+        text-shadow: -35px -15px 0 #010101, -15px -25px 0 #000, -25px -20px 0 #ddd, -15px -20px 0 #010101;
+        filter: blur(0.5px);
+        color: transparent;
+    }
+}
+
+
+/*lang*/
+@keyframes glitch_label {
+        0%,100% {
+        text-shadow: -4px 0px 0 #414141, 3px 0px 0 #330000;
+        }
+        25% {
+        text-shadow: 1px 0px 0 #414141, -1px 0px 0 #330000;
+        filter: blur(0.5px);
+        color: transparent;
+        }
+        50% {
+        text-shadow: 1px 0px 0 #330000, -2px 0px 0 #ccc;
+        }
+        75% {
+        text-shadow: 0px 0px 0 #525252, 0px 0px 0 #aaa;
+        filter: blur(0.5px);
+        color: transparent;
+        }
+    }
