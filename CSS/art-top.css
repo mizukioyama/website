@@ -60,15 +60,12 @@
     }
 /*== bg img ==*/
     .back__slide:before {
-        background: #202020;
         filter: blur(5px) grayscale(90%);
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
     }
     .back__slide:nth-child(even):before {
         background: var(--inv);
-/*        background-image: url("https://paradigmart.natureinspire.jp/wp-content/uploads/2023/10/230032-2.jpg");*/
-        background-repeat: no-repeat;
-        background-size: cover;
+        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
     }
     .back__slide .back-front-image {
         position: absolute;
