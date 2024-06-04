@@ -232,6 +232,7 @@
         opacity: 1;
         transform: translatey(0rem);
         transition: transform 800ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 600ms 1200ms linear;
+        transition: transform 1400ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1200ms 1600ms linear;
     }
     .card__slide:nth-child(even).active .number {
         transition: transform 1400ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1200ms 1600ms linear;
