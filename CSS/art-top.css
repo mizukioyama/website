@@ -54,17 +54,17 @@
         height: 100%;
         background-position: center;
         background-size: cover;
+        mix-blend-mode: difference;
+        filter: blur(5px) grayscale(90%);
     }
     .back__slide.active {
         opacity: 1;
     }
 /*== bg img ==*/
-    .back__slide:before {
-        filter: blur(5px) grayscale(90%);
+    .back__slide:nth-child(1)::before {
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
     }
-    .back__slide:nth-child(even):before {
-        background: var(--inv);
+    .back__slide:nth-child(even)::before {
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
     }
     .back__slide .back-front-image {
