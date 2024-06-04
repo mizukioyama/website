@@ -54,8 +54,7 @@
         height: 100%;
         background-position: center;
         background-size: cover;
-        mix-blend-mode: difference;
-        filter: blur(5px) grayscale(90%);
+        filter: blur(5px) grayscale(50%);
     }
     .back__slide.active {
         opacity: 1;
