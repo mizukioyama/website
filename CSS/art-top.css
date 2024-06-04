@@ -112,10 +112,16 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: #1b1b1b;
         box-shadow: inset 0 0px 10px 0px var(--def);
         background-size: 100% auto;
         background-position: center;
+        background-color: #1b1b1b;
+        border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
+        border-right-color: rgba(255, 255, 255, 0.2);
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
+        backdrop-filter: blur(20px);
     }
     .card__slide:nth-child(even):after {
         background: var(--inv);
