@@ -75,6 +75,7 @@
         background-position: center;
         background-size: cover;
         filter: grayscale(40%);
+        background-color: var(--def);
         z-index: -1;
     }
     .back__slide.active {
@@ -82,10 +83,10 @@
     }
 /*== bg img ==*/
     .back__slide:nth-child(1)::before {
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
+        background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
     }
     .back__slide:nth-child(even)::before {
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
+        background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
     }
     .back__slide .back-front-image {
         position: absolute;
@@ -134,7 +135,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        box-shadow: inset 0 0px 10px 0px var(--def);
+        box-shadow: inset 0 0px 10px 0px #000;
         background-size: 100% auto;
         background-position: center;
         background-color: rgba(20, 200, 200, 0.1);
@@ -144,7 +145,7 @@
         backdrop-filter: blur(20px);
     }
     .card__slide:nth-child(even):after {
-        background-color: rgba(255, 255, 255, 0.45);
+        background-color: rgba(250, 250, 250, 0.3);
         transform: scaleX(0);
         transform-origin: 100% 50%;
         box-shadow: inset 0 0px 8px 0px rgba(20, 20, 20, 0.86);
@@ -428,8 +429,8 @@
         position: relative;
         font-size: clamp(4rem, calc( 4rem + 0.5vw), 5rem);
         font-weight: 400;
-        color: rgba(20, 200, 200, 0.1);
-        text-shadow: 0px 0px 7px rgba(20, 200, 200, 0.75);
+        color: var(--def);
+        text-shadow: 0px 0px 6px rgba(20, 180, 160, 0.35);
         text-align: right;
         line-height: 1.2;
         letter-spacing: 0.1em;
@@ -450,8 +451,8 @@
         font-size: clamp(1rem, calc( 1rem + 0.5vw), 1.2rem);
         width: 100%;
         height: 100px;
-        color: rgba(200, 200, 200, 0.15);
-        text-shadow: 1px 1px 1px rgba(20, 200, 200, 0.45);
+        color: var(--def);
+        text-shadow: 1px 1px 2px rgba(20, 180, 160, 0.15);
         text-align: right;
         right: 0;
         margin: 5em 0 4em;
@@ -523,7 +524,7 @@
     }
     .button:hover {
         transform: translateY(-0.3rem);
-        box-shadow: 0px 3px 10px 0px rgba(250, 250, 250, 0.4);
+        box-shadow: 0px 2px 5px 0px rgba(100, 100, 100, 0.4);
     }
     .content__slide:nth-child(even) .button:hover {
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.64);
