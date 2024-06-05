@@ -415,6 +415,9 @@
         margin: 10% 0 0;
         padding: 0;
     }
+    .content__slide:nth-child(even) .title {
+        text-shadow: 0px 0px 10px rgba(200, 200, 200, 0.75);
+    }
     .top-page .title:nth-child(even)::before {
         transition-delay: 200ms;
         transform: translatey(2.5rem);
@@ -428,7 +431,7 @@
         height: 100px;
         color: var(--def);
         color: rgba(20, 200, 200, 0.1);
-        text-shadow: 0px 0px 10px rgba(20, 200, 200, 0.75);
+        text-shadow: 1px 1px 2px rgba(200, 200, 200, 0.5);
         text-align: right;
         right: 0;
         margin: 5em 0 4em;
