@@ -1,38 +1,36 @@
-jQuery(document).ready(function($) {
-	// ページの読み込み後にローディング背景を非表示にする
-	$(window).on('load', function() {
-		 setTimeout(function() {
-			  $('#loading-bg').fadeOut();
-		 }, 2000);
-	});
+// タイピング
+$(window).on('load', function() {
+	$(".typing").each(function() {
+		 var text = $(this).text();
+		 var textbox = "";
+		 var words = text.split(' ');
 
-	// テキストのアニメーション効果を実装する関数
-	function TypingAnimation() {
-		 $(".js_typing").each(function(i) {
-			  var elemPos = $(this).offset().top - 50; // 要素より、50px上の位置
-			  var scroll = $(window).scrollTop();
-			  var windowHeight = $(window).height();
-			  if (scroll >= elemPos - windowHeight) {
-					if (!$(this).hasClass("endAnime")) {
-						 $(this).addClass("endAnime"); // アニメーションが終了したことを示すクラスを追加
-						 var text = $(this).text(); // テキストを取得
-						 $(this).text(''); // テキストを空にする
-						 var shuffleText = new ShuffleText(this); // ShuffleTextのインスタンスを生成
-						 $(this).append(shuffleText); // ShuffleTextを要素に追加
-						 shuffleText.setText(text); // テキストを設定
-						 shuffleText.start(); // アニメーションを開始
-					}
+		 for (var i = 0; i < words.length; i++) {
+			  var word = words[i];
+			  for (var j = 0; j < word.length; j++) {
+					textbox += '<span>' + word[j] + '</span>';
 			  }
+			  if (i < words.length - 1) {
+					textbox += '<span>&nbsp;</span>';
+			  }
+		 }
+		 $(this).html(textbox);
+
+		 $(".typing span").each(function(i) {
+			  var time = 100;
+			  $(this).delay(time * i).fadeIn(time);
 		 });
-	}
 
-	// 画面をスクロールしたときのイベント
-	$(window).scroll(function() {
-		 TypingAnimation(); // テキストのアニメーション効果を実行
-	});
+		 if (!$(this).hasClass('menu-animation-target')) {
+			  var positionX = Math.random() * ($(this).parent().width() - $(this).width());
+			  var positionY = Math.random() * ($(this).parent().height() - $(this).height());
+			  $(this).css({ 'left': positionX, 'top': positionY });
+		 }
 
-	// ページが読み込まれたときのイベント
-	$(window).on("load", function() {
-		 TypingAnimation(); // テキストのアニメーション効果を実行
+		 if ($(this).hasClass('animation1')) {
+			  $(this).addClass('animation1-style');
+		 } else if ($(this).hasClass('animation2')) {
+			  $(this).addClass('animation2-style');
+		 }
 	});
 });
