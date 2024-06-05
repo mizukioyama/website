@@ -494,18 +494,48 @@
     }
 
     .page {
+        position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        width: fit-content;
+        width: 60%;
         margin: 10em auto;
+        padding: 0;
+        a::before {
+            display: none;
+        }
+        .page li {
+            margin: 0 5%;
+            a {
+                font-size: clamp(1.4rem, calc(1.4rem + 0.5vw), 1.6rem);
+            }
+        }
+        .arrow-button {
+            display: block;
+            font-family: "poiret-one",Not serif-JP;
+            font-size: 2.4rem;
+            font-weight: 100;
+            color: var(--inv);
+            padding: 1.5rem;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+            &:hover {
+                transform: scale( 1.3, 1);
+                color: #434343;
+            }
+        }
+        .left-arrow {
+            position: absolute;
+            left: 0rem;
+        }
+        .right-arrow {
+            position: absolute;
+            right: 0rem;
+        }
     }
-    .page a::before {
-        display: none;
-    }
-    .page li a {
-        font-size: clamp(1.4rem, calc(1.4rem + 0.5vw), 1.6rem);
-    }
+
     .gallery ol p {
         font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.45rem);
         font-family: "poiret-one",Not serif-JP;
@@ -627,28 +657,3 @@
         margin-top: 10em;
     }
 
-.arrow-button {
-    font-family: "poiret-one",Not serif-JP;
-    font-size: 2.4rem;
-    font-weight: 100;
-    color: var(--inv);
-    padding: 1.5rem;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-.arrow-button:hover {
-    transform: scale( 1.3, 1);
-    color: #434343;
-}
-
-.left-arrow {
-    position: absolute;
-    left: 18rem;
-}
-
-.right-arrow {
-    position: absolute;
-    right: 5rem;
-}
