@@ -74,7 +74,8 @@
         height: 100%;
         background-position: center;
         background-size: cover;
-        filter: blur(5px) grayscale(50%);
+        filter: grayscale(50%);
+        backdrop-filter: blur(20px);
         z-index: -1;
     }
     .back__slide.active {
