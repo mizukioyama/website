@@ -15,6 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 100;
         }
         .loading {
             font-size: 5rem;
@@ -462,6 +463,7 @@
     .content__slide:nth-child(even) .title, .content__slide:nth-child(even) .desc, .content__slide:nth-child(even) .button-wrap {
         text-align: left;
         color: var(--def);
+        text-shadow: 1px 1px 2px rgba(200, 200, 200, 0.45);
     }
 
 /*== button==*/
