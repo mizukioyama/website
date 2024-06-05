@@ -40,7 +40,6 @@
 }
 
     :root {
-        --def: #000;
         --def: rgba(0, 0, 0, 0.75);
         --inv: #f9fafb;
     }
@@ -145,7 +144,7 @@
         backdrop-filter: blur(20px);
     }
     .card__slide:nth-child(even):after {
-        background-color: rgba(255, 255, 255, 0.35);
+        background-color: rgba(255, 255, 255, 0.45);
         transform: scaleX(0);
         transform-origin: 100% 50%;
         box-shadow: inset 0 0px 8px 0px rgba(20, 20, 20, 0.86);
@@ -508,7 +507,7 @@
     .content__slide:nth-child(even) .button {
         background: transparent;
         color: var(--def);
-        background-color: rgba(20, 20, 20, 0.15);
+        background-color: rgba(250, 250, 250, 0.15);
     }
     .button:before, .button:after, .button_hover {
         content: "";
