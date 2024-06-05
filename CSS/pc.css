@@ -125,23 +125,6 @@
                 backdrop-filter: blur(5px);
                 z-index: 10;
             }
-            .top-blok1,
-            .top-blok2,
-            .top-blok3 {
-                position: relative;
-                top: 0;
-                left: 0;
-                width: 40px;
-                height: 40px;
-                margin: 0.1%;
-                background: var(--def);
-                box-shadow: inset 0px 0px 3px 0px var(--inv);
-            }
-            .top-blok2,
-            .top-blok3 {
-                width: 20px;
-                height: 20px;
-            }
 
             h1 {
                 font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
@@ -532,7 +515,7 @@
         }
         .right-arrow {
             position: absolute;
-            right: 0rem;
+            right: -10rem;
         }
     }
 
@@ -581,6 +564,10 @@
         margin: 0 20%;
         background: rgba(0, 0, 0, 0);
     }
+    .work {
+        display: block;
+        height: calc(80vh + 3vh);
+    }
     .works::before {
         display: none;
     }
@@ -591,12 +578,13 @@
         color: var(--def);
         background: var(--def);
     }
+/*===copyright*/
     .dli-external-link {
         display: inline-block;
         position: absolute;
         right: 30%;
         top: 1200%;
-        color: var(--inv);
+        color: rgba(200, 200, 200, 0.75);
         width: 0.9em;
         height: 0.9em;
         line-height: 1;
@@ -627,6 +615,7 @@
         right: 130%;
     }
 
+/*===art-info*/
     .copyright {
         text-align: left;
         margin-top: 15em;
