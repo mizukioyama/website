@@ -4,6 +4,26 @@
     }*/
     /* ビューポートのアスペクト比に応じてフォントサイズ調整 */
 @media screen and (min-width: 1300px) {
+        /*= load =*/
+        #loading-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #090909;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading {
+            font-size: 5rem;
+            color: #fefefe;
+        }
+        .typing00 {
+            letter-spacing: 15px;
+            font-size: 15px;
+        }
 .blok {
     display: block;
     position: relative;
