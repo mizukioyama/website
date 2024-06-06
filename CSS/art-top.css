@@ -471,7 +471,7 @@
         width: 100%;
         display: flex;
         position: relative;
-        justify-content: center;
+        justify-content: space-between;
         text-align: center;
     }
     .content__slide:nth-child(even) .button-wrap {
