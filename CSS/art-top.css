@@ -471,7 +471,7 @@
         width: 100%;
         display: flex;
         position: relative;
-        justify-content: space-between;
+        justify-content: center;
         text-align: center;
     }
     .content__slide:nth-child(even) .button-wrap {
@@ -488,7 +488,7 @@
         line-height: 1.0;
         letter-spacing: 0.5em;
         padding: 1.2rem 0.5em;
-        margin: 1%;
+        margin: 1.5%;
         position: relative;
         cursor: pointer;
         text-transform: uppercase;
