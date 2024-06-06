@@ -35,7 +35,6 @@
     top: 0;
     left: 0;
     margin: 1%;
-    background: var(--inv);
     box-shadow: inset 0px 0px 5px 0px rgba(20, 20, 20, 0.83);
 }
 
