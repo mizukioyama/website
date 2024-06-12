@@ -622,6 +622,7 @@
     .button {
         display: block;
         font-size: 1rem;
+        text-align: center;
         width: 50%;
         color: var(--dev);
         line-height: 1.0;
