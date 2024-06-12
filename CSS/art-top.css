@@ -4,25 +4,33 @@
     }*/
     /* ビューポートのアスペクト比に応じてフォントサイズ調整 */
 @media screen and (min-width: 1300px) {
-        /*= load =*/
-        #loading-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--def);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-        .typing00 {
-            font-size: clamp(4em, calc( 4em + 0.5vw), 5em);
-            color: var(--inv);
-            letter-spacing: 1em;
-        }
+/*= load =*/
+#loading-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--def);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.typing00 {
+    font-size: clamp(1.8em, calc(1.8em + 0.5vw), 2.4em);
+    color: var(--inv);
+    letter-spacing: 1em;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.js_typing.endAnime {
+    opacity: 1;
+}
+
     :root {
         --def: rgba(0, 0, 0, 0.75);
         --inv: #f9fafb;
