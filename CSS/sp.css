@@ -215,7 +215,7 @@
                 font-size: 1rem;
                 margin-top: 15px;
                 margin-bottom: 10px;
-                margin-left: 150px;
+                margin-left: 10px;
                 list-style:none;
             }
 
@@ -607,11 +607,11 @@
             }
         .arrow-button {
             font-size: 2em;
-            &:activ {
+        }
+            .arrow-button:activ {
                 transform: scale( 1.3, 1);
                 color: #434343;
             }
-        }
         .left-arrow {
             position: absolute;
             left: 3em;
