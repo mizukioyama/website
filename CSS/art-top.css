@@ -7,7 +7,7 @@
     .typing00 {
         font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
     }
-    .pc {
+    #pc {
         display: none!important;
     }
 
