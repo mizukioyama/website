@@ -527,6 +527,12 @@
         margin: 0 20%;
         background: rgba(0, 0, 0, 0);
     }
+    .work {
+        display: block;
+        height: calc(45vh + 3vh);
+        h3 {
+            font-size: clamp(1.4em, calc( 1.4em + 0.5vw), 1.8em);
+    }
     .works::before {
         display: none;
     }
