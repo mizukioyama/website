@@ -314,7 +314,7 @@
         width: 100%;
         height: 0.15rem;
         left: 0;
-        background: var(--inv);
+        background: rgb(20, 20, 20, 0.65);
         transition: background 350ms 800ms linear;
         animation: widenFromLeft 2200ms ease-out;
     }
@@ -352,7 +352,7 @@
         transform: translateX(40.7rem);
     }
     .content__ping--right:after {
-        background: var(--def);
+        background: rgba(200, 200, 200, 0.14);
         animation: widenFromRight 1200ms ease-out;
     }
     .content__ping--noanimation:after {
