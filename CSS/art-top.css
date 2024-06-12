@@ -125,10 +125,10 @@
         background-size: 100% auto;
         background-position: center;
         background-color: rgb(20, 20, 20, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(200, 200, 200, 0.14);
         border-right-color: rgba(255, 255, 255, 0.2);
         border-bottom-color: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(10px);
     }
     .card__slide:nth-child(even):after {
         background-color: rgba(255, 255, 255, 0.2);
@@ -220,7 +220,7 @@
         left: 50%;
         bottom: 2.5rem;
         transform: translatex(-50%);
-        border-left: 0.2rem solid var(--inv);
+        border-left: 0.2rem solid rgba(200, 200, 200, 0.14);
     }
     .card__slide:nth-child(even) .date, .card__slide:nth-child(even) .number {
         color: #030303;
@@ -264,7 +264,7 @@
         display: inline-block;
         width: 4rem;
         margin-right: 1.5rem;
-        border-bottom: 0.2rem solid var(--inv);
+        border-bottom: 0.2rem solid rgba(200, 200, 200, 0.14);
         transform: translatey(-0.3rem);
     }
     .card__slide .date {
