@@ -12,18 +12,16 @@
             width: 100%;
             height: 100vh;
             background: var(--def);
+            display: flex;
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(10px);
             z-index: 100;
         }
-        .loading {
+        .typing00 {
             font-size: clamp(4em, calc( 4em + 0.5vw), 5em);
             color: var(--inv);
-        }
-        .typing00 {
-            letter-spacing: 15px;
-            font-size: 15px;
+            letter-spacing: 1em;
         }
     :root {
         --def: rgba(0, 0, 0, 0.75);
