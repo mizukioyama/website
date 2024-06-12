@@ -594,13 +594,16 @@
         }
     }
         .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
-        .sp, footer, .menu_head {
+        #sp, footer, .menu_head {
             display: none;
         }
 
 @media screen and (max-width: 599px) {
     .typing00 {
         font-size: clamp(1em, calc(1em + 0.5vw), 1.4em);
+    }
+    #sp {
+        display: block;
     }
     #pc {
         display:none !important;
@@ -631,6 +634,5 @@
 @media screen and (min-width: 600px) and (max-width: 1199px) {
     .typing00 {
         font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
-    }
-    
+    }    
 }
