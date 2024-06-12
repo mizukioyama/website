@@ -462,23 +462,6 @@
         background: rgba(0, 0, 0, 0);
     }
 
-    .page {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: fit-content;
-        margin: 5em auto;
-        padding: 0;
-    }
-    .page a::before {
-        display: none;
-    }
-    .page li {
-        margin: 0 auto;
-    }
-    .page li a {
-        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
-    }
     .gallery ol p {
         font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
         font-family: "poiret-one",Not serif-JP;
@@ -608,31 +591,33 @@
     .caption {
         margin-top: 10em;
     }
-
-.arrow-button {
-    font-family: "poiret-one",Not serif-JP;
-    font-size: 2.4rem;
-    font-weight: 100;
-    color: var(--inv);
-    padding: 1.5rem;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-.arrow-button:hover {
-    transform: scale(1.3, 1);
-    color: #434343;
-}
-
-.left-arrow {
-    position: absolute;
-    right: 1rem;
-}
-
-.right-arrow {
-    width: fit-content;
-    position: absolute;
-    left: 1rem;
-}
+.page {
+        width: 60%;
+        margin: 10em auto 5em;
+        padding: 0;
+        a::before {
+            display: none;
+        }
+        .page li {
+            margin: 0 5%;
+            a {
+                font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
+            }
+        }
+        .arrow-button {
+            font-size: 2em;
+            &:activ {
+                transform: scale( 1.3, 1);
+                color: #434343;
+            }
+        }
+        .left-arrow {
+            position: absolute;
+            left: 3em;
+        }
+        .right-arrow {
+            position: absolute;
+            right: -3em;
+        }
+    }
 }
