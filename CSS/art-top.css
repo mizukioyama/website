@@ -3,7 +3,12 @@
         -webkit-backface-visibility: hidden;
     }*/
     /* ビューポートのアスペクト比に応じてフォントサイズ調整 */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1199px) {
+    .typing00 {
+        font-size: clamp(1.4em, calc(1.4em + 0.5vw), 2em);
+    }
+    
+}
 /*= load =*/
 #loading-bg {
     position: fixed;
@@ -598,4 +603,4 @@
         .sp, footer, .menu_head {
             display: none;
         }
-    }
+
