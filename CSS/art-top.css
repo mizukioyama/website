@@ -605,6 +605,20 @@
     #pc {
         display:none !important;
     }
+    /*== button==*/
+    .button-wrap {
+        width: 100%;
+        display: block;
+        position: relative;
+        justify-content: center;
+        text-align: center;
+    }
+    .content__slide:nth-child(even) .button-wrap {
+        text-align: center;
+    }
+    .content__slide.exit .button-wrap {
+        transition-delay: 450ms;
+    }
     .button {
         display: inline-block;
         font-size: 1rem;
