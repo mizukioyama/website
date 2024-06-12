@@ -595,14 +595,16 @@
         width: 60%;
         margin: 10em auto 5em;
         padding: 0;
-        a::before {
+    }
+        .page a::before {
             display: none;
-        li {
+        }
+        .page li {
             margin: 0 5%;
-            a {
+        }
+            .page a {
                 font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
             }
-        }
         .arrow-button {
             font-size: 2em;
             &:activ {
@@ -618,5 +620,4 @@
             position: absolute;
             right: -3em;
         }
-    }
 }
