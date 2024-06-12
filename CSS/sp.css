@@ -591,14 +591,13 @@
     .caption {
         margin-top: 10em;
     }
-.page {
+    .page {
         width: 60%;
         margin: 10em auto 5em;
         padding: 0;
         a::before {
             display: none;
-        }
-        .page li {
+        li {
             margin: 0 5%;
             a {
                 font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
