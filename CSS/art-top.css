@@ -8,7 +8,7 @@
         font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
     }
     .pc {
-        display: none;
+        display: none!important;
     }
 
 }
