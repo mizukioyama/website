@@ -3,7 +3,7 @@
         -webkit-backface-visibility: hidden;
     }*/
     /* ビューポートのアスペクト比に応じてフォントサイズ調整 */
-@media screen (max-width: 599px) {
+@media screen and (max-width: 599px) {
     .typing00 {
         font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
     }
