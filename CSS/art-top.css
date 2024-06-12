@@ -3,7 +3,7 @@
         -webkit-backface-visibility: hidden;
     }*/
     /* ビューポートのアスペクト比に応じてフォントサイズ調整 */
-@media screen and (min-width: 1300px) {
+@media screen and (min-width: 1200px) {
 /*= load =*/
 #loading-bg {
     position: fixed;
@@ -30,6 +30,48 @@
 .js_typing.endAnime {
     opacity: 1;
 }
+
+    /**カーソル**/
+    * {
+        cursor: none !important;
+    }
+    .custom-cursor #cursor {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background-color: rgba(255, 255, 255);
+        border-color: rgba(43, 43, 43);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: difference;
+        z-index: 9999;
+    }
+    .custom-cursor #stalker {
+        position: fixed;
+        width: 15px;
+        height: 15px;
+        border: 2px solid;
+        border-radius: 50%;
+        border-color: rgba(255, 255, 255);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        mix-blend-mode: difference;
+        z-index: 9998;
+        transition: opacity 0.3s ease-in-out;
+    }
+    .cursor--hover,
+    #stalker--hover {
+        background: rgba(85, 10, 0) !important;
+    }
+    .cursor--hover {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    #stalker--hover {
+        width: 50px !important;
+        height: 50px !important;
+    }
 
     :root {
         --def: rgba(0, 0, 0, 0.75);
