@@ -44,3 +44,26 @@ waitForJQuery(function ($) {
         setTimeout(() => goToSlide(slideElements, 1), 6000);
     });
 });
+
+$(document).ready(function() {
+    function updateParisTime() {
+        // パリのタイムゾーンを考慮した現在時刻を取得
+        var now = new Date();
+        var utc = now.getTime() + (now.getTimezoneOffset() * 6000);
+        var parisTime = new Date(utc + (3600000 * 2)); // UTC+2（夏時間）またはUTC+1（冬時間）を調整
+
+        // 時間、分、秒をフォーマット
+        var hours = parisTime.getHours().toString().padStart(2, '0');
+        var minutes = parisTime.getMinutes().toString().padStart(2, '0');
+        var seconds = parisTime.getSeconds().toString().padStart(2, '0');
+
+        // フォーマットされた時間を表示
+        $('#paris-time').text(`${hours}:${minutes}:${seconds}`);
+    }
+
+    // 1秒ごとに更新
+    setInterval(updateParisTime, 1000);
+
+    // 初回の表示更新
+    updateParisTime();
+});

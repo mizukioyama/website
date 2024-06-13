@@ -184,7 +184,7 @@ nav {
 }
 .open #mask ul p {
     font-size: clamp(1.2rem, calc( 1.2rem + 0.5vw), 1.4rem);
-    color: var(--def);
+    color: var(--inv);
     position: relative;
     left: 6%;
     margin: calc(10% - 5vw) 0 0 0;
