@@ -594,8 +594,9 @@
         }
     }
     .time-display {
-        font-size: clamp(1em, calc(1em + 0.5vw), 1.2em);
+        font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
         font-weight: bold;
+        mix-blend-mode: difference;
     }
         .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
         #sp, footer, .menu_head {
