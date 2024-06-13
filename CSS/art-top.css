@@ -115,6 +115,10 @@
         opacity: 0.4;
     }
 /*== bg img ==*/
+    .back__slide::before {
+        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
+        opacity: 0.5;
+    }
     .back__slide:nth-child(1)::before {
         background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
     }
@@ -186,10 +190,6 @@
     }
 
 /*== 内容 ==*/
-    .card__slide .image::after {
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
-        opacity: 0.5;
-    }
     .card__slide .image {
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
         background-size: 100% auto;
