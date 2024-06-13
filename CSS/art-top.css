@@ -90,10 +90,10 @@
         background-position: center;
         background-size: cover;
         filter: grayscale(40%);
-        background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
+        background-image: linear-gradient(rgba(180, 180, 180, 0.2), rgba(180, 180, 180, 0.2)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
         transition: opacity 850ms 1500ms linear;
         z-index: -1;
-        opacity: 0.4;
+        opacity: 0.54;
     }
     .back__slide .progress {
         position: absolute;
