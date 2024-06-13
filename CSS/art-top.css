@@ -127,6 +127,7 @@
         left: 0;
         width: 100%;
         height: 100%;
+        opacity: 0.3;
         background-size: 100% auto;
         background-repeat: no-repeat;
         mix-blend-mode: difference;
@@ -597,6 +598,7 @@
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
         font-weight: bold;
         mix-blend-mode: difference;
+        color: rgba(200, 200, 200, 0.5);
     }
         .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
         #sp, footer, .menu_head {
