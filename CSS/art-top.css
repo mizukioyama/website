@@ -119,11 +119,11 @@
     }
 /*== bg img ==*/
     .back__slide:nth-child(1)::before {
-        background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
+        background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
         opacity: 0.65;
     }
     .back__slide:nth-child(even)::before {
-        background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
+        background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
         opacity: 0.65;
     }
     .back__slide .back-front-image {
