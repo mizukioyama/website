@@ -109,16 +109,14 @@
         background-size: cover;
         filter: grayscale(40%);
         background-color: var(--def);
+        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
+        opacity: 0.5;
         z-index: -1;
     }
     .back__slide.active {
         opacity: 0.4;
     }
 /*== bg img ==*/
-    .back__slide::before {
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
-        opacity: 0.5;
-    }
     .back__slide:nth-child(1)::before {
         background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
     }
