@@ -37,42 +37,39 @@
 
 .custom-cursor #cursor {
     position: fixed;
-    width: 30px;
+    width: 30px; /* スコープのサイズを調整 */
     height: 30px;
-    background-color: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255); /* スコープの外枠 */
     border-radius: 50%;
     pointer-events: none;
     transform: translate(-50%, -50%);
     mix-blend-mode: difference;
     z-index: 9999;
-    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* 光沢のある効果 */
 }
 
 .custom-cursor #stalker {
     position: fixed;
-    width: 80px;
-    height: 80px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    width: 15px; /* ストーカーのサイズ */
+    height: 15px;
+    border: 2px solid rgba(255, 255, 255); /* ストーカーの外枠 */
     border-radius: 50%;
     pointer-events: none;
     transform: translate(-50%, -50%);
     mix-blend-mode: difference;
     z-index: 9998;
     transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
-    box-sizing: border-box;
 }
 
-.custom-cursor .stalker--hover {
-    width: 50px !important;
-    height: 50px !important;
-    background: rgba(85, 10, 0) !important;
+.cursor--hover {
+    background-color: rgba(255, 255, 255, 0.3); /* ホバー時の効果 */
+    width: 50px; /* ホバー時のサイズ */
+    height: 50px;
 }
-
-.custom-cursor .cursor--hover {
-    width: 40px !important;
-    height: 40px !important;
-    background: rgba(85, 10, 0) !important;
+.stalker--hover {
+    background-color: rgba(255, 255, 255, 0.3); /* ホバー時の効果 */
+    width: 25px; /* ホバー時のサイズ */
+    height: 25px;
 }
 
     :root {
