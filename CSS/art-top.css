@@ -467,7 +467,7 @@
         position: relative;
         font-size: clamp(4rem, calc( 4rem + 0.5vw), 5rem);
         font-weight: 400;
-        color: var(--def);
+        color: rgba(200, 200, 200, 0.25);
         text-shadow: 0px 0px 6px rgb(197 255 251 / 28%);
         text-align: right;
         line-height: 1.2;
