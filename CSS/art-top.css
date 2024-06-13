@@ -101,6 +101,7 @@
     .back__slide::after {
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
         opacity: 0.5;
+        z-index: 0;
     }
     .back__slide:before {
         content: "";
