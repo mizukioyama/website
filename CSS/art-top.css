@@ -598,13 +598,13 @@
     }
     .creator {
         position: absolute;
-        top: calc(10% + 5em);
-        left: 20%;
+        top: calc(3% + 5em);
+        left: calc(15% + 5em);
     }
     .time {
         position: absolute;
-        bottom: calc(10% + 5em);
-        right: 20%;
+        bottom: calc(3% + 5em);
+        right: calc(15% + 5em);
     }
     .time-display {
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
