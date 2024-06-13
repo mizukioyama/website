@@ -85,6 +85,7 @@
         left: 0;
         width: 100vw;
         height: 100%;
+        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
         opacity: 0;
         transition: opacity 850ms 1500ms linear;
     }
@@ -97,11 +98,6 @@
     }
     .back__slide:nth-child(even) .progress {
         transform-origin: 100% 100%;
-    }
-    .back__slide::after {
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
-        opacity: 0.5;
-        z-index: 0;
     }
     .back__slide:before {
         content: "";
