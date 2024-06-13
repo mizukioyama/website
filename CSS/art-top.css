@@ -109,7 +109,9 @@
         left: 0;
         width: 100vw;
         height: 100%;
-        background-color: var(--def);
+        background-position: center;
+        background-size: cover;
+        /*background-color: var(--def);*/
         z-index: -1;
     }
     .back__slide.active {
