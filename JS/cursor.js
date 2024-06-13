@@ -2,9 +2,8 @@ jQuery.noConflict();
 
 (function ($) {
     $(function () {
-        var cursor = $("<div id='cursor'></div>");
-        var stalker = $("<div id='stalker'></div>");
-        $("body").addClass("custom-cursor").append(cursor).append(stalker);
+        var cursor = $("#cursor");
+        var stalker = $("#stalker");
 
         $("a").hover(
             function () {
@@ -17,24 +16,25 @@ jQuery.noConflict();
             }
         );
 
+        stalker.css("opacity", "0");
+
         $(document).on("mousemove", function (e) {
             var x = e.clientX;
             var y = e.clientY;
+
             cursor.css({
                 "opacity": "1",
                 "top": y + "px",
                 "left": x + "px"
             });
+
             setTimeout(function () {
                 stalker.css({
                     "opacity": "1",
                     "top": y + "px",
                     "left": x + "px"
                 });
-            }, 150);
+            }, 180);
         });
-
-        cursor.css("opacity", "0");
-        stalker.css("opacity", "0");
     });
 })(jQuery);
