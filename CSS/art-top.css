@@ -98,6 +98,10 @@
     .back__slide:nth-child(even) .progress {
         transform-origin: 100% 100%;
     }
+    .back__slide::after {
+        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
+        opacity: 0.5;
+    }
     .back__slide:before {
         content: "";
         position: absolute;
@@ -109,8 +113,6 @@
         background-size: cover;
         filter: grayscale(40%);
         background-color: var(--def);
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
-        opacity: 0.5;
         z-index: -1;
     }
     .back__slide.active {
