@@ -115,7 +115,7 @@
         z-index: -1;
     }
     .back__slide.active {
-        opacity: 0.65;
+        opacity: 0;
     }
 /*== bg img ==*/
     .back__slide:nth-child(1)::before {
