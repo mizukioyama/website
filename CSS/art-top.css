@@ -80,6 +80,7 @@
     }
     body, .top-page, .wrap {
         overflow: hidden;
+        background-color: var(--inv);
     }
     .back__slide {
         position: absolute;
