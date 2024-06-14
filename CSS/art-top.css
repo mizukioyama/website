@@ -489,7 +489,6 @@
 /*== 内容 ==*/
     .desc {
         position: relative;
-        font-size: clamp(1rem, calc( 1rem + 0.5vw), 1.2rem);
         width: 100%;
         height: 100px;
         color: rgba(200, 200, 200, 0.25);
@@ -610,11 +609,10 @@
     .head a::after {
         content: "";
         border-left: 1px solid;
-        height: 5px;
+        height: 50px;
         position: absolute;
         left: 0;
         bottom: 0;
-        transform: ;
     }
     .creator {
         position: absolute;
