@@ -613,7 +613,7 @@
         width: 30px;
         height: 50px;
         position: absolute;
-        left: -5%;
+        left: -1vmin;
         top: 100%;
     }
     .head a::after {
@@ -634,7 +634,7 @@
         width: 150px;
         height: 50px;
         position: absolute;
-        right: -5%;
+        right: -1vmin;
         top: 100%;
     }
     .time {
@@ -649,7 +649,7 @@
         width: 30px;
         height: 30px;
         position: absolute;
-        right: -5%;
+        right: -1vmin;
         bottom: 100%;
     }
     .time-display {
