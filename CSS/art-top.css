@@ -650,7 +650,7 @@
         height: 50px;
         position: absolute;
         right: -5%;
-        top: 10%;
+        bottom: 10%;
     }
     .time-display {
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
