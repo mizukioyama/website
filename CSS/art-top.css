@@ -603,7 +603,7 @@
     .head a {
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
         position: absolute;
-        top: calc(3% + 3em);
+        top: calc(1.5vmin + 3em);
         left: calc(15% + 5em);
     }
     .head a::before {
@@ -645,7 +645,7 @@
     }
     .time {
         position: absolute;
-        bottom: calc(3% + 5em);
+        bottom: calc(1.5vmin + 5em);
         right: calc(15% + 5em);
     }
     .time::before {
