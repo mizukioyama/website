@@ -220,6 +220,7 @@
     }
     .card__slide:nth-child(even) .image {
         left: 65%;
+        z-index: 1;
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
         pointer-events: none;
         transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
