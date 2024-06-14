@@ -114,6 +114,7 @@
         background-position: center;
         background-size: cover;
         filter: grayscale(50%);
+        box-shadow: 0 0px 10px 0px #000;
         /*background-color: var(--def);*/
         z-index: -1;
     }
