@@ -181,7 +181,6 @@
         border-right-color: rgba(255, 255, 255, 0.2);
         border-bottom-color: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(10px);
-        z-index: -1;
     }
     .card__slide:nth-child(even):after {
         transform: scaleX(0);
@@ -195,6 +194,7 @@
         backdrop-filter: blur(10px);
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
         box-shadow: inset 1px 0px 5px rgba(20, 20, 20, 0.83);
+        z-index: -1;
     }
     .card__slide:nth-child(even).active:after {
         transform: scaleX(1);
