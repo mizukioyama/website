@@ -604,8 +604,16 @@
     .head a {
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
         position: absolute;
-        top: calc(3% + 5em);
+        top: calc(3% + 3em);
         left: calc(15% + 5em);
+    }
+    .head a::after {
+        content: "";
+        height: 1px;
+        width: 1px;
+        position: absolute;
+        left: 0;
+        top: 0;
     }
     .creator {
         position: absolute;
