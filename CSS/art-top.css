@@ -92,7 +92,7 @@
         filter: grayscale(40%);
         /*background-image: linear-gradient(rgba(180, 180, 180, 0.2), rgba(180, 180, 180, 0.2)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);*/
         transition: opacity 850ms 1500ms linear;
-        z-index: 0;
+        z-index: -1;
     }
     .back__slide .progress {
         position: absolute;
@@ -114,7 +114,7 @@
         background-position: center;
         background-size: cover;
         /*background-color: var(--def);*/
-        z-index: 0;
+        z-index: -1;
     }
     .back__slide.active {
         opacity: 0;
@@ -181,6 +181,7 @@
         border-right-color: rgba(255, 255, 255, 0.2);
         border-bottom-color: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(10px);
+        z-index: 0;
     }
     .card__slide:nth-child(even):after {
         transform: scaleX(0);
