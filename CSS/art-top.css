@@ -586,6 +586,7 @@
         top: calc(1.5vmin + 3em);
         left: calc(15% + 5em);
         mix-blend-mode: difference;
+        z-index: 10;
     }
     .head a::before {
         content: "";
