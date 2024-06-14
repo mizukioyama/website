@@ -458,7 +458,7 @@
     .title__inner, .desc, .button-wrap {
         opacity: 0;
         position: relative;
-        transform: translatey(2.5rem);
+        transform: translateX(5.5rem);
         transition: transform 800ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 200ms linear;
     }
     .top-page .title {
@@ -478,7 +478,7 @@
     }
     .top-page .title:nth-child(even)::before {
         transition-delay: 200ms;
-        transform: translatey(2.5rem);
+        transform: translateX(5.5rem);
         transform-origin: 100% 100%;
     }
 /*== 内容 ==*/
@@ -597,6 +597,7 @@
     }
     .head a {
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
+        color: var(--def);
         position: absolute;
         top: calc(1.5vmin + 3em);
         left: calc(15% + 5em);
