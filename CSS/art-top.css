@@ -601,6 +601,7 @@
         position: absolute;
         top: calc(1.5vmin + 3em);
         left: calc(15% + 5em);
+        mix-blend-mode: difference;
     }
     .head a::before {
         content: "";
