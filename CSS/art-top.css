@@ -628,7 +628,7 @@
         right: calc(15% + 5em);
     }
     .creator::before {
-        content: "Oyama";
+        content: "";
         border-top: 1px solid;
         border-right: 1px solid;
         width: 150px;
@@ -636,6 +636,8 @@
         position: absolute;
         right: -1vmin;
         top: 100%;
+    }
+    .creator span {
         transform: rotate(90deg);
     }
     .time {
