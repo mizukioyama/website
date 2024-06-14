@@ -608,11 +608,16 @@
     }
     .head a::after {
         content: "";
+        border-top: 1px solid;
         border-left: 1px solid;
+        width: 30px;
         height: 50px;
         position: absolute;
-        left: 0;
-        bottom: 0;
+        left: -5%;
+        top: 10%;
+    }
+    .head a::before {
+        content: "_______";
     }
     .creator {
         position: absolute;
