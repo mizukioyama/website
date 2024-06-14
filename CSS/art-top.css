@@ -192,7 +192,7 @@
         background-position: center;
         background-repeat: no-repeat;
         backdrop-filter: blur(10px);
-        box-shadow: inset 1px 0px 5px rgba(200, 200, 200, 0.83);
+        box-shadow: inset 0 0px 5px 0px #000;
     }
     .card__slide:nth-child(even).active:after {
         transform: scaleX(1);
