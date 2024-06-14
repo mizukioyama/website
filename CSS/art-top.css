@@ -198,23 +198,23 @@
         height: 100%;
         position: absolute;
         top: 20%;
-        left: 10%;
+        left: 5%;
         filter: grayscale(40%);
-        transform: translateX(-4rem);
+        transform: translateX(-8rem);
         opacity: 0;
         transition: all 1s ease;
         z-index: 1;
     }
     .card__slide:nth-child(even) .image {
-        left: 70%;
+        left: 65%;
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
         pointer-events: none;
         transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
     }
     .card__slide.active .image {
         opacity: 1;
-        transform: translateX(4rem);
-        transition: transform 1300ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1000ms linear;
+        transform: translateX(0rem);
+        transition: transform 1300ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1300ms 1700ms linear;
     }
     .card__slide:nth-child(1).exit .image {
         transition: transform 1200ms 600ms linear, opacity 200ms 800ms linear;
@@ -320,7 +320,7 @@
     .card__slide .date {
         opacity: 0;
         transform: translatex(0rem) rotate(-90deg);
-        transition: transform 650ms 500ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 400ms linear;
+        transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
     }
     .card__slide:nth-child(even) .date:before {
         border-bottom: 0.2rem solid rgba(200, 200, 200, 0.14);
@@ -329,10 +329,10 @@
         opacity: 1;
         left: 0;
         transform: translatex(0rem) rotate(0deg);
-        transition: transform 800ms 1150ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 500ms 1000ms linear;
+        transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
     }
     .card__slide:nth-child(even).active .date {
-        transition: transform 600ms 1200ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1200ms linear;
+        transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
     }
     .card__slide.exit .date {
         transform: translatex(0rem) rotate(-90deg);
