@@ -639,7 +639,7 @@
     }
     .creator span {
         position: absolute;
-        right: -45%;
+        right: -50%;
         top: 170%;
         transform: rotate(90deg);
     }
