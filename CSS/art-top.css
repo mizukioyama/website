@@ -638,6 +638,9 @@
         top: 100%;
     }
     .creator span {
+        position: absolute;
+        left: 10%;
+        top: 100%;
         transform: rotate(90deg);
     }
     .time {
