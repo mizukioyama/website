@@ -614,7 +614,7 @@
         height: 50px;
         position: absolute;
         left: -5%;
-        top: 10%;
+        top: 100%;
     }
     .head a::after {
         content: "";
@@ -631,11 +631,11 @@
         content: "";
         border-top: 1px solid;
         border-right: 1px solid;
-        width: 30px;
+        width: 150px;
         height: 50px;
         position: absolute;
         right: -5%;
-        top: 10%;
+        top: 100%;
     }
     .time {
         position: absolute;
@@ -647,10 +647,10 @@
         border-bottom: 1px solid;
         border-right: 1px solid;
         width: 30px;
-        height: 50px;
+        height: 30px;
         position: absolute;
         right: -5%;
-        bottom: 10%;
+        bottom: 100%;
     }
     .time-display {
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
