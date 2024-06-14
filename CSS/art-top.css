@@ -606,7 +606,7 @@
         top: calc(3% + 3em);
         left: calc(15% + 5em);
     }
-    .head a::after {
+    .head a::before {
         content: "";
         border-top: 1px solid;
         border-left: 1px solid;
@@ -616,7 +616,7 @@
         left: -5%;
         top: 10%;
     }
-    .head a::before {
+    .head a::after {
         content: "_______";
     }
     .creator {
