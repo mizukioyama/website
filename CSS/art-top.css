@@ -113,6 +113,7 @@
         height: 70%;
         background-position: center;
         background-size: cover;
+        filter: grayscale(50%);
         /*background-color: var(--def);*/
         z-index: -1;
     }
