@@ -109,8 +109,8 @@
         top: 50%;
         left: 50%;
         transform: translate3d(-50%, -50%, 0);
-        width: 110vmin;
-        height: 70%;
+        width: 95vmin;
+        height: 55%;
         background-position: center;
         background-size: cover;
         filter: grayscale(50%);
