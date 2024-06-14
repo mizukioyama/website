@@ -200,7 +200,7 @@
         top: 20%;
         left: 10%;
         filter: grayscale(40%);
-        transform: translateX(0rem);
+        transform: translateX(4rem);
         opacity: 0;
         transition: all 1s ease;
         z-index: 1;
@@ -209,6 +209,7 @@
         left: 70%;
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
         pointer-events: none;
+        transform: translateX(-4rem);
         transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
     }
     .card__slide.active .image {
