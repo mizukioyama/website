@@ -90,10 +90,9 @@
         background-position: center;
         background-size: cover;
         filter: grayscale(40%);
-        background-image: linear-gradient(rgba(180, 180, 180, 0.2), rgba(180, 180, 180, 0.2)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
+        /*background-image: linear-gradient(rgba(180, 180, 180, 0.2), rgba(180, 180, 180, 0.2)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);*/
         transition: opacity 850ms 1500ms linear;
         z-index: -1;
-        opacity: 0.54;
     }
     .back__slide .progress {
         position: absolute;
@@ -123,11 +122,9 @@
 /*== bg img ==*/
     .back__slide:nth-child(1)::before {
         background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
-        opacity: 0.65;
     }
     .back__slide:nth-child(even)::before {
-        background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
-        opacity: 0.65;
+        background-image: linear-gradient(rgba(20, 20, 20, 0.9), rgba(20, 20, 20, 0.9)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
     }
     .back__slide .back-front-image {
         position: absolute;
@@ -179,17 +176,14 @@
         box-shadow: inset 0 0px 10px 0px #000;
         background-size: 100% auto;
         background-position: center;
-        background-color: rgb(30, 30, 30, 0.55);
         border: 1px solid rgba(200, 200, 200, 0.14);
         border-right-color: rgba(255, 255, 255, 0.2);
         border-bottom-color: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(10px);
     }
     .card__slide:nth-child(even):after {
-        background-color: rgba(255, 255, 255, 0.63);
         transform: scaleX(0);
         transform-origin: 100% 50%;
-        box-shadow: inset 0 0px 8px 0px rgba(20, 20, 20, 0.86);
         transition: transform 850ms 970ms ease-in-out;
     }
 
