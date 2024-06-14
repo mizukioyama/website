@@ -609,11 +609,12 @@
     }
     .head a::after {
         content: "";
-        height: 1px;
-        width: 1px;
+        border-left: 1px solid;
+        height: 5px;
         position: absolute;
         left: 0;
-        top: 0;
+        bottom: 0;
+        transform: ;
     }
     .creator {
         position: absolute;
