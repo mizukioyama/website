@@ -109,8 +109,9 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 100vmin;
-        height: 60%;
+        transform: translate3d(-50%, -50%, 0);
+        width: 110vmin;
+        height: 70%;
         background-position: center;
         background-size: cover;
         /*background-color: var(--def);*/
