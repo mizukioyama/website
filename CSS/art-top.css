@@ -432,7 +432,7 @@
     }
     .content__slide.active .title__inner, .content__slide.active .desc, .content__slide.active .button-wrap {
         opacity: 1;
-        transform: translatey(0);
+        transform: translateX(0);
     }
     .content__slide.active .title__inner {
         transition-delay: 1600ms;
@@ -444,7 +444,7 @@
         transition-delay: 2000ms;
     }
     .content__slide.exit .title__inner, .content__slide.exit .desc, .content__slide.exit .button-wrap {
-        transform: translatey(-2.5rem);
+        transform: translateX(-2.5rem);
         transition: transform 400ms ease-out, opacity 300ms linear;
     }
     .content__slide.exit .title__inner {
@@ -478,7 +478,7 @@
     }
     .top-page .title:nth-child(even)::before {
         transition-delay: 200ms;
-        transform: translateX(5.5rem);
+        transform: translateX(0rem);
         transform-origin: 100% 100%;
     }
 /*== 内容 ==*/
