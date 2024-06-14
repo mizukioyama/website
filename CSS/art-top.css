@@ -205,19 +205,19 @@
         z-index: 1;
     }
     .card__slide:nth-child(even) .image {
-        left: 60%;
+        left: 70%;
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
         pointer-events: none;
-        transition: transform 800ms 500ms linear, opacity 400ms 600ms linear;
+        transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
     }
     .card__slide.active .image {
         opacity: 1;
         transform: translateX(-4rem);
-        transition: transform 1200ms 1000ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1000ms linear;
+        transition: transform 1300ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1000ms linear;
     }
     .card__slide:nth-child(1).exit .image {
         transform: translateX(4rem);
-        transition: transform 800ms 400ms linear, opacity 200ms 400ms linear;
+        transition: transform 1200ms 600ms linear, opacity 200ms 800ms linear;
     }
     /*inner
     .card__slide:nth-child(even) .back-image {
