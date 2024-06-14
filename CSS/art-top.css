@@ -188,12 +188,13 @@
         transition: transform 850ms 970ms ease-in-out;
     }
     .card__slide.active {
-        box-shadow: inset 1px 0px 5px rgba(20, 20, 20, 0.83);
         background-size: 100% auto;
         background-position: center;
         background-repeat: no-repeat;
         backdrop-filter: blur(10px);
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
+        box-shadow: inset 1px 0px 5px rgba(20, 20, 20, 0.83);
+        z-index: 0;
     }
     .card__slide:nth-child(even).active:after {
         transform: scaleX(1);
