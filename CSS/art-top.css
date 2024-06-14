@@ -617,7 +617,10 @@
         top: 10%;
     }
     .head a::after {
-        content: "_______";
+        content: "";
+        width: 50px;
+        height: 0.1em;
+        margin-left: 5px;
     }
     .creator {
         position: absolute;
