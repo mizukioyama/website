@@ -601,10 +601,16 @@
             transform: scaleX(0);
         }
     }
-    .creator {
+    .head a {
+        font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
         position: absolute;
         top: calc(3% + 5em);
         left: calc(15% + 5em);
+    }
+    .creator {
+        position: absolute;
+        top: calc(3% + 5em);
+        right: calc(15% + 5em);
     }
     .time {
         position: absolute;
@@ -617,7 +623,7 @@
         mix-blend-mode: soft-light;
         color: var(--def);
     }
-        .head .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
+        .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
         #sp, footer, .menu_head {
             display: none;
         }
