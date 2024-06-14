@@ -107,10 +107,10 @@
     .back__slide:before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100%;
+        top: 50%;
+        left: 50%;
+        width: 100vmin;
+        height: 60%;
         background-position: center;
         background-size: cover;
         /*background-color: var(--def);*/
@@ -192,9 +192,7 @@
         background-position: center;
         background-repeat: no-repeat;
         backdrop-filter: blur(10px);
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
         box-shadow: inset 1px 0px 5px rgba(20, 20, 20, 0.83);
-        z-index: -1;
     }
     .card__slide:nth-child(even).active:after {
         transform: scaleX(1);
@@ -220,7 +218,6 @@
     }
     .card__slide:nth-child(even) .image {
         left: 65%;
-        z-index: 1;
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
         pointer-events: none;
         transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
