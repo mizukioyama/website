@@ -366,9 +366,9 @@
         content: "";
         display: block;
         width: 100%;
-        height: 0.15rem;
+        height: 0.1em;
         left: 0;
-        background: rgba(200, 200, 200, 0.14);
+        background: rgba(200, 200, 200, 0.55);
         transition: background 350ms 800ms linear;
         animation: widenFromLeft 2200ms ease-out;
     }
@@ -403,10 +403,10 @@
 
     /*animation*//*bottom-line*/
     .content__ping--right {
-        transform: translateX(40.7rem);
+        transform: translateX(40vmin);
     }
     .content__ping--right:after {
-        background: rgba(200, 200, 200, 0.14);
+        background: rgb(136 136 136, 0.6);
         animation: widenFromRight 1200ms ease-out;
     }
     .content__ping--noanimation:after {
