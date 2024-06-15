@@ -298,11 +298,12 @@
                 必要に応じて、本プライバシーポリシーを変更することがあります。
                 </li>
             </ul>
-        <div class="confirm-buttons" id="confirmButtons">
-            <p>SitePolicyを確認しましたか？</p>
-            <button id="yesButton">Yes</button>
-            <button id="noButton">No</button>
         </div>
+    </div>
+    <div class="fixed-buttons" id="confirmButtons">
+        <p>SitePolicyを確認しましたか？</p>
+        <button id="yesButton">Yes</button>
+        <button id="noButton">No</button>
     </div>
 </div>
 
@@ -340,7 +341,7 @@
         }
 </style>
     <script>
-       jQuery.noConflict();
+        jQuery.noConflict();
         (function ($) {
             $(function () {
                 var viewPolicyButton = $(".view-policy-button");
