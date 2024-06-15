@@ -67,3 +67,36 @@ $(document).ready(function() {
     // 初回の表示更新
     updateParisTime();
 });
+
+
+jQuery.noConflict();
+(function ($) {
+    $(function () {
+        var viewButton = $("#viewButton");
+        var policyOverlay = $("#policyOverlay");
+        var policyContent = $("#policyContent");
+        var targetUrl = "#"; // ここにviewボタンで移動するURLを設定
+
+        viewButton.on('click', function (e) {
+            e.preventDefault();
+            policyOverlay.show();
+            $("html, body").css("overflow", "hidden"); // ページのスクロールを無効化
+        });
+
+        $(window).on("scroll", function () {
+            if (policyOverlay.is(":visible")) {
+                var scrollPosition = $(window).scrollTop() + $(window).height();
+                var policyHeight = policyContent.outerHeight();
+                if (scrollPosition >= policyHeight) {
+                    var userConfirmed = confirm("ポリシーを確認しましたか？\nYesで次のページに進みます。");
+                    if (userConfirmed) {
+                        window.location.href = targetUrl;
+                    } else {
+                        policyOverlay.hide();
+                        $("html, body").css("overflow", "auto"); // ページのスクロールを有効化
+                    }
+                }
+            }
+        });
+    });
+})(jQuery);
