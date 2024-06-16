@@ -1,20 +1,24 @@
 // menu.jsの内容
 console.log('Menu script loaded');
-
-// カーソル
+//Cursor
 $(function() {
+    // カーソル要素の取得
     var cursor = $("#cursor");
     var stalker = $("#stalker");
 
+    // aタグのホバーイベント
     $("a").hover(
         function() {
             cursor.addClass('cursor--hover');
+            stalker.addClass('stalker--hover');
         },
         function() {
             cursor.removeClass('cursor--hover');
+            stalker.removeClass('stalker--hover');
         }
     );
 
+    // マウスムーブイベント
     $(document).on("mousemove", function(e) {
         var x = e.clientX;
         var y = e.clientY;
@@ -33,6 +37,7 @@ $(function() {
         }, 150);
     });
 });
+
 
 // メニュー
 jQuery(document).ready(function($) {
