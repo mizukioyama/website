@@ -191,12 +191,12 @@
     }
     .creator div {
         position: absolute;
-        right: -4.5vmin;
+        right: -50%;
         top: 170%;
         transform: rotate(90deg);
     }
     .creator .close {
-        right: -4vmin;
+        right: -50%;
     }
     .time {
         position: absolute;
