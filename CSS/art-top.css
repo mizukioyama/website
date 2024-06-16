@@ -537,12 +537,10 @@
     }
 /*== 内容 ==*/
     .desc {
-        position: relative;
-        width: 100%;
-        height: 100px;
+        position: absolute;
+        width: 80%;
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
-        text-align: right;
         right: 0;
         margin: 5em 0 6vmin;
         line-height: 1.2;
@@ -550,7 +548,7 @@
         padding: 0;
     }
     .content__slide:nth-child(even) .title, .content__slide:nth-child(even) .desc, .content__slide:nth-child(even) .button-wrap {
-        text-align: left;
+        left: 0;
         color: var(--def);
         text-shadow: 1px 1px 1px rgba(200, 200, 200, 0.7);
     }
@@ -562,6 +560,7 @@
         position: relative;
         justify-content: center;
         text-align: center;
+        transform: rotateY(50%);
     }
     .content__slide:nth-child(even) .button-wrap {
         text-align: center;
