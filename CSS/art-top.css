@@ -606,7 +606,7 @@
     .creator {
         position: absolute;
         top: -11vmin;
-        right: calc(15% + 5em);
+        right: -11vmin;
         transform: translateX(-5.5rem);
     }
     .creator::before {
@@ -628,8 +628,8 @@
     }
     .time {
         position: absolute;
-        bottom: 11vmin;
-        right: calc(15% + 5em);
+        bottom: -11vmin;
+        right: -11vmin;
     }
     .time::before {
         content: "";
