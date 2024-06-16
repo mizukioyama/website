@@ -26,7 +26,6 @@
             letter-spacing: 1em;
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            z-index: 101;
         }
         
         .js_typing.endAnime {
