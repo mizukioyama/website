@@ -1,4 +1,4 @@
-// menu.jsの内容をここに記述します
+// menu.jsの内容
 console.log('Menu script loaded');
 
 // カーソル
@@ -105,10 +105,9 @@ $(window).on('load', function() {
     });
 });
 
-
-//header
+// header
 document.addEventListener("DOMContentLoaded", function() {
-    fetch("header.html")
+    fetch("includes-header.html")
         .then(response => response.text())
         .then(data => {
             document.getElementById("header-container").innerHTML = data;
@@ -124,5 +123,14 @@ document.addEventListener("DOMContentLoaded", function() {
             mask.addEventListener('click', function() {
                 navArea.classList.remove('open');
             });
+        });
+});
+
+// sidebar
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("includes-sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
         });
 });
