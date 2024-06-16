@@ -701,30 +701,27 @@
 }
 
 /* .active クラスの追加 */
-/* 初期状態で非表示にする */
-.head a,
-.creator,
-.time {
+/* 初期状態で偶数要素を非表示にする */
+.toggle-content:nth-child(even) {
     display: none;
 }
 
 /* active クラスが付与されたときのスタイル */
-.head a.active,
-.creator.active,
-.time.active {
-    display: block; /* 表示する */
+.toggle-content.active {
+    display: block;
     color: var(--active-color);
-    transform: translateX(2rem);
 }
 
-.head a.active::before,
-.creator.active::before,
-.time.active::before {
-    transform: translateX(2rem);
+.toggle-content.active:nth-child(even) {
+    display: block;
 }
 
-.head a.active::after {
-    transform: translateX(2rem);
+.toggle-content.active:nth-child(odd) {
+    display: none;
+}
+
+.head a.active {
+    color: var(--active-color);
 }
         .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
         #sp, footer, .menu_head {

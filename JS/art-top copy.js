@@ -43,12 +43,17 @@ waitForJQuery(function ($) {
         setTimeout(() => goToSlide(slideElements, 2), 2000);
         setTimeout(() => goToSlide(slideElements, 1), 6000);
 
-        // リンクに.activeクラスを追加するコードを組み合わせる
-        $('.head a, .creator, .time').each(function() {
+        // リンクに.activeクラスを追加し、対応するコンテンツを表示する
+        $('.head a').each(function(index) {
             $(this).on('click', function(event) {
                 event.preventDefault(); // リンクのデフォルト動作をキャンセル
-                $('.head a, .creator, .time').removeClass('active');
+                $('.head a').removeClass('active');
                 $(this).addClass('active');
+                
+                // 対応するコンテンツを切り替える
+                $('.toggle-content').removeClass('active');
+                $('.toggle-content').eq(index).addClass('active');
+                $('.toggle-content').eq(index + 1).addClass('active');
             });
         });
 
