@@ -700,24 +700,25 @@
     color: var(--def);
 }
 
-/* .active クラスの追加 */
 /* 初期状態で偶数要素を非表示にする */
-.toggle-content:nth-child(even) {
-    display: none;
+.toggle-content {
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
-/* active クラスが付与されたときのスタイル */
+.toggle-content:not(.active) {
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
+}
+
 .toggle-content.active {
-    display: block;
-    color: var(--active-color);
-}
-
-.toggle-content.active:nth-child(even) {
-    display: block;
-}
-
-.toggle-content.active:nth-child(odd) {
-    display: none;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
 
 .head a.active {
