@@ -195,7 +195,7 @@
         top: 170%;
         transform: rotate(90deg);
     }
-    .creator div .close {
+    .creator:last-child div {
         right: -4vmin;
     }
     .time {
