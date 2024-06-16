@@ -607,6 +607,7 @@
         position: absolute;
         top: calc(1.5vmin + 5em);
         right: calc(15% + 5em);
+        transform: translateX(-5.5rem);
     }
     .creator::before {
         content: "";
@@ -617,6 +618,7 @@
         position: absolute;
         right: -1vmin;
         top: 100%;
+        transform: translateX(0rem);
     }
     .creator span {
         position: absolute;
