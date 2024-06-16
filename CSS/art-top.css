@@ -196,7 +196,7 @@
         transform: rotate(90deg);
     }
     .creator .close {
-        right: -50%;
+        right: -34%;
     }
     .time {
         position: absolute;
@@ -521,7 +521,6 @@
         font-weight: 400;
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
-        text-align: right;
         line-height: 1.2;
         letter-spacing: 0.1em;
         margin: 15% 0 0;
