@@ -239,27 +239,5 @@
             <div class="foot">&copy; 2023.MIZUKIOYAMA.</div>
         </footer>
         
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                fetch("header.html")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("header-container").innerHTML = data;
-                        // ヘッダーに必要なJavaScriptをここで初期化
-                        const toggleBtn = document.querySelector('.toggle_btn');
-                        const navArea = document.getElementById('navArea');
-                        const mask = document.getElementById('mask');
-        
-                        toggleBtn.addEventListener('click', function() {
-                            navArea.classList.toggle('open');
-                        });
-        
-                        mask.addEventListener('click', function() {
-                            navArea.classList.remove('open');
-                        });
-                    });
-            });
-        </script>
-        
     </body>
 </html>
