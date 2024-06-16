@@ -195,7 +195,7 @@
         top: 170%;
         transform: rotate(90deg);
     }
-    .creator span:nth-child(even) {
+    .creator span:nth-child(2) {
         right: -4vmin;
     }
     .time {
