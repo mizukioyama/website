@@ -26,12 +26,10 @@
             letter-spacing: 1em;
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            z-index: 101;
         }
         
         .js_typing.endAnime {
-            font-size: clamp(1.8em, calc(1.8em + 0.5vw), 2.4em);
-            color: var(--def);
-            letter-spacing: 1em;
             opacity: 1;
         }
         /*== Body ==*/
