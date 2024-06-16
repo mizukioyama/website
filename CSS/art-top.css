@@ -584,8 +584,9 @@
         color: var(--def);
         position: absolute;
         top: calc(1.5vmin + 3em);
-        left: calc(15% + 5em);
+        left: 20vmin;
         z-index: 10;
+        transform: translateX(-5.5rem);
     }
     .head a::before {
         content: "";
@@ -596,7 +597,7 @@
         position: absolute;
         left: -20vmin;
         top: 100%;
-        transform: translateX(-5.5rem);
+        transform: translateX(0rem);
     }
     .head a::after {
         content: "";
@@ -609,7 +610,7 @@
         position: absolute;
         top: -11vmin;
         right: -20vmin;
-        transform: translateX(-5.5rem);
+        transform: translateX(5.5rem);
     }
     .creator::before {
         content: "";
