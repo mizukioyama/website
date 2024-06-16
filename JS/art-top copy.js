@@ -23,7 +23,7 @@ waitForJQuery(function ($) {
                 $('.active').removeClass('active');
                 slideElements.forEach(elem => {
                     $(`${elem}:nth-child(${index})`).addClass('active');
-                })
+                });
 
                 const evenSlide = index % 2 === 0;
                 if (evenSlide)
@@ -35,7 +35,7 @@ waitForJQuery(function ($) {
                 setTimeout(() => $('.exit').removeClass('exit'), 1500);
                 setTimeout(() => inProgress = false, 3000);
             }
-        }
+        };
 
         $('.content__slide:nth-child(1) .button').on('click', () => goToSlide(slideElements, 2));
         $('.content__slide:nth-child(2) .button').on('click', () => goToSlide(slideElements, 1));
@@ -44,35 +44,28 @@ waitForJQuery(function ($) {
         setTimeout(() => goToSlide(slideElements, 1), 6000);
 
         // リンクに.activeクラスを追加するコードを組み合わせる
-        $('.head a').each(function() {
+        $('.head a, .creator, .time').each(function() {
             $(this).on('click', function(event) {
                 event.preventDefault(); // リンクのデフォルト動作をキャンセル
-                $('.head a').removeClass('active');
+                $('.head a, .creator, .time').removeClass('active');
                 $(this).addClass('active');
             });
         });
+
+        // パリの時刻を更新する関数
+        function updateParisTime() {
+            var now = new Date();
+            var utc = now.getTime() + (now.getTimezoneOffset() * 60000); // Corrected to 60000 (milliseconds)
+            var parisTime = new Date(utc + (3600000 * 2)); // UTC+2（夏時間）またはUTC+1（冬時間）を調整
+
+            var hours = parisTime.getHours().toString().padStart(2, '0');
+            var minutes = parisTime.getMinutes().toString().padStart(2, '0');
+            var seconds = parisTime.getSeconds().toString().padStart(2, '0');
+
+            $('#paris-time').text(`${hours}:${minutes}:${seconds}`);
+        }
+
+        setInterval(updateParisTime, 1000);
+        updateParisTime();
     });
-});
-
-$(document).ready(function() {
-    function updateParisTime() {
-        // パリのタイムゾーンを考慮した現在時刻を取得
-        var now = new Date();
-        var utc = now.getTime() + (now.getTimezoneOffset() * 6000);
-        var parisTime = new Date(utc + (3600000 * 2)); // UTC+2（夏時間）またはUTC+1（冬時間）を調整
-
-        // 時間、分、秒をフォーマット
-        var hours = parisTime.getHours().toString().padStart(2, '0');
-        var minutes = parisTime.getMinutes().toString().padStart(2, '0');
-        var seconds = parisTime.getSeconds().toString().padStart(2, '0');
-
-        // フォーマットされた時間を表示
-        $('#paris-time').text(`${hours}:${minutes}:${seconds}`);
-    }
-
-    // 1秒ごとに更新
-    setInterval(updateParisTime, 1000);
-
-    // 初回の表示更新
-    updateParisTime();
 });
