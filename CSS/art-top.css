@@ -191,9 +191,12 @@
     }
     .creator span {
         position: absolute;
-        right: -4vmin;
+        right: -50%;
         top: 170%;
         transform: rotate(90deg);
+    }
+    .creator span:nth-child(even) {
+        right: -4vmin;
     }
     .time {
         position: absolute;
