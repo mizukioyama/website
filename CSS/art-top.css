@@ -701,13 +701,20 @@
 }
 
 /* .active クラスの追加 */
+/* 初期状態で非表示にする */
+.head a,
+.creator,
+.time {
+    display: none;
+}
+
 /* active クラスが付与されたときのスタイル */
 .head a.active,
 .creator.active,
 .time.active {
+    display: block; /* 表示する */
     color: var(--active-color);
     transform: translateX(2rem);
-    display: block; /* 表示する */
 }
 
 .head a.active::before,
@@ -718,13 +725,6 @@
 
 .head a.active::after {
     transform: translateX(2rem);
-}
-
-/* active クラスがない要素を非表示にする */
-.head a:not(.active),
-.creator:not(.active),
-.time:not(.active) {
-    display: none;
 }
         .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
         #sp, footer, .menu_head {
