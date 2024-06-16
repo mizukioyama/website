@@ -189,13 +189,13 @@
         right: -1vmin;
         top: 100%;
     }
-    .creator span {
+    .creator div {
         position: absolute;
         right: -4.5vmin;
         top: 170%;
         transform: rotate(90deg);
     }
-    .creator span .close {
+    .creator div .close {
         right: -4vmin;
     }
     .time {
