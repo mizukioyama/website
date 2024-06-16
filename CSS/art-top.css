@@ -191,11 +191,11 @@
     }
     .creator span {
         position: absolute;
-        right: -50%;
+        right: -4.5vmin;
         top: 170%;
         transform: rotate(90deg);
     }
-    .creator span:nth-child(2) {
+    .creator span .close {
         right: -4vmin;
     }
     .time {
