@@ -149,6 +149,73 @@
     .back__slide .active .back-front-image {
         transition: transform 1200ms 1300ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1300ms linear;
     }
+
+    .head a {
+        font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
+        color: var(--def);
+        position: absolute;
+        top: calc(1.5vmin + 3em);
+        left: calc(15% + 5em);
+        z-index: 10;
+    }
+    .head a::before {
+        content: "";
+        border-top: 1px solid;
+        border-left: 1px solid;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: -1vmin;
+        top: 100%;
+    }
+    .head a::after {
+        content: "";
+        width: 50px;
+        height: 0.1em;
+        margin-left: 5px;
+    }
+    .creator {
+        position: absolute;
+        top: calc(1.5vmin + 5em);
+        right: calc(15% + 5em);
+    }
+    .creator::before {
+        content: "";
+        border-top: 1px solid;
+        border-right: 1px solid;
+        width: 150px;
+        height: 60px;
+        position: absolute;
+        right: -1vmin;
+        top: 100%;
+    }
+    .creator span {
+        position: absolute;
+        right: -50%;
+        top: 170%;
+        transform: rotate(90deg);
+    }
+    .time {
+        position: absolute;
+        bottom: calc(1.5vmin + 5em);
+        right: calc(15% + 5em);
+    }
+    .time::before {
+        content: "";
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: -1vmin;
+        bottom: 100%;
+    }
+    .time-display {
+        font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
+        font-weight: bold;
+        color: var(--def);
+    }
+
     .card {
         width: 100vmin;
         height: 60%;
@@ -579,71 +646,7 @@
             transform: scaleX(0);
         }
     }
-    .head a {
-        font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
-        color: var(--def);
-        position: absolute;
-        top: calc(1.5vmin + 3em);
-        left: calc(15% + 5em);
-        z-index: 10;
-    }
-    .head a::before {
-        content: "";
-        border-top: 1px solid;
-        border-left: 1px solid;
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        left: -1vmin;
-        top: 100%;
-    }
-    .head a::after {
-        content: "";
-        width: 50px;
-        height: 0.1em;
-        margin-left: 5px;
-    }
-    .creator {
-        position: absolute;
-        top: calc(1.5vmin + 5em);
-        right: calc(15% + 5em);
-    }
-    .creator::before {
-        content: "";
-        border-top: 1px solid;
-        border-right: 1px solid;
-        width: 150px;
-        height: 60px;
-        position: absolute;
-        right: -1vmin;
-        top: 100%;
-    }
-    .creator span {
-        position: absolute;
-        right: -50%;
-        top: 170%;
-        transform: rotate(90deg);
-    }
-    .time {
-        position: absolute;
-        bottom: calc(1.5vmin + 5em);
-        right: calc(15% + 5em);
-    }
-    .time::before {
-        content: "";
-        border-bottom: 1px solid;
-        border-right: 1px solid;
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        right: -1vmin;
-        bottom: 100%;
-    }
-    .time-display {
-        font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
-        font-weight: bold;
-        color: var(--def);
-    }
+
         .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
         #sp, footer, .menu_head {
             display: none;

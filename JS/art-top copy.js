@@ -45,25 +45,36 @@ waitForJQuery(function ($) {
     });
 });
 
-$(document).ready(function() {
-    function updateParisTime() {
-        // パリのタイムゾーンを考慮した現在時刻を取得
-        var now = new Date();
-        var utc = now.getTime() + (now.getTimezoneOffset() * 6000);
-        var parisTime = new Date(utc + (3600000 * 2)); // UTC+2（夏時間）またはUTC+1（冬時間）を調整
+// パリの時刻を更新する関数
+function updateParisTime() {
+    var now = new Date();
+    var utc = now.getTime() + (now.getTimezoneOffset() * 60000); // Corrected to 60000 (milliseconds)
+    var parisTime = new Date(utc + (3600000 * 2)); // UTC+2（夏時間）またはUTC+1（冬時間）を調整
 
-        // 時間、分、秒をフォーマット
-        var hours = parisTime.getHours().toString().padStart(2, '0');
-        var minutes = parisTime.getMinutes().toString().padStart(2, '0');
-        var seconds = parisTime.getSeconds().toString().padStart(2, '0');
+    var hours = parisTime.getHours().toString().padStart(2, '0');
+    var minutes = parisTime.getMinutes().toString().padStart(2, '0');
+    var seconds = parisTime.getSeconds().toString().padStart(2, '0');
 
-        // フォーマットされた時間を表示
-        $('#paris-time').text(`${hours}:${minutes}:${seconds}`);
-    }
+    $('#paris-time').text(`${hours}:${minutes}:${seconds}`);
+}
 
-    // 1秒ごとに更新
-    setInterval(updateParisTime, 1000);
+// 東京の時刻を更新する関数
+function updateTokyoTime() {
+    var now = new Date();
+    var utc = now.getTime() + (now.getTimezoneOffset() * 60000); // Corrected to 60000 (milliseconds)
+    var tokyoTime = new Date(utc + (3600000 * 9)); // UTC+9
 
-    // 初回の表示更新
-    updateParisTime();
-});
+    var hours = tokyoTime.getHours().toString().padStart(2, '0');
+    var minutes = tokyoTime.getMinutes().toString().padStart(2, '0');
+    var seconds = tokyoTime.getSeconds().toString().padStart(2, '0');
+
+    $('#tokyo-time').text(`${hours}:${minutes}:${seconds}`);
+}
+
+// 定期的にパリと東京の時刻を更新するためのタイマー
+setInterval(updateParisTime, 1000);
+setInterval(updateTokyoTime, 1000);
+
+// 初回の表示更新
+updateParisTime();
+updateTokyoTime();
