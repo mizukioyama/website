@@ -42,6 +42,15 @@ waitForJQuery(function ($) {
 
         setTimeout(() => goToSlide(slideElements, 2), 2000);
         setTimeout(() => goToSlide(slideElements, 1), 6000);
+
+        // リンクに.activeクラスを追加するコードを組み合わせる
+        $('.head a').each(function() {
+            $(this).on('click', function(event) {
+                event.preventDefault(); // リンクのデフォルト動作をキャンセル
+                $('.head a').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
     });
 });
 

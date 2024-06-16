@@ -587,7 +587,9 @@
         left: 20vmin;
         z-index: 10;
         transform: translateX(-5.5rem);
+        transition: color 800ms 750ms linear;
     }
+    
     .head a::before {
         content: "";
         border-top: 1px solid;
@@ -598,20 +600,37 @@
         left: -20vmin;
         top: 100%;
         transform: translateX(0rem);
+        transition: transform 850ms 970ms ease-in-out;
     }
+    
     .head a::after {
         content: "";
         width: 50px;
         height: 0.1em;
         margin-left: 5px;
         transform: translateX(0rem);
+        transition: transform 850ms 970ms ease-in-out;
     }
+    
+    .head a.active {
+        color: var(--active-color);
+    }
+    
+    .head a.active::before {
+        transform: translateX(2rem);
+    }
+    
+    .head a.active::after {
+        transform: translateX(2rem);
+    }
+    
     .creator {
         position: absolute;
         top: -11vmin;
         right: -20vmin;
         transform: translateX(5.5rem);
     }
+    
     .creator::before {
         content: "";
         border-top: 1px solid;
@@ -622,19 +641,23 @@
         right: -1vmin;
         top: 100%;
         transform: translateX(0rem);
+        transition: transform 850ms 970ms ease-in-out;
     }
+    
     .creator span {
         position: absolute;
         right: -50%;
         top: 170%;
         transform: rotate(90deg);
     }
+    
     .time {
         position: absolute;
         bottom: -11vmin;
         right: -20vmin;
         transform: translateX(-5.5rem);
     }
+    
     .time::before {
         content: "";
         border-bottom: 1px solid;
@@ -645,12 +668,15 @@
         right: -1vmin;
         bottom: 100%;
         transform: translateX(0rem);
+        transition: transform 850ms 970ms ease-in-out;
     }
+    
     .time-display {
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
         font-weight: bold;
         color: var(--def);
     }
+    
         .content__slide:nth-child(even) .button:before, .content__slide:nth-child(even) .button:after,
         #sp, footer, .menu_head {
             display: none;
