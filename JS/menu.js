@@ -1,39 +1,37 @@
 // menu.jsの内容
 console.log('Menu script loaded');
-//Cursor
-$(function() {
-    // カーソル要素の取得
-    var cursor = $("#cursor");
-    var stalker = $("#stalker");
 
-    // aタグのホバーイベント
-    $("a").hover(
-        function() {
-            cursor.addClass('cursor--hover');
-            stalker.addClass('stalker--hover');
-        },
-        function() {
-            cursor.removeClass('cursor--hover');
-            stalker.removeClass('stalker--hover');
-        }
-    );
+document.addEventListener("DOMContentLoaded", function() {
+    var cursor = document.createElement("div");
+    cursor.id = "cursor";
+    document.body.appendChild(cursor);
 
-    // マウスムーブイベント
-    $(document).on("mousemove", function(e) {
+    var stalker = document.createElement("div");
+    stalker.id = "stalker";
+    document.body.appendChild(stalker);
+
+    document.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("mouseenter", function() {
+            cursor.classList.add("cursor--hover");
+            stalker.classList.add("stalker--hover");
+        });
+        link.addEventListener("mouseleave", function() {
+            cursor.classList.remove("cursor--hover");
+            stalker.classList.remove("stalker--hover");
+        });
+    });
+
+    document.addEventListener("mousemove", function(e) {
         var x = e.clientX;
         var y = e.clientY;
-        cursor.css({
-            "opacity": "1",
-            "top": y + "px",
-            "left": x + "px"
-        });
+        cursor.style.opacity = "1";
+        cursor.style.top = y + "px";
+        cursor.style.left = x + "px";
 
         setTimeout(function() {
-            stalker.css({
-                "opacity": "1",
-                "top": y + "px",
-                "left": x + "px"
-            });
+            stalker.style.opacity = "1";
+            stalker.style.top = y + "px";
+            stalker.style.left = x + "px";
         }, 150);
     });
 });
