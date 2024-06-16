@@ -22,7 +22,7 @@
         
         .typing00 {
             font-size: clamp(1.8em, calc(1.8em + 0.5vw), 2.4em);
-            color: var(--inv);
+            color: var(--def);
             letter-spacing: 1em;
             opacity: 0;
             transition: opacity 1s ease-in-out;
