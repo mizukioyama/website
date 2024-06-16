@@ -281,7 +281,7 @@
         width: 30%;
         height: 100%;
         position: absolute;
-        top: 20%;
+        top: 5%;
         left: 5%;
         filter: grayscale(40%);
         transform: translateX(-8rem);
@@ -560,7 +560,7 @@
         position: relative;
         justify-content: center;
         text-align: center;
-        transform: rotateY(50%);
+        margin-top: 50%;
     }
     .content__slide:nth-child(even) .button-wrap {
         text-align: center;
