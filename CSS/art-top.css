@@ -524,7 +524,7 @@
         text-align: right;
         line-height: 1.2;
         letter-spacing: 0.1em;
-        margin: 10% 0 0;
+        margin: 15% 0 0;
         padding: 0;
     }
     .content__slide:nth-child(even) .title {
@@ -542,7 +542,7 @@
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
         right: 0;
-        margin: 5em 0 6vmin;
+        margin: 5vmin 0 0;
         line-height: 1.2;
         letter-spacing: 0.1em;
         padding: 0;
@@ -560,7 +560,7 @@
         position: relative;
         justify-content: center;
         text-align: center;
-        margin-top: 50%;
+        margin-top: 40%;
     }
     .content__slide:nth-child(even) .button-wrap {
         text-align: center;
@@ -573,16 +573,16 @@
         font-size: 1rem;
         width: clamp(42%, 35%, 40%);
         color: var(--inv);
-        line-height: 1.0;
-        letter-spacing: 0.5em;
-        padding: 1.2rem 0.5em;
+        line-height: 1;
+        letter-spacing: 0.15em;
+        padding: 1.4rem 0.5em;
         margin: 1.5%;
         position: relative;
         cursor: pointer;
         text-transform: uppercase;
         transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
         z-index: 10;
-        background-color: rgb(0 28 18 / 76%);
+        /*background-color: rgb(0 28 18 / 76%);*/
         border: 1px solid rgba(255, 255, 255, 0.24);
         border-right-color: rgba(255, 255, 255, 0.2);
         border-bottom-color: rgba(255, 255, 255, 0.2);
