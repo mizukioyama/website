@@ -122,6 +122,7 @@
     .back__slide.active {
         opacity: 0;
     }
+
 /*== bg img ==*/
     .back__slide:nth-child(1)::before {
         background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
@@ -154,7 +155,7 @@
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
         color: var(--def);
         position: absolute;
-        top: calc(1.5vmin + 3em);
+        top: calc(3.2vmin + 3em);
         left: calc(15% + 5em);
         z-index: 10;
     }
@@ -200,7 +201,7 @@
     }
     .time {
         position: absolute;
-        bottom: calc(1.5vmin + 5em);
+        bottom: calc(0.6vmin + 5em);
         right: calc(15% + 5em);
     }
     .time::before {
@@ -401,7 +402,6 @@
         transform: translatex(0rem) rotate(-90deg);
     }
 
-
 /*== bottm line */
     .content__ping {
         position: absolute;
@@ -536,6 +536,7 @@
         transform: translateX(0rem);
         transform-origin: 100% 100%;
     }
+
 /*== 内容 ==*/
     .desc {
         position: absolute;
