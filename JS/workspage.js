@@ -64,10 +64,13 @@ $(document).ready(function() {
         }
     ];
 
-    let contentHtml = '<div class="content">';
+    let contentHtml = '';
     content.forEach((item, index) => {
-        if (index === content.length / 2) {
-            contentHtml += '</div><div class="content">';
+        if (index % 4 === 0) {
+            if (index !== 0) {
+                contentHtml += '</div>';
+            }
+            contentHtml += '<div class="content">';
         }
         contentHtml += `
             <div class="work">
