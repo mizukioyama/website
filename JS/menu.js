@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-// メニュー
-jQuery(document).ready(function($) {
+// メニューの初期化
+function initializeMenu() {
     var $nav = $('#navArea');
     var $btn = $('.toggle_btn');
     var $mask = $('#mask');
@@ -55,7 +55,8 @@ jQuery(document).ready(function($) {
     $mask.on('click', function() {
         $nav.removeClass(open);
     });
-});
+}
+
 
 // img
 (function() {
