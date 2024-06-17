@@ -128,7 +128,7 @@
                 margin: 0 auto;
                 padding-bottom: 20em;
                 backdrop-filter: blur(5px);
-                z-index: 10;
+                z-index: 1;
             }
 
             h1 {

@@ -128,12 +128,3 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
 });
-
-// sidebar
-document.addEventListener("DOMContentLoaded", function() {
-    fetch("includes-sidebar.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("sidebar-container").innerHTML = data;
-        });
-});
