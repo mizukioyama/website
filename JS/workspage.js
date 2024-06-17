@@ -4,6 +4,9 @@ $(document).ready(function() {
         .then(response => response.text())
         .then(data => {
             $('#header-container').html(data);
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
         });
 
     // サイドバーの読み込み
@@ -11,6 +14,9 @@ $(document).ready(function() {
         .then(response => response.text())
         .then(data => {
             $('#sidebar-container').html(data);
+        })
+        .catch(error => {
+            console.error('Error loading sidebar:', error);
         });
 
     // フッターの読み込み
@@ -18,6 +24,9 @@ $(document).ready(function() {
         .then(response => response.text())
         .then(data => {
             $('#footer-container').html(data);
+        })
+        .catch(error => {
+            console.error('Error loading footer:', error);
         });
 
     // ページごとのコンテンツを挿入
