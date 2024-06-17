@@ -1,20 +1,20 @@
 $(document).ready(function() {
     // ヘッダーの読み込み
-    fetch("header.html")
+    fetch("art-template.html")
         .then(response => response.text())
         .then(data => {
             $('#header-container').html(data);
         });
 
     // サイドバーの読み込み
-    fetch("sidebar.html")
+    fetch("includes-sidebar.html")
         .then(response => response.text())
         .then(data => {
             $('#sidebar-container').html(data);
         });
 
     // フッターの読み込み
-    fetch("footer.html")
+    fetch("includes-footer.html")
         .then(response => response.text())
         .then(data => {
             $('#footer-container').html(data);
