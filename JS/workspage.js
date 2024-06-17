@@ -64,27 +64,25 @@ $(document).ready(function() {
         }
     ];
 
-    function insertContent() {
-        let contentHtml = '<div class="content">';
-        content.forEach((item, index) => {
-            if (index === Math.ceil(content.length / 2)) {
-                contentHtml += '</div><div class="content">';
-            }
-            contentHtml += `
-                <div class="work">
-                    <a class="works" href="">
-                        <img src="${item.img}" alt="Main Image">
-                        <span class="dli-external-link"><span></span></span>
-                    </a>
-                    <h3>${item.category}</h3>
-                    <p>${item.title}</p>
-                </div>
-            `;
-        });
-        contentHtml += '</div>';
+    let contentHtml = '<div class="content">';
+    content.forEach((item, index) => {
+        if (index === content.length / 2) {
+            contentHtml += '</div><div class="content">';
+        }
+        contentHtml += `
+            <div class="work">
+                <a class="works" href="">
+                    <img src="${item.img}" alt="Main Image">
+                    <span class="dli-external-link"><span></span></span>
+                </a>
+                <h3>${item.category}</h3>
+                <p>Title：${item.title}</p>
+            </div>
+        `;
+    });
+    contentHtml += '</div>';
 
-        $('#content-container').html(contentHtml);
-    }
+    $('#content-container').html(contentHtml);
 
     // ページごとのタイトルとh1を設定
     const pageSettings = {
@@ -94,7 +92,4 @@ $(document).ready(function() {
 
     document.title = pageSettings.title;
     $("#page-heading").text(pageSettings.heading);
-
-    // コンテンツを挿入
-    insertContent();
 });
