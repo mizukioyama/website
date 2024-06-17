@@ -51,14 +51,33 @@
 
     <!-- CSP -->
     <!-- meta http-equiv="Content-Security-Policy" content="default-src 'self'" -->
+    <script>
+        const pageSettings = {
+            title: "Another Page",
+            heading: "Another Page Heading"
+        };
+
+        const content = [
+            {
+                img: "https://example.com/image1.jpg",
+                category: "photo",
+                title: "Photo Title 1"
+            },
+            {
+                img: "https://example.com/image2.jpg",
+                category: "digital",
+                title: "Digital Title 1"
+            },
+            // 他のコンテンツ
+        ];
+    </script>
 </head>
 
 <body oncontextmenu="return false;">
-    <span class="scrollDown"></span>
+    
     <!--<span class="scrollDown"></span>-->
         <div id="header-container"></div>
-                    <div id="sidebar-container"></div>
-
+        <div id="sidebar-container"></div>
         <div id="footer-container"></div>
         
     </body>
