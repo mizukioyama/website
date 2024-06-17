@@ -88,7 +88,7 @@ $(document).ready(function() {
                     <span class="dli-external-link"><span></span></span>
                 </a>
                 <h3>${item.category}</h3>
-                <p>Title：${item.title}</p>
+                <p>Title : ${item.title}</p>
             </div>
         `;
     });
