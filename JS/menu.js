@@ -108,23 +108,28 @@ $(window).on('load', function() {
     });
 });
 
-// header
+
+// ヘッダーの読み込みと初期化テンプレ
 document.addEventListener("DOMContentLoaded", function() {
     fetch("includes-header.html")
         .then(response => response.text())
         .then(data => {
             document.getElementById("header-container").innerHTML = data;
-            // ヘッダーに必要なJavaScriptをここで初期化
-            const toggleBtn = document.querySelector('.toggle_btn');
-            const navArea = document.getElementById('navArea');
-            const mask = document.getElementById('mask');
-
-            toggleBtn.addEventListener('click', function() {
-                navArea.classList.toggle('open');
-            });
-
-            mask.addEventListener('click', function() {
-                navArea.classList.remove('open');
-            });
+            // メニューの開閉スクリプトを初期化
+            initializeMenu();
         });
 });
+
+function initializeMenu() {
+    const toggleBtn = document.querySelector('.toggle_btn');
+    const navArea = document.getElementById('navArea');
+    const mask = document.getElementById('mask');
+
+    toggleBtn.addEventListener('click', function() {
+        navArea.classList.toggle('open');
+    });
+
+    mask.addEventListener('click', function() {
+        navArea.classList.remove('open');
+    });
+}
