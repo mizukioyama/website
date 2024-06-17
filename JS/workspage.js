@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // ヘッダーの読み込み
-    fetch("art-template.html")
+    fetch("includes-header.html")
         .then(response => response.text())
         .then(data => {
             $('#header-container').html(data);
