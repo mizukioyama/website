@@ -64,14 +64,13 @@
     /*==背景*/
             .video-background {
                 position: absolute;
-                top: 15%;
+                top: 15vmin;
                 right: 0;
                 width: 60%;
                 height: auto;
                 overflow: hidden;
                 mix-blend-mode: darken;
-                opacity: 0.65;
-                z-index: 2;
+                opacity: 0.9;
             }
             .video-background video {
                 width: 60%;
@@ -211,7 +210,7 @@
                 font-style: italic;
                 background-repeat: no-repeat;
                 background-size: cover;
-                filter: blur(0px) grayscale(40%);
+                filter: blur(0px) grayscale(45%);
                 transition: all 1s ease;
                 shape-margin: 0.75rem;
                 box-shadow: inset 0 0px 10px 0px #242424;

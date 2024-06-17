@@ -1,43 +1,34 @@
-paginate: 5 # 1ページあたりの表示記事数
-paginate_path: "/page:num/" # ページネーションのパス
-
-
----
-layout: default
-title: Art Index
-header_title: Art Index
-header_subtitle: Nature inspire
-left_works:
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg"
-   category: "digital / Exhibition"
-   title: "Title：心樹"
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/21ai.jpg"
-   category: "digital"
-   title: "No title"
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/22ai.jpg"
-   category: "digital"
-   title: "No title"
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230052-2.jpg"
-   category: "digital"
-   title: "No title"right_works:
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230011-2.jpg"
-   category: "photo"
-   title: "No title"
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230033-2.jpg"
-   category: "digital"
-   title: "No title"
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230029-2.jpg"
-   category: "digital"
-   title: "No title"
-- url: ""
-   img_src: "https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/20230629.jpg"
-   category: "digital"
-   title: "No title"
----
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Default Title</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="jquery-3.6.4.min.js"></script>
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <div id="header-container"></div>
+    <main class="gallery">
+        <div class="video-background">
+            <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg" alt="Main Image">
+        </div>
+        <h1 id="page-heading">Default Heading</h1>
+        <p class="top_p">Nature inspire</p>
+        <div class="scroll"></div>
+        <div id="sidebar-container"></div>
+        <div class="flex" id="content-container"></div>
+        <ol class="page">
+            <button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button>
+        </ol>
+    </main>
+    <div id="footer-container"></div>
+</body>
+</html>
