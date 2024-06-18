@@ -71,3 +71,49 @@ jQuery(document).ready(function($) {
         TypingAnimation(); // テキストのアニメーション効果を実行
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const pageLinks = document.querySelectorAll('.page-link');
+    const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
+    let currentPage = 1;
+    const totalPages = pageLinks.length;
+
+    function updatePagination() {
+        pageLinks.forEach(link => {
+            const page = parseInt(link.getAttribute('data-page'));
+            if (page === currentPage) {
+                link.classList.add('disabled');
+            } else {
+                link.classList.remove('disabled');
+            }
+        });
+    }
+
+    function goToPage(page) {
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        updatePagination();
+        const targetLink = document.querySelector(`.page-link[data-page="${page}"]`);
+        window.location.href = targetLink.href;
+    }
+
+    pageLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const page = parseInt(event.target.getAttribute('data-page'));
+            goToPage(page);
+        });
+    });
+
+    leftArrow.addEventListener('click', function() {
+        goToPage(currentPage - 1);
+    });
+
+    rightArrow.addEventListener('click', function() {
+        goToPage(currentPage + 1);
+    });
+
+    updatePagination();
+});
