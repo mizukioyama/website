@@ -34,46 +34,20 @@ document.addEventListener("DOMContentLoaded", function() {
             stalker.style.left = x + "px";
         }, 150);
     });
-});
 
+    // メニューの初期化
+    initializeMenu();
 
-// メニューの初期化
-function initializeMenu() {
-    var $nav = $('#navArea');
-    var $btn = $('.toggle_btn');
-    var $mask = $('#mask');
-    var open = 'open';
-
-    $btn.on('click', function() {
-        if (!$nav.hasClass(open)) {
-            $nav.addClass(open);
-        } else {
-            $nav.removeClass(open);
-        }
+    // 画像の遅延読み込み
+    var lazyImages = document.querySelectorAll('img[data-src]');
+    lazyImages.forEach(function(img) {
+        img.setAttribute('src', img.getAttribute('data-src'));
+        img.onload = function() {
+            img.removeAttribute('data-src');
+        };
     });
 
-    $mask.on('click', function() {
-        $nav.removeClass(open);
-    });
-}
-
-
-// img
-(function() {
-    document.addEventListener("DOMContentLoaded", function() {
-        var lazyImages = document.querySelectorAll('img[data-src]');
-
-        lazyImages.forEach(function(img) {
-            img.setAttribute('src', img.getAttribute('data-src'));
-            img.onload = function() {
-                img.removeAttribute('data-src');
-            };
-        });
-    });
-})();
-
-// タイピング
-$(window).on('load', function() {
+    // タイピングアニメーション
     $(".typing").each(function() {
         var text = $(this).text();
         var textbox = "";
@@ -109,28 +83,35 @@ $(window).on('load', function() {
     });
 });
 
+// メニューの初期化関数
+function initializeMenu() {
+    jQuery(document).ready(function($) {
+        var $nav = $('#navArea');
+        var $btn = $('.toggle_btn');
+        var $mask = $('#mask');
+        var open = 'open';
 
-// ヘッダーの読み込みと初期化テンプレ
+        $btn.on('click', function() {
+            if (!$nav.hasClass(open)) {
+                $nav.addClass(open);
+            } else {
+                $nav.removeClass(open);
+            }
+        });
+
+        $mask.on('click', function() {
+            $nav.removeClass(open);
+        });
+    });
+}
+
+// ヘッダーの読み込みと初期化
 document.addEventListener("DOMContentLoaded", function() {
     fetch("includes-header.html")
         .then(response => response.text())
         .then(data => {
             document.getElementById("header-container").innerHTML = data;
-            // メニューの開閉スクリプトを初期化
+            // メニューの初期化を再度呼び出し
             initializeMenu();
         });
 });
-
-function initializeMenu() {
-    const toggleBtn = document.querySelector('.toggle_btn');
-    const navArea = document.getElementById('navArea');
-    const mask = document.getElementById('mask');
-
-    toggleBtn.addEventListener('click', function() {
-        navArea.classList.toggle('open');
-    });
-
-    mask.addEventListener('click', function() {
-        navArea.classList.remove('open');
-    });
-}
