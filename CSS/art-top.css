@@ -163,7 +163,7 @@
         content: "";
         border-top: 1px solid;
         border-left: 1px solid;
-        width: 100px;
+        width: 1500px;
         height: 1000px;
         position: absolute;
         left: -1vmin;
@@ -184,7 +184,7 @@
         content: "";
         border-top: 1px solid;
         border-right: 1px solid;
-        width: 1000px;
+        width: 1500px;
         height: 1000px;
         position: absolute;
         right: -1vmin;
@@ -208,7 +208,7 @@
         content: "";
         border-bottom: 1px solid;
         border-right: 1px solid;
-        width: 1000px;
+        width: 1500px;
         height: 1000px;
         position: absolute;
         right: -1vmin;
