@@ -572,15 +572,15 @@
     .work {
         display: block;
         height: calc(80vh + 3vh);
-        a {
-            clip-path: polygon(14% 0, 100% 0, 100% 60%, 100% 90%, 88% 100%, 0 100%, 0 11%);
-        }
     }
     .works::before {
         display: none;
     }
     .works {
         position: relative;
+        img {
+            clip-path: polygon(14% 0, 100% 0, 100% 60%, 100% 90%, 88% 100%, 0 100%, 0 11%);
+        }
     }
     .works a:hover {
         color: var(--def);
