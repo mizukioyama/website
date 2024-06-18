@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageLinks = document.querySelectorAll('.page-link');
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
-    let currentPage = 1;
+    let currentPage = parseInt(document.body.getAttribute('data-current-page'), 10);
     const totalPages = pageLinks.length;
 
     function updatePagination() {
@@ -10,51 +10,42 @@ document.addEventListener('DOMContentLoaded', function() {
             const page = parseInt(link.getAttribute('data-page'));
             if (page === currentPage) {
                 link.classList.add('disabled');
+                link.removeAttribute('href');
             } else {
                 link.classList.remove('disabled');
+                link.setAttribute('href', link.dataset.href);
             }
         });
 
-        if (currentPage === 1) {
-            leftArrow.disabled = true;
-        } else {
-            leftArrow.disabled = false;
-        }
-
-        if (currentPage === totalPages) {
-            rightArrow.disabled = true;
-        } else {
-            rightArrow.disabled = false;
-        }
+        leftArrow.disabled = currentPage === 1;
+        rightArrow.disabled = currentPage === totalPages;
     }
 
     function goToPage(page) {
         if (page < 1 || page > totalPages) return;
         const targetLink = document.querySelector(`.page-link[data-page="${page}"]`);
-        window.location.href = targetLink.href;
+        window.location.href = targetLink.dataset.href;
     }
 
     pageLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
             const page = parseInt(event.target.getAttribute('data-page'));
-            currentPage = page;
-            updatePagination();
-            goToPage(page);
+            if (page !== currentPage) {
+                goToPage(page);
+            }
         });
     });
 
     leftArrow.addEventListener('click', function() {
         if (currentPage > 1) {
-            currentPage--;
-            goToPage(currentPage);
+            goToPage(currentPage - 1);
         }
     });
 
     rightArrow.addEventListener('click', function() {
         if (currentPage < totalPages) {
-            currentPage++;
-            goToPage(currentPage);
+            goToPage(currentPage + 1);
         }
     });
 
