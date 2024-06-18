@@ -156,7 +156,7 @@
         color: var(--def);
         position: absolute;
         top: 9.25%;
-        left: 17%;
+        left: 30vmin;
     }
 /*    .head a::before {
         content: "";
@@ -177,7 +177,7 @@
     .creator {
         position: absolute;
         top: 10%;
-        right: 17%;
+        right: 30vmin;
         text-align: right;
     }
 /*    .creator::before {
@@ -203,7 +203,7 @@
     .time {
         position: absolute;
         bottom: 10%;
-        right: 17%;
+        right: 30vmin;
     }
 /*    .time::before {
         content: "";
@@ -234,7 +234,7 @@
         display: block;
         border: 1px solid;
         position: absolute;
-        width: 110%;
+        width: 130vmin;
         height: 140%;
         top: 50%;
         left: 50%;
