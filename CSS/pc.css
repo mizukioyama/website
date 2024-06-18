@@ -572,6 +572,9 @@
     .work {
         display: block;
         height: calc(80vh + 3vh);
+        a {
+            clip-path: polygon(0 0,70% 0,100% 50%,70% 100%,0 100%);
+        }
     }
     .works::before {
         display: none;
