@@ -498,6 +498,15 @@
             margin: 0 5%;
             a {
                 font-size: clamp(1.4rem, calc(1.4rem + 0.5vw), 1.6rem);
+                .page-link {
+                    text-decoration: none;
+                    color: blue;
+                }
+                
+                .page-link.disabled {
+                    pointer-events: none;
+                    color: gray;
+                }
             }
         }
         .arrow-button {
