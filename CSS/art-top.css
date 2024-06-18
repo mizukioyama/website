@@ -162,7 +162,7 @@
         content: "";
         border-top: 1px solid;
         border-left: 1px solid;
-        width: 1500px;
+        width: 150px;
         height: 1000px;
         position: absolute;
         left: -1vmin;
@@ -183,8 +183,8 @@
         content: "";
         border-top: 1px solid;
         border-right: 1px solid;
-        width: 1500px;
-        height: 1000px;
+        width: 150%;
+        height: 150%;
         position: absolute;
         right: -1vmin;
         top: 100%;
@@ -218,11 +218,20 @@
         font-weight: bold;
         color: var(--def);
     }
-
+    
     .card {
         width: 100vmin;
         height: 60%;
         position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+    }
+    .card::before {
+        content: "";
+        border: 1px solid;
+        width: 90%;
+        height: 90%;
         top: 50%;
         left: 50%;
         transform: translate3d(-50%, -50%, 0);
