@@ -176,8 +176,8 @@
     }
     .creator {
         position: absolute;
-        top: calc(3.5vmin + 5em);
-        right: calc(15% + 5em);
+        top: calc(2.65vmin + 7em);
+        right: calc(9.75vmin + 7em);
     }
     .creator::before {
         content: "";
@@ -200,15 +200,15 @@
     }
     .time {
         position: absolute;
-        bottom: calc(2vmin + 5em);
-        right: calc(15% + 5em);
+        bottom: calc(2.65vmin + 7em);
+        right: calc(9.75vmin + 7em);
     }
     .time::before {
         content: "";
         border-bottom: 1px solid;
         border-right: 1px solid;
         width: 1500px;
-        height: 1000px;
+        height: 500px;
         position: absolute;
         right: -1vmin;
         bottom: 100%;
@@ -232,8 +232,8 @@
         display: block;
         border: 1px solid;
         position: absolute;
-        width: 90%;
-        height: 90%;
+        width: 110%;
+        height: 110%;
         top: 50%;
         left: 50%;
         transform: translate3d(-50%, -50%, 0);
