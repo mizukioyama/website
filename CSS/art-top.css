@@ -155,7 +155,7 @@
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
         color: var(--def);
         position: absolute;
-        top: 10%;
+        top: 9.25%;
         left: 17%;
     }
     .head a::before {
