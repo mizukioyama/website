@@ -155,7 +155,7 @@
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
         color: var(--def);
         position: absolute;
-        top: calc(3.2vmin + 3em);
+        top: calc(2vmin + 3em);
         left: calc(15% + 5em);
         z-index: 10;
     }
@@ -167,7 +167,7 @@
         height: 30px;
         position: absolute;
         left: -1vmin;
-        top: 100%;
+        top: 90%;
     }
     .head a::after {
         content: "";
