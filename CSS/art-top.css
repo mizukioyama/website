@@ -299,6 +299,7 @@
         left: 5%;
         filter: grayscale(40%);
         transform: translateX(-8rem);
+        clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
         opacity: 0;
         transition: all 1s ease;
         z-index: 1;
