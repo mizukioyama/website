@@ -71,11 +71,10 @@
                 overflow: hidden;
                 mix-blend-mode: darken;
                 opacity: 0.9;
-                clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
+                clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 0% 100%, 0% 12%, 10% 0%);
             }
             .video-background img {
                 height: 120%;
-                clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 0% 100%, 0% 12%, 10% 0%);
             }
             /*
             .video-background video {
