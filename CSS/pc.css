@@ -73,9 +73,6 @@
                 opacity: 0.9;
                 border-radius: 15px 0 0 15px;
             }
-            .video-background img {
-                box-shadow: inset 0 0 10px rgba(20, 20, 20, 0.7);
-            }
             /*
             .video-background video {
                 width: 60%;
