@@ -579,7 +579,7 @@
     .works {
         position: relative;
         img {
-            clip-path: polygon(14% 0, 100% 0, 100% 60%, 100% 90%, 88% 100%, 0 100%, 0 11%);
+            clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
         }
     }
     .works a:hover {
