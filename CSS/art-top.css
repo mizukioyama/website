@@ -536,9 +536,9 @@
         text-align: right;
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
-        line-height: 1.2;
+        line-height: 0.85;
         letter-spacing: 0.1em;
-        margin: 15% 0 0;
+        margin: 20% 0 0;
         padding: 0;
     }
     .content__slide:nth-child(even) .title {
@@ -558,7 +558,7 @@
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
         right: 0;
-        margin: 5vmin 0 0;
+        margin: 10vmin 0 0;
         line-height: 1.2;
         letter-spacing: 0.1em;
         padding: 0;
@@ -576,7 +576,7 @@
         position: relative;
         justify-content: center;
         text-align: center;
-        margin-top: 40%;
+        margin-top: 45%;
     }
     .content__slide:nth-child(even) .button-wrap {
         text-align: center;
