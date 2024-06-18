@@ -93,8 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function goToPage(page) {
         if (page < 1 || page > totalPages) return;
-        currentPage = page;
-        updatePagination();
         const targetLink = document.querySelector(`.page-link[data-page="${page}"]`);
         window.location.href = targetLink.href;
     }
@@ -103,16 +101,26 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(event) {
             event.preventDefault();
             const page = parseInt(event.target.getAttribute('data-page'));
+            currentPage = page;
+            updatePagination();
             goToPage(page);
         });
     });
 
     leftArrow.addEventListener('click', function() {
-        goToPage(currentPage - 1);
+        if (currentPage > 1) {
+            currentPage--;
+            updatePagination();
+            goToPage(currentPage);
+        }
     });
 
     rightArrow.addEventListener('click', function() {
-        goToPage(currentPage + 1);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination();
+            goToPage(currentPage);
+        }
     });
 
     updatePagination();
