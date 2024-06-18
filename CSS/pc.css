@@ -572,15 +572,13 @@
     .work {
         display: block;
         height: calc(80vh + 3vh);
+        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/21ai.jpg);
     }
     .works::before {
         display: none;
     }
     .works {
-        display: block;
         position: relative;
-        width: 100%;
-        height: 50%;
     }
     .works a:hover {
         color: var(--def);
