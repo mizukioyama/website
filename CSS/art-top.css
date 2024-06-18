@@ -178,6 +178,7 @@
         position: absolute;
         top: 10%;
         right: 17%;
+        text-align: right;
     }
 /*    .creator::before {
         content: "";
