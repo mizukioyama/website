@@ -541,7 +541,7 @@
     }
     .gallery .content {
         width: clamp(45%, 100%, 40%);
-        padding: 1em 1em 15em;
+        padding: 0 1em;
         margin: 1% 0.75% 1% 0;
         text-align: center;
         background: #e6e6e6;
@@ -572,7 +572,6 @@
     .work {
         display: block;
         height: calc(80vh + 3vh);
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/21ai.jpg);
     }
     .works::before {
         display: none;
