@@ -201,7 +201,7 @@
     }
     .time {
         position: absolute;
-        bottom: calc(0.6vmin + 5em);
+        bottom: calc(2vmin + 5em);
         right: calc(15% + 5em);
     }
     .time::before {
