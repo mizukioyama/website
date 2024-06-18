@@ -89,6 +89,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.classList.remove('disabled');
             }
         });
+
+        if (currentPage === 1) {
+            leftArrow.disabled = true;
+        } else {
+            leftArrow.disabled = false;
+        }
+
+        if (currentPage === totalPages) {
+            rightArrow.disabled = true;
+        } else {
+            rightArrow.disabled = false;
+        }
     }
 
     function goToPage(page) {
@@ -110,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
     leftArrow.addEventListener('click', function() {
         if (currentPage > 1) {
             currentPage--;
-            updatePagination();
             goToPage(currentPage);
         }
     });
@@ -118,10 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
     rightArrow.addEventListener('click', function() {
         if (currentPage < totalPages) {
             currentPage++;
-            updatePagination();
             goToPage(currentPage);
         }
     });
 
+    // Initialize pagination
     updatePagination();
 });
