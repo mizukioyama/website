@@ -155,15 +155,15 @@
         font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
         color: var(--def);
         position: absolute;
-        top: calc(4vmin + 3em);
-        left: calc(15% + 5em);
+        top: 10%;
+        left: 17%;
     }
     .head a::before {
         content: "";
         border-top: 1px solid;
         border-left: 1px solid;
         width: 150px;
-        height: 1000px;
+        height: 50px;
         position: absolute;
         left: -1vmin;
         top: 90%;
@@ -176,8 +176,8 @@
     }
     .creator {
         position: absolute;
-        top: calc(2.65vmin + 7em);
-        right: calc(9.75vmin + 7em);
+        top: 10%;
+        right: 17%;
     }
     .creator::before {
         content: "";
@@ -200,8 +200,8 @@
     }
     .time {
         position: absolute;
-        bottom: calc(2.65vmin + 7em);
-        right: calc(9.75vmin + 7em);
+        bottom: 10%;
+        right: 17%;
     }
     .time::before {
         content: "";
@@ -232,11 +232,12 @@
         display: block;
         border: 1px solid;
         position: absolute;
-        width: 110%;
+        width: 140%;
         height: 110%;
         top: 50%;
         left: 50%;
         transform: translate3d(-50%, -50%, 0);
+        z-index: -1;
     }
     .card__slide {
         position: absolute;
