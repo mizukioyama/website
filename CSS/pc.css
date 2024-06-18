@@ -469,7 +469,7 @@
         justify-content: center;
         margin-top: 35em;
         margin-left: calc(40vw - 10%);
-        box-shadow: inset 0 0 10px rgba(20, 20, 20, 0.7);
+        box-shadow: inset 0 0 5px rgba(20, 20, 20, 0.7);
         background: #ececec;
     }
     .art-info {
@@ -577,6 +577,7 @@
         display: none;
     }
     .works {
+        display: block;
         position: relative;
         width: 100%;
         height: 50%;
