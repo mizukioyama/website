@@ -231,6 +231,7 @@
         content: "";
         display: block;
         border: 1px solid;
+        position: absolute;
         width: 90%;
         height: 90%;
         top: 50%;
