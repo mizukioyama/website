@@ -228,7 +228,7 @@
         top: 50%;
         left: 50%;
         transform: translate3d(-50%, -50%, 0);
-    }
+    }/*
     .card::before {
         content: "";
         display: block;
@@ -240,7 +240,7 @@
         left: 50%;
         transform: translate3d(-50%, -50%, 0);
         z-index: -1;
-    }
+    }*/
     .card__slide {
         position: absolute;
         top: 0;
