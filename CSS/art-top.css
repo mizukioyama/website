@@ -229,6 +229,7 @@
     }
     .card::before {
         content: "";
+        display: block;
         border: 1px solid;
         width: 90%;
         height: 90%;
