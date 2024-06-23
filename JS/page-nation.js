@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // ページネーションの設定
     const pageLinks = document.querySelectorAll('.page-link');
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
-    const categoryLinks = document.querySelectorAll('.category-link');
-    let currentPage = parseInt(document.body.getAttribute('data-current-page'), 10) || 1;
+    let currentPage = parseInt(document.body.getAttribute('data-current-page'), 10);
     const totalPages = pageLinks.length;
 
     function updatePagination() {
@@ -53,14 +53,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize pagination
     updatePagination();
 
-    // Handle category links
+    // カテゴリーリンクの設定
+    const categoryLinks = document.querySelectorAll('.category-link');
+    let currentCategory = document.body.getAttribute('data-current-category');
+
+    function updateCategoryLinks() {
+        categoryLinks.forEach(link => {
+            const category = link.getAttribute('data-page');
+            if (category === currentCategory) {
+                link.classList.add('disabled');
+                link.removeAttribute('href');
+            } else {
+                link.classList.remove('disabled');
+                link.setAttribute('href', link.dataset.href);
+            }
+        });
+    }
+
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
-            const page = parseInt(link.getAttribute('data-page'));
-            if (page !== currentPage) {
-                goToPage(page);
+            const category = event.target.getAttribute('data-page');
+            if (category !== currentCategory) {
+                window.location.href = event.target.dataset.href;
             }
         });
     });
+
+    // Initialize category links
+    updateCategoryLinks();
 });
