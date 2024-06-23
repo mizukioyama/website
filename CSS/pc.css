@@ -64,16 +64,23 @@
                 position: absolute;
                 top: 15vmin;
                 right: 0;
-                width: 60%;
+                width: 55%;
                 height: 65vmin;
                 overflow: hidden;
                 mix-blend-mode: darken;
                 opacity: 0.9;
+<<<<<<< HEAD
+                border-radius: 50px 0px 0px 50px;
+                background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
+                background-position: left;
+                /*clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 0% 100%, 0% 12%, 10% 0%);*/
+=======
                 border-radius: 120px 0px 0px 120px;
                 /*clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 0% 100%, 0% 12%, 10% 0%);*/
+>>>>>>> 6daf57fceb09b97a8593b055550c6670c6f24c9b
             }
             .video-background img {
-                height: 120%;
+                height: 100%;
             }
             /*
             .video-background video {
