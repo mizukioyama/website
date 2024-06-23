@@ -575,11 +575,11 @@
         height: 30vh;
         margin-top: 15em;
     }
-    .art-info .content img {
+    /*.art-info .content img {
         width: clamp(700px, 100%, 60%);
         height: 40vh;
         filter: grayscale(50%);
-    }
+    }*/
     .art-info img:hover {
         filter: grayscale(0);
         transform: scale(1);
@@ -594,9 +594,10 @@
         height: calc(80vh + 3vh);
     }
     .work-img {
-        display: block;
+        position: relative;
         width: 50%;
         height: 50%;
+        filter: grayscale(50%);
     }
     .works::before {
         display: none;
