@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageLinks = document.querySelectorAll('.page-link');
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
-    let currentPage = parseInt(document.body.getAttribute('data-current-page'), 10);
+    const categoryLinks = document.querySelectorAll('.category-link');
+    let currentPage = parseInt(document.body.getAttribute('data-current-page'), 10) || 1;
     const totalPages = pageLinks.length;
 
     function updatePagination() {
@@ -51,4 +52,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize pagination
     updatePagination();
+
+    // Handle category links
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const page = parseInt(link.getAttribute('data-page'));
+            if (page !== currentPage) {
+                goToPage(page);
+            }
+        });
+    });
 });
