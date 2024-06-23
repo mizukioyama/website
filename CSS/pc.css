@@ -597,7 +597,7 @@
         display: inline-block;
         position: absolute;
         right: 30%;
-        top: 0%;
+        top: 90%;
         color: rgba(200, 200, 200, 0.75);
         width: 0.9em;
         height: 0.9em;
@@ -626,7 +626,7 @@
     .dli-external-link::after {
         content: '©Oyama';
         position: absolute;
-        right: 130%;
+        right: 150%;
     }
 
 /*===art-info*/
