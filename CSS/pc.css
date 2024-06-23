@@ -476,6 +476,10 @@
 .category ol:last-child li a {
     font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
 }
+.page-link.disabled {
+    pointer-events: none;
+    color: gray;
+}
     .gallery .flex {
         padding: 0;
         justify-content: center;
