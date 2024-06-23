@@ -71,7 +71,7 @@
                 opacity: 0.9;
 <<<<<<< HEAD
                 border-radius: 50px 0px 0px 50px;
-                background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg);
+                background-image: url("https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg");
                 background-position: left;
                 /*clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 0% 100%, 0% 12%, 10% 0%);*/
 =======
