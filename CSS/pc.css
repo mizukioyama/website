@@ -571,6 +571,7 @@
         margin: 1% 0 1% 0.75%;
     }
     .content img {
+        position: relative;
         height: 30vh;
     }
     .art-info .content img {
