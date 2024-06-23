@@ -593,6 +593,11 @@
         display: block;
         height: calc(80vh + 3vh);
     }
+    .work-img {
+        display: block;
+        width: 50%;
+        height: 50%;
+    }
     .works::before {
         display: none;
     }
