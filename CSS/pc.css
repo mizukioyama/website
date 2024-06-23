@@ -591,6 +591,7 @@
     }
     .work {
         display: block;
+        margin: 5em auto;
     }
     .work-img {
         display: block;
