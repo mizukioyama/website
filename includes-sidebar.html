@@ -16,3 +16,29 @@
         <li><a href="#" class="category-link" data-page="10" data-href="https://mizukioyama.github.io/portfolio.github.io/2010_top.html">2010-17</a></li>
     </ol>
 </div>
+
+<style>
+.category {
+    width: fit-content;
+    margin: 1em;
+    position: absolute;
+    left: 0em;
+    margin-top: 10em;
+    z-index: 1;
+}
+.category ol li {
+    margin-top: 1em;
+}
+.gallery .category a {
+    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+    font-family: "poiret-one", sans-serif;
+    color: blue;
+}
+.category ol:last-child li a {
+    font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+}
+.category-link.disabled {
+    pointer-events: none;
+    color: gray;
+}
+</style>
