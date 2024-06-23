@@ -466,12 +466,12 @@
     z-index: 1;
 }
 .category ol li {
-    color: blue;
     margin-top: 1em;
 }
 .gallery .category a {
     font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
     font-family: "poiret-one", sans-serif;
+    color: blue;
 }
 .category ol:last-child li a {
     font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
