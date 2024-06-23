@@ -591,12 +591,10 @@
     }
     .work {
         display: block;
-        height: calc(80vh + 3vh);
     }
     .work-img {
-        position: relative;
+        display: block;
         width: 50%;
-        height: 50%;
         filter: grayscale(50%);
     }
     .works::before {
