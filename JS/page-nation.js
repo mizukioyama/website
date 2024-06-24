@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updatePagination() {
         pageLinks.forEach(link => {
-            const page = parseInt(link.getAttribute('data-page'));
+            const page = parseInt(link.getAttribute('data-page'), 10);
             if (page === currentPage) {
                 link.classList.add('disabled');
                 link.removeAttribute('href');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     pageLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
-            const page = parseInt(event.target.getAttribute('data-page'));
+            const page = parseInt(event.target.getAttribute('data-page'), 10);
             if (page !== currentPage) {
                 goToPage(page);
             }

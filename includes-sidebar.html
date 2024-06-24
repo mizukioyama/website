@@ -37,8 +37,16 @@
 .category ol:last-child li a {
     font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
 }
+.page-link.disabled,
 .category-link.disabled {
     pointer-events: none;
-    color: gray;
+    color: grey;
+    text-decoration: none;
 }
+
+.arrow-button:disabled {
+    pointer-events: none;
+    opacity: 0.5; /* 無効化されたボタンの見た目 */
+}
+
 </style>
