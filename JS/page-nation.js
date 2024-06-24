@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const category = event.target.getAttribute('data-page');
             console.log('Category link clicked:', category);
             if (category !== currentCategory) {
+                console.log('Navigating to:', event.target.getAttribute('data-href'));
                 window.location.href = event.target.getAttribute('data-href');
             }
         });
