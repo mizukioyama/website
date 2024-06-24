@@ -80,7 +80,7 @@
             
             .video-background video {
                 position: absolute;
-                width: 100%;
+                width: auto;
                 height: auto;
                 top: 50%;
                 left: 50%;
@@ -571,6 +571,7 @@
     }
     .work {
         display: block;
+        min-height: 500%;
         margin: 15em auto 25em;
     }
     .work-img {
