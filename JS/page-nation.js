@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.removeAttribute('href');
             } else {
                 link.classList.remove('disabled');
-                link.setAttribute('href', link.dataset.href);
+                link.setAttribute('href', link.getAttribute('data-href'));
             }
         });
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function goToPage(page) {
         if (page < 1 || page > totalPages) return;
         const targetLink = document.querySelector(`.page-link[data-page="${page}"]`);
-        window.location.href = targetLink.dataset.href;
+        window.location.href = targetLink.getAttribute('data-href');
     }
 
     pageLinks.forEach(link => {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.removeAttribute('href');
             } else {
                 link.classList.remove('disabled');
-                link.setAttribute('href', link.dataset.href);
+                link.setAttribute('href', link.getAttribute('data-href'));
             }
         });
     }
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             const category = event.target.getAttribute('data-page');
             if (category !== currentCategory) {
-                window.location.href = event.target.dataset.href;
+                window.location.href = event.target.getAttribute('data-href');
             }
         });
     });
