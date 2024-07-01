@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Perspective</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.image-container {
+    perspective: 1000px;
+}
+
+#perspectiveImage {
+    width: 300px;
+    transition: transform 0.2s;
+}
+
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="your-image.jpg" alt="Perspective Image" id="perspectiveImage">
+    </div>
+    <script>
+        document.addEventListener('mousemove', function(e) {
+    const image = document.getElementById('perspectiveImage');
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const rotateY = ((mouseX / width) * 30 - 15);
+    const rotateX = ((mouseY / height) * 30 - 15);
+    image.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+
+    </script>
+</body>
+</html>
