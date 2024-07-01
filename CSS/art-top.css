@@ -195,11 +195,11 @@
         width: fit-content;
         position: absolute;
         top: 170%;
-        right: -50%;
+        right: -20%;
         transform: rotate(90deg);
     }
     .creator .close {
-        right: -34%;
+        right: -10%;
     }
     .time {
         position: absolute;
