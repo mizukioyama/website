@@ -157,6 +157,7 @@
         position: absolute;
         top: 9.25%;
         left: 30vmin;
+        z-index: 1;
     }
 /*    .head a::before {
         content: "";
