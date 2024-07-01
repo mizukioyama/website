@@ -192,9 +192,10 @@
     }*/
     .creator div {
         font-size: clamp(0.8em, calc(0.8em + 0.5vw), 0.9em);
-        /*position: absolute;
+        width: fit-content;
+        position: absolute;
+        top: 170%;
         right: -50%;
-        top: 170%;*/
         transform: rotate(90deg);
     }
     .creator .close {
