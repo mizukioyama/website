@@ -347,16 +347,13 @@
         left: 50%;
         bottom: 2.5rem;
         transform: translatex(-50%);
-        border-left: 0.2rem solid rgba(200, 200, 200, 0.14);
+        border-left: 0.2rem solid var(--inv);
     }
     .card__slide:nth-child(even) .date, .card__slide:nth-child(even) .number {
         color: #030303;
     }
     .card__slide:nth-child(even) .number {
         left: 97%;
-    }
-    .card__slide:nth-child(even) .number:before {
-        border-left: 0.2rem solid rgba(200, 200, 200, 0.14);
     }
     .card__slide .number {
         opacity: 0;
@@ -710,3 +707,5 @@
         font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
     }    
 }
+
+@media screen and (min-width: 1200px) and (max-width: 1550px) {}
