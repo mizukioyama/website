@@ -347,7 +347,7 @@
         left: 50%;
         bottom: 2.5rem;
         transform: translatex(-50%);
-        border-left: 0.2rem solid var(--inv);
+        border-left: 0.1rem solid var(--inv);
     }
     .card__slide:nth-child(even) .date, .card__slide:nth-child(even) .number {
         color: #030303;
@@ -388,16 +388,13 @@
         display: inline-block;
         width: 4rem;
         margin-right: 1.5rem;
-        border-bottom: 0.2rem solid rgba(200, 200, 200, 0.14);
+        border-bottom: 0.1rem solid var(--inv);
         transform: translatey(-0.3rem);
     }
     .card__slide .date {
         opacity: 0;
         transform: translatex(0rem) rotate(-90deg);
         transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
-    }
-    .card__slide:nth-child(even) .date:before {
-        border-bottom: 0.2rem solid rgba(200, 200, 200, 0.14);
     }
     .card__slide.active .date {
         opacity: 1;
@@ -430,7 +427,7 @@
         width: 100%;
         height: 0.1em;
         left: 0;
-        background: rgba(200, 200, 200, 0.55);
+        background: var(--inv);
         transition: background 350ms 800ms linear;
         animation: widenFromLeft 2200ms ease-out;
     }
