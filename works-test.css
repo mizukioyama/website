@@ -1,0 +1,245 @@
+    :root {
+      --transition-speed: 0.8s;
+      --bg-main: #37424a;
+      --bg-main-body: rgba(55, 66, 74, 0.5);
+      --bg-sub: #1e1e1e;
+      --bg-sub-body: rgba(30, 30, 30, 0.4);
+      --text: #E4EFF3;
+      --shadow: #03173D;
+      --text-fade: 0.6s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      width: 100%;
+      background: linear-gradient(120deg, var(--bg-main-body), var(--bg-sub-body));
+      color: var(--text);
+      overflow: hidden;
+      transition: background var(--transition-speed) ease-in-out;
+    }
+
+    header {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 12px;
+    }
+
+    header span {
+      margin-left: 10px;
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 60px 5%;
+      transition: all var(--transition-speed) ease-in-out;
+    }
+
+    .text-area {
+      flex: 1;
+      white-space: pre-line;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInText var(--text-fade) forwards;
+    }
+
+    .slider {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circle {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity var(--transition-speed), transform var(--transition-speed);
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .circle.fade-out img {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+
+    .view-more {
+      margin: 40px auto;
+      display: block;
+      color: var(--text);
+      background: linear-gradient(to right, #aa00ff, #00bcd4);
+      border: none;
+      border-radius: 30px;
+      padding: 15px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background var(--transition-speed);
+    }
+
+    .nav-buttons {
+      position: absolute;
+      right: 30px;
+      bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nav-buttons button {
+      color: var(--text);
+      background: linear-gradient(to right, #aa00ff, #00bcd4);
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      transition: background var(--transition-speed);
+    }
+
+    @import "https://unpkg.com/open-props/durations.min.css";
+
+    /* Define custom property --lines for animation */
+    @property --lines {
+      syntax: "<length>";
+      inherits: false;
+      initial-value: 0.00010px;
+    }
+
+    /* Keyframe animation to animate --lines */
+    @keyframes liner {
+      50% {
+        --lines: 0.00012px;
+      }
+    }
+
+    /* Utility: Default value for animation duration */
+    :root {
+      --hour: 10s;
+      /* You can adjust this */
+    }
+
+    /* Noise mask effect */
+    .noise {
+      animation: liner var(--hour) linear infinite;
+      mask: repeating-radial-gradient(circle at center,
+          #000,
+          var(--lines),
+          #000,
+          0,
+          #0000,
+          calc(var(--lines) * 2),
+          #0000 0);
+
+      display: grid;
+      place-content: center;
+
+      background-image: linear-gradient(to right, deeppink, blue);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Gradient override for light mode */
+    @media (prefers-color-scheme: light) {
+      .noise {
+        background-image: linear-gradient(to right, black, gray);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    /* Optional fade-in animation for text */
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #line {
+      width: 400px;
+      height: 1px;
+      position: absolute;
+      bottom: 0%;
+      white-space: nowrap;
+      padding-left: 1rem;
+      padding-top: 1rem;
+    }
+
+    .line-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background-color: #000;
+      width: 0;
+    }
+
+    .line-animate {
+      animation: border_anim 10s ease-in-out forwards;
+    }
+
+    #line::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 1px;
+      background-color: var(--text);
+      width: 0;
+      animation: border_anim 3s ease forwards;
+      /* forwards に変更、infinite 削除 */
+    }
+
+    @keyframes border_anim {
+      0% {
+        width: 0%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    .custom-shape-divider-bottom-1748419912 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .custom-shape-divider-bottom-1748419912 svg {
+      position: relative;
+      display: block;
+      width: calc(180% + 1.3px);
+      height: 430px;
+      transform: rotateY(180deg);
+    }
+
+    .custom-shape-divider-bottom-1748419912 .shape-fill {
+      fill: var(--text);
+      filter: drop-shadow(0 1px 2px var(--shadow));
+    }
