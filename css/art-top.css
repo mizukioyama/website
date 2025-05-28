@@ -289,7 +289,7 @@ p {
     /*== 内容 ==*/
     .card__slide .image {
         background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
-        background-size: 100% auto;
+        background-size: 85% auto;
         background-position: center;
         background-repeat: no-repeat;
         width: 30%;
@@ -297,7 +297,7 @@ p {
         position: absolute;
         top: 5%;
         left: 5%;
-        filter: grayscale(40%) drop-shadow(0px 2px 15px var(--inv));
+        filter: grayscale(40%) drop-shadow(0px 2px 10px var(--inv));
         transform: translateX(-8rem);
         opacity: 0;
         transition: all 1s ease;
