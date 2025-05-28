@@ -439,25 +439,22 @@
 
     .card__slide .date {
         opacity: 0;
-        transform: translatex(0rem) rotate(-90deg);
-        transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
     }
 
     .card__slide.active .date {
         opacity: 1;
         left: 0;
         transform: translatex(0rem) rotate(0deg);
-        transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
     }
 
+    .card__slide .date,
+    .card__slide.active .date,
     .card__slide:nth-child(even).active .date {
         transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
     }
 
-    .card__slide.exit .date {
-        transform: translatex(0rem) rotate(-90deg);
-    }
-
+    .card__slide .date,
+    .card__slide.exit .date,
     .card__slide:nth-child(even).exit .date {
         transform: translatex(0rem) rotate(-90deg);
     }
