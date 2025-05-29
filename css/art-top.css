@@ -35,7 +35,8 @@ body,
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 1rem;
+  color: var(--text);
 }
 
 h2 {
@@ -437,7 +438,7 @@ p {
         bottom: calc(5% - 0rem);
         width: 5%;
         height: 1%;
-        left: 0%;
+        left: 50%;
         transition: transform 500ms ease-out;
     }
 
@@ -502,26 +503,29 @@ p {
     }
 
     .top-page .content {
-        width: 50%;
+        width: 100%;
         height: 100%;
         position: absolute;
-        left: 45%;
+        left: 0%;
         top: 50%;
         transform: translatey(-50%);
         z-index: 0;
     }
 
     .content__slide {
+        display: grid;
+        justify-content: center;
+        align-content: center;
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 50%;
         height: 100%;
         pointer-events: none;
     }
 
     .content__slide:nth-child(even) {
-        left: -80%;
+        left: 5%;
     }
 
     .content__slide.active {
@@ -576,13 +580,11 @@ p {
         position: relative;
         /*font-size: clamp(4rem, calc(4rem + 0.5vw), 5rem);*/
         font-weight: 400;
-        text-align: right;
+        justify-content: flex-start;
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
         line-height: 0.85;
         letter-spacing: 0.1em;
-        margin: 20% 0 0;
-        padding: 0;
     }
 
     .content__slide:nth-child(even) .title {
@@ -598,15 +600,11 @@ p {
 
     /*== 内容 ==*/
     .desc {
-        position: absolute;
-        width: 80%;
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
-        right: 0;
-        margin: 10vmin 0 0;
+        margin: 1rem auto 0;
         line-height: 1.2;
         letter-spacing: 0.1em;
-        padding: 0;
     }
 
     .content__slide:nth-child(even) .title,
@@ -638,12 +636,12 @@ p {
     .button {
         display: inline-block;
         font-size: 1rem;
-        width: clamp(42%, 35%, 40%);
+        width: 100%;
         color: var(--inv);
         line-height: 1;
         letter-spacing: 0.15em;
         padding: 1.4rem 0.5em;
-        margin: 1.5%;
+        margin: 1rem auto 0;
         position: relative;
         cursor: pointer;
         text-transform: uppercase;
