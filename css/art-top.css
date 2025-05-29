@@ -441,7 +441,7 @@ p {
     }
 
     .card__slide.active .number {
-        opacity: 1;
+        opacity: 0.7;
         transform: translatey(0rem);
         transition: transform 800ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 600ms 1200ms linear;
     }
@@ -482,7 +482,7 @@ p {
     }
 
     .card__slide.active .date {
-        opacity: 1;
+        opacity: 0.7;
         left: 0;
         transform: translatex(0rem) rotate(0deg);
     }
