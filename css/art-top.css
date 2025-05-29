@@ -317,7 +317,7 @@ p {
     }
 
     .card__slide.active .image {
-        clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
+        clip-path: polygon(0% 0%, 90% 0%, 90% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%);
         opacity: 1;
         z-index: 1;
         transform: translateX(0rem);
