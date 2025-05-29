@@ -119,19 +119,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 //言語
-  document.addEventListener('DOMContentLoaded', () => {
-    // 保存された言語があればチェックする
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang === 'en') {
-      document.getElementById('langEn').checked = true;
-    } else {
-      document.getElementById('langJa').checked = true;
-    }
+  function switchLanguage(lang) {
+    document.querySelectorAll('[lang]').forEach(el => {
+      el.style.display = (el.lang === lang) ? '' : 'none';
+    });
+    localStorage.setItem('lang', lang);
+  }
 
-    // ラジオボタンの変更を監視して保存
-    document.querySelectorAll('#langChenge input[name="lang"]').forEach((radio) => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('lang') || 'ja';
+    document.getElementById(savedLang === 'en' ? 'langEn' : 'langJa').checked = true;
+    switchLanguage(savedLang);
+
+    document.querySelectorAll('#langChenge input[name="lang"]').forEach(radio => {
       radio.addEventListener('change', () => {
-        localStorage.setItem('lang', radio.id === 'langEn' ? 'en' : 'ja');
+        switchLanguage(radio.id === 'langEn' ? 'en' : 'ja');
       });
     });
   });

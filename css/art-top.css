@@ -151,35 +151,20 @@ p {
         color: #fff;
     }
 /* === 選択されていない言語は非表示にする ==== */
-#langJa:not(:checked) ~ * *:lang(ja),
-#langEn:not(:checked) ~ * *:lang(en) {
-    display: none;
-}
-
-/* === 選択されている言語のラベル色を変更 ==== */
 #langJa:checked ~ label[for="langJa"],
 #langEn:checked ~ label[for="langEn"] {
     color: #fff;
     margin: 0;
 }
-
 #langChenge label[for="langJa"] .ja,
 #langChenge label[for="langEn"] .en {
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
-
 #langJa:checked ~ label[for="langJa"] .ja,
 #langEn:checked ~ label[for="langEn"] .en {
     opacity: 1;
 }
-
-#langChenge label[for="langJa"],
-#langChenge label[for="langEn"] {
-    position: relative; /* 相対位置に設定 */
-    display: inline-block; /* インラインブロック要素に変更 */
-}
-
 
 
 
@@ -192,6 +177,7 @@ p {
   height: 100%;
   background-position: center;
   background-size: cover;
+  color: var(--text);
   filter: grayscale(40%);
   transition: opacity 850ms 1500ms linear;
   z-index: -1;
@@ -220,7 +206,7 @@ p {
   background-position: center;
   background-size: cover;
   filter: grayscale(50%);
-  box-shadow: 0 0px 10px 0px #000;
+  box-shadow: 0 0px 20px 3px #000;
   z-index: -1;
 }
 
