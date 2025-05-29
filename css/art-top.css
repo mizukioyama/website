@@ -212,10 +212,10 @@ p {
 
 /* 背景画像 */
 .back__slide:nth-child(1)::before {
-  background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url('/img/couryoku.jpg');
+  background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url("/img/230053-2.jpg");
 }
 .back__slide:nth-child(even)::before {
-  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url('/img/230053-2.jpg');
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("/img/couryoku.jpg");
 }
 
 /* フロント画像 */
