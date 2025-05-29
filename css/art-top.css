@@ -250,7 +250,6 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
   overflow: hidden;
   pointer-events:none;
   transition: box-shadow 800ms 750ms linear;
