@@ -286,8 +286,8 @@ p {
 
 /* ========== Card Slide ========== */
 .card {
-  width: 100vmin;
-  height: 60%;
+  width: 90vmin;
+  height: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -402,17 +402,17 @@ p {
         position: relative;
         display: block;
         width: 1px;
-        height: 5rem;
+        height: 3.5rem;
         top: 0;
         left: 50%;
         transform: translatex(-50%);
         border-left: 1px solid var(--inv);
     }
 
-    .card__slide:nth-child(even) .date,
+    /*.card__slide:nth-child(even) .date,
     .card__slide:nth-child(even) .number {
         color: #030303;
-    }
+    }*/
 
     .card__slide:nth-child(even) .number {
         left: 97%;
@@ -697,7 +697,7 @@ p {
     text-transform: uppercase;
     transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
     z-index: 10;
-    box-shadow: inset 0 1px 5px 0px rgba(20, 20, 20, 0.86);
+    box-shadow: inset inset 0 1px 5px 0px rgba(0, 0, 0);
     overflow: hidden;
 }
 .button:first-child {
