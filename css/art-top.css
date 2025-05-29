@@ -518,7 +518,7 @@ p {
         align-content: center;
         position: absolute;
         top: 0;
-        left: 0;
+        right: 5%;
         width: 50%;
         height: 100%;
         pointer-events: none;
@@ -583,12 +583,11 @@ p {
         justify-content: flex-start;
         color: #f9fafbb3;
         text-shadow: 1px 1px 10px rgba(15, 53, 43);
-        line-height: 0.85;
+        line-height: 1.2;
         letter-spacing: 0.1em;
     }
 
     .content__slide:nth-child(even) .title {
-        text-align: left;
         text-shadow: 0px 0px 7px rgba(200, 200, 200, 0.75);
     }
 
@@ -610,7 +609,6 @@ p {
     .content__slide:nth-child(even) .title,
     .content__slide:nth-child(even) .desc,
     .content__slide:nth-child(even) .button-wrap {
-        left: 0;
         color: var(--def);
         text-shadow: 1px 1px 1px rgba(200, 200, 200, 0.7);
     }
@@ -622,7 +620,7 @@ p {
         position: relative;
         justify-content: center;
         text-align: center;
-        margin-top: 45%;
+        margin-top: 1rem;
     }
 
     .content__slide:nth-child(even) .button-wrap {
@@ -647,11 +645,10 @@ p {
         text-transform: uppercase;
         transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
         z-index: 10;
-        /*background-color: rgb(0 28 18 / 76%);*/
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        /*border-right-color: rgba(255, 255, 255, 0.2);
+        /*border: 1px solid rgba(255, 255, 255, 0.24);
+        border-right-color: rgba(255, 255, 255, 0.2);
         border-bottom-color: rgba(255, 255, 255, 0.2);*/
-        backdrop-filter: blur(20px);
+        background: var(--bg);
         box-shadow: inset 0 1px 5px 0px rgba(20, 20, 20, 0.86);
     }
 
