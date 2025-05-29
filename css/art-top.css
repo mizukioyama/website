@@ -120,6 +120,11 @@ p {
 
 
     /*=========== lang */
+    #langChenge {
+        position: absolute;
+        top: 5%;
+        left: 1%;
+    }
     #langChenge .inner_label {
       display: grid;
       position: fixed;
