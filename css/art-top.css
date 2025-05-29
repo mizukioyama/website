@@ -115,10 +115,6 @@ p {
 
 
 /*=========== lang*/
-/*== 多言語==*/
-    #langChenge input[type="radio"] {
-        display: none;
-    }
     #langChenge .inner_label {
         display: grid;
         position: fixed;
@@ -306,7 +302,6 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   pointer-events:none;
   transition: box-shadow 800ms 750ms linear;
 }
