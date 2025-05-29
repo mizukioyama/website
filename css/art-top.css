@@ -124,10 +124,10 @@ p {
         position: absolute;
         top: 7%;
         left: 1%;
+        display: none;
     }
     #langChenge .inner_label {
-      display: grid;
-      position: fixed;
+      display: flex;
       align-items: center;
       justify-items: center;
       width: fit-content;
@@ -154,15 +154,16 @@ p {
                    inset 1px 0px 5px rgba(20, 20, 20, 0.3);
     }
 
-    #langChenge label:hover div {
-      color: #fff;
+    #langChenge label:hover,
+    #langChenge label:focus {
+      color: var(--bg);
     }
 
     /* === 選択されている言語ラベルのスタイル */
     #langJa:checked ~ .inner_label label[for="langJa"],
     #langEn:checked ~ .inner_label label[for="langEn"] {
-      color: #fff;
-      margin: 0;
+      color: var(--text);
+      margin-right: 1rem;
     }
 
     /* ラベルテキストの表示制御 */
