@@ -122,7 +122,7 @@ p {
     /*=========== lang */
     #langChenge {
         position: absolute;
-        top: 5%;
+        top: 7%;
         left: 1%;
     }
     #langChenge .inner_label {
@@ -131,8 +131,8 @@ p {
       align-items: center;
       justify-items: center;
       width: fit-content;
-      top: 0.25%;
-      right: -3.5%;
+      top: 10%;
+      left: 1%;
       margin: 0;
       transform: translate(0%, 0%);
       z-index: 9999;
@@ -143,8 +143,8 @@ p {
       pointer-events: all;
     }
 
-    #langChenge .ja,
-    #langChenge .en {
+    input#langJa,
+    input#langEn {
       font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
       font-family: 'Not serif-JP', sans-serif;
       color: var(--text);
