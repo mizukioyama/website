@@ -159,17 +159,17 @@ p {
       opacity: 0.7;
     }
 
-    /* === 選択されている言語ラベルのスタイル */
+    /* === 選択されている言語ラベルのスタイル 
     #langJa:checked ~ .inner_label label[for="langJa"],
     #langEn:checked ~ .inner_label label[for="langEn"] {
-      color: var(--text);
-      margin-right: 1rem;
-    }
+    }*/
 
     /* ラベルテキストの表示制御 */
     #langChenge label[for="langJa"] .ja,
     #langChenge label[for="langEn"] .en {
-      opacity: 0;
+        color: var(--text);
+      opacity: 0.5;
+      margin-right: 1rem;
       transition: opacity 0.5s ease-in-out;
     }
 
