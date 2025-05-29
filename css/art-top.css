@@ -401,7 +401,6 @@ p {
         letter-spacing: 0.02em;
         position: absolute;
         top: 0;
-        left: 3%;
         z-index: -1;
     }
 
@@ -422,8 +421,11 @@ p {
         color: #030303;
     }*/
 
+    .card__slide:first-child .number {
+        left: 3%;
+    }
     .card__slide:nth-child(even) .number {
-        left: 97%;
+        right: 3%;
     }
 
     .card__slide .number {
