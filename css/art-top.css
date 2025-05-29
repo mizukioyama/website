@@ -241,6 +241,7 @@ p {
   left: 50%;
   backdrop-filter: blur(10px);
   transform: translate3d(-50%, -50%, 0);
+  overflow: hidden;
 }
 
 .card__slide {
@@ -249,13 +250,10 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: -1;
   overflow: hidden;
+  pointer-events:none;
   transition: box-shadow 800ms 750ms linear;
-}
-
-.card__slide:nth-child(even) {
-  overflow: hidden;
 }
 
 .card__slide::after {
@@ -268,9 +266,9 @@ p {
   box-shadow: inset 0 0px 5px 0px #000;
   background-size: 100% auto;
   background-position: center;
-  border: 1px solid rgba(200, 200, 200, 0.14);
+  /*border: 1px solid rgba(200, 200, 200, 0.14);
   border-right-color: rgba(255, 255, 255, 0.2);
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);*/
   backdrop-filter: blur(10px);
 }
 
@@ -284,7 +282,6 @@ p {
   background-size: 100% auto;
   background-position: center;
   background-repeat: no-repeat;
-  backdrop-filter: blur(10px);
 }
 
 
@@ -345,20 +342,21 @@ p {
         color: #ccc;
         letter-spacing: 0.02em;
         position: absolute;
-        top: calc(0% + 14.8%);
+        top: 0;
         left: 3%;
-        z-index: 1;
+        z-index: -1;
     }
 
     .number:before {
         content: "";
-        position: absolute;
+        position: relative;
         display: block;
+        width: 1px;
         height: 5rem;
+        top: 0;
         left: 50%;
-        bottom: 2.5rem;
         transform: translatex(-50%);
-        border-left: 0.1rem solid var(--inv);
+        border-left: 1px solid var(--inv);
     }
 
     .card__slide:nth-child(even) .date,
@@ -512,7 +510,7 @@ p {
         left: 0%;
         top: 50%;
         transform: translatey(-50%);
-        z-index: 0;
+        backdrop-filter: blur(10px);
     }
 
     .content__slide {
