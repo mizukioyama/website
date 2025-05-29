@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //言語
   function switchLanguage(lang) {
     document.querySelectorAll('[lang]').forEach(el => {
-      el.style.display = (el.lang === lang) ? '' : 'none';
+      el.classList.toggle('active', el.getAttribute('lang') === lang);
     });
     localStorage.setItem('lang', lang);
   }

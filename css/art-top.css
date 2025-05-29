@@ -12,6 +12,34 @@ html, body {
   font-family: 'jost', sans-serif;
 }
 
+/* ========== Loading Screen ========== */
+#loading-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--def);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+}
+
+.typing00 {
+  font-size: clamp(1.8em, calc(1.8em + 0.5vw), 2.4em);
+  color: var(--inv);
+  letter-spacing: 1em;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.js_typing.endAnime {
+  opacity: 1;
+}
+
+
 /* ========== Root Variables ========== */
 :root {
   --def: rgba(0, 0, 0, 0.75);
@@ -38,6 +66,9 @@ body,
 h1 {
   font-size: 1rem;
   color: var(--text);
+  position: absolute;
+  top: 1%;
+  left: 1%;
 }
 
 h2 {
@@ -48,32 +79,6 @@ p {
   font-size: 1rem;
 }
 
-/* ========== Loading Screen ========== */
-#loading-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: var(--def);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  z-index: 100;
-}
-
-.typing00 {
-  font-size: clamp(1.8em, calc(1.8em + 0.5vw), 2.4em);
-  color: var(--inv);
-  letter-spacing: 1em;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.js_typing.endAnime {
-  opacity: 1;
-}
 
 /* ========== Custom Cursor ========== */
 #cursor,
@@ -113,53 +118,46 @@ p {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-
-/*=========== lang*/
-    #langChenge .inner_label {
-        display: grid;
-        position: fixed;
-        align-items: center;
-        justify-items: center;
-        width: fit-content;
-        top: 0.25%;
-        right: -3.5%;
-        margin: 0;
-        transform: translate(0%, 0%);
-        z-index: 9999;
-        pointer-events: none;
-    }
-    #langChenge label {
-        pointer-events: all;
-    }
-    #langChenge label div {
-        font-size: clamp(1.2rem, calc( 1.2rem + 0.5vw), 1.4rem);
-        font-family: Not serif-JP;
-        color: var(--inv);
-        mix-blend-mode: difference;
-        transition: all 0.9s ease-out;
-        text-shadow: 1px 0px 2px #414141, 1px 0px 2px #330000;
-        text-shadow: hsla(0, 0%, 10%, 0.2) 0px 0px 0px, inset hsla(0, 0%, 0%, 0.5) 0px 1px 3px 1px;
-        text-shadow: -1px -1px 2px rgba(20, 20, 20, 0.5), inset 1px 0px 5px rgba(20, 20, 20, 0.3);
-        /*animation: glitch_label 0.2s 0.2s steps(15) infinite;*/
-    }
-
-    #langChenge label:hover {
-        color: #fff;
-    }
-/* === 選択されていない言語は非表示にする ==== */
-#langJa:checked ~ label[for="langJa"],
-#langEn:checked ~ label[for="langEn"] {
-    color: #fff;
-    margin: 0;
+/*=========== lang ===========*/
+#langChenge .inner_label {
+  display: grid;
+  position: fixed;
+  align-items: center;
+  justify-items: center;
+  width: fit-content;
+  top: 0.25%;
+  right: 1.5%; /* -3.5% から調整 */
+  margin: 0;
+  transform: translate(0%, 0%);
+  z-index: 9999;
+  pointer-events: none;
 }
-#langChenge label[for="langJa"] .ja,
-#langChenge label[for="langEn"] .en {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+
+#langChenge label {
+  pointer-events: all;
 }
-#langJa:checked ~ label[for="langJa"] .ja,
-#langEn:checked ~ label[for="langEn"] .en {
-    opacity: 1;
+
+#langChenge label div {
+  font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+  font-family: "Not serif-JP", sans-serif;
+  color: var(--inv);
+  mix-blend-mode: difference;
+  transition: all 0.9s ease-out;
+  text-shadow:
+    -1px -1px 2px rgba(20, 20, 20, 0.5),
+    inset 1px 0px 5px rgba(20, 20, 20, 0.3);
+}
+
+#langChenge label:hover div {
+  color: #fff;
+}
+
+/* 表示切り替え用 JS 対応 */
+[lang] {
+  display: none;
+}
+[lang].active {
+  display: block;
 }
 
 
@@ -286,8 +284,8 @@ p {
 
 /* ========== Card Slide ========== */
 .card {
-  width: 90vmin;
-  height: 50%;
+  width: 93vmin;
+  height: 53%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -697,7 +695,7 @@ p {
     text-transform: uppercase;
     transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
     z-index: 10;
-    box-shadow: inset inset 0 1px 5px 0px rgba(0, 0, 0);
+    box-shadow: inset 0 1px 5px 0px rgba(0, 0, 0);
     overflow: hidden;
 }
 .button:first-child {
