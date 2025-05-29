@@ -115,3 +115,23 @@ document.addEventListener("DOMContentLoaded", function() {
             initializeMenu();
         });
 });
+
+
+
+//言語
+  document.addEventListener('DOMContentLoaded', () => {
+    // 保存された言語があればチェックする
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang === 'en') {
+      document.getElementById('langEn').checked = true;
+    } else {
+      document.getElementById('langJa').checked = true;
+    }
+
+    // ラジオボタンの変更を監視して保存
+    document.querySelectorAll('#langChenge input[name="lang"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        localStorage.setItem('lang', radio.id === 'langEn' ? 'en' : 'ja');
+      });
+    });
+  });

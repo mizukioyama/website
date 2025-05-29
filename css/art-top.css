@@ -22,7 +22,7 @@ html, body {
 
 .noise {
     display: flex;
-    background-image: linear-gradient(to right, deeppink, blue);
+    background-image: linear-gradient(to right, var(--bg), blue);
 }
 
 /* ========== Common ========== */
@@ -112,6 +112,76 @@ p {
   height: 50px !important;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
+
+
+/*=========== lang*/
+/*== 多言語==*/
+    #langChenge input[type="radio"] {
+        display: none;
+    }
+    #langChenge .inner_label {
+        display: grid;
+        position: fixed;
+        align-items: center;
+        justify-items: center;
+        width: fit-content;
+        top: 0.25%;
+        right: -3.5%;
+        margin: 0;
+        transform: translate(0%, 0%);
+        z-index: 9999;
+        pointer-events: none;
+    }
+    #langChenge label {
+        pointer-events: all;
+    }
+    #langChenge label div {
+        font-size: clamp(1.2rem, calc( 1.2rem + 0.5vw), 1.4rem);
+        font-family: Not serif-JP;
+        color: var(--inv);
+        mix-blend-mode: difference;
+        transition: all 0.9s ease-out;
+        text-shadow: 1px 0px 2px #414141, 1px 0px 2px #330000;
+        text-shadow: hsla(0, 0%, 10%, 0.2) 0px 0px 0px, inset hsla(0, 0%, 0%, 0.5) 0px 1px 3px 1px;
+        text-shadow: -1px -1px 2px rgba(20, 20, 20, 0.5), inset 1px 0px 5px rgba(20, 20, 20, 0.3);
+        /*animation: glitch_label 0.2s 0.2s steps(15) infinite;*/
+    }
+
+    #langChenge label:hover {
+        color: #fff;
+    }
+/* === 選択されていない言語は非表示にする ==== */
+#langJa:not(:checked) ~ * *:lang(ja),
+#langEn:not(:checked) ~ * *:lang(en) {
+    display: none;
+}
+
+/* === 選択されている言語のラベル色を変更 ==== */
+#langJa:checked ~ label[for="langJa"],
+#langEn:checked ~ label[for="langEn"] {
+    color: #fff;
+    margin: 0;
+}
+
+#langChenge label[for="langJa"] .ja,
+#langChenge label[for="langEn"] .en {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#langJa:checked ~ label[for="langJa"] .ja,
+#langEn:checked ~ label[for="langEn"] .en {
+    opacity: 1;
+}
+
+#langChenge label[for="langJa"],
+#langChenge label[for="langEn"] {
+    position: relative; /* 相対位置に設定 */
+    display: inline-block; /* インラインブロック要素に変更 */
+}
+
+
+
 
 /* ========== Background Slides ========== */
 .back__slide {
@@ -315,7 +385,7 @@ p {
     }
 
     .card__slide.active .image {
-        clip-path: polygon(0% 0%, 90% 0%, 90% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%);
+        /*clip-path: polygon(0% 0%, 90% 0%, 90% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%);*/
         opacity: 1;
         z-index: 1;
         transform: translateX(0rem);
