@@ -212,10 +212,10 @@ p {
 
 /* 背景画像 */
 .back__slide:nth-child(1)::before {
-  background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
+  background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url('/img/couryoku.jpg');
 }
 .back__slide:nth-child(even)::before {
-  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url('/img/230053-2.jpg');
 }
 
 /* フロント画像 */
@@ -342,7 +342,7 @@ p {
 
     /*== 内容 ==*/
     .card__slide .image {
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg);
+        background-image: url("/img/230053-2.jpg");
         background-size: 85% auto;
         background-position: center;
         background-repeat: no-repeat;
@@ -360,7 +360,7 @@ p {
 
     .card__slide:nth-child(even) .image {
         left: 65%;
-        background-image: url(https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/white00.jpg);
+        background-image: url('/img/couryoku.jpg');
         pointer-events: none;
         transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
     }
@@ -560,7 +560,7 @@ p {
         left: 0%;
         top: 50%;
         transform: translatey(-50%);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(5px);
     }
 
     .content__slide {
