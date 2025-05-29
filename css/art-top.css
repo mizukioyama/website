@@ -138,10 +138,11 @@ p {
       pointer-events: all;
     }
 
-    #langChenge label div {
+    #langChenge .ja,
+    #langChenge .en {
       font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
       font-family: 'Not serif-JP', sans-serif;
-      color: var(--inv);
+      color: var(--text);
       mix-blend-mode: difference;
       transition: all 0.9s ease-out;
       text-shadow: -1px -1px 2px rgba(20, 20, 20, 0.5),
