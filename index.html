@@ -77,9 +77,8 @@
         <div class="back">
             <div class="back__slide active">
                 <div class="progress"></div>
-                <div class="creator">Digital Exhibition
-                    <div class="close">Close</div>
-                </div>
+                <div class="creator noise">Digital Exhibition</div>
+                <div class="creator noise">Close</div>
                 <div class="time">
                     France Paris Time: <span id="paris-time" class="time-display"></span>
                 </div>
@@ -146,7 +145,7 @@
                             exhibition
                         </a>
 
-                        <a href="https://mizukioyama.github.io/portfolio.github.io/gallery_top.html" class="button">
+                        <a href="" class="button view-policy-button" target="_blank">
                             view
                         </a>
                     </div>
@@ -176,7 +175,7 @@
                             works
                         </a>
 
-                        <a href="#" class="button view-policy-button">
+                        <a href="#" class="button view-policy-button" style="pointer-events: none;">
                             view
                         </a>
                     </div>
@@ -186,7 +185,7 @@
             <div class="noise" style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.15); top: 0; z-index: -1;"></div>
         </div>
     </div>
-    <div class="noise" style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.15); top: 0; z-index: -1;"></div>
+    <div class="noise" style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;"></div>
 </main>
 
 <div class="policy-overlay" id="policyOverlay">
@@ -283,9 +282,13 @@
         </div>
     </div>
     <div class="fixed-buttons" id="confirmButtons">
-        <p>SitePolicyを確認しましたか？</p>
-        <button id="yesButton">Yes</button>
-        <button id="noButton">No</button>
+        <p>
+            作品ページへ移動します。
+            SitePolicyを確認しましたか？
+        </p>
+        <a href="https://mizukioyama.github.io/portfolio.github.io/gallery_top.html" target="_blank">
+            view
+        </a>
     </div>
 </div>
 
