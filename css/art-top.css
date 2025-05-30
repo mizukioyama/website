@@ -530,6 +530,7 @@ input#langEn {
 .card__slide:nth-child(even) .date:before,
 .card__slide:nth-child(even) .date {
   color: var(--text);
+  border-color: var(--text);
 }
 
 .card__slide .date,
