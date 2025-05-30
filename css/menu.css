@@ -235,3 +235,9 @@ header .noise {
     margin-top: 3em;
     border-bottom: 1px solid;
 }
+
+nav hr {
+    width: 50%;
+    height: 1px;
+    margin: 5% auto;
+}
