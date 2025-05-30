@@ -193,7 +193,22 @@
         <div class="noise"
             style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
         </div>
+        <input type="checkbox" id="modal-toggle" hidden>
+    
+    <label for="modal-toggle" class="open-button">Open Modal</label>
     </main>
+
+
+<div class="modal">
+  <label for="modal-toggle" class="backdrop"></label>
+  <div class="dialog">
+    <h1 id="my-dialog-heading">Heading</h1>
+    <p>Content</p>
+    <label for="modal-toggle" class="close-button">Close</label>
+  </div>
+</div>
+
+
 
     <div class="policy-overlay" id="policyOverlay">
         <div class="policy-content" id="policyContent">
@@ -301,6 +316,62 @@
     </div>
 
     <style>
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#modal-toggle:checked ~ .modal {
+  display: flex;
+}
+
+.modal .backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease;
+}
+
+.modal .dialog {
+  position: relative;
+  background: white;
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+  z-index: 1;
+}
+
+.open-button,
+.close-button {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
         .policy-overlay {
             display: none;
             position: fixed;
