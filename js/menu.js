@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
             $(this).addClass('animation2-style');
         }
     });
-});
 
 // メニューの初期化関数
 function initializeMenu() {
