@@ -119,10 +119,9 @@ nav {
 /*== OPEN ==*/
 .open nav {
     right: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.62), rgba(10, 10, 10, 0.68)), url("https://pdmizuki.github.io/portfolio.github.io/img/couryoku.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    backdrop-filter: blur(20px);
+    background-color: rgba(40, 40, 40);
+    mix-blend-mode: difference;
 }
 
 .open .toggle_btn {
@@ -191,8 +190,8 @@ nav {
     right: 50%;
     width: 50%;
     height: 100%;
-    background: rgba(10, 10, 10, 0.2);
-    backdrop-filter: blur(20px);
+    background: rgba(10, 10, 10, 0.65);
+    backdrop-filter: blur(5px);
     cursor: pointer;
     transition: all 1s ease;
     animation: menu-left 1s ease;
@@ -227,6 +226,7 @@ header .noise {
     left: 5%;
     height: 250px;
     overflow: hidden scroll;
+    border-bottom: 1px solid;
 }
 
 .open #mask li {
