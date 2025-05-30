@@ -37,7 +37,7 @@ nav {
 }
 
 #navArea .inner li a {
-    font-family: "poiret-one", sans-serif;
+    font-family: "jost", sans-serif;
     display: block;
     position: relative;
     font-size: clamp(1.8rem, calc(1.8rem + 0.5vw), 2rem);
@@ -188,8 +188,8 @@ nav {
     display: block;
     position: fixed;
     top: 0;
-    right: 0;
-    width: 100%;
+    right: 50%;
+    width: 50%;
     height: 100%;
     background: rgba(10, 10, 10, 0.2);
     backdrop-filter: blur(20px);
@@ -209,12 +209,7 @@ nav {
     }
 }
 
-.open #mask ul {
-    width: 100vmin;
-    margin: calc(35% - 5vw) 0 0 calc(15% - 5vw);
-}
-
-.open #mask ul p {
+#mask p {
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
     position: relative;
 }
@@ -224,8 +219,16 @@ header .noise {
     background-image: linear-gradient(to right, var(--text), var(--bg));
 }
 
+.open #mask ul {
+    position: absolute;
+    bottom: 15%;
+    left: 15%;
+    height: 250px;
+    overflow-x: scroll;
+}
+
 .open #mask li {
-    width: calc(60% - 10vw);
+    width: 100%;
     color: #999;
     margin-top: 3em;
     left: 0;
