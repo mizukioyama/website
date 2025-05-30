@@ -2,19 +2,27 @@
 *,
 *::before,
 *::after,
+html,
+body,
+main,
 h1,
 h2,
 h3,
 p,
-a {
+a,
+ul,
+li {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+li {
+  list-style: none;
+}
+
 html,
 body {
-  height: 100%;
   font-family: 'jost', sans-serif;
 }
 
