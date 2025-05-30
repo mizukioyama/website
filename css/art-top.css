@@ -267,14 +267,14 @@ p {
   z-index: 1;
 }
 
-.creator {
+.creator:first-child {
   position: absolute;
   top: 10%;
   right: 30vmin;
   text-align: right;
 }
 
-.creator div {
+.creator:nth-last-child {
   font-size: clamp(0.8em, calc(0.8em + 0.5vw), 0.9em);
   width: fit-content;
   position: absolute;
