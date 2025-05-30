@@ -184,13 +184,17 @@ nav {
     width: 100vmin;
     margin: calc(35% - 5vw) 0 0 calc(15% - 5vw);
 }
+
 .open #mask ul p {
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
-    color: #f5f5f5;
     position: relative;
-    left: 1vmin;
-    margin: calc(10% - 5vw) 0 0 0;
 }
+
+header .noise {
+    display: block;
+    background-image: linear-gradient(to right, var(--text), var(--bg));
+}
+
 .open #mask li {
     width: calc(60% - 10vw);
     color: #999;
