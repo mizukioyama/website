@@ -10,6 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
   stalker.id = "stalker";
   document.body.appendChild(stalker);
 
+  // ホバー対象にカーソルクラス追加
+  document.querySelectorAll("a, .open .toggle_btn span, #navArea .inner li a, header .head a, #langChenge label").forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      cursor.classList.add("cursor--hover");
+      stalker.classList.add("stalker--hover");
+    });
+    link.addEventListener("mouseleave", () => {
+      cursor.classList.remove("cursor--hover");
+      stalker.classList.remove("stalker--hover");
+    });
+  });
+
   // カーソル位置追従
   document.addEventListener("mousemove", e => {
     const { clientX: x, clientY: y } = e;
@@ -29,22 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     img.setAttribute('src', img.getAttribute('data-src'));
     img.onload = () => img.removeAttribute('data-src');
   });
-
-function initializeCursorHoverEvents() {
-  const cursor = document.getElementById("cursor");
-  const stalker = document.getElementById("stalker");
-
-  document.querySelectorAll("a, .toggle_btn, nav a, .head a, #langChenge label").forEach(link => {
-    link.addEventListener("mouseenter", () => {
-      cursor.classList.add("cursor--hover");
-      stalker.classList.add("stalker--hover");
-    });
-    link.addEventListener("mouseleave", () => {
-      cursor.classList.remove("cursor--hover");
-      stalker.classList.remove("stalker--hover");
-    });
-  });
-}
 
   // 言語切り替えの初期化
   initializeLanguageSwitcher();
