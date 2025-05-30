@@ -194,22 +194,23 @@
             style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
         </div>
     </main>
-    
-    <input type="checkbox" id="modal-toggle" hidden>
 
-<label for="modal-toggle" class="open-button">Open Modal</label>
+  <!-- モーダルを開くボタン -->
+  <label for="modal-toggle" class="modal-open-label">モーダルを開く</label>
 
-<div class="modal">
-  <label for="modal-toggle" class="backdrop"></label>
-  <div class="dialog">
-    <h1 id="my-dialog-heading">Heading</h1>
-    <p>Content</p>
-    <label for="modal-toggle" class="close-button">Close</label>
+  <!-- チェックボックスで状態制御 -->
+  <input type="checkbox" id="modal-toggle">
+
+  <!-- モーダルオーバーレイ -->
+  <div class="modal-overlay"></div>
+
+  <!-- モーダル本体 -->
+  <div class="modal-box">
+    <h2>モーダルウィンドウ</h2>
+    <p>これはHTMLとCSSだけで動作するモーダルです。</p>
+    <label for="modal-toggle" class="modal-close-label">閉じる</label>
   </div>
-</div>
-
-
-
+    
     <div class="policy-overlay" id="policyOverlay">
         <div class="policy-content" id="policyContent">
             <h2>Site Policy</h2>
@@ -316,62 +317,74 @@
     </div>
 
     <style>
-.modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
+    /* モーダルトリガーのラベルボタン */
+    .modal-open-label {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-#modal-toggle:checked ~ .modal {
-  display: flex;
-}
+    /* チェックボックスは非表示 */
+    #modal-toggle {
+      display: none;
+    }
 
-.modal .backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  transition: opacity 0.3s ease;
-}
+    /* オーバーレイ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
 
-.modal .dialog {
-  position: relative;
-  background: white;
-  padding: 2em;
-  border-radius: 8px;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.3s ease;
-  z-index: 1;
-}
+    /* モーダル本体 */
+    .modal-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 20;
+    }
 
-.open-button,
-.close-button {
-  cursor: pointer;
-  display: inline-block;
-  padding: 0.5em 1em;
-  margin-top: 1em;
-  background-color: #333;
-  color: #fff;
-  border-radius: 4px;
-  text-align: center;
-}
+    /* 開いた状態 */
+    #modal-toggle:checked ~ .modal-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    #modal-toggle:checked ~ .modal-box {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%);
+    }
 
-
-
+    /* 閉じるボタン */
+    .modal-close-label {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 16px;
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
         .policy-overlay {
             display: none;
             position: fixed;
