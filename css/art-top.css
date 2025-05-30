@@ -267,7 +267,7 @@ p {
   z-index: 1;
 }
 
-.creator:first-child {
+.creator:nth-child(1) {
   position: absolute;
   top: 10%;
   right: 30vmin;
@@ -283,7 +283,7 @@ p {
   transform: rotate(90deg);
 }
 
-.creator .close {
+.creator:nth-last-child {
   right: -10%;
 }
 
