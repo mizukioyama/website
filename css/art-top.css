@@ -268,6 +268,7 @@ p {
 }
 
 .creator {
+  display: block;
   position: absolute;
   top: 10%;
   right: 30vmin;
@@ -275,11 +276,12 @@ p {
 }
 
 .creator--cecond {
+  display: block;
   font-size: clamp(0.8em, calc(0.8em + 0.5vw), 0.9em);
   width: fit-content;
   position: absolute;
-  top: 170%;
-  right: -20%;
+  top: 0%;
+  right: 12%;
   transform: rotate(90deg);
 }
 

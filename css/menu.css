@@ -226,8 +226,7 @@ header .noise {
     bottom: 15%;
     left: 5%;
     height: 250px;
-    overflow: hidden;
-    overflow-x: scroll;
+    overflow: hidden scroll;
 }
 
 .open #mask li {
