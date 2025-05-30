@@ -1,7 +1,7 @@
-// menu.jsの内容
 console.log('Menu script loaded');
 
 document.addEventListener("DOMContentLoaded", function() {
+    // カスタムカーソル用の要素を作成
     var cursor = document.createElement("div");
     cursor.id = "cursor";
     document.body.appendChild(cursor);
@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
     stalker.id = "stalker";
     document.body.appendChild(stalker);
 
-    document.querySelectorAll("a,.toggle_btn,nav a,.head a,#langChenge label").forEach(function(link) {
+    // 対象リンクに hover イベントを付加
+    document.querySelectorAll("a, .toggle_btn, nav a, .head a, #langChenge label").forEach(function(link) {
         link.addEventListener("mouseenter", function() {
             cursor.classList.add("cursor--hover");
             stalker.classList.add("stalker--hover");
@@ -21,24 +22,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    // カーソル追従処理
+    let mouseX = 0, mouseY = 0;
     document.addEventListener("mousemove", function(e) {
-        var x = e.clientX;
-        var y = e.clientY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
         cursor.style.opacity = "1";
-        cursor.style.top = y + "px";
-        cursor.style.left = x + "px";
-
-        setTimeout(function() {
-            stalker.style.opacity = "1";
-            stalker.style.top = y + "px";
-            stalker.style.left = x + "px";
-        }, 150);
+        cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
     });
 
-    // メニューの初期化
-    initializeMenu();
+    // ストーカーを追従させる（遅延）
+    function animateStalker() {
+        stalker.style.opacity = "1";
+        stalker.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        requestAnimationFrame(animateStalker);
+    }
+    requestAnimationFrame(animateStalker);
 
-    // 画像の遅延読み込み
+    // 画像の遅延読み込み処理
     var lazyImages = document.querySelectorAll('img[data-src]');
     lazyImages.forEach(function(img) {
         img.setAttribute('src', img.getAttribute('data-src'));
@@ -46,6 +47,14 @@ document.addEventListener("DOMContentLoaded", function() {
             img.removeAttribute('data-src');
         };
     });
+
+    // initializeMenu が未定義の場合の処理
+    if (typeof initializeMenu === "function") {
+        initializeMenu();
+    } else {
+        console.warn("initializeMenu() が定義されていません。");
+    }
+});
 
     // タイピングアニメーション
     $(".typing").each(function() {
