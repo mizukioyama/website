@@ -236,7 +236,7 @@ header .noise {
     border-bottom: 1px solid;
 }
 
-nav hr {
+#mask hr {
     width: 50%;
     height: 1px;
     margin: 5% auto;
