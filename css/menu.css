@@ -224,6 +224,7 @@ header .noise {
     position: absolute;
     bottom: 15%;
     left: 5%;
+    width: 90%;
     height: 250px;
     overflow: hidden scroll;
     border-bottom: 1px solid;
