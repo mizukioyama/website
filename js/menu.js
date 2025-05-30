@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     stalker.id = "stalker";
     document.body.appendChild(stalker);
 
-    document.querySelectorAll("a").forEach(function(link) {
+    document.querySelectorAll("a,.toggle_btn,nav a,.head a,#langChenge label").forEach(function(link) {
         link.addEventListener("mouseenter", function() {
             cursor.classList.add("cursor--hover");
             stalker.classList.add("stalker--hover");
