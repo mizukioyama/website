@@ -231,13 +231,15 @@ header .noise {
 }
 
 .open #mask li {
-    color: var(--inv);
+    color: #ddd;
     margin-top: 3em;
     border-bottom: 1px solid;
+    letter-spacing: 0.07rem;
 }
 
 #mask hr {
     width: 50%;
     height: 1px;
-    margin: 5% auto;
+    margin: 10% auto;
+    opacity: 0.3;
 }
