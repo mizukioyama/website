@@ -211,7 +211,9 @@ nav {
 
 #mask p {
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
-    position: relative;
+    position: absolute;
+    bottom: 40%;
+    left: 15%;
 }
 
 header .noise {
@@ -224,14 +226,12 @@ header .noise {
     bottom: 15%;
     left: 15%;
     height: 250px;
+    overflow: hidden;
     overflow-x: scroll;
 }
 
 .open #mask li {
-    width: 100%;
-    color: #999;
+    color: var(--inv);
     margin-top: 3em;
-    left: 0;
-    padding: 0 1em 0 .5em;
     border-bottom: 1px solid;
 }

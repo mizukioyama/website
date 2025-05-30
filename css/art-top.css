@@ -267,7 +267,7 @@ p {
   z-index: 1000;
 }
 
-.creator:nth-last-of-type {
+.creator {
   position: absolute;
   top: 10%;
   right: 30vmin;
