@@ -213,7 +213,7 @@ nav {
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
     position: absolute;
     bottom: 40%;
-    left: 15%;
+    left: 5%;
 }
 
 header .noise {
@@ -224,7 +224,7 @@ header .noise {
 .open #mask ul {
     position: absolute;
     bottom: 15%;
-    left: 15%;
+    left: 5%;
     height: 250px;
     overflow: hidden;
     overflow-x: scroll;

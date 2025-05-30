@@ -274,7 +274,7 @@ p {
   text-align: right;
 }
 
-.creator:nth-last-child {
+.creator--cecond {
   font-size: clamp(0.8em, calc(0.8em + 0.5vw), 0.9em);
   width: fit-content;
   position: absolute;
@@ -283,7 +283,7 @@ p {
   transform: rotate(90deg);
 }
 
-.creator:nth-last-child {
+.creator--cecond {
   right: -10%;
 }
 
