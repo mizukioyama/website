@@ -267,7 +267,7 @@ p {
   z-index: 1;
 }
 
-.back__slide .active .creator:nth-child(1) {
+.back__slide .active .creator:nth-last-of-type {
   position: absolute;
   top: 10%;
   right: 30vmin;
