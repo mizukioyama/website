@@ -527,7 +527,7 @@ input#langEn {
   transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
 }
 
-.card__slide:nth-child(even).exit .date {
+.card__slide:nth-child(even) .date {
   color: var(--text);
 }
 
