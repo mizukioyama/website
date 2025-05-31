@@ -6,6 +6,7 @@ jQuery(function ($) {
         $this.addClass("endAnime");
 
         const text = $this.text().trim();
+        console.log("Typing text:", text);
         if (text.length === 0) return;
 
         const shuffle = new ShuffleText(this);
