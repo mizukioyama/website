@@ -2,7 +2,7 @@ class ShuffleText {
     constructor(element) {
         this.element = element;
         this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        this.originalText = element.textContent; // innerHTML から textContent に変更
+        this.originalText = element.textContent;
     }
 
     setText(text) {
@@ -22,43 +22,47 @@ class ShuffleText {
     }
 
     start() {
+        let count = 0;
+        const maxCount = 20;
+        const interval = 100;
         const shuffleInterval = setInterval(() => {
             this.shuffle();
-        }, 100);
-
-        setTimeout(() => {
-            clearInterval(shuffleInterval);
-            this.element.textContent = this.originalText;
-        }, 2000);
+            count++;
+            if (count >= maxCount) {
+                clearInterval(shuffleInterval);
+                this.element.textContent = this.originalText;
+            }
+        }, interval);
     }
 }
 
 jQuery(document).ready(function($) {
-    // ページ読み込み完了後にローディング背景を非表示にし、アニメーション実行
-    $(window).on('load', function() {
-        setTimeout(function() {
-            $('#loading-bg').fadeOut(300, function () {
-                TypingAnimation(); // ローディング後に強制実行
-            });
-        }, 1500);
-    });
 
-    // タイピングアニメーション処理
     function TypingAnimation() {
-        $(".js_typing").each(function() {
-            if (!$(this).hasClass("endAnime")) {
-                $(this).addClass("endAnime");
-                var text = $(this).text();
-                $(this).text('');
-                var shuffleText = new ShuffleText(this);
+        $(".js_typing").each(function () {
+            const $el = $(this);
+            if (!$el.hasClass("endAnime")) {
+                const text = $el.text();
+                $el.text('');
+                $el.addClass("endAnime"); // opacity: 1 にする
+                $el.css("opacity", 1);     // 念のため明示的に設定
+
+                const shuffleText = new ShuffleText(this);
                 shuffleText.setText(text);
                 shuffleText.start();
             }
         });
     }
 
-    // スクロール時も発火（ページ途中からアクセスする可能性あり）
-    $(window).scroll(function() {
+    $(window).on('load', function () {
+        setTimeout(function () {
+            $('#loading-bg').fadeOut(300, function () {
+                TypingAnimation();
+            });
+        }, 1500);
+    });
+
+    $(window).scroll(function () {
         TypingAnimation();
     });
 });
