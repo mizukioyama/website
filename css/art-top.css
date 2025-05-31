@@ -41,7 +41,7 @@ body {
   z-index: 1000;
 }
 
-.typing00 {
+.js_typing {
   font-size: clamp(1.8em, calc(1.8em + 0.5vw), 2.4em);
   color: var(--inv);
   letter-spacing: 1em;
