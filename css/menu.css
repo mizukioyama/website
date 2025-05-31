@@ -236,10 +236,3 @@ header .noise {
     border-bottom: 1px solid;
     letter-spacing: 0.07rem;
 }
-
-#mask hr {
-    width: 50%;
-    height: 1px;
-    margin: 10% auto;
-    opacity: 0.3;
-}
