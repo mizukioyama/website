@@ -29,25 +29,22 @@ body {
 /* ========== Loading Screen ========== */
 #loading-bg {
   position: fixed;
+  width: 100%;
+  height: 100%;
+  background: white;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
-  background: #222; /* fallback */
+  z-index: 9999;
   display: flex;
-  justify-content: center;
   align-items: center;
-  backdrop-filter: blur(20px);
-  z-index: 1000;
+  justify-content: center;
 }
 
-.js_typing {
-  font-size: clamp(1.8em, calc(1.8em + 0.5vw), 2.4em);
-  color: #fff;
-  letter-spacing: 0.15em;
-  white-space: nowrap;
+.loading-text {
+  font-size: 24px;
+  font-family: sans-serif;
+  color: #333;
 }
-
 
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {

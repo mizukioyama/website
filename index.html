@@ -13,10 +13,11 @@
 
   <!-- JavaScriptファイル -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-  integrity="sha256-pvPw/3u7xvC4FvbbG1NARd7V4VEWilQo3qyiYj4Icqo="
-  crossorigin="anonymous"></script>
+    integrity="sha256-pvPw/3u7xvC4FvbbG1NARd7V4VEWilQo3qyiYj4Icqo="
+    crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js" integrity="sha384-mock-hash" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js"
+    crossorigin="anonymous"></script>
   <script src="js/time.js"></script>
   <script src="js/cursor.js"></script>
   <script src="js/loading.js"></script>
@@ -34,31 +35,28 @@
   <!-- セキュリティ -->
   <meta name="referrer" content="strict-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000">
 
-  <!-- Content Security Policy（許可が必要な外部ソースに注意） -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
-  style-src 'self' 'unsafe-inline';
-  font-src 'self';
-  img-src 'self' data:;
-  connect-src 'self';
-  object-src 'none';
-">
-
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
+    style-src 'self' 'unsafe-inline' https://use.typekit.net;
+    font-src 'self' https://use.typekit.net;
+    img-src 'self' data:;
+    connect-src 'self';
+    object-src 'none';
+  ">
 </head>
+
 
 <!--作品保護-->
 <body oncontextmenu="return false;">
     <header>
-  <div id="loading-bg">
-    <div class="loading">
-      <span class="js_typing">Nature inspire.</span>
-    </div>
-  </div>
+<div id="loading-bg">
+  <div class="loading-text js_typing">Loading...</div>
+</div>
+
         <div id="header-container"></div>
     </header>
 
