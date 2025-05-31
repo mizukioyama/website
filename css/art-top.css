@@ -56,18 +56,18 @@ body {
 
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
-    width: 0.2rem;
-    background: rgba(40, 0, 0, 0.4);
+  width: 0.2rem;
+  background: rgba(40, 0, 0, 0.4);
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: 0 0 0px rgba(255, 255, 255, 0) inset;
-    background: #fff;
+  box-shadow: 0 0 0px rgba(255, 255, 255, 0) inset;
+  background: #fff;
 }
 
 ::-webkit-scrollbar-thumb {
-    box-shadow: 0 0 2px 1px rgba(31, 30, 30, 0.76) inset;
-    background: rgba(20, 20, 20);
+  box-shadow: 0 0 2px 1px rgba(31, 30, 30, 0.76) inset;
+  background: rgba(20, 20, 20);
 }
 
 
@@ -107,21 +107,23 @@ h2 {
 
 p {
   font-size: 1rem;
+  font-weight: 300;
   letter-spacing: 0.1em;
 }
 
 hr {
-    width: 50%;
-    height: 1px;
-    margin: 10% auto;
-    opacity: 0.3;
+  width: 50%;
+  height: 1px;
+  margin: 10% auto;
+  opacity: 0.3;
 }
 
 /* ========== Custom Cursor ========== */
 /* カーソルを非表示にする */
 * {
-    cursor: none !important;
+  cursor: none !important;
 }
+
 #cursor,
 #stalker {
   position: fixed;
