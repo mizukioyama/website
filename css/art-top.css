@@ -511,6 +511,7 @@ input#langEn {
   letter-spacing: 0.15em;
   transform-origin: 0 50%;
   transform: rotate(0deg);
+  font-weight: 400;
   z-index: -1;
 }
 
