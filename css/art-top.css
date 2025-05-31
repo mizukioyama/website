@@ -107,6 +107,7 @@ h2 {
 
 p {
   font-size: 1rem;
+  letter-spacing: 0.1em;
 }
 
 
@@ -720,7 +721,6 @@ input#langEn {
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
   margin: 1rem auto 0;
   line-height: 1.8;
-  letter-spacing: 0.1em;
 }
 
 .content__slide:nth-child(even) .title {
