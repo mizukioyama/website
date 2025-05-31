@@ -36,16 +36,16 @@
   <meta http-equiv="Strict-Transport-Security" content="max-age=31536000">
 
   <!-- Content Security Policy（許可が必要な外部ソースに注意） -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
-    style-src 'self' 'unsafe-inline' https://use.typekit.net;
-    font-src https://use.typekit.net;
-    img-src 'self' data:;
-    connect-src 'self';
-    object-src 'none';
-    frame-ancestors 'self';
-  ">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://use.typekit.net;
+  font-src https://use.typekit.net;
+  img-src 'self' data:;
+  connect-src 'self';
+  object-src 'none';
+  frame-ancestors 'self';
+">
 
 </head>
 
