@@ -755,6 +755,7 @@ input#langEn {
   display: inline-block;
   font-size: 1rem;
   width: 100%;
+  text-align: center;
   color: var(--inv);
   line-height: 1;
   letter-spacing: 0.15em;
