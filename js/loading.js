@@ -5,27 +5,27 @@ jQuery(function ($) {
       if (!$this.hasClass("endAnime")) {
         $this.addClass("endAnime");
 
-        const text = $this.text().trim(); // ← 本当に中身があるかチェック
+        const text = $this.text().trim();
         console.log("Typing text:", text);
+        if (text.length === 0) return;
 
-        if (text.length === 0) return; // 中身がないなら処理中止
-
-        const shuffle = new ShuffleText(this); // ← this はネイティブ DOM で OK
+        const shuffle = new ShuffleText(this);
         shuffle.start();
       }
     });
   }
 
-  // ローディング後に発動
   $(window).on('load', function () {
     setTimeout(function () {
       $('#loading-bg').fadeOut(500, function () {
-        TypingAnimation();
+        // delay for safety
+        setTimeout(function () {
+          TypingAnimation();
+        }, 100);
       });
-    }, 1000); // ローディング表示の長さ
+    }, 1000);
   });
 
-  // スクロールしても一度だけ発動
   $(window).on('scroll', function () {
     TypingAnimation();
   });
