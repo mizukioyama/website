@@ -1,39 +1,55 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nature inspire</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nature inspire</title>
 
-    <!-- CSSファイルの読み込み -->
-    <link rel="stylesheet" href="css/noise.css">
-    <link rel="stylesheet" href="css/art-top.css">
-    <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
-    <!-- JavaScriptファイルの読み込み -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js"></script>
-    <script src="js/art-topcopy.js"></script>
-    <script src="js/cursor.js"></script>
-    <script src="js/loading.js"></script>
-    <script src="js/menu.js"></script>
+  <!-- CSSファイル -->
+  <link rel="stylesheet" href="css/noise.css">
+  <link rel="stylesheet" href="css/art-top.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
-    <!--Search-->
-    <meta name="description" content="Your website description">
-    <meta name="keywords" content="Paradigm Art, Nature inspire, Abstract, Art, Paradigm Nature">
-    <!--cash-->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <!--Referrer-Policy-->
-    <meta name="referrer" content="strict-origin">
-    <!--HSTS-->
-    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000">
-    <!--CSP-->
+  <!-- JavaScriptファイル -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-+qlRLDKCMmAGb6QqqeQXQzUO8K9gM8BbsQRp+5o3ZpV6kNvXjVZbYwZT2e3Af38v" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js" integrity="sha384-mock-hash" crossorigin="anonymous"></script>
+  <script src="js/art-topcopy.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/menu.js"></script>
+
+  <!-- SEO -->
+  <meta name="description" content="Your website description">
+  <meta name="keywords" content="Paradigm Art, Nature inspire, Abstract, Art, Paradigm Nature">
+
+  <!-- キャッシュ制御 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- セキュリティ -->
+  <meta name="referrer" content="strict-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000">
+
+  <!-- Content Security Policy（許可が必要な外部ソースに注意） -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
+    style-src 'self' 'unsafe-inline' https://use.typekit.net;
+    font-src https://use.typekit.net;
+    img-src 'self' data:;
+    connect-src 'self';
+    object-src 'none';
+    frame-ancestors 'self';
+  ">
+
 </head>
-<!--作品保護-->
 
+<!--作品保護-->
 <body oncontextmenu="return false;">
     <header>
   <div id="loading-bg">
