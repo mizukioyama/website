@@ -1,65 +1,65 @@
 class ShuffleText {
   constructor(element) {
     this.element = element;
-    this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     this.originalText = element.textContent;
-  }
-
-  setText(text) {
-    this.originalText = text;
-  }
-
-  randomChar() {
-    return this.chars[Math.floor(Math.random() * this.chars.length)];
-  }
-
-  shuffle() {
-    let shuffledText = '';
-    for (let i = 0; i < this.originalText.length; i++) {
-      shuffledText += this.randomChar();
-    }
-    this.element.textContent = shuffledText;
+    this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    this.frame = 0;
+    this.requestId = null;
+    this.update = this.update.bind(this);
   }
 
   start() {
-    let count = 0;
-    const maxCount = 20;
-    const interval = 100;
-    const shuffleInterval = setInterval(() => {
-      this.shuffle();
-      count++;
-      if (count >= maxCount) {
-        clearInterval(shuffleInterval);
-        this.element.textContent = this.originalText;
+    this.frame = 0;
+    this.requestId = requestAnimationFrame(this.update);
+  }
+
+  update() {
+    const progress = this.frame / 60; // 約1秒で完了
+    const output = this.originalText.split('').map((char, i) => {
+      if (i < progress * this.originalText.length) {
+        return char;
+      } else {
+        return this.randomChar();
       }
-    }, interval);
+    }).join('');
+    this.element.textContent = output;
+
+    if (progress >= 1) {
+      this.element.textContent = this.originalText;
+      cancelAnimationFrame(this.requestId);
+    } else {
+      this.frame++;
+      this.requestId = requestAnimationFrame(this.update);
+    }
+  }
+
+  randomChar() {
+    return this.chars.charAt(Math.floor(Math.random() * this.chars.length));
   }
 }
 
-jQuery(document).ready(function ($) {
+jQuery(function ($) {
   function TypingAnimation() {
     $(".js_typing").each(function () {
-      const $el = $(this);
-      if (!$el.hasClass("endAnime")) {
-        const text = $el.text();
-        const shuffleText = new ShuffleText(this);
-        shuffleText.setText(text);
-        shuffleText.start();
-
-        $el.addClass("endAnime"); // flicker animationを停止
+      if (!$(this).hasClass("endAnime")) {
+        $(this).addClass("endAnime");
+        const shuffle = new ShuffleText(this);
+        shuffle.start();
       }
     });
   }
 
+  // ローディング後に発動
   $(window).on('load', function () {
     setTimeout(function () {
       $('#loading-bg').fadeOut(500, function () {
         TypingAnimation();
       });
-    }, 1500);
+    }, 1000); // ローディング表示の長さ
   });
 
-  $(window).scroll(function () {
+  // スクロールしても一度だけ発動
+  $(window).on('scroll', function () {
     TypingAnimation();
   });
 });
