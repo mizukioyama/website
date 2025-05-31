@@ -45,9 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // 言語切り替えの初期化
   initializeLanguageSwitcher();
 
-  // タイピングアニメーション
-  setupTypingAnimation();
-
   // ヘッダー読み込み + メニュー初期化
   fetch("includes-header.html")
     .then(response => response.text())
@@ -97,45 +94,4 @@ function switchLanguage(lang) {
     el.style.display = (el.lang === lang) ? '' : 'none';
   });
   localStorage.setItem('lang', lang);
-}
-
-// タイピングアニメーション
-function setupTypingAnimation() {
-  document.querySelectorAll(".typing").forEach(el => {
-    const text = el.textContent.trim();
-    let html = '';
-
-    const words = text.split(' ');
-    words.forEach((word, wi) => {
-      [...word].forEach(char => {
-        html += `<span>${char}</span>`;
-      });
-      if (wi < words.length - 1) html += '<span>&nbsp;</span>';
-    });
-
-    el.innerHTML = html;
-
-    el.querySelectorAll("span").forEach((span, i) => {
-      const time = 100;
-      setTimeout(() => {
-        span.style.display = 'inline';
-        span.style.opacity = 1;
-      }, time * i);
-    });
-
-    if (!el.classList.contains('menu-animation-target')) {
-      const parent = el.parentElement;
-      const positionX = Math.random() * (parent.offsetWidth - el.offsetWidth);
-      const positionY = Math.random() * (parent.offsetHeight - el.offsetHeight);
-      el.style.position = 'absolute';
-      el.style.left = `${positionX}px`;
-      el.style.top = `${positionY}px`;
-    }
-
-    if (el.classList.contains('animation1')) {
-      el.classList.add('animation1-style');
-    } else if (el.classList.contains('animation2')) {
-      el.classList.add('animation2-style');
-    }
-  });
 }

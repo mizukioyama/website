@@ -320,20 +320,6 @@ input#langEn {
   text-align: right;
 }
 
-.creator--cecond {
-  display: block;
-  font-size: clamp(0.8em, calc(0.8em + 0.5vw), 0.9em);
-  width: fit-content;
-  position: absolute;
-  top: 0%;
-  right: 12%;
-  transform: rotate(90deg);
-}
-
-.creator--cecond {
-  right: -10%;
-}
-
 .time {
   position: absolute;
   bottom: 10%;
@@ -616,8 +602,7 @@ input#langEn {
   }
 }
 
-/*animation*/
-/*bottom-line*/
+/*animation bottom-line*/
 .content__ping--right {
   transform: translateX(40vmin);
 }

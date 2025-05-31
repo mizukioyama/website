@@ -2,7 +2,7 @@ class ShuffleText {
     constructor(element) {
         this.element = element;
         this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        this.originalText = element.innerHTML;
+        this.originalText = element.textContent; // innerHTML から textContent に変更
     }
 
     setText(text) {
@@ -18,7 +18,7 @@ class ShuffleText {
         for (let i = 0; i < this.originalText.length; i++) {
             shuffledText += this.randomChar();
         }
-        this.element.innerHTML = shuffledText;
+        this.element.textContent = shuffledText;
     }
 
     start() {
@@ -28,46 +28,37 @@ class ShuffleText {
 
         setTimeout(() => {
             clearInterval(shuffleInterval);
-            this.element.innerHTML = this.originalText;
+            this.element.textContent = this.originalText;
         }, 2000);
     }
 }
 
 jQuery(document).ready(function($) {
-    // ページの読み込み後にローディング背景を非表示にする
+    // ページ読み込み完了後にローディング背景を非表示にし、アニメーション実行
     $(window).on('load', function() {
         setTimeout(function() {
-            $('#loading-bg').fadeOut();
+            $('#loading-bg').fadeOut(300, function () {
+                TypingAnimation(); // ローディング後に強制実行
+            });
         }, 1500);
     });
 
-    // テキストのアニメーション効果を実装する関数
+    // タイピングアニメーション処理
     function TypingAnimation() {
-        $(".js_typing").each(function(i) {
-            var elemPos = $(this).offset().top - 50; // 要素より、50px上の位置
-            var scroll = $(window).scrollTop();
-            var windowHeight = $(window).height();
-            if (scroll >= elemPos - windowHeight) {
-                if (!$(this).hasClass("endAnime")) {
-                    $(this).addClass("endAnime"); // アニメーションが終了したことを示すクラスを追加
-                    var text = $(this).text(); // テキストを取得
-                    $(this).text(''); // テキストを空にする
-                    var shuffleText = new ShuffleText(this); // ShuffleTextのインスタンスを生成
-                    $(this).append(shuffleText); // ShuffleTextを要素に追加
-                    shuffleText.setText(text); // テキストを設定
-                    shuffleText.start(); // アニメーションを開始
-                }
+        $(".js_typing").each(function() {
+            if (!$(this).hasClass("endAnime")) {
+                $(this).addClass("endAnime");
+                var text = $(this).text();
+                $(this).text('');
+                var shuffleText = new ShuffleText(this);
+                shuffleText.setText(text);
+                shuffleText.start();
             }
         });
     }
 
-    // 画面をスクロールしたときのイベント
+    // スクロール時も発火（ページ途中からアクセスする可能性あり）
     $(window).scroll(function() {
-        TypingAnimation(); // テキストのアニメーション効果を実行
-    });
-
-    // ページが読み込まれたときのイベント
-    $(window).on("load", function() {
-        TypingAnimation(); // テキストのアニメーション効果を実行
+        TypingAnimation();
     });
 });
