@@ -12,15 +12,14 @@
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
   <!-- JavaScriptファイル -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-    integrity="sha256-pvPw/3u7xvC4FvbbG1NARd7V4VEWilQo3qyiYj4Icqo="
-    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js"
     crossorigin="anonymous"></script>
   <script src="js/time.js"></script>
   <script src="js/cursor.js"></script>
-  <script src="js/loading.js"></script>
+    <script src="js/loading.js"></script>
   <script src="js/menu.js"></script>
 
   <!-- SEO -->
@@ -38,24 +37,25 @@
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 
   <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
-    style-src 'self' 'unsafe-inline' https://use.typekit.net;
-    font-src 'self' https://use.typekit.net;
-    img-src 'self' data:;
-    connect-src 'self';
-    object-src 'none';
-  ">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
+  style-src 'self' 'unsafe-inline' https://use.typekit.net;
+  font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+  img-src 'self' data:;
+  connect-src 'self';
+  object-src 'none';
+">
+
 </head>
 
 
 <!--作品保護-->
 <body oncontextmenu="return false;">
     <header>
-<div id="loading-bg">
-  <div class="typing-text-en">Loading now</div>
-</div>
+<!--<div id="loading-bg">
+  <div class="loading-text js_typing">Loading...</div>
+</div>-->
 
         <div id="header-container"></div>
     </header>
