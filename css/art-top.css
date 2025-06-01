@@ -33,7 +33,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: white;
+  background: rgba(200, 200, 200, 0.65);
+  backdrop-filter: blur(10px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -41,13 +42,13 @@ body {
 }
 
 .typing-text-en {
-  width: 11ch;
+  width: min-content;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid #444;
-  font-size: 2em;
-  font-family: monospace;
-  color: #444;
+    padding-right: 0.25rem;
+  border-right: 2px solid var(--text);
+  font-size: 1.6rem;
+  color: var(--text);
   animation: typing 2s steps(11), typingEffect .5s step-end infinite alternate;
 }
 
@@ -332,13 +333,11 @@ input#langEn {
 .time {
   position: absolute;
   bottom: 10%;
-  right: 30vmin;
+  right: 5%;
 }
 
 .time-display {
-  font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.3em);
-  font-weight: bold;
-  color: var(--def);
+  color: var(--text);
 }
 
 /* ========== Card Slide ========== */
