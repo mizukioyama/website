@@ -45,11 +45,11 @@ body {
   width: min-content;
   white-space: nowrap;
   overflow: hidden;
-    padding-right: 0.25rem;
+  padding-right: 0.25rem;
   border-right: 2px solid var(--text);
   font-size: 1.6rem;
   color: var(--text);
-  animation: typing 2s steps(11), typingEffect .5s step-end infinite alternate;
+  animation: typing 3s steps(15), typingEffect 0.8s step-end infinite alternate;
 }
 
 @keyframes typing {
