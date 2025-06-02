@@ -4,13 +4,15 @@
 nav {
     display: block;
     position: fixed;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
     top: 0;
     right: -100%;
     bottom: 0;
-    width: 50%;
+    width: 100%;
     background: var(--def);
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     -webkit-overflow-scrolling: touch;
     transition: 0.8s ease;
     z-index: 999;
@@ -117,7 +119,7 @@ nav {
 
 /*== OPEN ==*/
 .open nav {
-    right: 0;
+    left: 0;
     backdrop-filter: blur(20px);
     background-color: rgba(140, 140, 140);
     mix-blend-mode: hard-light;
@@ -183,10 +185,7 @@ nav {
 }
 
 .open #mask {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: 50%;
+    right: 0%;
     width: 50%;
     height: 100%;
     background: rgba(10, 10, 10, 0.65);
@@ -240,10 +239,10 @@ header .noise {
 
 @media screen and (max-width: 599px) {
     nav {
-        display: flex;
-        width: 100%;
+        flex-direction: column;
     }
     .inner {
+        width: 100%;
         padding: 0rem 2rem 2rem;
     }
     .open #mask {
@@ -251,48 +250,3 @@ header .noise {
     }
 }
 
-
-/* 共通レイアウト */
-#navArea nav {
-  display: flex;
-  flex-direction: row;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--def);
-  z-index: 999;
-  transition: 0.8s ease;
-  overflow-y: auto;
-}
-
-/* 各カラムの幅 */
-#navArea .inner,
-#navArea #mask {
-  width: 50%;
-  height: 100%;
-}
-
-/* mask 表示時 */
-#navArea #mask {
-  background: rgba(10, 10, 10, 0.65);
-  backdrop-filter: blur(5px);
-  cursor: pointer;
-  animation: menu-left 1s ease;
-  z-index: 998;
-}
-
-/* スマホでは縦並び */
-@media screen and (max-width: 768px) {
-  #navArea nav {
-    flex-direction: column;
-  }
-
-  #navArea .inner,
-  #navArea #mask {
-    width: 100%;
-    height: auto;
-  }
-}
