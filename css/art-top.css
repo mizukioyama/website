@@ -505,7 +505,6 @@ input#langEn {
   transform-origin: 0 50%;
   transform: rotate(0deg);
   font-weight: 400;
-  opacity: 0.7;
   z-index: -1;
 }
 
@@ -525,6 +524,7 @@ input#langEn {
 
 .card__slide.active .date {
   left: 0;
+  opacity: 0.7;
   transform: translatex(0rem) rotate(0deg);
 }
 
