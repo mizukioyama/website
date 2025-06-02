@@ -701,12 +701,13 @@ main {
     justify-content: end;
     align-items: center;
     width: 100%;
-    min-height: 450px;
+    min-height: 350px;
     margin: 0 auto;
     gap: 3rem;
 }
 
 .work-img {
+    position: relative;
     display: grid;
     gap: 1rem;
     width: 40%;
@@ -738,10 +739,21 @@ main {
 
 /*===copyright*/
 .dli-external-link {
+    content: '©Oyama';
+    font-family: 'jost';
+    position: absolute;
+    top: 1%;
+    left: 1%;
+}
+
+.dli-external-link img {
+    width: 100%;
+}
+
+.dli-external-link::before {
     display: inline-block;
     position: absolute;
-    right: 30%;
-    top: 90%;
+    top: 1%;
     color: rgba(200, 200, 200, 0.75);
     width: 0.9em;
     height: 0.9em;
@@ -752,11 +764,7 @@ main {
     vertical-align: middle;
 }
 
-.dli-external-link img {
-    width: 100%;
-}
-
-.dli-external-link span {
+.dli-external-link::after {
     position: absolute;
     top: -0.2em;
     right: -0.25em;
@@ -768,13 +776,6 @@ main {
     border-left: 0;
     background: none;
     box-sizing: border-box;
-}
-
-.dli-external-link::after {
-    content: '©Oyama';
-    font-family: 'jost';
-    position: absolute;
-    right: 150%;
 }
 
 /*===art-info*/
@@ -796,7 +797,6 @@ main {
 .gallery .content h4 {
     color: var(--inv);
     margin: 0;
-    padding: 1em 0 0;
     letter-spacing: .25em;
 }
 
