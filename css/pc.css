@@ -741,9 +741,11 @@ main {
 .dli-external-link {
     font-family: 'jost';
     font-size: 1rem;
+    font-weight: 400;
     position: absolute;
     top: 1%;
     left: 1%;
+    mix-blend-mode: color-dodge;
 }
 
 .dli-external-link img {
@@ -755,9 +757,9 @@ main {
     display: inline-block;
     position: absolute;
     top: 3px;
-    right: -35%;
-    width: 0.9em;
-    height: 0.9em;
+    right: -5px;
+    width: 13px;
+    height: 13px;
     line-height: 1;
     border: 1px solid rgba(200, 200, 200, 0.75);
     border-radius: 0.1em;
@@ -768,10 +770,10 @@ main {
 .dli-external-link::after {
     content: "";
     position: absolute;
-    top: -6%;
-    right: -43%;
-    width: 0.7em;
-    height: 0.7em;
+    top: -5px;
+    right: -8px;
+    width: 10px;
+    height: 10px;
     border: 1px solid rgba(200, 200, 200, 0.75);
     border-radius: 0.08em;
     border-bottom: 0;
