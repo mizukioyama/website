@@ -186,7 +186,7 @@ nav {
     display: block;
     position: relative;
     top: 0;
-    right: 50%;
+    right: 0%;
     width: 50%;
     background: rgba(10, 10, 10, 0.65);
     backdrop-filter: blur(5px);
@@ -220,7 +220,7 @@ header .noise {
 
 .open #mask ul {
     position: absolute;
-    bottom: 15%;
+    bottom: 10%;
     left: 5%;
     width: 90%;
     height: 250px;
@@ -235,6 +235,9 @@ header .noise {
     letter-spacing: 0.07rem;
 }
 
+.open #mask li:nth-child(1) {
+    margin-top: 0;
+}
 
 
 @media screen and (max-width: 599px) {
@@ -247,10 +250,10 @@ header .noise {
     }
     .open #mask {
         width: 100%;
+        height: 100%;
     }
     #mask p {
-        bottom: 0;
-        top: 15%;
+        top: -15%;
     }
     .open #mask ul {
     bottom: 10%;
