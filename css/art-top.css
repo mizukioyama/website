@@ -214,19 +214,14 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   font-size: 1rem;
 }
 
-/* ホバー時 */
 #langChenge .ja:hover,
-#langChenge .en:hover {
-  font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-  opacity: 0.8;
-}
-
-/* 選択中（.active で制御） */
+#langChenge .en:hover,
 #langChenge .ja.active,
 #langChenge .en.active {
   font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
   opacity: 0.8;
 }
+
 
 /* ========== Background Slides ========== */
 .back__slide {

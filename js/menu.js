@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     img.onload = () => img.removeAttribute('data-src');
   });
 
+
   // ヘッダー読み込み + メニュー初期化
   fetch("includes-header.html")
     .then(response => response.text())
@@ -73,44 +74,53 @@ function initializeMenu() {
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  const langInputs = document.querySelectorAll('input[name="lang"]');
-  const jaLabel = document.querySelector('#langChenge .ja');
-  const enLabel = document.querySelector('#langChenge .en');
 
-  // 言語を切り替える関数
-  function switchLanguage(lang) {
-    // 表示の切り替え
-    document.querySelectorAll('[lang]').forEach(el => {
-      el.style.display = (el.lang === lang) ? '' : 'none';
+switch (document.readyState) {
+  case 'complete':
+    new multi_language();
+    break;
+  default:
+    window.addEventListener('load', () => {
+      new multi_language();
     });
+}
 
-    // アクティブクラスの付け替え
-    jaLabel.classList.remove('active');
-    enLabel.classList.remove('active');
-    if (lang === 'ja') {
-      jaLabel.classList.add('active');
-    } else if (lang === 'en') {
-      enLabel.classList.add('active');
+function multi_language() {
+  this.set_current_lang();
+}
+
+multi_language.prototype.get_lang_lists = function () {
+  return document.querySelectorAll("input[type='radio'][name='lang']");
+};
+
+multi_language.prototype.set_current_lang = function () {
+  const current_lang = document.querySelector('html').getAttribute('lang');
+  this.checked_lang_list(current_lang);
+  this.update_active_class(current_lang); // ← 初期表示で .active を反映
+};
+
+multi_language.prototype.checked_lang_list = function (current_lang) {
+  const elms = this.get_lang_lists();
+  for (const elm of elms) {
+    if (elm.value === current_lang) {
+      elm.checked = true;
     }
-
-    // 言語情報を保存
-    localStorage.setItem('lang', lang);
-    document.documentElement.setAttribute('lang', lang);
+    elm.addEventListener('click', this.click_lang.bind(this));
   }
+};
 
-  // ラジオボタンにイベントを設定
-  langInputs.forEach(input => {
-    input.addEventListener('change', () => {
-      switchLanguage(input.value);
-    });
-  });
+multi_language.prototype.click_lang = function (e) {
+  const lang = e.target.value;
+  document.querySelector('html').setAttribute('lang', lang);
+  this.update_active_class(lang); // ← 切り替え時に .active を更新
+};
 
-  // 初期化：保存された言語を読み込み
-  const savedLang = localStorage.getItem('lang') || 'ja';
-  const defaultInput = document.querySelector(`input[name="lang"][value="${savedLang}"]`);
-  if (defaultInput) {
-    defaultInput.checked = true;
-    switchLanguage(savedLang);
+multi_language.prototype.update_active_class = function (lang) {
+  const jaDiv = document.querySelector('#langChenge .ja');
+  const enDiv = document.querySelector('#langChenge .en');
+
+  if (jaDiv && enDiv) {
+    jaDiv.classList.toggle('active', lang === 'ja');
+    enDiv.classList.toggle('active', lang === 'en');
   }
-});
+};
