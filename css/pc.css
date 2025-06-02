@@ -739,8 +739,8 @@ main {
 
 /*===copyright*/
 .dli-external-link {
-    content: '©Oyama';
     font-family: 'jost';
+    font-size: 1rem;
     position: absolute;
     top: 1%;
     left: 1%;
@@ -751,6 +751,7 @@ main {
 }
 
 .dli-external-link::before {
+    content: "";
     display: inline-block;
     position: absolute;
     top: 1%;
@@ -765,6 +766,7 @@ main {
 }
 
 .dli-external-link::after {
+    content: "";
     position: absolute;
     top: -0.2em;
     right: -0.25em;
