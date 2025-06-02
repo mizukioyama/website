@@ -252,22 +252,47 @@ header .noise {
 }
 
 
-/* nav内をフレックスレイアウトにする */
+/* 共通レイアウト */
 #navArea nav {
   display: flex;
-  flex-direction: row; /* PC時に横並び */
-  gap: 2rem; /* 適宜調整可能な間隔 */
+  flex-direction: row;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--def);
+  z-index: 999;
+  transition: 0.8s ease;
+  overflow-y: auto;
 }
 
-/* inner と mask の共通スタイル */
+/* 各カラムの幅 */
 #navArea .inner,
 #navArea #mask {
-  flex: 1; /* 同じ幅にする */
+  width: 50%;
+  height: 100%;
 }
 
-/* スマホ（768px以下）では縦並びに変更 */
+/* mask 表示時 */
+#navArea #mask {
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  animation: menu-left 1s ease;
+  z-index: 998;
+}
+
+/* スマホでは縦並び */
 @media screen and (max-width: 768px) {
   #navArea nav {
-    flex-direction: column; /* 縦並びに */
+    flex-direction: column;
+  }
+
+  #navArea .inner,
+  #navArea #mask {
+    width: 100%;
+    height: auto;
   }
 }
