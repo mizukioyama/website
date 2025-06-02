@@ -235,3 +235,18 @@ header .noise {
     border-bottom: 1px solid;
     letter-spacing: 0.07rem;
 }
+
+
+
+@media screen and (max-width: 599px) {
+    nav {
+        display: flex;
+        width: 100%;
+    }
+    .inner {
+        padding: 0rem 2rem 2rem;
+    }
+    .open #mask {
+        width: 100%;
+    }
+}
