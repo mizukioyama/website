@@ -757,7 +757,7 @@ main {
     display: inline-block;
     position: absolute;
     top: 3px;
-    right: -5px;
+    left: 55px;
     width: 13px;
     height: 13px;
     line-height: 1;
