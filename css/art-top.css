@@ -50,6 +50,7 @@ body {
   font-size: 1.6rem;
   color: var(--text);
   animation: typing 6s steps(15), typingEffect 0.5s step-end infinite alternate;
+  animation: typing 8s steps(16), typingEffect 1.5s step-end infinite alternate;
 }
 
 @keyframes typing {
