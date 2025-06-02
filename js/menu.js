@@ -98,3 +98,5 @@ function switchLanguage(lang) {
   });
   localStorage.setItem('lang', lang);
 }
+
+ window.addEventListener('DOMContentLoaded', initializeLanguageSwitcher);

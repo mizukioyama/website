@@ -102,7 +102,7 @@ body {
 body,
 .top-page,
 .wrap {
-  overflow: hidden;
+  overflow-x: hidden;
   background-color: var(--inv);
   color: var(--inv);
 }
@@ -195,6 +195,12 @@ div.ripples-2 {
 .ripples-2,
 .ripples-2 canvas {
     pointer-events: none;
+}
+
+.ripples-2 canvas {
+    width: 1920px;
+    height: 1080px;
+    margin: 0 auto;
 }
 
 .font-change-text {
