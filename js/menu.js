@@ -42,9 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     img.onload = () => img.removeAttribute('data-src');
   });
 
-  // 言語切り替えの初期化
-  initializeLanguageSwitcher();
-
   // ヘッダー読み込み + メニュー初期化
   fetch("includes-header.html")
     .then(response => response.text())
