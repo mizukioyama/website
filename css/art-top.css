@@ -215,16 +215,17 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
 
 #langChenge .ja,
 #langChenge .en {
-  font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-  font-family: 'Not serif-JP', sans-serif;
   color: var(--text);
-  opacity: 0.5;
+  opacity: 0.3;
   transition: opacity 0.3s ease;
 }
 
 #langChenge .ja:hover,
+#langChenge .en:hover,
+#langChenge .ja:focus,
 #langChenge .en:focus {
-  opacity: 0.7;
+  font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+  opacity: 0.8;
 }
 
 /* チェックされている言語だけを強調 */

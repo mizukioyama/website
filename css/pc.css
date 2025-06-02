@@ -207,7 +207,6 @@ h1 {
     font-size: 4rem;
     font-weight: 400;
     width: fit-content;
-    padding: calc(45% - 18vw) 0 0 calc(10vw - 5%);
     padding-top: 8rem;
     position: relative;
     color: transparent;
@@ -434,7 +433,6 @@ a:hover {
 
 .top_p {
     width: fit-content;
-    padding: 1em 0 0 calc(12vw - 5%);
 }
 
 /*== flex ==*/
