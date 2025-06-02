@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 /*== NAV ==*/
 nav {
     display: flex;
@@ -41,7 +39,7 @@ nav {
     display: block;
     position: relative;
     font-size: clamp(1.8rem, calc(1.8rem + 0.5vw), 2rem);
-    font-weight: bold;
+    font-weight: 600;
     color: var(--bg);
     height: 100%;
     margin-top: 1.5rem;
@@ -49,6 +47,7 @@ nav {
     text-decoration: none;
     overflow: hidden;
     mix-blend-mode: luminosity;
+    text-shadow: 0px 0px 1px rgba(46, 46, 46, 0.5);
 }
 
 #navArea .inner li a::before {
@@ -207,10 +206,12 @@ nav {
 }
 
 #mask p {
+    font-weight: 500;
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
     position: absolute;
     bottom: 40%;
     left: 5%;
+    text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.5);
 }
 
 header .noise {
