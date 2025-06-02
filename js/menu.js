@@ -73,28 +73,3 @@ function initializeMenu() {
     });
   }
 }
-
-// 言語切り替え
-function initializeLanguageSwitcher() {
-  const savedLang = localStorage.getItem('lang') || 'ja';
-  const defaultRadio = document.querySelector(`#langChenge input[value="${savedLang}"]`);
-  if (defaultRadio) defaultRadio.checked = true;
-
-  switchLanguage(savedLang);
-
-  // ラジオボタンが変更されたときに実行
-  document.querySelectorAll('#langChenge input[name="lang"]').forEach(input => {
-    input.addEventListener('change', () => {
-      if (input.checked) {
-        switchLanguage(input.value);
-      }
-    });
-  });
-}
-
-function switchLanguage(lang) {
-  document.querySelectorAll('[lang]').forEach(el => {
-    el.style.display = (el.lang === lang) ? '' : 'none';
-  });
-  localStorage.setItem('lang', lang);
-}
