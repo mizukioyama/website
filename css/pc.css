@@ -189,18 +189,12 @@ div.ripples-2 {
     background: rgba(25, 25, 25);
     position: fixed;
     opacity: 0.25;
-    z-index: 0;
+    z-index: 1;
 }
 
 .ripples-2,
 .ripples-2 canvas {
     pointer-events: none;
-}
-
-.ripples-2 canvas {
-    width: 1920px;
-    height: 1080px;
-    margin: 0 auto;
 }
 
 .font-change-text {
