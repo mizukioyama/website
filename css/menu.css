@@ -2,18 +2,14 @@
 
 /*== NAV ==*/
 nav {
-    display: block;
-    position: fixed;
-  display: flex;
-  flex-direction: row;
-  position: fixed;
+    display: flex;
+    flex-direction: row;
     top: 0;
     right: -100%;
     bottom: 0;
-    width: 100%;
-    background: var(--def);
+    width: 50%;
     overflow: hidden;
-    -webkit-overflow-scrolling: touch;
+    /*-webkit-overflow-scrolling: touch;*/
     transition: 0.8s ease;
     z-index: 999;
 }
@@ -23,6 +19,7 @@ nav {
 }
 
 .inner {
+    width: 50%;
     padding: 150px;
 }
 
@@ -119,7 +116,7 @@ nav {
 
 /*== OPEN ==*/
 .open nav {
-    left: 0;
+    right: 0;
     backdrop-filter: blur(20px);
     background-color: rgba(140, 140, 140);
     mix-blend-mode: hard-light;
@@ -185,7 +182,9 @@ nav {
 }
 
 .open #mask {
-    right: 0%;
+    position: relative;
+    top: 0;
+    right: 50%;
     width: 50%;
     height: 100%;
     background: rgba(10, 10, 10, 0.65);
@@ -242,7 +241,6 @@ header .noise {
         flex-direction: column;
     }
     .inner {
-        width: 100%;
         padding: 0rem 2rem 2rem;
     }
     .open #mask {
