@@ -76,26 +76,44 @@ function initializeMenu() {
 
 
 
-function updateLangVisualState() {
-  const currentLang = document.querySelector('input[name="lang"]:checked').value;
+document.addEventListener('DOMContentLoaded', () => {
+  const langInputs = document.querySelectorAll('input[name="lang"]');
+  const jaLabel = document.querySelector('#langChenge .ja');
+  const enLabel = document.querySelector('#langChenge .en');
 
-  // 全ての .ja / .en から active を削除
-  document.querySelectorAll('#langChenge .ja, #langChenge .en').forEach(el => {
-    el.classList.remove('active');
+  // 言語を切り替える関数
+  function switchLanguage(lang) {
+    // 表示の切り替え
+    document.querySelectorAll('[lang]').forEach(el => {
+      el.style.display = (el.lang === lang) ? '' : 'none';
+    });
+
+    // アクティブクラスの付け替え
+    jaLabel.classList.remove('active');
+    enLabel.classList.remove('active');
+    if (lang === 'ja') {
+      jaLabel.classList.add('active');
+    } else if (lang === 'en') {
+      enLabel.classList.add('active');
+    }
+
+    // 言語情報を保存
+    localStorage.setItem('lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+  }
+
+  // ラジオボタンにイベントを設定
+  langInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      switchLanguage(input.value);
+    });
   });
 
-  // 現在選択されている言語に active を追加
-  if (currentLang === 'ja') {
-    document.querySelector('#langChenge .ja').classList.add('active');
-  } else if (currentLang === 'en') {
-    document.querySelector('#langChenge .en').classList.add('active');
+  // 初期化：保存された言語を読み込み
+  const savedLang = localStorage.getItem('lang') || 'ja';
+  const defaultInput = document.querySelector(`input[name="lang"][value="${savedLang}"]`);
+  if (defaultInput) {
+    defaultInput.checked = true;
+    switchLanguage(savedLang);
   }
-}
-
-// ラジオボタンの変更時に実行
-document.querySelectorAll('input[name="lang"]').forEach(input => {
-  input.addEventListener('change', updateLangVisualState);
 });
-
-// 初期実行
-updateLangVisualState();

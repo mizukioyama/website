@@ -661,7 +661,6 @@ a:hover {
 main {
     position: relative;
     width: 100%;
-    max-width: 1000px;
     margin: 0 auto;
     padding: 0 4rem 4rem;
     backdrop-filter: blur(15px);
@@ -672,9 +671,10 @@ main {
 
 .gallery .content {
     width: 100%;
-    margin: 0 auto;
+    max-width: 800px;
     text-align: center;
-    backdrop-filter: 10px;
+    margin-left: 35%;
+    backdrop-filter: blur(10px);
     box-shadow: inset 0 0px 7px rgba(0, 0, 0, 0.9);
 }
 

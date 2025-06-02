@@ -210,7 +210,8 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
 #langChenge .en {
   color: var(--text);
   opacity: 0.3;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, font-size 0.3s ease;
+  font-size: 1rem;
 }
 
 /* ホバー時 */
@@ -220,25 +221,12 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   opacity: 0.8;
 }
 
-/* 選択中（JSで .active を付与） */
+/* 選択中（.active で制御） */
 #langChenge .ja.active,
 #langChenge .en.active {
   font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
   opacity: 0.8;
-  animation: langSelect 0.3s ease forwards;
 }
-
-@keyframes langSelect {
-  0% {
-    font-size: 1rem;
-    opacity: 0.3;
-  }
-  100% {
-    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-    opacity: 0.8;
-  }
-}
-
 
 /* ========== Background Slides ========== */
 .back__slide {
