@@ -82,11 +82,16 @@ function initializeLanguageSwitcher() {
 
   switchLanguage(savedLang);
 
-  document.querySelectorAll('#langChenge input[name="lang"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      switchLanguage(radio.value);
-    });
+document.querySelectorAll('#langChenge label').forEach(label => {
+  label.addEventListener('click', e => {
+    e.preventDefault(); // デフォルト動作（#追加）を防止
+    const input = document.getElementById(label.getAttribute('for'));
+    if (input && !input.checked) {
+      input.checked = true;
+      switchLanguage(input.value);
+    }
   });
+});
 }
 
 function switchLanguage(lang) {
