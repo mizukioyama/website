@@ -754,12 +754,12 @@ main {
     content: "";
     display: inline-block;
     position: absolute;
-    top: 1%;
-    color: rgba(200, 200, 200, 0.75);
+    top: 3px;
+    right: -35%;
     width: 0.9em;
     height: 0.9em;
     line-height: 1;
-    border: 0.1em solid;
+    border: 1px solid rgba(200, 200, 200, 0.75);
     border-radius: 0.1em;
     box-sizing: content-box;
     vertical-align: middle;
@@ -768,11 +768,11 @@ main {
 .dli-external-link::after {
     content: "";
     position: absolute;
-    top: -0.2em;
-    right: -0.25em;
-    width: 65%;
-    height: 65%;
-    border: 0.1em solid;
+    top: -6%;
+    right: -43%;
+    width: 0.7em;
+    height: 0.7em;
+    border: 1px solid rgba(200, 200, 200, 0.75);
     border-radius: 0.08em;
     border-bottom: 0;
     border-left: 0;
