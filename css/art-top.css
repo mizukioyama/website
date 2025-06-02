@@ -175,6 +175,7 @@ hr {
 
 /*=========== lang */
 
+
 html[lang='ja'] *:is([lang]):not([lang='ja']),
 html[lang='en'] *:is([lang]):not([lang='en']) {
   display:none!important;
@@ -201,10 +202,6 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   pointer-events: all;
   transition: opacity 0.3s;
 }
-
-/*#langChenge input[type="radio"] {
-  display: none;
-}*/
 
 #langChenge .ja,
 #langChenge .en {
