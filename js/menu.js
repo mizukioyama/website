@@ -77,14 +77,14 @@ function initializeMenu() {
 // 言語切り替え
 function initializeLanguageSwitcher() {
   const savedLang = localStorage.getItem('lang') || 'ja';
-  const defaultRadio = document.getElementById(savedLang === 'en' ? 'langEn' : 'langJa');
+  const defaultRadio = document.querySelector(`#langChenge input[value="${savedLang}"]`);
   if (defaultRadio) defaultRadio.checked = true;
 
   switchLanguage(savedLang);
 
   document.querySelectorAll('#langChenge input[name="lang"]').forEach(radio => {
     radio.addEventListener('change', () => {
-      switchLanguage(radio.id === 'langEn' ? 'en' : 'ja');
+      switchLanguage(radio.value);
     });
   });
 }
