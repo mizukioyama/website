@@ -745,7 +745,7 @@ main {
     position: absolute;
     top: 1%;
     left: 1%;
-    mix-blend-mode: color-dodge;
+    mix-blend-mode: difference;
 }
 
 .dli-external-link img {
@@ -770,8 +770,8 @@ main {
 .dli-external-link::after {
     content: "";
     position: absolute;
-    top: -5px;
-    right: -8px;
+    top: 0px;
+    right: -20px;
     width: 10px;
     height: 10px;
     border: 1px solid rgba(200, 200, 200, 0.75);
