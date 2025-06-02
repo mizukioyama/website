@@ -23,36 +23,6 @@
     <script src="js/loading.js"></script>
     <script src="js/menu.js"></script>
 
-    <script>
-    // 言語切り替え
-function initializeLanguageSwitcher() {
-  const savedLang = localStorage.getItem('lang') || 'ja';
-  const defaultRadio = document.querySelector(`#langChenge input[value="${savedLang}"]`);
-  if (defaultRadio) defaultRadio.checked = true;
-
-  switchLanguage(savedLang);
-
-  // change イベントに変更
-  document.querySelectorAll('#langChenge input[name="lang"]').forEach(input => {
-    input.addEventListener('change', () => {
-      if (input.checked) {
-        switchLanguage(input.value);
-      }
-    });
-  });
-}
-
-function switchLanguage(lang) {
-  document.querySelectorAll('[lang]').forEach(el => {
-    el.style.display = (el.lang === lang) ? '' : 'none';
-  });
-  localStorage.setItem('lang', lang);
-}
-
-// 初期化（DOMContentLoadedで呼び出し）
-window.addEventListener('DOMContentLoaded', initializeLanguageSwitcher);
-</script>
-
     <!-- SEO -->
     <meta name="description" content="Your website description">
     <meta name="keywords" content="Paradigm Art, Nature inspire, Abstract, Art, Paradigm Nature">
@@ -109,7 +79,10 @@ window.addEventListener('DOMContentLoaded', initializeLanguageSwitcher);
     <label for="langEn"><div class="en">EN</div></label>
   </div>
 </div>
-
+  <div class='language-change'>
+    <label><input type='radio' name='lang' value='ja'>日本語</label>
+    <label><input type='radio' name='lang' value='en'>English</label>
+  </div>
 
         <!--main-->
         <div class="wrap">
