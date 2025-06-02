@@ -250,3 +250,24 @@ header .noise {
         width: 100%;
     }
 }
+
+
+/* nav内をフレックスレイアウトにする */
+#navArea nav {
+  display: flex;
+  flex-direction: row; /* PC時に横並び */
+  gap: 2rem; /* 適宜調整可能な間隔 */
+}
+
+/* inner と mask の共通スタイル */
+#navArea .inner,
+#navArea #mask {
+  flex: 1; /* 同じ幅にする */
+}
+
+/* スマホ（768px以下）では縦並びに変更 */
+@media screen and (max-width: 768px) {
+  #navArea nav {
+    flex-direction: column; /* 縦並びに */
+  }
+}
