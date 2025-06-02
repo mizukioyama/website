@@ -174,13 +174,6 @@ hr {
 
 
 /*=========== lang */
-.language-change {
-  display:none;
-  gap:10px;
-  margin:10px;
-  align-items:center;
-  cursor:pointer;
-}
 
 html[lang='ja'] *:is([lang]):not([lang='ja']),
 html[lang='en'] *:is([lang]):not([lang='en']) {
@@ -209,9 +202,9 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   transition: opacity 0.3s;
 }
 
-#langChenge input[type="radio"] {
+/*#langChenge input[type="radio"] {
   display: none;
-}
+}*/
 
 #langChenge .ja,
 #langChenge .en {
@@ -220,19 +213,32 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   transition: opacity 0.3s ease;
 }
 
+/* ホバー時 */
 #langChenge .ja:hover,
-#langChenge .en:hover,
-#langChenge input#langJa:checked + label .ja,
-#langChenge input#langEn:checked + label .en {
+#langChenge .en:hover {
   font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
   opacity: 0.8;
 }
 
-/* チェックされている言語だけを強調 */
-#langChenge input#langJa:checked + .ja,
-#langChenge input#langEn:checked + .en {
-  opacity: 1;
+/* 選択中（JSで .active を付与） */
+#langChenge .ja.active,
+#langChenge .en.active {
+  font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+  opacity: 0.8;
+  animation: langSelect 0.3s ease forwards;
 }
+
+@keyframes langSelect {
+  0% {
+    font-size: 1rem;
+    opacity: 0.3;
+  }
+  100% {
+    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+    opacity: 0.8;
+  }
+}
+
 
 /* ========== Background Slides ========== */
 .back__slide {

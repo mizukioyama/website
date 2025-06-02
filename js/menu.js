@@ -76,36 +76,26 @@ function initializeMenu() {
 
 
 
-switch(document.readyState){
-  case 'complete':
-    new multi_language()
-    break
-  default:
-    window.addEventListener('load' , (()=>{
-      new multi_language()
-    }))
-}
+function updateLangVisualState() {
+  const currentLang = document.querySelector('input[name="lang"]:checked').value;
 
-function multi_language(){
-  this.set_current_lang()
-}
-multi_language.prototype.get_lang_lists = function(){
-  return document.querySelectorAll(`input[type='radio'][name='lang']`)
-}
-multi_language.prototype.set_current_lang = function(){
-  const current_lang = document.querySelector('html').getAttribute('lang')
-  this.checked_lang_list(current_lang)
-}
-multi_language.prototype.checked_lang_list = function(current_lang){
-  const elms = this.get_lang_lists()
-  for(const elm of elms){
-    if(elm.value === current_lang){
-      elm.checked = true
-    }
-    elm.addEventListener('click' , this.click_lang.bind(this))
+  // 全ての .ja / .en から active を削除
+  document.querySelectorAll('#langChenge .ja, #langChenge .en').forEach(el => {
+    el.classList.remove('active');
+  });
+
+  // 現在選択されている言語に active を追加
+  if (currentLang === 'ja') {
+    document.querySelector('#langChenge .ja').classList.add('active');
+  } else if (currentLang === 'en') {
+    document.querySelector('#langChenge .en').classList.add('active');
   }
 }
-multi_language.prototype.click_lang = function(e){
-  const lang = e.target.value
-  document.querySelector('html').setAttribute('lang' , lang)
-}
+
+// ラジオボタンの変更時に実行
+document.querySelectorAll('input[name="lang"]').forEach(input => {
+  input.addEventListener('change', updateLangVisualState);
+});
+
+// 初期実行
+updateLangVisualState();
