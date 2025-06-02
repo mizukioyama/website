@@ -445,7 +445,7 @@ input#langEn {
 
 /*== number ==*/
 .number {
-  font-family: "Roboto Mono", monospace;
+  /*font-family: "Roboto Mono", monospace;*/
   letter-spacing: 0.02em;
   position: absolute;
   top: 0;
@@ -481,13 +481,11 @@ input#langEn {
 }
 
 .card__slide .number {
-  opacity: 0;
   transform: translatey(-5rem);
   transition: transform 1400ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1200ms 1600ms linear;
 }
 
 .card__slide.active .number {
-  opacity: 0.7;
   transform: translatey(0rem);
   transition: transform 800ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 600ms 1200ms linear;
 }
@@ -507,6 +505,7 @@ input#langEn {
   transform-origin: 0 50%;
   transform: rotate(0deg);
   font-weight: 400;
+  opacity: 0.7;
   z-index: -1;
 }
 
@@ -517,21 +516,21 @@ input#langEn {
 .date:before {
   content: "";
   display: inline-block;
-  width: 4rem;
-  margin-right: 1.5rem;
+  width: 3rem;
+  margin-right: 0.5rem;
+  opacity: 0.7;
   border-bottom: 0.1rem solid var(--inv);
   transform: translatey(-0.3rem);
+}
+
+.card__slide.active .date {
+  left: 0;
+  transform: translatex(0rem) rotate(0deg);
 }
 
 .card__slide .date {
   opacity: 0;
   z-index: -1;
-}
-
-.card__slide.active .date {
-  opacity: 0.7;
-  left: 0;
-  transform: translatex(0rem) rotate(0deg);
 }
 
 .card__slide .date,
@@ -815,17 +814,35 @@ footer,
 
   .card {
     width: 90%;
-    height: 85%;
+    height: 75%;
   }
 
   .content__slide {
     width: 80%;
+    gap: 1rem;
   }
 
   .back__slide::before {
     width: 92.5%;
-    height: 86.5%;
+    height: 76.5%;
   }
+
+  .number:before {
+    height: 2.5rem;
+  }
+
+  .date {
+    bottom: calc(3% - 0.5rem);
+  }
+
+  .date__time {
+    display: block;
+    opacity: 0.5;
+    position: absolute;
+    right: 5%;
+    bottom: 0;
+  }
+
 
   /*==button==*/
   .button {
@@ -834,7 +851,7 @@ footer,
     text-align: center;
     width: 100%;
     color: var(--inv);
-    margin: 0 auto 1rem;
+    margin: 0 auto;
     box-shadow: inset 0 1px 5px 0px rgba(20, 20, 20, 0.86);
   }
 
