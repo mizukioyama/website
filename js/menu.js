@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.appendChild(stalker);
 
   // ホバー対象にカーソルクラス追加
-  document.querySelectorAll("a, .toggle_btn span, .inner a, .head a, #langChenge label").forEach(link => {
+  document.querySelectorAll("body a, .toggle_btn span, #navArea .inner li a").forEach(link => {
     link.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");

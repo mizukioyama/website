@@ -210,15 +210,13 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
 #langChenge .en {
   color: var(--text);
   opacity: 0.3;
-  transition: opacity 0.3s ease, font-size 0.3s ease;
-  font-size: 1rem;
+  transition: opacity 0.3s ease;
 }
 
 #langChenge .ja:hover,
 #langChenge .en:hover,
 #langChenge .ja.active,
 #langChenge .en.active {
-  font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
   opacity: 0.8;
 }
 
