@@ -222,8 +222,8 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
 
 #langChenge .ja:hover,
 #langChenge .en:hover,
-#langChenge .ja:focus,
-#langChenge .en:focus {
+#langChenge input#langJa:checked + label .ja,
+#langChenge input#langEn:checked + label .en {
   font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
   opacity: 0.8;
 }
