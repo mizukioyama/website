@@ -1,40 +1,6 @@
 console.log('Menu script loaded');
 
 document.addEventListener("DOMContentLoaded", function () {
-  // カーソル生成
-  const cursor = document.createElement("div");
-  cursor.id = "cursor";
-  document.body.appendChild(cursor);
-
-  const stalker = document.createElement("div");
-  stalker.id = "stalker";
-  document.body.appendChild(stalker);
-
-  // ホバー対象にカーソルクラス追加
-  document.querySelectorAll("body a, .toggle_btn span, #navArea .inner li a").forEach(link => {
-    link.addEventListener("mouseenter", () => {
-      cursor.classList.add("cursor--hover");
-      stalker.classList.add("stalker--hover");
-    });
-    link.addEventListener("mouseleave", () => {
-      cursor.classList.remove("cursor--hover");
-      stalker.classList.remove("stalker--hover");
-    });
-  });
-
-  // カーソル位置追従
-  document.addEventListener("mousemove", e => {
-    const { clientX: x, clientY: y } = e;
-    cursor.style.opacity = "1";
-    cursor.style.top = y + "px";
-    cursor.style.left = x + "px";
-
-    setTimeout(() => {
-      stalker.style.opacity = "1";
-      stalker.style.top = y + "px";
-      stalker.style.left = x + "px";
-    }, 150);
-  });
 
   // 遅延読み込み画像
   document.querySelectorAll('img[data-src]').forEach(img => {

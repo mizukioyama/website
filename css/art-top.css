@@ -46,11 +46,10 @@ body {
   gap: 1rem;
   font-size: 1.6rem;
   color: var(--text);
+  width: 75%;
 }
 
 .typing-line {
-  font-family: monospace;
-  white-space: nowrap;
   overflow: hidden;
   border-right: 2px solid var(--text);
   width: fit-content;
@@ -134,7 +133,7 @@ hr {
   pointer-events: none;
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
-  z-index: 9999;
+  z-index: 10000;
 }
 
 #cursor {
