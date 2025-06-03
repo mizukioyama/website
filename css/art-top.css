@@ -25,21 +25,24 @@ html,
 body {
   font-family: 'jost', sans-serif;
 }
-    #artCanvas {
-      border: 2px solid #fff;
-      box-shadow: 0 0 10px #fff;
-    }
-    #custom-context-menu {
-      position: fixed;
-      background-color: rgba(0,0,0,0.8);
-      color: #fff;
-      padding: 10px;
-      display: none;
-      z-index: 1000;
-      border-radius: 5px;
-      font-size: 14px;
+    canvas {
+      display: block;
     }
 
+    #custom-context-menu {
+      position: absolute;
+      display: none;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 1000;
+      pointer-events: none;
+      user-select: none;
+    }
+
+/*======load*/
 #loading-bg {
   position: fixed;
   top: 0;
