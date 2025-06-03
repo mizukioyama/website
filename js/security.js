@@ -1,23 +1,24 @@
-    // canvasに画像を描画（画像はGitHubにアップロードされたものを指定）
+    // Canvasに画像を描画
     const canvas = document.getElementById('artCanvas');
     const ctx = canvas.getContext('2d');
     const img = new Image();
-    img.crossOrigin = "anonymous"; // クロスオリジン対策（GitHub Pagesで不要なら省略）
-    img.src = './img/230033-2.jpg'; // 同じリポジトリに置いた画像ファイル名
 
-    img.onload = () => {
+    img.onload = function () {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
       // ウォーターマーク追加（任意）
       ctx.font = '20px sans-serif';
       ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-      ctx.fillText('© mizukioyama', canvas.width - 150, canvas.height - 20);
+      ctx.fillText('© YourName', canvas.width - 150, canvas.height - 20);
     };
 
-    // 右クリック無効＋カスタムメニュー
+    // 同じフォルダにある画像ファイル名を指定
+    img.src = './img/20230629.jpg'; // 同じリポジトリ内にアップしてある画像名
+
+    // カスタム右クリックメニュー
     const customMenu = document.getElementById('custom-context-menu');
 
-    document.addEventListener('contextmenu', (e) => {
+    document.body.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       customMenu.style.left = `${e.clientX}px`;
       customMenu.style.top = `${e.clientY}px`;
@@ -28,12 +29,12 @@
       customMenu.style.display = 'none';
     });
 
-    // 特定キー押下で画像を非表示（簡易対策）
+    // 特定キー押下時に作品非表示（抑止）
     window.addEventListener('keydown', (e) => {
       if ([16, 44, 91, 92].includes(e.keyCode)) {
-        canvas.style.display = 'none';
+        canvas.style.visibility = 'hidden';
       }
     });
     window.addEventListener('keyup', () => {
-      canvas.style.display = 'block';
+      canvas.style.visibility = 'visible';
     });

@@ -1,40 +1,42 @@
-jQuery.noConflict();
+  document.addEventListener("DOMContentLoaded", function () {
+    const cursor = document.createElement("div");
+    cursor.id = "cursor";
+    document.body.appendChild(cursor);
 
-(function ($) {
-    $(function () {
-        var cursor = $("<div id='cursor'></div>");
-        var stalker = $("<div id='stalker'></div>");
-        $("body").addClass("custom-cursor").append(cursor).append(stalker);
+    const stalker = document.createElement("div");
+    stalker.id = "stalker";
+    document.body.appendChild(stalker);
 
-        $(".head,a,nav").hover(
-            function () {
-                cursor.addClass('cursor--hover');
-                stalker.addClass('stalker--hover');
-            },
-            function () {
-                cursor.removeClass('cursor--hover');
-                stalker.removeClass('stalker--hover');
-            }
-        );
+    // 追従処理
+    document.addEventListener("mousemove", e => {
+      const { clientX: x, clientY: y } = e;
 
-        $(document).on("mousemove", function (e) {
-            var x = e.clientX;
-            var y = e.clientY;
-            cursor.css({
-                "opacity": "1",
-                "top": y + "px",
-                "left": x + "px"
-            });
-            setTimeout(function () {
-                stalker.css({
-                    "opacity": "1",
-                    "top": y + "px",
-                    "left": x + "px"
-                });
-            }, 150);
-        });
+      cursor.style.opacity = "1";
+      stalker.style.opacity = "1";
 
-        cursor.css("opacity", "0");
-        stalker.css("opacity", "0");
+      cursor.style.top = `${y}px`;
+      cursor.style.left = `${x}px`;
+
+      setTimeout(() => {
+        stalker.style.top = `${y}px`;
+        stalker.style.left = `${x}px`;
+      }, 100);
     });
-})(jQuery);
+
+    // ホバー処理（対象を自由に追加可能）
+    document.querySelectorAll("a, .toggle_btn span, #navArea .inner li a, .head, nav").forEach(el => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("cursor--hover");
+        stalker.classList.add("stalker--hover");
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("cursor--hover");
+        stalker.classList.remove("stalker--hover");
+      });
+    });
+
+    // 初期非表示（オプション）
+    cursor.style.opacity = "0";
+    stalker.style.opacity = "0";
+  });
+  

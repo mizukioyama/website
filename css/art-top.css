@@ -25,10 +25,10 @@ html,
 body {
   font-family: 'jost', sans-serif;
   color: var(--text);
-  background: var(--def);
 }
     #artCanvas {
-      border: 1px solid #ccc;
+      border: 2px solid #fff;
+      box-shadow: 0 0 10px #fff;
     }
     #custom-context-menu {
       position: fixed;
@@ -40,8 +40,7 @@ body {
       border-radius: 5px;
       font-size: 14px;
     }
-
-
+    
 #loading-bg {
   position: fixed;
   top: 0;
