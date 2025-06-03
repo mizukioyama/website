@@ -11,54 +11,61 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // innerHTMLの内容が反映された後に初期化
-      initializeMenu();
-      new multi_language(); // 多言語切り替えもここで確実に初期化
-      initializeTyping();   // タイピングアニメーションもここで初期化
+      // 少し遅らせて初期化（DOMの構築を完全に待つ）
+      setTimeout(() => {
+        initializeMenu();
+        new multi_language();  // 多言語切り替えを正しく初期化
+        initializeTyping();
+      }, 0); // もしくは setTimeout(..., 10) でもOK
     });
 });
 
 
     // 多言語処理クラス
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedLang = localStorage.getItem('preferredLang') || 'ja';
-      const html = document.documentElement;
-      const langJa = document.getElementById('langJa');
-      const langEn = document.getElementById('langEn');
+    function multi_language() {
+      this.set_current_lang();
+    }
+
+    multi_language.prototype.get_lang_lists = function () {
+      return document.querySelectorAll("input[type='radio'][name='lang']");
+    };
+
+    multi_language.prototype.set_current_lang = function () {
+      const savedLang = localStorage.getItem('preferredLang');
+      const current_lang = savedLang || document.documentElement.getAttribute('lang') || 'ja';
+      document.documentElement.setAttribute('lang', current_lang);
+      this.checked_lang_list(current_lang);
+      this.update_active_class(current_lang);
+    };
+
+    multi_language.prototype.checked_lang_list = function (current_lang) {
+      const elms = this.get_lang_lists();
+      for (const elm of elms) {
+        elm.checked = elm.value === current_lang;
+        elm.addEventListener('click', this.click_lang.bind(this));
+      }
+    };
+
+    multi_language.prototype.click_lang = function (e) {
+      const lang = e.target.value;
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('preferredLang', lang); // 永続化
+      this.update_active_class(lang);
+    };
+
+    multi_language.prototype.update_active_class = function (lang) {
       const jaDiv = document.querySelector('#langChenge .ja');
       const enDiv = document.querySelector('#langChenge .en');
 
-      // ラジオボタンのチェック状態を反映
-      if (savedLang === 'ja') {
-        langJa.checked = true;
-        jaDiv.classList.add('active');
-        enDiv.classList.remove('active');
-      } else {
-        langEn.checked = true;
-        enDiv.classList.add('active');
-        jaDiv.classList.remove('active');
+      if (jaDiv && enDiv) {
+        jaDiv.classList.toggle('active', lang === 'ja');
+        enDiv.classList.toggle('active', lang === 'en');
       }
+    };
 
-      // HTML lang属性設定
-      html.setAttribute('lang', savedLang);
-
-      // イベントリスナー追加
-      [langJa, langEn].forEach(input => {
-        input.addEventListener('change', (e) => {
-          const selectedLang = e.target.value;
-          html.setAttribute('lang', selectedLang);
-          localStorage.setItem('preferredLang', selectedLang);
-
-          // activeクラスの切り替え
-          if (selectedLang === 'ja') {
-            jaDiv.classList.add('active');
-            enDiv.classList.remove('active');
-          } else {
-            enDiv.classList.add('active');
-            jaDiv.classList.remove('active');
-          }
-        });
-      });
+    // 初期化
+    window.addEventListener('DOMContentLoaded', () => {
+      new multi_language();
     });
     
 
