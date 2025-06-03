@@ -816,6 +816,10 @@ footer,
     display: none !important;
   }
 
+  .typing-container {
+    width: 80%;
+  }
+
   #langChenge {
     top: 2%;
     left: 4%;
