@@ -55,25 +55,17 @@
 
 <body oncontextmenu="return false;">
     <header>
-        <div id="loading-bg">
-            <div class="typing-text-en">
-                当ウェサイトはアニメーションが常に動作しているため、端末の充電を消費します。
-                <br>
-                外出中での閲覧には十分にご注意ください。
-                <br>
-                Natureinspire.
-            </div>
-        </div>
+<div id="loading-bg">
+  <div class="typing-container">
+    <p class="typing-line">当ウェサイトはアニメーションが常に動作しているため、端末の充電を消費します。</p>
+    <p class="typing-line">外出中での閲覧には十分にご注意ください。</p>
+    <p class="typing-line">Natureinspire.</p>
+  </div>
+</div>
         <div id="header-container"></div>
     </header>
 
     <main class="top-page">
-        <h1>
-            Mizuki Oyama.
-            <br>
-            <span>Nature inspire.</span>
-        </h1>
-
         <!-- 言語切り替えUI -->
         <div id="langChenge">
             <input type="radio" id="langJa" name="lang" value="ja" hidden>
@@ -93,9 +85,9 @@
             <div class="back">
                 <div class="back__slide active">
                     <div class="progress"></div>
-                    <div class="creator noise">
-                        <h1>
-                            DigitalExhibition / Close
+                    <div class="creator">
+                        <h1 class="noise">
+                            Exhibition / Close
                         </h1>
                         </div>
                     <div class="time noise">
@@ -105,9 +97,11 @@
                 <div class="back__slide">
                     <div class="progress"></div>
                     <div class="back-front-image"></div>
-                    <div class="creator noise">
-                        <h1>
-                            CreatorArtist / MizukiOyama
+                    <div class="creator">
+                        <h1 class="noise">
+                            Artist / MizukiOyama
+                            <br>
+                            <span>Nature inspire.</span>
                         </h1>
                         </div>
                     <div class="time noise">
@@ -314,7 +308,7 @@
             </p>
         </div>
         <hr>
-        <p>
+        <p lang="ja">
             作品ページへ移動します。
             <br>
             Site Policyを確認しましたか？
@@ -414,7 +408,7 @@ This policy may be changed without notice as necessary.
 </p>
 </div>
 <hr>
-<p>
+<p lang="en">
 Go to the work page.
 <br>
 Have you checked the Site Policy?
