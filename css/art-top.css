@@ -26,7 +26,6 @@ body {
   font-family: 'jost', sans-serif;
 }
 
-
 #loading-bg {
   position: fixed;
   top: 0;
@@ -50,26 +49,11 @@ body {
 }
 
 .typing-line {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: showLine 0.8s ease forwards;
-}
-
-.typing-line:nth-child(1) {
-  animation-delay: 0.5s;
-}
-.typing-line:nth-child(2) {
-  animation-delay: 1.8s;
-}
-.typing-line:nth-child(3) {
-  animation-delay: 3.1s;
-}
-
-@keyframes showLine {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid var(--text);
+  width: fit-content;
 }
 
 
@@ -191,8 +175,8 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
 
 #langChenge {
   position: absolute;
-  top: 7%;
-  left: 1%;
+  top: 15vmin;
+  left: 30vmin;
   z-index: 9999;
 }
 
@@ -213,6 +197,7 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
 
 #langChenge .ja,
 #langChenge .en {
+  font-weight: 500;
   color: var(--text);
   text-shadow: 0 0 3px var(--inv);
   opacity: 0.3;
@@ -320,14 +305,17 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   display: block;
   position: absolute;
   top: 10%;
-  right: 30vmin;
-  text-align: right;
+  left: 30vmin;
+}
+
+.creator h1 .noise {
+  display: block;
 }
 
 .time {
   position: absolute;
   bottom: 10%;
-  right: 5%;
+  right: 30vmin;
 }
 
 .time-display {
@@ -802,6 +790,11 @@ footer,
 
   #pc {
     display: none !important;
+  }
+
+  #langChenge {
+    top: 2%;
+    left: 4%;
   }
 
   .card {
