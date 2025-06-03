@@ -21,51 +21,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 多言語処理クラス
     function multi_language() {
-      this.set_current_lang();
+      this.init();
     }
 
-    multi_language.prototype.get_lang_lists = function () {
-      return document.querySelectorAll("input[type='radio'][name='lang']");
+    multi_language.prototype.init = function () {
+      const savedLang = localStorage.getItem('preferredLang') || 'ja';
+      document.documentElement.setAttribute('lang', savedLang);
+      this.setRadioButton(savedLang);
+      this.setActiveClass(savedLang);
+      this.addEventListeners();
     };
 
-    multi_language.prototype.set_current_lang = function () {
-      const savedLang = localStorage.getItem('preferredLang');
-      const current_lang = savedLang || document.documentElement.getAttribute('lang') || 'ja';
-      document.documentElement.setAttribute('lang', current_lang);
-      this.checked_lang_list(current_lang);
-      this.update_active_class(current_lang);
+    multi_language.prototype.setRadioButton = function (lang) {
+      const radios = document.querySelectorAll("input[type='radio'][name='lang']");
+      radios.forEach(radio => {
+        radio.checked = (radio.value === lang);
+      });
     };
 
-    multi_language.prototype.checked_lang_list = function (current_lang) {
-      const elms = this.get_lang_lists();
-      for (const elm of elms) {
-        elm.checked = elm.value === current_lang;
-        elm.addEventListener('click', this.click_lang.bind(this));
-      }
-    };
-
-    multi_language.prototype.click_lang = function (e) {
-      const lang = e.target.value;
-      document.documentElement.setAttribute('lang', lang);
-      localStorage.setItem('preferredLang', lang); // 永続化
-      this.update_active_class(lang);
-    };
-
-    multi_language.prototype.update_active_class = function (lang) {
+    multi_language.prototype.setActiveClass = function (lang) {
       const jaDiv = document.querySelector('#langChenge .ja');
       const enDiv = document.querySelector('#langChenge .en');
-
       if (jaDiv && enDiv) {
         jaDiv.classList.toggle('active', lang === 'ja');
         enDiv.classList.toggle('active', lang === 'en');
       }
     };
 
+    multi_language.prototype.addEventListeners = function () {
+      const radios = document.querySelectorAll("input[type='radio'][name='lang']");
+      radios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const lang = e.target.value;
+          document.documentElement.setAttribute('lang', lang);
+          localStorage.setItem('preferredLang', lang);
+          this.setActiveClass(lang);
+        });
+      });
+    };
+
     // 初期化
-    window.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       new multi_language();
     });
-    
+
 
 // メニュー初期化関数
 function initializeMenu() {
