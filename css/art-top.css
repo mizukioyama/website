@@ -21,6 +21,12 @@ li {
   list-style: none;
 }
 
+img, canvas {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
 html,
 body {
   font-family: 'jost', sans-serif;
@@ -60,11 +66,10 @@ body {
 .typing-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
   font-size: 1.6rem;
   color: var(--text);
-  width: 75%;
+  width: fit-content;
 }
 
 .typing-line {
@@ -72,6 +77,8 @@ body {
   border-right: 2px solid var(--text);
   width: fit-content;
 }
+
+
 
 
 /*== Scrollbar ==*/
