@@ -26,7 +26,6 @@ body {
   font-family: 'jost', sans-serif;
 }
 
-/* ========== Loading Screen ========== */
 #loading-bg {
   position: fixed;
   top: 0;
@@ -42,20 +41,21 @@ body {
 }
 
 .typing-text-en {
-  width: min-content;
-  white-space: nowrap;
-  overflow: hidden;
-  padding-right: 0.25rem;
-  border-right: 2px solid var(--text);
   font-size: 1.6rem;
   color: var(--text);
-  animation: typing 6s steps(15), typingEffect 0.5s step-end infinite alternate;
-  animation: typing 8s steps(16), typingEffect 1.5s step-end infinite alternate;
+  white-space: pre-wrap; /* ← 複数行対応に変更 */
+  overflow: hidden;
+  border-right: 2px solid var(--text);
+  width: 0;
+  animation: typing 6s steps(55, end) forwards, typingEffect 0.75s step-end infinite;
 }
 
 @keyframes typing {
   from {
     width: 0;
+  }
+  to {
+    width: 100%;
   }
 }
 
@@ -64,6 +64,7 @@ body {
     border-color: transparent;
   }
 }
+
 
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
@@ -805,6 +806,14 @@ footer,
     gap: 1rem;
   }
 
+  .creator {
+    top: 5%;
+  }
+
+  .time {
+    bottom: 5%;
+  }
+
   .back__slide::before {
     width: 92.5%;
     height: 76.5%;
@@ -825,23 +834,6 @@ footer,
     right: 5%;
     bottom: 0;
   }
-
-
-  /*==button==*/
-  .button {
-    display: block;
-    font-size: 1rem;
-    text-align: center;
-    width: 100%;
-    color: var(--inv);
-    margin: 0 auto;
-    box-shadow: inset 0 1px 5px 0px rgba(20, 20, 20, 0.86);
-  }
-
-  .button:nth-child(even) {
-    margin: 0 auto;
-  }
-
 }
 
 @media screen and (min-width: 600px) and (max-width: 1199px) {

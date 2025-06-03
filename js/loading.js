@@ -1,8 +1,10 @@
 jQuery(function ($) {
   $(window).on('load', function () {
-    $('html').css('display', 'block'); // ← 保険的に追加
+    $('html').css('display', 'block');
+    
+    // タイピング完了後にフェードアウト (6s + 少し余裕をもたせて 6.5秒)
     setTimeout(function () {
-      $('#loading-bg').fadeOut(500);
-    }, 2000);
+      $('#loading-bg').fadeOut(800);
+    }, 6500);
   });
 });
