@@ -28,7 +28,14 @@ multi_language.prototype.get_lang_lists = function () {
 };
 
 multi_language.prototype.set_current_lang = function () {
-  const current_lang = document.querySelector('html').getAttribute('lang') || 'ja';
+  let current_lang = document.querySelector('html').getAttribute('lang');
+
+  // 初期状態では ja をデフォルトとする
+  if (!current_lang) {
+    current_lang = 'ja';
+    document.querySelector('html').setAttribute('lang', current_lang);
+  }
+
   this.checked_lang_list(current_lang);
   this.update_active_class(current_lang);
 };
@@ -36,9 +43,7 @@ multi_language.prototype.set_current_lang = function () {
 multi_language.prototype.checked_lang_list = function (current_lang) {
   const elms = this.get_lang_lists();
   for (const elm of elms) {
-    if (elm.value === current_lang) {
-      elm.checked = true;
-    }
+    elm.checked = elm.value === current_lang;
     elm.addEventListener('click', this.click_lang.bind(this));
   }
 };
@@ -58,6 +63,12 @@ multi_language.prototype.update_active_class = function (lang) {
     enDiv.classList.toggle('active', lang === 'en');
   }
 };
+
+// DOM読み込み後に初期化
+document.addEventListener('DOMContentLoaded', () => {
+  new multi_language();
+});
+
 
 // メニュー初期化関数
 function initializeMenu() {

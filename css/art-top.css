@@ -332,7 +332,7 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   left: 30vmin;
 }
 
-.creator h1 .noise {
+.creator .noise {
   display: block;
 }
 
