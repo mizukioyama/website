@@ -209,7 +209,6 @@ nav {
     font-weight: 500;
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
     position: absolute;
-    bottom: 40%;
     left: 5%;
     text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.5);
 }
@@ -241,6 +240,11 @@ header .noise {
 }
 
 
+@media screen and (min-width: 1299px) {
+        #mask p {
+        bottom: 45%;
+    }
+}
 @media screen and (max-width: 599px) {
     nav {
         flex-direction: column;
@@ -254,7 +258,7 @@ header .noise {
         height: 100%;
     }
     #mask p {
-        top: -15%;
+        top: 15%;
     }
     .open #mask ul {
     bottom: 10%;
