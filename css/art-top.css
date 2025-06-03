@@ -24,7 +24,23 @@ li {
 html,
 body {
   font-family: 'jost', sans-serif;
+  color: var(--text);
+  background: var(--def);
 }
+    #artCanvas {
+      border: 1px solid #ccc;
+    }
+    #custom-context-menu {
+      position: fixed;
+      background-color: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 10px;
+      display: none;
+      z-index: 1000;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
 
 #loading-bg {
   position: fixed;

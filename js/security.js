@@ -1,64 +1,39 @@
-// 作品保護 右クリック時に表示するカスタムメニューの要素を作成
-			var customContextMenu = document.createElement('div');
-			customContextMenu.id = 'custom-context-menu';
-			customContextMenu.style.position = 'fixed';
-			customContextMenu.style.text = '#fff';
-			customContextMenu.style.backgroundColor = 'rgba(255,255,255,0.6)';
-			customContextMenu.style.padding = '10px';
-			customContextMenu.style.display = 'none'; // 初期状態では非表示
-			customContextMenu.style.zIndex = '1000'; // 追加: z-index を指定
+    // canvasに画像を描画（画像はGitHubにアップロードされたものを指定）
+    const canvas = document.getElementById('artCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = "anonymous"; // クロスオリジン対策（GitHub Pagesで不要なら省略）
+    img.src = './img/230033-2.jpg'; // 同じリポジトリに置いた画像ファイル名
 
-			// カスタムメニューに項目を追加
-			var menuItem1 = document.createElement('div');
-			menuItem1.textContent = 'Nothing happens when I click.';
-			menuItem1.addEventListener('click', function () {
-				// メニュー項目1のクリック時の処理
-				// ここに任意のコードを追加
-			});
-			customContextMenu.appendChild(menuItem1);
-			//menu2
-			var menuItem2 = document.createElement('div');
-			menuItem2.textContent = 'Saving images is not permitted.';
-			menuItem2.addEventListener('click', function () {
-				// メニュー項目2のクリック時の処理
-				// ここに任意のコードを追加
-			});
-			customContextMenu.appendChild(menuItem2);
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-			// カスタムメニューをbody要素に追加
-			document.body.appendChild(customContextMenu);
+      // ウォーターマーク追加（任意）
+      ctx.font = '20px sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+      ctx.fillText('© mizukioyama', canvas.width - 150, canvas.height - 20);
+    };
 
-			// 右クリック時のイベントハンドラ
-			document.addEventListener('contextmenu', function (e) {
-				e.preventDefault(); // デフォルトの右クリックメニューを無効化
+    // 右クリック無効＋カスタムメニュー
+    const customMenu = document.getElementById('custom-context-menu');
 
-				// カスタムメニューを表示
-				customContextMenu.style.display = 'block';
-				customContextMenu.style.left = e.clientX + 'px';
-				customContextMenu.style.top = e.clientY + 'px';
-			});
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      customMenu.style.left = `${e.clientX}px`;
+      customMenu.style.top = `${e.clientY}px`;
+      customMenu.style.display = 'block';
+    });
 
-			// ドキュメントのクリック時にカスタムメニューを非表示にするイベントハンドラ
-			document.addEventListener('click', function (e) {
-				// カスタムメニュー自体のクリックの場合は非表示にしない
-				if (!customContextMenu.contains(e.target)) {
-					customContextMenu.style.display = 'none';
-				}
-			});
+    document.addEventListener('click', () => {
+      customMenu.style.display = 'none';
+    });
 
-			jQuery(document).ready(function ($) {
-				// キーを押したとき
-				$(window).on('keydown', function (e) {
-					var keyCode = e.keyCode;
-
-					if (keyCode == 16 || keyCode == 44 || keyCode == 91 || keyCode == 92) {
-						$('img').hide();
-						return false;
-					}
-				});
-
-				// キーを離したとき
-				$(window).on('keyup', function () {
-					$('img').show();
-				});
-			});
+    // 特定キー押下で画像を非表示（簡易対策）
+    window.addEventListener('keydown', (e) => {
+      if ([16, 44, 91, 92].includes(e.keyCode)) {
+        canvas.style.display = 'none';
+      }
+    });
+    window.addEventListener('keyup', () => {
+      canvas.style.display = 'block';
+    });
