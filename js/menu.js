@@ -20,51 +20,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // 多言語処理クラス
-    function multi_language() {
-      this.init();
-    }
-
-    multi_language.prototype.init = function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const savedLang = localStorage.getItem('preferredLang') || 'ja';
-      document.documentElement.setAttribute('lang', savedLang);
-      this.setRadioButton(savedLang);
-      this.setActiveClass(savedLang);
-      this.addEventListeners();
-    };
-
-    multi_language.prototype.setRadioButton = function (lang) {
-      const radios = document.querySelectorAll("input[type='radio'][name='lang']");
-      radios.forEach(radio => {
-        radio.checked = (radio.value === lang);
-      });
-    };
-
-    multi_language.prototype.setActiveClass = function (lang) {
+      const html = document.documentElement;
+      const langJa = document.getElementById('langJa');
+      const langEn = document.getElementById('langEn');
       const jaDiv = document.querySelector('#langChenge .ja');
       const enDiv = document.querySelector('#langChenge .en');
-      if (jaDiv && enDiv) {
-        jaDiv.classList.toggle('active', lang === 'ja');
-        enDiv.classList.toggle('active', lang === 'en');
-      }
-    };
 
-    multi_language.prototype.addEventListeners = function () {
-      const radios = document.querySelectorAll("input[type='radio'][name='lang']");
-      radios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-          const lang = e.target.value;
-          document.documentElement.setAttribute('lang', lang);
-          localStorage.setItem('preferredLang', lang);
-          this.setActiveClass(lang);
+      // ラジオボタンのチェック状態を反映
+      if (savedLang === 'ja') {
+        langJa.checked = true;
+        jaDiv.classList.add('active');
+        enDiv.classList.remove('active');
+      } else {
+        langEn.checked = true;
+        enDiv.classList.add('active');
+        jaDiv.classList.remove('active');
+      }
+
+      // HTML lang属性設定
+      html.setAttribute('lang', savedLang);
+
+      // イベントリスナー追加
+      [langJa, langEn].forEach(input => {
+        input.addEventListener('change', (e) => {
+          const selectedLang = e.target.value;
+          html.setAttribute('lang', selectedLang);
+          localStorage.setItem('preferredLang', selectedLang);
+
+          // activeクラスの切り替え
+          if (selectedLang === 'ja') {
+            jaDiv.classList.add('active');
+            enDiv.classList.remove('active');
+          } else {
+            enDiv.classList.add('active');
+            jaDiv.classList.remove('active');
+          }
         });
       });
-    };
-
-    // 初期化
-    document.addEventListener('DOMContentLoaded', () => {
-      new multi_language();
     });
-
+    
 
 // メニュー初期化関数
 function initializeMenu() {
