@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     multi_language.prototype.set_current_lang = function () {
-      const current_lang = document.querySelector('html').getAttribute('lang') || 'ja';
+      const savedLang = localStorage.getItem('preferredLang');
+      const current_lang = savedLang || document.documentElement.getAttribute('lang') || 'ja';
+      document.documentElement.setAttribute('lang', current_lang);
       this.checked_lang_list(current_lang);
       this.update_active_class(current_lang);
     };
@@ -44,7 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     multi_language.prototype.click_lang = function (e) {
       const lang = e.target.value;
-      document.querySelector('html').setAttribute('lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('preferredLang', lang); // 永続化
       this.update_active_class(lang);
     };
 
@@ -62,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('DOMContentLoaded', () => {
       new multi_language();
     });
-
+    
 
 // メニュー初期化関数
 function initializeMenu() {
