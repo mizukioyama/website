@@ -24,7 +24,6 @@ li {
 html,
 body {
   font-family: 'jost', sans-serif;
-  color: var(--text);
 }
     #artCanvas {
       border: 2px solid #fff;
@@ -40,7 +39,7 @@ body {
       border-radius: 5px;
       font-size: 14px;
     }
-    
+
 #loading-bg {
   position: fixed;
   top: 0;
