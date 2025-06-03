@@ -31,19 +31,16 @@ multi_language.prototype.get_lang_lists = function () {
 };
 
 multi_language.prototype.set_current_lang = function () {
-  // localStorage に保存された言語を優先して取得
-  let current_lang = localStorage.getItem('preferredLang') || document.querySelector('html').getAttribute('lang');
+  let current_lang = localStorage.getItem('preferredLang') || document.documentElement.getAttribute('lang') || 'ja';
 
-  // 初期状態では ja をデフォルトとする
-  if (!current_lang) {
-    current_lang = 'ja';
-  }
+  // lang 属性を更新
+  document.documentElement.setAttribute('lang', current_lang);
 
-  // html の lang 属性を更新
-  document.querySelector('html').setAttribute('lang', current_lang);
-
+  // ラジオボタン状態を反映＆イベント付加
   this.checked_lang_list(current_lang);
-  this.update_active_class(current_lang);
+
+  // 初期表示時にクリック時と同じ処理を実行して active を正しく設定
+  this.click_lang({ target: { value: current_lang } });
 };
 
 multi_language.prototype.checked_lang_list = function (current_lang) {
@@ -51,23 +48,18 @@ multi_language.prototype.checked_lang_list = function (current_lang) {
   for (const elm of elms) {
     elm.checked = elm.value === current_lang;
 
-    // 一度だけイベントを追加（複数回初期化しないように）
+    // 一度だけイベントを追加（重複防止）
     if (!elm.dataset.listenerAdded) {
       elm.addEventListener('click', this.click_lang.bind(this));
-      elm.dataset.listenerAdded = 'true'; // フラグを追加して2重登録防止
+      elm.dataset.listenerAdded = 'true';
     }
   }
 };
 
 multi_language.prototype.click_lang = function (e) {
   const lang = e.target.value;
-
-  // lang を html に設定
-  document.querySelector('html').setAttribute('lang', lang);
-
-  // localStorage に保存
+  document.documentElement.setAttribute('lang', lang);
   localStorage.setItem('preferredLang', lang);
-
   this.update_active_class(lang);
 };
 
@@ -80,6 +72,7 @@ multi_language.prototype.update_active_class = function (lang) {
     enDiv.classList.toggle('active', lang === 'en');
   }
 };
+
 
 
 // メニュー初期化関数
