@@ -80,11 +80,18 @@
 
     <main class="top-page">
         <!-- 言語切り替えUI -->
-<div id="langChenge">
-  <label class="ja"><input type="radio" name="lang" value="ja"> 日本語</label>
-  <label class="en"><input type="radio" name="lang" value="en"> English</label>
-</div>
-
+        <div id="langChenge">
+            <input type="radio" id="langJa" name="lang" value="ja" hidden>
+            <input type="radio" id="langEn" name="lang" value="en" hidden>
+            <div class="inner_label">
+                <label for="langJa">
+                    <div class="ja">JP</div>
+                </label>
+                <label for="langEn">
+                    <div class="en">EN</div>
+                </label>
+            </div>
+        </div>
 
         <!--main-->
         <div class="wrap">

@@ -18,56 +18,50 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 多言語処理クラス
-function multi_language() {
-  this.set_current_lang();
-}
 
-multi_language.prototype.get_lang_lists = function () {
-  return document.querySelectorAll("input[type='radio'][name='lang']");
-};
+    // 多言語処理クラス
+    function multi_language() {
+      this.set_current_lang();
+    }
 
-multi_language.prototype.set_current_lang = function () {
-  let current_lang = document.querySelector('html').getAttribute('lang');
+    multi_language.prototype.get_lang_lists = function () {
+      return document.querySelectorAll("input[type='radio'][name='lang']");
+    };
 
-  // 初期状態では ja をデフォルトとする
-  if (!current_lang) {
-    current_lang = 'ja';
-    document.querySelector('html').setAttribute('lang', current_lang);
-  }
+    multi_language.prototype.set_current_lang = function () {
+      const current_lang = document.querySelector('html').getAttribute('lang') || 'ja';
+      this.checked_lang_list(current_lang);
+      this.update_active_class(current_lang);
+    };
 
-  this.checked_lang_list(current_lang);
-  this.update_active_class(current_lang);
-};
+    multi_language.prototype.checked_lang_list = function (current_lang) {
+      const elms = this.get_lang_lists();
+      for (const elm of elms) {
+        elm.checked = elm.value === current_lang;
+        elm.addEventListener('click', this.click_lang.bind(this));
+      }
+    };
 
-multi_language.prototype.checked_lang_list = function (current_lang) {
-  const elms = this.get_lang_lists();
-  for (const elm of elms) {
-    elm.checked = elm.value === current_lang;
-    elm.addEventListener('click', this.click_lang.bind(this));
-  }
-};
+    multi_language.prototype.click_lang = function (e) {
+      const lang = e.target.value;
+      document.querySelector('html').setAttribute('lang', lang);
+      this.update_active_class(lang);
+    };
 
-multi_language.prototype.click_lang = function (e) {
-  const lang = e.target.value;
-  document.querySelector('html').setAttribute('lang', lang);
-  this.update_active_class(lang);
-};
+    multi_language.prototype.update_active_class = function (lang) {
+      const jaDiv = document.querySelector('#langChenge .ja');
+      const enDiv = document.querySelector('#langChenge .en');
 
-multi_language.prototype.update_active_class = function (lang) {
-  const jaDiv = document.querySelector('#langChenge .ja');
-  const enDiv = document.querySelector('#langChenge .en');
+      if (jaDiv && enDiv) {
+        jaDiv.classList.toggle('active', lang === 'ja');
+        enDiv.classList.toggle('active', lang === 'en');
+      }
+    };
 
-  if (jaDiv && enDiv) {
-    jaDiv.classList.toggle('active', lang === 'ja');
-    enDiv.classList.toggle('active', lang === 'en');
-  }
-};
-
-// DOM読み込み後に初期化
-document.addEventListener('DOMContentLoaded', () => {
-  new multi_language();
-});
+    // 初期化
+    window.addEventListener('DOMContentLoaded', () => {
+      new multi_language();
+    });
 
 
 // メニュー初期化関数
@@ -117,9 +111,9 @@ function initializeTyping() {
           loadingBg.style.opacity = 0;
           setTimeout(() => {
             loadingBg.style.display = 'none';
-          }, 800);
+          }, 1000);
         }
-      }, 600);
+      }, 800);
       return;
     }
 
