@@ -16,28 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// メニューの初期化関数
-function initializeMenu() {
-  const nav = document.getElementById('navArea');
-  const btn = document.querySelector('.toggle_btn');
-  const mask = document.getElementById('mask');
-  const open = 'open';
-
-  if (btn && nav) {
-    btn.addEventListener('click', () => {
-      nav.classList.toggle(open);
-    });
-  }
-
-  if (mask && nav) {
-    mask.addEventListener('click', () => {
-      nav.classList.remove(open);
-    });
-  }
-}
-
-
-
 
 switch (document.readyState) {
   case 'complete':
