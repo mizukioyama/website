@@ -2,43 +2,59 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nature inspire</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nature inspire | 自然とArtが調和する</title>
 
-    <!-- CSSファイル -->
-    <link rel="stylesheet" href="css/noise.css">
-    <link rel="stylesheet" href="css/art-top.css">
-    <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/noise.css">
+  <link rel="stylesheet" href="css/art-top.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
-    <!-- JavaScriptファイル -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js" crossorigin="anonymous"></script>
+  <script src="js/time.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/menu.js"></script>
 
+  <!-- ✅ SEO強化 -->
+  <meta name="description" content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
+  <meta name="keywords" content="ポートフォリオ, 自然, アート, Webデザイン, 作品集, クリエイティブ, Nature inspire">
+  <meta name="author" content="あなたの名前（またはブランド名）">
+  <link rel="canonical" href="https://mizukioyama.github.io/"> <!-- ご自身のURLに差し替えてください -->
 
-    <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js"
-        crossorigin="anonymous"></script>
-    <script src="js/time.js"></script>
-    <script src="js/cursor.js"></script>
-    <script src="js/loading.js"></script>
-    <script src="js/menu.js"></script>
+  <!-- OGP（SNSシェア用） -->
+  <meta property="og:title" content="Nature inspire | 自然とアートのポートフォリオ">
+  <meta property="og:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mizukioyama.github.io/">
+  <meta property="og:image" content="https://mizukioyama.github.io/images/ogp.jpg"> <!-- OGP画像を用意してください -->
+  <meta property="og:site_name" content="Nature inspire">
 
-    <!-- SEO -->
-    <meta name="description" content="Your website description">
-    <meta name="keywords" content="Paradigm Art, Nature inspire, Abstract, Art, Paradigm Nature">
+  <!-- Twitterカード -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nature inspire | 自然とアートのポートフォリオ">
+  <meta name="twitter:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+  <meta name="twitter:image" content="https://mizukioyama.github.io/images/ogp.jpg">
 
-    <!-- キャッシュ制御 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico">
 
-    <!-- セキュリティ -->
-    <meta name="referrer" content="strict-origin">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <!-- キャッシュ制御 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
+  <!-- セキュリティ -->
+  <meta name="referrer" content="strict-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
     style-src 'self' 'unsafe-inline' https://use.typekit.net;
@@ -46,9 +62,13 @@
     img-src 'self' data:;
     connect-src 'self';
     object-src 'none';
-    ">
+  ">
 
+  <!--画像遅延読み込み
+  <img data-src="path/to/image.jpg" alt="example">
+  -->
 </head>
+
 
 
 <!--作品保護-->

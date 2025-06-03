@@ -1,5 +1,3 @@
-console.log('Menu script loaded');
-
 document.addEventListener("DOMContentLoaded", function () {
 
   // 遅延読み込み画像
