@@ -21,7 +21,8 @@ li {
   list-style: none;
 }
 
-img, canvas {
+img,
+canvas {
   -webkit-user-drag: none;
   user-select: none;
   pointer-events: none;
@@ -31,22 +32,24 @@ html,
 body {
   font-family: 'jost', sans-serif;
 }
-    canvas {
-      display: block;
-    }
 
-    #custom-context-menu {
-      position: absolute;
-      display: none;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-size: 14px;
-      z-index: 99;
-      pointer-events: none;
-      user-select: none;
-    }
+/*=======セキュリティ*/
+canvas {
+  display: block;
+}
+
+#custom-context-menu {
+  position: absolute;
+  display: none;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 99;
+  pointer-events: none;
+  user-select: none;
+}
 
 /*======load*/
 #loading-bg {
@@ -78,8 +81,90 @@ body {
   width: fit-content;
 }
 
+/* ========== Custom Cursor ========== */
+* {
+  cursor: none !important;
+}
 
+#cursor,
+#stalker {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  z-index: 9999;
+}
 
+#cursor {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#stalker {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255);
+  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.cursor--hover {
+  width: 40px !important;
+  height: 40px !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.stalker--hover {
+  width: 50px !important;
+  height: 50px !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/*=========== lang */
+#langChenge input {
+  display: none !important;
+}
+
+#langChenge {
+  position: absolute;
+  top: 15vmin;
+  left: 30vmin;
+  z-index: 100;
+}
+
+#langChenge .inner_label {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  pointer-events: none;
+}
+
+#langChenge label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  pointer-events: all;
+  transition: opacity 0.3s;
+}
+
+#langChenge .ja,
+#langChenge .en {
+  font-weight: 500;
+  color: var(--text);
+  text-shadow: 0 0 3px var(--inv);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+#langChenge .ja:hover,
+#langChenge .en:hover,
+#langChenge .ja.active,
+#langChenge .en.active {
+  opacity: 0.8;
+}
 
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
@@ -123,9 +208,6 @@ body,
 h1 {
   font-size: 1rem;
   color: var(--text);
-  /*position: absolute;
-  top: 1%;
-  left: 1%;*/
 }
 
 h2 {
@@ -144,96 +226,6 @@ hr {
   margin: 10% auto;
   opacity: 0.3;
 }
-
-/* ========== Custom Cursor ========== */
-/* カーソルを非表示にする */
-* {
-  cursor: none !important;
-}
-
-#cursor,
-#stalker {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-  z-index: 9999;
-}
-
-#cursor {
-  width: 8px;
-  height: 8px;
-  background-color: rgba(255, 255, 255);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-#stalker {
-  width: 15px;
-  height: 15px;
-  border: 2px solid rgba(255, 255, 255);
-  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.cursor--hover {
-  width: 40px !important;
-  height: 40px !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-.stalker--hover {
-  width: 50px !important;
-  height: 50px !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-
-/*=========== lang */
-
-html[lang='ja'] *:is([lang]):not([lang='ja']),
-html[lang='en'] *:is([lang]):not([lang='en']) {
-  display:none!important;
-}
-
-#langChenge {
-  position: absolute;
-  top: 15vmin;
-  left: 30vmin;
-  z-index: 100;
-}
-
-#langChenge .inner_label {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  pointer-events: none;
-}
-
-#langChenge label {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  pointer-events: all;
-  transition: opacity 0.3s;
-}
-
-#langChenge .ja,
-#langChenge .en {
-  font-weight: 500;
-  color: var(--text);
-  text-shadow: 0 0 3px var(--inv);
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-}
-
-#langChenge .ja:hover,
-#langChenge .en:hover,
-#langChenge .ja.active,
-#langChenge .en.active {
-  opacity: 0.8;
-}
-
 
 /* ========== Background Slides ========== */
 .back__slide {
