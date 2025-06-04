@@ -75,6 +75,29 @@ multi_language.prototype.update_active_class = function (lang) {
   }
 };
 
+document.addEventListener("DOMContentLoaded", () => {
+  const radios = document.querySelectorAll("input[name='lang']");
+  const ja = document.querySelector(".ja");
+  const en = document.querySelector(".en");
+
+  function updateLang(lang) {
+    document.documentElement.setAttribute("lang", lang);
+    localStorage.setItem("lang", lang);
+    ja.classList.toggle("active", lang === "ja");
+    en.classList.toggle("active", lang === "en");
+  }
+
+  radios.forEach((radio) => {
+    radio.addEventListener("click", () => {
+      updateLang(radio.value);
+    });
+  });
+
+  // 初期化
+  const savedLang = localStorage.getItem("lang") || document.documentElement.lang;
+  updateLang(savedLang);
+});
+
 
 
 // メニュー初期化関数
