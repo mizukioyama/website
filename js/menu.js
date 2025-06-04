@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // DOMがレンダリングされてから初期化（確実に待つ）
+      // DOMがレンダリングされてから初期化
       requestAnimationFrame(() => {
         initializeMenu();
-        const langModule = new multi_language(); // ← インスタンスを保持
-        langModule.applyActiveClass(); // ← 明示的に active を反映
+        const langModule = new multi_language(); // インスタンス生成
+        langModule.applyActiveClass();           // active クラス反映
         initializeTyping();
       });
     });
@@ -32,12 +32,13 @@ multi_language.prototype.get_lang_lists = function () {
 };
 
 multi_language.prototype.set_current_lang = function () {
-  const current_lang = localStorage.getItem('preferredLang') || document.documentElement.getAttribute('lang') || 'ja';
+  const current_lang = localStorage.getItem('preferredLang') ||
+                       document.documentElement.getAttribute('lang') ||
+                       'ja';
 
   document.documentElement.setAttribute('lang', current_lang);
   this.checked_lang_list(current_lang);
 
-  // active を反映（DOMがあるかはこの時点では未確定）
   return current_lang;
 };
 
@@ -60,7 +61,6 @@ multi_language.prototype.click_lang = function (e) {
   this.update_active_class(lang);
 };
 
-// ← 新たに追加：初期反映用
 multi_language.prototype.applyActiveClass = function () {
   this.update_active_class(this.currentLang);
 };
@@ -74,30 +74,6 @@ multi_language.prototype.update_active_class = function (lang) {
     enDiv.classList.toggle('active', lang === 'en');
   }
 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  const radios = document.querySelectorAll("input[name='lang']");
-  const ja = document.querySelector(".ja");
-  const en = document.querySelector(".en");
-
-  function updateLang(lang) {
-    document.documentElement.setAttribute("lang", lang);
-    localStorage.setItem("lang", lang);
-    ja.classList.toggle("active", lang === "ja");
-    en.classList.toggle("active", lang === "en");
-  }
-
-  radios.forEach((radio) => {
-    radio.addEventListener("click", () => {
-      updateLang(radio.value);
-    });
-  });
-
-  // 初期化
-  const savedLang = localStorage.getItem("lang") || document.documentElement.lang;
-  updateLang(savedLang);
-});
-
 
 
 // メニュー初期化関数
