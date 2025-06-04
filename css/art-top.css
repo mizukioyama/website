@@ -132,7 +132,6 @@ canvas {
   display: flex;
   gap: 1rem;
   align-items: center;
-  pointer-events: none;
   position: absolute;
   top: 15vmin;
   left: 30vmin;
