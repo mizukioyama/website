@@ -6,18 +6,18 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ヘッダー読み込み + メニューと多言語の初期化
-fetch("includes-header.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("header-container").innerHTML = data;
+  fetch("includes-header.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-container").innerHTML = data;
 
-    // DOM反映を1フレーム遅らせてから実行
-    requestAnimationFrame(() => {
-      initializeMenu();
-      new multi_language(); // ← これで .active クラスも正しく付与される
-      initializeTyping();
+      // DOM 反映を待って初期化（より確実）
+      requestAnimationFrame(() => {
+        initializeMenu();
+        new multi_language(); // ← active クラスが正しく付与される
+        initializeTyping();
+      });
     });
-  });
 });
 
 
