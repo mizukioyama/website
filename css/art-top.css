@@ -43,7 +43,7 @@ body {
       padding: 10px 15px;
       border-radius: 5px;
       font-size: 14px;
-      z-index: 1000;
+      z-index: 99;
       pointer-events: none;
       user-select: none;
     }
@@ -57,7 +57,7 @@ body {
   height: 100%;
   background: rgba(200, 200, 200, 0.65);
   backdrop-filter: blur(10px);
-  z-index: 9999;
+  z-index: 9998;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +158,7 @@ hr {
   pointer-events: none;
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
-  z-index: 10000;
+  z-index: 9999;
 }
 
 #cursor {
@@ -201,7 +201,7 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
   position: absolute;
   top: 15vmin;
   left: 30vmin;
-  z-index: 9999;
+  z-index: 100;
 }
 
 #langChenge .inner_label {
@@ -316,14 +316,14 @@ html[lang='en'] *:is([lang]):not([lang='en']) {
 }
 
 /* ========== Header / Creator / Time ========== */
-.head a {
+/*.head a {
   font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
   color: var(--def);
   position: absolute;
   top: 9.25%;
   left: 30vmin;
   z-index: 1000;
-}
+}*/
 
 .creator {
   display: block;

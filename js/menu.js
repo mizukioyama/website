@@ -6,18 +6,18 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ヘッダー読み込み + メニューと多言語の初期化
-  fetch("includes-header.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("header-container").innerHTML = data;
+fetch("includes-header.html")
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("header-container").innerHTML = data;
 
-      // 少し遅らせて初期化（DOMの構築を完全に待つ）
-      setTimeout(() => {
-        initializeMenu();
-        new multi_language();  // 多言語切り替えを正しく初期化
-        initializeTyping();
-      }, 0); // もしくは setTimeout(..., 10) でもOK
+    // DOM反映を1フレーム遅らせてから実行
+    requestAnimationFrame(() => {
+      initializeMenu();
+      new multi_language(); // ← これで .active クラスも正しく付与される
+      initializeTyping();
     });
+  });
 });
 
 
@@ -72,7 +72,6 @@ multi_language.prototype.update_active_class = function (lang) {
     enDiv.classList.toggle('active', lang === 'en');
   }
 };
-
 
 
 // メニュー初期化関数
