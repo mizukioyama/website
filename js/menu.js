@@ -76,7 +76,6 @@ multi_language.prototype.update_active_class = function (lang) {
 };
 
 
-
 // メニュー初期化関数
 function initializeMenu() {
   const nav = document.getElementById('navArea');
