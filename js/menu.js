@@ -5,16 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
     img.onload = () => img.removeAttribute('data-src');
   });
 
-  // ヘッダー読み込み + メニューと多言語の初期化
+  // ヘッダー読み込み + 多言語・メニュー・タイピング初期化
   fetch("includes-header.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // DOM 反映を待って初期化（より確実）
+      // DOMがレンダリングされてから初期化（確実に待つ）
       requestAnimationFrame(() => {
         initializeMenu();
-        new multi_language(); // ← active クラスが正しく付与される
+        const langModule = new multi_language(); // ← インスタンスを保持
+        langModule.applyActiveClass(); // ← 明示的に active を反映
         initializeTyping();
       });
     });
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 多言語処理クラス
 function multi_language() {
-  this.set_current_lang();
+  this.currentLang = this.set_current_lang();
 }
 
 multi_language.prototype.get_lang_lists = function () {
@@ -31,16 +32,13 @@ multi_language.prototype.get_lang_lists = function () {
 };
 
 multi_language.prototype.set_current_lang = function () {
-  let current_lang = localStorage.getItem('preferredLang') || document.documentElement.getAttribute('lang') || 'ja';
+  const current_lang = localStorage.getItem('preferredLang') || document.documentElement.getAttribute('lang') || 'ja';
 
-  // lang 属性を更新
   document.documentElement.setAttribute('lang', current_lang);
-
-  // ラジオボタン状態を反映＆イベント付加
   this.checked_lang_list(current_lang);
 
-  // 初期表示時にクリック時と同じ処理を実行して active を正しく設定
-  this.click_lang({ target: { value: current_lang } });
+  // active を反映（DOMがあるかはこの時点では未確定）
+  return current_lang;
 };
 
 multi_language.prototype.checked_lang_list = function (current_lang) {
@@ -48,7 +46,6 @@ multi_language.prototype.checked_lang_list = function (current_lang) {
   for (const elm of elms) {
     elm.checked = elm.value === current_lang;
 
-    // 一度だけイベントを追加（重複防止）
     if (!elm.dataset.listenerAdded) {
       elm.addEventListener('click', this.click_lang.bind(this));
       elm.dataset.listenerAdded = 'true';
@@ -63,6 +60,11 @@ multi_language.prototype.click_lang = function (e) {
   this.update_active_class(lang);
 };
 
+// ← 新たに追加：初期反映用
+multi_language.prototype.applyActiveClass = function () {
+  this.update_active_class(this.currentLang);
+};
+
 multi_language.prototype.update_active_class = function (lang) {
   const jaDiv = document.querySelector('#langChenge .ja');
   const enDiv = document.querySelector('#langChenge .en');
@@ -72,6 +74,7 @@ multi_language.prototype.update_active_class = function (lang) {
     enDiv.classList.toggle('active', lang === 'en');
   }
 };
+
 
 
 // メニュー初期化関数
