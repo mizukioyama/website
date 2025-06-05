@@ -5,25 +5,24 @@ document.addEventListener("DOMContentLoaded", function () {
     img.onload = () => img.removeAttribute('data-src');
   });
 
-  // ヘッダー読み込み
+  // ヘッダー読み込み + 多言語・メニュー・タイピング初期化
   fetch("includes-header.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // DOM描画後に初期化
-requestAnimationFrame(() => {
-  initializeMenu();
-  const langModule = new multi_language(); // ← インスタンス生成
-  langModule.applyActiveClass(); // ← DOM挿入後に active を反映
-  initializeTyping();
-});
-
+      // DOMがレンダリングされてから初期化（確実に待つ）
+      requestAnimationFrame(() => {
+        initializeMenu();
+        const langModule = new multi_language(); // ← インスタンスを保持
+        langModule.applyActiveClass(); // ← 明示的に active を反映
+        initializeTyping();
+      });
     });
 });
 
 
-
+// 多言語処理クラス
 function multi_language() {
   this.currentLang = this.set_current_lang();
 }
@@ -38,6 +37,7 @@ multi_language.prototype.set_current_lang = function () {
   document.documentElement.setAttribute('lang', current_lang);
   this.checked_lang_list(current_lang);
 
+  // active を反映（DOMがあるかはこの時点では未確定）
   return current_lang;
 };
 
@@ -60,6 +60,7 @@ multi_language.prototype.click_lang = function (e) {
   this.update_active_class(lang);
 };
 
+// ← 新たに追加：初期反映用
 multi_language.prototype.applyActiveClass = function () {
   this.update_active_class(this.currentLang);
 };
