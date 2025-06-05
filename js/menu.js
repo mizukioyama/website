@@ -11,65 +11,57 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // DOMがレンダリングされてから初期化（確実に待つ）
       requestAnimationFrame(() => {
         initializeMenu();
-        const langModule = new multi_language(); // ← インスタンスを保持
-        langModule.applyActiveClass(); // ← 明示的に active を反映
+        new multi_language(); // ← これだけでOK
         initializeTyping();
       });
     });
 });
 
 
-// ✅ 言語切り替え初期化関数（完全対応）
-    function multi_language() {
-      this.set_current_lang();
-    }
+// ✅ 言語切り替え初期化関数（applyActiveClass 削除済み）
+function multi_language() {
+  this.set_current_lang();
+}
 
-    multi_language.prototype.get_lang_lists = function () {
-      return document.querySelectorAll("input[type='radio'][name='lang']");
-    };
+multi_language.prototype.get_lang_lists = function () {
+  return document.querySelectorAll("input[type='radio'][name='lang']");
+};
 
-    multi_language.prototype.set_current_lang = function () {
-      // 初期言語をローカルストレージから取得、なければ "ja"
-      const storedLang = localStorage.getItem('selectedLang') || 'ja';
-      document.querySelector('html').setAttribute('lang', storedLang);
-      this.checked_lang_list(storedLang);
-      this.update_active_class(storedLang);
-    };
+multi_language.prototype.set_current_lang = function () {
+  const storedLang = localStorage.getItem('selectedLang') || 'ja';
+  document.querySelector('html').setAttribute('lang', storedLang);
+  this.checked_lang_list(storedLang);
+  this.update_active_class(storedLang);
+};
 
-    multi_language.prototype.checked_lang_list = function (current_lang) {
-      const elms = this.get_lang_lists();
-      for (const elm of elms) {
-        elm.checked = elm.value === current_lang;
-        elm.addEventListener('click', this.click_lang.bind(this));
-      }
-    };
+multi_language.prototype.checked_lang_list = function (current_lang) {
+  const elms = this.get_lang_lists();
+  for (const elm of elms) {
+    elm.checked = elm.value === current_lang;
+    elm.addEventListener('click', this.click_lang.bind(this));
+  }
+};
 
-    multi_language.prototype.click_lang = function (e) {
-      const lang = e.target.value;
-      document.querySelector('html').setAttribute('lang', lang);
-      localStorage.setItem('selectedLang', lang); // 選択を永続保存
-      this.update_active_class(lang);
-    };
+multi_language.prototype.click_lang = function (e) {
+  const lang = e.target.value;
+  document.querySelector('html').setAttribute('lang', lang);
+  localStorage.setItem('selectedLang', lang);
+  this.update_active_class(lang);
+};
 
-    multi_language.prototype.update_active_class = function (lang) {
-      const jaDiv = document.querySelector('#langChenge .ja');
-      const enDiv = document.querySelector('#langChenge .en');
-      if (jaDiv && enDiv) {
-        jaDiv.classList.toggle('active', lang === 'ja');
-        enDiv.classList.toggle('active', lang === 'en');
-      }
-    };
-
-    // DOM読み込み後に初期化
-    window.addEventListener('DOMContentLoaded', () => {
-      new multi_language();
-    });
+multi_language.prototype.update_active_class = function (lang) {
+  const jaDiv = document.querySelector('#langChenge .ja');
+  const enDiv = document.querySelector('#langChenge .en');
+  if (jaDiv && enDiv) {
+    jaDiv.classList.toggle('active', lang === 'ja');
+    enDiv.classList.toggle('active', lang === 'en');
+  }
+};
 
 
-// メニュー初期化関数
+// メニュー初期化
 function initializeMenu() {
   const nav = document.getElementById('navArea');
   const btn = document.querySelector('.toggle_btn');
@@ -89,7 +81,7 @@ function initializeMenu() {
   }
 }
 
-// タイピングアニメーション初期化関数
+// タイピング初期化
 function initializeTyping() {
   const lines = document.querySelectorAll('.typing-line');
   const typingSpeed = 50;
