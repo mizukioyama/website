@@ -23,9 +23,9 @@ requestAnimationFrame(() => {
 });
 
 
+
 function multi_language() {
   this.currentLang = this.set_current_lang();
-  this.applyActiveClass(); // ← ここで初期反映
 }
 
 multi_language.prototype.get_lang_lists = function () {
