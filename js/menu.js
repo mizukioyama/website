@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 遅延読み込み画像
+  // 遅延画像読み込み
   document.querySelectorAll('img[data-src]').forEach(img => {
     img.setAttribute('src', img.getAttribute('data-src'));
     img.onload = () => img.removeAttribute('data-src');
@@ -11,50 +11,53 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // すぐに次のフレームで初期化
+      // 読み込み後に必要な処理を実行
       requestAnimationFrame(() => {
         initializeMenu();
-        initializeLang();  // 言語初期化 ← これを別に実行
+        initializeLang(); // ← 言語切り替え初期化
         initializeTyping();
       });
     });
 });
 
-// ✅ 言語切り替えの初期化関数
+
+// ✅ 言語切り替え初期化関数（完全対応）
 function initializeLang() {
-  const langInputs = document.querySelectorAll("input[name='lang']");
-  const jaLabel = document.querySelector("#langChenge .ja");
-  const enLabel = document.querySelector("#langChenge .en");
+  const langJaRadio = document.getElementById("lang-ja");
+  const langEnRadio = document.getElementById("lang-en");
+  const jaLabel = document.querySelector("label.ja");
+  const enLabel = document.querySelector("label.en");
 
-  if (!langInputs.length) return;
+  if (!langJaRadio || !langEnRadio || !jaLabel || !enLabel) {
+    console.warn("言語切り替え要素が見つかりません。");
+    return;
+  }
 
-  const savedLang = localStorage.getItem('preferredLang') || 'ja';
-  setLang(savedLang);
+  // 現在の言語を取得（localStorage または HTML）
+  const savedLang = localStorage.getItem("preferredLang") || document.documentElement.getAttribute("lang") || "ja";
+  applyLang(savedLang);
 
-  // 各inputにイベント追加
-  langInputs.forEach(input => {
-    input.addEventListener('change', (e) => {
-      setLang(e.target.value);
-    });
-  });
+  // イベント設定（切り替え時）
+  langJaRadio.addEventListener("change", () => applyLang("ja"));
+  langEnRadio.addEventListener("change", () => applyLang("en"));
 
-  function setLang(lang) {
-    document.documentElement.setAttribute('lang', lang);
-    localStorage.setItem('preferredLang', lang);
+  // 言語適用処理
+  function applyLang(lang) {
+    document.documentElement.setAttribute("lang", lang);
+    localStorage.setItem("preferredLang", lang);
 
-    // active classの更新
-    if (jaLabel && enLabel) {
-      jaLabel.classList.toggle('active', lang === 'ja');
-      enLabel.classList.toggle('active', lang === 'en');
-    }
+    // ラジオボタン状態反映
+    langJaRadio.checked = lang === "ja";
+    langEnRadio.checked = lang === "en";
 
-    // radioボタン更新
-    langInputs.forEach(input => {
-      input.checked = input.value === lang;
-    });
+    // アクティブクラス付け替え
+    jaLabel.classList.toggle("active", lang === "ja");
+    enLabel.classList.toggle("active", lang === "en");
+
+    // テキスト切り替えなどしたい場合はここで実行
+    // switchLanguageText(lang); ← 別関数化も可能
   }
 }
-
 
 
 // メニュー初期化関数
