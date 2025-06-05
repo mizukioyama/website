@@ -62,7 +62,7 @@ multi_language.prototype.update_active_class = function (lang) {
   }
 
   // <p lang="xx">の切り替え
-  document.querySelectorAll('p[lang],div[lang]').forEach(p => {
+  document.querySelectorAll('p[lang],div[lang],hr[lang]').forEach(p => {
     p.style.display = (p.getAttribute('lang') === lang) ? 'block' : 'none';
   });
 };
