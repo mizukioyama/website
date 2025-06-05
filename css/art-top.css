@@ -124,9 +124,9 @@ canvas {
 }
 
 /*=========== lang */
-#langChenge input {
+/*#langChenge input {
   display: none !important;
-}
+}*/
 
 #langChenge {
   display: flex;
