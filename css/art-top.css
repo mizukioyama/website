@@ -169,18 +169,6 @@ canvas {
   opacity: 0.8;
 }
 
-#langChenge .lang-button {
-  opacity: 0.5;
-  transition: opacity 0.3s, font-weight 0.3s;
-  cursor: pointer;
-}
-
-#langChenge .lang-button.active {
-  opacity: 1;
-  font-weight: bold;
-  color: #000;
-}
-
 
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
