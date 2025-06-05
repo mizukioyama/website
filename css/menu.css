@@ -23,18 +23,25 @@ nav {
 }
 
 .inner ul {
-    margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    margin-top: 10vmin;
+    margin-left: 10vmin;
+    display: grid;
+    align-content: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
 }
 
 .inner ul li {
-    position: relative;
     width: fit-content;
-    margin: 2% 0 0;
     border-bottom: 1px solid rgba(40, 40, 40, .25);
 }
 
 #navArea .inner li a {
+    margin: 0;
+    padding: 0;
     font-family: "jost", sans-serif;
     display: block;
     position: relative;
@@ -42,8 +49,6 @@ nav {
     font-weight: 600;
     color: var(--bg);
     height: 100%;
-    margin-top: 1.5rem;
-    padding: .35em .65em 0 .2em;
     text-decoration: none;
     overflow: hidden;
     mix-blend-mode: luminosity;

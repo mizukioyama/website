@@ -12,11 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("header-container").innerHTML = data;
 
       // DOM描画後に初期化
-      requestAnimationFrame(() => {
-        initializeMenu();
-        const langModule = new multi_language(); // ← ここで初期化とactive反映
-        initializeTyping();
-      });
+requestAnimationFrame(() => {
+  initializeMenu();
+  const langModule = new multi_language(); // ← インスタンス生成
+  langModule.applyActiveClass(); // ← DOM挿入後に active を反映
+  initializeTyping();
+});
+
     });
 });
 
