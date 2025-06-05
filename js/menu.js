@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     img.onload = () => img.removeAttribute('data-src');
   });
 
-  // ヘッダー読み込み + 多言語・メニュー・タイピング初期化
+  // ヘッダー読み込み
   fetch("includes-header.html")
     .then(response => response.text())
     .then(data => {
@@ -13,14 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       requestAnimationFrame(() => {
         initializeMenu();
-        new multi_language(); // ← これだけでOK
+        new multi_language(); // 言語初期化
         initializeTyping();
       });
     });
 });
 
-
-// ✅ 言語切り替え初期化関数（applyActiveClass 削除済み）
+// =======================
+// 多言語対応クラス
+// =======================
 function multi_language() {
   this.set_current_lang();
 }
@@ -52,16 +53,23 @@ multi_language.prototype.click_lang = function (e) {
 };
 
 multi_language.prototype.update_active_class = function (lang) {
+  // ボタンのactive切り替え
   const jaDiv = document.querySelector('#langChenge .ja');
   const enDiv = document.querySelector('#langChenge .en');
   if (jaDiv && enDiv) {
     jaDiv.classList.toggle('active', lang === 'ja');
     enDiv.classList.toggle('active', lang === 'en');
   }
+
+  // <p lang="xx">の切り替え
+  document.querySelectorAll('p[lang]').forEach(p => {
+    p.style.display = (p.getAttribute('lang') === lang) ? 'block' : 'none';
+  });
 };
 
-
+// =======================
 // メニュー初期化
+// =======================
 function initializeMenu() {
   const nav = document.getElementById('navArea');
   const btn = document.querySelector('.toggle_btn');
@@ -81,7 +89,9 @@ function initializeMenu() {
   }
 }
 
+// =======================
 // タイピング初期化
+// =======================
 function initializeTyping() {
   const lines = document.querySelectorAll('.typing-line');
   const typingSpeed = 50;
