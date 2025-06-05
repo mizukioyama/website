@@ -54,16 +54,20 @@
     </div>
 
 <!-- 言語切り替えUI -->
-  <div id="langChenge">
-    <input type="radio" id="langJa" name="lang" value="ja" hidden>
-    <input type="radio" id="langEn" name="lang" value="en" hidden>
-    <div class="inner_label">
-      <label for="langJa">
-        <div class="ja">JP</div>
-      </label>
-      <label for="langEn">
-        <div class="en">EN</div>
-      </label>
-    </div>
+<div id="langChenge">
+  <!-- ラジオボタン（非表示） -->
+  <input type="radio" id="langJa" name="lang" value="ja" hidden>
+  <input type="radio" id="langEn" name="lang" value="en" hidden>
+
+  <div class="inner_label">
+    <!-- ラベルと表示テキスト（JP/EN） -->
+    <label for="langJa">
+      <div class="lang-button ja">JP</div>
+    </label>
+    <label for="langEn">
+      <div class="lang-button en">EN</div>
+    </label>
   </div>
+</div>
+
 </header>
