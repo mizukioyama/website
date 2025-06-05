@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// 多言語処理クラス
 function multi_language() {
   this.currentLang = this.set_current_lang();
 }
