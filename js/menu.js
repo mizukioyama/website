@@ -5,24 +5,24 @@ document.addEventListener("DOMContentLoaded", function () {
     img.onload = () => img.removeAttribute('data-src');
   });
 
-  // ヘッダー読み込み + 多言語・メニュー・タイピング初期化
+  // ヘッダー読み込み
   fetch("includes-header.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // DOMがレンダリングされてから初期化（確実に待つ）
-      requestAnimationFrame(() => {
+      // DOM描画後に初期化
+      setTimeout(() => {
         initializeMenu();
-        const langModule = new multi_language(); // ← インスタンスを保持
-        langModule.applyActiveClass(); // ← 明示的に active を反映
+        const langModule = new multi_language(); // インスタンス生成
+        langModule.applyActiveClass(); // activeを反映
         initializeTyping();
-      });
+      }, 0);
     });
 });
 
 
-// 多言語処理クラス
+// 多言語切り替えクラス
 function multi_language() {
   this.currentLang = this.set_current_lang();
 }
@@ -37,7 +37,6 @@ multi_language.prototype.set_current_lang = function () {
   document.documentElement.setAttribute('lang', current_lang);
   this.checked_lang_list(current_lang);
 
-  // active を反映（DOMがあるかはこの時点では未確定）
   return current_lang;
 };
 
@@ -47,7 +46,7 @@ multi_language.prototype.checked_lang_list = function (current_lang) {
     elm.checked = elm.value === current_lang;
 
     if (!elm.dataset.listenerAdded) {
-      elm.addEventListener('click', this.click_lang.bind(this));
+      elm.addEventListener('change', this.click_lang.bind(this));
       elm.dataset.listenerAdded = 'true';
     }
   }
@@ -60,7 +59,6 @@ multi_language.prototype.click_lang = function (e) {
   this.update_active_class(lang);
 };
 
-// ← 新たに追加：初期反映用
 multi_language.prototype.applyActiveClass = function () {
   this.update_active_class(this.currentLang);
 };
@@ -74,6 +72,7 @@ multi_language.prototype.update_active_class = function (lang) {
     enDiv.classList.toggle('active', lang === 'en');
   }
 };
+
 
 
 // メニュー初期化関数
