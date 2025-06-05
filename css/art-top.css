@@ -169,6 +169,12 @@ canvas {
   opacity: 0.8;
 }
 
+#langChenge label.active {
+  color: red;
+  font-weight: bold;
+}
+
+
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
   width: 0.2rem;

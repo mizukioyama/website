@@ -11,67 +11,49 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("header-container").innerHTML = data;
 
-      // DOM描画後に初期化
-      setTimeout(() => {
+      // すぐに次のフレームで初期化
+      requestAnimationFrame(() => {
         initializeMenu();
-        const langModule = new multi_language(); // インスタンス生成
-        langModule.applyActiveClass(); // activeを反映
+        initializeLang();  // 言語初期化 ← これを別に実行
         initializeTyping();
-      }, 0);
+      });
     });
 });
 
+// ✅ 言語切り替えの初期化関数
+function initializeLang() {
+  const langInputs = document.querySelectorAll("input[name='lang']");
+  const jaLabel = document.querySelector("#langChenge .ja");
+  const enLabel = document.querySelector("#langChenge .en");
 
-// 多言語切り替えクラス
-function multi_language() {
-  this.currentLang = this.set_current_lang();
-}
+  if (!langInputs.length) return;
 
-multi_language.prototype.get_lang_lists = function () {
-  return document.querySelectorAll("input[type='radio'][name='lang']");
-};
+  const savedLang = localStorage.getItem('preferredLang') || 'ja';
+  setLang(savedLang);
 
-multi_language.prototype.set_current_lang = function () {
-  const current_lang = localStorage.getItem('preferredLang') || document.documentElement.getAttribute('lang') || 'ja';
+  // 各inputにイベント追加
+  langInputs.forEach(input => {
+    input.addEventListener('change', (e) => {
+      setLang(e.target.value);
+    });
+  });
 
-  document.documentElement.setAttribute('lang', current_lang);
-  this.checked_lang_list(current_lang);
+  function setLang(lang) {
+    document.documentElement.setAttribute('lang', lang);
+    localStorage.setItem('preferredLang', lang);
 
-  return current_lang;
-};
-
-multi_language.prototype.checked_lang_list = function (current_lang) {
-  const elms = this.get_lang_lists();
-  for (const elm of elms) {
-    elm.checked = elm.value === current_lang;
-
-    if (!elm.dataset.listenerAdded) {
-      elm.addEventListener('change', this.click_lang.bind(this));
-      elm.dataset.listenerAdded = 'true';
+    // active classの更新
+    if (jaLabel && enLabel) {
+      jaLabel.classList.toggle('active', lang === 'ja');
+      enLabel.classList.toggle('active', lang === 'en');
     }
+
+    // radioボタン更新
+    langInputs.forEach(input => {
+      input.checked = input.value === lang;
+    });
   }
-};
-
-multi_language.prototype.click_lang = function (e) {
-  const lang = e.target.value;
-  document.documentElement.setAttribute('lang', lang);
-  localStorage.setItem('preferredLang', lang);
-  this.update_active_class(lang);
-};
-
-multi_language.prototype.applyActiveClass = function () {
-  this.update_active_class(this.currentLang);
-};
-
-multi_language.prototype.update_active_class = function (lang) {
-  const jaDiv = document.querySelector('#langChenge .ja');
-  const enDiv = document.querySelector('#langChenge .en');
-
-  if (jaDiv && enDiv) {
-    jaDiv.classList.toggle('active', lang === 'ja');
-    enDiv.classList.toggle('active', lang === 'en');
-  }
-};
+}
 
 
 
