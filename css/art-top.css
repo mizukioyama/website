@@ -174,18 +174,18 @@ canvas {
 
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
-  width: 0.2rem;
-  background: rgba(40, 0, 0, 0.4);
+  width: 4px;
+  /*background: rgba(40, 0, 0, 0.4);*/
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: 0 0 0px rgba(255, 255, 255, 0) inset;
-  background: #fff;
+  /*box-shadow: 0 0 0px rgba(255, 255, 255, 0) inset;*/
+  background: rgba(46, 46, 46, 0.55);
 }
 
 ::-webkit-scrollbar-thumb {
   box-shadow: 0 0 2px 1px rgba(31, 30, 30, 0.76) inset;
-  background: rgba(20, 20, 20);
+  background: rgba(46, 46, 46);
 }
 
 
@@ -222,7 +222,6 @@ h2 {
 
 p {
   font-size: 1rem;
-  font-weight: 300;
   letter-spacing: 0.1em;
 }
 
@@ -270,9 +269,8 @@ hr {
   height: 55%;
   background-position: center;
   background-size: cover;
-  filter: grayscale(50%);
-  box-shadow: 0 0px 20px 3px #000;
-  z-index: -1;
+  filter: grayscale(30%);
+  box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.65);
 }
 
 .back__slide.active {
