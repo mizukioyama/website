@@ -22,22 +22,6 @@
         stalker.style.left = `${x}px`;
       }, 100);
     });
-
-    // ホバー処理（対象を自由に追加可能）
-    document.querySelectorAll("a, .toggle_btn span, #navArea .inner li a, .head, nav").forEach(el => {
-      el.addEventListener("mouseenter", () => {
-        cursor.classList.add("cursor--hover");
-        stalker.classList.add("stalker--hover");
-      });
-      el.addEventListener("mouseleave", () => {
-        cursor.classList.remove("cursor--hover");
-        stalker.classList.remove("stalker--hover");
-      });
-    });
-
-    // 初期非表示（オプション）
-    cursor.style.opacity = "0";
-    stalker.style.opacity = "0";
   });
   
 
