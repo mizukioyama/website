@@ -300,7 +300,7 @@ img:hover {
 }
 
 p {
-    font-size: clamp(0.95rem, calc(0.95rem + 0.5vw), 1rem);
+    font-size: 1rem;
     letter-spacing: 0.05em;
     line-height: 2em;
 }
@@ -328,7 +328,6 @@ a {
     color: var(--inv);
     display: block;
     height: fit-content;
-    padding: 0 0.5em;
     text-decoration: none;
     overflow: hidden;
     transition-duration: 0.8s;
@@ -663,47 +662,31 @@ main {
     z-index: 1;
 }
 
+/* コンテナ定義（.gallery .content をコンテナに） */
 .gallery .content {
-    width: 100%;
-    max-width: 800px;
-    margin-left: 35%;
-    backdrop-filter: blur(10px);
-    box-shadow: inset 0 0px 7px rgba(0, 0, 0, 0.9);
-}
-
-.gallery .content:last-child {
-    margin: 1% 0 1% 0.75%;
-}
-
-.content img {
-    position: relative;
-}
-
-.art-info .content img {
-    width: clamp(700px, 100%, 60%);
-    height: 40vh;
-    filter: grayscale(50%);
-}
-
-.art-info img:hover {
-    filter: grayscale(0);
-    transform: scale(1);
-}
-
-.art-info .content {
-    width: clamp(100%, 100%, 80%);
-    margin: 0 20%;
-    background: rgba(0, 0, 0, 0);
+  container-type: inline-size;
+  container-name: gallery;
+  width: clamp(55%, 100%, 45%);
+  height: 100%;
+  margin: 0 auto;
+  padding: 1em 2em;
+  box-shadow: inset 0 0 10px rgba(20, 20, 20, 0.7);
+  background: rgba(46, 46, 46, 0.2);
+  backdrop-filter: blur(20px);
 }
 
 .work {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    width: 100%;
-    min-height: 350px;
-    margin: 0 auto;
-    gap: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 350px;
+  margin: 2rem auto;
+  gap: 3rem;
+}
+
+.work p {
+    width: 50%;
 }
 
 .work-img {
@@ -712,20 +695,19 @@ main {
     gap: 1rem;
     width: 40%;
     max-width: 350px;
-    margin: 0;
     filter: grayscale(50%);
 }
 
 .works::before {
     display: none;
 }
-
+/*========link*/
 .works {
-    position: relative;
-
-    img {
-        clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
-    }
+  text-decoration: none;
+  color: inherit;
+}
+.works img {
+    clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
 }
 
 .works a:hover {
@@ -733,9 +715,6 @@ main {
     background: var(--def);
 }
 
-.work p {
-    width: 50%;
-}
 
 /*===copyright*/
 .dli-external-link {
@@ -782,6 +761,31 @@ main {
     box-sizing: border-box;
 }
 
+/*=== コンテナクエリで縦並びに切り替え ===*/
+@container gallery (max-width: 700px) {
+  .work {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .work > p,
+  .work-img {
+    width: 100%;
+  }
+
+  .work > p {
+    order: 2;
+    margin-top: 1rem;
+  }
+
+  .work-img {
+    order: 1;
+    max-width: 100%;
+  }
+}
+
+
+
 /*===art-info*/
 .copyright {
     text-align: left;
@@ -813,4 +817,24 @@ main {
 
 .caption {
     margin-top: 10em;
+}
+
+
+
+/*---------------------*/
+.art-info .content img {
+    width: clamp(700px, 100%, 60%);
+    height: 40vh;
+    filter: grayscale(50%);
+}
+
+.art-info img:hover {
+    filter: grayscale(0);
+    transform: scale(1);
+}
+
+.art-info .content {
+    width: clamp(100%, 100%, 80%);
+    margin: 0 20%;
+    background: rgba(0, 0, 0, 0);
 }
