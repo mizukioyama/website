@@ -76,12 +76,6 @@ canvas {
   width: fit-content;
 }
 
-/*.typing-line {
-  overflow: hidden;
-  border-right: 2px solid var(--text);
-  width: fit-content;
-}*/
-
 /* ========== Custom Cursor ========== */
 * {
   cursor: none !important;
