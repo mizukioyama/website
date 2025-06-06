@@ -76,11 +76,11 @@ canvas {
   width: fit-content;
 }
 
-.typing-line {
+/*.typing-line {
   overflow: hidden;
   border-right: 2px solid var(--text);
   width: fit-content;
-}
+}*/
 
 /* ========== Custom Cursor ========== */
 * {
@@ -130,9 +130,6 @@ canvas {
 }
 
 #langChenge {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
   position: absolute;
   top: 15vmin;
   left: 30vmin;
@@ -163,14 +160,18 @@ canvas {
   transition: opacity 0.3s ease;
 }
 
-#langChenge .ja:hover,
-#langChenge .en:hover,
 #langChenge .ja.active,
 #langChenge .en.active {
   font-weight: 600;
   opacity: 0.7;
 }
 
+@media screen and (min-width: 1299px) {
+  #langChenge .ja:hover,
+  #langChenge .en:hover {
+    opacity: 0.7;
+  }
+}
 
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
@@ -798,6 +799,7 @@ footer,
   display: none;
 }
 
+
 @media screen and (max-width: 599px) {
   .typing00 {
     font-size: clamp(1em, calc(1em + 0.5vw), 1.4em);
@@ -816,13 +818,18 @@ footer,
   }
 
   #langChenge {
-    top: 2%;
+    top: 6%;
     left: 4%;
   }
 
   .card {
     width: 90%;
-    height: 75%;
+    height: 90%;
+  }
+
+  .back__slide::before {
+    width: 92.5%;
+    height: 91.5%;
   }
 
   .content__slide {
@@ -831,16 +838,12 @@ footer,
   }
 
   .creator {
-    top: 5%;
+    top: 0.5%;
   }
 
   .time {
-    bottom: 5%;
-  }
-
-  .back__slide::before {
-    width: 92.5%;
-    height: 76.5%;
+    right: 4%;
+    bottom: 0.5%;
   }
 
   .number:before {
@@ -848,6 +851,7 @@ footer,
   }
 
   .date {
+    letter-spacing: 0.05rem;
     bottom: calc(3% - 0.5rem);
   }
 
@@ -857,6 +861,15 @@ footer,
     position: absolute;
     right: 5%;
     bottom: 0;
+  }
+
+  .desc {
+    margin: 0 auto;
+  }
+
+  .button-wrap,
+  .button {
+    margin-top: 0;
   }
 }
 
