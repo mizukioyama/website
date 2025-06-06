@@ -26,11 +26,6 @@ li {
   list-style: none;
 }
 
-html,
-body {
-  font-family: 'jost', sans-serif;
-}
-
 /*======load*/
 #loading-bg {
   position: fixed;
@@ -101,7 +96,7 @@ body,
 
 html,
 body {
-    font-family: "poiret-one", Not serif-JP;
+    font-family: 'jost', sans-serif;
     font-style: normal;
     font-weight: 400;
     width: 100%;
@@ -418,11 +413,6 @@ a:hover {
     transform: matrix(-3rem);
 }
 
-/*== body top ==*/
-
-.top_p {
-    width: fit-content;
-}
 
 /*== flex ==*/
 .flex {
@@ -629,7 +619,6 @@ a:hover {
     font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.45rem);
     font-family: "poiret-one", Not serif-JP;
     font-weight: 600;
-    width: fit-content;
     margin-top: 5em;
     padding-left: 5em;
 }
@@ -658,8 +647,9 @@ main {
   container-type: inline-size;
   container-name: gallery;
   width: clamp(55%, 100%, 45%);
+  max-width: 1000px;
   height: 100%;
-  margin: 0 auto;
+  margin-left: 55vmin;
   padding: 1em 2em;
   box-shadow: inset 0 0 10px rgba(20, 20, 20, 0.7);
   background: rgba(46, 46, 46, 0.2);
@@ -669,7 +659,7 @@ main {
 .work {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
   min-height: 350px;
   margin: 2rem auto;
