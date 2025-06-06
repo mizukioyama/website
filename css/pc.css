@@ -31,7 +31,7 @@ body {
   font-family: 'jost', sans-serif;
 }
 
-/* ========== Loading Screen ========== */
+/*======load*/
 #loading-bg {
   position: fixed;
   top: 0;
@@ -40,33 +40,23 @@ body {
   height: 100%;
   background: rgba(200, 200, 200, 0.65);
   backdrop-filter: blur(10px);
-  z-index: 9999;
+  z-index: 9998;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.typing-text-en {
-  width: min-content;
-  white-space: nowrap;
-  overflow: hidden;
-  padding-right: 0.25rem;
-  border-right: 2px solid var(--text);
+.typing-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   font-size: 1.6rem;
   color: var(--text);
-  animation: typing 6s steps(15), typingEffect 0.5s step-end infinite alternate;
-  animation: typing 8s steps(16), typingEffect 1.5s step-end infinite alternate;
+  width: fit-content;
 }
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-}
-
-@keyframes typingEffect {
-  50% {
-    border-color: transparent;
+@media screen and (max-width: 599px) {
+  .typing-container {
+    width: 80%;
   }
 }
 
