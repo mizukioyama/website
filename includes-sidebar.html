@@ -1,19 +1,29 @@
 <div class="category">
     <ol>
-        <p>Category</p>
-        <li><a href="#" class="category-link" data-page="all" data-href="https://mizukioyama.github.io/portfolio.github.io/gallery_top.html">all</a></li>
-        <li><a href="#" class="category-link" data-page="analog-1" data-href="https://mizukioyama.github.io/portfolio.github.io/analog.html">analog</a></li>
-        <li><a href="#" class="category-link" data-page="digital-1" data-href="https://mizukioyama.github.io/portfolio.github.io/digital.html">digital</a></li>
-        <li><a href="#" class="category-link" data-page="photo-1" data-href="https://mizukioyama.github.io/portfolio.github.io/photo.html">photo</a></li>
-        <li><a href="#" class="category-link" data-page="exhibition-1" data-href="https://mizukioyama.github.io/portfolio.github.io/exhibition.html">exhibition</a></li>
+        <p class="noise">Category</p>
+        <li><a href="#" class="category-link" data-page="all"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/gallery_top.html">all</a></li>
+        <li><a href="#" class="category-link" data-page="analog-1"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/analog.html">analog</a></li>
+        <li><a href="#" class="category-link" data-page="digital-1"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/digital.html">digital</a></li>
+        <li><a href="#" class="category-link" data-page="photo-1"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/photo.html">photo</a></li>
+        <li><a href="#" class="category-link" data-page="exhibition-1"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/exhibition.html">exhibition</a></li>
     </ol>
     <ol>
-        <p>year</p>
-        <li><a href="#" class="category-link" data-page="24" data-href="https://mizukioyama.github.io/portfolio.github.io/2024_top.html">2024</a></li>
-        <li><a href="#" class="category-link" data-page="23" data-href="https://mizukioyama.github.io/portfolio.github.io/2023_top.html">2023</a></li>
-        <li><a href="#" class="category-link" data-page="22" data-href="https://mizukioyama.github.io/portfolio.github.io/2022_top.html">2022</a></li>
-        <li><a href="#" class="category-link" data-page="21" data-href="https://mizukioyama.github.io/portfolio.github.io/2021_top.html">2021</a></li>
-        <li><a href="#" class="category-link" data-page="10" data-href="https://mizukioyama.github.io/portfolio.github.io/2010_top.html">2010-17</a></li>
+        <p class="noise">year</p>
+        <li><a href="#" class="category-link" data-page="24"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/2024_top.html">2024</a></li>
+        <li><a href="#" class="category-link" data-page="23"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/2023_top.html">2023</a></li>
+        <li><a href="#" class="category-link" data-page="22"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/2022_top.html">2022</a></li>
+        <li><a href="#" class="category-link" data-page="21"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/2021_top.html">2021</a></li>
+        <li><a href="#" class="category-link" data-page="10"
+                data-href="https://mizukioyama.github.io/portfolio.github.io/2010_top.html">2010-17</a></li>
     </ol>
 </div>
 
@@ -22,32 +32,38 @@
         position: fixed;
         left: 0;
     }
-.category {
-    width: fit-content;
-    margin: 1em;
-    position: absolute;
-    left: 0em;
-    margin-top: 10em;
-    z-index: 1;
-}
-.category ol {
-    padding: 0;
-}
-.category ol li {
-    margin-top: 1em;
-}
-.gallery .category a {
-    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-    font-family: "poiret-one", sans-serif;
-    color: var(--bg);
-}
-.category ol:last-child li a {
-    font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
-}
-.category-link.disabled {
-    pointer-events: none;
-    color: grey; /* 無効化されたリンクの色 */
-    text-decoration: none;
-}
 
+    .category {
+        width: fit-content;
+        margin: 1em;
+        position: absolute;
+        left: 0em;
+        margin-top: 10em;
+        z-index: 1;
+    }
+
+    .category ol {
+        padding: 0;
+    }
+
+    .category ol li {
+        margin-top: 1em;
+    }
+
+    .gallery .category a {
+        font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+        font-family: "poiret-one", sans-serif;
+        color: var(--bg);
+    }
+
+    .category ol:last-child li a {
+        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+    }
+
+    .category-link.disabled {
+        pointer-events: none;
+        color: grey;
+        /* 無効化されたリンクの色 */
+        text-decoration: none;
+    }
 </style>

@@ -292,13 +292,13 @@ p {
     line-height: 2em;
 }
 
-ul {
+main ul {
     margin-top: 0px;
     margin-bottom: 20%;
     margin-left: 150px;
 }
 
-li {
+main li {
     font-family: "poiret-one", Not serif-JP;
     font-style: normal;
     color: #424242;
