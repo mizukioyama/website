@@ -598,15 +598,6 @@ a:hover {
 }
 */
 
-.gallery .flex {
-    padding: 0;
-    justify-content: center;
-    margin-top: 35em;
-    margin-left: calc(40vw - 10%);
-    box-shadow: inset 0 0 5px rgba(20, 20, 20, 0.7);
-    background: #ececec;
-}
-
 .art-info {
     background: rgba(0, 0, 0, 0.3);
 }
@@ -711,6 +702,15 @@ main {
   min-height: 350px;
   margin: 2rem auto;
   gap: 3rem;
+}
+
+.info .work {
+    margin-top: 0;
+    gap: 2rem;
+}
+
+.info .work h2 {
+    margin-top: 2rem;
 }
 
 .work p {
