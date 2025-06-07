@@ -600,27 +600,28 @@ a:hover {
     width: 60%;
     margin: 10vmin auto 0;
     padding: 0;
+    gap: 2vmin;
 
     a::before {
         display: none;
     }
-
+}
     .page li {
         margin: 0 5%;
-
-        a {
+    }
+        .page li a {
             font-size: clamp(1.4rem, calc(1.4rem + 0.5vw), 1.6rem);
         }
-    }
 
     .page-link {
         text-decoration: none;
-        color: blue;
+        color: var(--bg);
     }
 
     .page-link.disabled {
         pointer-events: none;
-        color: gray;
+        color: var(--def);
+        padding: 1rem;
     }
 
     .arrow-button {
@@ -650,7 +651,7 @@ a:hover {
         position: absolute;
         right: -10rem;
     }
-}
+
 
 
 main {
