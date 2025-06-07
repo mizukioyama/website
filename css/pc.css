@@ -375,7 +375,7 @@ header a,
     width: fit-content;
     color: var(--inv);
     text-align: left;
-    padding: 1%;
+    padding: 0.25rem 0.5rem;
     position: relative;
     overflow: hidden;
     opacity: 0.8;
@@ -614,21 +614,6 @@ a:hover {
     }
 }
 
-.gallery ol p {
-    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.45rem);
-    font-family: "poiret-one", Not serif-JP;
-    font-weight: 600;
-    margin-top: 5em;
-    padding-left: 5em;
-}
-
-.gallery li {
-    width: fit-content;
-}
-
-.gallery li a:hover {
-    background: var(--inv);
-}
 
 main {
     position: relative;
