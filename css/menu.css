@@ -98,6 +98,7 @@ nav {
     height: 100%;
     background: linear-gradient(90deg,
             transparent 0%,
+            var(--text) 50%,
             var(--text) 100%,
             transparent);
     animation: scroll-left 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
@@ -190,12 +191,19 @@ nav {
     top: 0;
     right: 0%;
     width: 50%;
-    background: rgba(10, 10, 10, 0.65);
+    background: rgba(220, 220, 210, 0.5);
     backdrop-filter: blur(5px);
     cursor: pointer;
     transition: all 1s ease;
     animation: menu-left 1s ease;
     z-index: 998;
+}
+
+.home .open .nav {
+    background: rgba(10, 10, 10, 0.3);
+}
+.home .open #mask {
+    background: rgba(10, 10, 10, 0.65);
 }
 
 @keyframes menu-left {
