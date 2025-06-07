@@ -363,14 +363,10 @@ main ul {
 }
 
 main li {
-    font-family: "poiret-one", Not serif-JP;
+    font-family: 'jost', "poiret-one", Not serif-JP;
     font-style: normal;
-    color: #424242;
-    font-size: 1rem;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    margin-left: 150px;
-    list-style: none;
+    color: var(--inv);
+    margin: 2vmin;
 }
 
 a {
@@ -709,7 +705,7 @@ main {
     gap: 2rem;
 }
 
-.info .work h2 {
+.info .content h2 {
     margin-top: 2rem;
 }
 
