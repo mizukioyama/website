@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -20,12 +21,12 @@
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
+
     <!-- JavaScript (画像スクロール/パララックス)
     <script src="JS/img_scroll.js"></script>-->
     <!-- 背景用 JavaScript -->
     <script src="js/jquery.ripples-min.js"></script>
-    <script src="js/bg_wave.js"></script>
+    <!--<script src="js/bg_wave.js"></script>-->
 
     <script src="js/page-nation.js"></script>
     <script src="js/workspage.js"></script>
@@ -56,188 +57,95 @@
     <!-- meta http-equiv="Content-Security-Policy" content="default-src 'self'" -->
 
 </head>
-<body oncontextmenu="return false;" data-current-page="1" data-current-category="all">
 
+<body oncontextmenu="return false;" data-current-page="1" data-current-category="all">
+    <div class="noise"
+        style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
+    </div>
     <div id="header-container"></div>
     <div class="ripples-2"></div>
     <main class="gallery">
 
-                <h1 class="noise">
-                    Information
-                </h1>
-                <p class="noise" style="padding-left: 4rem;">
-                    Nature inspire
+        <h1 class="noise">
+            Art Index / NFT
+        </h1>
+        <p class="noise" style="padding-left: 4rem;">
+            Nature inspire
+        </p>
+        <div class="scroll"></div>
+        <div id="sidebar-container"></div>
+
+        <div class="content">
+            <div class="work">
+                <h2>
+                    Profile
+                </h2>
+                <p>
+                    キャプション
+                    <br>
+                    この作品は、
                 </p>
-                <div class="scroll"></div>
-                <div id="sidebar-container"></div>
+            </div>
 
-                <div class="content">
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <span style="position: absolute; top: 25%; left: -30%; letter-spacing: 0.5rem; transform: rotate(-90deg);">Digital Art</span>
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg" alt="Main Image">
-                                <span class="dli-external-link">©Oyama</span>
-                                <a class="works" href="">
-                                    <h3>
-                                        digital / Exhibition
-                                    </h3>
-                                    <p>
-                                        Title：心樹
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
+            <div class="work">
+                <h2>
+                    展示
+                </h2>
+                <p>キャプション
+                    <br>
+                    この作品は、
+                </p>
+            </div>
 
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/21ai.jpg" alt="Main Image">
-                                <span class="dli-external-link">©Oyama</span>
-                                <a class="works" href="">
-                                    <h3>
-                                        digital
-                                    </h3>
-                                    <p>
-                                        No title
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
+            <div class="work">
+                <h2>
+                    画歴
+                </h2>
+                <p>キャプション
+                    <br>
+                    この作品は、
+                </p>
+            </div>
 
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/22ai.jpg" alt="Main Image">
-                                <span class="dli-external-link">©Oyama</span>
-                                <a class="works" href="">
-                                    <h3>
-                                        digital
-                                    </h3>
-                                    <p>
-                                        No title
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
+            <div class="work">
+                <p>キャプション
+                    <br>
+                    この作品は、
+                </p>
+            </div>
 
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230052-2.jpg" alt="Main Image">
-                                <span class="dli-external-link">©Oyama</span>
-                                <a class="works" href="">
-                                    <h3>
-                                        digital
-                                    </h3>
-                                    <p>
-                                        No title
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
+            <div class="work">
+                <p>キャプション
+                    <br>
+                    この作品は、
+                </p>
+            </div>
 
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230011-2.jpg" alt="Main Image">
-                                <span class="dli-external-link">©Oyama</span>
-                                <a class="works" href="">
-                                    <h3>
-                                        photo
-                                    </h3>
-                                    <p>
-                                        No title
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
+            <div class="work">
+                <p>キャプション
+                    <br>
+                    この作品は、
+                </p>
+            </div>
 
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230033-2.jpg" alt="Main Image">
-                                <span class="dli-external-link">©Oyama</span>
-                                <a class="works" href="">
-                                    <h3>
-                                        digital
-                                    </h3>
-                                    <p>
-                                        No title
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
+            <div class="work">
+                <p>キャプション
+                    <br>
+                    この作品は、
+                </p>
+            </div>
 
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230029-2.jpg" alt="Main Image">
-                                <span class="dli-external-link"><span></span></span>
-                                <a class="works" href="">
-                                    <h3>
-                                        digital
-                                    </h3>
-                                    <p>
-                                        No title
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="work">
-                            <p>キャプション
-                                <br>
-                                この作品は、
-                            </p>
-                            <div class="work-img">
-                                <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/20230629.jpg" alt="Main Image">
-                                <span class="dli-external-link"><span></span></span>
-                                <a class="works" href="">
-                                    <h3>
-                                        digital
-                                    </h3>
-                                    <p>
-                                        No title
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                </div>
-
-                <ol class="page">
-                    <button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button>
-                    <li><a href="#" class="page-link" data-page="1" data-href="https://mizukioyama.github.io/portfolio.github.io/gallery_top.html">1</a></li>
-                    <li><a href="#" class="page-link" data-page="2" data-href="https://mizukioyama.github.io/portfolio.github.io/gallery_top02.html">2</a></li>
-                    <li><a href="#" class="page-link" data-page="3" data-href="https://mizukioyama.github.io/portfolio.github.io/gallery_top03.html">3</a></li>
-                    <li><a href="#" class="page-link" data-page="4" data-href="https://mizukioyama.github.io/portfolio.github.io/gallery_top04.html">4</a></li>
-                    <li><a href="#" class="page-link" data-page="5" data-href="https://mizukioyama.github.io/portfolio.github.io/gallery_top05.html">5</a></li>
-                    <button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button>
-                </ol>
+            <div class="work">
+                <p>キャプション
+                    <br>
+                    この作品は、
+                </p>
+            </div>
+        </div>
     </main>
 
     <div id="footer-container"></div>
 
-    </body>
+</body>
+
 </html>
