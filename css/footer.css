@@ -23,7 +23,6 @@
         opacity: 0.95;
     }
     .foot {
-        font-family: Not serif-JP;
         font-size: clamp(0.9rem, calc( 0.9rem + 0.5vw), 0.95rem);
         width: 100%;
         color: #fff;
