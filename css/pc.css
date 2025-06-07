@@ -134,6 +134,7 @@ body {
     height: auto;
     color: var(--inv);
     background: var(--text);
+    padding-top: 10vmin;
     overflow-x: hidden;
 }
 
