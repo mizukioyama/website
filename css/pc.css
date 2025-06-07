@@ -364,9 +364,8 @@ main ul {
 
 main li {
     font-family: 'jost', "poiret-one", Not serif-JP;
-    font-style: normal;
     color: var(--inv);
-    margin: 2vmin;
+    margin-bottom: 2vmin;
 }
 
 a {
@@ -700,13 +699,17 @@ main {
   gap: 3rem;
 }
 
-.info .work {
+#info .work {
     margin-top: 0;
     gap: 2rem;
 }
 
-.info .content h2 {
+#info .content h2 {
     margin-top: 2rem;
+}
+
+#info h3 {
+    margin-bottom: 2vmin;
 }
 
 .work p {
