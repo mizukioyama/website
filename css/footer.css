@@ -1,22 +1,25 @@
     /*PC*/
     footer {
         position: relative;
-        height: 500px;
-        padding: 6em 3em 0;
+        width: 100vw;
+        min-height: 500px;
+        padding: 4vmin;
         bottom: 0;
         background: rgba(20, 20, 20, 0.09);
-        backdrop-filter: blur(30px);
+        backdrop-filter: blur(10px);
         z-index: 100;
     }
+
     footer a {
+        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.3rem);
         display: block;
-        font-weight: 100;
-        margin-top: 0.3em;
-        padding: 0%;
-        opacity: 0.35;
+        font-weight: 400;
+        margin-top: 2vmin;
+        opacity: 0.5;
     }
-    footer div a {
-        margin-top: 8em;
+
+    footer a:nth-last-child {
+        margin-top: 8vmin;
     }
     footer a:hover {
         color: var(--inv) !important;
@@ -24,9 +27,7 @@
     }
     .foot {
         font-size: clamp(0.9rem, calc( 0.9rem + 0.5vw), 0.95rem);
-        width: 100%;
-        color: #fff;
-        background: #000;
+        color: var(--inv);
         text-align: right;
         position: absolute;
         padding: 0.25em 3em;
