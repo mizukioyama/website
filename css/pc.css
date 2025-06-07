@@ -289,11 +289,11 @@ h1 {
 
 .scroll {
     position: relative;
-    margin-top: 10%;
+    margin: 20vmin 0 5vmin;
     left: 50%;
     width: 1px;
-    height: 150px;
-    background-image: linear-gradient(0deg, var(--text) 100%);
+    height: 100px;
+    background-image: linear-gradient(0deg, transparent 0%, var(--text) 100%);
     background-repeat: no-repeat;
     background-size: 200% 200%;
     animation-name: scroll-down;
