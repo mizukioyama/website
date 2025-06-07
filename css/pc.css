@@ -118,41 +118,7 @@ address {
     width: fit-content;
 }
 
-.typing-container p {
-    font-size: 1rem;
-    font-weight: 500;
-}
 
-@media screen and (max-width: 599px) {
-    .typing-container {
-        width: 80%;
-    }
-}
-
-/*== Scrollbar ==*/
-::-webkit-scrollbar {
-    width: 0.2rem;
-    background: rgba(40, 0, 0, 0.4);
-}
-
-::-webkit-scrollbar-track {
-    box-shadow: 0 0 0px rgba(255, 255, 255, 0) inset;
-    background: #fff;
-}
-
-::-webkit-scrollbar-thumb {
-    box-shadow: 0 0 2px 1px rgba(31, 30, 30, 0.76) inset;
-    background: rgba(20, 20, 20);
-}
-
-
-/* ========== Root Variables ========== */
-:root {
-    --def: rgba(0, 0, 0, 0.75);
-    --inv: #f9fafb;
-    --text: #2e2e2e;
-    --bg: #cedde6;
-}
 
 .noise {
     display: flex;
@@ -160,88 +126,17 @@ address {
 }
 
 /* ========== Common ========== */
-body,
-.top-page,
-.wrap {
-    overflow-x: hidden;
-    background-color: var(--inv);
-    color: var(--inv);
-}
-
 html,
 body {
-    font-family: 'jost', sans-serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     width: 100%;
     height: auto;
     color: var(--inv);
     background: var(--text);
+    overflow-x: hidden;
 }
 
-/*==背景*/
-.video-background {
-    position: absolute;
-    top: 15vmin;
-    right: 0;
-    width: 55%;
-    height: 65vmin;
-    overflow: hidden;
-    mix-blend-mode: darken;
-    opacity: 0.9;
-    border-radius: 50px 0px 0px 50px;
-    /*background-image: url("https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/couryoku.jpg");
-                background-position: left;*/
-    /*clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 0% 100%, 0% 12%, 10% 0%);*/
-}
-
-.video-background img {
-    height: 100%;
-}
-
-.video-background video {
-    position: absolute;
-    width: auto;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    vertical-align: middle;
-    background-size: cover;
-    z-index: 0;
-}
-
-.video-background::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right,
-            rgba(0, 0, 0) 1px,
-            transparent 1px);
-    background-size: 4px 100%;
-    pointer-events: none;
-    z-index: 3;
-    /* Ensure this is above the video */
-    animation: expandLines 10.5s linear infinite;
-}
-
-@keyframes expandLines {
-    0% {
-        background-size: 2px 100%;
-    }
-
-    50% {
-        background-size: 4px 100%;
-    }
-
-    100% {
-        background-size: 2px 100%;
-    }
-}
 
 /*== bg water ==*/
 div.ripples-2 {
@@ -350,9 +245,8 @@ img:hover {
 
 p {
     font-size: 1rem;
-    font-weight: 300;
     letter-spacing: 0.05em;
-    line-height: 2em;
+    line-height: 2;
 }
 
 main ul {
