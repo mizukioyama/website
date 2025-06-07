@@ -18,9 +18,6 @@
         opacity: 0.5;
     }
 
-    footer a:nth-last-of-type {
-        margin-top: 8vmin;
-    }
     footer a:hover {
         color: var(--inv) !important;
         opacity: 0.95;

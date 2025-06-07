@@ -366,6 +366,7 @@ main li {
     font-family: 'jost', "poiret-one", Not serif-JP;
     color: var(--inv);
     margin-bottom: 2vmin;
+    padding: 0 0.5rem;
 }
 
 a {
@@ -470,18 +471,6 @@ a:hover {
     transform: matrix(-3rem);
 }
 
-
-/*== flex ==*/
-.flex {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: relative;
-    margin-inline: auto;
-    width: fit-content;
-    /*width: 100%;*/
-    margin: 30em 0 0;
-}
 
 .top .content,
 .statement .content,
@@ -705,7 +694,7 @@ main {
 }
 
 #info .content h2 {
-    margin-top: 2rem;
+    margin-top: 3vmin;
 }
 
 #info h3 {
