@@ -96,11 +96,7 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg,
-            transparent 0%,
-            var(--text) 50%,
-            var(--text) 100%,
-            transparent);
+    background: linear-gradient(90deg, var(--text) 100%);
     animation: scroll-left 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
     background-size: 200% 100%;
     transition: all 2s;
