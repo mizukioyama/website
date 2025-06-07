@@ -368,7 +368,8 @@ a::before:hover {
 }
 
 footer a,
-header a {
+header a,
+.category a {
     font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
     text-decoration: none;
     width: fit-content;
@@ -386,7 +387,8 @@ footer a {
 }
 
 footer a::before,
-header a::before {
+header a::before,
+.category a::before {
     content: '';
     position: absolute;
     display: block;
@@ -400,7 +402,7 @@ header a::before {
 }
 
 a:hover::before {
-    color: #fff;
+    color: var(--bg);
     width: 100%;
 }
 
