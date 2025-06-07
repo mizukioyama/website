@@ -18,7 +18,7 @@
         opacity: 0.5;
     }
 
-    footer a:nth-last-child {
+    footer a:nth-last-of-type {
         margin-top: 8vmin;
     }
     footer a:hover {
