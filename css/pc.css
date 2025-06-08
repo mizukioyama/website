@@ -190,39 +190,34 @@ h1 {
     height: 100px;
     background-image: linear-gradient(0deg, transparent 0%, var(--text) 100%);
     background-repeat: no-repeat;
-    background-size: 200% 200%;
+    background-size: 100% 200%;
     animation-name: scroll-down;
     animation-duration: 4s;
-    animation-timing-function: cubic-bezier(0.22, 109.9, 210, 1);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); /* 正常なイージング */
     animation-delay: 3s;
     animation-iteration-count: infinite;
     animation-fill-mode: backwards;
     transform-origin: left;
     z-index: 10;
+}
+/* アニメーション定義 */
+@keyframes scroll-down {
+    0% {
+        background-position: 0% 0%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        background-position: 0% 100%;
+        opacity: 0;
+    }
 }
 
-.scroll {
-    left: 50%;
-    width: 1px;
-    height: 150px;
-    border-radius: 50px;
-    border: 1px solid transparent;
-    background-image: linear-gradient(0deg,
-            var(--def) 0%,
-            var(--def) 50%,
-            var(--inv) 100%,
-            transparent);
-    background-repeat: no-repeat;
-    background-size: 200% 200%;
-    animation-name: scroll-down;
-    animation-duration: 4s;
-    animation-timing-function: cubic-bezier(0.22, 109.9, 210, 1);
-    animation-delay: 3s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: backwards;
-    transform-origin: left;
-    z-index: 10;
-}
 
 h2,
 h3,
@@ -620,7 +615,6 @@ main {
 #info .work p {
     width: 100%;
 }
-
 /*=======info page*/
 
 .work p {

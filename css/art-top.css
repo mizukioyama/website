@@ -1,4 +1,3 @@
-
 /*=======セキュリティ*/
 canvas {
   display: block;
@@ -635,7 +634,7 @@ footer,
 
   .creator {
     top: 0.5%;
-    left: 0;
+    left: 4%;
   }
 
   .time {
