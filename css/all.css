@@ -184,6 +184,7 @@ hr {
   width: 50%;
   height: 1px;
   margin: 10% auto;
+  background: var(--inv);
   opacity: 0.3;
 }
 
