@@ -589,6 +589,7 @@ main {
     display: grid;
     margin-top: 0;
     gap: 1rem;
+    padding: 1rem;
 }
 
 #info .content h2 {
