@@ -274,7 +274,7 @@ img:hover {
 
 p {
     font-size: 1rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.05rem;
     line-height: 2;
 }
 
@@ -630,6 +630,7 @@ main {
 /*=======info page*/
 
 .work p {
+    font-size: 0.8rem;
     width: 50%;
 }
 
@@ -650,6 +651,9 @@ main {
 .works {
     text-decoration: none;
     color: inherit;
+}
+.works p {
+    letter-spacing: 0.1rem;
 }
 
 .works img {
