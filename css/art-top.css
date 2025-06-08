@@ -46,13 +46,6 @@ p {
   letter-spacing: 0.1em;
 }
 
-hr {
-  width: 50%;
-  height: 1px;
-  margin: 10% auto;
-  opacity: 0.3;
-}
-
 /* ========== Background Slides ========== */
 .back__slide {
   position: absolute;

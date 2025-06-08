@@ -180,6 +180,14 @@ body {
   --bg: #cedde6;
 }
 
+hr {
+  width: 50%;
+  height: 1px;
+  margin: 10% auto;
+  opacity: 0.3;
+}
+
+
 @media screen and (max-width: 599px) {
   .sp {
     display: block;
