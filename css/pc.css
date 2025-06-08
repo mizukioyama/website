@@ -184,11 +184,6 @@ h1 {
 
 /* スクロールダウンの本体 */
 .scroll {
-    position: relative;
-    margin: 10vmin 0 5vmin;
-}
-
-.scroll span {
   position: absolute;
   right: 50%;
   top: 10%;
@@ -197,7 +192,7 @@ h1 {
 }
 
 /* アニメーションする縦線部分 */
-.scroll span::before {
+.scroll::before {
   content: "";
   position: absolute;
   left: 0;
@@ -588,6 +583,7 @@ main {
     width: clamp(55%, 100%, 45%);
     max-width: 1000px;
     height: 100%;
+    margin-top: 30vmin;
     margin-left: 55vmin;
     padding: 1em 2em;
     box-shadow: inset 0 0 10px rgba(20, 20, 20, 0.7);
