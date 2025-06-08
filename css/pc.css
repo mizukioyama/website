@@ -184,6 +184,11 @@ h1 {
 
 /* スクロールダウンの本体 */
 .scroll {
+    position: relative;
+    margin: 10vmin 0 5vmin;
+}
+
+.scroll span {
   position: absolute;
   right: 50%;
   top: 10%;
