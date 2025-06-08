@@ -197,7 +197,7 @@ h1 {
 }
 
 /* アニメーションする縦線部分 */
-.scroll::before {
+.scroll span::before {
   content: "";
   position: absolute;
   left: 0;
