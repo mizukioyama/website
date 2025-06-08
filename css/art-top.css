@@ -614,6 +614,10 @@ footer,
 
 @media screen and (max-width: 599px) {
 
+  h1 {
+    line-height: 1;
+  }
+
   .card {
     width: 90%;
     height: 90%;
@@ -631,6 +635,7 @@ footer,
 
   .creator {
     top: 0.5%;
+    left: 0;
   }
 
   .time {
