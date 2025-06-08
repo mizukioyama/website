@@ -60,17 +60,18 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
-    style-src 'self' 'unsafe-inline' https://use.typekit.net;
-    font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
-    img-src 'self' data:;
-    connect-src 'self';
-    object-src 'none';
-  ">
-  
+<!-- Content Security Policy -->
+<meta http-equiv="Content-Security-Policy" content="
+default-src 'self';
+script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+style-src 'self' 'unsafe-inline' https://use.typekit.net;
+font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+img-src 'self' data: https:;
+connect-src 'self';
+object-src 'none';
+">
+
+
 </head>
 
 <body oncontextmenu="return false;" data-current-page="1" data-current-category="all">
