@@ -594,10 +594,10 @@ main {
 .work {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
     width: 100%;
     min-height: 350px;
-    margin: 2rem auto;
+    margin: 0 auto 4rem;
     gap: 3rem;
 }
 
