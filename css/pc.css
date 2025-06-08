@@ -584,9 +584,11 @@ main {
     gap: 3rem;
 }
 
+/*=======info page*/
 #info .work {
+    display: grid;
     margin-top: 0;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 #info .content h2 {
@@ -597,6 +599,11 @@ main {
 #info h3 {
     margin-bottom: 2vmin;
 }
+
+#info .work p {
+    width: 100%;
+}
+/*=======info page*/
 
 .work p {
     width: 50%;
