@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // ------------------------
     // ページネーションの設定
+    // ------------------------
     const pageLinks = document.querySelectorAll('.page-link');
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
-    let currentPage = parseInt(document.body.getAttribute('data-current-page'), 10);
+    const currentPage = parseInt(document.body.getAttribute('data-current-page'), 10);
     const totalPages = pageLinks.length;
 
     function updatePagination() {
@@ -58,7 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updatePagination();
 
+    // ------------------------
     // カテゴリーリンクの設定
+    // ------------------------
     const categoryLinks = document.querySelectorAll('.category-link');
     const currentCategory = document.body.getAttribute('data-current-category');
 
