@@ -1,113 +1,428 @@
-  @import url(https://fonts.googleapis.com/css?family=Raleway:300);
-  @import url(https://fonts.googleapis.com/css?family=Lusitana:400,700);
-  .align-center {
-    text-align: center;
-  }
+:where(input[type="checkbox"], input[type="radio"]) {
+   font-size: inherit;
+   line-height: inherit;
+   margin: 0;
+   block-size: 2.4rem;
+   inline-size: 2.4rem;
+   vertical-align: sub;
+}
+form input {
+   position: relative;
+   appearance: none;
+   width: 2.4rem;
+   height: 2.4rem;
+   border: 1px solid var(--hover);
+   border-radius: 50%;
+   background: #fffdfb;
+   box-shadow: inset hsla(0, 0%, 0%, 0.5) 0px 1px 2px 0px;
+}
+form input[type="checkbox"] {
+   border-radius: 2px;
+}
+/* チェックされたらラジオボタン内側を表示 */
+form input[type="checkbox"]:checked::before,
+form input[type="radio"]:checked::before {
+   opacity: 1;
+}
+form input[type="checkbox"]::before,
+form input[type="radio"]::before {
+   background-color: var(--hover);
+   box-shadow: 0 1px 2px 0px rgba(46, 46, 46, 0.45);
+   border-radius: 50%;
+   bottom: 0;
+   content: "";
+   left: 0;
+   margin: auto;
+   opacity: 0;
+   position: absolute;
+   right: 0;
+   top: 0;
+   width: 1.25rem;
+   height: 1.25rem;
+}
+form input[type="checkbox"]::before {
+   border-radius: 0;
+   width: 1.5rem;
+   height: 1.5rem;
+}
+.contact-form {
+   display: grid;
+   width: 65%;
+   margin: 0 auto;
+}
+.col {
+   flex: 1;
+}
+.col.x-50,
+.col.x-100 {
+   margin-top: 2rem;
+}
+.col.x-50:nth-of-type(1) {
+   margin-top: 1rem;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+   transition: background-color 0s 600000s, color 0s 600000s !important;
+}
+/*.content-wrapper {
+   width: 70%;
+   margin: 0 auto;
+}*/
+.get-in-touch {
+   margin: 0 auto;
+   position: relative;
+}
+.contact-form .form-field {
+   position: relative;
+}
+.contact-form .input-text {
+   font-size: clamp(1.4rem, 0.733rem + 0.89vw, 1.8rem);
+   font-family: sans-serif;
+   font-weight: 400;
+   color: var(--text);
+   display: block;
+   width: 100%;
+   height: 42pt;
+   border-width: 0;
+   padding-left: 2rem;
+   background-color: #fffdfb;
+   box-shadow: 0px 1px 3px rgba(46, 46, 46, 0.5);
+   border-radius: 10px;
+}
+.contact-form #message {
+   height: 150pt;
+   margin: 0 auto;
+   padding-top: 1rem;
+}
+.contact-form .input-text:focus {
+   outline: none;
+}
+.contact-form .input-text:focus+.label,
+.contact-form .input-text:focus+.label span,
+.contact-form .input-text.not-empty+.label {
+   font-size: clamp(1.4rem, 1.067rem + 0.44vw, 1.6rem);
+   transform: translateY(-1.85rem);
+}
+.contact-form .label,
+.contact-form .submit-btn {
+   font-size: clamp(1.6rem, 1.267rem + 0.44vw, 1.8rem);
+}
+.contact-form .label {
+   font-family: "Zen Maru Gothic", serif;
+   font-weight: 400;
+   color: rgba(46, 46, 46, 0.5);
+   position: absolute;
+   left: 1vmin;
+   top: 0.75rem;
+   transition: all 0.3s ease-in-out;
+}
 
-  .row {
-    margin: -20px 0;
-  }
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  .row .col {
-    padding: 0 20px;
-    float: left;
-    box-sizing: border-box;
-  }
-  .row .col.x-50 {
-    width: 50%;
-  }
-  .row .col.x-100 {
-    width: 100%;
-  }
+.contact-form .label span {
+   font-size: 1.2rem;
+   color: var(--hover);
+   transition: all 0.3s ease;
+}
 
-  .content-wrapper {
-    min-height: 100%;
-    position: relative;
-  }
+.contact-form .label-text {
+   color: rgba(46, 46, 46, 0.5);
+}
 
-  .get-in-touch {
-    max-width: 700px;
-    margin: 0 auto;
-    position: relative;
-    top: 50%;
-    margin-bottom: 600px;/*
-    transform: translateY(-50%);*/
-  }
-  .get-in-touch .title {
-    text-align: center;
-    font-family: Raleway, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 36px;
-    line-height: 48px;
-    padding-bottom: 48px;
-  }
+.contact-form .submit-btn {
+   font-family: "Zen Maru Gothic", serif;
+   width: 100%;
+   height: 28pt;
+   display: inline-block;
+   color: var(--bg);
+   background-color: var(--text);
+   text-transform: uppercase;
+   letter-spacing: 0.2rem;
+   line-height: 1.5rem;
+   padding: 0.5rem 0;
+   margin: 1.5rem auto;
+   border: none;
+   border-radius: 10px;
+   box-shadow: 0px 1px 3px rgba(46, 46, 46, 0.5);
+   cursor: pointer;
+   transition: all 0.35s ease;
+}
+.contact-form .submit-btn:hover {
+   color: var(--text);
+   background: var(--bg);
+   border: none;
+}
+.radio-group,
+.align-center h3 {
+   font-weight: 700;
+   color: var(--text);
+   width: fit-content;
+   line-height: 1.5;
+   z-index: 1;
+}
+.radio-group {
+   font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
+   display: flex;
+   gap: 1.2rem;
+   margin-top: 1.5rem;
+}
+.align-center {
+   width: 100%;
+   align-items: center;
+   margin-top: 3em;
+}
+.align-center:last-child {
+   margin-top: 1em;
+}
+.align-center p {
+   width: 100%;
+   margin: 0;
+   line-height: 1.6;
+}
 
-  .contact-form .form-field {
-    position: relative;
-    margin: 32px 0;
-  }
-  .contact-form .input-text {
-    display: block;
-    width: 100%;
-    height: 40px;
-    border-width: 0 0 2px 0;
-    border-color: #ddd;
-    font-family: Lusitana, serif;
-    font-size: 18px;
-    line-height: 26px;
-    font-weight: 400;
-  }
-  .contact-form .input-text:focus {
-    outline: none;
-  }
-  .contact-form .input-text:focus + .label, .contact-form .input-text.not-empty + .label {
-    transform: translateY(-24px);
-  }
-  .contact-form .label {
-    position: absolute;
-    left: 20px;
-    bottom: 11px;
-    font-family: Lusitana, serif;
-    font-size: 18px;
-    line-height: 26px;
-    font-weight: 400;
-    color: #888;
-    cursor: text;
-    transition: transform 0.2s ease-in-out;
-  }
-  .contact-form .submit-btn {
-    display: inline-block;
-    background-color: #000;
-    color: #fff;
-    font-family: Raleway, sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 16px;
-    line-height: 24px;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-  }
+/*===================== モーダルウィンドウ =====================*/
+#thanksModal {
+   display: none;
+   opacity: 0;
+   overflow: hidden;
+   position: absolute;
+   z-index: 10099;
+   height: fit-content;
+   background: rgba(255, 255, 200, 0.25);
+   transition: opacity 0.4s ease-in-out;
+   width: 90vw;
+   height: 100%;
+   top: 0;
+   left: 10%;
+   transform: translate(-45%, 0%);
+   -webkit-backdrop-filter: blur(10px);
+   backdrop-filter: blur(10px);
+   border-radius: 20px;
+   border: 1px solid var(--sub);
+}
+/* モーダルが表示されるとき */
+#thanksModal.show {
+   display: block;
+   opacity: 1;
+}
+/* モーダルコンテンツのアニメーション */
+#thanksModal .modal-content {
+   position: absolute;
+   width: 75vw;
+   height: 65vh;
+   margin: 0 auto;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   color: var(--text);
+   background: rgba(255, 255, 255, 0.7);
+   box-shadow: inset 1px 1px 4px rgba(46, 46, 46, 0.5), 1px 1px 3px 0 rgba(46, 46, 46, 0.4);
+   border: 1px solid #fff;
+   border-radius: 10px;
+   -webkit-backdrop-filter: blur(20px);
+   backdrop-filter: blur(20px);
+   border-radius: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   z-index: 11000;
+}
+/* モーダル表示時 */
+.align-center h3,
+#thanksModal .modal-content p,
+#thanksModal .close {
+   font-size: clamp(2rem, 1.333rem + 0.89vw, 2.4rem);
+}
+#thanksModal .modal-content p {
+   width: 70%;
+   line-height: 2;
+}
+#thanksModal .close {
+   font-weight: bold;
+   float: right;
+   position: absolute;
+   top: 5%;
+   right: 5%;
+}
+#thanksModal .close:hover,
+#thanksModal .close:focus {
+   color: var(--accent);
+   text-shadow: 0 1px 2px var(--text);
+   text-decoration: none;
+   cursor: pointer;
+}
+/*===================== モーダルウィンドウ =====================*/
+@media screen and (min-width: 601px) and (max-width: 1299px) {
+   .col.x-50,
+   .col.x-100 {
+      width: 100%;
+      padding: 0;
+      margin: 1.5rem auto;
+   }
+   .contact-form .input-text:focus+.label,
+   .contact-form .input-text.not-empty+.label {
+      transform: translateY(-2.5rem);
+   }
 
-  .note {
-    position: absolute;
-    left: 0;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-    font-family: Lusitana, serif;
-    font-size: 16px;
-    line-height: 21px;
-  }
-  .note .link {
-    color: #888;
-    text-decoration: none;
-  }
-  .note .link:hover {
-    text-decoration: underline;
-  }/*# sourceMappingURL=form.css.map */
+   .contact-form #message,
+   .contact-form .submit-btn,
+   .contact-form .label {
+      font-size: clamp(1.6rem, 1.256rem + 0.92vw, 2rem);
+   }
+   .contact-form .input-text {
+      font-size: clamp(1.8rem, 1.628rem + 0.46vw, 2rem);
+      height: 40pt;
+      padding-left: 1rem;
+   }
+   .contact-form .label {
+      left: 2.75%;
+      top: 13.75%;
+      line-height: 2;
+   }
+   .contact-form .label-text {
+      top: 6.5%;
+   }
+   .contact-form .submit-btn {
+      height: 28pt;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+   }
+   .align-center:last-child {
+      margin: 0;
+   }
+   .align-center p {
+      text-align: left;
+   }
+   /*===================== モーダルウィンドウ =====================*/
+   #thanksModal {
+      width: 100%;
+      top: 0%;
+      left: 0%;
+      transform: translate(0%, 0%);
+   }
+   #thanksModal .modal-content {
+      width: 90%;
+      height: 70vh;
+      transform: translate(-50%, -50%);
+      background: rgba(245, 252, 246, 0.83);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6.5px);
+      border: 1px solid var(--bg);
+   }
+
+   #thanksModal.show {
+      width: 100%;
+      transform: translate(0%,0%);
+      background: rgba(255, 255, 200, 0.25);
+   }
+}
+
+
+@media screen and (max-width: 600px) {
+   .contact-form {
+      width: 80%;
+   }
+   .form-row {
+      display: block;
+   }
+   .col {
+      padding: 0;
+   }
+   .col.x-50,
+   .col.x-50:nth-child(1),
+   .col.x-100 {
+      padding: 0;
+      margin-top: 1.8rem;
+   }
+   .contact-form .input-text:focus+.label,
+   .contact-form .input-text.not-empty+.label {
+      transform: translateY(-2.4rem);
+   }
+
+   .contact-form .submit-btn,
+   .align-center h3 {
+      font-size: clamp(1.8rem, 1.571rem + 1.14vw, 2rem);
+   }
+   .contact-form .input-text {
+      font-size: 1.6rem;
+      height: 40pt;
+      padding-left: 1rem;
+      background: var(--sub);
+   }
+   .contact-form #message {
+      line-height: 1.4;
+      letter-spacing: 0.01rem;
+   }
+   .contact-form .label,
+   .align-center p,
+   .radio-group {
+      font-size: clamp(1.4rem, 1.171rem + 1.14vw, 1.6rem);
+   }
+   .contact-form .label {
+      left: 2.75%;
+      top: 5.75%;
+      line-height: 2;
+   }
+   .contact-form .label-text {
+      line-height: 1.2;
+   }
+
+   .contact-form .submit-btn {
+      height: 25pt;
+      padding: 0;
+      margin: 0;
+      padding-bottom: 0.5rem;
+      margin-top: 1rem;
+   }
+   .contact-form .submit-btn:active {
+      color: var(--text);
+      background: var(--accent);
+   }
+   .radio-group {
+      justify-content: center;
+      margin-top: 2rem;
+   }
+   .align-center p a {
+      margin-top: 0;
+      padding: 0.5rem;
+      border: 0;
+   }
+   /*===================== モーダルウィンドウ =====================*/
+   #thanksModal {
+      width: 100vw;
+      top: 0%;
+      left: 0%;
+      padding: 10vmin 2.5em;
+      transform: translate(-50%, -50%);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background: rgba(246, 246, 246, 0.2);
+   }
+   #thanksModal .modal-content {
+      width: 90vw;
+      height: auto;
+      padding: 3em 0;
+      transform: translate(-50%, -50%);
+      background: rgba(245, 252, 246, 0.83);
+      border: 1px solid var(--bg);
+   }
+
+   #thanksModal.show {
+      transform: translate(0%,0%);
+      background: rgba(255, 255, 200, 0.25);
+   }
+
+   #thanksModal .modal-content p,
+   #thanksModal .close {
+      font-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
+   }
+   #thanksModal .modal-content p {
+      margin: 0 auto;
+   }
+   #thanksModal .close {
+      top: 2.5%;
+      right: 6.5%;
+   }
+   /*===================== モーダルウィンドウ =====================*/
+}
