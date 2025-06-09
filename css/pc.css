@@ -314,29 +314,27 @@ a::before:hover {
 
 /* head */
 .head a {
-    font-family: "poiret-one", Not serif-JP;
     position: fixed;
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.6em);
     font-weight: 400;
     top: 0.5%;
     left: 0.5%;
+    width: 100%;
+    height: 100%;
     z-index: 100;
-    background-image: linear-gradient(90deg,
-            var(--inv) 30%,
-            var(--def) 50%,
-            var(--inv) 70%);
-    background-size: 500% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: shine 10s infinite;
+    background: linear-gradient(90deg, var(--text) 100%);
+    animation: shine 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+    background-size: 200% 100%;
+    transition: all 2s;
+    animation-delay: 2s;
+    animation-duration: 3.5s;
 }
 
 .head a::after {
     content: '･';
     color: var(--inv);
     margin: 0 -3% 0 -1%;
-    animation: blink 10s infinite;
+    animation: blink 1s infinite;
 }
 
 @keyframes blink {
