@@ -118,6 +118,10 @@ body {
   z-index: 100;
 }
 
+#langChenge .gallery {
+  left: 10%;
+}
+
 #langChenge .inner_label {
   display: flex;
   gap: 1rem;
