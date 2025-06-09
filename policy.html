@@ -1,38 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nature inspire SitePolicy</title>
-        <!--作品保護-->
-            <body oncontextmenu="return false;">
-        <!-- CSSファイルの読み込み -->
-            <link rel="stylesheet" href="CSS/index.css">
-            <link rel="stylesheet" href="CSS/menu.css">
-            <link rel="stylesheet" href="CSS/ps.css">
-            <link rel="stylesheet" href="CSS/footer.css">
-        <!-- JavaScriptファイルの読み込み -->
-            <script src="JS/loading.js"></script>
-            <script src="JS/cursor.js"></script>
-            <script src="JS/menu.js"></script>
-            <script src="JS/img-security.js"></script>
-            <script src="JS/text-random.js"></script>
-            <script src="JS/footer.js"></script>
-        <!--Search-->
-            <meta name="description" content="Your website description">
-            <meta name="keywords" content="Paradigm Art, Nature inspire, Abstract, Art, Paradigm‐Nature">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nature inspire | Site Policy</title>
 
-        <!--cash-->
-            <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-            <meta http-equiv="Pragma" content="no-cache">
-            <meta http-equiv="Expires" content="0">
-        <!--Referrer-Policy-->
-            <meta name="referrer" content="strict-origin">
-        <!--HSTS-->
-            <meta http-equiv="Strict-Transport-Security" content="max-age=31536000">
-        <!--CSP-->
-            <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/noise.css">
+    <link rel="stylesheet" href="css/sp.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/pc.css">
+    <link rel="stylesheet" href="css/menu.css">
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+
+    <!-- 背景用 JavaScript -->
+    <script src="js/jquery.ripples-min.js"></script>
+    <script src="js/bg_wave.js"></script>
+
+    <script src="js/workspage.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/loading.js"></script>
+    <script src="js/menu.js"></script>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+
+    <!-- ✅ SEO強化 -->
+    <meta name="description"
+        content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
+    <meta name="keywords" content="ポートフォリオ, 自然, アート, Webデザイン, 作品集, クリエイティブ, Nature inspire">
+    <meta name="author" content="あなたの名前（またはブランド名）">
+    <link rel="canonical" href="https://mizukioyama.github.io/"> <!-- ご自身のURLに差し替えてください -->
+
+    <!-- OGP（SNSシェア用） -->
+    <meta property="og:title" content="Nature inspire | 自然とアートのポートフォリオ">
+    <meta property="og:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mizukioyama.github.io/">
+    <meta property="og:image" content="https://mizukioyama.github.io/images/ogp.jpg"> <!-- OGP画像を用意してください -->
+    <meta property="og:site_name" content="Nature inspire">
+
+    <!-- Twitterカード -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nature inspire | 自然とアートのポートフォリオ">
+    <meta name="twitter:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+    <meta name="twitter:image" content="https://mizukioyama.github.io/images/ogp.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico">
+
+    <!-- キャッシュ制御 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- セキュリティ -->
+    <meta name="referrer" content="strict-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://use.typekit.net;
+        font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        object-src 'none';
+        ">
+
 </head>
+
 <body>
     <header>    
         <!-- ローディングエレメント -->
