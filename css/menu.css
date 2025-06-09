@@ -62,6 +62,7 @@ nav {
 #navArea .inner li a:hover {
     text-shadow: 0 1px 3px var(--inv);
     opacity: 1;
+    mix-blend-mode: difference;
 }
 
 /* .toggle_btn styles */
