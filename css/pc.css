@@ -603,15 +603,15 @@ main {
 }
 
 #info .work,
-#policy .work {
+#policy .content {
     display: grid;
     margin-top: 0;
     gap: 1rem;
     padding: 1rem;
 }
 
-#info .content h2,
-#policy .content h2 {
+#info h2,
+#policy h2 {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -640,18 +640,18 @@ main {
     display: none;
 }
 
-#policy li {
+#policy .content li {
     padding: 0;
     margin: 0.75vmin 0;
     padding-left: 2rem;
 }
-#info li {
+#info .content li {
     padding: 0.25rem 0 0.5rem 1.5rem;
     margin-bottom: 1vmin;
 }
 
-#info li::before,
-#policy li::before {
+#info .content li::before,
+#policy .content li::before {
     content: "";
     width: 10px;
     height: 1px;
