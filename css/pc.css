@@ -618,17 +618,38 @@ main {
     margin-bottom: 2vmin;
 }
 
+#policy h2,
+#policy h3 {
+    justify-content: flex-start;
+}
+
 #policy h2 {
     margin-bottom: 2vmin;
 }
 
 #policy h3 {
+    padding-left: 0.5rem;
+    padding-bottom: 0.25rem;
     margin-top: 10vmin;
     border-bottom: 1px solid;
 }
 
 #policy h3::before {
     display: none;
+}
+
+#info li {
+    position: relative;
+    padding-left: 2rem;
+    margin: 0.75vmin 0;
+}
+#info li::before {
+    content: "";
+    width: 10px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    top: 50%;
 }
 
 #info .work p,
