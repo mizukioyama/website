@@ -11,12 +11,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function updatePagination() {
         pageLinks.forEach(link => {
             const page = parseInt(link.getAttribute('data-page'), 10);
+            const href = link.getAttribute('data-href');
+
             if (page === currentPage) {
                 link.classList.add('disabled');
                 link.removeAttribute('href');
             } else {
                 link.classList.remove('disabled');
-                link.setAttribute('href', link.getAttribute('data-href'));
+                if (href) {
+                    link.setAttribute('href', href);
+                }
             }
         });
 
@@ -28,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (page < 1 || page > totalPages) return;
         const targetLink = document.querySelector(`.page-link[data-page="${page}"]`);
         if (targetLink) {
-            window.location.href = targetLink.getAttribute('data-href');
+            const href = targetLink.getAttribute('data-href');
+            if (href) window.location.href = href;
         }
     }
 
@@ -69,12 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateCategoryLinks() {
         categoryLinks.forEach(link => {
             const category = link.getAttribute('data-page');
+            const href = link.getAttribute('data-href');
             if (category === currentCategory) {
                 link.classList.add('disabled');
                 link.removeAttribute('href');
             } else {
                 link.classList.remove('disabled');
-                link.setAttribute('href', link.getAttribute('data-href'));
+                if (href) {
+                    link.setAttribute('href', href);
+                }
             }
         });
     }
@@ -84,7 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             const category = event.currentTarget.getAttribute('data-page');
             if (category !== currentCategory) {
-                window.location.href = event.currentTarget.getAttribute('data-href');
+                const href = event.currentTarget.getAttribute('data-href');
+                if (href) window.location.href = href;
             }
         });
     });
