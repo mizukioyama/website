@@ -645,17 +645,19 @@ main {
 }
 #info li {
     position: relative;
-    padding-left: 2rem;
+    padding: 0.25rem 0 0.5rem 1.5rem;
     margin-bottom: 1vmin;
 }
 
-#info li::before {
+#info li::before,
+#policy li::before {
     content: "";
     width: 10px;
-    height: 2px;
+    height: 1px;
     position: absolute;
-    left: 0;
-    top: 50%;
+    left: 0.5%;
+    top: 45%;
+    background: rgba(200, 200, 200, 0.6);
 }
 
 #info .work p,
