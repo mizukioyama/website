@@ -635,6 +635,7 @@ main {
     border-bottom: 1px solid;
 }
 
+#info h3::before,
 #policy h3::before {
     display: none;
 }
