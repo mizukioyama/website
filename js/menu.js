@@ -133,3 +133,11 @@ function initializeTyping() {
     typeAllLines();
   }
 }
+
+
+//右クリック阻止
+document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+});
