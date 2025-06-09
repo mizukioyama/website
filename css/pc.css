@@ -638,11 +638,17 @@ main {
     display: none;
 }
 
+#policy li {
+    padding: 0;
+    margin: 0.75vmin 0;
+    padding-left: 2rem;
+}
 #info li {
     position: relative;
     padding-left: 2rem;
-    margin: 0.75vmin 0;
+    margin-bottom: 1vmin;
 }
+
 #info li::before {
     content: "";
     width: 10px;
@@ -655,7 +661,16 @@ main {
 #info .work p,
 #policy .work p {
     width: 100%;
+    font-size: 1rem;
 }
+
+#info .work ol p {
+    border-bottom: 1px solid;
+}
+#policy .work p {
+    padding-left: 0.5rem;
+}
+
 /*=======info page*/
 
 .work p {
