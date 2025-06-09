@@ -58,13 +58,13 @@
 
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
-    style-src 'self' 'unsafe-inline' https://use.typekit.net;
-    font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
-    img-src 'self' data:;
-    connect-src 'self';
-    object-src 'none';
+        default-src 'self';
+        script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://use.typekit.net;
+        font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        object-src 'none';
     ">
 
     <!--画像遅延読み込み
@@ -206,7 +206,9 @@
                 </div>
             </div>
         </div>
-        <div class="noise" style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;"></div>
+        <div class="noise"
+            style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
+        </div>
     </main>
 
     <!-- チェックボックスで状態制御 -->

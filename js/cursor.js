@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("a, .toggle_btn span, #navArea .inner li a, .head, nav").forEach(el => {
+  document.querySelectorAll("body a, .toggle_btn, label").forEach(el => {
     el.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("a, .toggle_btn span, #navArea .inner li a, .head, nav").forEach(el => {
+  document.querySelectorAll("body a, .toggle_btn, label").forEach(el => {
     el.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");
