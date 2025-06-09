@@ -120,7 +120,7 @@ address {
 
 .noise {
     display: flex;
-    background-image: linear-gradient(to right, var(--inv) 0%, var(--def) 80%);
+    background-image: linear-gradient(to right, #fff 0%, #000 70%);
 }
 
 /* ========== Common ========== */
@@ -164,7 +164,7 @@ h1 {
     position: relative;
     color: transparent;
     text-shadow: 0 0 0 rgba(200, 200, 200, 0.5);
-    background-image: linear-gradient(to right, var(--text), var(--bg));
+    /*background-image: linear-gradient(to right, var(--text), var(--bg));*/
     background-clip: text;
     -webkit-background-clip: text;
     animation: shine 15s infinite;
@@ -602,8 +602,7 @@ main {
     backdrop-filter: none;
 }
 
-#info .work,
-#policy .content {
+#info .work {
     display: grid;
     margin-top: 0;
     gap: 1rem;
