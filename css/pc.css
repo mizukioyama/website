@@ -278,12 +278,6 @@ p {
     line-height: 2;
 }
 
-main ul {
-    margin-top: 0px;
-    margin-bottom: 20%;
-    margin-left: 150px;
-}
-
 main li {
     font-family: 'jost', "poiret-one", Not serif-JP;
     color: var(--inv);
@@ -319,15 +313,16 @@ a::before:hover {
     font-weight: 400;
     top: 0.5%;
     left: 0.5%;
-    width: 100%;
-    height: 100%;
     z-index: 100;
-    background: linear-gradient(90deg, var(--text) 100%);
-    animation: shine 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-    background-size: 200% 100%;
-    transition: all 2s;
-    animation-delay: 2s;
-    animation-duration: 3.5s;
+    background-image: linear-gradient(90deg,
+            var(--inv) 0%,
+            var(--def) 50%,
+            var(--inv) 100%);
+    background-size: 400% 400%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shine 5s infinite;
 }
 
 .head a::after {
@@ -600,29 +595,38 @@ main {
 }
 
 /*=======info page*/
-#info .content {
+#info .content,
+#policy .content {
     padding-top: 3rem;
     background: none;
     box-shadow: none;
     backdrop-filter: none;
 }
 
-#info .work {
+#info .work,
+#policy .work {
     display: grid;
     margin-top: 0;
     gap: 1rem;
     padding: 1rem;
 }
 
-#info .content h2 {
+#info .content h2,
+#policy .content h2 {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-#info h3 {
+#info h3,
+#policy h3 {
     margin-bottom: 2vmin;
 }
 
-#info .work p {
+#policy h3::before {
+    display: none;
+}
+
+#info .work p,
+#policy .work p {
     width: 100%;
 }
 /*=======info page*/
