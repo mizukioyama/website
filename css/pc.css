@@ -618,6 +618,8 @@ main {
     margin-bottom: 2vmin;
 }
 
+#info h2,
+#info h3,
 #policy h2,
 #policy h3 {
     justify-content: flex-start;
