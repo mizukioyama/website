@@ -659,7 +659,7 @@ main {
 }
 
 #info .work p,
-#policy .work p {
+#policy .content p {
     width: 100%;
     font-size: 1rem;
 }
@@ -667,7 +667,7 @@ main {
 #info .work ol p {
     border-bottom: 1px solid;
 }
-#policy .work p {
+#policy .content p {
     padding-left: 0.5rem;
 }
 
