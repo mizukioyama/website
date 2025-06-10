@@ -1,75 +1,87 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const perPage = 4; // 1ページあたりの作品数
+// main.js
 
-  let currentCategory = 'all';
-  let currentPage = 1;
+const ITEMS_PER_PAGE = 3;
 
-  const gallery = document.querySelector('.gallery');
-  const catLinks = document.querySelectorAll('.category-link');
-  const leftArrow = document.querySelector('.left-arrow');
-  const rightArrow = document.querySelector('.right-arrow');
-  const pageButtons = document.querySelector('.page-buttons');
+const state = {
+  category: "all",
+  page: 1
+};
 
-  function filterWorks() {
-    const arr = worksData.filter(w =>
-      currentCategory === 'all' || w.category === currentCategory
-    );
-    const total = Math.ceil(arr.length / perPage);
+const contentEl = document.querySelector(".content");
+const paginationEl = document.querySelector(".page");
+const categoryText = contentEl.querySelector("span");
 
-    function renderGallery() {
-      gallery.innerHTML = '';
-      const slice = arr.slice((currentPage-1)*perPage, currentPage*perPage);
-      slice.forEach(w => {
-        const div = document.createElement('div');
-        div.className = 'work';
-        div.innerHTML = `
-          <img src="${w.img}" alt="${w.title}" style="width:100%">
-          <strong>${w.title}</strong><br><em>${w.year}</em>`;
-        gallery.appendChild(div);
-      });
-    }
+function renderWorks() {
+  contentEl.querySelectorAll(".work").forEach(el => el.remove());
 
-    function renderPagination() {
-      pageButtons.innerHTML = '';
-      for(let i=1; i<=total; i++){
-        const a = document.createElement('a');
-        a.textContent = i;
-        a.href = '#';
-        a.dataset.page = i;
-        a.className = i===currentPage ? 'disabled' : '';
-        a.addEventListener('click', ev => {
-          ev.preventDefault();
-          currentPage = i;
-          update();
-        });
-        pageButtons.appendChild(a);
-      }
-      leftArrow.disabled = currentPage === 1;
-      rightArrow.disabled = currentPage === total;
-    }
+  const filtered = state.category === "all"
+    ? worksData
+    : worksData.filter(w => w.category === state.category);
 
-    function update() {
-      renderGallery();
-      renderPagination();
-    }
+  const start = (state.page - 1) * ITEMS_PER_PAGE;
+  const pageItems = filtered.slice(start, start + ITEMS_PER_PAGE);
 
-    leftArrow.onclick = () => { if(currentPage>1){currentPage--; update();}};
-    rightArrow.onclick = () => { if(currentPage<total){currentPage++; update();}};
-    update();
-  }
-
-  catLinks.forEach(a=>{
-    a.addEventListener('click', ev=>{
-      ev.preventDefault();
-      catLinks.forEach(x=>x.classList.remove('disabled'));
-      a.classList.add('disabled');
-      currentCategory = a.dataset.page;
-      currentPage = 1;
-      filterWorks();
-    });
-    if(a.dataset.page === 'all') a.classList.add('disabled');
+  pageItems.forEach(work => {
+    const workEl = document.createElement("div");
+    workEl.className = "work";
+    workEl.innerHTML = `
+      <p>${work.caption}</p>
+      <div class="work-img">
+        <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${work.tag}</span>
+        <img src="${work.img}" alt="Main Image">
+        <span class="dli-external-link">©Oyama</span>
+        <a class="works" href="${work.link}">
+          <h3>${work.heading}</h3>
+          <p>Title：${work.title}</p>
+        </a>
+      </div>
+    `;
+    contentEl.appendChild(workEl);
   });
 
-  // 初期表示
-  filterWorks();
+  updateCategoryLabel();
+  renderPagination(filtered.length);
+}
+
+function updateCategoryLabel() {
+  categoryText.textContent = `Category / ${state.category.toUpperCase()}`;
+}
+
+function renderPagination(totalItems) {
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  paginationEl.innerHTML = `
+    <li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>
+    ${Array.from({ length: totalPages }, (_, i) =>
+      `<li><a href="#" class="page-link ${state.page === i + 1 ? "active" : ""}" data-page="${i + 1}">${i + 1}</a></li>`
+    ).join("")}
+    <li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>
+  `;
+
+  // Event bindings
+  paginationEl.querySelectorAll(".page-link").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      state.page = parseInt(e.target.dataset.page);
+      renderWorks();
+    });
+  });
+
+  paginationEl.querySelector(".left-arrow").addEventListener("click", () => {
+    if (state.page > 1) {
+      state.page--;
+      renderWorks();
+    }
+  });
+
+  paginationEl.querySelector(".right-arrow").addEventListener("click", () => {
+    if (state.page < totalPages) {
+      state.page++;
+      renderWorks();
+    }
+  });
+}
+
+// Optional: Category UI (example only)
+document.addEventListener("DOMContentLoaded", () => {
+  renderWorks();
 });
