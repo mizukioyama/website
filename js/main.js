@@ -1,87 +1,86 @@
-  const ITEMS_PER_PAGE = 2;
-  let currentCategory = "all";
+// main.js
+document.addEventListener('DOMContentLoaded', () => {
+  const contentEl = document.querySelector('.content');
+  const categoryDisplay = document.querySelector('.content > span');
+  const pagination = document.querySelector('.page');
+  const itemsPerPage = 2;
+
   let currentPage = 1;
+  let currentCategory = 'all';
 
-  const contentEl = document.querySelector(".content");
-  const pageEl = document.querySelector(".page");
-
-  function renderWorks() {
-    if (!contentEl) return;
-
-    const filtered = currentCategory === "all"
-      ? worksData
-      : worksData.filter((item) => item.category === currentCategory);
-
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    const currentItems = filtered.slice(start, end);
-
-    contentEl.innerHTML = `<span>Category / ${currentCategory.toUpperCase()}</span>`;
-    currentItems.forEach((item) => {
-      const html = `
-        <div class="work">
-          <p>キャプション<br>${item.caption}</p>
-          <div class="work-img">
-            <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">
-              ${item.tag}
-            </span>
-            <img src="${item.img}" alt="Main Image">
-            <span class="dli-external-link">©Oyama</span>
-            <a class="works" href="${item.link}">
-              <h3>${item.category}</h3>
-              <p>Title：${item.title}</p>
-            </a>
-          </div>
+  function renderWorks(data) {
+    contentEl.querySelectorAll('.work').forEach(el => el.remove());
+    data.forEach(work => {
+      const workEl = document.createElement('div');
+      workEl.className = 'work';
+      workEl.innerHTML = `
+        <p>${work.caption}</p>
+        <div class="work-img">
+          <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">
+            ${work.tag}
+          </span>
+          <img src="${work.img}" alt="Main Image">
+          <span class="dli-external-link">©Oyama</span>
+          <a class="works" href="${work.link}">
+            <h3>${work.subTitle}</h3>
+            <p>Title：${work.title}</p>
+          </a>
         </div>
       `;
-      contentEl.innerHTML += html;
+      contentEl.appendChild(workEl);
     });
-
-    renderPagination(filtered.length);
   }
 
-  function renderPagination(totalItems) {
-    if (!pageEl) return;
+  function getFilteredData() {
+    return currentCategory === 'all'
+      ? worksData
+      : worksData.filter(item => item.category === currentCategory);
+  }
 
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    let html = '<li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>';
+  function getPaginatedData() {
+    const filtered = getFilteredData();
+    const start = (currentPage - 1) * itemsPerPage;
+    return filtered.slice(start, start + itemsPerPage);
+  }
 
-    for (let i = 1; i <= totalPages; i++) {
-      html += `<li><a href="#" class="page-link" data-page="${i}">${i}</a></li>`;
-    }
-
-    html += '<li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>';
-    pageEl.innerHTML = html;
-
-    document.querySelectorAll(".page-link").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        currentPage = Number(link.dataset.page);
-        renderWorks();
-      });
+  function updatePaginationLinks() {
+    const filtered = getFilteredData();
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    pagination.querySelectorAll('.page-link').forEach(link => {
+      const page = parseInt(link.dataset.page, 10);
+      link.style.display = page <= totalPages ? 'inline-block' : 'none';
     });
+  }
 
-    document.querySelector(".left-arrow")?.addEventListener("click", () => {
+  function updatePage() {
+    const visibleWorks = getPaginatedData();
+    renderWorks(visibleWorks);
+    categoryDisplay.innerHTML = `Category / ${currentCategory.toUpperCase()}`;
+    updatePaginationLinks();
+  }
+
+  // ページリンククリック処理
+  pagination.addEventListener('click', (e) => {
+    if (e.target.classList.contains('page-link')) {
+      e.preventDefault();
+      currentPage = parseInt(e.target.dataset.page, 10);
+      updatePage();
+    } else if (e.target.classList.contains('left-arrow')) {
       if (currentPage > 1) {
         currentPage--;
-        renderWorks();
+        updatePage();
       }
-    });
-
-    document.querySelector(".right-arrow")?.addEventListener("click", () => {
-      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    } else if (e.target.classList.contains('right-arrow')) {
+      const totalPages = Math.ceil(getFilteredData().length / itemsPerPage);
       if (currentPage < totalPages) {
         currentPage++;
-        renderWorks();
+        updatePage();
       }
-    });
-  }
+    }
+  });
 
-  // 外部ボタンでカテゴリーを変更したい場合用
-  window.setCategory = function (cat) {
-    currentCategory = cat;
-    currentPage = 1;
-    renderWorks();
-  };
+  // カテゴリー切替用：必要であればボタンを別途追加してください
+  // 例： currentCategory = 'digital'; updatePage();
 
-  renderWorks();
+  updatePage();
+});
