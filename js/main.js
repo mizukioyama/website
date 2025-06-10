@@ -1,86 +1,75 @@
-// main.js
-document.addEventListener('DOMContentLoaded', () => {
-  const contentEl = document.querySelector('.content');
-  const categoryDisplay = document.querySelector('.content > span');
-  const pagination = document.querySelector('.page');
-  const itemsPerPage = 2;
+document.addEventListener('DOMContentLoaded', function() {
+  const perPage = 4; // 1ページあたりの作品数
 
-  let currentPage = 1;
   let currentCategory = 'all';
+  let currentPage = 1;
 
-  function renderWorks(data) {
-    contentEl.querySelectorAll('.work').forEach(el => el.remove());
-    data.forEach(work => {
-      const workEl = document.createElement('div');
-      workEl.className = 'work';
-      workEl.innerHTML = `
-        <p>${work.caption}</p>
-        <div class="work-img">
-          <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">
-            ${work.tag}
-          </span>
-          <img src="${work.img}" alt="Main Image">
-          <span class="dli-external-link">©Oyama</span>
-          <a class="works" href="${work.link}">
-            <h3>${work.subTitle}</h3>
-            <p>Title：${work.title}</p>
-          </a>
-        </div>
-      `;
-      contentEl.appendChild(workEl);
-    });
-  }
+  const gallery = document.querySelector('.gallery');
+  const catLinks = document.querySelectorAll('.category-link');
+  const leftArrow = document.querySelector('.left-arrow');
+  const rightArrow = document.querySelector('.right-arrow');
+  const pageButtons = document.querySelector('.page-buttons');
 
-  function getFilteredData() {
-    return currentCategory === 'all'
-      ? worksData
-      : worksData.filter(item => item.category === currentCategory);
-  }
+  function filterWorks() {
+    const arr = worksData.filter(w =>
+      currentCategory === 'all' || w.category === currentCategory
+    );
+    const total = Math.ceil(arr.length / perPage);
 
-  function getPaginatedData() {
-    const filtered = getFilteredData();
-    const start = (currentPage - 1) * itemsPerPage;
-    return filtered.slice(start, start + itemsPerPage);
-  }
-
-  function updatePaginationLinks() {
-    const filtered = getFilteredData();
-    const totalPages = Math.ceil(filtered.length / itemsPerPage);
-    pagination.querySelectorAll('.page-link').forEach(link => {
-      const page = parseInt(link.dataset.page, 10);
-      link.style.display = page <= totalPages ? 'inline-block' : 'none';
-    });
-  }
-
-  function updatePage() {
-    const visibleWorks = getPaginatedData();
-    renderWorks(visibleWorks);
-    categoryDisplay.innerHTML = `Category / ${currentCategory.toUpperCase()}`;
-    updatePaginationLinks();
-  }
-
-  // ページリンククリック処理
-  pagination.addEventListener('click', (e) => {
-    if (e.target.classList.contains('page-link')) {
-      e.preventDefault();
-      currentPage = parseInt(e.target.dataset.page, 10);
-      updatePage();
-    } else if (e.target.classList.contains('left-arrow')) {
-      if (currentPage > 1) {
-        currentPage--;
-        updatePage();
-      }
-    } else if (e.target.classList.contains('right-arrow')) {
-      const totalPages = Math.ceil(getFilteredData().length / itemsPerPage);
-      if (currentPage < totalPages) {
-        currentPage++;
-        updatePage();
-      }
+    function renderGallery() {
+      gallery.innerHTML = '';
+      const slice = arr.slice((currentPage-1)*perPage, currentPage*perPage);
+      slice.forEach(w => {
+        const div = document.createElement('div');
+        div.className = 'work';
+        div.innerHTML = `
+          <img src="${w.img}" alt="${w.title}" style="width:100%">
+          <strong>${w.title}</strong><br><em>${w.year}</em>`;
+        gallery.appendChild(div);
+      });
     }
+
+    function renderPagination() {
+      pageButtons.innerHTML = '';
+      for(let i=1; i<=total; i++){
+        const a = document.createElement('a');
+        a.textContent = i;
+        a.href = '#';
+        a.dataset.page = i;
+        a.className = i===currentPage ? 'disabled' : '';
+        a.addEventListener('click', ev => {
+          ev.preventDefault();
+          currentPage = i;
+          update();
+        });
+        pageButtons.appendChild(a);
+      }
+      leftArrow.disabled = currentPage === 1;
+      rightArrow.disabled = currentPage === total;
+    }
+
+    function update() {
+      renderGallery();
+      renderPagination();
+    }
+
+    leftArrow.onclick = () => { if(currentPage>1){currentPage--; update();}};
+    rightArrow.onclick = () => { if(currentPage<total){currentPage++; update();}};
+    update();
+  }
+
+  catLinks.forEach(a=>{
+    a.addEventListener('click', ev=>{
+      ev.preventDefault();
+      catLinks.forEach(x=>x.classList.remove('disabled'));
+      a.classList.add('disabled');
+      currentCategory = a.dataset.page;
+      currentPage = 1;
+      filterWorks();
+    });
+    if(a.dataset.page === 'all') a.classList.add('disabled');
   });
 
-  // カテゴリー切替用：必要であればボタンを別途追加してください
-  // 例： currentCategory = 'digital'; updatePage();
-
-  updatePage();
+  // 初期表示
+  filterWorks();
 });

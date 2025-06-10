@@ -1,24 +1,7 @@
-// data.js
-const worksData = [
-  {
-    id: 1,
-    category: 'digital',
-    title: '心樹 / 2023',
-    caption: 'アナログ作品「挑戦」から芽吹いた、デジタルの樹…',
-    tag: 'Digital Art',
-    img: 'https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg',
-    link: '',
-    subTitle: 'digital / Exhibition'
-  },
-  {
-    id: 2,
-    category: 'digital',
-    title: 'No title / 2023',
-    caption: 'この作品は、',
-    tag: 'Digital Art',
-    img: 'https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/21ai.jpg',
-    link: '',
-    subTitle: 'digital'
-  },
-  // 他の作品も追加...
+// assets/data.js
+window.worksData = [
+  // カテゴリー: analog, 映像:img, タイトル:title, 年:year
+  { category: 'analog', title: '心樹', img: '230053-2.jpg', year: '2023' },
+  { category: 'digital', title: 'No title', img: '…21ai.jpg', year: '2021' },
+  // 必要に応じて追加してください
 ];

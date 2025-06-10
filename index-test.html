@@ -1,40 +1,94 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>Gallery</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    /* 最小限のCSS（必要に応じて展開してください） */
-    .category a.disabled { opacity: 0.5; pointer-events: none; }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:1rem; }
-    .gallery .work { border:1px solid #ccc; padding:0.5rem; }
-    .page a.disabled { opacity: 0.5; pointer-events: none; }
-  </style>
-  <link rel="stylesheet" href="css/pc.css">
-  <link rel="stylesheet" href="css/all.css">
-</head>
-<body data-current-category="all">
+<!-- ... 省略（元のHTML） -->
 
-<nav class="category">
-  <a href="#" class="category-link" data-page="all">All</a>
-  <a href="#" class="category-link" data-page="analog">Analog</a>
-  <a href="#" class="category-link" data-page="digital">Digital</a>
+<!-- カテゴリーメニュー追加例 -->
+<nav class="category-nav">
+  <button data-category="all">All</button>
+  <button data-category="digital">Digital</button>
+  <button data-category="photo">Photo</button>
 </nav>
 
-<main class="gallery"></main>
-
-<nav>
-  <ol class="page">
-    <button class="left-arrow">‹</button>
-    <span class="page-buttons"></span>
-    <button class="right-arrow">›</button>
-  </ol>
-</nav>
-
+<ol class="page">
+  <li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>
+  <li><a href="#" class="page-link" data-page="1">1</a></li>
+  <li><a href="#" class="page-link" data-page="2">2</a></li>
+  <li><a href="#" class="page-link" data-page="3">3</a></li>
+  <li><a href="#" class="page-link" data-page="4">4</a></li>
+  <li><a href="#" class="page-link" data-page="5">5</a></li>
+  <li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>
+</ol>
 <script src="js/worksdata.js"></script>
-<script src="js/main.js"></script>
-<script src="js/page-nation.js"></script>
-<script src="js/workspage.js"></script>
-</body>
-</html>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const works = [...document.querySelectorAll(".work")];
+  const worksPerPage = 2; // 1ページに表示する作品数
+  let currentCategory = "all";
+  let currentPage = 1;
+
+  // 各作品にカテゴリを設定（データ属性を仮定）
+  works[0].setAttribute("data-category", "digital");
+  works[1].setAttribute("data-category", "digital");
+  works[2].setAttribute("data-category", "digital");
+  works[3].setAttribute("data-category", "digital");
+  works[4].setAttribute("data-category", "photo");
+
+  const showFilteredWorks = () => {
+    const filtered = works.filter(work => {
+      return currentCategory === "all" || work.dataset.category === currentCategory;
+    });
+
+    // ページで分割
+    filtered.forEach((work, index) => {
+      work.style.display = (index >= (currentPage - 1) * worksPerPage && index < currentPage * worksPerPage) ? "block" : "none";
+    });
+
+    // 他のすべて非表示
+    works.forEach(work => {
+      if (!filtered.includes(work)) {
+        work.style.display = "none";
+      }
+    });
+
+    // 更新
+    document.body.setAttribute("data-current-page", currentPage);
+    document.body.setAttribute("data-current-category", currentCategory);
+  };
+
+  // カテゴリーボタン
+  document.querySelectorAll(".category-nav button").forEach(button => {
+    button.addEventListener("click", () => {
+      currentCategory = button.dataset.category;
+      currentPage = 1; // カテゴリー切り替え時は最初のページへ
+      showFilteredWorks();
+    });
+  });
+
+  // ページ番号リンク
+  document.querySelectorAll(".page-link").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      currentPage = parseInt(link.dataset.page);
+      showFilteredWorks();
+    });
+  });
+
+  // 矢印
+  document.querySelector(".left-arrow").addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      showFilteredWorks();
+    }
+  });
+  document.querySelector(".right-arrow").addEventListener("click", () => {
+    const filtered = works.filter(work => currentCategory === "all" || work.dataset.category === currentCategory);
+    const maxPage = Math.ceil(filtered.length / worksPerPage);
+    if (currentPage < maxPage) {
+      currentPage++;
+      showFilteredWorks();
+    }
+  });
+
+  // 初期表示
+  showFilteredWorks();
+});
+
+</script>
