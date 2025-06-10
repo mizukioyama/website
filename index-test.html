@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    /* 最小限のCSS（必要に応じて展開してください） */
+    .category a.disabled { opacity: 0.5; pointer-events: none; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:1rem; }
+    .gallery .work { border:1px solid #ccc; padding:0.5rem; }
+    .page a.disabled { opacity: 0.5; pointer-events: none; }
+  </style>
+</head>
+<body data-current-category="all">
+
+<nav class="category">
+  <a href="#" class="category-link" data-page="all">All</a>
+  <a href="#" class="category-link" data-page="analog">Analog</a>
+  <a href="#" class="category-link" data-page="digital">Digital</a>
+</nav>
+
+<main class="gallery"></main>
+
+<nav>
+  <ol class="page">
+    <button class="left-arrow">‹</button>
+    <span class="page-buttons"></span>
+    <button class="right-arrow">›</button>
+  </ol>
+</nav>
+
+<script src="js/worksdata.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
