@@ -1,87 +1,87 @@
-// main.js
+  const ITEMS_PER_PAGE = 2;
+  let currentCategory = "all";
+  let currentPage = 1;
 
-const ITEMS_PER_PAGE = 3;
+  const contentEl = document.querySelector(".content");
+  const pageEl = document.querySelector(".page");
 
-const state = {
-  category: "all",
-  page: 1
-};
+  function renderWorks() {
+    if (!contentEl) return;
 
-const contentEl = document.querySelector(".content");
-const paginationEl = document.querySelector(".page");
-const categoryText = contentEl.querySelector("span");
+    const filtered = currentCategory === "all"
+      ? worksData
+      : worksData.filter((item) => item.category === currentCategory);
 
-function renderWorks() {
-  contentEl.querySelectorAll(".work").forEach(el => el.remove());
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const currentItems = filtered.slice(start, end);
 
-  const filtered = state.category === "all"
-    ? worksData
-    : worksData.filter(w => w.category === state.category);
-
-  const start = (state.page - 1) * ITEMS_PER_PAGE;
-  const pageItems = filtered.slice(start, start + ITEMS_PER_PAGE);
-
-  pageItems.forEach(work => {
-    const workEl = document.createElement("div");
-    workEl.className = "work";
-    workEl.innerHTML = `
-      <p>${work.caption}</p>
-      <div class="work-img">
-        <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${work.tag}</span>
-        <img src="${work.img}" alt="Main Image">
-        <span class="dli-external-link">©Oyama</span>
-        <a class="works" href="${work.link}">
-          <h3>${work.heading}</h3>
-          <p>Title：${work.title}</p>
-        </a>
-      </div>
-    `;
-    contentEl.appendChild(workEl);
-  });
-
-  updateCategoryLabel();
-  renderPagination(filtered.length);
-}
-
-function updateCategoryLabel() {
-  categoryText.textContent = `Category / ${state.category.toUpperCase()}`;
-}
-
-function renderPagination(totalItems) {
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-  paginationEl.innerHTML = `
-    <li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>
-    ${Array.from({ length: totalPages }, (_, i) =>
-      `<li><a href="#" class="page-link ${state.page === i + 1 ? "active" : ""}" data-page="${i + 1}">${i + 1}</a></li>`
-    ).join("")}
-    <li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>
-  `;
-
-  // Event bindings
-  paginationEl.querySelectorAll(".page-link").forEach(link => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      state.page = parseInt(e.target.dataset.page);
-      renderWorks();
+    contentEl.innerHTML = `<span>Category / ${currentCategory.toUpperCase()}</span>`;
+    currentItems.forEach((item) => {
+      const html = `
+        <div class="work">
+          <p>キャプション<br>${item.caption}</p>
+          <div class="work-img">
+            <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">
+              ${item.tag}
+            </span>
+            <img src="${item.img}" alt="Main Image">
+            <span class="dli-external-link">©Oyama</span>
+            <a class="works" href="${item.link}">
+              <h3>${item.category}</h3>
+              <p>Title：${item.title}</p>
+            </a>
+          </div>
+        </div>
+      `;
+      contentEl.innerHTML += html;
     });
-  });
 
-  paginationEl.querySelector(".left-arrow").addEventListener("click", () => {
-    if (state.page > 1) {
-      state.page--;
-      renderWorks();
+    renderPagination(filtered.length);
+  }
+
+  function renderPagination(totalItems) {
+    if (!pageEl) return;
+
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    let html = '<li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>';
+
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<li><a href="#" class="page-link" data-page="${i}">${i}</a></li>`;
     }
-  });
 
-  paginationEl.querySelector(".right-arrow").addEventListener("click", () => {
-    if (state.page < totalPages) {
-      state.page++;
-      renderWorks();
-    }
-  });
-}
+    html += '<li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>';
+    pageEl.innerHTML = html;
 
-// Optional: Category UI (example only)
-document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".page-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = Number(link.dataset.page);
+        renderWorks();
+      });
+    });
+
+    document.querySelector(".left-arrow")?.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderWorks();
+      }
+    });
+
+    document.querySelector(".right-arrow")?.addEventListener("click", () => {
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderWorks();
+      }
+    });
+  }
+
+  // 外部ボタンでカテゴリーを変更したい場合用
+  window.setCategory = function (cat) {
+    currentCategory = cat;
+    currentPage = 1;
+    renderWorks();
+  };
+
   renderWorks();
-});
