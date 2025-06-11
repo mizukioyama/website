@@ -81,7 +81,7 @@
 
 </head>
 
-<body data-current-page="2" data-current-category="all">
+<body data-current-page="1" data-current-category="all">
   <div id="header-container"></div>
   <div class="ripples"></div>
 
@@ -98,7 +98,6 @@
   <span id="pageInfo"></span>
   <button id="nextBtn">Next</button>
 </div>
-<div id="pagination"></div>
 
   </main>
 
@@ -148,73 +147,91 @@
     }
   ];
 
-let currentPage = 1;
-let selectedCategory = "all";
-let itemsPerPage = 4;
+  let currentPage = 1;
+  let selectedCategory = "all";
+  const itemsPerPage = 4;
 
-function filterArtworks() {
-  return artworks.filter(item => {
-    return selectedCategory === "all" || item.category === selectedCategory;
-  });
-}
-
-function renderGallery() {
-  const container = document.getElementById("gallery-container");
-  const filtered = filterArtworks();
-  const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const pageItems = filtered.slice(start, end);
-
-  container.innerHTML = pageItems.map(item => `
-    <div class="work">
-      <img src="${item.img}" alt="${item.title}">
-      <h3>${item.title}</h3>
-      <p>${item.caption}</p>
-    </div>
-  `).join("");
-
-  // ページ情報更新
-  document.getElementById("pageInfo").textContent = `Page ${currentPage} / ${Math.ceil(filtered.length / itemsPerPage)}`;
-}
-
-document.querySelectorAll(".category-nav button").forEach(button => {
-  button.addEventListener("click", () => {
-    selectedCategory = button.dataset.category;
-    currentPage = 1;
-    renderGallery();
-  });
-});
-
-document.querySelectorAll(".page-link").forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    currentPage = parseInt(link.dataset.page);
-    renderGallery();
-  });
-});
-
-document.querySelector(".left-arrow").addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
-    renderGallery();
+  function filterArtworks() {
+    return artworks.filter(item => selectedCategory === "all" || item.category === selectedCategory);
   }
-});
 
-document.querySelector(".right-arrow").addEventListener("click", () => {
-  const filtered = filterArtworks();
-  if (currentPage < Math.ceil(filtered.length / itemsPerPage)) {
-    currentPage++;
-    renderGallery();
+  function renderGallery() {
+    const filtered = filterArtworks();
+    const start = (currentPage - 1) * itemsPerPage;
+    const pageItems = filtered.slice(start, start + itemsPerPage);
+
+    const container = document.getElementById('gallery-container');
+    container.classList.add('fade-out');
+
+    setTimeout(() => {
+      container.innerHTML = pageItems.map(item => `
+        <div class="work">
+          <img src="${item.img}" alt="${item.title}">
+          <h3>${item.title}</h3>
+          <p>${item.caption}</p>
+        </div>
+      `).join('');
+
+      renderPagination(filtered.length);
+      updateURL();
+
+      container.classList.remove('fade-out');
+      container.classList.add('fade-in');
+      setTimeout(() => container.classList.remove('fade-in'), 300);
+    }, 300);
   }
-});
 
+  function renderPagination(filteredLength) {
+    const pagination = document.getElementById('pagination');
+    const totalPages = Math.ceil(filteredLength / itemsPerPage) || 1;
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderGallery();
-});
+    const pageInfo = pagination.querySelector('#pageInfo');
+    if (pageInfo) {
+      pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+    }
 
+    const prevBtn = pagination.querySelector('#prevBtn');
+    const nextBtn = pagination.querySelector('#nextBtn');
+
+    if (prevBtn) {
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderGallery();
+        }
+      };
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderGallery();
+        }
+      };
+    }
+  }
+
+  function updateURL() {
+    const params = new URLSearchParams();
+    if (selectedCategory !== 'all') params.set('category', selectedCategory);
+    if (currentPage > 1) params.set('page', currentPage);
+    history.replaceState(null, '', '?' + params.toString());
+  }
+
+  function loadFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    selectedCategory = params.get('category') || 'all';
+    currentPage = parseInt(params.get('page')) || 1;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadFromURL();
+    renderGallery();
+  });
 </script>
-
 </body>
 
 </html>
