@@ -133,6 +133,10 @@ body {
   color: var(--inv);
 }
 
+h1 {
+  width: 100%;
+}
+
 /* ========== Custom Cursor ========== */
 * {
   cursor: none !important;
