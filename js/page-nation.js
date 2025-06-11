@@ -3,7 +3,8 @@ function setupCategoryFilter() {
     { title: "心樹 / 2023", caption: "デジタル作品", category: "digital", img: "img1.jpg" },
     { title: "No title / 2023", caption: "デジタル作品2", category: "digital", img: "img2.jpg" },
     { title: "アナログ作品 / 2023", caption: "アナログな表現", category: "analog", img: "img3.jpg" },
-    { title: "未公開作品 / 2022", caption: "未発表作品", category: "unreleased", img: "img4.jpg" }
+    { title: "未公開作品 / 2022", caption: "未発表作品", category: "unreleased", img: "img4.jpg" },
+    { title: "未公開作品 / 2022", caption: "未発表作品", category: "unreleased", img: "img/couryoku.jpg" }
   ];
 
   const itemsPerPage = 4;
@@ -27,9 +28,17 @@ function setupCategoryFilter() {
       const div = document.createElement("div");
       div.className = "work";
       div.innerHTML = `
-        <img src="${item.img}" alt="${item.title}" style="max-width:200px;"><br>
-        <h3>${item.title}</h3>
-        <p>${item.caption}</p>`;
+        <div class="work-img">
+  <p>${item.caption}</p>
+  <span
+    style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
+  <img src="${item.img}" alt="${item.title}">
+  <span class="dli-external-link">©Oyama</span>
+  <a class="works" href="">
+    <h3>${item.title}</h3>
+    <p>${item.category}</p>
+  </a>
+</div>`;
       container.appendChild(div);
     });
 
