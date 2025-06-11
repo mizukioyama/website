@@ -91,13 +91,13 @@
     <div class="scroll"></div>
     <div id="sidebar-container"></div>
 
-    <div id="gallery-container" class="content"></div> <!-- ← ココが必要 -->
+<div id="gallery-container" class="content"></div>
+<div>
+  <button id="prevBtn">Prev</button>
+  <span id="pageInfo"></span>
+  <button id="nextBtn">Next</button>
+</div>
 
-    <ol class="page">
-      <li><button class="arrow-button left-arrow" aria-label="Previous" id="prevBtn">&#x21BC;</button></li>
-      <li><span id="pageInfo">Page 1</span></li>
-      <li><button class="arrow-button right-arrow" aria-label="Next" id="nextBtn">&#x21C0;</button></li>
-    </ol>
   </main>
 
   <div id="footer-container"></div>
@@ -117,40 +117,24 @@
       caption: "この作品は、...",
       category: "digital",
       year: "2023",
-      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
-      type: "digital"
-    },
-    {
-      title: "No title / 2023",
-      caption: "この作品は、...",
-      category: "digital",
-      year: "2023",
       img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/22ai.jpg",
       type: "digital"
     },
     {
       title: "No title / 2023",
       caption: "この作品は、...",
-      category: "digital",
+      category: "analog",
       year: "2023",
-      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230052-2.jpg",
-      type: "digital"
-    },
-    {
-      title: "No title / 2023",
-      caption: "この作品は、...",
-      category: "photo",
-      year: "2022",
-      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
-      type: "photo"
-    },
-    {
-      title: "No title / 2023",
-      caption: "この作品は、...",
-      category: "photo",
-      year: "2021",
       img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
       type: "analog"
+    },
+    {
+      title: "未発表作品 / 2024",
+      caption: "この作品は未発表です...",
+      category: "unreleased",
+      year: "2024",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
+      type: "unreleased"
     }
   ];
 
@@ -180,13 +164,9 @@
       <div class="work">
         <p>${item.caption}</p>
         <div class="work-img">
-          <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
-          <img src="${item.img}" alt="${item.title}">
-          <span class="dli-external-link">©Oyama</span>
-          <a class="works" href="">
-            <h3>${item.type}</h3>
-            <p>Title：${item.title}</p>
-          </a>
+          <img src="${item.img}" alt="${item.title}" style="max-width: 300px;">
+          <h3>${item.type}</h3>
+          <p>Title：${item.title}</p>
         </div>
       </div>
     `).join('');
@@ -218,7 +198,6 @@
     document.querySelectorAll('.category-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-
         const type = link.dataset.type;
         const value = link.dataset.value;
 
@@ -228,11 +207,11 @@
         });
         link.classList.add("active");
 
-        // フィルターの処理
+        // フィルター更新
         if (type === "category") {
-          selectedCategory = (selectedCategory === value || value === "all") ? "all" : value;
+          selectedCategory = value;
         } else if (type === "year") {
-          selectedYear = (selectedYear === value || value === "all") ? "all" : value;
+          selectedYear = value;
         }
 
         currentPage = 1;
@@ -241,7 +220,6 @@
     });
   });
 </script>
-
 
 </body>
 
