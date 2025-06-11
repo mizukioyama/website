@@ -121,7 +121,7 @@ h2 {
 
 h3 {
     font-size: 1.2rem;
-    color: var(--def);
+    color: var(--inv);
     margin: 0;
 }
 
@@ -556,7 +556,7 @@ main {
 
 /*===copyright*/
 .dli-external-link {
-    font-family: 'jost';
+    font-family: 'jost', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     position: absolute;
