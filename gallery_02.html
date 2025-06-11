@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/menu.css">
     <style>
-        #loading-bg,.typing-container {
+        #loading-bg,
+        .typing-container {
             display: none;
         }
     </style>
@@ -82,26 +83,27 @@
 </head>
 
 <body data-current-page="1" data-current-category="all">
-  <div id="header-container"></div>
-  <div class="ripples"></div>
+    <div id="header-container"></div>
+    <div class="ripples"></div>
 
-  <main class="gallery">
-    <h1 class="noise">Art Index</h1>
-    <p class="noise">Nature inspire</p>
-    <div class="scroll"></div>
-    <div id="sidebar-container"></div>
+    <main class="gallery">
+        <h1 class="noise">Art Index</h1>
+        <p class="noise">Nature inspire</p>
+        <div class="scroll"></div>
+        <div id="sidebar-container"></div>
 
-    <div id="gallery-container" class="content"></div> <!-- ← ココが必要 -->
-<!-- ページネーション表示 -->
-<div id="pagination">
-  <button id="prevBtn">Prev</button>
-  <span id="pageInfo"></span>
-  <button id="nextBtn">Next</button>
-</div>
+        <p class="">${item.category}</p>
+        <div id="gallery-container" class="content"></div> <!-- ← ココが必要 -->
+        <!-- ページネーション表示 -->
+        <div id="pagination">
+            <button id="prevBtn">Prev</button>
+            <span id="pageInfo"></span>
+            <button id="nextBtn">Next</button>
+        </div>
 
-  </main>
+    </main>
 
-  <div id="footer-container"></div>
+    <div id="footer-container"></div>
 
 
 </body>

@@ -31,17 +31,17 @@ function setupCategoryFilter() {
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-        <div class="work-img">
-  <p>${item.caption}</p>
-  <span
-    style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
-  <img src="${item.img}" alt="${item.title}">
-  <span class="dli-external-link">©Oyama</span>
-  <a class="works" href="">
-    <h3>${item.title}</h3>
-    <p>${item.category}</p>
-  </a>
-</div>`;
+            <p>${item.caption}</p>
+            <div class="work-img">
+                <span
+                    style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
+                <img src="${item.img}" alt="${item.title}">
+                <span class="dli-external-link">©Oyama</span>
+                <a class="works" href="">
+                    <h3>${item.title}</h3>
+                    <p>${item.category}</p>
+                </a>
+            </div>`;
             container.appendChild(div);
         });
 
