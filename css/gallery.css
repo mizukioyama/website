@@ -642,14 +642,15 @@ main {
 .gallery .content h2,
 .gallery .content h3,
 .gallery .content h4 {
-    color: var(--inv);
+    font-family: "jost", sans-serif;
     margin: 0;
-    letter-spacing: .25em;
+    letter-spacing: 0.09rem;
 }
 
 .gallery .content h3::before {
     content: 'Category';
     font-size: clamp(0.9rem, calc(0.9rem + 0.5vw), 1rem);
+    margin-right: 1rem;
     letter-spacing: 0.05em;
     opacity: 0.6;
 }
