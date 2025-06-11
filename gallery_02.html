@@ -92,14 +92,14 @@
     <div id="sidebar-container"></div>
 
     <div id="gallery-container" class="content"></div> <!-- ← ココが必要 -->
-<!-- ページネーション -->
-<ol class="page">
-  <li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>
-  <li><a href="#" class="page-link" data-page="1">1</a></li>
-  <li><a href="#" class="page-link" data-page="2">2</a></li>
-  <li><a href="#" class="page-link" data-page="3">3</a></li>
-  <li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>
-</ol>
+<!-- ページネーション表示 -->
+<div id="pagination">
+  <button id="prevBtn">Prev</button>
+  <span id="pageInfo"></span>
+  <button id="nextBtn">Next</button>
+</div>
+<div id="pagination"></div>
+
   </main>
 
   <div id="footer-container"></div>
@@ -112,7 +112,7 @@
       category: "digital",
       year: "2023",
       img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230053-2.jpg",
-      type: "digital"
+      type: "digital / Exhibition"
     },
     {
       title: "No title / 2023",
@@ -137,91 +137,151 @@
       year: "2022",
       img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
       type: "unreleased"
+    },
+    {
+      title: "未公開作品 / 2022",
+      caption: "これは未発表の作品です。",
+      category: "unreleased",
+      year: "2022",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
+      type: "unreleased"
     }
   ];
 
-  const worksPerPage = 2;
-  let currentCategory = "all";
-  let currentPage = 1;
-  const galleryContainer = document.getElementById("gallery-container");
+let currentPage = 1;
+let selectedCategory = "all";
+let itemsPerPage = 4;
 
-  // ギャラリー初期生成（全要素をDOMに追加）
-  artworks.forEach((art, index) => {
-    const work = document.createElement("div");
-    work.className = "work";
-    work.setAttribute("data-category", art.category);
-    work.innerHTML = `
-      <p>${art.caption}</p>
-      <div class="work-img">
-        <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${art.type}</span>
-        <img src="${art.img}" alt="${art.title}">
-        <span class="dli-external-link">©Oyama</span>
-        <a class="works" href="">
-          <h3>${art.type}</h3>
-          <p>Title：${art.title}</p>
-        </a>
-      </div>
-    `;
-    galleryContainer.appendChild(work);
+function filterArtworks() {
+  return artworks.filter(item => {
+    return selectedCategory === "all" || item.category === selectedCategory;
   });
+}
 
-  const works = [...document.querySelectorAll(".work")];
+function renderGallery() {
+  const container = document.getElementById("gallery-container");
+  const filtered = filterArtworks();
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const pageItems = filtered.slice(start, end);
 
-  const showFilteredWorks = () => {
-    const filtered = works.filter(work => {
-      return currentCategory === "all" || work.dataset.category === currentCategory;
-    });
+  container.innerHTML = pageItems.map(item => `
+    <div class="work">
+      <img src="${item.img}" alt="${item.title}">
+      <h3>${item.title}</h3>
+      <p>${item.caption}</p>
+    </div>
+  `).join("");
 
-    // 全非表示にしたうえでフィルタ該当分のみ表示
-    works.forEach(work => work.style.display = "none");
+  // ページ情報更新
+  document.getElementById("pageInfo").textContent = `Page ${currentPage} / ${Math.ceil(filtered.length / itemsPerPage)}`;
+}
 
-    filtered.forEach((work, index) => {
-      work.style.display = (index >= (currentPage - 1) * worksPerPage && index < currentPage * worksPerPage) ? "block" : "none";
-    });
-
-    // 状態保持用にdata属性も設定（オプション）
-    document.body.setAttribute("data-current-page", currentPage);
-    document.body.setAttribute("data-current-category", currentCategory);
-  };
-
-  // カテゴリーボタン
-  document.querySelectorAll(".category-nav button").forEach(button => {
-    button.addEventListener("click", () => {
-      currentCategory = button.dataset.category;
-      currentPage = 1;
-      showFilteredWorks();
-    });
+document.querySelectorAll(".category-nav button").forEach(button => {
+  button.addEventListener("click", () => {
+    selectedCategory = button.dataset.category;
+    currentPage = 1;
+    renderGallery();
   });
+});
 
-  // ページリンク
-  document.querySelectorAll(".page-link").forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      currentPage = parseInt(link.dataset.page);
-      showFilteredWorks();
-    });
+document.querySelectorAll(".page-link").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    currentPage = parseInt(link.dataset.page);
+    renderGallery();
   });
+});
 
-  // 左右矢印
-  document.querySelector(".left-arrow").addEventListener("click", () => {
-    if (currentPage > 1) {
-      currentPage--;
-      showFilteredWorks();
-    }
-  });
+document.querySelector(".left-arrow").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderGallery();
+  }
+});
 
-  document.querySelector(".right-arrow").addEventListener("click", () => {
-    const filtered = works.filter(work => currentCategory === "all" || work.dataset.category === currentCategory);
-    const maxPage = Math.ceil(filtered.length / worksPerPage);
-    if (currentPage < maxPage) {
-      currentPage++;
-      showFilteredWorks();
-    }
-  });
+document.querySelector(".right-arrow").addEventListener("click", () => {
+  const filtered = filterArtworks();
+  if (currentPage < Math.ceil(filtered.length / itemsPerPage)) {
+    currentPage++;
+    renderGallery();
+  }
+});
 
-  // 初期表示
-  showFilteredWorks();
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderGallery();
+});
+
 </script>
+
+<script>
+    // 初期化
+document.addEventListener('DOMContentLoaded', () => {
+  loadFromURL();
+  renderGallery();
+});
+
+// 作品フィルター
+function filterArtworks() { … }
+
+// ギャラリー描画
+function renderGallery() {
+  const filtered = filterArtworks();
+  const start = (currentPage - 1) * itemsPerPage;
+  const pageItems = filtered.slice(start, start + itemsPerPage);
+
+  const container = document.getElementById('gallery-container');
+  container.classList.add('fade-out');
+  setTimeout(() => {
+    container.innerHTML = pageItems.map(item => `…`).join('');
+    renderPagination(filtered.length);
+    updateURL();
+    container.classList.remove('fade-out');
+    container.classList.add('fade-in');
+    setTimeout(() => container.classList.remove('fade-in'), 300);
+  }, 300);
+}
+
+// ページ生成
+function renderPagination(count) { … }
+
+function renderPagination(filteredLength) {
+  const pagination = document.getElementById('pagination');
+  const totalPages = Math.ceil(filteredLength / itemsPerPage) || 1;
+  let html = '';
+
+  for (let p = 1; p <= totalPages; p++) {
+    html += `<button class="page-link${p===currentPage ? ' active' : ''}" data-page="${p}">${p}</button>`;
+  }
+  pagination.innerHTML = html;
+
+  // ページボタンにイベント追加
+  pagination.querySelectorAll('.page-link').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentPage = parseInt(btn.dataset.page);
+      renderGallery();
+    });
+  });
+}
+
+
+// URL処理
+function updateURL() {
+  const params = new URLSearchParams();
+  if (selectedCategory !== 'all') params.set('category', selectedCategory);
+  if (currentPage > 1) params.set('page', currentPage);
+  history.replaceState(null, '', '?' + params.toString());
+}
+
+function loadFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  selectedCategory = params.get('category') || 'all';
+  currentPage = parseInt(params.get('page')) || 1;
+}
+
+</script>
+
 </body>
 
 </html>
