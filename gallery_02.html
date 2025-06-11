@@ -147,7 +147,7 @@
     ];
 
     let currentPage = 1;
-    const itemsPerPage = 2;
+    const itemsPerPage = 5;
 
     function renderGallery() {
       const galleryContainer = document.getElementById('gallery-container');
@@ -157,6 +157,7 @@
       const pageItems = artworks.slice(start, end);
 
       galleryContainer.innerHTML = pageItems.map(item => `
+        <div class="content">
         <div class="work">
           <p>${item.caption}</p>
           <div class="work-img">
@@ -168,6 +169,7 @@
               <p>Title：${item.title}</p>
             </a>
           </div>
+        </div>
         </div>
       `).join('');
 
