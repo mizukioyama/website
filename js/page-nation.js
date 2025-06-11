@@ -1,102 +1,22 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // ------------------------
-    // ページネーションの設定
-    // ------------------------
-    const pageLinks = document.querySelectorAll('.page-link');
-    const leftArrow = document.querySelector('.left-arrow');
-    const rightArrow = document.querySelector('.right-arrow');
-    const currentPage = parseInt(document.body.getAttribute('data-current-page'), 10);
-    const totalPages = pageLinks.length;
+document.querySelectorAll("#category-menu li").forEach(btn => {
+  btn.addEventListener("click", () => {
+    // 選択中のカテゴリーを取得
+    selectedCategory = btn.getAttribute("data-category");
 
-    function updatePagination() {
-        pageLinks.forEach(link => {
-            const page = parseInt(link.getAttribute('data-page'), 10);
-            const href = link.getAttribute('data-href');
+    // ページを最初に戻す
+    currentPage = 1;
 
-            if (page === currentPage) {
-                link.classList.add('disabled');
-                link.removeAttribute('href');
-            } else {
-                link.classList.remove('disabled');
-                if (href) {
-                    link.setAttribute('href', href);
-                }
-            }
-        });
+    // active クラスの切り替え
+    document.querySelectorAll("#category-menu li").forEach(li => li.classList.remove("active"));
+    btn.classList.add("active");
 
-        if (leftArrow) leftArrow.disabled = currentPage === 1;
-        if (rightArrow) rightArrow.disabled = currentPage === totalPages;
-    }
-
-    function goToPage(page) {
-        if (page < 1 || page > totalPages) return;
-        const targetLink = document.querySelector(`.page-link[data-page="${page}"]`);
-        if (targetLink) {
-            const href = targetLink.getAttribute('data-href');
-            if (href) window.location.href = href;
-        }
-    }
-
-    pageLinks.forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            const page = parseInt(event.currentTarget.getAttribute('data-page'), 10);
-            if (page !== currentPage) {
-                goToPage(page);
-            }
-        });
-    });
-
-    if (leftArrow) {
-        leftArrow.addEventListener('click', function () {
-            if (currentPage > 1) {
-                goToPage(currentPage - 1);
-            }
-        });
-    }
-
-    if (rightArrow) {
-        rightArrow.addEventListener('click', function () {
-            if (currentPage < totalPages) {
-                goToPage(currentPage + 1);
-            }
-        });
-    }
-
-    updatePagination();
-
-    // ------------------------
-    // カテゴリーリンクの設定
-    // ------------------------
-    const categoryLinks = document.querySelectorAll('.category-link');
-    const currentCategory = document.body.getAttribute('data-current-category');
-
-    function updateCategoryLinks() {
-        categoryLinks.forEach(link => {
-            const category = link.getAttribute('data-page');
-            const href = link.getAttribute('data-href');
-            if (category === currentCategory) {
-                link.classList.add('disabled');
-                link.removeAttribute('href');
-            } else {
-                link.classList.remove('disabled');
-                if (href) {
-                    link.setAttribute('href', href);
-                }
-            }
-        });
-    }
-
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            const category = event.currentTarget.getAttribute('data-page');
-            if (category !== currentCategory) {
-                const href = event.currentTarget.getAttribute('data-href');
-                if (href) window.location.href = href;
-            }
-        });
-    });
-
-    updateCategoryLinks();
+    // ギャラリー描画
+    renderGallery();
+  });
 });
+
+function filterArtworks() {
+  return artworks.filter(item =>
+    selectedCategory === "all" || item.category === selectedCategory
+  );
+}
