@@ -410,10 +410,7 @@ main {
     backdrop-filter: blur(20px);
 }
 
-.gallery .h1-bottom {
-    width: 100%;
-}
-.gallery p .noise {
+.gallery .noise {
     background-image: linear-gradient(to right, #fff 0%, #0f00 70%);
 }
 
