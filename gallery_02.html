@@ -90,106 +90,138 @@
         <div class="scroll"></div>
         <div id="sidebar-container"></div>
 
-        <ol class="page">
-            <li><button class="arrow-button left-arrow" aria-label="Previous" id="prevBtn">&#x21BC;</button></li>
-            <li><span id="pageInfo">Page 1</span></li>
-            <li><button class="arrow-button right-arrow" aria-label="Next" id="nextBtn">&#x21C0;</button></li>
-        </ol>
-    </main>
+  <div class="category">
+    <p class="noise">All Category</p>
+    <ol>
+      <li><a href="gallery_top.html" class="category-link noise">All</a></li>
+      <li><a href="digital_top.html" class="category-link noise">Digital</a></li>
+      <li><a href="analog_top.html" class="category-link noise">Analog</a></li>
+      <li><a href="exhibition_top.html" class="category-link noise">Exhibition</a></li>
+      <li><a href="unreleased_top.html" class="category-link noise">Unreleased</a></li>
+    </ol>
 
-    <div id="footer-container"></div>
-   <script>
+    <p class="noise" style="margin-top: 4vmin;">Production year</p>
+    <ol>
+      <li><a href="2025.html" class="category-link noise">2025</a></li>
+      <li><a href="2024.html" class="category-link noise">2024</a></li>
+      <li><a href="2023.html" class="category-link noise">2023</a></li>
+      <li><a href="2022.html" class="category-link noise">2022</a></li>
+      <li><a href="2021.html" class="category-link noise">2021</a></li>
+    </ol>
+  </div>
+
+  <div id="header-container"></div>
+  <div class="ripples"></div>
+
+  <main class="gallery">
+    <h1 class="noise">Art Index</h1>
+    <p class="noise">Nature inspire</p>
+    <div class="scroll"></div>
+
+    <div id="gallery-container"></div> <!-- ← ココが必要 -->
+
+    <ol class="page">
+      <li><button class="arrow-button left-arrow" aria-label="Previous" id="prevBtn">&#x21BC;</button></li>
+      <li><span id="pageInfo">Page 1</span></li>
+      <li><button class="arrow-button right-arrow" aria-label="Next" id="nextBtn">&#x21C0;</button></li>
+    </ol>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script>
     const artworks = [
-        {
-            title: "心樹 / 2023",
-            caption: "アナログ作品「挑戦」から芽吹いた、デジタルの樹...",
-            category: "digital",
-            year: "2023",
-            img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230053-2.jpg",
-            type: "digital / Exhibition"
-        },
-        {
-            title: "No title / 2023",
-            caption: "この作品は、...",
-            category: "digital",
-            year: "2023",
-            img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
-            type: "digital"
-        },
-        {
-            title: "No title / 2023",
-            caption: "この作品は、...",
-            category: "digital",
-            year: "2023",
-            img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/22ai.jpg",
-            type: "digital"
-        },
-        {
-            title: "No title / 2023",
-            caption: "この作品は、...",
-            category: "digital",
-            year: "2023",
-            img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230052-2.jpg",
-            type: "digital"
-        },
-        {
-            title: "No title / 2023",
-            caption: "この作品は、...",
-            category: "photo",
-            year: "2023",
-            img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
-            type: "photo"
-        }
+      {
+        title: "心樹 / 2023",
+        caption: "アナログ作品「挑戦」から芽吹いた、デジタルの樹...",
+        category: "digital",
+        year: "2023",
+        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230053-2.jpg",
+        type: "digital / Exhibition"
+      },
+      {
+        title: "No title / 2023",
+        caption: "この作品は、...",
+        category: "digital",
+        year: "2023",
+        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
+        type: "digital"
+      },
+      {
+        title: "No title / 2023",
+        caption: "この作品は、...",
+        category: "digital",
+        year: "2023",
+        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/22ai.jpg",
+        type: "digital"
+      },
+      {
+        title: "No title / 2023",
+        caption: "この作品は、...",
+        category: "digital",
+        year: "2023",
+        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230052-2.jpg",
+        type: "digital"
+      },
+      {
+        title: "No title / 2023",
+        caption: "この作品は、...",
+        category: "photo",
+        year: "2023",
+        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
+        type: "photo"
+      }
     ];
 
     let currentPage = 1;
-    const itemsPerPage = 5;
+    const itemsPerPage = 2;
 
     function renderGallery() {
-        const galleryContainer = document.getElementById('gallery-container');
-        const pageInfo = document.getElementById('pageInfo');
+      const galleryContainer = document.getElementById('gallery-container');
+      const pageInfo = document.getElementById('pageInfo');
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = artworks.slice(start, end);
 
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const pageItems = artworks.slice(start, end);
+      galleryContainer.innerHTML = pageItems.map(item => `
+        <div class="work">
+          <p>${item.caption}</p>
+          <div class="work-img">
+            <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
+            <img src="${item.img}" alt="${item.title}">
+            <span class="dli-external-link">©Oyama</span>
+            <a class="works" href="#">
+              <h3>${item.type}</h3>
+              <p>Title：${item.title}</p>
+            </a>
+          </div>
+        </div>
+      `).join('');
 
-        galleryContainer.innerHTML = pageItems.map(item => `
-            <div class="work">
-                <p>${item.caption}</p>
-                <div class="work-img">
-                    <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
-                    <img src="${item.img}" alt="${item.title}">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>${item.type}</h3>
-                        <p>Title：${item.title}</p>
-                    </a>
-                </div>
-            </div>
-        `).join('');
-
-        const totalPages = Math.ceil(artworks.length / itemsPerPage);
-        pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
-        document.getElementById('prevBtn').disabled = currentPage === 1;
-        document.getElementById('nextBtn').disabled = currentPage === totalPages;
+      const totalPages = Math.ceil(artworks.length / itemsPerPage);
+      pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+      document.getElementById('prevBtn').disabled = currentPage === 1;
+      document.getElementById('nextBtn').disabled = currentPage === totalPages;
     }
 
-    document.getElementById('prevBtn').addEventListener('click', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('prevBtn').addEventListener('click', () => {
         if (currentPage > 1) {
-            currentPage--;
-            renderGallery();
+          currentPage--;
+          renderGallery();
         }
-    });
+      });
 
-    document.getElementById('nextBtn').addEventListener('click', () => {
+      document.getElementById('nextBtn').addEventListener('click', () => {
         if (currentPage < Math.ceil(artworks.length / itemsPerPage)) {
-            currentPage++;
-            renderGallery();
+          currentPage++;
+          renderGallery();
         }
-    });
+      });
 
-    document.addEventListener('DOMContentLoaded', renderGallery);
-    </script>
+      renderGallery();
+    });
+  </script>
 </body>
 
 </html>
