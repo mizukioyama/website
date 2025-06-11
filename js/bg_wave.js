@@ -1,6 +1,6 @@
     $(function() {
         // 初期化
-    var $ripplesContainer = $('div.ripples-2');
+    var $ripplesContainer = $('div.ripples');
     $ripplesContainer.ripples({
     //解像度
         resolution: 512,

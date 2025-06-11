@@ -1,358 +1,693 @@
-@charset "UTF-8";
-
-/* カーソルを非表示にする */
-* {
-    cursor: none !important;
+.head {
+  display: none;
 }
 
-#cursor,
-#stalker {
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-    z-index: 9999;
+html,
+body {
+  font-family: 'jost', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  width: 100%;
+  height: auto;
 }
 
-/* カーソルのスタイル */
-#cursor {
-    width: 8px;
-    height: 8px;
-    background-color: rgba(255, 255, 255);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    /* 光沢のある効果 */
-}
-
-#stalker {
-    width: 15px;
-    height: 15px;
-    border: 2px solid rgba(255, 255, 255);
-    transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    /* 光沢のある効果 */
-}
-
-/* ホバー時のスタイル */
-.cursor--hover {
-    width: 40px !important;
-    height: 40px !important;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    /* ホバー時の光沢のある効果 */
-}
-
-.stalker--hover {
-    width: 50px !important;
-    height: 50px !important;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    /* ホバー時の光沢のある効果 */
-}
-
-/*== down-up ==*/
-.scroll-top {
-    position: fixed;
-    right: 20px;
-    bottom: 10px;
-    z-index: 2;
-    opacity: 0;
-    visibility: hidden;
-    transition-duration: 1.5s;
-    -webkit-writing-mode: vertical-rl;
-    -ms-writing-mode: tb-rl;
-    writing-mode: vertical-rl;
-    white-space: nowrap;
-}
-
-@keyframes arrowmove {
-    0% {
-        bottom: 20px;
-    }
-
-    50% {
-        bottom: 25px;
-    }
-
-    100% {
-        bottom: 20px;
-    }
-}
-
-/*.scroll-viewクラスがついたら出現*/
-.scroll-top.scroll-view {
-    opacity: 1;
-    visibility: visible;
-}
-
-/*リンク全体の aタグの形状*/
-.scroll-top a {
-    text-decoration: none;
-    color: #ccc;
-    text-transform: uppercase;
-    margin-top: 8px;
-    margin-right: 3px;
-    font-size: 13px;
-    display: block;
-}
-
-/*スクロールリンクの形状*/
-.js-scroll a::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: -5px;
-    width: 1px;
-    height: 70px;
-    background: #666;
-}
-
-.js-scroll a::before {
-    content: "";
-    position: absolute;
-    top: 55px;
-    width: 1px;
-    height: 15px;
-    right: -7px;
-    background: #666;
-    transform: skewX(-31deg);
-}
-
-/*Edge IE11 hack*/
-_:-ms-lang(x),
-.js-scroll a::before {
-    right: -11px;
-}
-
-/*ページトップリンクの形状*/
-.js-pagetop a::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: -5px;
-    width: 1px;
-    height: 80px;
-    background: #666;
-}
-
-.js-pagetop a::before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    width: 1px;
-    right: -7px;
-    height: 15px;
-    background: #666;
-    transform: skewX(31deg);
-}
-
-/*Edge IE11 hack*/
-_:-ms-lang(x),
-.js-pagetop a::before {
-    right: 0;
-}
-
-/*== 多言語==*/
-#langChenge input[type="radio"] {
-    display: none;
-}
-
-#langChenge .inner_label {
-    display: grid;
-    position: fixed;
-    align-items: center;
-    justify-items: center;
-    width: fit-content;
-    top: 0.25%;
-    right: -3.5%;
-    margin: 0;
-    transform: translate(0%, 0%);
-    z-index: 9999;
-    pointer-events: none;
-}
-
-#langChenge label {
-    pointer-events: all;
-}
-
-#langChenge label div {
-    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-    font-family: Not serif-JP;
-    color: var(--inv);
-    mix-blend-mode: difference;
-    transition: all 0.9s ease-out;
-    text-shadow: 1px 0px 2px #414141, 1px 0px 2px #330000;
-    text-shadow: hsla(0, 0%, 10%, 0.2) 0px 0px 0px, inset hsla(0, 0%, 0%, 0.5) 0px 1px 3px 1px;
-    text-shadow: -1px -1px 2px rgba(20, 20, 20, 0.5), inset 1px 0px 5px rgba(20, 20, 20, 0.3);
-    /*animation: glitch_label 0.2s 0.2s steps(15) infinite;*/
-}
-
-#langChenge label:hover {
-    color: #fff;
-}
-
-/* === 選択されていない言語は非表示にする ==== */
-#langJa:not(:checked)~* *:lang(ja),
-#langEn:not(:checked)~* *:lang(en) {
-    display: none;
-}
-
-/* === 選択されている言語のラベル色を変更 ==== */
-#langJa:checked~label[for="langJa"],
-#langEn:checked~label[for="langEn"] {
-    color: #fff;
-    margin: 0;
-}
-
-#langChenge label[for="langJa"] .ja,
-#langChenge label[for="langEn"] .en {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-#langJa:checked~label[for="langJa"] .ja,
-#langEn:checked~label[for="langEn"] .en {
-    opacity: 1;
-}
-
-#langChenge label[for="langJa"],
-#langChenge label[for="langEn"] {
-    position: relative;
-    /* 相対位置に設定 */
-    display: inline-block;
-    /* インラインブロック要素に変更 */
+body,
+.top-page,
+.wrap {
+  overflow: hidden;
+  color: var(--inv);
+  background-color: var(--inv);
 }
 
 
-/*== Scrollbar ==*/
-::-webkit-scrollbar {
-    width: 0.2rem;
-    background: rgba(40, 0, 0, 0.4);
+/*=======セキュリティ*/
+canvas {
+  display: block;
 }
 
-::-webkit-scrollbar-track {
-    box-shadow: 0 0 0px rgba(255, 255, 255, 0) inset;
-    background: #fff;
+#custom-context-menu {
+  position: absolute;
+  display: none;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 99;
+  pointer-events: none;
+  user-select: none;
 }
 
-::-webkit-scrollbar-thumb {
-    box-shadow: 0 0 2px 1px rgba(31, 30, 30, 0.76) inset;
-    background: rgba(20, 20, 20);
+
+.noise {
+  display: flex;
+  background-image: linear-gradient(to right, var(--bg), blue);
 }
 
-/*font-change*/
-.Animation-container {
-    height: 10%;
-    width: 10%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    z-index: 1;
+/* ========== Common ========== */
+
+h1 {
+  font-size: 1rem;
+  color: var(--text);
 }
 
-.custom-text {
-    font-weight: 100;
-    font-size: 14em;
-    color: #FAFAFA;
+h2 {
+  font-size: 2rem;
 }
 
-.dud {
-    color: #ccc;
+p {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
 }
 
-.scrollDown_p {
-    font-size: 1rem;
-    letter-spacing: 0.02em;
-    text-shadow: 0 0 3px rgba(20, 20, 20, 0.5);
-    color: rgba(25, 25, 25, 0.69);
-    padding: 0.5rem 1rem;
-    transform: rotate(-90deg);
-    transform-origin: right;
-    /* 回転の基準点を左下に設定 */
-    position: absolute;
-    /* 絶対位置に設定 */
-    bottom: 40%;
-    right: 2.5%;
-    border: 1px solid #000;
-    width: 60px;
-    height: 40px;
-    border-radius: 40%;
+/* ========== Background Slides ========== */
+.back__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  color: var(--text);
+  filter: grayscale(40%);
+  transition: opacity 850ms 1500ms linear;
+  z-index: -1;
 }
 
-.scrollDown {
-    display: block;
-    width: 2px;
-    height: 120%;
-    transform: rotate(0deg);
-    background-image: linear-gradient(0deg,
-            rgba(5, 5, 5, 0.5) 0%,
-            rgb(255, 255, 255) 50%,
-            rgba(255, 255, 255, 0.5) 100%,
-            transparent);
-    background-repeat: no-repeat;
-    background-size: 200% 200%;
-    animation-name: scroll-down;
-    animation-duration: 14s;
-    animation-timing-function: cubic-bezier(0.22, 109.9, 210, 1);
-    animation-delay: 7s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: backwards;
-    transform-origin: left;
-    position: fixed;
-    bottom: 0%;
-    right: 1%;
-    z-index: 100;
+.back__slide .progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/*
-    .scrollDown:nth-child(2) {
-        width: 1px;
-        right: 2%;
-        bottom: -5%;
-        transform: rotate(0deg);
-        animation-delay: 7s;
+.back__slide:nth-child(even) .progress {
+  transform-origin: 100% 100%;
+}
+
+.back__slide::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 95vmin;
+  height: 55%;
+  background-position: center;
+  background-size: cover;
+  filter: grayscale(30%);
+  box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.65);
+}
+
+.back__slide.active {
+  opacity: 0;
+}
+
+/* 背景画像 */
+.back__slide:nth-child(1)::before {
+  background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url("../img/couryoku.jpg");
+}
+
+.back__slide:nth-child(even)::before {
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/230053-2.jpg");
+}
+
+/* フロント画像 */
+.back__slide .back-front-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  mix-blend-mode: difference;
+}
+
+.back__slide .back-front-image::after {
+  content: "";
+  display: block;
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.back__slide .active .back-front-image {
+  transition: transform 1200ms 1300ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1300ms linear;
+}
+
+/* ========== Header / Creator / Time ========== */
+/*.head a {
+  font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
+  color: var(--def);
+  position: absolute;
+  top: 9.25%;
+  left: 30vmin;
+  z-index: 1000;
+}*/
+
+.creator {
+  display: block;
+  position: absolute;
+  top: 10%;
+  left: 30vmin;
+}
+
+.creator .noise {
+  display: block;
+}
+
+.time {
+  position: absolute;
+  bottom: 10%;
+  right: 30vmin;
+}
+
+.time-display {
+  color: var(--text);
+}
+
+/* ========== Card Slide ========== */
+.card {
+  width: 93vmin;
+  height: 53%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  backdrop-filter: blur(10px);
+  transform: translate3d(-50%, -50%, 0);
+  overflow: hidden;
+}
+
+.card__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: box-shadow 800ms 750ms linear;
+}
+
+.card__slide::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0px 5px 0px #000;
+  background-size: 100% auto;
+  background-position: center;
+  /*border: 1px solid rgba(200, 200, 200, 0.14);
+  border-right-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);*/
+  backdrop-filter: blur(10px);
+}
+
+.card__slide:nth-child(even)::after {
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 850ms 970ms ease-in-out;
+}
+
+.card__slide.active {
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.card__slide:nth-child(even).active:after {
+  transform: scaleX(1);
+  transform-origin: 0% 50%;
+}
+
+/*== 内容 ==*/
+.card__slide .image {
+  background-image: url("../img/230053-2.jpg");
+  background-size: 85% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30%;
+  height: 100%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  filter: grayscale(40%) drop-shadow(0px 2px 10px var(--inv));
+  transform: translateX(-8rem);
+  opacity: 0;
+  transition: all 1s ease;
+  z-index: 1;
+}
+
+.card__slide:nth-child(even) .image {
+  left: 65%;
+  background-image: url("../img/couryoku.jpg");
+  pointer-events: none;
+  transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
+}
+
+.card__slide.active .image {
+  /*clip-path: polygon(0% 0%, 90% 0%, 90% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%);*/
+  opacity: 1;
+  z-index: 1;
+  transform: translateX(0rem);
+  transition: transform 1300ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1300ms 1700ms linear;
+}
+
+.card__slide:nth-child(1).exit .image {
+  transition: transform 1200ms 600ms linear, opacity 200ms 800ms linear;
+}
+
+.card__slide:nth-child(even).active .back-image {
+  opacity: 1;
+  transition: transform 1200ms 1000ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1000ms linear;
+}
+
+.card__slide:nth-child(even).exit .back-image {
+  transform: translateX(-4rem);
+}
+
+/*== number ==*/
+.number {
+  /*font-family: "Roboto Mono", monospace;*/
+  letter-spacing: 0.02em;
+  position: absolute;
+  top: 0;
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.number:before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 3.5rem;
+  top: 0;
+  left: 50%;
+  transform: translatex(-50%);
+  border-left: 1px solid;
+  opacity: 0.7;
+}
+
+/*.card__slide:nth-child(even) .date,
+    .card__slide:nth-child(even) .number {
+        color: #030303;
     }*/
-@keyframes scroll-down {
-    0% {
-        background-position: 0 100%;
-    }
 
-    50% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 0 -100%;
-    }
+.card__slide:first-child .number {
+  left: 3%;
 }
 
-/*    <div class="scroll-down">
-    <div class="frame">
-        <div class="scroll_line"></div>
-    </div>
-    </div>*/
-
-.scroll_line {
-    width: 1px;
-    height: 10px;
-    border-radius: 25%;
-    background-color: #212121;
-    animation-name: scroll;
-    animation-duration: 2.2s;
-    animation-timing-function: cubic-bezier(.15, .41, .69, .94);
-    animation-iteration-count: infinite;
+.card__slide:nth-child(even) .number {
+  right: 3%;
+  color: var(--text);
 }
 
-@keyframes scroll {
-    0% {
-        opacity: 0;
-    }
-
-    10% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(25px);
-        opacity: 0;
-    }
+.card__slide .number {
+  transform: translatey(-5rem);
+  transition: transform 1400ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1200ms 1600ms linear;
 }
+
+.card__slide.active .number {
+  transform: translatey(0rem);
+  transition: transform 800ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 600ms 1200ms linear;
+}
+
+.card__slide:nth-child(even).active .number {
+  transition: transform 1400ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1200ms 1600ms linear;
+}
+
+.date {
+  color: #ddd;
+  font-family: "Roboto Mono", monospace;
+  position: absolute;
+  width: 100%;
+  left: 3%;
+  bottom: calc(5% - 0.5rem);
+  letter-spacing: 0.15em;
+  transform-origin: 0 50%;
+  transform: rotate(0deg);
+  font-weight: 400;
+  z-index: -1;
+}
+
+.date__time {
+  opacity: 0.5;
+}
+
+.date:before {
+  content: "";
+  display: inline-block;
+  width: 3rem;
+  margin-right: 0.5rem;
+  border-bottom: 0.1rem solid var(--inv);
+  transform: translatey(-0.3rem);
+}
+
+.card__slide.active .date {
+  left: 0;
+  opacity: 0.7;
+  transform: translatex(0rem) rotate(0deg);
+}
+
+.card__slide .date {
+  opacity: 0;
+  z-index: -1;
+}
+
+.card__slide .date,
+.card__slide.active .date,
+.card__slide:nth-child(even).active .date {
+  transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
+}
+
+.card__slide:nth-child(even) .date:before,
+.card__slide:nth-child(even) .date {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+.card__slide .date,
+.card__slide.exit .date,
+.card__slide:nth-child(even).exit .date {
+  transform: translatex(0rem) rotate(-90deg);
+}
+
+/*== bottm line */
+.content__ping {
+  position: absolute;
+  bottom: calc(5% - 0rem);
+  width: 5%;
+  height: 1px;
+  left: 50%;
+  background: var(--inv);
+  opacity: 0.7;
+  transition: transform 500ms ease-out;
+}
+
+.content__ping:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0.1em;
+  position: absolute;
+  left: 0;
+  background: var(--text);
+  opacity: 0.7;
+  transition: background 350ms 800ms linear;
+  animation: widenFromLeft 2200ms ease-out;
+}
+
+@keyframes widenFromLeft {
+  0% {
+    transform: scaleX(1);
+    transform-origin: 0 50%;
+  }
+
+  20% {
+    transform: scaleX(4);
+    transform-origin: 0 50%;
+  }
+
+  100% {
+    transform: scaleX(1);
+    transform-origin: 0 50%;
+  }
+}
+
+@keyframes widenFromRight {
+  0% {
+    transform: scaleX(1);
+    transform-origin: 100% 50%;
+  }
+
+  20% {
+    transform: scaleX(4);
+    transform-origin: 100% 50%;
+  }
+
+  100% {
+    transform: scaleX(1);
+    transform-origin: 100% 50%;
+  }
+}
+
+/*animation bottom-line*/
+.content__ping--right {
+  transform: translateX(40vmin);
+}
+
+.content__ping--right:after {
+  animation: widenFromRight 1200ms ease-out;
+}
+
+.content__ping--noanimation:after {
+  animation: none !important;
+}
+
+.top-page .content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  transform: translatey(-50%);
+}
+
+.content__slide {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.content__slide:nth-child(even) {
+  top: -100%;
+}
+
+.content__slide.active {
+  pointer-events: auto;
+}
+
+.content__slide.active .title__inner,
+.content__slide.active .desc,
+.content__slide.active .button-wrap {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.content__slide.active .title__inner {
+  transition-delay: 1600ms;
+}
+
+.content__slide.active .desc {
+  transition-delay: 1800ms;
+}
+
+.content__slide.active .button-wrap {
+  transition-delay: 2000ms;
+}
+
+.content__slide.exit .title__inner,
+.content__slide.exit .desc,
+.content__slide.exit .button-wrap {
+  transform: translateX(-2.5rem);
+  transition: transform 400ms ease-out, opacity 300ms linear;
+}
+
+.content__slide.exit .title__inner {
+  transition-delay: 150ms;
+}
+
+.content__slide.exit .desc {
+  transition-delay: 300ms;
+}
+
+/*== タイトル、説明文、ボタンのアニメーションスタイリング ==*/
+.title__inner,
+.desc,
+.button-wrap {
+  opacity: 0;
+  position: relative;
+  transform: translateX(-5.5rem);
+  transition: transform 800ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 200ms linear;
+}
+
+.top-page .title {
+  position: relative;
+  /*font-size: clamp(4rem, calc(4rem + 0.5vw), 5rem);*/
+  font-weight: 400;
+  justify-content: flex-start;
+  color: #f9fafbb3;
+  text-shadow: 1px 1px 10px rgba(15, 53, 43);
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+}
+
+.content__slide:nth-child(even) .title {
+  text-shadow: 0px 0px 7px rgba(200, 200, 200, 0.75);
+}
+
+.top-page .title:nth-child(even)::before {
+  transition-delay: 200ms;
+  transform: translateX(0rem);
+  transform-origin: 100% 100%;
+}
+
+/*== 内容 ==*/
+.desc {
+  color: #f9fafbb3;
+  text-shadow: 1px 1px 10px rgba(15, 53, 43);
+  margin: 1rem auto 0;
+  line-height: 1.8;
+}
+
+.content__slide:nth-child(even) .title {
+  text-shadow: 0px 0px 1px rgba(200, 250, 250, 0.4);
+}
+
+.content__slide:nth-child(even) .desc,
+.content__slide:nth-child(even) .button-wrap {
+  color: var(--def);
+  text-shadow: 0px 0px 1px rgba(200, 200, 200, 0.25);
+}
+
+/*==================================== button ==*/
+.button-wrap {
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.content__slide:nth-child(even) .button-wrap {
+  text-align: center;
+}
+
+.content__slide.exit .button-wrap {
+  transition-delay: 450ms;
+}
+
+.button {
+  display: inline-block;
+  font-size: 1rem;
+  width: 100%;
+  text-align: center;
+  color: var(--inv);
+  line-height: 1;
+  letter-spacing: 0.15em;
+  padding: 1.4rem 0.5em;
+  margin: 1rem auto 0;
+  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: underline;
+  transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 10;
+  box-shadow: inset 0 1px 5px 0px rgba(0, 0, 0);
+  overflow: hidden;
+}
+
+.button:first-child {
+  margin-right: 1rem;
+}
+
+.button:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0);
+}
+
+.content__slide:nth-child(even) .button {
+  background-color: rgba(250, 250, 250, 0.15);
+  color: var(--def);
+}
+
+.content__slide:nth-child(even) .button:hover {
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.64);
+}
+
+.content__slide:nth-child(even) .button:before,
+.content__slide:nth-child(even) .button:after,
+.sp,
+footer,
+.menu_head {
+  display: none;
+}
+
+@media screen and (max-width: 599px) {
+
+  h1 {
+    line-height: 1;
+  }
+
+  .card {
+    width: 90%;
+    height: 90%;
+  }
+
+  .back__slide::before {
+    width: 92.5%;
+    height: 91.5%;
+  }
+
+  .content__slide {
+    width: 80%;
+    gap: 1rem;
+  }
+
+  .creator {
+    top: 0.5%;
+    left: 4%;
+  }
+
+  .time {
+    right: 4%;
+    bottom: 0.5%;
+  }
+
+  .number:before {
+    height: 2.5rem;
+  }
+
+  .date {
+    letter-spacing: 0.05rem;
+    bottom: calc(3% - 0.5rem);
+  }
+
+  .date__time {
+    display: block;
+    opacity: 0.5;
+    position: absolute;
+    right: 5%;
+    bottom: 0;
+  }
+
+  .desc {
+    margin: 0 auto;
+  }
+
+  .button-wrap,
+  .button {
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1199px) {
+  .typing00 {
+    font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1550px) {}

@@ -1,51 +1,56 @@
-    @import "https://unpkg.com/open-props/durations.min.css";
+      @import "https://unpkg.com/open-props/durations.min.css";
 
-    /* Define custom property --lines for animation */
-    @property --lines {
-      syntax: "<length>";
-      inherits: false;
-      initial-value: 0.00010px;
-    }
-
-    /* Keyframe animation to animate --lines */
-    @keyframes liner {
-      50% {
-        --lines: 0.00012px;
+      /* Define custom property --lines for animation */
+      @property --lines {
+        syntax: "<length>";
+        inherits: false;
+        initial-value: 0.00010px;
       }
-    }
 
-    /* Utility: Default value for animation duration */
-    :root {
-      --hour: 10s;
-      /* You can adjust this */
-    }
+      /* Keyframe animation to animate --lines */
+      @keyframes liner {
+        50% {
+          --lines: 0.00012px;
+        }
+      }
 
-    /* Noise mask effect */
-    .noise {
-      animation: liner var(--hour) linear infinite;
-      mask: repeating-radial-gradient(circle at center,
-          #000,
-          var(--lines),
-          #000,
-          0,
-          #0000,
-          calc(var(--lines) * 2),
-          #0000 0);
+      /* Utility: Default value for animation duration */
+      :root {
+        --hour: 10s;
+        /* You can adjust this */
+      }
 
-      display: grid;
-      place-content: center;
-
-      background-image: linear-gradient(to right, deeppink, blue);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* Gradient override for light mode */
-    @media (prefers-color-scheme: light) {
+      /* Noise mask effect */
       .noise {
-        background-image: linear-gradient(to right, black, gray);
+        animation: liner var(--hour) linear infinite;
+        mask: repeating-radial-gradient(circle at center,
+            #000,
+            var(--lines),
+            #000,
+            0,
+            #0000,
+            calc(var(--lines) * 2),
+            #0000 0);
+
+        display: grid;
+        place-content: center;
+        /*background-image: linear-gradient(to right, deeppink, blue);*/
         -webkit-background-clip: text;
+        /* サポートされない場合の代替設定 */
+        background-clip: text;
+        /* 追加：他のブラウザ用 */
         -webkit-text-fill-color: transparent;
       }
-    }
 
+      /* Gradient override for light mode */
+      @media (prefers-color-scheme: light) {
+        .noise {
+          /*background-image: linear-gradient(to right, black, gray);*/
+          -webkit-background-clip: text;
+          /* サポートされない場合の代替設定 */
+          background-clip: text;
+          /* 追加：他のブラウザ用 */
+
+          -webkit-text-fill-color: transparent;
+        }
+      }

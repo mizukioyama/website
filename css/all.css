@@ -1,24 +1,120 @@
-/* ========== Reset CSS ========== */
+.sp {
+  display: none;
+}
+
+/*リセット*/
 *,
 *::before,
 *::after,
 html,
 body,
 main,
+nav,
+footer,
+header,
+section,
+article,
+aside,
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 p,
-a,
 ul,
-li {
+ol,
+li,
+a,
+button,
+div,
+span,
+input,
+select,
+textarea,
+table,
+thead,
+figure,
+blockquote,
+dl,
+dd {
+  box-sizing: border-box;
+  font-size: normal;
+  width: fit-content;
   margin: 0;
   padding: 0;
+  border: 0;
+  list-style: none;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  object-fit: cover;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(0px) grayscale(45%);
+  transition: all 1s ease;
+  shape-margin: 0.75rem;
+  box-shadow: inset 0 0px 10px 0px #242424;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
   box-sizing: border-box;
 }
 
-li {
-  list-style: none;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+button {
+  border: 0;
+  background: none;
+  padding: 0;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: '';
+}
+
+address {
+  font-style: normal;
 }
 
 img,
@@ -33,8 +129,8 @@ body {
   font-family: 'jost', sans-serif;
   font-weight: 400;
   font-style: normal;
+  color: var(--inv);
 }
-
 
 /* ========== Custom Cursor ========== */
 * {
@@ -86,7 +182,7 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(200, 200, 200, 0.6);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   z-index: 9998;
   display: flex;
   align-items: center;
@@ -160,6 +256,10 @@ body {
   }
 }
 
+::selection {
+  background-color: rgba(160, 113, 113, 0.5);
+}
+
 /*== Scrollbar ==*/
 ::-webkit-scrollbar {
   width: 4px;
@@ -179,10 +279,23 @@ body {
 
 /* ========== Root Variables ========== */
 :root {
+  /*sub  rgba(75, 75, 75)*/
+  --hover: #4b4b4b;
+  /*bg base (199, 199, 199)*/
+  --bg: #c7c7c7;
+  /*link accent (160, 113, 113)*/
+  --accent: #A07171;
+  /*cadet blue rgba(95, 158, 160)*/
+  --ac-blue: #5F9EA0;
+  /*bt (117, 117, 117)*/
+  --bt: #757575;
+  /*border */
+  --border: rgba(199, 199, 199, 0.5);
   --def: rgba(0, 0, 0, 0.75);
   --inv: #f9fafb;
   --text: #2e2e2e;
   --bg: #cedde6;
+  color-scheme: light dark;
 }
 
 hr {
