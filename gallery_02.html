@@ -91,13 +91,13 @@
     <div class="scroll"></div>
     <div id="sidebar-container"></div>
 
-<div id="gallery-container" class="content"></div>
-<div>
+    <div id="gallery-container" class="content"></div> <!-- ← ココが必要 -->
+<!-- ページネーション表示 -->
+<div id="pagination">
   <button id="prevBtn">Prev</button>
   <span id="pageInfo"></span>
   <button id="nextBtn">Next</button>
 </div>
-
   </main>
 
   <div id="footer-container"></div>
@@ -117,7 +117,7 @@
       caption: "この作品は、...",
       category: "digital",
       year: "2023",
-      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/22ai.jpg",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
       type: "digital"
     },
     {
@@ -129,11 +129,11 @@
       type: "analog"
     },
     {
-      title: "未発表作品 / 2024",
-      caption: "この作品は未発表です...",
+      title: "未公開作品 / 2022",
+      caption: "これは未発表の作品です。",
       category: "unreleased",
-      year: "2024",
-      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
+      year: "2022",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
       type: "unreleased"
     }
   ];
@@ -164,9 +164,13 @@
       <div class="work">
         <p>${item.caption}</p>
         <div class="work-img">
-          <img src="${item.img}" alt="${item.title}" style="max-width: 300px;">
-          <h3>${item.type}</h3>
-          <p>Title：${item.title}</p>
+          <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
+          <img src="${item.img}" alt="${item.title}">
+          <span class="dli-external-link">©Oyama</span>
+          <a class="works" href="">
+            <h3>${item.type}</h3>
+            <p>Title：${item.title}</p>
+          </a>
         </div>
       </div>
     `).join('');
@@ -177,21 +181,6 @@
     document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
   }
 
-  document.getElementById('prevBtn').addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderGallery();
-    }
-  });
-
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    const filtered = filterArtworks();
-    if (currentPage < Math.ceil(filtered.length / itemsPerPage)) {
-      currentPage++;
-      renderGallery();
-    }
-  });
-
   document.addEventListener('DOMContentLoaded', () => {
     renderGallery();
 
@@ -201,22 +190,36 @@
         const type = link.dataset.type;
         const value = link.dataset.value;
 
-        // active クラス切り替え
+        // activeクラス切り替え
         document.querySelectorAll(`.category-link[data-type="${type}"]`).forEach(btn => {
-          btn.classList.remove("active");
+          btn.classList.remove('active');
         });
-        link.classList.add("active");
+        link.classList.add('active');
 
-        // フィルター更新
-        if (type === "category") {
+        if (type === 'category') {
           selectedCategory = value;
-        } else if (type === "year") {
+        } else if (type === 'year') {
           selectedYear = value;
         }
 
         currentPage = 1;
         renderGallery();
       });
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderGallery();
+      }
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const filtered = filterArtworks();
+      if (currentPage < Math.ceil(filtered.length / itemsPerPage)) {
+        currentPage++;
+        renderGallery();
+      }
     });
   });
 </script>
