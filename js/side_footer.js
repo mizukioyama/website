@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // サイドバーの読み込み
-    fetch("includes-sidebar.html")
+    fetch("sidebar.html")
         .then(response => response.text())
         .then(data => {
             $('#sidebar-container').html(data);
@@ -10,7 +10,7 @@ $(document).ready(function() {
         });
 
     // フッターの読み込み
-    fetch("includes-footer.html")
+    fetch("footer.html")
         .then(response => response.text())
         .then(data => {
             $('#footer-container').html(data);
