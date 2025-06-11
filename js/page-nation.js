@@ -37,7 +37,7 @@ function setupCategoryFilter() {
                 <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">${displayCategory}</p>
                 <p>${item.caption}</p>
                 <div class="work-img">
-                    <span style="position: absolute; top: 25%; left: -2rem; letter-spacing: 0.5rem; transform: rotate(-90deg);">${displayCategory}</span>
+                    <span style="position: absolute; top: 25%; left: -30px; letter-spacing: 0.5rem; transform: rotate(-90deg);">${displayCategory}</span>
                     <img src="${item.img}" alt="${item.title}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="">
