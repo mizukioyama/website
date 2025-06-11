@@ -135,6 +135,22 @@
       year: "2022",
       img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
       type: "unreleased"
+    },
+    {
+      title: "未公開作品 / 2022",
+      caption: "これは未発表の作品です。",
+      category: "unreleased",
+      year: "2022",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
+      type: "unreleased"
+    },
+    {
+      title: "未公開作品 / 2022",
+      caption: "これは未発表の作品です。",
+      category: "unreleased",
+      year: "2022",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
+      type: "unreleased"
     }
   ];
 
@@ -143,25 +159,11 @@
   let selectedCategory = "all";
   let selectedYear = "all";
 
-  function filterArtworks() {
-    return artworks.filter(item => {
-      const matchCategory = selectedCategory === "all" || item.category === selectedCategory;
-      const matchYear = selectedYear === "all" || item.year === selectedYear;
-      return matchCategory && matchYear;
-    });
-  }
-
-  function renderGallery() {
-    const galleryContainer = document.getElementById('gallery-container');
-    const pageInfo = document.getElementById('pageInfo');
-
-    const filtered = filterArtworks();
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageItems = filtered.slice(start, end);
-
-    galleryContainer.innerHTML = pageItems.map(item => `
-      <div class="work">
+  // 初期レンダリング（全作品を描画）
+  function renderInitialGallery() {
+    const container = document.getElementById("gallery-container");
+    container.innerHTML = artworks.map(item => `
+      <div class="work" data-category="${item.category}" data-year="${item.year}">
         <p>${item.caption}</p>
         <div class="work-img">
           <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
@@ -173,54 +175,45 @@
           </a>
         </div>
       </div>
-    `).join('');
-
-    const totalPages = Math.ceil(filtered.length / itemsPerPage);
-    pageInfo.textContent = `Page ${currentPage} / ${totalPages || 1}`;
-    document.getElementById('prevBtn').disabled = currentPage === 1;
-    document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
+    `).join("");
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    renderGallery();
+  // フィルタ適用
+  function applyFilter() {
+    document.querySelectorAll(".work").forEach(item => {
+      const matchCategory = selectedCategory === "all" || item.getAttribute("data-category") === selectedCategory;
+      const matchYear = selectedYear === "all" || item.getAttribute("data-year") === selectedYear;
+      item.style.display = matchCategory && matchYear ? "block" : "none";
+    });
+  }
 
-    document.querySelectorAll('.category-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const type = link.dataset.type;
-        const value = link.dataset.value;
+  // イベント登録
+  function setupFilters() {
+    document.querySelectorAll(".category-link").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const type = btn.getAttribute("data-type");
+        const value = btn.getAttribute("data-value");
 
         // activeクラス切り替え
-        document.querySelectorAll(`.category-link[data-type="${type}"]`).forEach(btn => {
-          btn.classList.remove('active');
-        });
-        link.classList.add('active');
+        document.querySelectorAll(`.category-link[data-type="${type}"]`).forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
 
-        if (type === 'category') {
+        if (type === "category") {
           selectedCategory = value;
-        } else if (type === 'year') {
+        } else if (type === "year") {
           selectedYear = value;
         }
 
-        currentPage = 1;
-        renderGallery();
+        applyFilter();
       });
     });
+  }
 
-    document.getElementById('prevBtn').addEventListener('click', () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderGallery();
-      }
-    });
-
-    document.getElementById('nextBtn').addEventListener('click', () => {
-      const filtered = filterArtworks();
-      if (currentPage < Math.ceil(filtered.length / itemsPerPage)) {
-        currentPage++;
-        renderGallery();
-      }
-    });
+  // 初期化
+  document.addEventListener("DOMContentLoaded", () => {
+    renderInitialGallery();
+    setupFilters();
+    applyFilter(); // 初期フィルター適用（全表示）
   });
 </script>
 
