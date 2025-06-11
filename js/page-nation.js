@@ -1,4 +1,3 @@
-// 初期設定
 let currentPage = 1;
 let selectedCategory = "all";
 const itemsPerPage = 4;
@@ -8,7 +7,6 @@ const artworks = [
     title: "心樹 / 2023",
     caption: "アナログ作品「挑戦」から芽吹いた、デジタルの樹...",
     category: "digital",
-    year: "2023",
     img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230053-2.jpg",
     type: "digital / Exhibition"
   },
@@ -16,7 +14,6 @@ const artworks = [
     title: "No title / 2023",
     caption: "この作品は、...",
     category: "digital",
-    year: "2023",
     img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
     type: "digital"
   },
@@ -24,7 +21,6 @@ const artworks = [
     title: "No title / 2023",
     caption: "この作品は、...",
     category: "analog",
-    year: "2023",
     img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
     type: "analog"
   },
@@ -32,7 +28,6 @@ const artworks = [
     title: "未公開作品 / 2022",
     caption: "これは未発表の作品です。",
     category: "unreleased",
-    year: "2022",
     img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
     type: "unreleased"
   },
@@ -40,20 +35,20 @@ const artworks = [
     title: "未公開作品 / 2022",
     caption: "これは未発表の作品です。",
     category: "unreleased",
-    year: "2022",
     img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/placeholder.jpg",
     type: "unreleased"
   }
 ];
 
-// カテゴリーでフィルター
+// 作品をフィルタリングして返す
 function filterArtworks() {
-  return artworks.filter(item =>
-    selectedCategory === "all" || item.category === selectedCategory
-  );
+  if (selectedCategory === "all") {
+    return artworks;
+  }
+  return artworks.filter(item => item.category === selectedCategory);
 }
 
-// ギャラリー描画
+// ギャラリーを描画
 function renderGallery() {
   const container = document.getElementById("gallery-container");
   const filtered = filterArtworks();
@@ -61,52 +56,66 @@ function renderGallery() {
   const end = start + itemsPerPage;
   const pageItems = filtered.slice(start, end);
 
-  container.innerHTML = pageItems.map(item => `
-    <div class="work">
+  container.innerHTML = "";
+
+  if (pageItems.length === 0) {
+    container.innerHTML = "<p>作品が見つかりません。</p>";
+    return;
+  }
+
+  pageItems.forEach(item => {
+    const div = document.createElement("div");
+    div.classList.add("work");
+    div.innerHTML = `
       <img src="${item.img}" alt="${item.title}">
       <h3>${item.title}</h3>
       <p>${item.caption}</p>
-    </div>
-  `).join("");
+    `;
+    container.appendChild(div);
+  });
 
   renderPagination(filtered.length);
 }
 
-// ページネーション表示
+// ページネーションを描画
 function renderPagination(totalItems) {
   const pagination = document.getElementById("pagination");
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  let html = '';
 
-  for (let p = 1; p <= totalPages; p++) {
-    html += `<button class="page-link${p === currentPage ? ' active' : ''}" data-page="${p}">${p}</button>`;
-  }
-  pagination.innerHTML = html;
+  pagination.innerHTML = "";
 
-  // ページクリックイベント
-  pagination.querySelectorAll(".page-link").forEach(btn => {
+  if (totalPages <= 1) return;
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.classList.add("page-btn");
+    if (i === currentPage) {
+      btn.classList.add("active");
+    }
     btn.addEventListener("click", () => {
-      currentPage = parseInt(btn.dataset.page);
+      currentPage = i;
       renderGallery();
     });
-  });
+    pagination.appendChild(btn);
+  }
 }
 
-// カテゴリー切り替え
-document.querySelectorAll("#category-menu li").forEach(btn => {
-  btn.addEventListener("click", () => {
-    selectedCategory = btn.getAttribute("data-category");
+// カテゴリーメニューのクリック処理
+document.querySelectorAll("#category-menu li").forEach(li => {
+  li.addEventListener("click", () => {
+    selectedCategory = li.getAttribute("data-category");
     currentPage = 1;
 
     // activeクラス切替
-    document.querySelectorAll("#category-menu li").forEach(li => li.classList.remove("active"));
-    btn.classList.add("active");
+    document.querySelectorAll("#category-menu li").forEach(el => el.classList.remove("active"));
+    li.classList.add("active");
 
     renderGallery();
   });
 });
 
-// 初期表示
+// 初期描画
 document.addEventListener("DOMContentLoaded", () => {
   renderGallery();
 });
