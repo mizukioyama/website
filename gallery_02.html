@@ -98,6 +98,7 @@
   <span id="pageInfo"></span>
   <button id="nextBtn">Next</button>
 </div>
+
   </main>
 
   <div id="footer-container"></div>
@@ -159,64 +160,83 @@
   let selectedCategory = "all";
   let selectedYear = "all";
 
-  // 初期レンダリング（全作品を描画）
-  function renderInitialGallery() {
-    const container = document.getElementById("gallery-container");
-    container.innerHTML = artworks.map(item => `
-      <div class="work" data-category="${item.category}" data-year="${item.year}">
+  function filterArtworks() {
+    return artworks.filter(item => {
+      const matchCategory = selectedCategory === "all" || item.category === selectedCategory;
+      const matchYear = selectedYear === "all" || item.year === selectedYear;
+      return matchCategory && matchYear;
+    });
+  }
+
+  function renderGallery() {
+    const galleryContainer = document.getElementById('gallery-container');
+    const pageInfo = document.getElementById('pageInfo');
+
+    const filtered = filterArtworks();
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = filtered.slice(start, end);
+
+    galleryContainer.innerHTML = pageItems.map(item => `
+      <div class="works" data-category="${item.category}" data-year="${item.year}">
         <p>${item.caption}</p>
         <div class="work-img">
           <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
           <img src="${item.img}" alt="${item.title}">
           <span class="dli-external-link">©Oyama</span>
-          <a class="works" href="">
+          <a class="works-link" href="">
             <h3>${item.type}</h3>
             <p>Title：${item.title}</p>
           </a>
         </div>
       </div>
-    `).join("");
+    `).join('');
+
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    pageInfo.textContent = `Page ${currentPage} / ${totalPages || 1}`;
+    document.getElementById('prevBtn').disabled = currentPage === 1;
+    document.getElementById('nextBtn').disabled = currentPage >= totalPages || totalPages === 0;
   }
 
-  // フィルタ適用
-  function applyFilter() {
-    document.querySelectorAll(".work").forEach(item => {
-      const matchCategory = selectedCategory === "all" || item.getAttribute("data-category") === selectedCategory;
-      const matchYear = selectedYear === "all" || item.getAttribute("data-year") === selectedYear;
-      item.style.display = matchCategory && matchYear ? "block" : "none";
-    });
-  }
+  // イベントバインド
+  document.addEventListener('DOMContentLoaded', () => {
+    renderGallery();
 
-  // イベント登録
-  function setupFilters() {
-    document.querySelectorAll(".category-link").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const type = btn.getAttribute("data-type");
-        const value = btn.getAttribute("data-value");
-
-        // activeクラス切り替え
-        document.querySelectorAll(`.category-link[data-type="${type}"]`).forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        if (type === "category") {
-          selectedCategory = value;
-        } else if (type === "year") {
-          selectedYear = value;
-        }
-
-        applyFilter();
+    // カテゴリーボタンのクリック処理
+    document.querySelectorAll('#category-menu li').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedCategory = btn.getAttribute("data-category");
+        currentPage = 1;
+        renderGallery();
       });
     });
-  }
 
-  // 初期化
-  document.addEventListener("DOMContentLoaded", () => {
-    renderInitialGallery();
-    setupFilters();
-    applyFilter(); // 初期フィルター適用（全表示）
+    // 年別フィルターが必要なら追加で以下のように
+    document.querySelectorAll('#year-menu li').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedYear = btn.getAttribute("data-year");
+        currentPage = 1;
+        renderGallery();
+      });
+    });
+
+    // ページネーション
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderGallery();
+      }
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const filtered = filterArtworks();
+      if (currentPage < Math.ceil(filtered.length / itemsPerPage)) {
+        currentPage++;
+        renderGallery();
+      }
+    });
   });
 </script>
-
 </body>
 
 </html>
