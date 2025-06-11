@@ -158,13 +158,10 @@
   let currentPage = 1;
   const itemsPerPage = 4;
   let selectedCategory = "all";
-  let selectedYear = "all";
 
   function filterArtworks() {
     return artworks.filter(item => {
-      const matchCategory = selectedCategory === "all" || item.category === selectedCategory;
-      const matchYear = selectedYear === "all" || item.year === selectedYear;
-      return matchCategory && matchYear;
+      return selectedCategory === "all" || item.category === selectedCategory;
     });
   }
 
@@ -178,13 +175,13 @@
     const pageItems = filtered.slice(start, end);
 
     galleryContainer.innerHTML = pageItems.map(item => `
-      <div class="works" data-category="${item.category}" data-year="${item.year}">
+      <div class="works" data-category="${item.category}">
         <p>${item.caption}</p>
         <div class="work-img">
           <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
           <img src="${item.img}" alt="${item.title}">
           <span class="dli-external-link">©Oyama</span>
-          <a class="works-link" href="">
+          <a href="#">
             <h3>${item.type}</h3>
             <p>Title：${item.title}</p>
           </a>
@@ -198,29 +195,26 @@
     document.getElementById('nextBtn').disabled = currentPage >= totalPages || totalPages === 0;
   }
 
-  // イベントバインド
   document.addEventListener('DOMContentLoaded', () => {
     renderGallery();
 
-    // カテゴリーボタンのクリック処理
-    document.querySelectorAll('#category-menu li').forEach(btn => {
-      btn.addEventListener('click', () => {
-        selectedCategory = btn.getAttribute("data-category");
+    // カテゴリーフィルタのクリック処理
+    document.querySelectorAll('#category-menu .category-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // アクティブ切り替え
+        document.querySelectorAll('#category-menu .category-link').forEach(btn => btn.classList.remove('active'));
+        link.classList.add('active');
+
+        // カテゴリー変更
+        selectedCategory = link.getAttribute('data-category');
         currentPage = 1;
         renderGallery();
       });
     });
 
-    // 年別フィルターが必要なら追加で以下のように
-    document.querySelectorAll('#year-menu li').forEach(btn => {
-      btn.addEventListener('click', () => {
-        selectedYear = btn.getAttribute("data-year");
-        currentPage = 1;
-        renderGallery();
-      });
-    });
-
-    // ページネーション
+    // ページネーション処理
     document.getElementById('prevBtn').addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
@@ -237,6 +231,7 @@
     });
   });
 </script>
+
 </body>
 
 </html>
