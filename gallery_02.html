@@ -102,140 +102,146 @@
 
   <div id="footer-container"></div>
 
-  <script>
-    const artworks = [
-      {
-        title: "心樹 / 2023",
-        caption: "アナログ作品「挑戦」から芽吹いた、デジタルの樹...",
-        category: "digital",
-        year: "2023",
-        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230053-2.jpg",
-        type: "digital / Exhibition"
-      },
-      {
-        title: "No title / 2023",
-        caption: "この作品は、...",
-        category: "digital",
-        year: "2023",
-        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
-        type: "digital"
-      },
-      {
-        title: "No title / 2023",
-        caption: "この作品は、...",
-        category: "digital",
-        year: "2023",
-        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/22ai.jpg",
-        type: "digital"
-      },
-      {
-        title: "No title / 2023",
-        caption: "この作品は、...",
-        category: "digital",
-        year: "2023",
-        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230052-2.jpg",
-        type: "digital"
-      },
-      {
-        title: "No title / 2023",
-        caption: "この作品は、...",
-        category: "photo",
-        year: "2023",
-        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
-        type: "photo"
-      },
-      {
-        title: "No title / 2023",
-        caption: "この作品は、...",
-        category: "photo",
-        year: "2023",
-        img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
-        type: "analog"
-      }
-    ];
-
-    let currentPage = 1;
-    const itemsPerPage = 5;
-    let filteredArtworks = [...artworks];
-    let activeFilter = null;
-
-    function renderGallery() {
-        const galleryContainer = document.getElementById('gallery-container');
-        const pageInfo = document.getElementById('pageInfo');
-
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const pageItems = filteredArtworks.slice(start, end);
-
-        galleryContainer.innerHTML = pageItems.map(item => `
-            <div class="work">
-                <p>${item.caption}</p>
-                <div class="work-img">
-                    <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
-                    <img src="${item.img}" alt="${item.title}">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>${item.type}</h3>
-                        <p>Title：${item.title}</p>
-                    </a>
-                </div>
-            </div>
-        `).join('');
-
-        const totalPages = Math.ceil(filteredArtworks.length / itemsPerPage);
-        pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
-        document.getElementById('prevBtn').disabled = currentPage === 1;
-        document.getElementById('nextBtn').disabled = currentPage === totalPages;
+<script>
+  const artworks = [
+    {
+      title: "心樹 / 2023",
+      caption: "アナログ作品「挑戦」から芽吹いた、デジタルの樹...",
+      category: "digital",
+      year: "2023",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230053-2.jpg",
+      type: "digital / Exhibition"
+    },
+    {
+      title: "No title / 2023",
+      caption: "この作品は、...",
+      category: "digital",
+      year: "2023",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/21ai.jpg",
+      type: "digital"
+    },
+    {
+      title: "No title / 2023",
+      caption: "この作品は、...",
+      category: "digital",
+      year: "2023",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/22ai.jpg",
+      type: "digital"
+    },
+    {
+      title: "No title / 2023",
+      caption: "この作品は、...",
+      category: "digital",
+      year: "2023",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230052-2.jpg",
+      type: "digital"
+    },
+    {
+      title: "No title / 2023",
+      caption: "この作品は、...",
+      category: "photo",
+      year: "2023",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
+      type: "photo"
+    },
+    {
+      title: "No title / 2023",
+      caption: "この作品は、...",
+      category: "photo",
+      year: "2023",
+      img: "https://raw.githubusercontent.com/mizukioyama/website/main/img/230011-2.jpg",
+      type: "analog"
     }
+  ];
 
-    document.getElementById('prevBtn').addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            renderGallery();
-        }
+  let currentPage = 1;
+  const itemsPerPage = 5;
+
+  let selectedCategory = "all";
+  let selectedYear = "all";
+
+  function filterArtworks() {
+    return artworks.filter(item => {
+      const matchCategory = selectedCategory === "all" || item.category === selectedCategory;
+      const matchYear = selectedYear === "all" || item.year === selectedYear;
+      return matchCategory && matchYear;
     });
+  }
 
-    document.getElementById('nextBtn').addEventListener('click', () => {
-        if (currentPage < Math.ceil(filteredArtworks.length / itemsPerPage)) {
-            currentPage++;
-            renderGallery();
+  function renderGallery() {
+    const galleryContainer = document.getElementById('gallery-container');
+    const pageInfo = document.getElementById('pageInfo');
+
+    const filtered = filterArtworks();
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = filtered.slice(start, end);
+
+    galleryContainer.innerHTML = pageItems.map(item => `
+      <div class="work">
+        <p>${item.caption}</p>
+        <div class="work-img">
+          <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
+          <img src="${item.img}" alt="${item.title}">
+          <span class="dli-external-link">©Oyama</span>
+          <a class="works" href="">
+            <h3>${item.type}</h3>
+            <p>Title：${item.title}</p>
+          </a>
+        </div>
+      </div>
+    `).join('');
+
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    pageInfo.textContent = `Page ${currentPage} / ${totalPages || 1}`;
+    document.getElementById('prevBtn').disabled = currentPage === 1;
+    document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderGallery();
+    }
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const filtered = filterArtworks();
+    if (currentPage < Math.ceil(filtered.length / itemsPerPage)) {
+      currentPage++;
+      renderGallery();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderGallery();
+
+    document.querySelectorAll('.category-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const type = link.dataset.type;
+        const value = link.dataset.value;
+
+        if (type === "category") {
+          selectedCategory = (selectedCategory === value || value === "all") ? "all" : value;
+        } else if (type === "year") {
+          selectedYear = (selectedYear === value || value === "all") ? "all" : value;
         }
-    });
 
-    document.addEventListener('DOMContentLoaded', () => {
+        currentPage = 1;
         renderGallery();
-
-        document.querySelectorAll('.category-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const filterValue = link.dataset.page;
-                let newFiltered;
-
-                // トグル処理：同じフィルターを押したら解除
-                if (activeFilter === filterValue || filterValue === "all") {
-                    filteredArtworks = [...artworks];
-                    activeFilter = null;
-                } else {
-                    if (!isNaN(filterValue)) {
-                        // 年フィルター（例: "25" → "2025"）
-                        const fullYear = "20" + filterValue;
-                        newFiltered = artworks.filter(item => item.year === fullYear);
-                    } else {
-                        // カテゴリフィルター
-                        newFiltered = artworks.filter(item => item.category === filterValue);
-                    }
-
-                    filteredArtworks = newFiltered;
-                    activeFilter = filterValue;
-                }
-
-                currentPage = 1;
-                renderGallery();
-            });
-        });
+      });
     });
+  });
+
+document.querySelectorAll(".category-link").forEach(btn => {
+  btn.classList.remove("active");
+});
+btn.classList.add("active");
+
 </script>
+
 </body>
 
 </html>
