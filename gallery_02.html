@@ -91,7 +91,7 @@
     <div class="scroll"></div>
     <div id="sidebar-container"></div>
 
-    <div id="gallery-container"></div> <!-- ← ココが必要 -->
+    <div id="gallery-container" class="content"></div> <!-- ← ココが必要 -->
 
     <ol class="page">
       <li><button class="arrow-button left-arrow" aria-label="Previous" id="prevBtn">&#x21BC;</button></li>
@@ -157,7 +157,6 @@
       const pageItems = artworks.slice(start, end);
 
       galleryContainer.innerHTML = pageItems.map(item => `
-        <div class="content">
         <div class="work">
           <p>${item.caption}</p>
           <div class="work-img">
@@ -169,7 +168,6 @@
               <p>Title：${item.title}</p>
             </a>
           </div>
-        </div>
         </div>
       `).join('');
 
