@@ -375,7 +375,7 @@ a:hover {
 
 #pagination {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     margin: 10vmin auto 0;
 }
 
@@ -386,7 +386,6 @@ a:hover {
 
 .page-btn:hover,
 .page-btn.active {
-    font-weight: bold;
     opacity: 1;
 }
 
@@ -418,7 +417,7 @@ main {
 }
 
 .gallery .noise {
-    background-image: linear-gradient(to right, #fff 0%, #0f00 70%);
+    background-image: linear-gradient(to right, #fff 0%, #0f00 100%);
 }
 
 .work {
@@ -643,6 +642,7 @@ main {
 .gallery .content h3,
 .gallery .content h4 {
     font-family: "jost", sans-serif;
+    font-weight: 400;
     margin: 0;
     letter-spacing: 0.09rem;
 }

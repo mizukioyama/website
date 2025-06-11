@@ -1,13 +1,14 @@
 function setupCategoryFilter() {
     const artworks = [
         { title: "蒼想 / 2024", caption: "Order：", category: "analog", img: "img/2024works.jpg" },
-        { title: "心樹 / 2023", caption: "展示：", category: "digital", img: "img1.jpg" },
+        { title: "心樹 / 2023", caption: "展示：", category: "digital", img: "img/230053-2.jpg" },
         { title: "No title / 2023", caption: "未発表作品", category: "digital", img: "img/23_0035-2.jpg" },
         { title: "アナログ作品 / 2023", caption: "未発表作品", category: "analog", img: "img/couryoku.jpg" },
         { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/230029-2.jpg" },
         { title: "幸緑 / 2021", caption: "展示：", category: "unreleased", img: "img/couryoku.jpg" },
         { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/230011-2.jpg" },
-        { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/21ai.jpg" }
+        { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/21ai.jpg" },
+        { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/2024ai.jpg" }
     ];
 
     const itemsPerPage = 4;
@@ -40,8 +41,8 @@ function setupCategoryFilter() {
                     <img src="${item.img}" alt="${item.title}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="">
-                        <h3>${item.title}</h3>
-                        <p>${displayCategory}</p>
+                        <h3 class="noise">${item.title}</h3>
+                        <p class="noise">${displayCategory}</p>
                     </a>
                 </div>`;
             container.appendChild(div);
