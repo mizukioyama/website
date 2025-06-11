@@ -148,53 +148,78 @@
 
     let currentPage = 1;
     const itemsPerPage = 5;
+    let filteredArtworks = [...artworks]; // ← 初期状態では全件
 
     function renderGallery() {
-      const galleryContainer = document.getElementById('gallery-container');
-      const pageInfo = document.getElementById('pageInfo');
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageItems = artworks.slice(start, end);
+        const galleryContainer = document.getElementById('gallery-container');
+        const pageInfo = document.getElementById('pageInfo');
 
-      galleryContainer.innerHTML = pageItems.map(item => `
-        <div class="work">
-          <p>${item.caption}</p>
-          <div class="work-img">
-            <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
-            <img src="${item.img}" alt="${item.title}">
-            <span class="dli-external-link">©Oyama</span>
-            <a class="works" href="#">
-              <h3>${item.type}</h3>
-              <p>Title：${item.title}</p>
-            </a>
-          </div>
-        </div>
-      `).join('');
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = filteredArtworks.slice(start, end);
 
-      const totalPages = Math.ceil(artworks.length / itemsPerPage);
-      pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
-      document.getElementById('prevBtn').disabled = currentPage === 1;
-      document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        galleryContainer.innerHTML = pageItems.map(item => `
+            <div class="work">
+                <p>${item.caption}</p>
+                <div class="work-img">
+                    <span style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
+                    <img src="${item.img}" alt="${item.title}">
+                    <span class="dli-external-link">©Oyama</span>
+                    <a class="works" href="">
+                        <h3>${item.type}</h3>
+                        <p>Title：${item.title}</p>
+                    </a>
+                </div>
+            </div>
+        `).join('');
+
+        const totalPages = Math.ceil(filteredArtworks.length / itemsPerPage);
+        pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+        document.getElementById('prevBtn').disabled = currentPage === 1;
+        document.getElementById('nextBtn').disabled = currentPage === totalPages;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('prevBtn').addEventListener('click', () => {
+    document.getElementById('prevBtn').addEventListener('click', () => {
         if (currentPage > 1) {
-          currentPage--;
-          renderGallery();
+            currentPage--;
+            renderGallery();
         }
-      });
-
-      document.getElementById('nextBtn').addEventListener('click', () => {
-        if (currentPage < Math.ceil(artworks.length / itemsPerPage)) {
-          currentPage++;
-          renderGallery();
-        }
-      });
-
-      renderGallery();
     });
-  </script>
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (currentPage < Math.ceil(filteredArtworks.length / itemsPerPage)) {
+            currentPage++;
+            renderGallery();
+        }
+    });
+
+    // カテゴリ or 年リンクにクリックイベントを追加
+    document.addEventListener('DOMContentLoaded', () => {
+        renderGallery();
+
+        document.querySelectorAll('.category-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // ページ遷移させない
+
+                const href = link.getAttribute('href');
+                const dataPage = link.dataset.page;
+
+                if (dataPage === 'all') {
+                    filteredArtworks = [...artworks];
+                } else if (!isNaN(dataPage)) {
+                    // 年フィルター（例: 2023）
+                    filteredArtworks = artworks.filter(item => item.year === `20${dataPage}`);
+                } else {
+                    // カテゴリフィルター
+                    filteredArtworks = artworks.filter(item => item.category === dataPage);
+                }
+
+                currentPage = 1;
+                renderGallery();
+            });
+        });
+    });
+</script>
 </body>
 
 </html>
