@@ -21,11 +21,11 @@
     <script src="js/jquery.ripples-min.js"></script>
     <script src="js/bg_wave.js"></script>
 
-    <script src="js/page-nation.js"></script>
-    <script src="js/side_footer.js"></script>
     <script src="js/cursor.js"></script>
     <script src="js/loading.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/page-nation.js"></script>
+    <script src="js/side_footer.js"></script>
 
     <!-- Font -->
     <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
@@ -80,153 +80,20 @@
 <body data-current-page="1" data-current-category="all">
     <div id="header-container"></div>
     <div class="ripples"></div>
-    <main class="gallery">
 
-        <h1 class="noise">
-            Art Index
-        </h1>
-        <p class="noise" style="width: 100%;">
-            Nature inspire
-        </p>
+    <main class="gallery">
+        <h1 class="noise">Art Index</h1>
+        <p class="noise h1-bottom">Nature inspire</p>
         <div class="scroll"></div>
         <div id="sidebar-container"></div>
 
-        <div class="content">
-            <span>Category / ALL</span>
-            <!--01-->
-            <div class="work">
-                <p>
-                    Caption
-                    <br>
-                    アナログ作品「挑戦」から芽吹いた、デジタルの樹。
-                    幾重にも重ねた編集の葉が、やがてひとつの球体を結び、それは心の奥底──静かにたゆたう源（みなもと）を象っています。
-                    大地に根を張るように、青は深い静けさを、緑は命の循環を、黄色は内に宿る希望の光を。
-                    自然の色をまといながら、目には見えない「心の樹形図」を描きました。
-                </p>
-                <div class="work-img">
-                    <span
-                        style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">Digital
-                        Art</span>
-                    <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230053-2.jpg"
-                        alt="Main Image">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>
-                            digital / Exhibition
-                        </h3>
-                        <p>
-                            Title：心樹 / 2023
-                        </p>
-                    </a>
-                </div>
-            </div>
-
-            <!--02-->
-            <div class="work">
-                <p>キャプション
-                    <br>
-                    この作品は、
-                </p>
-                <div class="work-img">
-                    <span
-                        style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">Digital
-                        Art</span>
-                    <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/21ai.jpg"
-                        alt="Main Image">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>
-                            digital
-                        </h3>
-                        <p>
-                            No title / 2023
-                        </p>
-                    </a>
-                </div>
-            </div>
-
-            <!--03-->
-            <div class="work">
-                <p>キャプション
-                    <br>
-                    この作品は、
-                </p>
-                <div class="work-img">
-                    <span
-                        style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">Digital
-                        Art</span>
-                    <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/22ai.jpg"
-                        alt="Main Image">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>
-                            digital
-                        </h3>
-                        <p>
-                            No title / 2023
-                        </p>
-                    </a>
-                </div>
-            </div>
-
-            <!--04-->
-            <div class="work">
-                <p>キャプション
-                    <br>
-                    この作品は、
-                </p>
-                <div class="work-img">
-                    <span
-                        style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">Digital
-                        Art</span>
-                    <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230052-2.jpg"
-                        alt="Main Image">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>
-                            digital
-                        </h3>
-                        <p>
-                            No title / 2023
-                        </p>
-                    </a>
-                </div>
-            </div>
-
-            <!--05-->
-            <div class="work">
-                <p>キャプション
-                    <br>
-                    この作品は、
-                </p>
-                <div class="work-img">
-                    <span
-                        style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">Digital
-                        Art</span>
-                    <img src="https://raw.githubusercontent.com/mizukioyama/portfolio.github.io/main/img/230011-2.jpg"
-                        alt="Main Image">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>
-                            photo
-                        </h3>
-                        <p>
-                            No title / 2023
-                        </p>
-                    </a>
-                </div>
-            </div>
+        <div id="gallery-container" class="content"></div>
+        <!-- ページネーション -->
+        <div id="pagination">
+            <button id="prevBtn">Prev</button>
+            <span id="pageInfo">/</span>
+            <button id="nextBtn">Next</button>
         </div>
-
-    <ol class="page">
-        <li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>
-        <li><a href="#" class="page-link" data-page="1" data-href="gallery_top.html">1</a></li>
-        <li><a href="#" class="page-link" data-page="2" data-href="gallery_02.html">2</a></li>
-        <li><a href="#" class="page-link" data-page="3" data-href="gallery_03.html">3</a></li>
-        <li><a href="#" class="page-link" data-page="4" data-href="gallery_04.html">4</a></li>
-        <li><a href="#" class="page-link" data-page="5" data-href="gallery_05.html">5</a></li>
-        <li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>
-    </ol>
 
     </main>
 
