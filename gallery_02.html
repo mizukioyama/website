@@ -155,8 +155,7 @@
   ];
 
   let currentPage = 1;
-  const itemsPerPage = 5;
-
+  const itemsPerPage = 4;
   let selectedCategory = "all";
   let selectedYear = "all";
 
@@ -223,6 +222,13 @@
         const type = link.dataset.type;
         const value = link.dataset.value;
 
+        // active クラス切り替え
+        document.querySelectorAll(`.category-link[data-type="${type}"]`).forEach(btn => {
+          btn.classList.remove("active");
+        });
+        link.classList.add("active");
+
+        // フィルターの処理
         if (type === "category") {
           selectedCategory = (selectedCategory === value || value === "all") ? "all" : value;
         } else if (type === "year") {
@@ -234,13 +240,8 @@
       });
     });
   });
-
-document.querySelectorAll(".category-link").forEach(btn => {
-  btn.classList.remove("active");
-});
-btn.classList.add("active");
-
 </script>
+
 
 </body>
 
