@@ -31,10 +31,11 @@ function setupCategoryFilter() {
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
+            <p style="position: absolute; top: 1%; left: 1%;">${item.category}</p>
             <p>${item.caption}</p>
             <div class="work-img">
                 <span
-                    style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.type}</span>
+                    style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.category}</span>
                 <img src="${item.img}" alt="${item.title}">
                 <span class="dli-external-link">©Oyama</span>
                 <a class="works" href="">
