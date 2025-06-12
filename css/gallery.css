@@ -185,6 +185,43 @@ a::before:hover {
     width: 5px;
 }
 
+footer a,
+header a,
+#category-menu li {
+    text-decoration: none;
+    width: fit-content;
+    padding: 0.25rem 0.5rem;
+    position: relative;
+    opacity: 0.8;
+}
+
+footer a::before,
+header a::before,
+#category-menu li::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 1px;
+    color: var(--inv);
+    left: -3px;
+    bottom: 50%;
+    background-color: var(--inv);
+    transition: width 0.5s ease;
+}
+
+a:hover::before {
+    color: var(--bg);
+    width: 100%;
+}
+
+a:hover {
+    color: var(--def) !important;
+    text-shadow: 0 2px 3px var(--def);
+    transform: matrix(-3rem);
+}
+
+
 /* head */
 .head a {
     position: fixed;
@@ -225,45 +262,6 @@ a::before:hover {
     }
 }
 
-footer a,
-header a,
-.category a {
-    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-    text-decoration: none;
-    width: fit-content;
-    color: var(--inv);
-    text-align: left;
-    padding: 0.25rem 0.5rem;
-    position: relative;
-    overflow: hidden;
-    opacity: 0.8;
-}
-
-footer a::before,
-header a::before,
-.category a::before {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 1px;
-    color: var(--inv);
-    left: 0;
-    bottom: 0;
-    background-color: var(--inv);
-    transition: width 0.5s ease;
-}
-
-a:hover::before {
-    color: var(--bg);
-    width: 100%;
-}
-
-a:hover {
-    color: var(--def) !important;
-    text-shadow: 0 2px 3px var(--def);
-    transform: matrix(-3rem);
-}
 
 .top .content {
     margin: 30em auto 0;

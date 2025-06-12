@@ -38,25 +38,17 @@ nav {
 }
 
 #navArea .inner li a {
-    margin: 0;
-    padding: 0;
     font-family: "jost", sans-serif;
-    display: block;
-    position: relative;
-    font-size: clamp(1.8rem, calc(1.8rem + 0.5vw), 2rem);
-    font-weight: 600;
+    font-size: 1.6rem;
+    font-weight: 500;
     color: var(--bg);
     height: 100%;
-    text-decoration: none;
-    overflow: hidden;
     mix-blend-mode: luminosity;
     text-shadow: 0px 0px 1px rgba(46, 46, 46, 0.5);
 }
 
 #navArea .inner li a::before {
-    content: '-';
-    width: 3px;
-    left: 0;
+    bottom: 0;
 }
 
 #navArea .inner li a:hover {

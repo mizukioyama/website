@@ -12,10 +12,8 @@
 
     footer a {
         font-size: clamp(1rem, calc(1rem + 0.5vw), 1.3rem);
-        display: block;
         font-weight: 400;
         margin-top: 2vmin;
-        opacity: 0.5;
     }
 
     footer a:hover {
