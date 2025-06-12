@@ -55,9 +55,9 @@ function setupCategoryFilter() {
         // 少し待ってから表示（アニメーション）
     setTimeout(() => {
         container.classList.add("show");
-    }, 10);
+    }, 3);
 
-    smoothScrollToTop(800); // or window.scrollTo({ top: 0, behavior: "smooth" });
+    smoothScrollToTop(400); // or window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
 
@@ -94,7 +94,7 @@ function setupCategoryFilter() {
         });
     });
 
-function smoothScrollToTop(duration = 800) {
+function smoothScrollToTop(duration = 400) {
     const start = window.pageYOffset;
     const startTime = performance.now();
 
