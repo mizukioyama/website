@@ -43,15 +43,14 @@ function setupCategoryFilter() {
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-                <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">${displayCategory}</p>
                 <p>${item.caption}</p>
                 <div class="work-img">
-                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">${displayCategory}</span>
+                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item,ategory}</span>
                     <img src="${item.img}" alt="${item.title}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="">
                         <h3>${item.title}</h3>
-                        <p>${displayCategory}</p>
+                        <p>${item,category}</p>
                     </a>
                 </div>`;
             container.appendChild(div);
