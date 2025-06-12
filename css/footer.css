@@ -11,15 +11,11 @@
     }
 
     footer a {
-        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.3rem);
+        font-size: 1.4rem;
         font-weight: 400;
         margin-top: 2vmin;
     }
 
-    footer a:hover {
-        color: var(--inv) !important;
-        opacity: 0.95;
-    }
     .foot {
         font-size: clamp(0.9rem, calc( 0.9rem + 0.5vw), 0.95rem);
         color: var(--inv);

@@ -175,16 +175,6 @@ a {
     transition-duration: 0.8s;
 }
 
-a::before {
-    content: '-';
-    width: 3px;
-    left: 0;
-}
-
-a::before:hover {
-    width: 5px;
-}
-
 footer a,
 header a,
 #category-menu li {
@@ -204,21 +194,19 @@ header a::before,
     width: 10px;
     height: 1px;
     color: var(--inv);
-    left: -3px;
-    bottom: 50%;
+    left: -10px;
+    bottom: 0%;
     background-color: var(--inv);
     transition: width 0.5s ease;
 }
 
 a:hover::before {
-    color: var(--bg);
-    width: 100%;
+    width: 110%;
 }
 
 a:hover {
-    color: var(--def) !important;
-    text-shadow: 0 2px 3px var(--def);
-    transform: matrix(-3rem);
+    text-shadow: 0 1px 3px var(--inv);
+    opacity: 0.95;
 }
 
 
