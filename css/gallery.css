@@ -487,6 +487,9 @@ main {
     color: inherit;
 }
 
+.work .noise {
+    background-image: linear-gradient(to right, #fff 0%, #2e7185 100%);
+}
 .work:nth-child(n+2) .noise {
     display: none;
 }
