@@ -45,12 +45,12 @@ function setupCategoryFilter() {
             div.innerHTML = `
                 <p>${item.caption}</p>
                 <div class="work-img">
-                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">${ategory}</span>
+                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.ategory}</span>
                     <img src="${item.img}" alt="${item.title}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="">
                         <h3>${item.title}</h3>
-                        <p>${category}</p>
+                        <p>${item.category}</p>
                     </a>
                 </div>`;
             container.appendChild(div);
