@@ -51,7 +51,7 @@ nav {
 }
 
 #navArea .inner li a:hover {
-    text-shadow: 0 1px 3px var(--inv);
+    text-shadow: 0 0px 0px var(--text);
     opacity: 1;
 }
 
@@ -120,6 +120,7 @@ nav {
 .home .open nav {
     background: rgba(180, 180, 170, 0.5);
 }
+
 .open .toggle_btn {
     transition: all 1s ease;
 }

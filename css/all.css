@@ -344,7 +344,7 @@ header a::before {
     left: -10px;
     bottom: 0%;
     background-color: var(--inv);
-    transition: width 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 a:hover::before {
@@ -355,6 +355,21 @@ a:hover {
     text-shadow: 0 1px 3px var(--inv);
     opacity: 0.95;
 }
+
+.home a {
+  color: var(--text);
+}
+
+.home footer a::before,
+.home header a::before {
+    color: var(--text);
+    background-color: var(--text);
+}
+
+.home a:hover {
+    text-shadow: 0 1px 3px var(--text);
+}
+
 
 @media screen and (max-width: 599px) {
   .sp {

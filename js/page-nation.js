@@ -1,14 +1,21 @@
 function setupCategoryFilter() {
     const artworks = [
-        { title: "蒼想 / 2024", caption: "Order：", category: "analog", img: "img/2024works.jpg" },
-        { title: "心樹 / 2023", caption: "展示：", category: "digital", img: "img/230053-2.jpg" },
-        { title: "No title / 2023", caption: "未発表作品", category: "digital", img: "img/23_0035-2.jpg" },
-        { title: "アナログ作品 / 2023", caption: "未発表作品", category: "analog", img: "img/couryoku.jpg" },
-        { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/230029-2.jpg" },
-        { title: "幸緑 / 2021", caption: "展示：", category: "unreleased", img: "img/couryoku.jpg" },
-        { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/230011-2.jpg" },
-        { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/21ai.jpg" },
-        { title: "未公開作品 / 2023", caption: "未発表作品", category: "unreleased", img: "img/2024ai.jpg" }
+        { title: "蒼想 / 2024", caption: "Order：アナログ（ペイント）", category: "analog", img: "img/2024works.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：AI生成", category: "digital","ai", img: "img/20230629.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：幸緑 加工", category: "digital", img: "img/21ai.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：挑戦 加工", category: "digital","ai", img: "img/22ai.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品", category: "digital","ai", img: "img/230011-2.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品", category: "digital", img: "img/230029-2.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：写真", category: "digital", img: "img/230033-2.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：挑戦 加工 / AI生成", category: "digital","ai", img: "img/230051-2.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/230052-2.jpg" },
+        { title: "心樹 / 2023", caption: "展示：挑戦 加工 / デジタル", category: "digital", img: "img/230053-2.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：AI生成", category: "digital","ai", img: "img/230055-2.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：Photo / AI生成", category: "digital","ai", img: "img/230035-2.jpg" },
+        { title: "No title / 2023", caption: "未発表作品", category: "digital","ai", img: "img/R0021433.jpg" },
+        { title: "未公開作品 / 2022", caption: "未発表作品：デジタル / Photo", category: "digital", img: "img/wallart.jpg" },
+        { title: "未公開作品 / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/white.jpg" }
+        { title: "幸緑 / 2021", caption: "展示：", category: "analog", img: "img/couryoku.jpg" },
     ];
 
     const itemsPerPage = 4;
