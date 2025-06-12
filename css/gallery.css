@@ -68,7 +68,11 @@ h1 {
     right: 50%;
     top: 40vmin;
     writing-mode: vertical-rl;
+    background: var(--text);
+    width: 1px;
+    height: 100px;
     z-index: 10;
+    opacity: 0.5;
 }
 
 /* アニメーションする縦線部分 */
@@ -77,7 +81,7 @@ h1 {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -115px;
+    bottom: 0;
     margin: auto;
     width: 1px;
     height: 100px;
