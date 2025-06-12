@@ -64,6 +64,7 @@ function setupCategoryFilter() {
             btn.addEventListener("click", () => {
                 currentPage = i;
                 renderGallery();
+                window.scrollTo({ top: 0, behavior: "smooth" }); // ←これを追加
             });
             pagination.appendChild(btn);
         }
@@ -84,5 +85,7 @@ function setupCategoryFilter() {
         });
     });
 
-    renderGallery(); // 初期描画
+    renderPagination(filtered.length); // 初期描画
+    window.scrollTo({ top: 0, behavior: "smooth" }); // ←ページトップにスムーズに移動
+
 }
