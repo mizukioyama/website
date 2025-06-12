@@ -85,7 +85,7 @@ function setupCategoryFilter() {
         });
     });
 
-    renderPagination(filtered.length); // 初期描画
+    renderPagination(); // 初期描画
     window.scrollTo({ top: 0, behavior: "smooth" }); // ←ページトップにスムーズに移動
 
 }
