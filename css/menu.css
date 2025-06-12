@@ -42,6 +42,10 @@ nav {
     text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);
 }
 
+.home #navArea .inner li a {
+    text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.85);
+}
+
 #navArea .inner li a::before {
     bottom: 0;
 }
@@ -74,7 +78,7 @@ nav {
     position: absolute;
     width: 40px;
     height: 1px;
-    background: #c0c0c0;
+    background: #c0c0c045;
     overflow: hidden;
     z-index: 103;
 }
@@ -181,7 +185,7 @@ nav {
     top: 0;
     right: 0%;
     width: 50%;
-    background: rgba(10, 10, 10, 0.3);
+    background: rgba(10, 10, 10, 0.5);
     backdrop-filter: blur(5px);
     cursor: pointer;
     transition: all 1s ease;
@@ -190,7 +194,7 @@ nav {
 }
 
 .home .open #mask {
-    background: rgba(10, 10, 10, 0.65);
+    background: rgba(10, 10, 10, 0.75);
 }
 
 @keyframes menu-left {
