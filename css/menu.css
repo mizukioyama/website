@@ -113,7 +113,7 @@ nav {
 .open nav {
     right: 0;
     backdrop-filter: blur(20px);
-    background-color: rgba(220, 220, 210, 0.5);
+    background-color: rgba(220, 220, 210, 0.25);
     mix-blend-mode: hard-light;
 }
 
