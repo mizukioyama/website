@@ -49,6 +49,7 @@ h1 {
     background-clip: text;
     -webkit-background-clip: text;
     animation: shine 15s infinite;
+    opacity: 0.2;
 }
 
 @keyframes shine {
