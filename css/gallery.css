@@ -186,8 +186,7 @@ header a,
 }
 
 footer a::before,
-header a::before,
-#category-menu li::before {
+header a::before {
     content: '';
     position: absolute;
     display: block;
