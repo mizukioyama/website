@@ -1,6 +1,6 @@
 function setupCategoryFilter() {
     const artworks = [
-        { title: "蒼想 / 2024", caption: "Order：アナログ（ペイント）", category: "analog", img: "img/2024works.jpg" },
+        { title: "蒼想 / 2024", caption: "Order：アナログ（ペイント）<br>", category: "analog", img: "img/2024works.jpg" },
         { title: "No Title / 2023", caption: "未発表作品：AI生成", category: "digital", img: "img/20230629.jpg" },
         { title: "No Title / 2023", caption: "未発表作品：幸緑 加工", category: "digital", img: "img/21ai.jpg" },
         { title: "No Title / 2023", caption: "未発表作品：挑戦 加工", category: "digital", img: "img/22ai.jpg" },
@@ -15,9 +15,23 @@ function setupCategoryFilter() {
         { title: "No Title / 2023", caption: "未発表作品：AI生成", category: "digital", img: "img/230055-2.jpg" },
         { title: "No Title / 2023", caption: "未発表作品：Photo / AI生成", category: "digital", img: "img/230035-2.jpg" },
         { title: "No title / 2023", caption: "未発表作品", category: "digital", img: "img/R0021433.jpg" },
-        { title: "未公開作品 / 2022", caption: "未発表作品：デジタル / Photo", category: "digital", img: "img/wallart.jpg" },
         { title: "未公開作品 / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/white.jpg" },
-        { title: "幸緑 / 2021", caption: "展示：", category: "analog", img: "img/couryoku.jpg" }
+        { title: "未公開作品 / 2022", caption: "未発表作品：デジタル / Photo", category: "digital", img: "img/wallart.jpg" },
+        { title: "映し神 / 2022",
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
+        { title: "挑戦 / 2022",
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
+        { title: "戦争 / 2021",
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
+        { title: "幸緑 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/couryoku.jpg" },
+        { title: "金運 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/couryoku.jpg" },
+        { title: "幸華 / 2021", caption: "未発表作品：アナログ（ペイント）", category: "analog", img: "img/couryoku.jpg" },
+        { title: "輝き / 2021",
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
+        { title: "海底 / 2017",
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
+        { title: "No Title / 2010",
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" }
     ];
 
     const itemsPerPage = 4;
