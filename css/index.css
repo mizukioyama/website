@@ -570,6 +570,7 @@ p {
   justify-content: center;
   text-align: center;
   margin-top: 1rem;
+  gap: 1rem;
 }
 
 .content__slide:nth-child(even) .button-wrap {
@@ -598,10 +599,6 @@ p {
   z-index: 10;
   box-shadow: inset 0 1px 5px 0px rgba(0, 0, 0);
   overflow: hidden;
-}
-
-.button:first-child {
-  margin-right: 1rem;
 }
 
 .button:hover {
