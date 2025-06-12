@@ -14,8 +14,8 @@ function setupCategoryFilter() {
         { title: "No Title / 2023", caption: "未発表作品：Photo / AI生成", category: "digital", img: "img/230035-2.jpg" },
         { title: "No title / 2023", caption: "未発表作品", category: "digital", img: "img/R0021433.jpg" },
         { title: "未公開作品 / 2022", caption: "未発表作品：デジタル / Photo", category: "digital", img: "img/wallart.jpg" },
-        { title: "未公開作品 / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/white.jpg" }
-        { title: "幸緑 / 2021", caption: "展示：", category: "analog", img: "img/couryoku.jpg" },
+        { title: "未公開作品 / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/white.jpg" },
+        { title: "幸緑 / 2021", caption: "展示：", category: "analog", img: "img/couryoku.jpg" }
     ];
 
     const itemsPerPage = 4;
