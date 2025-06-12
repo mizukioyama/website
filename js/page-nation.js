@@ -23,6 +23,8 @@ function setupCategoryFilter() {
 
     function renderGallery() {
         const container = document.getElementById("gallery-container");
+        container.classList.remove("show");
+
         const filtered = filterArtworks();
         const start = (currentPage - 1) * itemsPerPage;
         const pageItems = filtered.slice(start, start + itemsPerPage);
@@ -50,7 +52,12 @@ function setupCategoryFilter() {
 
         renderPagination(filtered.length);
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        // 少し待ってから表示（アニメーション）
+    setTimeout(() => {
+        container.classList.add("show");
+    }, 10);
+
+    smoothScrollToTop(800); // or window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
 
@@ -86,6 +93,23 @@ function setupCategoryFilter() {
             renderGallery();
         });
     });
+
+function smoothScrollToTop(duration = 800) {
+    const start = window.pageYOffset;
+    const startTime = performance.now();
+
+    function scrollStep(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, start * (1 - progress));
+        if (progress < 1) {
+            requestAnimationFrame(scrollStep);
+        }
+    }
+
+    requestAnimationFrame(scrollStep);
+}
+
 
     renderGallery(); // 初期描画
 }
