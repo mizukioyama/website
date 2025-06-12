@@ -78,9 +78,13 @@ nav {
     position: absolute;
     width: 40px;
     height: 1px;
-    background: #c0c0c045;
+    background: #c0c0c06b;
     overflow: hidden;
     z-index: 103;
+}
+
+.home .toggle_btn span {
+    background: #c0c0c045;
 }
 
 .toggle_btn span::before {
