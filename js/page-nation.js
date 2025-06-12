@@ -7,7 +7,7 @@ function setupCategoryFilter() {
         { title: "No Title / 2023", caption: "未発表作品", category: "digital", img: "img/230011-2.jpg" },
         { title: "No Title / 2023", caption: "未発表作品", category: "digital", img: "img/230029-2.jpg" },
         { title: "No Title / 2023", caption: "未発表作品：写真", category: "digital", img: "img/230033-2.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：挑戦 加工 / AI生成", category: "digital","ai", img: "img/230051-2.jpg" },
+        { title: "No Title / 2023", caption: "未発表作品：挑戦 加工 / AI生成", category: "digital", img: "img/230051-2.jpg" },
         { title: "No Title / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/230052-2.jpg" },
         { title: "心樹 / 2023", caption: "展示：挑戦 加工 / デジタル", category: "digital", img: "img/230053-2.jpg" },
         { title: "No Title / 2023", caption: "未発表作品：AI生成", category: "digital", img: "img/230055-2.jpg" },
