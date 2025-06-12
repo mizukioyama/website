@@ -312,6 +312,50 @@ hr {
 }
 
 
+a {
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+    color: var(--inv);
+    display: block;
+    height: fit-content;
+    text-decoration: none;
+    overflow: hidden;
+    transition-duration: 0.8s;
+}
+
+footer a,
+header a,
+#category-menu li {
+    text-decoration: none;
+    width: fit-content;
+    padding: 0.25rem 0.5rem;
+    position: relative;
+    opacity: 0.8;
+}
+
+footer a::before,
+header a::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 1px;
+    color: var(--inv);
+    left: -10px;
+    bottom: 0%;
+    background-color: var(--inv);
+    transition: width 0.5s ease;
+}
+
+a:hover::before {
+    width: 110%;
+}
+
+a:hover {
+    text-shadow: 0 1px 3px var(--inv);
+    opacity: 0.95;
+}
+
 @media screen and (max-width: 599px) {
   .sp {
     display: block;

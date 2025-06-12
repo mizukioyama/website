@@ -13,10 +13,6 @@ nav {
     z-index: 101;
 }
 
-.open nav {
-    right: 0;
-}
-
 .inner {
     width: 50%;
     padding: 15vmin;
@@ -117,6 +113,9 @@ nav {
     mix-blend-mode: hard-light;
 }
 
+.home .open nav {
+    background: rgba(180, 180, 170, 0.5);
+}
 .open .toggle_btn {
     transition: all 1s ease;
 }
@@ -190,9 +189,6 @@ nav {
     z-index: 998;
 }
 
-.home .open .nav {
-    background: rgba(180, 180, 170, 0.5);
-}
 .home .open #mask {
     background: rgba(10, 10, 10, 0.65);
 }
