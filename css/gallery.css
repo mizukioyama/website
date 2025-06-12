@@ -323,7 +323,7 @@ main li {
 #pagination {
     display: flex;
     gap: 2rem;
-    margin: 10vmin auto 0;
+    margin: 10vmin auto;
 }
 
 .page-btn {
@@ -487,6 +487,10 @@ main {
     color: inherit;
 }
 
+.work .noise:nth-child(n+2) {
+    display: none;
+}
+
 .works p {
     letter-spacing: 0.1rem;
 }
@@ -601,11 +605,6 @@ main {
     letter-spacing: 0.05em;
     opacity: 0.6;
 }
-
-.caption {
-    margin-top: 10em;
-}
-
 
 
 /*---------------------*/
