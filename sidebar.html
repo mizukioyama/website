@@ -7,35 +7,37 @@
 </ul>
 
 <style>
-.work {
+  .work {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.8s ease forwards;
-}
+  }
 
-@keyframes fadeInUp {
+  @keyframes fadeInUp {
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
+  }
 
 
-    #category-menu {
-      display: grid;
-      gap: 10px;
-    }
-    #category-menu li {
-      font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-      margin: 0;
-      display: block;
-      cursor: pointer;
-      overflow: hidden;
-      transition-duration: 0.8s;
-      text-shadow: 0 0 0px var(--inv);
-      opacity: 0.2;
-    }
-    #category-menu li::before {
+  #category-menu {
+    display: grid;
+    gap: 10px;
+  }
+
+  #category-menu li {
+    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+    margin: 0;
+    display: block;
+    cursor: pointer;
+    overflow: hidden;
+    transition-duration: 0.8s;
+    text-shadow: 0 0 0px var(--inv);
+    opacity: 0.2;
+  }
+
+  #category-menu li::before {
     content: '';
     position: absolute;
     display: block;
@@ -46,16 +48,17 @@
     bottom: 0%;
     background-color: var(--inv);
     transition: width 0.5s ease;
-    }
-    #category-menu li:hover,
-    #category-menu li.active {
-      text-shadow: 0 1px 3px var(--inv);
-      opacity: 1;
-    }
-    
-    #sidebar-container {
-        position: fixed;
-        top: 50vmin;
-        left: 30vmin;
-    }
+  }
+
+  #category-menu li:hover,
+  #category-menu li.active {
+    text-shadow: 0 1px 3px var(--inv);
+    opacity: 1;
+  }
+
+  #sidebar-container {
+    position: fixed;
+    top: 50vmin;
+    left: 30vmin;
+  }
 </style>

@@ -38,13 +38,12 @@ nav {
 }
 
 #navArea .inner li a {
-    font-family: "jost", sans-serif;
     font-size: 1.6rem;
     font-weight: 500;
     color: var(--bg);
     height: 100%;
     mix-blend-mode: luminosity;
-    text-shadow: 0px 0px 1px rgba(46, 46, 46, 0.5);
+    text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);
 }
 
 #navArea .inner li a::before {
