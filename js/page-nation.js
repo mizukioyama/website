@@ -18,20 +18,20 @@ function setupCategoryFilter() {
         { title: "未公開作品 / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/white.jpg" },
         { title: "未公開作品 / 2022", caption: "未発表作品：デジタル / Photo", category: "digital", img: "img/wallart.jpg" },
         { title: "映し神 / 2022",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/映し神.jpg" },
         { title: "挑戦 / 2022",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/挑戦.jpg" },
         { title: "戦争 / 2021",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
-        { title: "幸緑 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/couryoku.jpg" },
-        { title: "金運 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/couryoku.jpg" },
-        { title: "幸華 / 2021", caption: "未発表作品：アナログ（ペイント）", category: "analog", img: "img/couryoku.jpg" },
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "iimg/戦争.jpg" },
+        { title: "幸緑 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/幸緑.jpg" },
+        { title: "金運 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/金運.jpg" },
+        { title: "幸華 / 2021", caption: "未発表作品：アナログ（ペイント）", category: "analog", img: "img/幸華.jpg" },
         { title: "輝き / 2021",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
-        { title: "海底 / 2017",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" },
-        { title: "No Title / 2010",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/wallart.jpg" }
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/輝き.jpg" },
+        { title: "無題 / 2017",
+            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/10-1702.jpg" },
+        { title: "海底 / 2010",
+                    caption: "展示：アナログ（ペイント）", category: "analog", img: "img/海底.jpg" }
     ];
 
     const itemsPerPage = 4;
