@@ -251,6 +251,7 @@ function setupCategoryFilter() {
         }
 
         requestAnimationFrame(scrollStep);
+        setLang(currentLang);
     }
 
     renderGallery(); // 初期描画
