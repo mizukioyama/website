@@ -4,6 +4,7 @@
             }
 
             #langChenge {
+                top: 10vmin;
                 left: 2%;
             }
 
@@ -170,10 +171,7 @@
     }
 
     .work .noise {
-        top: 50%;
-        left: -30vmin;
-        letter-spacing: 0.25rem;
-        background-image: linear-gradient(to right, #fff 0%, #2e7185 100%);
+        letter-spacing: 0.075rem;
     }
 
     #pagination {
