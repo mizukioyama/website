@@ -1,4 +1,4 @@
-<p style="font-size: 1.6rem; font-weight: 400;">Category</p>
+<p id="category-header" style="font-size: 1.6rem; font-weight: 400;">Category</p>
 <ul id="category-menu">
   <li data-category="all" class="active noise">All</li>
   <li data-category="digital" class="noise">Digital</li>
@@ -68,9 +68,10 @@
   }
 
   #sidebar-container {
-    position: fixed;
+    position: absolute;
     top: 50vmin;
     left: 2%;
+    z-index: 100;
   }
 </style>
 

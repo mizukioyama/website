@@ -262,7 +262,7 @@ h1 {
 }
 
 .home #langChenge .inner_label .noise {
-  background-image: linear-gradient(to right, var(--text) 80%, var(--bg) 100%);
+  background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
 }
 
 @media screen and (min-width: 1299px) {
