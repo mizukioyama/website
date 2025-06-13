@@ -203,7 +203,6 @@ function setupCategoryFilter() {
         }, 3);
 
         smoothScrollToTop(400);
-        setLang(currentLang);
     }
 
     function renderPagination(totalItems) {
@@ -255,19 +254,4 @@ function setupCategoryFilter() {
     }
 
     renderGallery(); // 初期描画
-
-let currentLang = "ja"; // 初期値
-
-document.getElementById("langChenge").addEventListener("click", () => {
-    currentLang = currentLang === "ja" ? "en" : "ja";
-    setLang(currentLang);
-});
-
-
-}
-
-function setLang(lang) {
-    document.querySelectorAll('[lang]').forEach(el => {
-        el.style.display = el.getAttribute('lang') === lang ? '' : 'none';
-    });
 }
