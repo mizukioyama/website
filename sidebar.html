@@ -1,5 +1,5 @@
 
-  <p id="category-header" style="font-size: 1.6rem; font-weight: 400; cursor: pointer;">Category</p>
+  <p id="category-header" class="noise" style="font-size: 1.6rem; font-weight: 400; cursor: pointer;">Category</p>
   <ul id="category-menu">
     <li data-category="all" class="active noise">All</li>
     <li data-category="digital" class="noise">Digital</li>
@@ -74,7 +74,12 @@
     z-index: 100;
   }
 
+  #sidebar-container .noise {
+    background-image: linear-gradient(to right, var(--inv));
+  }
+
   #category-header {
     cursor: pointer;
   }
+
 </style>
