@@ -179,26 +179,26 @@ main li {
 .head a {
     position: fixed;
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.6em);
+    padding: 0;
     top: 1%;
-    left: 1.5%;
+    left: 2%;
     z-index: 100;
     background-size: 400% 400%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: shine 0.1s infinite;
 }
 
 .head a::after {
     content: '';
     display: block;
     width: 3px;
-    height: 6px;
+    height: 3px;
     position: absolute;
     right: 0;
-    bottom: 40%;
+    bottom: 37.5%;
     background-color: var(--inv);
-    animation: blink 0.1s infinite;
+    animation: blink 0.09s infinite;
 }
 
 @keyframes blink {

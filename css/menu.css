@@ -222,7 +222,7 @@ nav {
 
 header .noise {
     display: block;
-    background-image: linear-gradient(to right, var(--text), var(--bg));
+    background-image: linear-gradient(to right, var(--inv));
 }
 
 .open #mask ul {
