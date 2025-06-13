@@ -1,4 +1,3 @@
-function setupCategoryFilter() {
     const artworks = [
         {
             title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
@@ -146,128 +145,122 @@ function setupCategoryFilter() {
         }
     ];
 
-const itemsPerPage = 4;
-let selectedCategory = "all";
-let currentPage = 1;
-let currentLang = "ja"; // 初期値
+        const itemsPerPage = 4;
+        let selectedCategory = "all";
+        let currentPage = 1;
+        let currentLang = "ja";
 
-function filterArtworks() {
-    return selectedCategory === "all"
-        ? artworks
-        : artworks.filter(item => item.category.includes(selectedCategory));
-}
+        function filterArtworks() {
+            return selectedCategory === "all"
+                ? artworks
+                : artworks.filter(item => item.category.includes(selectedCategory));
+        }
 
-function renderGallery() {
-    const container = document.getElementById("gallery-container");
-    container.classList.remove("show");
+        function renderGallery() {
+            const container = document.getElementById("gallery-container");
+            container.classList.remove("show");
 
-    const filtered = filterArtworks();
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
+            const filtered = filterArtworks();
+            const start = (currentPage - 1) * itemsPerPage;
+            const pageItems = filtered.slice(start, start + itemsPerPage);
 
-    container.innerHTML = "";
-    pageItems.forEach(item => {
-        const displayCategory = selectedCategory === "all"
-            ? item.category.join(" / ")
-            : selectedCategory;
+            container.innerHTML = "";
+            pageItems.forEach(item => {
+                const displayCategory = selectedCategory === "all"
+                    ? item.category.join(" / ")
+                    : selectedCategory;
 
-        const div = document.createElement("div");
-        div.className = "work";
-        div.innerHTML = `
-            <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
-                Category | ${displayCategory}
-            </p>
+                const div = document.createElement("div");
+                div.className = "work";
+                div.innerHTML = `
+                    <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
+                    Category | ${displayCategory}
+                    </p>
+                    <p lang="ja">${item.caption.ja}</p>
+                    <p lang="en">${item.caption.en}</p>
+                    <div class="work-img">
+                        <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
+                            ${item.category.join(" / ")}
+                        </span>
+                        <img src="${item.img}" alt="${item.title.ja}">
+                        <a class="works" href="#">
+                            <h3 lang="ja">${item.title.ja}</h3>
+                            <h3 lang="en">${item.title.en}</h3>
+                            <p>${item.category.join(" / ")}</p>
+                        </a>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
 
-            <p lang="ja">${item.caption.ja}</p>
-            <p lang="en">${item.caption.en}</p>
+            renderPagination(filtered.length);
 
-            <div class="work-img">
-                <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
-                    ${item.category.join(" / ")}
-                </span>
-                <img src="${item.img}" alt="${item.title.ja}">
-                <span class="dli-external-link">©Oyama</span>
-                <a class="works" href="">
-                    <h3 lang="ja">${item.title.ja}</h3>
-                    <h3 lang="en">${item.caption.en}</h3>
-                    <p style="width: fit-content;">${item.category.join(" / ")}</p>
-                </a>
-            </div>
-        `;
-        container.appendChild(div);
-    });
+            setTimeout(() => {
+                container.classList.add("show");
+            }, 3);
 
-    renderPagination(filtered.length);
+            smoothScrollToTop(400);
+            setLang(currentLang);
+        }
 
-    setTimeout(() => {
-        container.classList.add("show");
-    }, 3);
+        function renderPagination(totalItems) {
+            const pagination = document.getElementById("pagination");
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            pagination.innerHTML = "";
 
-    smoothScrollToTop(400);
-    setLang(currentLang); // ← 正しく動作するようになる
-}
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.className = "page-btn" + (i === currentPage ? " active" : "");
+                btn.addEventListener("click", () => {
+                    currentPage = i;
+                    renderGallery();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+                pagination.appendChild(btn);
+            }
+        }
 
-function renderPagination(totalItems) {
-    const pagination = document.getElementById("pagination");
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    pagination.innerHTML = "";
+        document.querySelectorAll("#category-menu li").forEach(li => {
+            li.addEventListener("click", () => {
+                selectedCategory = li.getAttribute("data-category");
+                currentPage = 1;
 
-    for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.className = "page-btn" + (i === currentPage ? " active" : "");
-        btn.addEventListener("click", () => {
-            currentPage = i;
-            renderGallery();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+                document.querySelectorAll("#category-menu li").forEach(el =>
+                    el.classList.remove("active")
+                );
+                li.classList.add("active");
+
+                renderGallery();
+            });
         });
-        pagination.appendChild(btn);
-    }
-}
 
-document.querySelectorAll("#category-menu li").forEach(li => {
-    li.addEventListener("click", () => {
-        selectedCategory = li.getAttribute("data-category");
-        currentPage = 1;
+        function smoothScrollToTop(duration = 400) {
+            const start = window.pageYOffset;
+            const startTime = performance.now();
 
-        document.querySelectorAll("#category-menu li").forEach(el =>
-            el.classList.remove("active")
-        );
-        li.classList.add("active");
+            function scrollStep(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo(0, start * (1 - progress));
+                if (progress < 1) {
+                    requestAnimationFrame(scrollStep);
+                }
+            }
 
-        renderGallery();
-    });
-});
-
-function smoothScrollToTop(duration = 400) {
-    const start = window.pageYOffset;
-    const startTime = performance.now();
-
-    function scrollStep(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, start * (1 - progress));
-        if (progress < 1) {
             requestAnimationFrame(scrollStep);
         }
-    }
 
-    requestAnimationFrame(scrollStep);
-}
+        function setLang(lang) {
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.style.display = el.getAttribute('lang') === lang ? '' : 'none';
+            });
+        }
 
-// 言語切り替え処理
-function setLang(lang) {
-    document.querySelectorAll('[lang]').forEach(el => {
-        el.style.display = el.getAttribute('lang') === lang ? '' : 'none';
-    });
-}
+        document.getElementById("lang-switch").addEventListener("click", () => {
+            currentLang = currentLang === "ja" ? "en" : "ja";
+            setLang(currentLang);
+        });
 
-document.getElementById("lang-switch").addEventListener("click", () => {
-    currentLang = currentLang === "ja" ? "en" : "ja";
-    setLang(currentLang);
-});
-
-// 初期描画
-renderGallery();
-
-}
+        // 初期描画
+        renderGallery();
