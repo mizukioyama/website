@@ -1,37 +1,66 @@
 function setupCategoryFilter() {
     const artworks = [
-        { title: "蒼想 / 2024", caption: "Order：アナログ（ペイント）<br>", category: "analog", img: "img/2024works.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：AI生成", category: "digital", img: "img/20230629.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：幸緑 加工", category: "digital", img: "img/21ai.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：挑戦 加工", category: "digital", img: "img/22ai.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品", category: "digital", img: "img/230011-2.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品", category: "digital", img: "img/230029-2.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：写真", category: "digital", img: "img/230033-2.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：挑戦 加工 / AI生成", category: "digital", img: "img/230051-2.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/230052-2.jpg" },
-        { title: "心樹 / 2023",
-            caption: "展示：挑戦 加工 / デジタル<br>アナログ作品「挑戦」から芽吹いた、デジタルの樹。<br><br>幾重にも重ねた編集の葉が、やがてひとつの球体を結び、<br>それは心の奥底──静かにたゆたう源（みなもと）を象っています。<br>大地に根を張るように、青は深い静けさを、<br>緑は命の循環を、黄色は内に宿る希望の光を。<br>自然の色をまといながら、目には見えない「心の樹形図」を描きました。",
-            category: "digital", img: "img/230053-2.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：AI生成", category: "digital", img: "img/230055-2.jpg" },
-        { title: "No Title / 2023", caption: "未発表作品：Photo / AI生成", category: "digital", img: "img/230035-2.jpg" },
-        { title: "No title / 2023", caption: "未発表作品", category: "digital", img: "img/R0021433.jpg" },
-        { title: "未公開作品 / 2023", caption: "未発表作品：デジタル", category: "digital", img: "img/white.jpg" },
-        { title: "未公開作品 / 2022", caption: "未発表作品：デジタル / Photo", category: "digital", img: "img/wallart.jpg" },
-        { title: "映し神 / 2022",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/映し神.jpg" },
-        { title: "挑戦 / 2022",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/挑戦.jpg" },
-        { title: "戦争 / 2021",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/戦争.jpg" },
-        { title: "幸緑 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/幸緑.jpg" },
-        { title: "金運 / 2021", caption: "展示：アナログ（ペイント）", category: "analog", img: "img/金雲.jpg" },
-        { title: "幸華 / 2021", caption: "未発表作品：アナログ（ペイント）", category: "analog", img: "img/幸華.jpg" },
-        { title: "輝き / 2021",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/輝き.jpg" },
-        { title: "無題 / 2017",
-            caption: "展示：アナログ（ペイント）", category: "analog", img: "img/10-1702.jpg" },
-        { title: "海底 / 2010",
-                    caption: "展示：アナログ（ペイント）", category: "analog", img: "img/海底.jpg" }
+        {
+            title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
+            caption: { ja: "Order：アナログ（ペイント）<br>", en: "Order: Analog (Paint)<br>" },
+            category: ["analog"],
+            img: "img/2024works.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：AI生成", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/20230629.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：幸緑 AI", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/21ai.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：挑戦 AI生成", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/22ai.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：加工 AI生成", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/230011-2.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：加工 AI生成", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/230029-2.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：写真", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/230033-2.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：挑戦 加工 / AI生成", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/230051-2.jpg"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital", "ai"],
+            img: "img/230052-2.jpg"
+        },
+        {
+            title: { ja: "心樹 / 2023", en: "心樹 / 2023" },
+            caption: { ja: "心樹 / 2023<br>アナログ作品「挑戦」から芽吹いた、デジタルの樹。<br><br>幾重にも重ねた編集の葉が、やがてひとつの球体を結び、<br>それは心の奥底──静かにたゆたう源（みなもと）を象っています。<br>大地に根を張るように、青は深い静けさを、<br>緑は命の循環を、黄色は内に宿る希望の光を。<br>自然の色をまといながら、目には見えない「心の樹形図」を描きました。", en: "Unpublished: AI generated" },
+            category: ["digital", "analog"],
+            img: "img/230053-2.jpg"
+        }
+
     ];
 
     const itemsPerPage = 4;
@@ -41,7 +70,7 @@ function setupCategoryFilter() {
     function filterArtworks() {
         return selectedCategory === "all"
             ? artworks
-            : artworks.filter(item => item.category === selectedCategory);
+            : artworks.filter(item => item.category.includes(selectedCategory));
     }
 
     function renderGallery() {
@@ -54,35 +83,45 @@ function setupCategoryFilter() {
 
         container.innerHTML = "";
         pageItems.forEach(item => {
-            const displayCategory = selectedCategory === "all" ? "all" : item.category;
+            const displayCategory = selectedCategory === "all"
+                ? item.category.join(" / ")
+                : selectedCategory;
 
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-                <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">Category | ${displayCategory}</p>
-                <p>${item.caption}</p>
+                <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
+                    Category | ${displayCategory}
+                </p>
+
+                <p lang="ja">${item.caption.ja}</p>
+                <p lang="en">${item.caption.en}</p>
+
                 <div class="work-img">
-                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">${item.category}</span>
-                    <img src="${item.img}" alt="${item.title}">
+                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
+                        ${item.category.join(" / ")}
+                    </span>
+                    <img src="${item.img}" alt="${item.title.ja}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="">
-                        <h3>${item.title}</h3>
-                        <p>${item.category}</p>
+                        <h3 lang="ja">${item.title.ja}</h3>
+                        <h3 lang="en">${item.title.en}</h3>
+                        <p lang="ja">${item.category.join(" / ")}</p>
+                        <p lang="en">${item.category.join(" / ")}</p>
                     </a>
-                </div>`;
+                </div>
+            `;
             container.appendChild(div);
         });
 
         renderPagination(filtered.length);
 
-        // 少し待ってから表示（アニメーション）
-    setTimeout(() => {
-        container.classList.add("show");
-    }, 3);
+        setTimeout(() => {
+            container.classList.add("show");
+        }, 3);
 
-    smoothScrollToTop(400); // or window.scrollTo({ top: 0, behavior: "smooth" });
+        smoothScrollToTop(400);
     }
-
 
     function renderPagination(totalItems) {
         const pagination = document.getElementById("pagination");
@@ -102,7 +141,6 @@ function setupCategoryFilter() {
         }
     }
 
-    // ここでクリックイベントをバインド
     document.querySelectorAll("#category-menu li").forEach(li => {
         li.addEventListener("click", () => {
             selectedCategory = li.getAttribute("data-category");
@@ -117,22 +155,21 @@ function setupCategoryFilter() {
         });
     });
 
-function smoothScrollToTop(duration = 400) {
-    const start = window.pageYOffset;
-    const startTime = performance.now();
+    function smoothScrollToTop(duration = 400) {
+        const start = window.pageYOffset;
+        const startTime = performance.now();
 
-    function scrollStep(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, start * (1 - progress));
-        if (progress < 1) {
-            requestAnimationFrame(scrollStep);
+        function scrollStep(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            window.scrollTo(0, start * (1 - progress));
+            if (progress < 1) {
+                requestAnimationFrame(scrollStep);
+            }
         }
+
+        requestAnimationFrame(scrollStep);
     }
-
-    requestAnimationFrame(scrollStep);
-}
-
 
     renderGallery(); // 初期描画
 }
