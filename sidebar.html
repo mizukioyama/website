@@ -1,6 +1,7 @@
 
-  <p id="category-header" class="noise" style="font-size: 1.6rem; font-weight: 400; cursor: pointer;">Category</p>
+  <p id="category-header" class="noise" style="font-size: 1.6rem; font-weight: 400; cursor: pointer;">・</p>
   <ul id="category-menu">
+    <li>Category</li>
     <li data-category="all" class="active noise">All</li>
     <li data-category="digital" class="noise">Digital</li>
     <li data-category="analog" class="noise">Analog</li>
@@ -39,6 +40,8 @@
   #category-menu li {
     font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
     margin: 0;
+    padding: 0;
+    width: 100%;
     display: block;
     cursor: pointer;
     overflow: hidden;
