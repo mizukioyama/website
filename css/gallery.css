@@ -3,6 +3,11 @@
     background-image: linear-gradient(to right, #fff 0%, #000 70%);
 }
 
+#langChenge {
+    top: 5vmin;
+    left: 2%;
+}
+
 /* ========== Common ========== */
 html,
 body {

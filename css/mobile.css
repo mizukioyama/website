@@ -2,6 +2,11 @@
             .pc {
                 display: none;
             }
+
+            #langChenge {
+                left: 2%;
+            }
+
             body::before {
                 content: "";
                 display: block;
@@ -44,6 +49,8 @@
             .scroll {
                 left: 50%;
                 width: 1px;
+                top: 85vmin;
+                height: 80px;
             }
 
             h2 {
@@ -127,7 +134,23 @@
 
 .gallery .content {
     width: 80%;
+    padding: 3rem 2rem 0;
     margin: 50vmin auto 0;
+}
+
+.work {
+    height: 300px;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.works {
+    padding: 0;
+}
+
+.work:nth-child(1) {
+    top: -10%;
+    left: 0;
 }
 
 .gallery ol p {
