@@ -242,15 +242,27 @@ h1 {
 #langChenge .en {
   font-weight: 500;
   color: var(--text);
-  text-shadow: 0 0 3px var(--inv);
-  opacity: 0.4;
+  text-shadow: 0 0 0px var(--inv);
+  opacity: 0.7;
   transition: opacity 0.3s ease;
 }
 
+#langChenge .ja:hover,
+#langChenge .en:hover,
 #langChenge .ja.active,
 #langChenge .en.active {
   font-weight: 600;
-  opacity: 0.7;
+  opacity: 1;
+}
+
+/*===== .home */
+.home #langChenge .ja,
+.home #langChenge .en {
+  text-shadow: 0 0 0px var(--text);
+}
+
+.home #langChenge .inner_label .noise {
+  background-image: linear-gradient(to right, var(--text) 80%, var(--bg) 100%);
 }
 
 @media screen and (min-width: 1299px) {
