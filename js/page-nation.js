@@ -204,7 +204,7 @@ function renderGallery() {
     }, 3);
 
     smoothScrollToTop(400);
-    setLang(currentLang);
+    setLang(currentLang); // ← 正しく動作するようになる
 }
 
 function renderPagination(totalItems) {
@@ -255,6 +255,7 @@ function smoothScrollToTop(duration = 400) {
     requestAnimationFrame(scrollStep);
 }
 
+// 言語切り替え処理
 function setLang(lang) {
     document.querySelectorAll('[lang]').forEach(el => {
         el.style.display = el.getAttribute('lang') === lang ? '' : 'none';
@@ -266,6 +267,7 @@ document.getElementById("lang-switch").addEventListener("click", () => {
     setLang(currentLang);
 });
 
-renderGallery(); // 初期描画
+// 初期描画
+renderGallery();
 
 }
