@@ -265,3 +265,9 @@ document.getElementById("lang-switch").addEventListener("click", () => {
 
 
 }
+
+function setLang(lang) {
+    document.querySelectorAll('[lang]').forEach(el => {
+        el.style.display = el.getAttribute('lang') === lang ? '' : 'none';
+    });
+}
