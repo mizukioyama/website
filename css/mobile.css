@@ -149,11 +149,6 @@
     padding: 0;
 }
 
-.work:nth-child(1) {
-    top: -10%;
-    left: 0;
-}
-
 .gallery ol p {
         font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
         font-family: "poiret-one",Not serif-JP;

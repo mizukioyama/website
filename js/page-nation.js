@@ -1,6 +1,5 @@
 function setupCategoryFilter() {
     const artworks = [
-
         {
             title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
             caption: { ja: "Order：アナログ（ペイント）<br>", en: "Order: Analog (Paint)<br>" },
@@ -145,7 +144,6 @@ function setupCategoryFilter() {
             category: ["analog"],
             img: "img/海底.jpg"
         }
-
     ];
 
     const itemsPerPage = 4;
@@ -189,8 +187,8 @@ function setupCategoryFilter() {
                     <img src="${item.img}" alt="${item.title.ja}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="">
-                        <h3>${item.title.ja}</h3>
-                        <h3>${item.caption.en}</h3>
+                        <h3 lang="ja">${item.title.ja}</h3>
+                        <h3 lang="en">${item.caption.en}</h3>
                         <p style="width: fit-content;">${item.category.join(" / ")}</p>
                     </a>
                 </div>
