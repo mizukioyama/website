@@ -1,13 +1,14 @@
 $(document).ready(function () {
-  fetch("sidebar.html")
-    .then(response => response.text())
-    .then(data => {
-      $('#sidebar-container').html(data);
-      setupCategoryToggle(); // ← サイドバーが読み込まれてから実行
-    })
-    .catch(error => {
-      console.error('Error loading sidebar:', error);
-    });
+fetch("sidebar.html")
+  .then(response => response.text())
+  .then(data => {
+    $('#sidebar-container').html(data);
+    setupCategoryToggle();  // ← サイドバー用
+    setupCategoryFilter();  // ← ギャラリー表示もここで呼ぶ！！
+  })
+  .catch(error => {
+    console.error('Error loading sidebar:', error);
+  });
 
   function setupCategoryToggle() {
     const categoryMenu = document.getElementById("category-menu");
