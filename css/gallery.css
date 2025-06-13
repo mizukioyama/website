@@ -48,7 +48,6 @@ h1 {
     /*background-image: linear-gradient(to right, var(--text), var(--bg));*/
     background-clip: text;
     -webkit-background-clip: text;
-    animation: shine 15s infinite;
     opacity: 0.2;
 }
 
@@ -82,7 +81,6 @@ h1 {
     left: 0;
     right: 0;
     bottom: 0;
-    margin: auto;
     width: 1px;
     height: 100px;
     background-color: var(--inv);
@@ -213,115 +211,6 @@ main li {
     100% {
         opacity: 1;
     }
-}
-
-
-.top .content {
-    margin: 30em auto 0;
-}
-
-.flex .content .quote {
-    text-align: right;
-}
-
-.content ol {
-    width: 100%;
-}
-
-.exhibition .content ol p {
-    font-size: clamp(1.4rem, calc(1.4rem + 0.5vw), 1.8rem);
-    padding: 1em 0 0;
-}
-
-.exhibition .content ol p::before {
-    content: '-';
-    padding-right: 0.2em;
-}
-
-.exhibition .content li {
-    width: clamp(70%, 100%, 65%);
-    margin: 0 0 3em 15%;
-    padding: 2em 3em 3em;
-    border-bottom: 1px solid rgba(200, 200, 200, 0.5);
-}
-
-.exhibition .content ol:last-child li {
-    width: clamp(65%, 100%, 50%);
-    margin-bottom: 3%;
-    padding: 0 0 0 10em;
-}
-
-/*==Natureinspire page*/
-.top .content h2,
-.top .content h3,
-.top .content h4 {
-    margin: 0;
-    padding: 1em 0 0 calc(12vw - 10%);
-    letter-spacing: .25em;
-    color: transparent;
-    background: var(--inv);
-    background-clip: text;
-    -webkit-background-clip: text;
-    transform-origin: bottom left;
-    text-shadow: -1px 1px 1px rgba(0 0, 0, 0.65);
-}
-
-.top .content h3,
-.top .content h4 {
-    border-bottom: 1px solid rgba(200, 200, 200, 0.5);
-}
-
-.top .content h3 {
-    margin-top: 10%;
-}
-
-/*==Statement page*/
-.statement .content {
-    width: clamp(50%, 100%, 35%);
-    padding: 1em 0em 3em;
-    margin-top: -40%;
-    margin-left: calc(60vw - 5%);
-}
-
-.statement .content:nth-child(2) {
-    width: clamp(50%, 100%, 35%);
-    margin-top: 0em;
-    margin-left: calc(20vw - 5%);
-}
-
-.statement .content h2,
-.statement .content h3,
-.statement .content h4 {
-    margin: 0;
-    width: fit-content;
-    color: var(--inv);
-    padding: 1em 0.1em 0 calc(6vw - 10%);
-    letter-spacing: .25em;
-    text-shadow: -1px 1px 1px rgba(0 0, 0, 0.5);
-    border-bottom: 1px solid var(--inv);
-}
-
-.statement .content li {
-    width: clamp(58%, 100%, 35%);
-    margin-left: calc(10vw - 5%);
-}
-
-/*==Gallrey page
-.gallery {
-    margin: 0;
-    width: 100%;
-    max-width: 100%;
-}
-*/
-
-.art-info {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.art-info .flex {
-    width: clamp(75%, 100%, 55%);
-    margin: 5% 0 0 25%;
-    background: rgba(0, 0, 0, 0);
 }
 
 #pagination {
@@ -573,7 +462,8 @@ main {
 
     .work>p {
         order: 2;
-        margin-top: 1rem;
+        text-align: left;
+        margin: 0;
     }
 
     .work-img {
