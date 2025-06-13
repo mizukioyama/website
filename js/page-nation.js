@@ -254,4 +254,14 @@ function setupCategoryFilter() {
     }
 
     renderGallery(); // 初期描画
+
+    setLang(currentLang); // 追加：言語表示を更新
+
+let currentLang = "ja"; // 初期値
+
+document.getElementById("lang-switch").addEventListener("click", () => {
+    currentLang = currentLang === "ja" ? "en" : "ja";
+    setLang(currentLang);
+});
+
 }
