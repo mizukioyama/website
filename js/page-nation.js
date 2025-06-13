@@ -94,7 +94,8 @@ function setupCategoryFilter() {
                     Category | ${displayCategory}
                 </p>
 
-                <p>${item.caption.ja}${item.caption.en}</p>
+                <p>${item.caption.ja}</p>
+                <p>${item.caption.en}</p>
 
                 <div class="work-img">
                     <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
@@ -103,7 +104,8 @@ function setupCategoryFilter() {
                     <img src="${item.img}" alt="${item.title.ja}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="">
-                        <h3>${item.title.ja}${item.caption.en}</h3>
+                        <h3>${item.title.ja}</h3>
+                        <h3>${item.caption.en}</h3>
                         <p style="width: fit-content;">${item.category.join(" / ")}</p>
                     </a>
                 </div>
