@@ -2,16 +2,6 @@
             .pc {
                 display: none;
             }
-            html, body {
-                font-style: normal;
-                font-weight: 400;
-                width: 100%;
-                height: auto;
-                color: var(--inv);
-                background: var(--def);
-                margin: 0;
-                padding: 0;
-            }
             body::before {
                 content: "";
                 display: block;
@@ -132,7 +122,7 @@
             }
 
 .gallery {
-    padding: 0;
+    padding: 3rem 0rem;
 }
 
 .gallery .content {
@@ -163,53 +153,8 @@
         background-image: linear-gradient(to right, #fff 0%, #2e7185 100%);
     }
 
-    .dli-external-link {
-        display: inline-block;
-        position: absolute;
-        right: 0%;
-        top: 800%;
-        color: var(--def);
-        width: 0.9em;
-        height: 0.9em;
-        line-height: 1;
-        border: 0.1em solid;
-        border-radius: 0.1em;
-        box-sizing: content-box;
-        vertical-align: middle;
+    #pagination {
+        margin: 10vmin auto 5vmin;
     }
-    .dli-external-link img {
-        width: 100%;
-    }
-    .dli-external-link span {
-        position: absolute;
-        top: -0.2em;
-        right: -0.25em;
-        width: 65%;
-        height: 65%;
-        border: 0.1em solid;
-        border-radius: 0.08em;
-        border-bottom: 0;
-        border-left: 0;
-        background: none;
-        box-sizing: border-box;
-    }
-    .dli-external-link::after {
-        content: '©Oyama';
-        position: absolute;
-        right: 130%;
-    }
-
-    .copyright {
-        text-align: left;
-        margin-top: 15em;
-    }
-    .copyright::before {
-        content: url(https://paradigmart.natureinspire.jp/wp-content/uploads/2024/05/ff0872c868ca2a513ef1f5686c2751f5.png);
-        position: absolute;
-        right: -10%;
-        top: 35%;
-        box-shadow: none;
-    }
-
 
 }

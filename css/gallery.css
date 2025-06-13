@@ -403,7 +403,7 @@ main {
 }
 
 
-/*===copyright*/
+/*=== copyright text*/
 .dli-external-link {
     font-family: 'jost', sans-serif;
     font-size: 1rem;
@@ -473,53 +473,3 @@ main {
 }
 
 
-
-/*===art-info*/
-.copyright {
-    text-align: left;
-    margin-top: 15em;
-}
-
-.copyright::before {
-    content: url(https://paradigmart.natureinspire.jp/wp-content/uploads/2024/05/ff0872c868ca2a513ef1f5686c2751f5.png);
-    position: absolute;
-    right: -10%;
-    top: 35%;
-    box-shadow: none;
-}
-
-.gallery .content h2,
-.gallery .content h3,
-.gallery .content h4 {
-    font-family: "jost", sans-serif;
-    font-weight: 400;
-    margin: 0;
-    letter-spacing: 0.09rem;
-}
-
-.gallery .content h3::before {
-    content: 'Category';
-    font-size: clamp(0.9rem, calc(0.9rem + 0.5vw), 1rem);
-    margin-right: 1rem;
-    letter-spacing: 0.05em;
-    opacity: 0.6;
-}
-
-
-/*---------------------*/
-.art-info .content img {
-    width: clamp(700px, 100%, 60%);
-    height: 40vh;
-    filter: grayscale(50%);
-}
-
-.art-info img:hover {
-    filter: grayscale(0);
-    transform: scale(1);
-}
-
-.art-info .content {
-    width: clamp(100%, 100%, 80%);
-    margin: 0 20%;
-    background: rgba(0, 0, 0, 0);
-}
