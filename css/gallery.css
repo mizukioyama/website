@@ -186,7 +186,7 @@ main li {
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: shine 0.8s infinite;
+    animation: shine 0.1s infinite;
 }
 
 .head a::after {

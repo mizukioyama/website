@@ -80,27 +80,34 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const categoryMenu = document.getElementById("category-menu");
-    const categoryHeader = document.getElementById("category-header");
+document.addEventListener("DOMContentLoaded", () => {
+  const categoryMenu = document.getElementById("category-menu");
+  const categoryHeader = document.getElementById("category-header");
 
-    let isManuallyToggled = false;
+  let isManuallyToggled = false;
 
-    // スクロールで自動的に折りたたみ／展開
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY || window.pageYOffset;
+  // 手動で開閉
+  categoryHeader.addEventListener("click", () => {
+    categoryMenu.classList.toggle("collapsed");
+    isManuallyToggled = true;
 
-      if (scrollY > 200 && !isManuallyToggled) {
-        categoryMenu.classList.add("collapsed");
-      } else if (scrollY <= 200 && !isManuallyToggled) {
-        categoryMenu.classList.remove("collapsed");
-      }
-    });
-
-    // 手動でトグル（クリック）
-    categoryHeader.addEventListener("click", () => {
-      categoryMenu.classList.toggle("collapsed");
-      isManuallyToggled = true;
-    });
+    // 3秒後に自動操作を再許可（必要に応じて調整可）
+    setTimeout(() => {
+      isManuallyToggled = false;
+    }, 3000);
   });
+
+  // スクロールによる自動開閉
+  window.addEventListener("scroll", () => {
+    if (isManuallyToggled) return;
+
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    if (scrollY > 200) {
+      categoryMenu.classList.add("collapsed");
+    } else {
+      categoryMenu.classList.remove("collapsed");
+    }
+  });
+});
 </script>
