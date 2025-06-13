@@ -24,7 +24,18 @@
   #category-menu {
     display: grid;
     gap: 10px;
-  }
+  overflow: hidden;
+  max-height: 500px;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 1;
+}
+
+#category-menu.collapsed {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 
   #category-menu li {
     font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
@@ -59,6 +70,33 @@
   #sidebar-container {
     position: fixed;
     top: 50vmin;
-    left: 30vmin;
+    left: 2%;
   }
 </style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const categoryMenu = document.getElementById("category-menu");
+  const categoryHeader = document.getElementById("category-header");
+
+  let isManuallyToggled = false;
+
+  // スクロールで自動的に折りたたみ／展開
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    if (scrollY > 200 && !isManuallyToggled) {
+      categoryMenu.classList.add("collapsed");
+    } else if (scrollY <= 200 && !isManuallyToggled) {
+      categoryMenu.classList.remove("collapsed");
+    }
+  });
+
+  // 手動でトグル（クリック）
+  categoryHeader.addEventListener("click", () => {
+    categoryMenu.classList.toggle("collapsed");
+    isManuallyToggled = true;
+  });
+});
+</script>
