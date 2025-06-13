@@ -253,5 +253,5 @@ function setupCategoryFilter() {
         requestAnimationFrame(scrollStep);
     }
 
-    renderGallery(); // 初期描画
+ //   renderGallery(); // 初期描画
 }
