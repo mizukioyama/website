@@ -257,7 +257,7 @@
             });
         }
 
-        document.getElementById("lang-switch").addEventListener("click", () => {
+        document.getElementById("langChenge").addEventListener("click", () => {
             currentLang = currentLang === "ja" ? "en" : "ja";
             setLang(currentLang);
         });
