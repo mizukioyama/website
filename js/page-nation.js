@@ -253,5 +253,11 @@ function setupCategoryFilter() {
         requestAnimationFrame(scrollStep);
     }
 
- //   renderGallery(); // 初期描画
+    renderGallery(); // 初期描画
+
+document.getElementById("langChenge").addEventListener("click", () => {
+  currentLang = currentLang === "ja" ? "en" : "ja";
+  setLang(currentLang);
+});
+
 }
