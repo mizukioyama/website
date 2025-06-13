@@ -180,7 +180,7 @@ function setupCategoryFilter() {
                 </p>
 
                 <p lang="ja">${item.caption.ja}</p>
-                <p>${item.caption.en}</p>
+                <p lang="en">${item.caption.en}</p>
 
                 <div class="work-img">
                     <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
