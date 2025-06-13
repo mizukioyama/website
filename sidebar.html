@@ -1,10 +1,11 @@
-<p id="category-header" style="font-size: 1.6rem; font-weight: 400;">Category</p>
-<ul id="category-menu">
-  <li data-category="all" class="active noise">All</li>
-  <li data-category="digital" class="noise">Digital</li>
-  <li data-category="analog" class="noise">Analog</li>
-  <li data-category="unreleased" class="noise">Unreleased</li>
-</ul>
+
+  <p id="category-header" style="font-size: 1.6rem; font-weight: 400; cursor: pointer;">Category</p>
+  <ul id="category-menu">
+    <li data-category="all" class="active noise">All</li>
+    <li data-category="digital" class="noise">Digital</li>
+    <li data-category="analog" class="noise">Analog</li>
+    <li data-category="unreleased" class="noise">Unreleased</li>
+  </ul>
 
 <style>
   .work {
@@ -20,22 +21,20 @@
     }
   }
 
-
   #category-menu {
     display: grid;
     gap: 10px;
-  overflow: hidden;
-  max-height: 500px;
-  transition: max-height 0.4s ease, opacity 0.4s ease;
-  opacity: 1;
-}
+    overflow: hidden;
+    max-height: 500px;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 1;
+  }
 
-#category-menu.collapsed {
-  max-height: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-
+  #category-menu.collapsed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
 
   #category-menu li {
     font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
@@ -46,6 +45,7 @@
     transition-duration: 0.8s;
     text-shadow: 0 0 0px var(--inv);
     opacity: 0.2;
+    position: relative;
   }
 
   #category-menu li::before {
@@ -68,36 +68,39 @@
   }
 
   #sidebar-container {
-    position: absolute;
-    top: 50vmin;
+    position: fixed;
+    top: 20vh;
     left: 2%;
     z-index: 100;
   }
+
+  #category-header {
+    cursor: pointer;
+  }
 </style>
 
-
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const categoryMenu = document.getElementById("category-menu");
-  const categoryHeader = document.getElementById("category-header");
+  document.addEventListener("DOMContentLoaded", () => {
+    const categoryMenu = document.getElementById("category-menu");
+    const categoryHeader = document.getElementById("category-header");
 
-  let isManuallyToggled = false;
+    let isManuallyToggled = false;
 
-  // スクロールで自動的に折りたたみ／展開
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY || window.pageYOffset;
+    // スクロールで自動的に折りたたみ／展開
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY || window.pageYOffset;
 
-    if (scrollY > 200 && !isManuallyToggled) {
-      categoryMenu.classList.add("collapsed");
-    } else if (scrollY <= 200 && !isManuallyToggled) {
-      categoryMenu.classList.remove("collapsed");
-    }
+      if (scrollY > 200 && !isManuallyToggled) {
+        categoryMenu.classList.add("collapsed");
+      } else if (scrollY <= 200 && !isManuallyToggled) {
+        categoryMenu.classList.remove("collapsed");
+      }
+    });
+
+    // 手動でトグル（クリック）
+    categoryHeader.addEventListener("click", () => {
+      categoryMenu.classList.toggle("collapsed");
+      isManuallyToggled = true;
+    });
   });
-
-  // 手動でトグル（クリック）
-  categoryHeader.addEventListener("click", () => {
-    categoryMenu.classList.toggle("collapsed");
-    isManuallyToggled = true;
-  });
-});
 </script>
