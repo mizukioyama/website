@@ -1,7 +1,7 @@
 
   <p id="category-header" class="noise" style="font-size: 1.6rem; font-weight: 400; cursor: pointer;">||||</p>
   <ul id="category-menu">
-    <p>Category</p>
+    <p class="noise">Category</p>
     <li data-category="all" class="active noise">All</li>
     <li data-category="digital" class="noise">Digital</li>
     <li data-category="analog" class="noise">Analog</li>
@@ -37,6 +37,12 @@
     pointer-events: none;
   }
 
+  #category-menu p {
+    font-size: 1.6rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
   #category-menu li {
     font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
     margin: 0;
@@ -85,6 +91,11 @@
     cursor: pointer;
   }
 
-@media screen and (max-width: 599px) {}
+@media screen and (max-width: 599px) {
+  #sidebar-container .noise {
+    font-size: 1rem;
+    background-image: linear-gradient(to right, var(--inv));
+  }
+}
 
 </style>
