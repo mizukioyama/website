@@ -4,6 +4,7 @@
 }
 
 #langChenge {
+    position: fixed;
     top: 5vmin;
     left: 2%;
 }
