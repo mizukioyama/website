@@ -24,27 +24,26 @@
 
   #category-menu {
     display: grid;
-    gap: 10px;
+    gap: 5px;
     overflow: hidden;
     max-height: 500px;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
+    margin-top: 0;
+    transition: margin-top 0.4 , max-height 0.4s ease, opacity 0.4s ease;
     opacity: 1;
   }
 
   #category-menu.collapsed {
     max-height: 0;
     opacity: 0;
+    margin-top: -20px;
     pointer-events: none;
   }
 
   #category-menu p {
-    font-size: 1.6rem;
-    position: absolute;
-    left: 1rem;
-    top: 0;
+    font-size: 1rem;
   }
   #category-menu li {
-    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+    font-size: 1.2rem;
     margin: 0;
     padding: 0;
     width: 100%;
