@@ -187,6 +187,8 @@ function setupCategoryFilter() {
     }
 
     function renderGallery() {
+        const lang = getLang(); // ← 必ず最新の言語を取得
+
     const container = document.getElementById("gallery-container");
     container.classList.remove("show");
 
@@ -207,16 +209,16 @@ function setupCategoryFilter() {
                 Category | ${displayCategory}
             </p>
 
-            <p>${item.caption[currentLang]}</p>
+            <p>${item.caption[lang]}</p>
 
             <div class="work-img">
                 <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.05rem; transform: rotate(-90deg);">
                     ${item.category.join(" / ")}
                 </span>
-                <img src="${item.img}" alt="${item.title[currentLang]}">
+                <img src="${item.img}" alt="${item.title[lang]}">
                 <span class="dli-external-link">©Oyama</span>
                 <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-                    <h3>${item.title[currentLang]}</h3>
+                    <h3>${item.title[lang]}</h3>
                     <p style="width: fit-content;">${item.category.join(" / ")}</p>
                 </a>
             </div>
