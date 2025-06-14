@@ -150,6 +150,10 @@ function setupCategoryFilter() {
     let selectedCategory = "all";
     let currentPage = 1;
 
+    const container = document.getElementById("gallery-container");
+    const paginationContainer = document.getElementById("pagination");
+    const categoryButtons = document.querySelectorAll("[data-category]");
+
     function filterArtworks() {
         return selectedCategory === "all"
             ? artworks
@@ -157,14 +161,12 @@ function setupCategoryFilter() {
     }
 
     function renderGallery() {
-        const container = document.getElementById("gallery-container");
-        container.classList.remove("show");
-
         const filtered = filterArtworks();
         const start = (currentPage - 1) * itemsPerPage;
         const pageItems = filtered.slice(start, start + itemsPerPage);
 
         container.innerHTML = "";
+
         pageItems.forEach(item => {
             const displayCategory = selectedCategory === "all"
                 ? item.category.join(" / ")
@@ -197,43 +199,34 @@ function setupCategoryFilter() {
         });
 
         renderPagination(filtered.length);
-
-        setTimeout(() => {
-            container.classList.add("show");
-        }, 50);
     }
 
     function renderPagination(totalItems) {
-        const pagination = document.getElementById("pagination");
-        pagination.innerHTML = "";
-
+        paginationContainer.innerHTML = "";
         const totalPages = Math.ceil(totalItems / itemsPerPage);
 
         for (let i = 1; i <= totalPages; i++) {
-            const button = document.createElement("button");
-            button.textContent = i;
-            button.className = i === currentPage ? "active" : "";
-            button.addEventListener("click", () => {
+            const btn = document.createElement("button");
+            btn.textContent = i;
+            btn.className = i === currentPage ? "active" : "";
+            btn.addEventListener("click", () => {
                 currentPage = i;
                 renderGallery();
             });
-            pagination.appendChild(button);
+            paginationContainer.appendChild(btn);
         }
     }
 
-    function setupCategoryButtons() {
-        const buttons = document.querySelectorAll(".category-button");
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                selectedCategory = button.dataset.category;
-                currentPage = 1;
-                buttons.forEach(btn => btn.classList.remove("active"));
-                button.classList.add("active");
-                renderGallery();
-            });
-        });
-    }
+    categoryButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            selectedCategory = button.getAttribute("data-category");
+            currentPage = 1;
+            renderGallery();
 
-    setupCategoryButtons();
+            categoryButtons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+        });
+    });
+
     renderGallery();
 }
