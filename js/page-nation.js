@@ -187,53 +187,53 @@ function setupCategoryFilter() {
     }
 
     function renderGallery() {
-        const lang = getLang(); // ← 必ず最新の言語を取得
+        const lang = getLang();
 
-    const container = document.getElementById("gallery-container");
-    container.classList.remove("show");
+        const container = document.getElementById("gallery-container");
+        container.classList.remove("show");
 
-    const filtered = filterArtworks();
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
+        const filtered = filterArtworks();
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageItems = filtered.slice(start, start + itemsPerPage);
 
-    container.innerHTML = "";
-    pageItems.forEach(item => {
-        const displayCategory = selectedCategory === "all"
-            ? item.category.join(" / ")
-            : selectedCategory;
+        container.innerHTML = "";
+        pageItems.forEach(item => {
+            const displayCategory = selectedCategory === "all"
+                ? item.category.join(" / ")
+                : selectedCategory;
 
-        const div = document.createElement("div");
-        div.className = "work";
-        div.innerHTML = `
-            <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
-                Category | ${displayCategory}
-            </p>
+            const div = document.createElement("div");
+            div.className = "work";
+            div.innerHTML = `
+                <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
+                    Category | ${displayCategory}
+                </p>
 
-            <p>${item.caption[lang]}</p>
+                <p>${item.caption[lang]}</p>
 
-            <div class="work-img">
-                <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.05rem; transform: rotate(-90deg);">
-                    ${item.category.join(" / ")}
-                </span>
-                <img src="${item.img}" alt="${item.title[lang]}">
-                <span class="dli-external-link">©Oyama</span>
-                <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-                    <h3>${item.title[lang]}</h3>
-                    <p style="width: fit-content;">${item.category.join(" / ")}</p>
-                </a>
-            </div>
-        `;
-        container.appendChild(div);
-    });
+                <div class="work-img">
+                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.05rem; transform: rotate(-90deg);">
+                        ${item.category.join(" / ")}
+                    </span>
+                    <img src="${item.img}" alt="${item.title[lang]}">
+                    <span class="dli-external-link">©Oyama</span>
+                    <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
+                        <h3>${item.title[lang]}</h3>
+                        <p style="width: fit-content;">${item.category.join(" / ")}</p>
+                    </a>
+                </div>
+            `;
+            container.appendChild(div);
+        });
 
-    renderPagination(filtered.length);
+        renderPagination(filtered.length);
 
-    setTimeout(() => {
-        container.classList.add("show");
-    }, 3);
+        setTimeout(() => {
+            container.classList.add("show");
+        }, 3);
 
-    smoothScrollToTop(400);
-}
+        smoothScrollToTop(400);
+    }
 
     function renderPagination(totalItems) {
         const pagination = document.getElementById("pagination");
@@ -282,7 +282,7 @@ function setupCategoryFilter() {
 
         requestAnimationFrame(scrollStep);
     }
-    
+
     // ✅ 言語切り替えイベント（ボタン表示切り替えなし）
     const langBtn = document.getElementById("langChenge");
     if (langBtn) {
