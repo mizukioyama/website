@@ -1,8 +1,5 @@
 function setupCategoryFilter() {
-    // 初期状態：localStorageに保存された値を優先、なければ"ja"
     let currentLang = localStorage.getItem("lang") || "ja";
-
-    // 常に最新の言語を取得する関数
     const getLang = () => currentLang;
 
     const artworks = [
@@ -188,7 +185,6 @@ function setupCategoryFilter() {
 
     function renderGallery() {
         const lang = getLang();
-
         const container = document.getElementById("gallery-container");
         container.classList.remove("show");
 
@@ -227,11 +223,7 @@ function setupCategoryFilter() {
         });
 
         renderPagination(filtered.length);
-
-        setTimeout(() => {
-            container.classList.add("show");
-        }, 3);
-
+        setTimeout(() => container.classList.add("show"), 3);
         smoothScrollToTop(400);
     }
 
@@ -270,27 +262,40 @@ function setupCategoryFilter() {
     function smoothScrollToTop(duration = 400) {
         const start = window.pageYOffset;
         const startTime = performance.now();
-
         function scrollStep(currentTime) {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             window.scrollTo(0, start * (1 - progress));
-            if (progress < 1) {
-                requestAnimationFrame(scrollStep);
-            }
+            if (progress < 1) requestAnimationFrame(scrollStep);
         }
-
         requestAnimationFrame(scrollStep);
     }
 
-    // ✅ 言語切り替えイベント（ボタン表示切り替えなし）
-    const langBtn = document.getElementById("langChenge");
-    if (langBtn) {
-        langBtn.addEventListener("click", () => {
-            currentLang = currentLang === "ja" ? "en" : "ja";
-            localStorage.setItem("lang", currentLang); // 状態を保存
-            renderGallery(); // 再描画
-        });
+    // ✅ 言語ラジオボタンによる切り替え処理
+    const langJaRadio = document.getElementById("langJa");
+    const langEnRadio = document.getElementById("langEn");
+
+    langJaRadio.addEventListener("change", () => {
+        if (langJaRadio.checked) {
+            currentLang = "ja";
+            localStorage.setItem("lang", currentLang);
+            renderGallery();
+        }
+    });
+
+    langEnRadio.addEventListener("change", () => {
+        if (langEnRadio.checked) {
+            currentLang = "en";
+            localStorage.setItem("lang", currentLang);
+            renderGallery();
+        }
+    });
+
+    // ✅ 初期言語状態の反映
+    if (currentLang === "ja") {
+        langJaRadio.checked = true;
+    } else {
+        langEnRadio.checked = true;
     }
 
     renderGallery(); // 初期描画
