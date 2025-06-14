@@ -176,10 +176,8 @@ function setupCategoryFilter() {
                 <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
                     Category | ${displayCategory}
                 </p>
-
                 <p lang="ja">${item.caption.ja}</p>
                 <p lang="en">${item.caption.en}</p>
-
                 <div class="work-img">
                     <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
                         ${item.category.join(" / ")}
@@ -200,64 +198,40 @@ function setupCategoryFilter() {
 
         setTimeout(() => {
             container.classList.add("show");
-        }, 3);
-
-        smoothScrollToTop(400);
+        }, 10);
     }
 
     function renderPagination(totalItems) {
         const pagination = document.getElementById("pagination");
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
         pagination.innerHTML = "";
 
-        for (let i = 1; i <= totalPages; i++) {
+        const pageCount = Math.ceil(totalItems / itemsPerPage);
+
+        for (let i = 1; i <= pageCount; i++) {
             const btn = document.createElement("button");
             btn.textContent = i;
-            btn.className = "page-btn" + (i === currentPage ? " active" : "");
+            btn.className = (i === currentPage) ? "active" : "";
             btn.addEventListener("click", () => {
                 currentPage = i;
                 renderGallery();
-                window.scrollTo({ top: 0, behavior: "smooth" });
             });
             pagination.appendChild(btn);
         }
     }
 
-    document.querySelectorAll("#category-menu li").forEach(li => {
-        li.addEventListener("click", () => {
-            selectedCategory = li.getAttribute("data-category");
-            currentPage = 1;
-
-            document.querySelectorAll("#category-menu li").forEach(el =>
-                el.classList.remove("active")
-            );
-            li.classList.add("active");
-
-            renderGallery();
+    function setupCategoryButtons() {
+        const buttons = document.querySelectorAll(".category-button");
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                selectedCategory = button.dataset.category;
+                currentPage = 1;
+                buttons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+                renderGallery();
+            });
         });
-    });
-
-    function smoothScrollToTop(duration = 400) {
-        const start = window.pageYOffset;
-        const startTime = performance.now();
-
-        function scrollStep(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            window.scrollTo(0, start * (1 - progress));
-            if (progress < 1) {
-                requestAnimationFrame(scrollStep);
-            }
-        }
-
-        requestAnimationFrame(scrollStep);
     }
 
-    renderGallery(); // 初期描画
-
-document.getElementById("langChenge").addEventListener("click", () => {
-  currentLang = currentLang === "ja" ? "en" : "ja";
-  setLang(currentLang);
-});
-
+    setupCategoryButtons();
+    renderGallery();
 }
