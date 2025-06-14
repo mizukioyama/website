@@ -1,4 +1,4 @@
-function setupCategoryFilter() {
+document.addEventListener("DOMContentLoaded", function () {
     const artworks = [
         {
             title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
@@ -146,88 +146,88 @@ function setupCategoryFilter() {
         }
     ];
 
-    const itemsPerPage = 4;
-    let selectedCategory = "all";
-    let currentPage = 1;
+  const itemsPerPage = 4;
+  let selectedCategory = "all";
+  let currentPage = 1;
+  let currentLang = "ja";
 
-    const container = document.getElementById("gallery-container");
-    const pagination = document.getElementById("pagination");
-    const filterButtons = document.querySelectorAll(".filter-button");
+  const galleryContainer = document.getElementById("gallery-container");
+  const pagination = document.getElementById("pagination");
 
-    function filterArtworks() {
-        return selectedCategory === "all"
-            ? artworks
-            : artworks.filter(item => item.category.includes(selectedCategory));
-    }
-
-    function renderGallery() {
-        const filtered = filterArtworks();
-        const start = (currentPage - 1) * itemsPerPage;
-        const pageItems = filtered.slice(start, start + itemsPerPage);
-
-        container.classList.remove("show");
-        setTimeout(() => {
-            container.innerHTML = "";
-
-            pageItems.forEach(item => {
-                const displayCategory = selectedCategory === "all" ? item.category.join(" / ") : selectedCategory;
-
-                const div = document.createElement("div");
-                div.className = "work fade-in";
-                div.innerHTML = `
-                    <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
-                        Category | ${displayCategory}
-                    </p>
-
-                    <p lang="ja">${item.caption.ja}</p>
-                    <p lang="en">${item.caption.en}</p>
-
-                    <div class="work-img">
-                        <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
-                            ${item.category.join(" / ")}
-                        </span>
-                        <img src="${item.img}" alt="${item.title.ja}">
-                        <span class="dli-external-link">©Oyama</span>
-                        <a class="works" href="">
-                            <h3 lang="ja">${item.title.ja}</h3>
-                            <h3 lang="en">${item.caption.en}</h3>
-                            <p style="width: fit-content;">${item.category.join(" / ")}</p>
-                        </a>
-                    </div>`;
-
-                container.appendChild(div);
-            });
-
-            container.classList.add("show");
-            renderPagination(filtered.length);
-        }, 200);
-    }
-
-    function renderPagination(totalItems) {
-        pagination.innerHTML = "";
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement("button");
-            btn.textContent = i;
-            btn.className = i === currentPage ? "active" : "";
-            btn.addEventListener("click", () => {
-                currentPage = i;
-                renderGallery();
-            });
-            pagination.appendChild(btn);
-        }
-    }
-
-    filterButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            selectedCategory = button.dataset.category;
-            currentPage = 1;
-            filterButtons.forEach(btn => btn.classList.remove("active"));
-            button.classList.add("active");
-            renderGallery();
-        });
+  // 言語切り替え
+  const langButtons = document.querySelectorAll("#langChenge input[name='lang']");
+  langButtons.forEach((btn) => {
+    btn.addEventListener("change", () => {
+      currentLang = btn.value;
+      currentPage = 1;
+      renderGallery();
     });
+  });
 
-    renderGallery();
-}
+  // カテゴリ切り替え
+  document.querySelectorAll("#category-menu li").forEach((li) => {
+    li.addEventListener("click", () => {
+      selectedCategory = li.getAttribute("data-category");
+      currentPage = 1;
+      document.querySelectorAll("#category-menu li").forEach((el) =>
+        el.classList.remove("active")
+      );
+      li.classList.add("active");
+      renderGallery();
+    });
+  });
+
+  function filterArtworks() {
+    return selectedCategory === "all"
+      ? artworks
+      : artworks.filter((item) => item.category.includes(selectedCategory));
+  }
+
+  function renderGallery() {
+    const filtered = filterArtworks();
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = filtered.slice(start, end);
+
+    // アニメーション（フェードアウト → 更新 → フェードイン）
+    galleryContainer.classList.remove("show");
+    setTimeout(() => {
+      galleryContainer.innerHTML = "";
+
+      pageItems.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "artwork-card";
+        card.innerHTML = `
+          <img src="${item.img}" alt="${item.title[currentLang]}">
+          <h3>${item.title[currentLang]}</h3>
+          <p>${item.caption[currentLang]}</p>
+        `;
+        galleryContainer.appendChild(card);
+      });
+
+      renderPagination(filtered.length);
+      galleryContainer.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 300); // アニメーションのため少し待つ
+  }
+
+  function renderPagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    pagination.innerHTML = "";
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageBtn = document.createElement("button");
+      pageBtn.className = i === currentPage ? "active" : "";
+      pageBtn.textContent = i;
+      pageBtn.addEventListener("click", () => {
+        currentPage = i;
+        renderGallery();
+      });
+      pagination.appendChild(pageBtn);
+    }
+  }
+
+  // 初期状態を日本語で設定
+  document.getElementById("langJa").checked = true;
+  renderGallery();
+});
