@@ -1,8 +1,10 @@
 function setupCategoryFilter() {
-    let currentLang = "ja"; // 状態はこの中で保持
+    // 初期状態：localStorageに保存された値を優先、なければ"ja"
+    let currentLang = localStorage.getItem("lang") || "ja";
 
-    const getLang = () => currentLang; // ← この関数を通して言語を参照
-    
+    // 常に最新の言語を取得する関数
+    const getLang = () => currentLang;
+
     const artworks = [
         {
             title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
@@ -279,10 +281,15 @@ function setupCategoryFilter() {
         requestAnimationFrame(scrollStep);
     }
     
-    document.getElementById("langChenge").addEventListener("click", () => {
-      currentLang = currentLang === "ja" ? "en" : "ja";
-      renderGallery(); // これで表示が再レンダリングされる
-    });
+    // ✅ 言語切り替えイベント（ボタン表示切り替えなし）
+    const langBtn = document.getElementById("langChenge");
+    if (langBtn) {
+        langBtn.addEventListener("click", () => {
+            currentLang = currentLang === "ja" ? "en" : "ja";
+            localStorage.setItem("lang", currentLang); // 状態を保存
+            renderGallery(); // 再描画
+        });
+    }
 
     renderGallery(); // 初期描画
 }
