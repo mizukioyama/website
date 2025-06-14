@@ -148,86 +148,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const itemsPerPage = 4;
   let selectedCategory = "all";
+  let currentLang = document.getElementById("langJa").checked ? "ja" : "en";
   let currentPage = 1;
-  let currentLang = "ja";
 
-  const galleryContainer = document.getElementById("gallery-container");
+  const container = document.getElementById("gallery-container");
   const pagination = document.getElementById("pagination");
 
-  // 言語切り替え
-  const langButtons = document.querySelectorAll("#langChenge input[name='lang']");
-  langButtons.forEach((btn) => {
-    btn.addEventListener("change", () => {
-      currentLang = btn.value;
-      currentPage = 1;
-      renderGallery();
-    });
-  });
-
-  // カテゴリ切り替え
-  document.querySelectorAll("#category-menu li").forEach((li) => {
-    li.addEventListener("click", () => {
-      selectedCategory = li.getAttribute("data-category");
-      currentPage = 1;
-      document.querySelectorAll("#category-menu li").forEach((el) =>
-        el.classList.remove("active")
-      );
-      li.classList.add("active");
-      renderGallery();
-    });
-  });
-
+  // === フィルター処理 ===
   function filterArtworks() {
     return selectedCategory === "all"
       ? artworks
-      : artworks.filter((item) => item.category.includes(selectedCategory));
+      : artworks.filter(item => item.category.includes(selectedCategory));
   }
 
+  // === ギャラリー描画 ===
   function renderGallery() {
     const filtered = filterArtworks();
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    const pageItems = filtered.slice(start, end);
+    const paginatedItems = filtered.slice(start, end);
 
-    // アニメーション（フェードアウト → 更新 → フェードイン）
-    galleryContainer.classList.remove("show");
-    setTimeout(() => {
-      galleryContainer.innerHTML = "";
+    container.innerHTML = "";
+    paginatedItems.forEach(item => {
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "gallery-item fade-in";
+      itemDiv.innerHTML = `
+        <img src="${item.img}" alt="${item.title[currentLang]}">
+        <h3>${item.title[currentLang]}</h3>
+        <p>${item.caption[currentLang]}</p>
+      `;
+      container.appendChild(itemDiv);
+    });
 
-      pageItems.forEach((item) => {
-        const card = document.createElement("div");
-        card.className = "artwork-card";
-        card.innerHTML = `
-          <img src="${item.img}" alt="${item.title[currentLang]}">
-          <h3>${item.title[currentLang]}</h3>
-          <p>${item.caption[currentLang]}</p>
-        `;
-        galleryContainer.appendChild(card);
-      });
-
-      renderPagination(filtered.length);
-      galleryContainer.classList.add("show");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 300); // アニメーションのため少し待つ
+    container.classList.add("show");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderPagination(filtered.length);
   }
 
+  // === ページネーション描画 ===
   function renderPagination(totalItems) {
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
     pagination.innerHTML = "";
+    const pageCount = Math.ceil(totalItems / itemsPerPage);
 
-    for (let i = 1; i <= totalPages; i++) {
-      const pageBtn = document.createElement("button");
-      pageBtn.className = i === currentPage ? "active" : "";
-      pageBtn.textContent = i;
-      pageBtn.addEventListener("click", () => {
+    for (let i = 1; i <= pageCount; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i;
+      if (i === currentPage) btn.classList.add("active");
+      btn.addEventListener("click", () => {
         currentPage = i;
         renderGallery();
       });
-      pagination.appendChild(pageBtn);
+      pagination.appendChild(btn);
     }
   }
 
-  // 初期状態を日本語で設定
-  document.getElementById("langJa").checked = true;
+  // === カテゴリー切り替え ===
+  document.querySelectorAll("#category-menu li").forEach(li => {
+    li.addEventListener("click", () => {
+      document.querySelector("#category-menu .active")?.classList.remove("active");
+      li.classList.add("active");
+      selectedCategory = li.dataset.category;
+      currentPage = 1;
+      renderGallery();
+    });
+  });
+
+  // === 言語切り替え ===
+  document.querySelectorAll("#langChenge input[name='lang']").forEach(radio => {
+    radio.addEventListener("change", () => {
+      currentLang = radio.value;
+      renderGallery();
+    });
+  });
+
+  // 初期表示
   renderGallery();
 });
