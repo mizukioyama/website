@@ -263,16 +263,6 @@ main {
     backdrop-filter: blur(20px);
 }
 
-/* アニメーション用クラス */
-#gallery-container {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-#gallery-container.show {
-  opacity: 1;
-}
-
-
 .gallery .noise {
     background-image: linear-gradient(to right, #fff 0%, #0f00 100%);
 }

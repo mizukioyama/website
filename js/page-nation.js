@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
+  let currentLang = "ja";
+
     const artworks = [
         {
             title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
@@ -148,52 +150,77 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const itemsPerPage = 4;
   let selectedCategory = "all";
-  let currentLang = document.getElementById("langJa").checked ? "ja" : "en";
   let currentPage = 1;
 
-  const container = document.getElementById("gallery-container");
-  const pagination = document.getElementById("pagination");
-
-  // === フィルター処理 ===
   function filterArtworks() {
     return selectedCategory === "all"
       ? artworks
       : artworks.filter(item => item.category.includes(selectedCategory));
   }
 
-  // === ギャラリー描画 ===
   function renderGallery() {
+    const container = document.getElementById("gallery-container");
+    if (!container) return;
+
+    container.classList.remove("show");
+
     const filtered = filterArtworks();
     const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const paginatedItems = filtered.slice(start, end);
+    const pageItems = filtered.slice(start, start + itemsPerPage);
 
     container.innerHTML = "";
-    paginatedItems.forEach(item => {
-      const itemDiv = document.createElement("div");
-      itemDiv.className = "gallery-item fade-in";
-      itemDiv.innerHTML = `
-        <img src="${item.img}" alt="${item.title[currentLang]}">
-        <h3>${item.title[currentLang]}</h3>
-        <p>${item.caption[currentLang]}</p>
+    pageItems.forEach(item => {
+      const displayCategory = selectedCategory === "all"
+        ? item.category.join(" / ")
+        : selectedCategory;
+
+      const div = document.createElement("div");
+      div.className = "work";
+      div.innerHTML = `
+        <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
+          Category | ${displayCategory}
+        </p>
+        <p lang="ja">${item.caption.ja}</p>
+        <p lang="en">${item.caption.en}</p>
+
+        <div class="work-img">
+          <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
+            ${item.category.join(" / ")}
+          </span>
+          <img src="${item.img}" alt="${item.title.ja}">
+          <span class="dli-external-link">©Oyama</span>
+          <a class="works" href="">
+            <h3 lang="ja">${item.title.ja}</h3>
+            <h3 lang="en">${item.caption.en}</h3>
+            <p style="width: fit-content;">${item.category.join(" / ")}</p>
+          </a>
+        </div>
       `;
-      container.appendChild(itemDiv);
+      container.appendChild(div);
     });
 
-    container.classList.add("show");
-    window.scrollTo({ top: 0, behavior: "smooth" });
     renderPagination(filtered.length);
+
+    // 表示アニメーション
+    setTimeout(() => {
+      container.classList.add("show");
+    }, 10);
+
+    smoothScrollToTop(400);
+    updateLangVisibility();
   }
 
-  // === ページネーション描画 ===
   function renderPagination(totalItems) {
-    pagination.innerHTML = "";
-    const pageCount = Math.ceil(totalItems / itemsPerPage);
+    const pagination = document.getElementById("pagination");
+    if (!pagination) return;
 
-    for (let i = 1; i <= pageCount; i++) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    pagination.innerHTML = "";
+
+    for (let i = 1; i <= totalPages; i++) {
       const btn = document.createElement("button");
       btn.textContent = i;
-      if (i === currentPage) btn.classList.add("active");
+      btn.className = "page-btn" + (i === currentPage ? " active" : "");
       btn.addEventListener("click", () => {
         currentPage = i;
         renderGallery();
@@ -202,25 +229,57 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // === カテゴリー切り替え ===
+  function smoothScrollToTop(duration = 400) {
+    const start = window.pageYOffset;
+    const startTime = performance.now();
+
+    function scrollStep(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, start * (1 - progress));
+      if (progress < 1) {
+        requestAnimationFrame(scrollStep);
+      }
+    }
+
+    requestAnimationFrame(scrollStep);
+  }
+
+  // カテゴリクリックイベント
   document.querySelectorAll("#category-menu li").forEach(li => {
     li.addEventListener("click", () => {
-      document.querySelector("#category-menu .active")?.classList.remove("active");
-      li.classList.add("active");
-      selectedCategory = li.dataset.category;
+      selectedCategory = li.getAttribute("data-category");
       currentPage = 1;
+
+      document.querySelectorAll("#category-menu li").forEach(el =>
+        el.classList.remove("active")
+      );
+      li.classList.add("active");
+
       renderGallery();
     });
   });
 
-  // === 言語切り替え ===
-  document.querySelectorAll("#langChenge input[name='lang']").forEach(radio => {
-    radio.addEventListener("change", () => {
-      currentLang = radio.value;
-      renderGallery();
+  // 言語切り替え処理
+  const langToggle = document.getElementById("langChenge");
+  if (langToggle) {
+    langToggle.addEventListener("click", () => {
+      currentLang = currentLang === "ja" ? "en" : "ja";
+      setLang(currentLang);
     });
-  });
+  }
 
-  // 初期表示
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll("[lang]").forEach(el => {
+      el.style.display = el.getAttribute("lang") === lang ? "block" : "none";
+    });
+  }
+
+  function updateLangVisibility() {
+    setLang(currentLang); // 表示内容に対して現在の言語に合わせる
+  }
+
+  // 初期描画
   renderGallery();
 });
