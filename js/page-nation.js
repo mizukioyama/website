@@ -282,9 +282,6 @@ function setupCategoryFilter() {
 document.getElementById("langChenge").addEventListener("click", () => {
   currentLang = currentLang === "ja" ? "en" : "ja";
   renderGallery();
-
-  // ボタン表示も切り替え
-  document.getElementById("langChenge").textContent = currentLang === "ja" ? "EN" : "JA";
 });
 
 
