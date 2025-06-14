@@ -6,145 +6,169 @@ function setupCategoryFilter() {
             title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
             caption: { ja: "Order：アナログ（ペイント）<br>", en: "Order: Analog (Paint)<br>" },
             category: ["analog"],
-            img: "img/2024works.jpg"
+            img: "img/2024works.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：AI生成", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/20230629.jpg"
+            img: "img/20230629.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：幸緑 AI", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/21ai.jpg"
+            img: "img/21ai.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：挑戦 AI生成", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/22ai.jpg"
+            img: "img/22ai.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：加工 AI生成", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/230011-2.jpg"
+            img: "img/230011-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：加工 AI生成", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/230029-2.jpg"
+            img: "img/230029-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：写真", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/230033-2.jpg"
+            img: "img/230033-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：挑戦 加工 / AI生成", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/230051-2.jpg"
+            img: "img/230051-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/230052-2.jpg"
+            img: "img/230052-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "心樹 / 2023", en: "心樹 / 2023" },
             caption: { ja: "心樹 / 2023<br>アナログ作品「挑戦」から芽吹いた、デジタルの樹。<br><br>幾重にも重ねた編集の葉が、やがてひとつの球体を結び、<br>それは心の奥底──静かにたゆたう源（みなもと）を象っています。<br>大地に根を張るように、青は深い静けさを、<br>緑は命の循環を、黄色は内に宿る希望の光を。<br>自然の色をまといながら、目には見えない「心の樹形図」を描きました。", en: "Unpublished: AI generated" },
             category: ["digital", "analog"],
-            img: "img/230053-2.jpg"
+            img: "img/230053-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：AI生成", en: "Unpublished: AI generated" },
             category: ["digital", "analog"],
-            img: "img/230055-2.jpg"
+            img: "img/230055-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：写真 / AI生成", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/230035-2.jpg"
+            img: "img/230035-2.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/R0021433.jpg"
+            img: "img/R0021433.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/white.jpg"
+            img: "img/white.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2022", en: "No Title / 2022" },
             caption: { ja: "未発表作品：デジタル / Photo", en: "Unpublished: AI generated" },
             category: ["digital", "ai"],
-            img: "img/wallart.jpg"
+            img: "img/wallart.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "映し神 / 2022", en: "No Title / 2022" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/映し神.jpg"
+            img: "img/映し神.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "挑戦 / 2022", en: "No Title / 2022" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/挑戦.jpg"
+            img: "img/挑戦.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "戦争 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/戦争.jpg"
+            img: "img/戦争.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "幸緑 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/幸緑.jpg"
+            img: "img/幸緑.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "金雲 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/金雲.jpg"
+            img: "img/金雲.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "幸華 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/幸華.jpg"
+            img: "img/幸華.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "輝き / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/輝き.jpg"
+            img: "img/輝き.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "無題 / 2017", en: "No Title / 2017" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/10-1702.jpg"
+            img: "img/10-1702.jpg",
+            link: "pages/2024work.html"
         },
         {
             title: { ja: "海底 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
-            img: "img/海底.jpg"
+            img: "img/海底.jpg",
+            link: "pages/2024work.html"
         }
     ];
 
@@ -182,12 +206,12 @@ function setupCategoryFilter() {
             <p>${item.caption[currentLang]}</p>
 
             <div class="work-img">
-                <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
+                <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.05rem; transform: rotate(-90deg);">
                     ${item.category.join(" / ")}
                 </span>
                 <img src="${item.img}" alt="${item.title[currentLang]}">
                 <span class="dli-external-link">©Oyama</span>
-                <a class="works" href="">
+                <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
                     <h3>${item.title[currentLang]}</h3>
                     <p style="width: fit-content;">${item.category.join(" / ")}</p>
                 </a>
