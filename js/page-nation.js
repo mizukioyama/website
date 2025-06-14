@@ -176,8 +176,10 @@ function setupCategoryFilter() {
                 <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
                     Category | ${displayCategory}
                 </p>
+
                 <p lang="ja">${item.caption.ja}</p>
                 <p lang="en">${item.caption.en}</p>
+
                 <div class="work-img">
                     <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
                         ${item.category.join(" / ")}
@@ -198,24 +200,24 @@ function setupCategoryFilter() {
 
         setTimeout(() => {
             container.classList.add("show");
-        }, 10);
+        }, 50);
     }
 
     function renderPagination(totalItems) {
         const pagination = document.getElementById("pagination");
         pagination.innerHTML = "";
 
-        const pageCount = Math.ceil(totalItems / itemsPerPage);
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-        for (let i = 1; i <= pageCount; i++) {
-            const btn = document.createElement("button");
-            btn.textContent = i;
-            btn.className = (i === currentPage) ? "active" : "";
-            btn.addEventListener("click", () => {
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement("button");
+            button.textContent = i;
+            button.className = i === currentPage ? "active" : "";
+            button.addEventListener("click", () => {
                 currentPage = i;
                 renderGallery();
             });
-            pagination.appendChild(btn);
+            pagination.appendChild(button);
         }
     }
 
