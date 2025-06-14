@@ -7,7 +7,7 @@ function setupCategoryFilter() {
             caption: { ja: "Order：アナログ（ペイント）<br>", en: "Order: Analog (Paint)<br>" },
             category: ["analog"],
             img: "img/2024works.jpg",
-            link: "pages/2024work.html"
+            link: "index.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
