@@ -151,8 +151,8 @@ function setupCategoryFilter() {
     let currentPage = 1;
 
     const container = document.getElementById("gallery-container");
-    const paginationContainer = document.getElementById("pagination");
-    const categoryButtons = document.querySelectorAll("[data-category]");
+    const pagination = document.getElementById("pagination");
+    const filterButtons = document.querySelectorAll(".filter-button");
 
     function filterArtworks() {
         return selectedCategory === "all"
@@ -165,44 +165,46 @@ function setupCategoryFilter() {
         const start = (currentPage - 1) * itemsPerPage;
         const pageItems = filtered.slice(start, start + itemsPerPage);
 
-        container.innerHTML = "";
+        container.classList.remove("show");
+        setTimeout(() => {
+            container.innerHTML = "";
 
-        pageItems.forEach(item => {
-            const displayCategory = selectedCategory === "all"
-                ? item.category.join(" / ")
-                : selectedCategory;
+            pageItems.forEach(item => {
+                const displayCategory = selectedCategory === "all" ? item.category.join(" / ") : selectedCategory;
 
-            const div = document.createElement("div");
-            div.className = "work";
-            div.innerHTML = `
-                <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
-                    Category | ${displayCategory}
-                </p>
+                const div = document.createElement("div");
+                div.className = "work fade-in";
+                div.innerHTML = `
+                    <p class="noise" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
+                        Category | ${displayCategory}
+                    </p>
 
-                <p lang="ja">${item.caption.ja}</p>
-                <p lang="en">${item.caption.en}</p>
+                    <p lang="ja">${item.caption.ja}</p>
+                    <p lang="en">${item.caption.en}</p>
 
-                <div class="work-img">
-                    <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
-                        ${item.category.join(" / ")}
-                    </span>
-                    <img src="${item.img}" alt="${item.title.ja}">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3 lang="ja">${item.title.ja}</h3>
-                        <h3 lang="en">${item.caption.en}</h3>
-                        <p style="width: fit-content;">${item.category.join(" / ")}</p>
-                    </a>
-                </div>
-            `;
-            container.appendChild(div);
-        });
+                    <div class="work-img">
+                        <span style="position: absolute; top: 0; left: -17vmin; width: 100%; letter-spacing: 0.5rem; transform: rotate(-90deg);">
+                            ${item.category.join(" / ")}
+                        </span>
+                        <img src="${item.img}" alt="${item.title.ja}">
+                        <span class="dli-external-link">©Oyama</span>
+                        <a class="works" href="">
+                            <h3 lang="ja">${item.title.ja}</h3>
+                            <h3 lang="en">${item.caption.en}</h3>
+                            <p style="width: fit-content;">${item.category.join(" / ")}</p>
+                        </a>
+                    </div>`;
 
-        renderPagination(filtered.length);
+                container.appendChild(div);
+            });
+
+            container.classList.add("show");
+            renderPagination(filtered.length);
+        }, 200);
     }
 
     function renderPagination(totalItems) {
-        paginationContainer.innerHTML = "";
+        pagination.innerHTML = "";
         const totalPages = Math.ceil(totalItems / itemsPerPage);
 
         for (let i = 1; i <= totalPages; i++) {
@@ -213,18 +215,17 @@ function setupCategoryFilter() {
                 currentPage = i;
                 renderGallery();
             });
-            paginationContainer.appendChild(btn);
+            pagination.appendChild(btn);
         }
     }
 
-    categoryButtons.forEach(button => {
+    filterButtons.forEach(button => {
         button.addEventListener("click", () => {
-            selectedCategory = button.getAttribute("data-category");
+            selectedCategory = button.dataset.category;
             currentPage = 1;
-            renderGallery();
-
-            categoryButtons.forEach(btn => btn.classList.remove("active"));
+            filterButtons.forEach(btn => btn.classList.remove("active"));
             button.classList.add("active");
+            renderGallery();
         });
     });
 
