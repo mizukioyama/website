@@ -1,6 +1,8 @@
 function setupCategoryFilter() {
-    let currentLang = "ja"; // デフォルト言語
+    let currentLang = "ja"; // 状態はこの中で保持
 
+    const getLang = () => currentLang; // ← この関数を通して言語を参照
+    
     const artworks = [
         {
             title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
