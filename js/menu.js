@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // =======================
 // 多言語対応クラス
 // =======================
+    let currentLang = localStorage.getItem("lang") || "ja";
+    const getLang = () => currentLang;
+
 function multi_language() {
   this.set_current_lang();
 }
