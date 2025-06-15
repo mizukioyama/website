@@ -5,27 +5,35 @@
    block-size: 1rem;
    inline-size: 1rem;
    vertical-align: sub;
+   opacity: 0.5;
 }
+
 form input {
-   position: relative;
+   /*position: relative;
    appearance: none;
    width: 1rem;
    height: 1rem;
    border: 1px solid var(--hover);
    border-radius: 50%;
    background: #fffdfb;
-   box-shadow: inset hsla(0, 0%, 0%, 0.5) 0px 1px 2px 0px;
+   box-shadow: inset hsla(0, 0%, 0%, 0.5) 0px 1px 2px 0px;*/
+   display: none;
 }
 form input[type="checkbox"] {
    border-radius: 2px;
 }
-/* チェックされたらラジオボタン内側を表示 */
+/* チェックされたらラジオボタン内側を表示
 form input[type="checkbox"]:checked::before,
 form input[type="radio"]:checked::before {
    opacity: 1;
+}*/
+
+form input[type="radio"]:checked:focus {
+   opacity: 1;
 }
-form input[type="checkbox"]::before,
-form input[type="radio"]::before {
+
+form input[type="checkbox"]::before
+/*form input[type="radio"]::before*/ {
    background-color: var(--hover);
    box-shadow: 0 1px 2px 0px rgba(46, 46, 46, 0.45);
    border-radius: 50%;
@@ -37,14 +45,15 @@ form input[type="radio"]::before {
    position: absolute;
    right: 0;
    top: 0;
-   width: 1.25rem;
-   height: 1.25rem;
+   width: 0.7rem;
+   height: 0.7rem;
 }
-form input[type="checkbox"]::before {
+/*form input[type="checkbox"]::before {
    border-radius: 0;
    width: 1.5rem;
    height: 1.5rem;
-}
+}*/
+
 .contact-form {
    display: grid;
    width: 65%;
@@ -57,11 +66,18 @@ label {
 
 .form-row {
    width: 100%;
+   font-weight: 200;
+}
+
+.form-col {
+   width: 100%;
 }
 
 .col {
    flex: 1;
+   width: auto;
 }
+
 .col.x-50,
 .col.x-100 {
    margin-top: 2rem;
@@ -85,7 +101,7 @@ input:-webkit-autofill:focus {
    position: relative;
 }
 .contact-form .input-text {
-   font-size: clamp(1.4rem, 0.733rem + 0.89vw, 1.8rem);
+   font-size: 1rem;
    font-family: sans-serif;
    font-weight: 400;
    color: var(--text);
@@ -94,9 +110,8 @@ input:-webkit-autofill:focus {
    height: 42pt;
    border-width: 0;
    padding-left: 2rem;
-   background-color: #fffdfb;
-   box-shadow: 0px 1px 3px rgba(46, 46, 46, 0.5);
-   border-radius: 10px;
+   background: rgba(0, 0, 0, 0.5);
+   backdrop-filter: blur(10px);
 }
 .contact-form #message {
    height: 150pt;
@@ -109,16 +124,16 @@ input:-webkit-autofill:focus {
 .contact-form .input-text:focus+.label,
 .contact-form .input-text:focus+.label span,
 .contact-form .input-text.not-empty+.label {
-   font-size: 1rem;
    transform: translateY(-1.85rem);
+   opacity: 0.7;
 }
 .contact-form .label,
 .contact-form .submit-btn {
-   font-size: 1.2rem;
+   font-size: 0.85rem;
 }
 .contact-form .label {
    font-weight: 400;
-   color: rgba(46, 46, 46, 0.5);
+   color: rgba(146, 146, 146, 0.75);
    position: absolute;
    left: 1vmin;
    top: 0.75rem;
@@ -129,10 +144,6 @@ input:-webkit-autofill:focus {
    font-size: 0.8rem;
    color: var(--text);
    transition: all 0.3s ease;
-}
-
-.contact-form .label-text {
-   color: rgba(46, 46, 46, 0.5);
 }
 
 .contact-form .submit-btn {
