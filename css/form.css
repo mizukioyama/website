@@ -28,7 +28,7 @@ form input[type="radio"]:checked::before {
    opacity: 1;
 }*/
 
-form input[type="radio"]:checked:focus {
+.radio-group input[type="radio"]:checked {
    opacity: 1;
 }
 
@@ -142,7 +142,7 @@ input:-webkit-autofill:focus {
 
 .contact-form .label span {
    font-size: 0.8rem;
-   color: var(--text);
+   color: rgba(146, 146, 146, 0.5);
    transition: all 0.3s ease;
 }
 
@@ -171,8 +171,8 @@ input:-webkit-autofill:focus {
 }
 .radio-group,
 .align-center h3 {
-   font-weight: 700;
-   color: var(--text);
+   font-weight: 200;
+   color: var(--inv);
    width: fit-content;
    line-height: 1.5;
    z-index: 1;
