@@ -62,6 +62,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 100);
   });
 
+  // ホバー処理（対象を自由に追加可能）
+  document.querySelectorAll("body a, button, .button, label, header a, footer a, #sidebar-container li, #sidebar-container").forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      cursor.classList.add("cursor--hover");
+      stalker.classList.add("stalker--hover");
+    });
+    el.addEventListener("mouseleave", () => {
+      cursor.classList.remove("cursor--hover");
+      stalker.classList.remove("stalker--hover");
+    });
+  });
 
   // 初期非表示（オプション）
   cursor.style.opacity = "0";

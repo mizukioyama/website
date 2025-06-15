@@ -51,8 +51,12 @@ nav {
 }
 
 #navArea .inner li a:hover {
-    text-shadow: 0 0px 0px var(--text);
+    text-shadow: 0 0px 0px var(--inv);
     opacity: 1;
+}
+
+.home #navArea .inner li a:hover {
+    text-shadow: 0 0px 0px var(--text);
 }
 
 header .noise {
