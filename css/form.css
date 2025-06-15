@@ -1,11 +1,11 @@
-/*:where(input[type="checkbox"], input[type="radio"]) {
+:where(input[type="checkbox"], input[type="radio"]) {
    font-size: inherit;
    line-height: inherit;
    margin: 0;
    block-size: 1rem;
    inline-size: 1rem;
    vertical-align: sub;
-}*/
+}
 
 form input {
    position: relative;
@@ -20,11 +20,11 @@ form input {
 form input[type="checkbox"] {
    border-radius: 2px;
 }
-/* チェックされたらラジオボタン内側を表示
+/* チェックされたらラジオボタン内側を表示 */
 form input[type="checkbox"]:checked::before,
 form input[type="radio"]:checked::before {
    opacity: 1;
-}*/
+}
 
 .radio-group label {
    opacity: 0.5;
@@ -35,7 +35,7 @@ form input[type="radio"]:checked::before {
 }
 
 form input[type="checkbox"]::before
-/*form input[type="radio"]::before*/ {
+form input[type="radio"]::before {
    background-color: var(--hover);
    box-shadow: 0 1px 2px 0px rgba(46, 46, 46, 0.45);
    border-radius: 50%;
@@ -50,11 +50,11 @@ form input[type="checkbox"]::before
    width: 0.7rem;
    height: 0.7rem;
 }
-/*form input[type="checkbox"]::before {
+form input[type="checkbox"]::before {
    border-radius: 0;
-   width: 1.5rem;
-   height: 1.5rem;
-}*/
+   width: 1rem;
+   height: 1rem;
+}
 
 .contact-form {
    display: grid;
