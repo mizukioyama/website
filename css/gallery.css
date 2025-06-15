@@ -256,7 +256,7 @@ main {
     width: clamp(55%, 100%, 45%);
     max-width: 1000px;
     height: 100%;
-    margin-top: 30vmin;
+    margin-top: 40vmin;
     margin-left: 55vmin;
     padding: 1em 2em;
     box-shadow: inset 0 0 10px rgba(20, 20, 20);

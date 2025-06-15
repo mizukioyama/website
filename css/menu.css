@@ -51,8 +51,7 @@ nav {
 }
 
 #navArea .inner li a:hover {
-    text-shadow: 0 0px 0px var(--inv);
-    opacity: 1;
+    text-shadow: 1px 1px 2px var(--inv);
 }
 
 .home #navArea .inner li a:hover {

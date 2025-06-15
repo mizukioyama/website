@@ -265,7 +265,7 @@ h1 {
   background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
 }
 
-@media screen and (min-width: 1299px) {
+/*@media screen and (min-width: 1299px) {
 
   #langChenge .ja:hover,
   #langChenge .en:hover,
@@ -273,7 +273,7 @@ h1 {
   #langChenge .en.active {
     opacity: 1;
   }
-}
+}*/
 
 ::selection {
   background-color: rgba(160, 113, 113, 0.5);
