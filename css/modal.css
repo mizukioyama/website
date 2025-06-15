@@ -4,7 +4,7 @@
    font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
 }
 
-.button {
+/*.button {
    font-weight: 800;
    width: 30%;
    bottom: 0;
@@ -17,7 +17,7 @@
    background: var(--bg);
    box-shadow: 0 2px 3px rgba(46, 46, 46, 0.5);
    border-radius: 10px;
-}
+}*/
 
 #tab--five .button {
    width: fit-content;
