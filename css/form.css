@@ -30,6 +30,7 @@ form input[type="radio"]:checked::before {
 .radio-group label {
    opacity: 0.5;
 }
+.radio-group label:active,
 .radio-group input[type="radio"]:focus {
    opacity: 1;
 }
@@ -194,9 +195,14 @@ input:-webkit-autofill:focus {
    margin-top: 1em;
 }
 .align-center p {
+   display: flex;
    width: 100%;
    margin: 0;
    line-height: 1.6;
+}
+
+.align-center a {
+   color: var(--accent);
 }
 
 /*===================== モーダルウィンドウ =====================*/
