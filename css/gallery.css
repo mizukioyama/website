@@ -281,11 +281,13 @@ main {
 
 /*=======info page*/
 #info .content,
+#contact .content,
 #policy .content {
     padding-top: 3rem;
     background: none;
     box-shadow: none;
     backdrop-filter: none;
+    margin: 25vmin auto 0;
 }
 
 #info .work {
@@ -368,6 +370,7 @@ main {
 #policy .content p {
     padding-left: 0.5rem;
 }
+
 
 /*=======info page*/
 
