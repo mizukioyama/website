@@ -50,6 +50,15 @@ form input[type="checkbox"]::before {
    width: 65%;
    margin: 0 auto;
 }
+
+label {
+   font-size: 1rem;
+}
+
+.form-row {
+   width: 100%;
+}
+
 .col {
    flex: 1;
 }
@@ -100,15 +109,14 @@ input:-webkit-autofill:focus {
 .contact-form .input-text:focus+.label,
 .contact-form .input-text:focus+.label span,
 .contact-form .input-text.not-empty+.label {
-   font-size: clamp(1.4rem, 1.067rem + 0.44vw, 1.6rem);
+   font-size: 1rem;
    transform: translateY(-1.85rem);
 }
 .contact-form .label,
 .contact-form .submit-btn {
-   font-size: clamp(1.6rem, 1.267rem + 0.44vw, 1.8rem);
+   font-size: 1.2rem;
 }
 .contact-form .label {
-   font-family: "Zen Maru Gothic", serif;
    font-weight: 400;
    color: rgba(46, 46, 46, 0.5);
    position: absolute;
@@ -118,8 +126,8 @@ input:-webkit-autofill:focus {
 }
 
 .contact-form .label span {
-   font-size: 1.2rem;
-   color: var(--hover);
+   font-size: 0.8rem;
+   color: var(--text);
    transition: all 0.3s ease;
 }
 
