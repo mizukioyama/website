@@ -195,9 +195,11 @@ input:-webkit-autofill:focus {
 }
 .align-center p {
    display: flex;
-   width: 100%;
+   align-items: center;
+   gap: 0.25rem;
    margin: 0;
    line-height: 1.6;
+   letter-spacing: 0.015rem;
 }
 
 .align-center a {
