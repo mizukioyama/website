@@ -36,7 +36,7 @@ nav {
 #navArea .inner li a {
     font-size: 1.6rem;
     font-weight: 500;
-    color: var(--bg);
+    color: var(--inv);
     height: 100%;
     mix-blend-mode: luminosity;
     text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);
@@ -55,8 +55,9 @@ nav {
     opacity: 1;
 }
 
-.home #navArea .inner li a:hover {
-    mix-blend-mode: difference;
+header .noise {
+    display: block;
+    background-image: linear-gradient(to right, var(--text));
 }
 
 /* .toggle_btn styles */
@@ -218,11 +219,6 @@ nav {
     position: absolute;
     left: 5%;
     text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.5);
-}
-
-header .noise {
-    display: block;
-    background-image: linear-gradient(to right, var(--inv));
 }
 
 .open #mask ul {
