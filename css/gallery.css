@@ -285,11 +285,12 @@ main {
 #info .content,
 #contact .content,
 #policy .content {
-    padding-top: 3rem;
     background: none;
     box-shadow: none;
     backdrop-filter: none;
     margin: 25vmin auto 0;
+    padding-top: 3rem;
+    width: 50%;
 }
 
 #info .work {
@@ -403,7 +404,7 @@ main {
 .work .noise {
     background-image: linear-gradient(to right, #fff 0%, #2e7185 100%);
 }
-.work:nth-child(n+2) .noise {
+#info .work:nth-child(n+2) .noise {
     display: none;
 }
 
