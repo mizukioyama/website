@@ -8,15 +8,14 @@
 }*/
 
 form input {
-   /*position: relative;
+   position: relative;
    appearance: none;
    width: 1rem;
    height: 1rem;
    border: 1px solid var(--hover);
    border-radius: 50%;
    background: #fffdfb;
-   box-shadow: inset hsla(0, 0%, 0%, 0.5) 0px 1px 2px 0px;*/
-   display: none;
+   box-shadow: inset hsla(0, 0%, 0%, 0.5) 0px 1px 2px 0px;
 }
 form input[type="checkbox"] {
    border-radius: 2px;
@@ -155,14 +154,13 @@ input:-webkit-autofill:focus {
    height: 28pt;
    display: inline-block;
    color: var(--bg);
-   background-color: var(--text);
+   background: rgba(0, 0, 0, 0.5);
    text-transform: uppercase;
    letter-spacing: 0.2rem;
    line-height: 1.5rem;
    padding: 0.5rem 0;
    margin: 1.5rem auto;
    border: none;
-   border-radius: 10px;
    box-shadow: 0px 1px 3px rgba(46, 46, 46, 0.5);
    cursor: pointer;
    transition: all 0.35s ease;
