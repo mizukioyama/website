@@ -30,7 +30,7 @@ form input[type="radio"]:checked::before {
 .radio-group label {
    opacity: 0.5;
 }
-.radio-group label:focus {
+.radio-group label:checked {
    opacity: 1;
 }
 
