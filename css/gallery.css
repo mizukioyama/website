@@ -182,11 +182,12 @@ main li {
 /* head */
 .head a {
     position: fixed;
+    justify-content: flex-start;
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.6em);
     width: 15.5vmin;
     padding: 0;
     top: 1%;
-    left: 1.65%;
+    left: 2%;
     z-index: 100;
 }
 
