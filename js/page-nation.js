@@ -1,6 +1,6 @@
 function setupCategoryFilter() {
-    let currentLang = localStorage.getItem("lang") || "ja";
-    const getLang = () => currentLang;
+    //let currentLang = localStorage.getItem("lang") || "ja";
+    //const getLang = () => currentLang;
 
     const artworks = [
         {
