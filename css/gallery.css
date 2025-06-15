@@ -187,10 +187,11 @@ main li {
     top: 1%;
     left: 2%;
     z-index: 100;
-    background-size: 400% 400%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+}
+
+a:hover {
+    text-shadow: 0 1px 3px var(--inv);
+    opacity: 1;
 }
 
 .head a::after {

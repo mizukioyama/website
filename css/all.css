@@ -344,6 +344,10 @@ header a,
     width: fit-content;
     padding: 0.25rem 0.5rem;
     position: relative;
+    background-size: 400% 400%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
     opacity: 0.8;
 }
 
@@ -367,10 +371,9 @@ a:hover::before {
 
 a:hover {
     text-shadow: 0 1px 3px var(--inv);
-    opacity: 0.95;
+    opacity: 1;
 }
 
-.home footer a::before,
 .home header a::before {
     color: var(--text);
     background-color: var(--text);
