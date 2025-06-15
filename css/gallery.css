@@ -334,8 +334,9 @@ main {
 }
 
 #info .content li {
-    padding: 0.25rem 0 0.5rem 1.5rem;
-    margin-bottom: 1vmin;
+    line-height: 2;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin-bottom: 0;
 }
 
 #info .content li::before,
@@ -357,6 +358,10 @@ main {
 
 #info .work ol p {
     border-bottom: 1px solid;
+}
+
+#info .work ol p:nth-child(n+3) {
+    margin-top: 2vmin;
 }
 
 #policy .content p {
