@@ -1,12 +1,11 @@
-:where(input[type="checkbox"], input[type="radio"]) {
+/*:where(input[type="checkbox"], input[type="radio"]) {
    font-size: inherit;
    line-height: inherit;
    margin: 0;
    block-size: 1rem;
    inline-size: 1rem;
    vertical-align: sub;
-   opacity: 0.5;
-}
+}*/
 
 form input {
    /*position: relative;
@@ -28,7 +27,10 @@ form input[type="radio"]:checked::before {
    opacity: 1;
 }*/
 
-.radio-group input[type="radio"]:checked {
+.radio-group label:checked {
+   opacity: 0.5;
+}
+.radio-group label:checked {
    opacity: 1;
 }
 
