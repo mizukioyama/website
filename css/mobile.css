@@ -137,7 +137,10 @@
     padding: 3rem 0rem;
 }
 
-.gallery .content {
+.gallery .content,
+#info .content,
+#contact .content,
+#policy .content {
     margin: 0 auto;
     padding: 0;
     width: 100%;
