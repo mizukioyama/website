@@ -129,14 +129,20 @@
                 transform: matrix(-3rem);
             }
 
+            .head a {
+                width: 30.5vmin;
+            }
+
 .gallery {
     padding: 3rem 0rem;
 }
 
 .gallery .content {
-    width: 80%;
-    padding: 3rem 2rem 0;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
     margin: 50vmin auto 0;
+    backdrop-filter: none;
 }
 
 .work {
