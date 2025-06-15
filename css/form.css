@@ -114,6 +114,7 @@ input:-webkit-autofill:focus {
    padding-left: 2rem;
    background: rgba(0, 0, 0, 0.5);
    backdrop-filter: blur(10px);
+   border-radius: 0;
 }
 .contact-form #message {
    height: 150pt;

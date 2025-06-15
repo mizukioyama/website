@@ -1,0 +1,244 @@
+.button,
+.price p,
+.site-p h2 span {
+   font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
+}
+
+.button {
+   font-weight: 800;
+   width: 30%;
+   bottom: 0;
+   position: relative;
+   display: block;
+   text-align: center;
+   margin: 3vmin auto 0;
+   padding: 1rem 1rem 0.75rem;
+   color: var(--text);
+   background: var(--bg);
+   box-shadow: 0 2px 3px rgba(46, 46, 46, 0.5);
+   border-radius: 10px;
+}
+
+#tab--five .button {
+   width: fit-content;
+   text-align: left;
+   margin: 0;
+   display: contents;
+   color: var(--hover);
+   text-shadow: 0 1px 2px rgba(46, 46, 46, 0.45);
+}
+
+#tab--five .button:hover {
+   color: var(--bg);
+}
+
+.button:hover {
+   box-shadow: inset 0 1px 3px rgba(46, 46, 46, 0.5);
+}
+
+#tab--five #modal--third {
+   padding: 10vmin 10em;
+}
+
+#modal--first h3 {
+   font-weight: bold;
+}
+
+#modal--third h2 {
+   font-size: clamp(2rem, 1.84rem + 0.8vw, 2.8rem);
+   margin: 0 auto;
+}
+
+#tab--five #modal--third h3 {
+   font-weight: 600;
+   margin-top: 5em;
+}
+
+#tab--five #modal--third li {
+   font-weight: 400;
+   width: 100%;
+   text-align: left;
+   margin: 2rem auto;
+   line-height: 1.6;
+   border-bottom: 1px solid;
+}
+
+/* モーダルの背景 */
+.modal-overlay {
+   width: 100%;
+   height: 100vh;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   z-index: 999;
+   opacity: 0;
+   background: rgba(255, 255, 200, 0.25);
+   -webkit-backdrop-filter: blur(5px);
+   backdrop-filter: blur(5px);
+   visibility: hidden;
+   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* モーダルのスタイル */
+.modal {
+   position: absolute;
+   padding: 10vmin;
+   height: 65vh;
+   width: 60vw;
+   z-index: 1000;
+   border-radius: 10px;
+   opacity: 0;
+   visibility: hidden;
+   overflow-y: auto;
+   bottom: 15%;
+   left: 0;
+   background-color: var(--sub);
+   transform: translate(-50%, -50%);
+   box-shadow: 0 3px 10px 0px rgba(0, 0, 0, 0.5);
+   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s;
+}
+
+/* モーダル表示 */
+.show {
+   opacity: 1;
+   visibility: visible;
+   transform: translate(-50%, 0%) scale(1);
+}
+
+.modal p {
+   width: 100%;
+   margin-bottom: 2vmin;
+   line-height: 2;
+}
+
+#modal--first p {
+   width: 100%;
+}
+
+/* 閉じるボタン */
+.modal .close {
+   position: absolute;
+   top: 2rem;
+   right: 5rem;
+   background: none;
+   border: none;
+   cursor: pointer;
+}
+
+.profile {
+   width: 100%;
+   display: block;
+   margin: 0 auto 20%;
+}
+
+#modal--first li {
+   font-weight: 500;
+   line-height: 2;
+   position: relative;
+}
+
+@media screen and (min-width: 1300px) {
+
+   #modal--first p,
+   #modal--second p {
+      width: 80%;
+   }
+
+   .profile {
+      width: 80%;
+      display: flex;
+      align-items: start;
+      justify-content: flex-start;
+      gap: 2em;
+   }
+
+   .profile li {
+      font-size: clamp(1.4rem, 0.561rem + 1.03vw, 1.8rem);
+   }
+}
+
+#modal--first li::before {
+   content: "";
+   width: 10px;
+   height: 10px;
+   background: var(--hover);
+   position: absolute;
+   left: -1em;
+   top: 0.75em;
+   border-radius: 3px;
+}
+
+/*service step*/
+.modal .close {
+   font-size: clamp(3.8rem, 3.467rem + 0.44vw, 4rem);
+}
+
+
+@media screen and (min-width: 601px) and (max-width: 1299px) {
+.modal {
+   width: 105%;
+   transform: translate(-2.5%, -50%);
+}
+   .show {
+      transform: translate(-2.5%, 0%);
+   }
+   #tab--five #modal--third {
+      padding: 10vmin 8vmin;
+   }
+}
+
+@media screen and (max-width: 600px) {
+   .button {
+      font-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
+      width: 50%;
+      box-shadow: 0 2px 5px rgba(46, 46, 46, 0.5);
+   }
+
+   #modal--first h3 {
+      line-height: 3;
+      margin: 10% auto 0;
+      border-top: 1px solid;
+   }
+
+   .profile ul {
+      margin: 0;
+   }
+
+   .modal-overlay {
+      width: 100vw;
+   }
+
+   .modal {
+      height: 60vh;
+      width: 90vw;
+      bottom: 15%;
+      left: 5vw;
+      transform: translate(0%, -50%);
+      box-shadow: 0 3px 10px 0px rgba(0, 0, 0, 0.5);
+   }
+
+   .show {
+      transform: translate(0%, 0%);
+   }
+
+   .modal h3 {
+      font-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
+   }
+
+   .modal p .br {
+      height: 10px;
+   }
+
+   /* 閉じるボタン */
+   .modal .close {
+      font-size: clamp(3.8rem, 3.343rem + 2.29vw, 4.2rem);
+      top: 0;
+      right: 1rem;
+   }
+
+   /* モーダルのスタイル */
+   #tab--five #modal--third {
+      padding: 10vmin;
+   }
+
+}
