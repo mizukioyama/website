@@ -6,7 +6,7 @@
    inline-size: 1rem;
    vertical-align: sub;
 }
-.radio-group input {
+form input {
    position: relative;
    appearance: none;
    width: 1rem;
