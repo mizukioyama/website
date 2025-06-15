@@ -2,15 +2,15 @@
    font-size: inherit;
    line-height: inherit;
    margin: 0;
-   block-size: 2.4rem;
-   inline-size: 2.4rem;
+   block-size: 1rem;
+   inline-size: 1rem;
    vertical-align: sub;
 }
-form input {
+.radio-group input {
    position: relative;
    appearance: none;
-   width: 2.4rem;
-   height: 2.4rem;
+   width: 1rem;
+   height: 1rem;
    border: 1px solid var(--hover);
    border-radius: 50%;
    background: #fffdfb;
