@@ -368,12 +368,12 @@ input:-webkit-autofill:focus {
       transform: translateY(-2.4rem);
    }
 
-   .contact-form .submit-btn,
+/*   .contact-form .submit-btn,
    .align-center h3 {
       font-size: clamp(1.8rem, 1.571rem + 1.14vw, 2rem);
-   }
+   }*/
    .contact-form .input-text {
-      font-size: 1.6rem;
+      /*font-size: 1.6rem;*/
       height: 40pt;
       padding-left: 1rem;
       background: var(--sub);
@@ -382,11 +382,11 @@ input:-webkit-autofill:focus {
       line-height: 1.4;
       letter-spacing: 0.01rem;
    }
-   .contact-form .label,
+   /*.contact-form .label,
    .align-center p,
    .radio-group {
       font-size: clamp(1.4rem, 1.171rem + 1.14vw, 1.6rem);
-   }
+   }*/
    .contact-form .label {
       left: 2.75%;
       top: 5.75%;
@@ -441,10 +441,10 @@ input:-webkit-autofill:focus {
       background: rgba(255, 255, 200, 0.25);
    }
 
-   #thanksModal .modal-content p,
+   /*#thanksModal .modal-content p,
    #thanksModal .close {
       font-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
-   }
+   }*/
    #thanksModal .modal-content p {
       margin: 0 auto;
    }
