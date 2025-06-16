@@ -60,7 +60,7 @@ nav {
 
 nav .noise {
     display: block;
-    background-image: linear-gradient(to right, var(--text));
+    background-image: linear-gradient(to right, var(--inv)0, var(--text) 60%);
 }
 
 /* .toggle_btn styles */
