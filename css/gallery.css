@@ -373,8 +373,8 @@ main {
 
 /*=======info page*/
 
-.work p {
-    font-size: 0.8rem;
+#gallery-container .work p {
+    font-weight: 200;
     width: 50%;
 }
 
@@ -413,7 +413,7 @@ main {
     clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
 }
 
-.works a:hover {
+.work a:hover {
     color: var(--def);
     background: var(--def);
 }
