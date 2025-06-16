@@ -149,7 +149,7 @@
 }
 
 #gallery-container .work:nth-child(1) .noise {
-    top: -2vmin;
+    top: -2vmin !important;
 }
 
 .gallery ol p {
