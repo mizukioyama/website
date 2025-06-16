@@ -54,7 +54,7 @@ h1 {
     /*background-image: linear-gradient(to right, var(--text), var(--bg));*/
     background-clip: text;
     -webkit-background-clip: text;
-    opacity: 0.2;
+    opacity: 0.5;
 }
 
 @keyframes shine {
@@ -122,12 +122,6 @@ h1 {
 }
 
 
-h2,
-h3,
-h4 {
-    font-family: "poiret-one", Not serif-JP;
-}
-
 h2 {
     font-size: clamp(2rem, calc(2rem + 0.5vw), 2.4rem);
     color: var(--def);
@@ -135,8 +129,7 @@ h2 {
 
 h3 {
     font-size: 1.2rem;
-    color: var(--inv);
-    margin: 0;
+    font-weight: 200;
 }
 
 h4 {
@@ -401,10 +394,11 @@ main {
     color: inherit;
 }
 
-.work .noise {
+#gallery-container .work .noise {
     background-image: linear-gradient(to right, #fff 0%, #2e7185 100%);
 }
-#info .work:nth-child(n+2) .noise {
+
+#gallery-container .work:nth-child(n+2) .noise {
     display: none;
 }
 
@@ -456,7 +450,7 @@ main {
     content: "";
     position: absolute;
     top: 0px;
-    right: -20px;
+    right: -23px;
     width: 10px;
     height: 10px;
     border: 1px solid rgba(200, 200, 200, 0.75);
