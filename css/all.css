@@ -255,13 +255,11 @@ h1 {
   opacity: 1;
 }
 
-/*===== .home */
+@media screen and (min-width: 1299px) {
 .home #langChenge .ja,
 .home #langChenge .en {
   text-shadow: 0 0 0px var(--text);
 }
-
-@media screen and (min-width: 1299px) {
 .home #langChenge .inner_label .noise {
   background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
 }
