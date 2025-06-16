@@ -29,7 +29,7 @@
             #000,
             0,
             #0000,
-            calc(var(--lines) * 2),
+            calc(var(--lines) * 3),
             #0000 0);
 
         display: grid;
