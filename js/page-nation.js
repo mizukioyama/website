@@ -250,12 +250,12 @@ function setupCategoryFilter() {
         // 最初のページ
         addPageButton(1);
 
-        let startPage = Math.max(3, currentPage - 1);
+        let startPage = Math.max(2, currentPage - 1);
         let endPage = Math.min(totalPages - 1, currentPage + 1);
 
         // 範囲調整（最大表示数を超えないように）
-        while (endPage - startPage + 1 > maxVisible - 2) {
-            if (startPage > 2) {
+        while (endPage - startPage + 2 > maxVisible - 3) {
+            if (startPage > 3) {
                 startPage--;
             } else if (endPage < totalPages - 1) {
                 endPage++;
