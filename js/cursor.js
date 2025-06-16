@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("body a, button, .button, label, header li a, footer a, #sidebar-container li, #sidebar-container li, #gallery-container a, #pagination").forEach(el => {
+  document.querySelectorAll("body a, button, .button, label, header li a, footer a, #category-header, #category-menu li, #sidebar-container li, #gallery-container a, #pagination").forEach(el => {
     el.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("body a, button, .button, label, header li a, footer a, #sidebar-container li, #sidebar-container li, #gallery-container a, #pagination").forEach(el => {
+  document.querySelectorAll("body a, button, .button, label, header li a, footer a, #category-header, #category-menu li, #sidebar-container li, #gallery-container a, #pagination").forEach(el => {
     el.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");
