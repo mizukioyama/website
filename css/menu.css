@@ -29,8 +29,7 @@ nav {
 }
 
 .inner ul li {
-    width: fit-content;
-    border-bottom: 1px solid rgba(40, 40, 40, .25);
+    border-bottom: 1px solid rgba(40, 40, 40, 0.075);
 }
 
 #navArea .inner li a {
@@ -60,7 +59,7 @@ nav {
 
 nav .noise {
     display: block;
-    background-image: linear-gradient(to right, var(--inv)0, var(--text) 60%);
+    background-image: linear-gradient(to right, var(--inv)10%, var(--text) 90%);
 }
 
 /* .toggle_btn styles */
