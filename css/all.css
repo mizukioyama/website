@@ -261,19 +261,11 @@ h1 {
   text-shadow: 0 0 0px var(--text);
 }
 
+@media screen and (min-width: 1299px) {
 .home #langChenge .inner_label .noise {
   background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
 }
-
-/*@media screen and (min-width: 1299px) {
-
-  #langChenge .ja:hover,
-  #langChenge .en:hover,
-  #langChenge .ja.active,
-  #langChenge .en.active {
-    opacity: 1;
-  }
-}*/
+}
 
 ::selection {
   background-color: rgba(160, 113, 113, 0.5);
@@ -334,6 +326,9 @@ a {
     height: fit-content;
     text-decoration: none;
     overflow: hidden;
+    background-position: 0 0; /* 背景色の位置 */
+    background-size: 200% auto; /* 背景色のサイズ */
+    transition: all 0.5s ease;
     transition-duration: 0.8s;
 }
 
@@ -344,7 +339,6 @@ header a,
     width: fit-content;
     padding: 0.25rem 0.5rem;
     position: relative;
-    background-size: 400% 400%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -370,6 +364,7 @@ a:hover::before {
 }
 
 a:hover {
+    background-position: -100% 0; /* 背景色の位置 */
     text-shadow: 0 1px 3px var(--inv);
     opacity: 1;
 }
@@ -400,5 +395,10 @@ a:hover {
   #langChenge {
     top: 6%;
     left: 7%;
+  }
+
+  .modal-box {
+    width: 80%;
+    height: 70%;
   }
 }
