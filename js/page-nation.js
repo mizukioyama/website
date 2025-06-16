@@ -232,18 +232,66 @@ function setupCategoryFilter() {
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         pagination.innerHTML = "";
 
-        for (let i = 1; i <= totalPages; i++) {
+        const maxVisible = 4;
+
+        // 「前へ」ボタン
+        if (currentPage > 1) {
+            const prevBtn = document.createElement("button");
+            prevBtn.textContent = "前へ";
+            prevBtn.className = "prev-btn";
+            prevBtn.addEventListener("click", () => {
+                currentPage--;
+                renderGallery();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            pagination.appendChild(prevBtn);
+        }
+
+        if (totalPages <= 5) {
+            for (let i = 1; i <= totalPages; i++) {
+                addPageButton(i);
+            }
+        } else {
+            for (let i = 1; i <= maxVisible; i++) {
+                addPageButton(i);
+            }
+
+            if (currentPage < totalPages - 1) {
+                const dots = document.createElement("span");
+                dots.textContent = "...";
+                dots.className = "dots";
+                pagination.appendChild(dots);
+            }
+
+            addPageButton(totalPages);
+        }
+
+        // 「次へ」ボタン
+        if (currentPage < totalPages) {
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "次へ";
+            nextBtn.className = "next-btn";
+            nextBtn.addEventListener("click", () => {
+                currentPage++;
+                renderGallery();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            pagination.appendChild(nextBtn);
+        }
+
+        function addPageButton(pageNumber) {
             const btn = document.createElement("button");
-            btn.textContent = i;
-            btn.className = "page-btn" + (i === currentPage ? " active" : "");
+            btn.textContent = pageNumber;
+            btn.className = "page-btn" + (pageNumber === currentPage ? " active" : "");
             btn.addEventListener("click", () => {
-                currentPage = i;
+                currentPage = pageNumber;
                 renderGallery();
                 window.scrollTo({ top: 0, behavior: "smooth" });
             });
             pagination.appendChild(btn);
         }
     }
+
 
     document.querySelectorAll("#category-menu li").forEach(li => {
         li.addEventListener("click", () => {
