@@ -232,6 +232,8 @@ function setupCategoryFilter() {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     pagination.innerHTML = "";
 
+    const maxVisible = 5;
+
     // 「前へ」ボタン
     if (currentPage > 1) {
         const prevBtn = document.createElement("button");
@@ -245,35 +247,48 @@ function setupCategoryFilter() {
         pagination.appendChild(prevBtn);
     }
 
-    const pageNumbers = [];
-    let startPage = Math.max(1, currentPage - 2);
-    let endPage = Math.min(totalPages, currentPage + 2);
+    // 最初のページ
+    addPageButton(1);
 
-    // 調整：表示数が5未満のとき前後に追加
-    if (endPage - startPage + 1 < 5) {
-        if (startPage > 1) {
-            startPage = Math.max(1, endPage - 4);
-        }
-        if (endPage < totalPages) {
-            endPage = Math.min(totalPages, startPage + 4);
+    let startPage = Math.max(2, currentPage - 1);
+    let endPage = Math.min(totalPages - 1, currentPage + 1);
+
+    // 範囲調整（最大表示数を超えないように）
+    while (endPage - startPage + 1 > maxVisible - 2) {
+        if (startPage > 2) {
+            startPage--;
+        } else if (endPage < totalPages - 1) {
+            endPage++;
+        } else {
+            break;
         }
     }
 
+    // 省略記号（先頭と中間の間）
+    if (startPage > 2) {
+        const dots = document.createElement("span");
+        dots.textContent = "...";
+        dots.className = "dots";
+        pagination.appendChild(dots);
+    }
+
+    // 中間ページ
     for (let i = startPage; i <= endPage; i++) {
-        pageNumbers.push(i);
+        addPageButton(i);
     }
 
-    pageNumbers.forEach(page => {
-        const btn = document.createElement("button");
-        btn.textContent = page;
-        btn.className = "page-btn" + (page === currentPage ? " active" : "");
-        btn.addEventListener("click", () => {
-            currentPage = page;
-            renderGallery();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-        pagination.appendChild(btn);
-    });
+    // 省略記号（中間と末尾の間）
+    if (endPage < totalPages - 1) {
+        const dots = document.createElement("span");
+        dots.textContent = "...";
+        dots.className = "dots";
+        pagination.appendChild(dots);
+    }
+
+    // 最後のページ（最終ページが2以上であれば）
+    if (totalPages > 1) {
+        addPageButton(totalPages);
+    }
 
     // 「次へ」ボタン
     if (currentPage < totalPages) {
@@ -286,6 +301,19 @@ function setupCategoryFilter() {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
         pagination.appendChild(nextBtn);
+    }
+
+    // 共通：ページ番号ボタン作成関数
+    function addPageButton(pageNumber) {
+        const btn = document.createElement("button");
+        btn.textContent = pageNumber;
+        btn.className = "page-btn" + (pageNumber === currentPage ? " active" : "");
+        btn.addEventListener("click", () => {
+            currentPage = pageNumber;
+            renderGallery();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        pagination.appendChild(btn);
     }
 }
 
