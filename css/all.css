@@ -328,6 +328,7 @@ a {
     /*background-size: 200% auto;  背景色のサイズ */
     transition: all 0.5s ease;
     transition-duration: 0.8s;
+    opacity: 0.8;
 }
 
 footer a,
@@ -339,7 +340,6 @@ header a,
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    opacity: 0.8;
 }
 
 footer a::before,
