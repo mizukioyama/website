@@ -208,7 +208,7 @@ function setupCategoryFilter() {
                 <p>${item.caption[lang]}</p>
 
                 <div class="work-img">
-                    <span style="width: 100px; position: relative; left: -3rem; bottom: -14vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);">
+                    <span style="width: 100px; position: relative; left: -4rem; bottom: -14vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);">
                         ${item.category.join(" / ")}
                     </span>
                     <img src="${item.img}" alt="${item.title[lang]}">
