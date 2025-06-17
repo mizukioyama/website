@@ -139,14 +139,19 @@
     backdrop-filter: none;
 }
 
+.works {
+    padding: 0;
+}
+
 .work {
     height: 100%;
     justify-content: center;
     gap: 1rem;
 }
 
-.works {
-    padding: 0;
+.work p {
+    width: 100%;
+    letter-spacing: 0.05rem;
 }
 
 #gallery-container .work:nth-child(1) .noise {
