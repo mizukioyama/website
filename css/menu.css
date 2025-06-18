@@ -59,7 +59,11 @@ nav {
 
 nav .noise {
     display: block;
-    background-image: linear-gradient(to right, var(--inv)10%, var(--text) 90%);
+    background-image: linear-gradient(to right, var(--inv) 30%, var(--text) 100%);
+}
+
+.home nav .noise {
+    background-image: linear-gradient(to right, rgba(46, 46, 46, 0.15) 30%, var(--text) 100%);
 }
 
 /* .toggle_btn styles */
