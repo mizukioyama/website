@@ -111,7 +111,7 @@ p {
 }
 
 .back__slide:nth-child(even)::before {
-  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/230053-2.jpg");
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/202343-2.jpg");
 }
 
 /* フロント画像 */
@@ -225,9 +225,9 @@ p {
   transform-origin: 0% 50%;
 }
 
-/*== 内容 ==*/
+/*== 内容 img ==
 .card__slide .image {
-  background-image: url("../img/230053-2.jpg");
+  background-image: url("../img/202343-2.jpg");
   background-size: 85% auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -248,7 +248,7 @@ p {
   background-image: url("../img/couryoku.jpg");
   pointer-events: none;
   transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
-}
+}*/
 
 .card__slide.active .image {
   /*clip-path: polygon(0% 0%, 90% 0%, 90% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%);*/

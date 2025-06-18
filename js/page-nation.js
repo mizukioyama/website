@@ -144,9 +144,9 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title / 2023", en: "No Title / 2023" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
-            category: ["digital"],
+            title: { ja: "心樹 / 2023", en: "心樹 / 2023" },
+            caption: { ja: "心樹 / 2023<br>アナログ作品「挑戦」から芽吹いた、デジタルの樹。<br><br>幾重にも重ねた編集の葉が、やがてひとつの球体を結び、<br>それは心の奥底──静かにたゆたう源（みなもと）を象っています。<br>大地に根を張るように、青は深い静けさを、<br>緑は命の循環を、黄色は内に宿る希望の光を。<br>自然の色をまといながら、目には見えない「心の樹形図」を描きました。", en: "Unpublished: AI generated" },
+            category: ["digital", "analog"],
             img: "img/202343-2.jpg",
             link: "pages/2024work.html"
         },
