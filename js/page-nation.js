@@ -397,13 +397,13 @@ function setupCategoryFilter() {
                 <p>${item.caption[lang]}</p>
 
                 <div class="work-img">
-                    <span style="width: 100px; position: relative; left: -4rem; bottom: -14vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);">
+                    <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);">
                         ${item.category.join(" / ")}
                     </span>
                     <img src="${item.img}" alt="${item.title[lang]}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-                        <h3>${item.title[lang]}</h3>
+                        <h3 class="nosie">${item.title[lang]}</h3>
                         <p style="width: fit-content;">${item.category.join(" / ")}</p>
                     </a>
                 </div>
