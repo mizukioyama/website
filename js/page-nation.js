@@ -403,7 +403,7 @@ function setupCategoryFilter() {
                     <img src="${item.img}" alt="${item.title[lang]}">
                     <span class="dli-external-link">©Oyama</span>
                     <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-                        <h3 class="nosie">${item.title[lang]}</h3>
+                        <h3 class="noise">${item.title[lang]}</h3>
                         <p style="width: fit-content;">${item.category.join(" / ")}</p>
                     </a>
                 </div>
