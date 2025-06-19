@@ -15,7 +15,7 @@ body {
     font-weight: 300;
     background: var(--text);
     overflow-x: hidden;
-    background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url(../img/230053-2.jpg);
+    background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url("../img/202343-2.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
