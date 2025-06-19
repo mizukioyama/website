@@ -612,15 +612,9 @@ function renderGallery() {
     const start = (currentPage - 1) * itemsPerPage;
     const pageItems = filtered.slice(start, start + itemsPerPage);
 
-    // ✅ 選択中カテゴリ名を取得
+    // ✅ サイドバーの選択カテゴリラベルを取得（例："Analog"）
     const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
     const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
-
-    // ✅ カテゴリ見出しを更新
-    const categoryHeader = document.getElementById("category-header");
-    if (categoryHeader) {
-        categoryHeader.textContent = selectedCategoryLabel;
-    }
 
     container.innerHTML = "";
     pageItems.forEach(item => {
@@ -652,6 +646,7 @@ function renderGallery() {
     setTimeout(() => container.classList.add("show"), 3);
     smoothScrollToTop(400);
 }
+
 
 
     function renderPagination(totalItems) {
