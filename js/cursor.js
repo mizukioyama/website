@@ -22,6 +22,21 @@ document.addEventListener("DOMContentLoaded", function () {
       stalker.style.left = `${x}px`;
     }, 100);
   });
+  // 追従処理
+  document.addEventListener("mousemove", e => {
+    const { clientX: x, clientY: y } = e;
+
+    cursor.style.opacity = "1";
+    stalker.style.opacity = "1";
+
+    cursor.style.top = `${y}px`;
+    cursor.style.left = `${x}px`;
+
+    setTimeout(() => {
+      stalker.style.top = `${y}px`;
+      stalker.style.left = `${x}px`;
+    }, 100);
+  });
 
   // ホバー処理（対象を自由に追加可能）
   document.querySelectorAll("body a, button, .button, label, header li a, footer a, #category-header, #category-menu li, #sidebar-container li, #gallery-container a, #pagination").forEach(el => {
