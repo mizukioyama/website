@@ -98,7 +98,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202350-2.jpg",
+            img: "img/202350-1.jpg",
             link: "pages/2024work.html"
         },//========49~40
         {
@@ -140,7 +140,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202344-2.jpg",
+            img: "img/202344-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -231,7 +231,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202331-2.jpg",
+            img: "img/202331-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -280,7 +280,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202324-2.jpg",
+            img: "img/202324-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -322,14 +322,14 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202318-2.jpg",
+            img: "img/202318-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202317-2.jpg",
+            img: "img/202317-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -357,7 +357,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202313-2.jpg",
+            img: "img/202313-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -378,7 +378,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202310-2.jpg",
+            img: "img/202310-2.png",
             link: "pages/2024work.html"
         },//========9~1
         {
@@ -657,7 +657,7 @@ function setupCategoryFilter() {
         // 「前へ」ボタン
         if (currentPage > 1) {
             const prevBtn = document.createElement("button");
-            prevBtn.textContent = "前へ";
+            prevBtn.textContent = "Back";
             prevBtn.className = "prev-btn";
             prevBtn.addEventListener("click", () => {
                 currentPage--;
@@ -713,7 +713,7 @@ function setupCategoryFilter() {
         // 「次へ」ボタン
         if (currentPage < totalPages) {
             const nextBtn = document.createElement("button");
-            nextBtn.textContent = "次へ";
+            nextBtn.textContent = "Next";
             nextBtn.className = "next-btn";
             nextBtn.addEventListener("click", () => {
                 currentPage++;
