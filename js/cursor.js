@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("body a, button, .button, label *, header a, footer a *, #category-header, #category-menu li *, #sidebar-container li *, #gallery-container a, #pagination *").forEach(el => {
+  document.querySelectorAll("body a, button, .button, label, header li a, footer a, #category-header, #category-menu li, #sidebar-container li, #gallery-container a, #pagination").forEach(el => {
     el.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");
@@ -60,18 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
       stalker.style.top = `${y}px`;
       stalker.style.left = `${x}px`;
     }, 100);
-  });
-
-  // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("body a, button, .button, label, header li a, footer a, #category-header, #category-menu li, #sidebar-container li, #gallery-container a, #pagination").forEach(el => {
-    el.addEventListener("mouseenter", () => {
-      cursor.classList.add("cursor--hover");
-      stalker.classList.add("stalker--hover");
-    });
-    el.addEventListener("mouseleave", () => {
-      cursor.classList.remove("cursor--hover");
-      stalker.classList.remove("stalker--hover");
-    });
   });
 
   // 初期非表示（オプション）
