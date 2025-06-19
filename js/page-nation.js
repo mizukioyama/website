@@ -2,7 +2,7 @@ function setupCategoryFilter() {
     //let currentLang = localStorage.getItem("lang") || "ja";
     //const getLang = () => currentLang;
 
-    const artworks = [
+    const artworks = [  
         {
             title: { ja: "Order：蒼想 / 2024", en: "Order：Blue Thought / 2024" },
             caption: { ja: "青に想いを重ねて結晶した「蒼想」は、そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
