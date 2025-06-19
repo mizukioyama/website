@@ -4,8 +4,8 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
-            title: { ja: "蒼想 / 2024", en: "Blue Thought / 2024" },
-            caption: { ja: "Order：アナログ（ペイント）<br>", en: "Order: Analog (Paint)<br>" },
+            title: { ja: "Order：蒼想 / 2024", en: "Order：Blue Thought / 2024" },
+            caption: { ja: "青に想いを重ねて結晶した「蒼想」は、<br>そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。<br>未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
             category: ["analog"],
             img: "img/蒼想01.jpg",
             link: "index.html"
@@ -145,7 +145,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "心樹 / 2023", en: "心樹 / 2023" },
-            caption: { ja: "心樹 / 2023<br>アナログ作品「挑戦」から芽吹いた、デジタルの樹。<br><br>幾重にも重ねた編集の葉が、やがてひとつの球体を結び、<br>それは心の奥底──静かにたゆたう源（みなもと）を象っています。<br>大地に根を張るように、青は深い静けさを、<br>緑は命の循環を、黄色は内に宿る希望の光を。<br>自然の色をまといながら、目には見えない「心の樹形図」を描きました。", en: "Unpublished: AI generated" },
+            caption: { ja: "幾重にも重ねた編集が、心の奥にたゆたう源を浮かび上がらせる。<br>大地に根を張るように、静かに光る見えないエネルギーのかたちを描いた作品。", en: "The layers of editing bring to the surface the source that gently sways deep within the heart. A work that depicts the shape of an invisible energy that quietly shines, like roots spreading in the earth." },
             category: ["digital", "analog"],
             img: "img/202343-2.jpg",
             link: "pages/2024work.html"
@@ -618,29 +618,35 @@ function renderGallery() {
 
     container.innerHTML = "";
     pageItems.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "work";
-        div.innerHTML = `
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
-                Category | ${selectedCategoryLabel}
-            </p>
+    const captionText = item.caption[lang];
+    const truncatedCaption = captionText.length > 120
+        ? captionText.substring(0, 120) + "..."
+        : captionText;
 
-            <p>${item.caption[lang]}</p>
+    const div = document.createElement("div");
+    div.className = "work";
+    div.innerHTML = `
+        <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
+            Category | ${selectedCategoryLabel}
+        </p>
 
-            <div class="work-img">
-                <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);">
-                    ${item.category.join(" / ")}
-                </span>
-                <img src="${item.img}" alt="${item.title[lang]}">
-                <span class="dli-external-link">©Oyama</span>
-                <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-                    <h3 class="noise">${item.title[lang]}</h3>
-                    <p style="width: fit-content;">${item.category.join(" / ")}</p>
-                </a>
-            </div>
-        `;
-        container.appendChild(div);
-    });
+        <p>${truncatedCaption}</p>
+
+        <div class="work-img">
+            <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
+                ${item.category.join(" / ")}
+            </span>
+            <img src="${item.img}" alt="${item.title[lang]}">
+            <span class="dli-external-link">©Oyama</span>
+            <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
+                <h3 class="noise">${item.title[lang]}</h3>
+                <p style="width: fit-content;">${item.category.join(" / ")}</p>
+            </a>
+        </div>
+    `;
+    container.appendChild(div);
+});
+
 
     renderPagination(filtered.length);
     setTimeout(() => container.classList.add("show"), 3);
