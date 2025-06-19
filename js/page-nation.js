@@ -593,59 +593,66 @@ function setupCategoryFilter() {
         }
     ];
 
-    const itemsPerPage = 4;
-    let selectedCategory = "all";
-    let currentPage = 1;
+const itemsPerPage = 4;
+let selectedCategory = "all";
+let currentPage = 1;
 
-    function filterArtworks() {
-        return selectedCategory === "all"
-            ? artworks
-            : artworks.filter(item => item.category.includes(selectedCategory));
+function filterArtworks() {
+    return selectedCategory === "all"
+        ? artworks
+        : artworks.filter(item => item.category.includes(selectedCategory));
+}
+
+function renderGallery() {
+    const lang = getLang();
+    const container = document.getElementById("gallery-container");
+    container.classList.remove("show");
+
+    const filtered = filterArtworks();
+    const start = (currentPage - 1) * itemsPerPage;
+    const pageItems = filtered.slice(start, start + itemsPerPage);
+
+    // ✅ 選択中カテゴリ名を取得
+    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+
+    // ✅ カテゴリ見出しを更新
+    const categoryHeader = document.getElementById("category-header");
+    if (categoryHeader) {
+        categoryHeader.textContent = selectedCategoryLabel;
     }
 
-    function renderGallery() {
-        const lang = getLang();
-        const container = document.getElementById("gallery-container");
-        container.classList.remove("show");
+    container.innerHTML = "";
+    pageItems.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "work";
+        div.innerHTML = `
+            <p class="noise cg-text" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
+                Category | ${selectedCategoryLabel}
+            </p>
 
-        const filtered = filterArtworks();
-        const start = (currentPage - 1) * itemsPerPage;
-        const pageItems = filtered.slice(start, start + itemsPerPage);
+            <p>${item.caption[lang]}</p>
 
-        container.innerHTML = "";
-        pageItems.forEach(item => {
-            const displayCategory = selectedCategory === "all"
-                ? item.category.join(" / ")
-                : selectedCategory;
+            <div class="work-img">
+                <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);">
+                    ${item.category.join(" / ")}
+                </span>
+                <img src="${item.img}" alt="${item.title[lang]}">
+                <span class="dli-external-link">©Oyama</span>
+                <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
+                    <h3>${item.title[lang]}</h3>
+                    <p style="width: fit-content;">${item.category.join(" / ")}</p>
+                </a>
+            </div>
+        `;
+        container.appendChild(div);
+    });
 
-            const div = document.createElement("div");
-            div.className = "work";
-            div.innerHTML = `
-                <p class="noise cg-text" style="font-size: 1.2rem; position: absolute; top: 1%; left: 1%; width: fit-content;">
-                    Category | ${displayCategory}
-                </p>
+    renderPagination(filtered.length);
+    setTimeout(() => container.classList.add("show"), 3);
+    smoothScrollToTop(400);
+}
 
-                <p>${item.caption[lang]}</p>
-
-                <div class="work-img">
-                    <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);">
-                        ${item.category.join(" / ")}
-                    </span>
-                    <img src="${item.img}" alt="${item.title[lang]}">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-                        <h3 class="noise">${item.title[lang]}</h3>
-                        <p style="width: fit-content;">${item.category.join(" / ")}</p>
-                    </a>
-                </div>
-            `;
-            container.appendChild(div);
-        });
-
-        renderPagination(filtered.length);
-        setTimeout(() => container.classList.add("show"), 3);
-        smoothScrollToTop(400);
-    }
 
     function renderPagination(totalItems) {
         const pagination = document.getElementById("pagination");
