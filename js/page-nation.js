@@ -5,7 +5,7 @@ function setupCategoryFilter() {
     const artworks = [
         {
             title: { ja: "Order：蒼想 / 2024", en: "Order：Blue Thought / 2024" },
-            caption: { ja: "青に想いを重ねて結晶した「蒼想」は、<br>そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。<br>未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
+            caption: { ja: "青に想いを重ねて結晶した「蒼想」は、そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
             category: ["analog"],
             img: "img/蒼想01.jpg",
             link: "index.html"
@@ -145,7 +145,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "心樹 / 2023", en: "心樹 / 2023" },
-            caption: { ja: "幾重にも重ねた編集が、心の奥にたゆたう源を浮かび上がらせる。<br>大地に根を張るように、静かに光る見えないエネルギーのかたちを描いた作品。", en: "The layers of editing bring to the surface the source that gently sways deep within the heart. A work that depicts the shape of an invisible energy that quietly shines, like roots spreading in the earth." },
+            caption: { ja: "重ねた編集が一粒の球体を結び、静かにたゆたう心の源をかたちにしました。大地に根を張るように、見えない想いや気配が静かに広がる作品です。", en: "The layered edits formed a single sphere, shaping the quiet source of the heart that gently sways. Like roots spreading into the earth, this work quietly expands with invisible thoughts and presence." },
             category: ["digital", "analog"],
             img: "img/202343-2.jpg",
             link: "pages/2024work.html"
