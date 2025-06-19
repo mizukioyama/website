@@ -74,10 +74,10 @@ nav .noise {
 .toggle_btn {
     display: block;
     position: fixed;
-    top: 4.5%;
+    top: 0;
     right: 5%;
     width: 40px;
-    height: 30px;
+    height: 70px;
     transition: all 1.3s;
     cursor: pointer;
     z-index: 102;
@@ -89,6 +89,7 @@ nav .noise {
     position: absolute;
     width: 40px;
     height: 1px;
+    bottom: 20px;
     background: #c0c0c06b;
     overflow: hidden;
     z-index: 103;
@@ -160,7 +161,7 @@ nav .noise {
 }
 
 .toggle_btn span:nth-child(2) {
-    top: -150%;
+    top: 0;
     animation-delay: 0.56s;
     transform: translate(0%, 0%) rotate(90deg);
     transition: all 1s ease;
@@ -168,7 +169,7 @@ nav .noise {
 }
 
 .open .toggle_btn span:nth-child(2) {
-    top: 3%;
+    top: 70%;
     transform: translate(0%, 0%) rotate(90deg);
     transition: all 1s ease;
     opacity: 1;
