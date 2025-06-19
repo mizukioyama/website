@@ -210,7 +210,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202334-2.jpg",
+            img: "img/202334-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -219,7 +219,238 @@ function setupCategoryFilter() {
             category: ["digital"],
             img: "img/202333-2.jpg",
             link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202332-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202331-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202330-2.jpg",
+            link: "pages/2024work.html"
+        },//========29~20
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202329-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202328-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202327-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202326-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202325-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202324-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202323-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202322-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202321-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202320-2.jpg",
+            link: "pages/2024work.html"
+        },//========19~10
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202319-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202318-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202317-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202316-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202315-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202314-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202313-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202312-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202311-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202310-2.jpg",
+            link: "pages/2024work.html"
+        },//========9~1
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202309-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202308-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202307-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202306-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202305-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202304-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202303-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202302-2.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202301-2.jpg",
+            link: "pages/2024work.html"
         },//========2022
+        {
+            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            category: ["digital"],
+            img: "img/202200.jpg",
+            link: "pages/2024work.html"
+        },
         {
             title: { ja: "No Title / 2022", en: "No Title / 2022" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
