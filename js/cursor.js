@@ -33,13 +33,15 @@ document.addEventListener("DOMContentLoaded", function () {
     "a",
     "button",
     ".button",
-    "header #langChenge label .lang-button",
-    "header .inner ul li a",
+    "label",
+    "header li a",
     "footer a",
     "#category-header",
     "#category-menu li",
-    "#gallery-container .work-img a",
-    "#pagination *"
+    "#sidebar-container li",
+    "#gallery-container a",
+    "#pagination",
+    "#pagination *" // ← これでページ番号ボタンにも確実に効く
   ];
 
   document.querySelectorAll(hoverTargets.join(", ")).forEach(el => {
@@ -89,12 +91,13 @@ document.addEventListener("DOMContentLoaded", function () {
     "a",
     "button",
     ".button",
-    "header #langChenge label .lang-button",
-    "header .inner ul li a",
-    "footer a",
-    "#category-header",
-    "#category-menu li",
+    "header label .noise",
+    "header nav ul li .noise",
+    "footer .noise",
+    "#sidebar-container #category-header",
+    "#sidebar-container #category-menu li",
     "#gallery-container .work-img a",
+    "#pagination",
     "#pagination *"
   ];
 
