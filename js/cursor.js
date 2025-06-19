@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // カーソルとストーカーを作成
   const cursor = document.createElement("div");
   cursor.id = "cursor";
   document.body.appendChild(cursor);
@@ -6,6 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const stalker = document.createElement("div");
   stalker.id = "stalker";
   document.body.appendChild(stalker);
+
+  // 初期非表示（オプション）
+  cursor.style.opacity = "0";
+  stalker.style.opacity = "0";
 
   // 追従処理
   document.addEventListener("mousemove", e => {
@@ -23,8 +28,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 100);
   });
 
-  // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("body a,button,.button,label,header a,footer a,#category-header,#category-menu li,#sidebar-container li,#gallery-container a,#pagination *").forEach(el => {
+  // ホバー処理（必要なセレクタを追加）
+  const hoverTargets = [
+    "a",
+    "button",
+    ".button",
+    "label",
+    "header li a",
+    "footer a",
+    "#category-header",
+    "#category-menu li",
+    "#sidebar-container li",
+    "#gallery-container a",
+    "#pagination",
+    "#pagination *" // ← これでページ番号ボタンにも確実に効く
+  ];
+
+  document.querySelectorAll(hoverTargets.join(", ")).forEach(el => {
     el.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");
@@ -36,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
+  // カーソルとストーカーを作成
   const cursor = document.createElement("div");
   cursor.id = "cursor";
   document.body.appendChild(cursor);
@@ -45,6 +65,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const stalker = document.createElement("div");
   stalker.id = "stalker";
   document.body.appendChild(stalker);
+
+  // 初期非表示（オプション）
+  cursor.style.opacity = "0";
+  stalker.style.opacity = "0";
 
   // 追従処理
   document.addEventListener("mousemove", e => {
@@ -62,8 +86,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 100);
   });
 
-  // ホバー処理（対象を自由に追加可能）
-  document.querySelectorAll("body a,button,.button,label,header a,footer a,#category-header,#category-menu li,#sidebar-container li,#gallery-container a,#pagination *").forEach(el => {
+  // ホバー処理（必要なセレクタを追加）
+  const hoverTargets = [
+    "a",
+    "button",
+    ".button",
+    "label",
+    "header li a",
+    "footer a",
+    "#category-header",
+    "#category-menu li",
+    "#sidebar-container li",
+    "#gallery-container a",
+    "#pagination",
+    "#pagination *" // ← これでページ番号ボタンにも確実に効く
+  ];
+
+  document.querySelectorAll(hoverTargets.join(", ")).forEach(el => {
     el.addEventListener("mouseenter", () => {
       cursor.classList.add("cursor--hover");
       stalker.classList.add("stalker--hover");
@@ -73,8 +112,4 @@ document.addEventListener("DOMContentLoaded", function () {
       stalker.classList.remove("stalker--hover");
     });
   });
-
-  // 初期非表示（オプション）
-  cursor.style.opacity = "0";
-  stalker.style.opacity = "0";
 });
