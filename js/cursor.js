@@ -33,15 +33,19 @@ document.addEventListener("DOMContentLoaded", function () {
     "a",
     "button",
     ".button",
-    "label",
-    "header li a",
+    "header label",
+    "header label *",
+    "header nav ul li",
+    "header nav ul li *",
     "footer a",
-    "#category-header",
-    "#category-menu li",
-    "#sidebar-container li",
-    "#gallery-container a",
+    "footer a *",
+    "#sidebar-container #category-header",
+    "#sidebar-container #category-menu li",
+    "#sidebar-container #category-menu li *",
+    "#gallery-container .work-img a",
+    "#gallery-container .work-img a *",
     "#pagination",
-    "#pagination *" // ← これでページ番号ボタンにも確実に効く
+    "#pagination *"
   ];
 
   document.querySelectorAll(hoverTargets.join(", ")).forEach(el => {
