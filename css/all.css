@@ -126,7 +126,7 @@ canvas {
 
 html,
 body {
-  font-family: 'jost', sans-serif;
+  font-family: 'jost', "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", "MS PMincho", "MS Mincho", serif, sans-serif;
   font-weight: 400;
   font-style: normal;
   width: 100%;
@@ -314,7 +314,6 @@ hr {
   background: var(--inv);
   opacity: 0.3;
 }
-
 
 a {
     /*font-family: Arial, Helvetica, sans-serif;*/
