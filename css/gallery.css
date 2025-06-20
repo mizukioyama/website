@@ -380,7 +380,7 @@ main {
     gap: 1rem;
     width: 40%;
     max-width: 350px;
-    filter: grayscale(40%);
+    /*filter: grayscale(40%);*/
 }
 
 .works::before {

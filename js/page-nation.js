@@ -668,7 +668,6 @@ function showModal(item) {
         Category | ${selectedCategoryLabel}
       </p>
 
-
       <div class="work-img">
         <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
           ${item.category.join(" / ")}
@@ -683,19 +682,24 @@ function showModal(item) {
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
 
+    // アニメーション方向をランダム選択（top, bottom, left, right）
+    const directions = ["top", "bottom", "left", "right"];
+    const randomDir = directions[Math.floor(Math.random() * directions.length)];
+
+    modalBox.className = `modal-box animate-${randomDir}`;
     document.getElementById("modalOverlay").style.display = "block";
     modalBox.style.display = "block";
 
-    document.getElementById("modalCloseBtn").onclick = () => {
-        document.getElementById("modalOverlay").style.display = "none";
-        modalBox.style.display = "none";
-    };
+    document.getElementById("modalCloseBtn").onclick = closeModal;
+    document.getElementById("modalOverlay").onclick = closeModal;
 
-    document.getElementById("modalOverlay").onclick = () => {
+    function closeModal() {
         modalBox.style.display = "none";
         document.getElementById("modalOverlay").style.display = "none";
-    };
+        modalBox.className = "modal-box"; // アニメーション解除
+    }
 }
+
 
 
     function renderPagination(totalItems) {
