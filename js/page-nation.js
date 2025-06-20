@@ -590,15 +590,6 @@ function setupCategoryFilter() {
         }
     ];
 
-// HTMLに追加してください
-/*
-<!-- モーダルオーバーレイ -->
-<div class="modal-overlay" id="modalOverlay"></div>
-
-<!-- モーダル本体 -->
-<div class="modal-box" id="modalBox"></div>
-*/
-
 const itemsPerPage = 4;
 let selectedCategory = "all";
 let currentPage = 1;
@@ -709,127 +700,150 @@ function showModal(item) {
 }
 
 
-function renderPagination(totalItems) {
-    const pagination = document.getElementById("pagination");
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    pagination.innerHTML = "";
+    function renderPagination(totalItems) {
+        const pagination = document.getElementById("pagination");
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        pagination.innerHTML = "";
 
-    const maxVisible = 5;
+        const maxVisible = 5;
 
-    if (currentPage > 1) {
-        const prevBtn = document.createElement("button");
-        prevBtn.textContent = "Back";
-        prevBtn.className = "prev-btn";
-        prevBtn.addEventListener("click", () => {
-            currentPage--;
+        // 「前へ」ボタン
+        if (currentPage > 1) {
+            const prevBtn = document.createElement("button");
+            prevBtn.textContent = "Back";
+            prevBtn.className = "prev-btn";
+            prevBtn.addEventListener("click", () => {
+                currentPage--;
+                renderGallery();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            pagination.appendChild(prevBtn);
+        }
+
+        // 最初のページ
+        addPageButton(1);
+
+        let startPage = Math.max(2, currentPage - 1);
+        let endPage = Math.min(totalPages - 1, currentPage + 1);
+
+        // 範囲調整（最大表示数を超えないように）
+        while (endPage - startPage + 1 > maxVisible - 2) {
+            if (startPage > 2) {
+                startPage--;
+            } else if (endPage < totalPages - 1) {
+                endPage++;
+            } else {
+                break;
+            }
+        }
+
+        // 省略記号（先頭と中間の間）
+        if (startPage > 2) {
+            const dots = document.createElement("span");
+            dots.textContent = "...";
+            dots.className = "dots";
+            pagination.appendChild(dots);
+        }
+
+        // 中間ページ
+        for (let i = startPage; i <= endPage; i++) {
+            addPageButton(i);
+        }
+
+        // 省略記号（中間と末尾の間）
+        if (endPage < totalPages - 1) {
+            const dots = document.createElement("span");
+            dots.textContent = "...";
+            dots.className = "dots";
+            pagination.appendChild(dots);
+        }
+
+        // 最後のページ（最終ページが2以上であれば）
+        if (totalPages > 1) {
+            addPageButton(totalPages);
+        }
+
+        // 「次へ」ボタン
+        if (currentPage < totalPages) {
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "Next";
+            nextBtn.className = "next-btn";
+            nextBtn.addEventListener("click", () => {
+                currentPage++;
+                renderGallery();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            pagination.appendChild(nextBtn);
+        }
+
+        // 共通：ページ番号ボタン作成関数
+        function addPageButton(pageNumber) {
+            const btn = document.createElement("button");
+            btn.textContent = pageNumber;
+            btn.className = "page-btn" + (pageNumber === currentPage ? " active" : "");
+            btn.addEventListener("click", () => {
+                currentPage = pageNumber;
+                renderGallery();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            pagination.appendChild(btn);
+        }
+    }
+
+
+    document.querySelectorAll("#category-menu li").forEach(li => {
+        li.addEventListener("click", () => {
+            selectedCategory = li.getAttribute("data-category");
+            currentPage = 1;
+
+            document.querySelectorAll("#category-menu li").forEach(el =>
+                el.classList.remove("active")
+            );
+            li.classList.add("active");
+
             renderGallery();
-            window.scrollTo({ top: 0, behavior: "smooth" });
         });
-        pagination.appendChild(prevBtn);
-    }
-
-    function addPageButton(pageNumber) {
-        const btn = document.createElement("button");
-        btn.textContent = pageNumber;
-        btn.className = "page-btn" + (pageNumber === currentPage ? " active" : "");
-        btn.addEventListener("click", () => {
-            currentPage = pageNumber;
-            renderGallery();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-        pagination.appendChild(btn);
-    }
-
-    addPageButton(1);
-
-    let startPage = Math.max(2, currentPage - 1);
-    let endPage = Math.min(totalPages - 1, currentPage + 1);
-
-    while (endPage - startPage + 1 > maxVisible - 2) {
-        if (startPage > 2) startPage--;
-        else if (endPage < totalPages - 1) endPage++;
-        else break;
-    }
-
-    if (startPage > 2) {
-        const dots = document.createElement("span");
-        dots.textContent = "...";
-        dots.className = "dots";
-        pagination.appendChild(dots);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-        addPageButton(i);
-    }
-
-    if (endPage < totalPages - 1) {
-        const dots = document.createElement("span");
-        dots.textContent = "...";
-        dots.className = "dots";
-        pagination.appendChild(dots);
-    }
-
-    if (totalPages > 1) {
-        addPageButton(totalPages);
-    }
-
-    if (currentPage < totalPages) {
-        const nextBtn = document.createElement("button");
-        nextBtn.textContent = "Next";
-        nextBtn.className = "next-btn";
-        nextBtn.addEventListener("click", () => {
-            currentPage++;
-            renderGallery();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-        pagination.appendChild(nextBtn);
-    }
-}
-
-document.querySelectorAll("#category-menu li").forEach(li => {
-    li.addEventListener("click", () => {
-        selectedCategory = li.getAttribute("data-category");
-        currentPage = 1;
-        document.querySelectorAll("#category-menu li").forEach(el =>
-            el.classList.remove("active")
-        );
-        li.classList.add("active");
-        renderGallery();
     });
-});
 
-function smoothScrollToTop(duration = 400) {
-    const start = window.pageYOffset;
-    const startTime = performance.now();
-    function scrollStep(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, start * (1 - progress));
-        if (progress < 1) requestAnimationFrame(scrollStep);
+    function smoothScrollToTop(duration = 400) {
+        const start = window.pageYOffset;
+        const startTime = performance.now();
+        function scrollStep(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            window.scrollTo(0, start * (1 - progress));
+            if (progress < 1) requestAnimationFrame(scrollStep);
+        }
+        requestAnimationFrame(scrollStep);
     }
-    requestAnimationFrame(scrollStep);
+
+    // ✅ 言語ラジオボタンによる切り替え処理
+    const langJaRadio = document.getElementById("langJa");
+    const langEnRadio = document.getElementById("langEn");
+
+    langJaRadio.addEventListener("change", () => {
+        if (langJaRadio.checked) {
+            currentLang = "ja";
+            localStorage.setItem("lang", currentLang);
+            renderGallery();
+        }
+    });
+
+    langEnRadio.addEventListener("change", () => {
+        if (langEnRadio.checked) {
+            currentLang = "en";
+            localStorage.setItem("lang", currentLang);
+            renderGallery();
+        }
+    });
+
+    // ✅ 初期言語状態の反映
+    if (currentLang === "ja") {
+        langJaRadio.checked = true;
+    } else {
+        langEnRadio.checked = true;
+    }
+
+    renderGallery(); // 初期描画
+
 }
-
-const langJaRadio = document.getElementById("langJa");
-const langEnRadio = document.getElementById("langEn");
-
-langJaRadio.addEventListener("change", () => {
-    if (langJaRadio.checked) {
-        currentLang = "ja";
-        localStorage.setItem("lang", currentLang);
-        renderGallery();
-    }
-});
-
-langEnRadio.addEventListener("change", () => {
-    if (langEnRadio.checked) {
-        currentLang = "en";
-        localStorage.setItem("lang", currentLang);
-        renderGallery();
-    }
-});
-
-if (currentLang === "ja") langJaRadio.checked = true;
-else langEnRadio.checked = true;
-
-renderGallery();
