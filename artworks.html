@@ -25,6 +25,7 @@
     <script src="js/page-nation.js"></script>
     <script src="js/loading.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/page-nation.js"></script>
     <script src="js/artworks-date.js"></script>
     <script src="js/footer.js"></script>
 
@@ -77,48 +78,31 @@
         ">
 
         <style>
-          #works-filter {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  position: absolute;
-  top: 15%;
-  left: 1%;
-  z-index: 10;
+.accordion {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
 }
 
-#works-filter li {
+#accordion-toggle {
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-bottom: 2px solid transparent;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  text-align: left;
+  width: 100%;
+  padding: 0.5rem;
+  color: inherit;
 }
 
-#works-filter li.active {
-  border-color: #333;
-  font-weight: bold;
+#accordion-toggle::after {
+  content: "▼";
+  float: right;
+  transition: transform 0.3s ease;
 }
 
-.works-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.work-item {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 1rem;
-}
-
-.work-img img {
-  max-width: 200px;
-  object-fit: cover;
-}
-
-.work-info {
-  flex: 1;
+#accordion-toggle.open::after {
+  transform: rotate(180deg);
 }
 
         </style>
@@ -135,55 +119,56 @@
       <div class="scroll"></div>
       
       <div id="work-detail"></div>
-      <!-- ✅ カテゴリフィルター（クリックで絞り込み） -->
-     <div id="works-list" class="works-list"></div>
+      <div class="accordion">
+  <button id="accordion-toggle" class="noise">▼ 関連作品を表示</button>
+  <div id="works-list" class="works-list" style="display: none;"></div>
+</div>
+
      <!-- ページネーション -->
         <div id="pagination">
     
   </main>
     <div id="footer-container"></div>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const data = localStorage.getItem("selectedWork");
-    const detailContainer = document.getElementById("work-detail");
-    const listContainer = document.getElementById("works-list");
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const data = localStorage.getItem("selectedWork");
+  const detailContainer = document.getElementById("work-detail");
+  const listContainer = document.getElementById("works-list");
+  const accordionToggle = document.getElementById("accordion-toggle");
 
-    if (!data) {
-      detailContainer.textContent = "データがありません。";
-      return;
-    }
+  if (!data) {
+    detailContainer.textContent = "データがありません。";
+    return;
+  }
 
-    const work = JSON.parse(data);
-    const lang = localStorage.getItem("lang") || "ja";
-    const currentCategories = work.category; // 例: ["Analog"]
+  const work = JSON.parse(data);
+  const lang = localStorage.getItem("lang") || "ja";
+  const currentCategories = work.category;
 
-    // ✅ 詳細表示
-    const html = `
-      <div class="work-img">
-        <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
-          ${work.category.join(" / ")}
-        </span>
-        <img src="${work.img}" alt="${work.title[lang]}">
-        <span class="dli-external-link">©Oyama</span>
-        <h3 class="noise">${work.title[lang]}</h3>
-        <p>${work.caption[lang]}</p>
-      </div>
-    `;
-    detailContainer.innerHTML = html;
+  // 作品詳細を表示
+  const html = `
+    <div class="work-img">
+      <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
+        ${work.category.join(" / ")}
+      </span>
+      <img src="${work.img}" alt="${work.title[lang]}">
+      <span class="dli-external-link">©Oyama</span>
+      <h3 class="noise">${work.title[lang]}</h3>
+      <p>${work.caption[lang]}</p>
+    </div>
+  `;
+  detailContainer.innerHTML = html;
 
-    // ✅ 関連作品を表示
-    const related = artworks.filter(w =>
-      w !== work && w.category.some(cat => currentCategories.includes(cat))
-    );
+  // 関連作品を取得（自身は除外）
+  const related = artworks.filter(w =>
+    w.title[lang] !== work.title[lang] &&
+    w.category.some(cat => currentCategories.includes(cat))
+  );
 
-    listContainer.innerHTML = "";
-
-    if (related.length === 0) {
-      listContainer.innerHTML = "<p>関連する作品がありません。</p>";
-      return;
-    }
-
+  if (related.length === 0) {
+    listContainer.innerHTML = "<p>関連する作品がありません。</p>";
+  } else {
     related.forEach(w => {
       const caption = w.caption[lang];
       const truncated = caption.length > 120 ? caption.substring(0, 120) + "..." : caption;
@@ -202,8 +187,17 @@
       `;
       listContainer.appendChild(div);
     });
+  }
+
+  // アコーディオン切り替え処理
+  accordionToggle.addEventListener("click", () => {
+    const isOpen = listContainer.style.display === "block";
+    listContainer.style.display = isOpen ? "none" : "block";
+    accordionToggle.classList.toggle("open", !isOpen);
   });
+});
 </script>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
