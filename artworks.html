@@ -76,6 +76,48 @@
         object-src 'none';
         ">
 
+        <style>
+          #works-filter {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+#works-filter li {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid transparent;
+}
+
+#works-filter li.active {
+  border-color: #333;
+  font-weight: bold;
+}
+
+.works-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.work-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+}
+
+.work-img img {
+  max-width: 200px;
+  object-fit: cover;
+}
+
+.work-info {
+  flex: 1;
+}
+
+        </style>
 </head>
 
 <body data-current-page="1" data-current-category="all">
