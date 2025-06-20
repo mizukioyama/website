@@ -128,45 +128,82 @@
     <div id="header-container"></div>
     <div class="ripples"></div>
   
-    <!-- ✅ カテゴリフィルター（クリックで絞り込み） -->
-   <div id="works-list" class="works-list"></div>
-
+    
     <main class="gallery">
-        <h1 class="noise">Art Index</h1>
-        <p class="noise" style="width: 100%;">Nature inspire</p>
-        <div class="scroll"></div>
-
-    <div id="work-detail"></div>
+      <h1 class="noise">Art Index</h1>
+      <p class="noise" style="width: 100%;">Nature inspire</p>
+      <div class="scroll"></div>
+      
+      <div id="work-detail"></div>
+      <!-- ✅ カテゴリフィルター（クリックで絞り込み） -->
+     <div id="works-list" class="works-list"></div>
+     <!-- ページネーション -->
+        <div id="pagination">
     
   </main>
     <div id="footer-container"></div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const data = localStorage.getItem("selectedWork");
-      if (!data) {
-        document.getElementById("work-detail").textContent = "データがありません。";
-        return;
-      }
+  document.addEventListener("DOMContentLoaded", () => {
+    const data = localStorage.getItem("selectedWork");
+    const detailContainer = document.getElementById("work-detail");
+    const listContainer = document.getElementById("works-list");
 
-      const work = JSON.parse(data);
-      const lang = localStorage.getItem("lang") || "ja";
+    if (!data) {
+      detailContainer.textContent = "データがありません。";
+      return;
+    }
 
-      const html = `
+    const work = JSON.parse(data);
+    const lang = localStorage.getItem("lang") || "ja";
+    const currentCategories = work.category; // 例: ["Analog"]
+
+    // ✅ 詳細表示
+    const html = `
+      <div class="work-img">
+        <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
+          ${work.category.join(" / ")}
+        </span>
+        <img src="${work.img}" alt="${work.title[lang]}">
+        <span class="dli-external-link">©Oyama</span>
+        <h3 class="noise">${work.title[lang]}</h3>
+        <p>${work.caption[lang]}</p>
+      </div>
+    `;
+    detailContainer.innerHTML = html;
+
+    // ✅ 関連作品を表示
+    const related = artworks.filter(w =>
+      w !== work && w.category.some(cat => currentCategories.includes(cat))
+    );
+
+    listContainer.innerHTML = "";
+
+    if (related.length === 0) {
+      listContainer.innerHTML = "<p>関連する作品がありません。</p>";
+      return;
+    }
+
+    related.forEach(w => {
+      const caption = w.caption[lang];
+      const truncated = caption.length > 120 ? caption.substring(0, 120) + "..." : caption;
+
+      const div = document.createElement("div");
+      div.className = "work-item";
+      div.innerHTML = `
         <div class="work-img">
-          <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
-            ${work.category.join(" / ")}
-          </span>
-          <img src="${work.img}" alt="${work.title[lang]}">
-          <span class="dli-external-link">©Oyama</span>
-          <h3 class="noise">${work.title[lang]}</h3>
-          <p>${work.caption[lang]}</p>
+          <img src="${w.img}" alt="${w.title[lang]}">
+        </div>
+        <div class="work-info">
+          <h3>${w.title[lang]}</h3>
+          <p class="category">${w.category.join(" / ")}</p>
+          <p class="caption">${truncated}</p>
         </div>
       `;
-
-      document.getElementById("work-detail").innerHTML = html;
+      listContainer.appendChild(div);
     });
-  </script>
+  });
+</script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
