@@ -590,14 +590,19 @@ function setupCategoryFilter() {
         }
     ];
 
+// HTMLに追加してください
+/*
+<!-- モーダルオーバーレイ -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<!-- モーダル本体 -->
+<div class="modal-box" id="modalBox"></div>
+*/
+
 const itemsPerPage = 4;
 let selectedCategory = "all";
 let currentPage = 1;
-let currentLang = localStorage.getItem("lang") || "ja";
-
-function getLang() {
-    return currentLang;
-}
+let filtered = []; // モーダル表示に必要
 
 function filterArtworks() {
     return selectedCategory === "all"
@@ -614,7 +619,7 @@ function renderGallery() {
     const container = document.getElementById("gallery-container");
     container.classList.remove("show");
 
-    const filtered = filterArtworks();
+    filtered = filterArtworks();
     const start = (currentPage - 1) * itemsPerPage;
     const pageItems = filtered.slice(start, start + itemsPerPage);
 
@@ -622,8 +627,7 @@ function renderGallery() {
     const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
     container.innerHTML = "";
-
-    pageItems.forEach((item, index) => {
+    pageItems.forEach(item => {
         const div = document.createElement("div");
         div.className = "work";
         div.innerHTML = `
@@ -639,15 +643,20 @@ function renderGallery() {
                 </span>
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <span class="dli-external-link">©Oyama</span>
-                <a href="#" class="button view-policy-button" data-index="${start + index}">view</a>
                 <h3 class="noise">${item.title[lang]}</h3>
                 <p style="width: fit-content;">${item.category.join(" / ")}</p>
+                <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
+                  view
+                </a>
             </div>
         `;
         container.appendChild(div);
     });
 
-    // 「view」ボタンにモーダル表示処理を付加
+    renderPagination(filtered.length);
+    setTimeout(() => container.classList.add("show"), 3);
+    smoothScrollToTop(400);
+
     document.querySelectorAll(".view-policy-button").forEach(button => {
         button.addEventListener("click", (e) => {
             e.preventDefault();
@@ -655,10 +664,6 @@ function renderGallery() {
             showModal(filtered[index]);
         });
     });
-
-    renderPagination(filtered.length);
-    setTimeout(() => container.classList.add("show"), 3);
-    smoothScrollToTop(400);
 }
 
 function showModal(item) {
@@ -669,24 +674,24 @@ function showModal(item) {
     const modalBox = document.getElementById("modalBox");
 
     modalBox.innerHTML = `
-        <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
-          Category | ${selectedCategoryLabel}
-        </p>
+      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
+        Category | ${selectedCategoryLabel}
+      </p>
 
-        <p>${truncateText(item.caption[lang])}</p>
+      <p>${truncateText(item.caption[lang])}</p>
 
-        <div class="work-img">
-          <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
-            ${item.category.join(" / ")}
-          </span>
-          <img src="${item.img}" alt="${item.title[lang]}">
-          <span class="dli-external-link">©Oyama</span>
-          <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-            <h3 class="noise">${item.title[lang]}</h3>
-            <p style="width: fit-content;">${item.category.join(" / ")}</p>
-          </a>
-        </div>
-        <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
+      <div class="work-img">
+        <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
+          ${item.category.join(" / ")}
+        </span>
+        <img src="${item.img}" alt="${item.title[lang]}">
+        <span class="dli-external-link">©Oyama</span>
+
+          <h3 class="noise">${item.title[lang]}</h3>
+          <p style="width: fit-content;">${item.category.join(" / ")}</p>
+
+      </div>
+      <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
 
     document.getElementById("modalOverlay").style.display = "block";
@@ -696,11 +701,13 @@ function showModal(item) {
         document.getElementById("modalOverlay").style.display = "none";
         modalBox.style.display = "none";
     };
+
     document.getElementById("modalOverlay").onclick = () => {
         modalBox.style.display = "none";
         document.getElementById("modalOverlay").style.display = "none";
     };
 }
+
 
 function renderPagination(totalItems) {
     const pagination = document.getElementById("pagination");
