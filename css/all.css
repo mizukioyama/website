@@ -216,7 +216,7 @@ h1 {
   position: absolute;
   top: 15vmin;
   left: 30vmin;
-  z-index: 100;
+  z-index: 1000;
 }
 
 #langChenge .gallery {

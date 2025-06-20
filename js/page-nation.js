@@ -668,7 +668,6 @@ function showModal(item) {
         Category | ${selectedCategoryLabel}
       </p>
 
-      <p>${truncateText(item.caption[lang])}</p>
 
       <div class="work-img">
         <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
@@ -679,6 +678,7 @@ function showModal(item) {
         <a class="works" href="${item.link || '#'}" rel="noopener">
           <h3 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h3>
         </a>
+        <p>${truncateText(item.caption[lang])}</p>
       </div>
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
