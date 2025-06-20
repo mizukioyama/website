@@ -201,7 +201,7 @@ main li {
 }
 
 .head a span {
-    letter-spacing: 0.25rem;
+    letter-spacing: 0.15rem;
 }
 
 @keyframes blink {

@@ -81,6 +81,10 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  position: absolute;
+  top: 15%;
+  left: 1%;
+  z-index: 10;
 }
 
 #works-filter li {
@@ -125,12 +129,7 @@
     <div class="ripples"></div>
   
     <!-- ✅ カテゴリフィルター（クリックで絞り込み） -->
-  <ul id="works-filter">
-    <li data-category="all" class="active">All</li>
-    <li data-category="digital">Digital</li>
-    <li data-category="analog">Analog</li>
-    <li data-category="unreleased">Unreleased</li>
-  </ul>
+   <div id="works-list" class="works-list"></div>
 
     <main class="gallery">
         <h1 class="noise">Art Index</h1>
