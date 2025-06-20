@@ -78,10 +78,21 @@
 
 </head>
 
-<body>
-  <main>
-  <div id="work-detail"></div>
+<body data-current-page="1" data-current-category="all">
+    <div id="header-container"></div>
+    <div class="ripples"></div>
+    <div id="sidebar-container"></div>
+
+    <main class="gallery">
+        <h1 class="noise">Art Index</h1>
+        <p class="noise" style="width: 100%;">Nature inspire</p>
+        <div class="scroll"></div>
+
+    <div id="work-detail"></div>
+    
   </main>
+    <div id="footer-container"></div>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const data = localStorage.getItem("selectedWork");
