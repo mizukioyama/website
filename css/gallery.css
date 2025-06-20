@@ -178,11 +178,13 @@ main li {
 .head a {
     position: fixed;
     justify-content: flex-start;
-    font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.6em);
-    width: 15.5vmin;
+    font-size: 1.8rem;
+    letter-spacing: 0.5rem;
     padding: 0;
+    padding-right: 0.5rem;
     top: 1%;
     left: 2%;
+    text-shadow: 0 0 0px var(--inv);
     z-index: 100;
 }
 

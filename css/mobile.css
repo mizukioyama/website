@@ -50,8 +50,12 @@
             .scroll {
                 left: 50%;
                 width: 1px;
-                top: 85vmin;
-                height: 80px;
+                top: 95vmin;
+                height: 50px;
+            }
+
+            .scroll::before {
+                height: 50px;
             }
 
             h2 {
@@ -120,7 +124,7 @@
             }
 
             .head a {
-                width: 30.5vmin;
+                font-size: 1.2rem;
             }
 
 .gallery {
