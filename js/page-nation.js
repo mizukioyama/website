@@ -596,65 +596,60 @@ function filterArtworks() {
 }
 
 function renderGallery() {
-    const lang = getLang();
-    const container = document.getElementById("gallery-container");
-    container.classList.remove("show");
+  const lang = getLang();
+  const container = document.getElementById("gallery-container");
+  container.classList.remove("show");
 
-    const filtered = filterArtworks();
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
+  const filtered = filterArtworks();
+  const start = (currentPage - 1) * itemsPerPage;
+  const pageItems = filtered.slice(start, start + itemsPerPage);
 
-    // ✅ サイドバーの選択カテゴリラベルを取得（例："Analog"）
-    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+  const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+  const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-    container.innerHTML = "";
-    pageItems.forEach(item => {
+  container.innerHTML = "";
+  pageItems.forEach(item => {
     const captionText = item.caption[lang];
     const truncatedCaption = captionText.length > 120
-        ? captionText.substring(0, 120) + "..."
-        : captionText;
+      ? captionText.substring(0, 120) + "..."
+      : captionText;
 
     const div = document.createElement("div");
     div.className = "work";
     div.innerHTML = `
-        <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
-            Category | ${selectedCategoryLabel}
-        </p>
-
-        <p>${truncatedCaption}</p>
-
-        <div class="work-img">
-            <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
-                ${item.category.join(" / ")}
-            </span>
-            <img src="${item.img}" alt="${item.title[lang]}">
-            <span class="dli-external-link">©Oyama</span>
-            <a class="works" href="artworks.html">
-                <h3 class="noise">${item.title[lang]}</h3>
-                <p style="width: fit-content;">${item.category.join(" / ")}</p>
-            </a>
-        </div>
+      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
+        Category | ${selectedCategoryLabel}
+      </p>
+      <p>${truncatedCaption}</p>
+      <div class="work-img">
+        <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
+          ${item.category.join(" / ")}
+        </span>
+        <img src="${item.img}" alt="${item.title[lang]}">
+        <span class="dli-external-link">©Oyama</span>
+        <a class="works" href="artworks.html">
+          <h3 class="noise">${item.title[lang]}</h3>
+          <p style="width: fit-content;">${item.category.join(" / ")}</p>
+        </a>
+      </div>
     `;
     container.appendChild(div);
-});
+  });
 
-
-    renderPagination(filtered.length);
-    setTimeout(() => container.classList.add("show"), 3);
-    smoothScrollToTop(400);
-
-  // ✨ ページ内リンクにクリックイベントを付与
-  setTimeout(() => {
-    const links = document.querySelectorAll(".works");
-    links.forEach((link, index) => {
-      link.addEventListener("click", () => {
-        const selectedItem = pageItems[index];
-        localStorage.setItem("selectedWork", JSON.stringify(selectedItem));
-      });
+  // ✅ localStorage にクリック時保存
+  const links = container.querySelectorAll(".works");
+  links.forEach((link, index) => {
+    link.addEventListener("click", () => {
+      const selectedItem = pageItems[index];
+      localStorage.setItem("selectedWork", JSON.stringify(selectedItem));
     });
-  }, 0);
+  });
+
+  renderPagination(filtered.length);
+  setTimeout(() => container.classList.add("show"), 3);
+  smoothScrollToTop(400);
 }
+
 
 
 
