@@ -634,7 +634,7 @@ function renderGallery() {
                 </span>
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <span class="dli-external-link">©Oyama</span>
-                <h3 class="noise">${item.category.join(" / ")}${item.title[lang]}</h3>
+                <h3 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h3>
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
                   view
                 </a>
@@ -676,26 +676,25 @@ function showModal(item) {
         </span>
         <img src="${item.img}" alt="${item.title[lang]}">
         <span class="dli-external-link">©Oyama</span>
-        <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
-          <h3 class="noise">${item.category.join(" / ")}${item.title[lang]}</h3>
+        <a class="works" href="${item.link || '#'}" rel="noopener">
+          <h3 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h3>
         </a>
       </div>
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
 
+    document.getElementById("modalOverlay").style.display = "block";
+    modalBox.style.display = "block";
 
-  document.getElementById("modalOverlay").style.display = "block";
-  modalBox.style.display = "block";
-  document.body.classList.add("modal-open");
+    document.getElementById("modalCloseBtn").onclick = () => {
+        document.getElementById("modalOverlay").style.display = "none";
+        modalBox.style.display = "none";
+    };
 
-  document.getElementById("modalCloseBtn").onclick = closeModal;
-  document.getElementById("modalOverlay").onclick = closeModal;
-
-  function closeModal() {
-    document.getElementById("modalOverlay").style.display = "none";
-    modalBox.style.display = "none";
-    document.body.classList.remove("modal-open");
-  }
+    document.getElementById("modalOverlay").onclick = () => {
+        modalBox.style.display = "none";
+        document.getElementById("modalOverlay").style.display = "none";
+    };
 }
 
 
