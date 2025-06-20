@@ -162,56 +162,62 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const data = localStorage.getItem("selectedWork");
   const detailContainer = document.getElementById("work-detail");
   const listContainer = document.getElementById("works-list");
   const accordionToggle = document.getElementById("accordion-toggle");
+  const accordionContent = document.getElementById("accordion-content");
+  const categoryTabs = document.querySelectorAll("#related-filter li");
 
+  const data = localStorage.getItem("selectedWork");
   if (!data) {
     detailContainer.textContent = "データがありません。";
     return;
   }
 
-  const work = JSON.parse(data);
+  const selectedWork = JSON.parse(data);
   const lang = localStorage.getItem("lang") || "ja";
-  const currentCategories = work.category;
 
-  // 作品詳細を表示
-  const html = `
+  // 現在の作品を表示
+  detailContainer.innerHTML = `
     <div class="work-img">
       <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
-        ${work.category.join(" / ")}
+        ${selectedWork.category.join(" / ")}
       </span>
-      <img src="${work.img}" alt="${work.title[lang]}">
+      <img src="${selectedWork.img}" alt="${selectedWork.title[lang]}">
       <span class="dli-external-link">©Oyama</span>
-      <h3 class="noise">${work.title[lang]}</h3>
-      <p>${work.caption[lang]}</p>
+      <h3 class="noise">${selectedWork.title[lang]}</h3>
+      <p>${selectedWork.caption[lang]}</p>
     </div>
   `;
-  detailContainer.innerHTML = html;
 
-  // 関連作品を取得（自身は除外）
-  const related = artworks.filter(w =>
-    w.title[lang] !== work.title[lang] &&
-    w.category.some(cat => currentCategories.includes(cat))
-  );
+  // 関連作品の描画関数（カテゴリフィルタ付き）
+  function renderRelated(category = "all") {
+    const filtered = artworks.filter(work => {
+      if (work.title[lang] === selectedWork.title[lang]) return false;
+      if (category === "all") {
+        return work.category.some(cat => selectedWork.category.includes(cat));
+      } else {
+        return work.category.includes(category);
+      }
+    });
 
-  if (related.length === 0) {
-    listContainer.innerHTML = "<p>関連する作品がありません。</p>";
-  } else {
-    related.forEach(w => {
-      const caption = w.caption[lang];
+    listContainer.innerHTML = filtered.length
+      ? ""
+      : "<p>関連する作品がありません。</p>";
+
+    filtered.forEach(work => {
+      const caption = work.caption[lang];
       const truncated = caption.length > 120 ? caption.substring(0, 120) + "..." : caption;
 
       const div = document.createElement("div");
       div.className = "work-item";
       div.innerHTML = `
         <div class="work-img">
-          <img src="${w.img}" alt="${w.title[lang]}">
+          <img src="${work.img}" alt="${work.title[lang]}">
         </div>
         <div class="work-info">
-          <h3>${w.title[lang]}</h3>
-          <p class="category">${w.category.join(" / ")}</p>
+          <h3>${work.title[lang]}</h3>
+          <p class="category">${work.category.join(" / ")}</p>
           <p class="caption">${truncated}</p>
         </div>
       `;
@@ -219,14 +225,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // アコーディオン切り替え処理
+  // 初回描画（Allカテゴリ）
+  renderRelated();
+
+  // タブクリックでカテゴリ切り替え
+  categoryTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      categoryTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const selected = tab.dataset.category;
+      renderRelated(selected);
+    });
+  });
+
+  // アコーディオン開閉
   accordionToggle.addEventListener("click", () => {
-    const isOpen = listContainer.style.display === "block";
-    listContainer.style.display = isOpen ? "none" : "block";
+    const isOpen = accordionContent.style.display === "block";
+    accordionContent.style.display = isOpen ? "none" : "block";
     accordionToggle.classList.toggle("open", !isOpen);
   });
 });
 </script>
+
 
 
   <script>
