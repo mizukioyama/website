@@ -643,6 +643,17 @@ function renderGallery() {
     renderPagination(filtered.length);
     setTimeout(() => container.classList.add("show"), 3);
     smoothScrollToTop(400);
+
+  // ✨ ページ内リンクにクリックイベントを付与
+  setTimeout(() => {
+    const links = document.querySelectorAll(".works");
+    links.forEach((link, index) => {
+      link.addEventListener("click", () => {
+        const selectedItem = pageItems[index];
+        localStorage.setItem("selectedWork", JSON.stringify(selectedItem));
+      });
+    });
+  }, 0);
 }
 
 
@@ -792,14 +803,5 @@ function renderGallery() {
     }
 
     renderGallery(); // 初期描画
-
-    // 各リンクにクリックイベント追加
-const links = container.querySelectorAll(".works");
-links.forEach((link, index) => {
-  link.addEventListener("click", () => {
-    const selectedItem = pageItems[index];
-    localStorage.setItem("selectedWork", JSON.stringify(selectedItem));
-  });
-});
 
 }
