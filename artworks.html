@@ -85,10 +85,13 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const data = localStorage.getItem("selectedWork");
-      if (!data) return;
+      if (!data) {
+        document.getElementById("work-detail").textContent = "データがありません。";
+        return;
+      }
 
       const work = JSON.parse(data);
-      const lang = localStorage.getItem("lang") || "ja"; // 言語も合わせる場合
+      const lang = localStorage.getItem("lang") || "ja";
 
       const html = `
         <div class="work-img">

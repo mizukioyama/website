@@ -313,9 +313,9 @@
         </div>
         <hr lang="ja">
         <p lang="ja">
-            作品ページへ移動します。
+            Site Policyを確認しました。
             <br>
-            Site Policyを確認しましたか？
+            作品ページへ移動します。
         </p>
 
         <p lang="en">
@@ -426,9 +426,9 @@
         </div>
         <hr lang="en">
         <p lang="en">
-            Go to the work page.
+            I have read and agree to the Site Policy.
             <br>
-            Have you checked the Site Policy?
+            Go to the work page.
         </p>
         <a href="./gallery.html" class="button" style="margin-top: 3rem;" target="_blank">
             view
@@ -487,11 +487,17 @@
 
         .modal-box h2 {
             font-size: 1.8rem;
+            font-weight: 300;
         }
 
         .modal-box h3 {
             font-size: 1.2rem;
-            margin-top: 2rem;
+            margin-top: 6rem;
+            border-bottom: 1px solid;
+        }
+
+        .modal-box p {
+            font-weight: 200;
         }
 
         /* 開いた状態 */
@@ -508,8 +514,12 @@
 
         @media screen and (max-width: 599px) {
             .modal-box {
-                width: 80%;
+                width: 85%;
                 height: 70%;
+                padding: 1.5rem;
+            }
+            .modal-box p {
+                letter-spacing: 0.05rem;
             }
         }
     </style>
