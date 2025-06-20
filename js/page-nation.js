@@ -664,16 +664,16 @@ function showModal(item) {
     const modalBox = document.getElementById("modalBox");
 
     modalBox.innerHTML = `
-      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 20%; width: fit-content;">
+      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 28%; width: fit-content;">
         Category | ${selectedCategoryLabel}
       </p>
 
       <div class="work-img">
         <img src="${item.img}" alt="${item.title[lang]}">
-        <span class="dli-external-link">©Oyama</span>
         <a class="works" href="${item.link || '#'}" rel="noopener">
           <h3 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h3>
         </a>
+        <span class="dli-external-link">©Oyama</span>
         <p>${truncateText(item.caption[lang])}</p>
       </div>
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
