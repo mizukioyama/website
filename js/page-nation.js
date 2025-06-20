@@ -664,7 +664,7 @@ function showModal(item) {
     const modalBox = document.getElementById("modalBox");
 
     modalBox.innerHTML = `
-      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 28%; width: fit-content;">
+      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 20%; width: fit-content;">
         Category | ${selectedCategoryLabel}
       </p>
 
