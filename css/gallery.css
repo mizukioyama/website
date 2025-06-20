@@ -200,6 +200,10 @@ main li {
     animation: blink 0.09s infinite;
 }
 
+.head a span {
+    letter-spacing: 0.25rem;
+}
+
 @keyframes blink {
     0% {
         opacity: 1;

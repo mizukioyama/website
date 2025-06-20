@@ -25,7 +25,7 @@
     <script src="js/page-nation.js"></script>
     <script src="js/loading.js"></script>
     <script src="js/menu.js"></script>
-    <script src="js/side.js"></script>
+    <script src="js/artworks-date.js"></script>
     <script src="js/footer.js"></script>
 
     <!-- Font -->
@@ -81,7 +81,14 @@
 <body data-current-page="1" data-current-category="all">
     <div id="header-container"></div>
     <div class="ripples"></div>
-    <div id="sidebar-container"></div>
+  
+    <!-- ✅ カテゴリフィルター（クリックで絞り込み） -->
+  <ul id="works-filter">
+    <li data-category="all" class="active">All</li>
+    <li data-category="digital">Digital</li>
+    <li data-category="analog">Analog</li>
+    <li data-category="unreleased">Unreleased</li>
+  </ul>
 
     <main class="gallery">
         <h1 class="noise">Art Index</h1>
@@ -118,6 +125,65 @@
 
       document.getElementById("work-detail").innerHTML = html;
     });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("works-list");
+  const filterButtons = document.querySelectorAll("#works-filter li");
+  let selectedCategory = "all";
+
+  // フィルタークリック時の処理
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedCategory = btn.dataset.category;
+
+      filterButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      renderWorks();
+    });
+  });
+
+  // 作品を表示
+  function renderWorks() {
+    const lang = localStorage.getItem("lang") || "ja";
+
+    // ✅ artworks 変数は別スクリプトで定義 or fetch で取得してください
+    const filtered = selectedCategory === "all"
+      ? artworks
+      : artworks.filter(work => work.category.includes(selectedCategory));
+
+    container.innerHTML = "";
+
+    if (filtered.length === 0) {
+      container.innerHTML = "<p>該当する作品がありません。</p>";
+      return;
+    }
+
+    filtered.forEach(work => {
+      const caption = work.caption[lang];
+      const truncated = caption.length > 120 ? caption.substring(0, 120) + "..." : caption;
+
+      const div = document.createElement("div");
+      div.className = "work-item";
+      div.innerHTML = `
+        <div class="work-img">
+          <img src="${work.img}" alt="${work.title[lang]}">
+        </div>
+        <div class="work-info">
+          <h3>${work.title[lang]}</h3>
+          <p class="category">${work.category.join(" / ")}</p>
+          <p class="caption">${truncated}</p>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  renderWorks();
+});
+
   </script>
 </body>
 </html>
