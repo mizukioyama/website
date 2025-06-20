@@ -664,14 +664,11 @@ function showModal(item) {
     const modalBox = document.getElementById("modalBox");
 
     modalBox.innerHTML = `
-      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
+      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 20%; width: fit-content;">
         Category | ${selectedCategoryLabel}
       </p>
 
       <div class="work-img">
-        <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
-          ${item.category.join(" / ")}
-        </span>
         <img src="${item.img}" alt="${item.title[lang]}">
         <span class="dli-external-link">©Oyama</span>
         <a class="works" href="${item.link || '#'}" rel="noopener">
