@@ -55,7 +55,7 @@
             }
 
             h2 {
-                font-size: clamp(2rem, calc( 2rem + 0.5vw), 2.4rem);
+                font-size: 1.8rem;
             }
             h3 {
                 font-size: 1.2rem;
@@ -137,6 +137,12 @@
     margin: 50vmin auto 0;
     padding: 5vmin 10vmin;
     backdrop-filter: none;
+}
+
+#info .content,
+#contact .content,
+#policy .content {
+    padding: 0;
 }
 
 .works {
