@@ -77,33 +77,34 @@
         ">
 
         <style>
-            /* モーダルオーバーレイ */
+/* モーダルオーバーレイ */
 .modal-overlay {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6); /* 半透明の背景 */
-  z-index: 999; /* モーダルより下に */
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
 }
 
 /* モーダル本体 */
 .modal-box {
-  position: fixed;
+  position: fixed !important;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* 画面中央に配置 */
+  transform: translate(-50%, -50%);
   background: #fff;
   padding: 2rem;
-  max-width: 600px;
   width: 90%;
+  max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  z-index: 1000; /* オーバーレイより上 */
+  z-index: 1000;
   border-radius: 8px;
 }
+
 #modalCloseBtn {
   cursor: pointer;
 }
