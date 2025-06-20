@@ -76,6 +76,42 @@
         object-src 'none';
         ">
 
+        <style>
+            /* オーバーレイ：画面全体を覆い、背景を暗く */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: none;
+}
+
+/* モーダル本体：中央に配置 */
+.modal-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: #fff;
+  padding: 2rem;
+  z-index: 1000;
+  border-radius: 10px;
+  display: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* スクロールを止めるためのクラス */
+body.modal-open {
+  overflow: hidden;
+}
+
+        </style>
 </head>
 
 <body data-current-page="1" data-current-category="all">

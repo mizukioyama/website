@@ -683,18 +683,19 @@ function showModal(item) {
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
 
-    document.getElementById("modalOverlay").style.display = "block";
-    modalBox.style.display = "block";
 
-    document.getElementById("modalCloseBtn").onclick = () => {
-        document.getElementById("modalOverlay").style.display = "none";
-        modalBox.style.display = "none";
-    };
+  document.getElementById("modalOverlay").style.display = "block";
+  modalBox.style.display = "block";
+  document.body.classList.add("modal-open");
 
-    document.getElementById("modalOverlay").onclick = () => {
-        modalBox.style.display = "none";
-        document.getElementById("modalOverlay").style.display = "none";
-    };
+  document.getElementById("modalCloseBtn").onclick = closeModal;
+  document.getElementById("modalOverlay").onclick = closeModal;
+
+  function closeModal() {
+    document.getElementById("modalOverlay").style.display = "none";
+    modalBox.style.display = "none";
+    document.body.classList.remove("modal-open");
+  }
 }
 
 
