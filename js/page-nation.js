@@ -437,7 +437,7 @@ function setupCategoryFilter() {
             
         },//========2022
         {
-            title: { ja: "No Title / 2023", en: "No Title / 2022" },
+            title: { ja: "No Title / 2022", en: "No Title / 2022" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
             img: "img/202200.jpg"
@@ -453,126 +453,108 @@ function setupCategoryFilter() {
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/挑戦01.jpg"
-            
         },//========2021
         {
             title: { ja: "戦争 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/戦争01.jpg"
-            
         },
         {
             title: { ja: "幸緑 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/幸緑01.jpg"
-            
         },
         {
             title: { ja: "金雲 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/金雲01.jpg"
-            
         },
         {
             title: { ja: "幸華 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/幸華01.jpg"
-            
         },
         {
             title: { ja: "輝き / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/輝き01.jpg"
-            
         },//========2010~17
         {
             title: { ja: "海底 / 2017", en: "No Title / 2017" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/海底01.jpg"
-            
         },
         {
             title: { ja: "無題 / 2017", en: "No Title / 2017" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1701.jpg"
-            
         },
         {
             title: { ja: "無題 / 2016", en: "No Title / 2016" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1702.jpg"
-            
         },
         {
             title: { ja: "無題 / 2016", en: "No Title / 2016" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1703.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1704.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1705.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1706.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1707.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1708.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1709.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1710.jpg"
-            
         },
         {
             title: { ja: "無題 / 2010", en: "No Title / 2010" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/2010-1711.jpg"
-            
         }
     ];
 
