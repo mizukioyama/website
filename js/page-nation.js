@@ -437,25 +437,16 @@ function setupCategoryFilter() {
             
         },//========2022
         {
-            title: { ja: "No Title / 2023", en: "No Title / 2023" },
+            title: { ja: "No Title / 2023", en: "No Title / 2022" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
             img: "img/202200.jpg"
-            
-        },
-        {
-            title: { ja: "No Title / 2022", en: "No Title / 2022" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
-            category: ["digital"],
-            img: "img/2202200.jpg"
-            
         },
         {
             title: { ja: "映し神 / 2022", en: "No Title / 2022" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["analog"],
             img: "img/映し神01.jpg"
-            
         },
         {
             title: { ja: "挑戦 / 2022", en: "No Title / 2022" },
