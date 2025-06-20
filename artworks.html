@@ -107,6 +107,25 @@
 }
 
         </style>
+        <style>
+#related-filter {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  padding: 0;
+}
+#related-filter li {
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  border-bottom: 2px solid transparent;
+}
+#related-filter li.active {
+  border-color: #000;
+  font-weight: bold;
+}
+</style>
+
 </head>
 
 <body data-current-page="1" data-current-category="all">
@@ -120,13 +139,23 @@
       <div class="scroll"></div>
       
       <div id="work-detail"></div>
-      <div class="accordion">
+
+    <div class="accordion">
   <button id="accordion-toggle" class="noise">▼ 関連作品を表示</button>
-  <div id="works-list" class="works-list" style="display: none;"></div>
+  <div id="accordion-content" style="display: none;">
+    <ul id="related-filter" class="noise">
+      <li data-category="all" class="active">All</li>
+      <li data-category="digital">Digital</li>
+      <li data-category="analog">Analog</li>
+      <li data-category="unreleased">Unreleased</li>
+    </ul>
+    <div id="works-list" class="works-list"></div>
+  </div>
 </div>
 
+
      <!-- ページネーション -->
-        <div id="pagination">
+        <div id="pagination"></div>
     
   </main>
     <div id="footer-container"></div>
