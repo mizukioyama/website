@@ -634,8 +634,7 @@ function renderGallery() {
                 </span>
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <span class="dli-external-link">©Oyama</span>
-                <h3 class="noise">${item.title[lang]}</h3>
-                <p style="width: fit-content;">${item.category.join(" / ")}</p>
+                <h3 class="noise">${item.category.join(" / ")}${item.title[lang]}</h3>
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
                   view
                 </a>
@@ -677,10 +676,9 @@ function showModal(item) {
         </span>
         <img src="${item.img}" alt="${item.title[lang]}">
         <span class="dli-external-link">©Oyama</span>
-
-          <h3 class="noise">${item.title[lang]}</h3>
-          <p style="width: fit-content;">${item.category.join(" / ")}</p>
-
+        <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
+          <h3 class="noise">${item.category.join(" / ")}${item.title[lang]}</h3>
+        </a>
       </div>
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
