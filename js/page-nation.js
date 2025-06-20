@@ -638,7 +638,7 @@ function renderGallery() {
             </span>
             <img src="${item.img}" alt="${item.title[lang]}">
             <span class="dli-external-link">©Oyama</span>
-            <a class="works" href="${item.link || '#'}" target="_blank" rel="noopener">
+            <a class="works" href="works.html" target="_blank">
                 <h3 class="noise">${item.title[lang]}</h3>
                 <p style="width: fit-content;">${item.category.join(" / ")}</p>
             </a>
@@ -800,4 +800,14 @@ function renderGallery() {
     }
 
     renderGallery(); // 初期描画
+
+    // 各リンクにクリックイベント追加
+const links = container.querySelectorAll(".works");
+links.forEach((link, index) => {
+  link.addEventListener("click", () => {
+    const selectedItem = pageItems[index];
+    localStorage.setItem("selectedWork", JSON.stringify(selectedItem));
+  });
+});
+
 }
