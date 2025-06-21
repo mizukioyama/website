@@ -636,7 +636,7 @@ function renderGallery() {
                 <span class="dli-external-link">©Oyama</span>
                 <h3 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h3>
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
-                  view
+                  VIEW MORE
                 </a>
             </div>
         `;
@@ -672,7 +672,7 @@ function showModal(item) {
         <img src="${item.img}" alt="${item.title[lang]}">
         <a class="works" href="${item.link || '#'}" rel="noopener">
           <h3 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h3>
-          View More
+          VIEW MORE
         </a>
         <span class="dli-external-link">©Oyama</span>
         <p>${truncateText(item.caption[lang])}</p>
