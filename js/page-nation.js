@@ -2,7 +2,7 @@ function setupCategoryFilter() {
     //let currentLang = localStorage.getItem("lang") || "ja";
     //const getLang = () => currentLang;
 
-    const artworks = [  
+    const artworks = [
         {
             title: { ja: "Order：蒼想 / 2024", en: "Order：Blue Thought / 2024" },
             caption: { ja: "青に想いを重ねて結晶した「蒼想」は、そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
@@ -86,7 +86,7 @@ function setupCategoryFilter() {
             category: ["digital"],
             img: "img/202352-2.jpg",
             link: "pages/2024work.html"
-            
+
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
@@ -171,7 +171,7 @@ function setupCategoryFilter() {
             category: ["digital"],
             img: "img/202340-2.jpg",
             link: "pages/2024work.html"
-            
+
         },//========39~30
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
@@ -588,38 +588,38 @@ function setupCategoryFilter() {
         }
     ];
 
-const itemsPerPage = 4;
-let selectedCategory = "all";
-let currentPage = 1;
-let filtered = []; // モーダル表示に必要
+    const itemsPerPage = 4;
+    let selectedCategory = "all";
+    let currentPage = 1;
+    let filtered = []; // モーダル表示に必要
 
-function filterArtworks() {
-    return selectedCategory === "all"
-        ? artworks
-        : artworks.filter(item => item.category.includes(selectedCategory));
-}
+    function filterArtworks() {
+        return selectedCategory === "all"
+            ? artworks
+            : artworks.filter(item => item.category.includes(selectedCategory));
+    }
 
-function truncateText(text, maxLength = 120) {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
-}
+    function truncateText(text, maxLength = 120) {
+        return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    }
 
-function renderGallery() {
-    const lang = getLang();
-    const container = document.getElementById("gallery-container");
-    container.classList.remove("show");
+    function renderGallery() {
+        const lang = getLang();
+        const container = document.getElementById("gallery-container");
+        container.classList.remove("show");
 
-    filtered = filterArtworks();
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
+        filtered = filterArtworks();
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageItems = filtered.slice(start, start + itemsPerPage);
 
-    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-    container.innerHTML = "";
-    pageItems.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "work";
-        div.innerHTML = `
+        container.innerHTML = "";
+        pageItems.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "work";
+            div.innerHTML = `
             <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
                 Category | ${selectedCategoryLabel}
             </p>
@@ -638,30 +638,30 @@ function renderGallery() {
                 </a>
             </div>
         `;
-        container.appendChild(div);
-    });
-
-    renderPagination(filtered.length);
-    setTimeout(() => container.classList.add("show"), 3);
-    smoothScrollToTop(400);
-
-    document.querySelectorAll(".view-policy-button").forEach(button => {
-        button.addEventListener("click", (e) => {
-            e.preventDefault();
-            const index = parseInt(button.getAttribute("data-index"));
-            showModal(filtered[index]);
+            container.appendChild(div);
         });
-    });
-}
 
-function showModal(item) {
-    const lang = getLang();
-    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+        renderPagination(filtered.length);
+        setTimeout(() => container.classList.add("show"), 3);
+        smoothScrollToTop(400);
 
-    const modalBox = document.getElementById("modalBox");
+        document.querySelectorAll(".view-policy-button").forEach(button => {
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                const index = parseInt(button.getAttribute("data-index"));
+                showModal(filtered[index]);
+            });
+        });
+    }
 
-    modalBox.innerHTML = `
+    function showModal(item) {
+        const lang = getLang();
+        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+
+        const modalBox = document.getElementById("modalBox");
+
+        modalBox.innerHTML = `
       <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 20%; width: fit-content;">
         Category | ${selectedCategoryLabel}
       </p>
@@ -678,24 +678,24 @@ function showModal(item) {
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
 
-    // アニメーション方向をランダム選択（top, bottom, left, right）
-    //const directions = ["top", "bottom", "left", "right"];
-    const directions = ["bottom"];
-    const randomDir = directions[Math.floor(Math.random() * directions.length)];
+        // アニメーション方向をランダム選択（top, bottom, left, right）
+        //const directions = ["top", "bottom", "left", "right"];
+        const directions = ["bottom"];
+        const randomDir = directions[Math.floor(Math.random() * directions.length)];
 
-    modalBox.className = `modal-box animate-${randomDir}`;
-    document.getElementById("modalOverlay").style.display = "block";
-    modalBox.style.display = "block";
+        modalBox.className = `modal-box animate-${randomDir}`;
+        document.getElementById("modalOverlay").style.display = "block";
+        modalBox.style.display = "block";
 
-    document.getElementById("modalCloseBtn").onclick = closeModal;
-    document.getElementById("modalOverlay").onclick = closeModal;
+        document.getElementById("modalCloseBtn").onclick = closeModal;
+        document.getElementById("modalOverlay").onclick = closeModal;
 
-    function closeModal() {
-        modalBox.style.display = "none";
-        document.getElementById("modalOverlay").style.display = "none";
-        modalBox.className = "modal-box"; // アニメーション解除
+        function closeModal() {
+            modalBox.style.display = "none";
+            document.getElementById("modalOverlay").style.display = "none";
+            modalBox.className = "modal-box"; // アニメーション解除
+        }
     }
-}
 
 
 

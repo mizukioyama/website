@@ -128,9 +128,7 @@
 
 @media screen and (max-width: 600px) {
    .button {
-      font-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
-      width: 50%;
-      box-shadow: 0 2px 5px rgba(46, 46, 46, 0.5);
+      box-shadow: 1px 1px 0px rgba(0, 0, 0);
    }
 
    #modal--first h3 {

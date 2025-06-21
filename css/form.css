@@ -14,8 +14,8 @@ form input {
    height: 1rem;
    border: 1px solid var(--hover);
    border-radius: 50%;
-   background: #fffdfb;
-   box-shadow: inset hsla(0, 0%, 0%, 0.5) 0px 1px 2px 0px;
+   background: var(--inv);
+   box-shadow: inset hsla(0, 0%, 0%, 0.95) 0px 1px 4px 0px;
 }
 form input[type="checkbox"] {
    border-radius: 2px;
@@ -349,7 +349,7 @@ input:-webkit-autofill:focus {
 
 @media screen and (max-width: 600px) {
    .contact-form {
-      width: 80%;
+      width: 100%;
    }
    .form-row {
       display: block;
@@ -411,10 +411,8 @@ input:-webkit-autofill:focus {
       justify-content: center;
       margin-top: 2rem;
    }
-   .align-center p a {
-      margin-top: 0;
-      padding: 0.5rem;
-      border: 0;
+   .align-center p {
+      display: inline-block;
    }
    /*===================== モーダルウィンドウ =====================*/
    #thanksModal {

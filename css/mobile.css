@@ -8,7 +8,7 @@
                 left: 2%;
             }
 
-            body::before {
+            /*body::before {
                 content: "";
                 display: block;
                 position: fixed;
@@ -18,7 +18,7 @@
                 z-index: 20;
                 pointer-events: none;
                 mix-blend-mode: difference;
-            }
+            }*/
 
         /*== bg water ==*/
             div.ripples {
