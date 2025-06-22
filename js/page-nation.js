@@ -627,9 +627,6 @@ function setupCategoryFilter() {
             <p>${truncateText(item.caption[lang])}</p>
 
             <div class="work-img">
-                <span style="width: 120px; position: relative; left: -4.75rem; bottom: -13.5vmin; letter-spacing: 0.05rem; transform: rotate(-90deg);" class="noise">
-                    ${item.category.join(" / ")}
-                </span>
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <span class="dli-external-link">©Oyama</span>
                 <h3 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h3>

@@ -70,7 +70,6 @@
             }
 
             p {
-                text-align: left;
                 letter-spacing: 0.05em;
                 line-height: 2em;
             }
@@ -79,7 +78,6 @@
             }
 
             a {
-                /*font-family: Arial, Helvetica, sans-serif;*/
                 font-size: clamp(1rem, calc( 1rem + 0.5vw), 1.2rem);
                 transition-duration: 0.8s;
             }
@@ -99,7 +97,6 @@
                 overflow: hidden;
             }
             footer a {
-                font-family: Arial, Helvetica, sans-serif;
                 font-size: clamp(1rem, calc(1rem + 0.5vw), 1.3rem);
             }
             footer a::before, header a::before {
@@ -171,7 +168,6 @@
 
 .gallery ol p {
         font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
-        font-family: "poiret-one",Not serif-JP;
         font-weight: 600;
         width: fit-content;
         margin-top: 2em;

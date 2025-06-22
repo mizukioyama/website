@@ -252,16 +252,15 @@ main {
 .gallery .content {
     container-type: inline-size;
     container-name: gallery;
-    width: clamp(55%, 100%, 45%);
-    max-width: 1000px;
+    /*width: clamp(55%, 100%, 45%);*/
+    width: 75%;
+    max-width: 1400px;
     height: 100%;
-    margin-top: 45vmin;
-    margin-left: 55vmin;
+    max-width: 45vmin auto 0;
     padding: 1em 2em;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
-    /*background: rgba(46, 46, 46, 0.02);*/
-    background: rgba(55, 100, 100, 0.1);
-    backdrop-filter: blur(10px);
+    /*background: rgba(55, 100, 100, 0.1);
+    backdrop-filter: blur(10px);*/
 }
 
 .gallery .noise {
@@ -271,11 +270,11 @@ main {
 .work {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
     min-height: 350px;
-    margin: 0 auto 4rem;
-    gap: 3rem;
+    margin: 4rem auto;
+    gap: 8rem;
 }
 
 /*=======info page*/
@@ -371,7 +370,7 @@ main {
 
 #gallery-container .work p {
     font-weight: 200;
-    width: 50%;
+    width: 35%;
 }
 
 .work-img {
