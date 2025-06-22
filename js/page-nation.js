@@ -14,35 +14,35 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital"],
-            img: "img/202362-1.jpg",
+            img: "img/202362-2.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital"],
-            img: "img/202361-1.jpg",
+            img: "img/202361-2.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital"],
-            img: "img/202360-1.jpg",
+            img: "img/202360-2.jpg",
             link: "pages/2024work.html"
         },//========59~50
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital"],
-            img: "img/202359-1.jpg",
+            img: "img/202359-2.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital"],
-            img: "img/202358-1.jpg",
+            img: "img/202358-2.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -627,7 +627,7 @@ function setupCategoryFilter() {
             <div class="work-img">
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <span class="dli-external-link">©Oyama</span>
-                <h2 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h2>
+                <h2 class="noise">${item.category.join(" / ")}<br>${item.title[lang]}</h2>
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
                   View More
                 </a>

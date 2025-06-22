@@ -255,6 +255,12 @@ main {
     z-index: 1;
 }
 
+main p:nth-child(1) {
+    font-size: 1.4rem;
+    padding-top: 8rem;
+    margin-left: 25vmin;
+}
+
 /* コンテナ定義（.gallery .content をコンテナに） */
 .gallery .content {
     container-type: inline-size;
@@ -386,7 +392,7 @@ main {
     position: relative;
     display: grid;
     gap: 1rem;
-    width: 45%;
+    width: 85%;
     max-width: 450px;
     /*filter: grayscale(40%);*/
 }
