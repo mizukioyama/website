@@ -84,8 +84,8 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(30, 30, 30, 0.2);
-      backdrop-filter: blur(15px);
+      background: rgba(30, 30, 30, 0.5);
+      backdrop-filter: blur(20px);
       z-index: 999;
     }
 
@@ -95,8 +95,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(250, 250, 250, 0.2);
-      backdrop-filter: blur(5px);
+      background: rgba(250, 250, 250, 0.1);
+      backdrop-filter: blur(25px);
       padding: 2rem;
       width: 100%;
       max-width: 850px;
@@ -119,10 +119,14 @@
       top: 1%;
     }
 
+    .modal-box h2 {
+      font-size: 1.4rem;
+    }
+
     #modalCloseBtn {
+      width: 100%;
       cursor: pointer;
-      position: absolute;
-      left: 50%;
+      margin: 0 auto;
     }
 
     #modalCloseBtn:hover {
@@ -154,7 +158,12 @@
         padding: 1.5rem;
       }
 
+      .modal-box h2 {
+        font-size: 1.2rem;
+      }
+
       .modal-box p {
+        left: 0 !important;
         letter-spacing: 0.05rem;
       }
 
