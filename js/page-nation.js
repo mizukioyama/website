@@ -588,7 +588,7 @@ function setupCategoryFilter() {
         }
     ];
 
-    const itemsPerPage = 4;
+    const itemsPerPage = 8;
     let selectedCategory = "all";
     let currentPage = 1;
     let filtered = []; // モーダル表示に必要
