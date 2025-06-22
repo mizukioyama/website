@@ -664,7 +664,7 @@ function setupCategoryFilter() {
       <div class="work-img">
         <img src="${item.img}" alt="${item.title[lang]}">
         <a class="works" href="${item.link || '#'}" rel="noopener">
-          <h2 class="noise">${item.category.join(" / ")}･${item.title[lang]}</h2>
+          <h2 class="noise">${item.category.join(" / ")}<br>${item.title[lang]}</h2>
           View More
         </a>
         <span class="dli-external-link">©Oyama</span>
