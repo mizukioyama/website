@@ -14,77 +14,77 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202362-2.jpg",
+            img: "img/202362-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202361-2.jpg",
+            img: "img/202361-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202360-2.jpg",
+            img: "img/202360-1.jpg",
             link: "pages/2024work.html"
         },//========59~50
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202359-2.jpg",
+            img: "img/202359-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202358-2.jpg",
+            img: "img/202358-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202357-2.jpg",
+            img: "img/202357-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202356-2.jpg",
+            img: "img/202356-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202355-2.jpg",
+            img: "img/202355-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202354-2.jpg",
+            img: "img/202354-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202353-2.jpg",
+            img: "img/202353-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202352-2.jpg",
+            img: "img/202352-1.jpg",
             link: "pages/2024work.html"
 
         },
@@ -92,7 +92,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202351-2.jpg",
+            img: "img/202351-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -106,35 +106,35 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202349-2.jpg",
+            img: "img/202349-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202348-2.jpg",
+            img: "img/202348-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202347-2.jpg",
+            img: "img/202347-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202346-2.jpg",
+            img: "img/202346-1.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["digital"],
-            img: "img/202345-2.jpg",
+            img: "img/202345-1.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -620,7 +620,7 @@ function setupCategoryFilter() {
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: 1%; left: 1%; width: fit-content;">
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -15%; left: 1%; width: fit-content;">
                 Category | ${selectedCategoryLabel}
             </p>
 
