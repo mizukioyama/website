@@ -10,6 +10,10 @@
         z-index: 100;
     }
 
+    footer .noise {
+        background-image: linear-gradient(to right, #fff);
+    }
+
     footer a {
         font-weight: 400;
         margin-top: 2vmin;

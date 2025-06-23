@@ -144,9 +144,9 @@
     }
 
     .art-page .gallery p {
-        font-size: 1rem;
-        margin-left: 0;
-        margin-top: 15%;
+        font-size: 1rem !important;
+        margin-left: 0 !important;
+        margin-top: 15% !important;
     }
 
     .gallery .content,

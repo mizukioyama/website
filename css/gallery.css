@@ -73,12 +73,13 @@ h1 {
 .scroll {
     position: absolute;
     left: 28vmin;
-    top: 40vmin;
+    top: 50vmin;
     writing-mode: vertical-rl;
     background: #fff;
     width: 2px;
     height: 200px;
     z-index: 100;
+    opacity: 0.5;
 }
 
 /* アニメーションする縦線部分 */
@@ -105,16 +106,16 @@ h1 {
     50% {
         transform: scale(1, 1);
         transform-origin: 0 0;
-        opacity: 0.5;
+        opacity: 1;
     }
 
     51% {
         transform: scale(1, 1);
         transform-origin: 0 100%;
-        opacity: 0.5;
+        opacity: 1;
     }
 
-    100% {
+    100% {  
         transform: scale(1, 0);
         transform-origin: 0 100%;
         opacity: 0;
@@ -254,7 +255,7 @@ main {
     max-width: 1400px;
     height: 100%;
     margin: 45vmin auto 0;
-    padding: 1em 2em;
+    padding: 3rem 2rem;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
     display: grid;
     grid-template-columns: 50% 50%;
@@ -284,19 +285,18 @@ main {
     box-shadow: none;
     backdrop-filter: none;
     /*margin: 25vmin auto 0;*/
-    padding: 3rem 10vmin;
+    /*padding: 3rem 10vmin;*/
     /*width: 50%;*/
     max-width: 1000px;
 }
 
-#info .content {
+/*#info .content {
     width: 65%;
     margin: 25vmin 0 0 40vmin;
 }
-
 #info .work {
     margin-top: 0;
-}
+}*/
 
 #info h3 {
     margin-bottom: 2vmin;
@@ -360,6 +360,7 @@ main {
 }
 
 #info .work ol p {
+    width: auto;
     border-bottom: 1px solid;
 }
 
