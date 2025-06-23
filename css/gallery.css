@@ -4,7 +4,6 @@
 }
 
 #langChenge {
-    position: fixed;
     top: 8%;
     left: 3%;
 }
@@ -90,7 +89,7 @@ h1 {
     right: 0;
     bottom: 0;
     width: 2px;
-    height: 220px;
+    height: 100%;
     background: #000;
     animation: scroll-line 6s infinite;
 }
@@ -103,22 +102,16 @@ h1 {
         opacity: 0;
     }
 
-    25% {
-        transform: scale(1, 0.5);
-        transform-origin: 0 0;
-        opacity: 0.5;
-    }
-
     50% {
         transform: scale(1, 1);
         transform-origin: 0 0;
         opacity: 1;
     }
 
-    75% {
-        transform: scale(1, 0.5);
-        transform-origin: 0 75%;
-        opacity: 0.5;
+    51% {
+        transform: scale(1, 1);
+        transform-origin: 0 0;
+        opacity: 1;
     }
 
     100% {  
@@ -260,7 +253,7 @@ main {
     width: 75%;
     max-width: 1400px;
     height: 100%;
-    margin: 45vmin auto 0;
+    margin: 45vmin 0 0 25vmin;
     padding: 3rem 2rem;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
     display: grid;
