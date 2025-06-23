@@ -369,6 +369,10 @@ main {
     padding: 0;
 }
 
+#info .work {
+    width: auto;
+}
+
 #info .work ol p {
     width: auto;
     border-bottom: 1px solid;
