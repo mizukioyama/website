@@ -147,7 +147,7 @@
         padding: 10vmin 0 10vmin 0.75rem;
     }
 
-    .gallery p:nth-child(1) {
+    .gallery p:nth-child(n+1) {
         margin-left: 0 !important;
     }
 
