@@ -121,10 +121,6 @@ body {
   color: var(--inv);
 }
 
-h1 {
-  width: 100%;
-}
-
 /* ========== Custom Cursor ========== */
 * {
   cursor: none !important;
@@ -296,6 +292,10 @@ hr {
   margin: 10% auto;
   background: var(--inv);
   opacity: 0.3;
+}
+
+h1 {
+  width: 100%;
 }
 
 a {
