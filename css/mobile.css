@@ -140,11 +140,9 @@
         padding: 10vmin 0 10vmin 0.75rem;
     }
 
-    /*.art-page .gallery p {
-        font-size: 1rem !important;
+    .art-page .gallery p {
         margin-left: 0 !important;
-        margin-top: 15% !important;
-    }*/
+    }
 
     .gallery .content,
     #info .content,
