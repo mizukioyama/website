@@ -138,7 +138,7 @@ input:-webkit-autofill:focus {
 }
 .contact-form .label {
    font-weight: 400;
-   color: rgba(146, 146, 146, 0.75);
+   color: rgba(146, 146, 146);
    position: absolute;
    left: 1vmin;
    top: 0.75rem;
