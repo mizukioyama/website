@@ -160,7 +160,6 @@ p {
 }
 
 main li {
-    font-family: 'jost', "poiret-one", Not serif-JP;
     position: relative;
     color: var(--inv);
     margin-bottom: 2vmin;

@@ -51,6 +51,12 @@
         margin: 0;
     }
 
+    #info h1,
+    #contact h1,
+    #policy h1 {
+        left: -1.5rem;
+    }
+
     .scroll {
         left: 50%;
         width: 1px;
@@ -140,7 +146,7 @@
         padding: 10vmin 0 10vmin 0.75rem;
     }
 
-    .art-page .gallery p {
+    .gallery p:nth-child(1) {
         margin-left: 0 !important;
     }
 

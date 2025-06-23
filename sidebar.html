@@ -6,7 +6,7 @@
   <li data-category="Digital" class="noise">Digital</li>
   <li data-category="Analog" class="noise">Analog</li>
   <li data-category="Unreleased" class="noise">Unreleased</li>
-  
+
   <p class="noise" style="margin-top: 1rem;">Year</p>
   <li data-category="2025" class="noise">2025</li>
   <li data-category="2024" class="noise">2024</li>
@@ -93,7 +93,6 @@
     display: flex;
     position: fixed;
     top: 20vh;
-    left: 3%;
     z-index: 100;
     padding: 1rem 1rem 1rem 0;
     backdrop-filter: blur(20px);
@@ -113,12 +112,18 @@
     padding: 0.2rem 0.5rem;
   }
 
-  @media screen and (max-width: 599px) {
+  @media screen and (min-width: 1299px) {
     #sidebar-container {
-      position: absolute;
-      top: 30%;
       left: 3%;
     }
+  }
+
+  @media screen and (max-width: 599px) {
+    #sidebar-container {
+      top: 5%;
+      right: 0;
+    }
+
     #category-header {
       font-size: 2rem;
       padding: 0.2rem 0.5rem 0 0.75rem;
