@@ -155,7 +155,7 @@
         padding: 10vmin 0 10vmin 0.75rem;
     }
 
-    .gallery p:nth-child(n+1) {
+    .art-page p:nth-child(n+1) {
         margin-left: 2rem !important;
     }
 
