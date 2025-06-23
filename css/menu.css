@@ -10,7 +10,7 @@ nav {
     overflow: hidden;
     /*-webkit-overflow-scrolling: touch;*/
     transition: 0.8s ease;
-    z-index: 1100;
+    z-index: 999;
 }
 
 .inner {
@@ -88,11 +88,11 @@ nav .noise {
     display: block;
     position: absolute;
     width: 40px;
-    height: 1px;
+    height: 2px;
     bottom: 20px;
     background: #c0c0c06b;
     overflow: hidden;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 .home .toggle_btn span {
@@ -145,8 +145,8 @@ nav .noise {
     background-color: var(--def);
     box-shadow: 0 0 7px 1px var(--inv);
     width: 100%;
-    height: 1%;
-    z-index: 9999;
+    height: 2px;
+    z-index: 1000;
     transition: all 1s ease;
 }
 

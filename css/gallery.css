@@ -72,14 +72,13 @@ h1 {
 /* スクロールダウンの本体 */
 .scroll {
     position: absolute;
-    right: 50%;
+    left: 28vmin;
     top: 40vmin;
     writing-mode: vertical-rl;
-    background: var(--text);
-    width: 1px;
-    height: 100px;
+    background: #fff;
+    width: 2px;
+    height: 200px;
     z-index: 100;
-    opacity: 0.5;
 }
 
 /* アニメーションする縦線部分 */
@@ -89,11 +88,10 @@ h1 {
     left: 0;
     right: 0;
     bottom: 0;
-    width: 1px;
-    height: 100px;
-    background-color: var(--inv);
-    /* --text 変数がなければ黒 */
-    animation: scroll-line 2s infinite;
+    width: 2px;
+    height: 220px;
+    background: #000;
+    animation: scroll-line 6s infinite;
 }
 
 /* スクロールアニメーションの定義 */
@@ -107,19 +105,19 @@ h1 {
     50% {
         transform: scale(1, 1);
         transform-origin: 0 0;
-        opacity: 0.3;
+        opacity: 0.5;
     }
 
     51% {
         transform: scale(1, 1);
         transform-origin: 0 100%;
-        opacity: 0.3;
+        opacity: 0.5;
     }
 
     100% {
         transform: scale(1, 0);
         transform-origin: 0 100%;
-        opacity: 0.3;
+        opacity: 0;
     }
 }
 
@@ -236,7 +234,7 @@ main {
     margin: 0 auto;
     padding: 10vmin 2rem;
     backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(25 125 80 / 10%);
     box-shadow: inset 0 0px 7px rgba(0, 0, 0, 0.9);
     z-index: 1;
 }

@@ -9,8 +9,6 @@
     }
 
     #langChenge {
-        top: 10vmin;
-        left: 1.5%;
         mix-blend-mode: difference;
     }
 
@@ -48,12 +46,6 @@
         padding-bottom: 10em;
         /*backdrop-filter: blur(5px);*/
         z-index: 10;
-    }
-
-    main p:nth-child(1) {
-    font-size: 1.2rem;
-    padding-top: 65vmin;
-    margin: 0;
     }
 
     h1 {
@@ -147,8 +139,14 @@
         transform: matrix(-3rem);
     }
 
-    .gallery {
-        padding: 0 0 0 0.75rem;
+    .art-page .gallery {
+        padding: 10vmin 0 10vmin 0.75rem;
+    }
+
+    .art-page .gallery p {
+        font-size: 1rem;
+        margin-left: 0;
+        margin-top: 15%;
     }
 
     .gallery .content,
