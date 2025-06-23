@@ -8,10 +8,6 @@
         mix-blend-mode: difference;
     }
 
-    #langChenge {
-        mix-blend-mode: difference;
-    }
-
     /*body::before {
                 content: "";
                 display: block;

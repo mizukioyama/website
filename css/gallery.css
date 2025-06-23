@@ -72,12 +72,12 @@ h1 {
 /* スクロールダウンの本体 */
 .scroll {
     position: absolute;
-    left: 28vmin;
-    top: 50vmin;
+    left: 25vmin;
+    top: 0;
     writing-mode: vertical-rl;
     background: #fff;
     width: 2px;
-    height: 200px;
+    height: 100%;
     z-index: 100;
     opacity: 0.5;
 }
@@ -103,16 +103,22 @@ h1 {
         opacity: 0;
     }
 
+    25% {
+        transform: scale(1, 0.5);
+        transform-origin: 0 0;
+        opacity: 0.5;
+    }
+
     50% {
         transform: scale(1, 1);
         transform-origin: 0 0;
         opacity: 1;
     }
 
-    51% {
-        transform: scale(1, 1);
-        transform-origin: 0 100%;
-        opacity: 1;
+    75% {
+        transform: scale(1, 0.5);
+        transform-origin: 0 75%;
+        opacity: 0.5;
     }
 
     100% {  
