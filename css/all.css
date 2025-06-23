@@ -186,6 +186,11 @@ body {
   width: fit-content;
 }
 
+.typing-container p {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
 /*=========== lang */
 #langChenge input {
   display: none !important;

@@ -5,7 +5,11 @@
 
     .head a {
         font-size: 1.2rem;
-        mix-blend-mode: difference;
+        left: 2rem;
+    }
+
+    #langChenge {
+        left: 2rem;
     }
 
     /*body::before {
@@ -49,12 +53,6 @@
         line-height: 1;
         margin-top: 15% !important;
         margin: 0;
-    }
-
-    #info h1,
-    #contact h1,
-    #policy h1 {
-        left: -1.5rem;
     }
 
     .scroll {
