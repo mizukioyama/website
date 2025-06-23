@@ -190,11 +190,6 @@ h1 {
   width: fit-content;
 }
 
-.typing-container p {
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-
 /*=========== lang */
 #langChenge input {
   display: none !important;

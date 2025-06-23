@@ -59,7 +59,8 @@ form input[type="checkbox"]::before {
 
 .contact-form {
    display: grid;
-   width: 65%;
+   /*width: 65%;*/
+   width: auto;
    margin: 0 auto;
 }
 

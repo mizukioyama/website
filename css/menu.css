@@ -92,7 +92,7 @@ nav .noise {
     bottom: 20px;
     background: #c0c0c06b;
     overflow: hidden;
-    z-index: 1003;
+    z-index: 9999;
 }
 
 .home .toggle_btn span {
