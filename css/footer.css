@@ -22,12 +22,13 @@
 
     .foot {
         font-size: clamp(0.9rem, calc( 0.9rem + 0.5vw), 0.95rem);
-        color: var(--inv);
         text-align: right;
         position: absolute;
         padding: 0.25em 3em;
         bottom: 0%;
         right: 0%;
+        width: -webkit-fill-available;
+        border-top: 1px solid #aaa;
     }
 
     /*security logo*/
@@ -39,6 +40,10 @@
     @media only screen and (max-width:600px) {
         footer {
             padding: 3rem 2.5rem 0;
+        }
+
+        footer a {
+            padding: 0.5rem 0.75rem 0.5rem 0;
         }
 
         footer a:hover {
