@@ -87,12 +87,12 @@
 
     p {
         font-size: 0.85rem;
-        letter-spacing: 0.05em;
-        line-height: 2em;
+        letter-spacing: 0.05rem;
     }
 
     li {
-        font-size: 1rem;
+        font-size: 0.8rem;
+        line-height: 2;
     }
 
     a {
@@ -172,6 +172,10 @@
     #contact .content,
     #policy .content {
         padding: 0;
+    }
+
+    #policy .content li {
+        padding-left: 1.5rem;
     }
 
     .works {
