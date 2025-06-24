@@ -167,7 +167,7 @@ main li {
     padding: 0;
     padding-right: 0.5rem;
     top: 3rem;
-    left: 3rem;
+    left: 2.95rem;
     text-shadow: 0 0 0px var(--inv);
     z-index: 1000;
 }
