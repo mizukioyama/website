@@ -8,6 +8,10 @@
         left: 2.5rem;
     }
 
+    .head a span {
+        letter-spacing: 0;
+    }
+
     #langChenge {
         top: 4.5rem;
         left: 2.4rem;
