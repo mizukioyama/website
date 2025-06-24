@@ -5,11 +5,11 @@
 
     .head a {
         font-size: 1.2rem;
-        left: 3rem;
+        left: 2.5rem;
     }
 
     #langChenge {
-        left: 3rem;
+        left: 2.5rem;
     }
 
     .typing-container p {
@@ -57,7 +57,7 @@
         font-size: clamp(3rem, calc(3rem + 0.5vw), 6rem);
         font-size: 2.4rem;
         line-height: 1;
-        margin-top: 15% !important;
+        margin-top: 65% !important;
         margin: 0;
     }
 
@@ -118,10 +118,6 @@
         overflow: hidden;
     }
 
-    footer a {
-        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.3rem);
-    }
-
     footer a::before,
     header a::before {
         content: '';
@@ -148,7 +144,7 @@
     }
 
     .art-page .gallery {
-        padding: 10vmin 0 10vmin 0.75rem;
+        padding: 10vmin 0 10vmin 2.5rem;
     }
 
     .gallery p:nth-child(n+1) {
@@ -198,6 +194,7 @@
     }
 
     #gallery-container .work:nth-child(1) .noise {
+        font-size: 1rem !important;
         top: -10% !important;
     }
 

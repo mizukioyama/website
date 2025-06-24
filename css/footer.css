@@ -38,16 +38,14 @@
 
     @media only screen and (max-width:600px) {
         footer {
-            height: 350px;
-            padding: 3em 2em 0;
+            padding: 3rem 2.5rem 0;
         }
-        footer div a {
-            margin-top: 4em;
-        }
+
         footer a:hover {
             color: var(--inv) !important;
             opacity: 0.95;
         }
+
         .foot {
             font-size: clamp(0.8rem, calc( 0.8rem + 0.5vw), 0.9rem);
             padding: 0.25em 1em;
