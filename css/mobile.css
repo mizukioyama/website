@@ -4,12 +4,13 @@
     }
 
     .head a {
-        font-size: 1.2rem;
+        font-size: 1rem;
         left: 2.5rem;
     }
 
     #langChenge {
-        left: 2.5rem;
+        top: 4.5rem;
+        left: 2.4rem;
     }
 
     .typing-container p {

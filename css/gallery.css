@@ -5,8 +5,8 @@
 
 #langChenge {
     position: fixed;
-    top: 7%;
-    left: 3%;
+    top: 5.5rem;
+    left: 3rem;
 }
 
 /* ========== Common ========== */
@@ -162,12 +162,12 @@ main li {
 .head a {
     position: fixed;
     justify-content: flex-start;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     letter-spacing: 0.5rem;
     padding: 0;
     padding-right: 0.5rem;
-    top: 3%;
-    left: 3%;
+    top: 3rem;
+    left: 3rem;
     text-shadow: 0 0 0px var(--inv);
     z-index: 1000;
 }
