@@ -111,6 +111,7 @@
         color: var(--inv);
         position: relative;
         overflow: hidden;
+        padding: 0.5rem 0.75rem 0.5rem 0;
     }
 
     footer a::before,

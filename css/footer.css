@@ -42,10 +42,6 @@
             padding: 3rem 2.5rem 0;
         }
 
-        footer a {
-            padding: 0.5rem 0.75rem 0.5rem 0;
-        }
-
         footer a:hover {
             color: var(--inv) !important;
             opacity: 0.95;
