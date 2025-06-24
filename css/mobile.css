@@ -142,6 +142,10 @@
         padding: 10vmin 0 10vmin 2.5rem;
     }
 
+    .gallery p:nth-child(n+1) {
+        margin-left: 0 !important;
+    }
+
     .art-page .gallery p:nth-child(n+1) {
         font-size: 1rem !important;
         margin-left: 0 !important;
