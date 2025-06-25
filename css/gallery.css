@@ -271,7 +271,7 @@ main {
 }
 
 /*=======info page*/
-#info .content,
+#state .content,
 #contact .content,
 #policy .content {
     background: none;
@@ -283,22 +283,22 @@ main {
     max-width: 1000px;
 }
 
-/*#info .content {
+/*#state .content {
     width: 65%;
     margin: 25vmin 0 0 40vmin;
 }
-#info .work {
+#state .work {
     margin-top: 0;
 }*/
 
 
-#info h3::before,
+#state h3::before,
 #policy h3::before {
     display: none;
 }
 
-#info h2,
-#info h3,
+#state h2,
+#state h3,
 #policy h2,
 #policy h3 {
     justify-content: flex-start;
@@ -315,17 +315,19 @@ main {
     border-bottom: 1px solid;
 }
 
-#info h3 {
+#state h3 {
+    position: relative;
     margin-top: 2vmin;
 }
 
-#info h3::before {
+#state h3::before {
     content: "";
     width: 100px;
     height: 1px;
-    background: var(--text);
+    background: var(--inv);
     position: absolute;
-    top: 50%;
+    top: 0%;
+    left: 0;
 }
 
 #policy .content li {
@@ -334,17 +336,17 @@ main {
     padding-left: 2rem;
 }
 
-#info .content ol {
+#state .content ol {
     width: auto;
 }
 
-#info .content li {
+#state .content li {
     line-height: 2;
     padding: 0.5rem 0 0.5rem 1.5rem;
     margin-bottom: 0;
 }
 
-#info .content li::before,
+#state .content li::before,
 #policy .content li::before {
     content: "";
     width: 10px;
@@ -355,23 +357,23 @@ main {
     background: rgba(200, 200, 200, 0.6);
 }
 
-#info .work p,
+#state .work p,
 #conract .work p,
 #policy .content p {
     margin: 0;
     padding: 0;
 }
 
-#info .work {
+#state .work {
     width: auto;
 }
 
-#info .work ol p {
+#state .work ol p {
     width: auto;
     border-bottom: 1px solid;
 }
 
-#info .work ol p:nth-child(n+3) {
+#state .work ol p:nth-child(n+3) {
     margin-top: 2vmin;
 }
 
