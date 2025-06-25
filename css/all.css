@@ -322,7 +322,7 @@ footer a,
 header a,
 #category-menu li {
     text-decoration: none;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.75rem 0.5rem 0;
     position: relative;
     background-clip: text;
     -webkit-background-clip: text;
