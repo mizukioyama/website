@@ -226,4 +226,22 @@
         margin: 10vmin auto 5vmin;
     }
 
+
+    #state h3 {
+    padding: 0.5rem 2rem;
+}
+
+#state .work:nth-child(2) h3 {
+    width: auto;
+    margin-top: 20vmin;
+}
+
+#state .work h3::before {
+    width: 20px;
+}
+
+#state .work:nth-child(n+3) ol p {
+    font-size: 1.2rem;
+}
+
 }

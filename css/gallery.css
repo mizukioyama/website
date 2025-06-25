@@ -293,11 +293,6 @@ main {
 }*/
 
 
-/*#state h3::before,
-#policy h3::before {
-    display: none;
-}*/
-
 #state h2,
 #state h3,
 #policy h2,
@@ -318,23 +313,22 @@ main {
 
 #state h3 {
     position: relative;
-    margin-top: 2vmin;
+    padding: 1rem 4rem 0.5rem;
 }
 
 #state .work:nth-child(2) h3 {
     width: auto;
-    margin-top: 5vmin;
-    padding: 1rem 0 0.5rem;
+    margin-top: 10vmin;
     border-top: 1px solid;
 }
 
 #state .work h3::before {
     content: "";
-    width: 100px;
+    width: 45px;
     height: 1px;
     background: var(--inv);
     position: absolute;
-    top: 0;
+    top: 53%;
     left: 0;
 }
 
@@ -385,8 +379,8 @@ main {
     border-bottom: 1px solid;
 }
 
-#state .work ol p:nth-child(n+3) {
-    margin-top: 2vmin;
+#state .work:nth-child(n+3) ol p {
+    margin-top: 5vmin;
 }
 
 #policy .content p {
