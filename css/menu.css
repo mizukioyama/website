@@ -261,49 +261,55 @@ nav .noise {
 
 
 @media screen and (min-width: 1299px) {
-        #navArea .inner li a {
+    #navArea .inner li a {
         font-size: 1.6rem;
     }
 
-        #mask p {
-        bottom: 35%;
-    }
 }
+
 @media screen and (max-width: 599px) {
     .toggle_btn {
         height: 35px;
     }
+
     nav {
         flex-direction: column;
     }
+
     .inner {
         width: 100%;
         min-height: 85%;
         padding: 8rem 2.5rem 3rem;
     }
+
     .inner ul {
         gap: 0.5rem;
     }
+
     .toggle_btn {
         height: 65px;
     }
+
     .open #mask {
         width: 100%;
         min-height: 85%;
     }
+
     #mask p {
         margin-top: 3rem;
     }
+
     .open #mask ul {
         width: auto;
-    height: 60%;
-    left: 0;
-}
+        height: 60%;
+        left: 0;
+    }
 
-.toggle_btn span:nth-child(2) {
-    top: 0%;
-}
-.open .toggle_btn span:nth-child(2) {
-    top: 65%;
-}
+    .toggle_btn span:nth-child(2) {
+        top: 0%;
+    }
+
+    .open .toggle_btn span:nth-child(2) {
+        top: 65%;
+    }
 }
