@@ -6,7 +6,7 @@
 #langChenge {
     position: fixed;
     top: 5.5rem;
-    left: 3rem;
+    left: 4rem;
 }
 
 /* ========== Common ========== */
@@ -167,7 +167,7 @@ main li {
     padding: 0;
     padding-right: 0.5rem;
     top: 3rem;
-    left: 2.95rem;
+    left: 4rem;
     text-shadow: 0 0 0px var(--inv);
     z-index: 1000;
 }
@@ -185,7 +185,7 @@ main li {
 }
 
 .head a span {
-    letter-spacing: 0.15rem;
+    letter-spacing: 0;
 }
 
 @keyframes blink {
@@ -228,6 +228,7 @@ main {
     padding: 10vmin 2rem;
     backdrop-filter: blur(15px);
     background: rgb(25 125 80 / 10%);
+    background: rgb(20 61 7 / 14%);
     box-shadow: inset 0 0px 7px rgba(0, 0, 0, 0.9);
     z-index: 1;
 }
