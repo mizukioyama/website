@@ -278,6 +278,7 @@ nav .noise {
 
     .inner {
         width: 100%;
+        height: 55svh;
         min-height: 65svh;
         padding: 7.5rem 2.5rem 0;
     }
