@@ -278,7 +278,7 @@ nav .noise {
 
     .inner {
         width: 100%;
-        min-height: 65%;
+        min-height: 70vh;
         padding: 7.5rem 2.5rem 0;
     }
 
@@ -292,7 +292,7 @@ nav .noise {
 
     .open #mask {
         width: 100%;
-        min-height: 85%;
+        min-height: 80vh;
     }
 
     #mask p {
