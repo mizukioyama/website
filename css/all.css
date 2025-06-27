@@ -240,13 +240,15 @@ body {
 }
 
 @media screen and (min-width: 1299px) {
-.home #langChenge .ja,
-.home #langChenge .en {
-  text-shadow: 0 0 0px var(--text);
-}
-.home #langChenge .inner_label .noise {
-  background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
-}
+
+  .home #langChenge .ja,
+  .home #langChenge .en {
+    text-shadow: 0 0 0px var(--text);
+  }
+
+  .home #langChenge .inner_label .noise {
+    background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
+  }
 }
 
 ::selection {
@@ -304,77 +306,77 @@ h1 {
 }
 
 a {
-    /*font-family: Arial, Helvetica, sans-serif;*/
-    font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
-    color: var(--inv);
-    display: block;
-    height: fit-content;
-    text-decoration: none;
-    overflow: hidden;
-    /*background-position: 0 0; 背景色の位置 */
-    /*background-size: 200% auto;  背景色のサイズ */
-    transition: all 0.5s ease;
-    transition-duration: 0.8s;
-    opacity: 0.8;
+  /*font-family: Arial, Helvetica, sans-serif;*/
+  font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+  color: var(--inv);
+  display: block;
+  height: fit-content;
+  text-decoration: none;
+  overflow: hidden;
+  /*background-position: 0 0; 背景色の位置 */
+  /*background-size: 200% auto;  背景色のサイズ */
+  transition: all 0.5s ease;
+  transition-duration: 0.8s;
+  opacity: 0.8;
 }
 
 footer a,
 header a,
 #category-menu li {
-    text-decoration: none;
-    padding: 0.5rem 0.75rem 0.5rem 0;
-    position: relative;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem 0.5rem 0;
+  position: relative;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 footer a::before,
 header a::before {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 10px;
-    height: 1px;
-    color: var(--inv);
-    left: -10px;
-    bottom: 0%;
-    background-color: var(--inv);
-    transition: all 0.5s ease;
+  content: '';
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 1px;
+  color: var(--inv);
+  left: -10px;
+  bottom: 0%;
+  background-color: var(--inv);
+  transition: all 0.5s ease;
 }
 
 a:hover::before {
-    width: 110%;
+  width: 110%;
 }
 
 a:hover {
-    /*background-position: -100% 0; 背景色の位置 */
-    text-shadow: 0 1px 3px var(--inv);
-    opacity: 1;
+  /*background-position: -100% 0; 背景色の位置 */
+  text-shadow: 0 1px 3px var(--inv);
+  opacity: 1;
 }
 
 .home header a::before {
-    color: var(--text);
+  color: var(--text);
 }
 
 .home a:hover {
-    text-shadow: 0 1px 3px var(--text);
+  text-shadow: 0 1px 3px var(--text);
 }
 
 
 img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-    vertical-align: middle;
-    font-style: italic;
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter: grayscale(25%);
-    transition: all 1s ease;
-    shape-margin: 0.75rem;
-    box-shadow: 0px 2px 10px 0px #000;
-    opacity: 0.7;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: grayscale(25%);
+  transition: all 1s ease;
+  shape-margin: 0.75rem;
+  box-shadow: 0px 2px 10px 0px #000;
+  opacity: 0.7;
 }
 
 
@@ -395,7 +397,8 @@ img {
     top: 6%;
     left: 7%;
   }
-      .typing-container p {
-        font-size: 1rem;
-    }
+
+  .typing-container p {
+    font-size: 1rem;
+  }
 }
