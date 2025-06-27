@@ -2,6 +2,7 @@
     footer {
         position: relative;
         width: 100vw;
+        height: 70vh;
         min-height: 500px;
         padding: 4rem;
         bottom: 0;
@@ -45,6 +46,7 @@
 
     @media only screen and (max-width:600px) {
         footer {
+            min-height: 75vh;
             padding: 3rem 2.5rem 0;
         }
 
