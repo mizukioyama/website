@@ -209,9 +209,8 @@
     }
 
     #pagination {
-        margin: 10vmin auto 5vmin;
+        gap: 1.5rem;
     }
-
 
     #state h3 {
         padding: 0.5rem 2rem;

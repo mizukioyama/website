@@ -626,7 +626,6 @@ function setupCategoryFilter() {
 
             <div class="work-img">
                 <img src="${item.img}" alt="${item.title[lang]}">
-                <span class="dli-external-link">©Oyama</span>
                 <h2 class="noise">${item.category.join(" / ")}<br>${item.title[lang]}</h2>
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
                   View More
@@ -667,7 +666,6 @@ function setupCategoryFilter() {
           <h2 class="noise">${item.category.join(" / ")}<br>${item.title[lang]}</h2>
           View More
         </a>
-        <span class="dli-external-link">©Oyama</span>
         <p>${truncateText(item.caption[lang])}</p>
       </div>
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
