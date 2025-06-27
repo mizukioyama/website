@@ -94,6 +94,7 @@
 
     footer a,
     header a {
+        font-family: 'jost', sans-serif;
         font-size: 1.2rem;
         color: var(--inv);
         position: relative;
