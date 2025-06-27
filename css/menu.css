@@ -269,7 +269,7 @@ nav .noise {
         margin-top: 10vmin;
     }
 
-    #navArea .inner li a:nth-of-type(5) {
+    .inner li a:nth-of-type(5) {
         font-size: 1.2rem;
     }
 
@@ -299,8 +299,8 @@ nav .noise {
         margin-top: 10vmin;
     }
 
-    #navArea .inner li a:nth-of-type(5) {
-        font-size: 1.4rem;
+    .inner li a:nth-of-type(5) {
+        font-size: 1rem;
     }
 
     .toggle_btn {
