@@ -262,7 +262,15 @@ nav .noise {
 
 @media screen and (min-width: 1299px) {
     #navArea .inner li a {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
+    }
+
+    .inner ul li:nth-of-type(5) {
+        margin-top: 10vmin;
+    }
+
+    #navArea .inner li a:nth-of-type(5) {
+        font-size: 1.2rem;
     }
 
 }
@@ -285,6 +293,14 @@ nav .noise {
 
     .inner ul {
         gap: 0.5rem;
+    }
+
+    .inner ul li:nth-of-type(5) {
+        margin-top: 10vmin;
+    }
+
+    #navArea .inner li a:nth-of-type(5) {
+        font-size: 1.4rem;
     }
 
     .toggle_btn {
