@@ -33,7 +33,7 @@ nav {
     border-bottom: 1px solid rgba(40, 40, 40, 0.075);
 }
 
-#navArea .inner li a {
+.inner li a {
     font-weight: 500;
     color: var(--inv);
     height: 100%;
@@ -261,7 +261,7 @@ nav .noise {
 
 
 @media screen and (min-width: 1299px) {
-    #navArea .inner li a {
+    .inner li a {
         font-size: 1.4rem;
     }
 
