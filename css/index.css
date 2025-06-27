@@ -46,6 +46,7 @@ canvas {
 /* ========== Common ========== */
 
 h1 {
+  font-family: 'jost', sans-serif;
   font-size: 1rem;
   color: var(--text);
 }

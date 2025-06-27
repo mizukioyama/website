@@ -395,4 +395,7 @@ img {
     top: 6%;
     left: 7%;
   }
+      .typing-container p {
+        font-size: 1rem;
+    }
 }

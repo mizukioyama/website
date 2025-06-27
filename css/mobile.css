@@ -1,8 +1,4 @@
 @media screen and (max-width: 599px) {
-    .pc {
-        display: none;
-    }
-
     .head a {
         font-size: 1rem;
         left: 2.5rem;
@@ -16,10 +12,6 @@
         top: 4.5rem;
         left: 2.4rem;
     }
-
-    .typing-container p {
-  font-size: 1rem;
-}
 
     /*body::before {
                 content: "";
@@ -59,6 +51,8 @@
     }
 
     h1 {
+        font-family: 'jost', "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", "MS PMincho", "MS Mincho", serif, sans-serif;
+        font-family: 'jost', sans-serif;
         font-size: 2rem;
         line-height: 1;
         margin-top: 65% !important;
@@ -228,20 +222,20 @@
 
 
     #state h3 {
-    padding: 0.5rem 2rem;
-}
+        padding: 0.5rem 2rem;
+    }
 
-#state .work:nth-child(2) h3 {
-    width: auto;
-    margin-top: 20vmin;
-}
+    #state .work:nth-child(2) h3 {
+        width: auto;
+        margin-top: 20vmin;
+    }
 
-#state .work h3::before {
-    width: 20px;
-}
+    #state .work h3::before {
+        width: 20px;
+    }
 
-#state .work:nth-child(n+3) ol p {
-    font-size: 1.2rem;
-}
+    #state .work:nth-child(n+3) ol p {
+        font-size: 1.2rem;
+    }
 
 }
