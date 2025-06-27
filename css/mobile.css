@@ -28,16 +28,6 @@
     /*== bg water ==*/
     .ripples {
         width: 100vw;
-        height: 100%;
-        background: rgba(25, 25, 25);
-        position: fixed;
-        opacity: .25;
-        z-index: 0;
-    }
-
-    .ripples,
-    .ripples canvas {
-        pointer-events: none;
     }
 
     main {
@@ -46,7 +36,7 @@
         margin: 0 auto;
         padding-bottom: 10em;
         padding: 5rem 2.5rem 10rem;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(7px);
         z-index: 10;
     }
 
@@ -104,7 +94,7 @@
 
     footer a,
     header a {
-        font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+        font-size: 1.2rem;
         color: var(--inv);
         position: relative;
         overflow: hidden;

@@ -38,7 +38,7 @@ nav {
     color: var(--inv);
     height: 100%;
     mix-blend-mode: luminosity;
-    text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);
+    /*text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);*/
 }
 
 .home #navArea .inner li a {
@@ -292,7 +292,7 @@ nav .noise {
 
     .open #mask {
         width: 100%;
-        min-height: 85%;
+        min-height: 75%;
     }
 
     #mask p {
