@@ -95,7 +95,7 @@
     footer a,
     header a {
         font-family: 'jost', sans-serif;
-        font-size: 1.2rem;
+        font-size: 1rem;
         line-height: 1.4;
         color: var(--inv);
         position: relative;
