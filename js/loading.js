@@ -4,7 +4,7 @@
 // =======================
 function initializeTyping() {
   const lines = document.querySelectorAll('.typing-line');
-  const typingSpeed = 50;
+  const typingSpeed = 55;
 
   function typeLine(lineEl, text, callback) {
     let i = 0;
@@ -28,9 +28,9 @@ function initializeTyping() {
           loadingBg.style.opacity = 0;
           setTimeout(() => {
             loadingBg.style.display = 'none';
-          }, 1000);
+          }, 800);
         }
-      }, 800);
+      }, 750);
       return;
     }
 
