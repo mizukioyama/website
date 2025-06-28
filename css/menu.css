@@ -11,7 +11,7 @@ nav {
     overflow-y: scroll;
     /*-webkit-overflow-scrolling: touch;*/
     transition: 0.8s ease;
-    z-index: 999;
+    z-index: 1000;
 }
 
 .inner {
@@ -262,7 +262,7 @@ nav .noise {
 
 @media screen and (min-width: 1299px) {
     .inner li a {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 
     .inner ul li:nth-of-type(5) {
@@ -286,9 +286,8 @@ nav .noise {
 
     .inner {
         width: 100%;
-        height: 45svh;
-        min-height: 65svh;
-        padding: 7.5rem 2.5rem 0;
+        min-height: 50svh;
+        padding: 3rem 2.5rem 0;
     }
 
     .inner ul {
@@ -297,6 +296,10 @@ nav .noise {
 
     .inner ul li:nth-of-type(5) {
         margin-top: 10vmin;
+    }
+
+    .inner li a {
+        font-size: 1.2rem;
     }
 
     .inner li:nth-of-type(5) a {
@@ -309,7 +312,7 @@ nav .noise {
 
     .open #mask {
         width: 100%;
-        min-height: 80vh;
+        min-height: 75vh;
     }
 
     #mask p {
