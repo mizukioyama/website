@@ -28,9 +28,9 @@ function initializeTyping() {
           loadingBg.style.opacity = 0;
           setTimeout(() => {
             loadingBg.style.display = 'none';
-          }, 800);
+          }, 650);
         }
-      }, 750);
+      }, 500);
       return;
     }
 

@@ -92,7 +92,7 @@ h1 {
     width: 2px;
     height: 100%;
     background-color: #000;
-    animation: scroll 6s infinite;
+    animation: scroll 15s infinite;
 }
 
 /* スクロールアニメーションの定義 */
