@@ -310,9 +310,15 @@ nav .noise {
         height: 65px;
     }
 
+    nav ::-webkit-scrollbar {
+        display: none;
+    }
+
     .open #mask {
         width: 100%;
-        min-height: 75vh;
+        min-height: 85vh;
+        padding: 0.5rem;
+        overflow: auto;
     }
 
     #mask p {
