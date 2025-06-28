@@ -307,7 +307,7 @@ main {
 
 #state h3 {
     position: relative;
-    padding: 1rem 4rem 0.5rem;
+    padding: 3rem 4rem 0.5rem;
 }
 
 #state .work:nth-child(2) h3 {
@@ -322,7 +322,7 @@ main {
     height: 1px;
     background: var(--inv);
     position: absolute;
-    top: 53%;
+    top: 70%;
     left: 0;
 }
 

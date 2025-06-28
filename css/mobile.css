@@ -217,6 +217,9 @@
     }
 
     #state h3 {
+        padding: 2.5rem 2rem;
+    }
+    #state .content .work:nth-child(n+3) h3{
         padding: 0.5rem 2rem;
     }
 
@@ -227,6 +230,7 @@
 
     #state .work h3::before {
         width: 20px;
+        top: 50%;
     }
 
     #state .work:nth-child(n+3) ol p {
