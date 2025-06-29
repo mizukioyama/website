@@ -373,7 +373,7 @@ main {
     border-bottom: 1px solid;
 }
 
-#state .work:nth-child(n+3) ol p {
+#state .work:nth-child(n+3) ol p:nth-child(n+3) {
     margin-top: 5vmin;
 }
 
