@@ -234,7 +234,7 @@
     }
 
     #state .work:nth-child(n+3) ol p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
 }

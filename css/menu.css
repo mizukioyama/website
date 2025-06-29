@@ -8,7 +8,6 @@ nav {
     bottom: 0;
     width: 100%;
     overflow: hidden;
-    overflow-y: scroll;
     /*-webkit-overflow-scrolling: touch;*/
     transition: 0.8s ease;
     z-index: 1000;
@@ -316,7 +315,6 @@ nav .noise {
         width: 100%;
         min-height: 85vh;
         padding: 0.5rem;
-        overflow: auto;
     }
 
     #mask p {
@@ -325,7 +323,7 @@ nav .noise {
 
     .open #mask ul {
         width: auto;
-        height: 60%;
+        height: 300px;
         left: 0;
     }
 
