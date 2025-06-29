@@ -643,12 +643,13 @@ footer,
   width: var(--card-width);
   height: var(--card-height);
   cursor: pointer;
-  width: 91vmin;
-  height: 53%;
+  width: 100vmin;
+  height: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
+  z-index: -2;
 }
 
 /*.card_line::before {
@@ -667,8 +668,8 @@ footer,
 }*/
 
 .card_line::after {
-  position: absolute;
   content: "";
+  position: absolute;
   top: 1rem;
   left: 0;
   right: 0;
@@ -680,8 +681,8 @@ footer,
   filter: blur(calc(var(--card-height) / 6));
   background-image: linear-gradient(
     var(--rotate)
-    , #5ddcff, #3c67e3 43%, #4e00c2);
-    opacity: 1;
+    , #197994, #133088 43%, #3a0c80);
+  opacity: 1;
   transition: opacity 0.85s;
   animation: spin 8.5s linear infinite;
 }
