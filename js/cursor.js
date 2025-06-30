@@ -31,22 +31,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // ホバー処理（必要なセレクタを追加）
   const hoverTargets = [
     "a",
+    "body a",
     "button",
     ".button",
     "header .toggle_btn",
     "header label",
-    "header label *",
-    "header nav ul li a",
-    "header nav ul li a *",
+    "nav ul li a",
     "footer a",
-    "footer a *",
     "#category-header",
     "#category-menu li",
-    "#category-menu li *",
     ".work-img a",
-    ".work-img a *",
-    "#pagination",
-    "#pagination *"
+    "#pagination"
   ];
 
   document.querySelectorAll(hoverTargets.join(", ")).forEach(el => {
