@@ -141,7 +141,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
-            img: "img/202344-1.jpg",
+            img: "img/202344-1-web.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -155,21 +155,21 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
-            img: "img/202342-2.jpg",
+            img: "img/202342-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
-            img: "img/202341-2.jpg",
+            img: "img/202341-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
-            img: "img/202340-2.jpg",
+            img: "img/202340-web.jpg",
             link: "pages/2024work.html"
 
         },//========39~30
@@ -184,14 +184,14 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
-            img: "img/202338-2.jpg",
+            img: "img/202338-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
-            img: "img/202337-2.jpg",
+            img: "img/202337-web.jpg",
             link: "pages/2024work.html"
         },
         {
@@ -212,7 +212,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title / 2023", en: "No Title / 2023" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
-            img: "img/202334-1.jpg",
+            img: "img/202334-web.jpg",
             link: "pages/2024work.html"
         },
         {
