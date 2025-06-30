@@ -40,9 +40,14 @@
     gap: 5px;
     margin: 0 auto;
     overflow: hidden;
-    max-height: 500px;
+    max-height: 60vh;
+    overflow-y: scroll;
     transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
     opacity: 1;
+  }
+
+  #category-menu ::-webkit-scrollbar {
+    display: none;
   }
 
   #category-menu.collapsed {
@@ -135,6 +140,11 @@
 
     #category-header {
       font-size: 1.6rem;
+      left: 0;
+    }
+
+    #category-menu {
+      max-height: 40vh;
     }
 
     #category-menu p {
