@@ -38,6 +38,7 @@
   #category-menu {
     display: grid;
     gap: 5px;
+    margin: 0 auto;
     overflow: hidden;
     max-height: 500px;
     transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
@@ -46,9 +47,10 @@
 
   #category-menu.collapsed {
     max-height: 0;
-    opacity: 0;
     gap: 0;
     pointer-events: none;
+    opacity: 0;
+    display: none;
   }
 
   #category-menu p {
@@ -58,7 +60,7 @@
   }
 
   #category-menu li {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-left: 1rem;
     padding: 0;
     width: 100%;
@@ -95,10 +97,9 @@
     position: fixed;
     top: 20vh;
     z-index: 100;
-    padding: 1rem 1rem 1rem 0;
+    padding: 0.75rem 0;
     backdrop-filter: blur(20px);
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(200, 200, 200, 0.5);
+    border: 1px solid rgba(200, 200, 200, 0.25);
   }
 
   #sidebar-container .noise {
@@ -107,15 +108,17 @@
 
   #category-header {
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 400;
-    width: 1rem;
+    width: 100%;
     line-height: 0.5;
-    padding: 0.2rem 0.5rem;
+    padding: 0.35rem 0;
+    justify-content: flex-start;
   }
 
   @media screen and (min-width: 1299px) {
     #sidebar-container {
+      width: 15vmin;
       left: 4rem;
     }
   }
@@ -124,11 +127,12 @@
     #sidebar-container {
       top: 10%;
       right: 0;
+      padding: 0.75rem 0.5rem;
+      border-right: none;
     }
 
     #category-header {
-      font-size: 2rem;
-      padding: 0.2rem 0.5rem 0 0.75rem;
+      font-size: 1.6rem;
     }
 
     #category-menu p {
