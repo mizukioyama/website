@@ -4,7 +4,7 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
-            title: { ja: "Order：蒼想", en: "Order：Blue Thought / 2024" },
+            title: { ja: "Order：蒼想", en: "Order：Blue Thought" },
             caption: { ja: "青に想いを重ねて結晶した「蒼想」は、そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
             category: ["Paint","Order","2024"],
             img: "img/蒼想01.jpg",
@@ -447,21 +447,21 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//========2022
         {
-            title: { ja: "No Title / 2022", en: "No Title / 2022" },
+            title: { ja: "No Title", en: "No Title" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             category: ["Digital","2023"],
             img: "img/202200.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "映し神 / 2022", en: "No Title / 2022" },
+            title: { ja: "映し神", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint","Exhibition"],
             img: "img/映し神01.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "挑戦 / 2022", en: "No Title / 2022" },
+            title: { ja: "挑戦", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint","Exhibition"],
             img: "img/挑戦01.jpg",
