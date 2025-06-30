@@ -216,9 +216,15 @@ main li {
     opacity: 0.3;
 }
 
+.next-btn {
+    opacity: 0.75;
+}
+
 .page-btn:hover,
-.page-btn.active {
-    opacity: 1;
+.page-btn.active,
+.next-btn:hover,
+.next-btn:active {
+    opacity: 0.95;
 }
 
 
