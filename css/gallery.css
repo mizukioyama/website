@@ -71,21 +71,16 @@ body {
 
 @keyframes liner {
   50% {
-    --lines: 0.00012px;
+    --lines: 0.5px;
   }
 }
 
 @keyframes slide-text-reveal {
   0% {
     background-position: 100% 0;
-    opacity: 0;
-  }
-  40% {
-    opacity: 0;
   }
   100% {
     background-position: 0% 0;
-    opacity: 1;
   }
 }
 
@@ -135,7 +130,6 @@ h1.noise {
   animation:
     slide-text-reveal 1.6s ease forwards,
     liner var(--hour) linear infinite;
-  opacity: 0; /* 初期透明 */
 }
 
 
@@ -351,7 +345,8 @@ main {
     position: relative;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 52vmin 52vmin;
+    justify-content: center;
     /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
 }
