@@ -57,100 +57,39 @@ body {
     -webkit-background-clip: text;
 }*/
 
+.mask-bg {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
 h1.noise {
   font-size: 6rem;
   font-weight: 200;
-  width: fit-content;
   margin-left: 25vmin;
   margin-top: 20rem;
   position: relative;
   color: transparent;
-  text-shadow: 0px 0px rgba(255, 255, 255, 0.25);
-  background-clip: text;
+  background: linear-gradient(to right, #362ae0 0%, #3b79cc 50%, #42d3ed 100%);
+  background-size: 200%;
+  background-position: 100% 0;
   -webkit-background-clip: text;
-
-  /* Noise animation */
-  animation: liner var(--hour) linear infinite;
-  mask: repeating-radial-gradient(circle at center,
-      #000,
-      var(--lines),
-      #000,
-      0,
-      #0000,
-      calc(var(--lines) * 3),
-      #0000 0);
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: grid;
-  place-content: center;
+
+  animation: slide-text-reveal 1.6s ease forwards;
 }
 
-/* Light mode override */
-@media (prefers-color-scheme: light) {
-  h1.noise {
-    -webkit-text-fill-color: transparent;
-  }
-}
-
-/* mask-bg animation (wrapper effect) */
-.mask-bg {
-  color: transparent;
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-}
-
-/* animation runs automatically on load */
-.mask-bg::after {
-  background: linear-gradient(to right, #362ae0 0%,#3b79cc 50%,#42d3ed 100%);
-  bottom: 0;
-  content: '';
-  display: block;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transform: translate(100%, 0);
-  animation: mask-bg 1.2s cubic-bezier(0.8, 0, 0.17, 1) forwards;
-}
-
-@keyframes mask-bg {
+/* アニメーションで左から右へ背景がスライド */
+@keyframes slide-text-reveal {
   0% {
-    transform: translate(101%, 0);
-  }
-  40%, 60% {
-    transform: translate(0, 0);
+    background-position: 100% 0;
   }
   100% {
-    transform: translate(-100%, 0);
+    background-position: 0% 0;
   }
 }
 
-/* Noise animation */
-@property --lines {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0.00010px;
-}
-
-@keyframes liner {
-  50% {
-    --lines: 0.00012px;
-  }
-}
-
-:root {
-  --hour: 10s;
-}
-
-@keyframes shine {
-    0% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
 
 /* スクロールダウンの本体 */
 .scroll {
