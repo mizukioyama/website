@@ -57,13 +57,37 @@ body {
     -webkit-background-clip: text;
 }*/
 
+@property --lines {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0.00010px;
+}
+
+@keyframes liner {
+  50% {
+    --lines: 0.00012px;
+  }
+}
+
+@keyframes slide-text-reveal {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+:root {
+  --hour: 10s;
+}
+
 .mask-bg {
   display: inline-block;
   position: relative;
   overflow: hidden;
 }
 
-/* h1 にグラデーションスライドアニメーションを適用 */
 h1.noise {
   font-size: 6rem;
   font-weight: 200;
@@ -78,44 +102,12 @@ h1.noise {
   background-size: 200%;
   background-position: 100% 0;
 
-  /* テキストとしてグラデーションを表示 */
+  /* テキストグラデーション＆ノイズマスク */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  /* アニメーション適用 */
-  animation: slide-text-reveal 1.6s ease forwards;
-}
-
-/* グラデーションが左から右へ動く */
-@keyframes slide-text-reveal {
-  0% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: 0% 0;
-  }
-}
-
-/* ---- Noise（他要素で使う場合のみ） ---- */
-@property --lines {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0.00010px;
-}
-
-@keyframes liner {
-  50% {
-    --lines: 0.00012px;
-  }
-}
-
-:root {
-  --hour: 10s;
-}
-
-.noise-effect {
-  animation: liner var(--hour) linear infinite;
+  /* ノイズマスク */
   mask: repeating-radial-gradient(circle at center,
       #000,
       var(--lines),
@@ -124,17 +116,11 @@ h1.noise {
       #0000,
       calc(var(--lines) * 3),
       #0000 0);
-  display: grid;
-  place-content: center;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
-@media (prefers-color-scheme: light) {
-  .noise-effect {
-    -webkit-text-fill-color: transparent;
-  }
+  /* 両アニメーションを適用 */
+  animation:
+    slide-text-reveal 1.6s ease forwards,
+    liner var(--hour) linear infinite;
 }
 
 
