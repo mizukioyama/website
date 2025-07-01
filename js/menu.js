@@ -99,3 +99,20 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
   });
 });
+
+
+// h1 スライドインアニメーション
+document.addEventListener("DOMContentLoaded", () => {
+  const animElements = document.querySelectorAll(".mask-bg.anim");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-animated");
+        observer.unobserve(entry.target); // 一度だけアニメーションさせる場合
+      }
+    });
+  }, { threshold: 0.3 });
+
+  animElements.forEach(el => observer.observe(el));
+});
