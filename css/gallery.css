@@ -94,7 +94,7 @@ body {
   overflow: hidden;
 }
 
-h1.noise {
+body h1.noise {
   font-size: 6rem;
   font-weight: 200;
   width: fit-content;
