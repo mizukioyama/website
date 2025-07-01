@@ -43,10 +43,11 @@ body {
     transition: font-family 1s ease-in-out;
 }
 
-/*.gallery .noise {
-    background-image: linear-gradient(to right, #fff 0%, #0f00 100%);
+p.noise,
+div.noise {
+    /*background-image: linear-gradient(to right, #fff 0%, #0f00 100%);*/
     background-image: linear-gradient(to right, #ffffff 0%, #9f9f9fa6 100%);
-}*/
+}
 
 
 /*h1 {
@@ -105,11 +106,6 @@ h1.noise {
   position: relative;
   color: transparent;
 
-  /* グラデーション設定 */
-  background: linear-gradient(to right, #362ae0 0%, #3b79cc 50%, #42d3ed 100%);
-  background-size: 200%;
-  background-position: 100% 0;
-
   /* テキストへの適用 */
   -webkit-background-clip: text;
   background-clip: text;
@@ -130,7 +126,7 @@ h1.noise {
 
   /* アニメーション適用 */
   animation:
-    slide-text-reveal 1.6s ease forwards,
+    slide-text-reveal 0.8s ease forwards,
     h1-liner var(--hour) linear infinite;
   opacity: 0; /* 初期状態で透明 */
 }
