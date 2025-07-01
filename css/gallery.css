@@ -63,24 +63,31 @@ body {
   overflow: hidden;
 }
 
+/* h1 にグラデーションスライドアニメーションを適用 */
 h1.noise {
   font-size: 6rem;
   font-weight: 200;
+  width: fit-content;
   margin-left: 25vmin;
   margin-top: 20rem;
   position: relative;
   color: transparent;
+
+  /* グラデーション背景 */
   background: linear-gradient(to right, #362ae0 0%, #3b79cc 50%, #42d3ed 100%);
   background-size: 200%;
   background-position: 100% 0;
+
+  /* テキストとしてグラデーションを表示 */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
+  /* アニメーション適用 */
   animation: slide-text-reveal 1.6s ease forwards;
 }
 
-/* アニメーションで左から右へ背景がスライド */
+/* グラデーションが左から右へ動く */
 @keyframes slide-text-reveal {
   0% {
     background-position: 100% 0;
@@ -89,6 +96,47 @@ h1.noise {
     background-position: 0% 0;
   }
 }
+
+/* ---- Noise（他要素で使う場合のみ） ---- */
+@property --lines {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0.00010px;
+}
+
+@keyframes liner {
+  50% {
+    --lines: 0.00012px;
+  }
+}
+
+:root {
+  --hour: 10s;
+}
+
+.noise-effect {
+  animation: liner var(--hour) linear infinite;
+  mask: repeating-radial-gradient(circle at center,
+      #000,
+      var(--lines),
+      #000,
+      0,
+      #0000,
+      calc(var(--lines) * 3),
+      #0000 0);
+  display: grid;
+  place-content: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (prefers-color-scheme: light) {
+  .noise-effect {
+    -webkit-text-fill-color: transparent;
+  }
+}
+
 
 
 /* スクロールダウンの本体 */
