@@ -58,7 +58,7 @@ body {
 }*/
 
 h1.noise {
-  font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
+  font-size: 6rem;
   font-weight: 200;
   width: fit-content;
   margin-left: 25vmin;
