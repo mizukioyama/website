@@ -456,70 +456,70 @@ function setupCategoryFilter() {
         {
             title: { ja: "映し神", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint","Exhibition"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/映し神-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "挑戦", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint","Exhibition"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/挑戦-web.jpg",
             link: "pages/2024work.html"
         },//========2021
         {
             title: { ja: "戦争 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint","Exhibition"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/戦争-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "幸緑 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint","Exhibition"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/幸緑-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "金雲 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint","Exhibition"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/金雲-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "幸華 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/幸華-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "輝き / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/輝き-web.jpg",
             link: "pages/2024work.html"
         },//========2010~17
         {
             title: { ja: "海底 / 2017", en: "No Title / 2017" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/海底-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "無題 / 2017", en: "No Title / 2017" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint","Exhibition"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/2010-1701.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "無題 / 2016", en: "No Title / 2016" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
-            category: ["Paint","Exhibition"],
+            category: ["Paint","Natureinspire","Exhibition"],
             img: "img/2010-1702.jpg",
             link: "pages/2024work.html"
         },
