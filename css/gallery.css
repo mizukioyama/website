@@ -69,7 +69,7 @@ body {
   initial-value: 0.00010px;
 }
 
-@keyframes liner {
+@keyframes h1-liner {
   50% {
     --lines: 0.5px;
   }
@@ -129,7 +129,7 @@ h1.noise {
   /* アニメーションを2つ同時に適用 */
   animation:
     slide-text-reveal 1.6s ease forwards,
-    liner var(--hour) linear infinite;
+    h1-liner var(--hour) linear infinite;
 }
 
 

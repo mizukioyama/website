@@ -61,25 +61,6 @@ h1.noise {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  /* ノイズマスク */
-  mask: repeating-radial-gradient(circle at center,
-      #000,
-      var(--lines),
-      #000,
-      0,
-      #0000,
-      calc(var(--lines) * 3),
-      #0000 0);
-
-  display: grid;
-  place-content: center;
-
-  /* アニメーションを2つ同時に適用 */
-  animation:
-    slide-text-reveal 1.6s ease forwards,
-    liner var(--hour) linear infinite;
-  opacity: 0; /* 初期透明 */
 }
 
     .scroll {
