@@ -34,7 +34,8 @@
         content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
     <meta name="keywords" content="ポートフォリオ, 自然, アート, Webデザイン, 作品集, クリエイティブ, Nature inspire">
     <meta name="author" content="あなたの名前（またはブランド名）">
-    <link rel="canonical" href="https://mizukioyama.github.io/"> <!-- ご自身のURLに差し替えてください -->
+    <!-- ご自身のURLに差し替えてください -->
+    <link rel="canonical" href="https://mizukioyama.github.io/artist-statement.html">
 
     <!-- OGP（SNSシェア用） -->
     <meta property="og:title" content="Nature inspire | 自然とアートのポートフォリオ">
@@ -154,6 +155,7 @@
                 </p>
             </div>
             <hr>
+            <div class="line anim"></div>
             <h2 class="noise">画歴</h2>
             <div class="work">
                 <ol>
@@ -302,6 +304,24 @@
     </main>
 
     <div id="footer-container"></div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const animatedLines = document.querySelectorAll(".line");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-animated");
+        observer.unobserve(entry.target); // 一度だけ実行したい場合
+      }
+    });
+  }, {
+    threshold: 0.6 // 60% 表示されたら発火
+  });
+
+  animatedLines.forEach(line => observer.observe(line));
+});
+</script>
 
 </body>
 
