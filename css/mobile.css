@@ -44,14 +44,44 @@
         z-index: 10;
     }
 
-    h1 {
+
+h1.noise {
         font-family: 'jost', "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", "MS PMincho", "MS Mincho", serif, sans-serif;
         font-family: 'jost', sans-serif;
         font-size: 2rem;
         line-height: 1;
         margin-top: 65% !important;
         margin: 0;
-    }
+
+  /* 背景グラデーション */
+  background: linear-gradient(to right, #362ae0 0%, #3b79cc 50%, #42d3ed 100%);
+  background-size: 200%;
+  background-position: 100% 0;
+
+  /* テキストグラデーション適用 */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* ノイズマスク */
+  mask: repeating-radial-gradient(circle at center,
+      #000,
+      var(--lines),
+      #000,
+      0,
+      #0000,
+      calc(var(--lines) * 3),
+      #0000 0);
+
+  display: grid;
+  place-content: center;
+
+  /* アニメーションを2つ同時に適用 */
+  animation:
+    slide-text-reveal 1.6s ease forwards,
+    liner var(--hour) linear infinite;
+  opacity: 0; /* 初期透明 */
+}
 
     .scroll {
         left: 1.25rem;
@@ -173,9 +203,7 @@
     }
 
     .work {
-        height: 100%;
         justify-content: flex-start;
-        gap: 1rem;
     }
 
     .work h2 {
