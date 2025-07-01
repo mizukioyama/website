@@ -78,9 +78,11 @@ body {
 @keyframes slide-text-reveal {
   0% {
     background-position: 100% 0;
+    opacity: 0;
   }
   100% {
     background-position: 0% 0;
+    opacity: 1;
   }
 }
 
@@ -103,12 +105,12 @@ h1.noise {
   position: relative;
   color: transparent;
 
-  /* 背景グラデーション */
+  /* グラデーション設定 */
   background: linear-gradient(to right, #362ae0 0%, #3b79cc 50%, #42d3ed 100%);
   background-size: 200%;
   background-position: 100% 0;
 
-  /* テキストグラデーション適用 */
+  /* テキストへの適用 */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -126,10 +128,11 @@ h1.noise {
   display: grid;
   place-content: center;
 
-  /* アニメーションを2つ同時に適用 */
+  /* アニメーション適用 */
   animation:
     slide-text-reveal 1.6s ease forwards,
     h1-liner var(--hour) linear infinite;
+  opacity: 0; /* 初期状態で透明 */
 }
 
 
