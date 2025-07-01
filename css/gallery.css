@@ -78,11 +78,11 @@ div.noise {
 
 @keyframes slide-text-reveal {
   0% {
-    background-position: 100% 0;
+    background-position: -100% 0;
     opacity: 0;
   }
   100% {
-    background-position: 0% 0;
+    background-position: 100% 0;
     opacity: 1;
   }
 }
@@ -336,6 +336,7 @@ main {
     container-name: gallery;
     /*width: clamp(55%, 100%, 45%);*/
     width: 75%;
+    width: 120vmin;
     max-width: 1400px;
     height: 100%;
     margin: 45vmin 0 0 25vmin;
