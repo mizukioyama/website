@@ -43,6 +43,12 @@ body {
     transition: font-family 1s ease-in-out;
 }
 
+.gallery .noise {
+    /*background-image: linear-gradient(to right, #fff 0%, #0f00 100%);*/
+    background-image: linear-gradient(to right, #ffffff 0%, #9f9f9fa6 100%);
+}
+
+
 /*h1 {
     font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
     font-size: 6rem;
@@ -339,11 +345,6 @@ main {
     grid-template-columns: 50% 50%;
     /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
-}
-
-.gallery .noise {
-    /*background-image: linear-gradient(to right, #fff 0%, #0f00 100%);*/
-    background-image: linear-gradient(to right, #ffffff 0%, #9f9f9fa6 100%);
 }
 
 .art-page .work {
