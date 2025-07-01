@@ -7,7 +7,7 @@ function setupCategoryFilter() {
             title: { ja: "Order：蒼想", en: "Order：Blue Thought" },
             caption: { ja: "青に想いを重ねて結晶した「蒼想」は、そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
             category: ["Paint","Order","2024"],
-            img: "img/蒼想01.jpg",
+            img: "img/蒼想-web.jpg",
             link: "pages/2024work.html"
         },//========69~60
         {
@@ -457,56 +457,56 @@ function setupCategoryFilter() {
             title: { ja: "映し神", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint","Exhibition"],
-            img: "img/映し神01.jpg",
+            img: "img/映し神-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "挑戦", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint","Exhibition"],
-            img: "img/挑戦01.jpg",
+            img: "img/挑戦-web.jpg",
             link: "pages/2024work.html"
         },//========2021
         {
             title: { ja: "戦争 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint","Exhibition"],
-            img: "img/戦争01.jpg",
+            img: "img/戦争-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "幸緑 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint","Exhibition"],
-            img: "img/幸緑01.jpg",
+            img: "img/幸緑-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "金雲 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint","Exhibition"],
-            img: "img/金雲01.jpg",
+            img: "img/金雲-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "幸華 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint"],
-            img: "img/幸華01.jpg",
+            img: "img/幸華-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "輝き / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint"],
-            img: "img/輝き01.jpg",
+            img: "img/輝き-web.jpg",
             link: "pages/2024work.html"
         },//========2010~17
         {
             title: { ja: "海底 / 2017", en: "No Title / 2017" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             category: ["Paint"],
-            img: "img/海底01.jpg",
+            img: "img/海底-web.jpg",
             link: "pages/2024work.html"
         },
         {
