@@ -484,7 +484,6 @@ main {
     position: relative;
     display: grid;
     gap: 1rem;
-    width: 85%;
     max-width: 450px;
     /*filter: grayscale(40%);*/
 }
