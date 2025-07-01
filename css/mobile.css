@@ -44,7 +44,6 @@
         z-index: 10;
     }
 
-
 h1.noise {
         font-family: 'jost', "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", "MS PMincho", "MS Mincho", serif, sans-serif;
         font-family: 'jost', sans-serif;
@@ -173,6 +172,10 @@ h1.noise {
     .art-page .gallery p:nth-child(n+1) {
         font-size: 1rem !important;
         margin-left: 0 !important;
+    }
+
+    .gallery .content {
+        grid-template-columns: 50% 50%;
     }
 
     .gallery .content,
