@@ -110,7 +110,7 @@ h1 {
     /*text-shadow: -1px -1px rgba(255, 255, 255, 0.5), 2px 2px 2px rgba(0, 0, 0, 0.95);
     background-image: linear-gradient(to right, var(--text), var(--bg));
     text-shadow: 0px 0px rgba(255, 255, 255, 0.25), 3px 2px 1px rgba(0, 0, 0);*/
-    background-image: linear-gradient(to right, #ffffff 0%, #9f9f9fa6 100%);
+    background-image: linear-gradient(to right, #ffffff -40%, #9f9f9fa6 100%);
     text-shadow: 0px 0px rgba(255, 255, 255, 0.25);
     background-clip: text;
     -webkit-background-clip: text;
@@ -203,6 +203,10 @@ main li {
     color: var(--inv);
     margin-bottom: 2vmin;
     padding: 0 0.5rem;
+}
+
+a {
+    border-bottom: 1px solid;
 }
 
 /* head */
