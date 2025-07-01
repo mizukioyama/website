@@ -84,21 +84,22 @@ h1.noise {
   place-content: center;
 }
 
-/* Gradient override for light mode */
+/* Light mode override */
 @media (prefers-color-scheme: light) {
   h1.noise {
     -webkit-text-fill-color: transparent;
   }
 }
 
-/* mask-bg animation (for wrapper) */
+/* mask-bg animation (wrapper effect) */
 .mask-bg {
   color: transparent;
   display: inline-block;
   overflow: hidden;
   position: relative;
-  transition: color 0ms 450ms;
 }
+
+/* animation runs automatically on load */
 .mask-bg::after {
   background: linear-gradient(to right, #362ae0 0%,#3b79cc 50%,#42d3ed 100%);
   bottom: 0;
@@ -109,27 +110,22 @@ h1.noise {
   right: 0;
   top: 0;
   transform: translate(100%, 0);
-}
-.mask-bg.is-animated {
-  color: #362ae0;
-}
-.mask-bg.is-animated::after {
-  animation: mask-bg 1.2s cubic-bezier(0.8, 0, 0.170, 1);
+  animation: mask-bg 1.2s cubic-bezier(0.8, 0, 0.17, 1) forwards;
 }
 
 @keyframes mask-bg {
   0% {
-    transform: translate(101%, 0)
+    transform: translate(101%, 0);
   }
   40%, 60% {
-    transform: translate(0, 0%)
+    transform: translate(0, 0);
   }
   100% {
-    transform: translate(-100%, 0)
+    transform: translate(-100%, 0);
   }
 }
 
-/* Noise animation keyframes and variables */
+/* Noise animation */
 @property --lines {
   syntax: "<length>";
   inherits: false;

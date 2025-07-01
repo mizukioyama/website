@@ -100,11 +100,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
-// h1 スライドインアニメーション
-  document.addEventListener("DOMContentLoaded", () => {
-    const maskBg = document.querySelector(".mask-bg.anim");
-    if (maskBg) {
-      maskBg.classList.add("is-animated");
-    }
-  });
