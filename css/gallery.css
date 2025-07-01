@@ -43,10 +43,10 @@ body {
     transition: font-family 1s ease-in-out;
 }
 
-.gallery .noise {
-    /*background-image: linear-gradient(to right, #fff 0%, #0f00 100%);*/
+/*.gallery .noise {
+    background-image: linear-gradient(to right, #fff 0%, #0f00 100%);
     background-image: linear-gradient(to right, #ffffff 0%, #9f9f9fa6 100%);
-}
+}*/
 
 
 /*h1 {
