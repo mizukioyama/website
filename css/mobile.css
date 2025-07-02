@@ -174,7 +174,7 @@ h1 {
         padding: 0;
     }
 
-    .work {
+    .work,.art-page .work {
         justify-content: flex-start;
     }
 
