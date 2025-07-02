@@ -620,7 +620,7 @@ function setupCategoryFilter() {
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: fit-content; padding: 0; margin: 0 !important;">
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: 100%; justify-content: flex-start; padding: 0; margin: 0 !important;">
                 Category | ${selectedCategoryLabel}
             </p>
 
