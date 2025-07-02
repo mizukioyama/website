@@ -116,7 +116,7 @@ h1 {
     text-shadow: 0px 0px rgba(255, 255, 255, 0.25);
     background-clip: text;
     -webkit-background-clip: text;
-    
+
   /* ノイズマスク */
   mask: repeating-radial-gradient(circle at center,
       #000,
@@ -132,7 +132,6 @@ h1 {
   animation:
     slide-text-reveal 1.6s ease forwards,
     h1-liner var(--hour) linear infinite;
-  opacity: 0; /* 初期状態で透明 */
 }
 
 /* スクロールダウンの本体 */
