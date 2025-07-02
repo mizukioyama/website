@@ -1,6 +1,7 @@
 .noise {
     display: flex;
     background-image: linear-gradient(to right, #fff 0%, #000 70%);
+    background-image: linear-gradient(to right, #ffffff 0%, #ffffffa6 100%);
 }
 
 #langChenge {
