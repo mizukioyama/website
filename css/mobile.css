@@ -189,7 +189,7 @@ h1 {
 
     #gallery-container .work:nth-child(1) .noise {
         font-size: 1rem !important;
-        top: -10% !important;
+        top: -45px !important;
     }
 
     .gallery ol p {
