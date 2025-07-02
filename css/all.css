@@ -181,7 +181,6 @@ body {
 .typing-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   color: var(--text);
   width: fit-content;
 }
@@ -303,6 +302,10 @@ hr {
 
 h1 {
   width: 100%;
+}
+
+p {
+  line-height: 2;
 }
 
 a {
