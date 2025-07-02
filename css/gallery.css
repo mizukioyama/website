@@ -58,7 +58,7 @@ body {
     text-shadow: 0px 0px rgba(255, 255, 255, 0.25);
     background-clip: text;
     -webkit-background-clip: text;
-}*/
+}
 
 @property --lines {
   syntax: "<length>";
@@ -93,7 +93,7 @@ body {
   display: inline-block;
   position: relative;
   overflow: hidden;
-}
+}*/
 
 h1 {
     font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
@@ -110,13 +110,11 @@ h1 {
     text-shadow: 0px 0px rgba(255, 255, 255, 0.25), 3px 2px 1px rgba(0, 0, 0);*/
     background-image: linear-gradient(to right, #ffffff -40%, transparent 100%);
     text-shadow: 0px 0px rgba(255, 255, 255, 0.25);
-
+/*
     background-size: 200%;
     background-position: -100% 0;
     background-clip: text;
     -webkit-background-clip: text;
-
-  /* ノイズマスク */
   mask: repeating-radial-gradient(circle at center,
       #000,
       var(--lines),
@@ -130,7 +128,7 @@ h1 {
   place-content: center;
   animation:
     slide-text-reveal 1.6s ease forwards,
-    h1-liner var(--hour) linear infinite;
+    h1-liner var(--hour) linear infinite;*/
 }
 
 /* スクロールダウンの本体 */
