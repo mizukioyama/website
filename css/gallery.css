@@ -376,7 +376,7 @@ main {
     align-items: flex-start;
     width: 100%;
     min-height: 350px;
-    margin: 4rem auto;
+    margin: 4rem auto 0;
 }
 
 /*=======info page*/
