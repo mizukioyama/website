@@ -133,8 +133,8 @@ h1 {
 
 .h1-text {
     position: absolute;
-    left: 8rem;
-    top: 20rem;
+    left: 20vmin;
+    top: 35vmin;
     z-index: 100;
 }
 
@@ -192,7 +192,7 @@ h1 {
 h2 {
     font-size: 2rem;
     font-weight: 400;
-    color: var(--def);
+    color: var(--inv);
     text-shadow: -1px -1px rgba(255, 255, 255, 0.75), 2px 2px 2px rgba(0, 0, 0, 0.95);
 }
 

@@ -12,7 +12,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//Unreleased
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Digital","Unreleased","2023"],
@@ -20,7 +20,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Digital","Unreleased","2023"],
@@ -28,7 +28,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Digital","Unreleased","2023"],
@@ -36,7 +36,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Digital","Unreleased","2023"],
@@ -45,7 +45,7 @@ function setupCategoryFilter() {
 
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Digital","Unreleased","2023"],
@@ -53,7 +53,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Digital","Unreleased","2023"],
@@ -61,7 +61,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Digital","Unreleased","2023"],
@@ -85,7 +85,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//========2021
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -93,7 +93,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -101,7 +101,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -109,7 +109,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -117,7 +117,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -125,7 +125,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -133,7 +133,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -141,7 +141,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -149,7 +149,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "No Title", en: "No Title" },
+            title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["Paint","Natureinspire","Exhibition","2022"],
@@ -266,19 +266,17 @@ function setupCategoryFilter() {
         const modalBox = document.getElementById("modalBox");
 
         modalBox.innerHTML = `
-      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 20%; width: fit-content; border-bottom: 1px solid;">
+      <div class="work-img">
+<p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 20%; width: fit-content; border-bottom: 1px solid;">
         Category | ${selectedCategoryLabel}
       </p>
-
-      <div class="work-img">
         <img src="${item.img}" alt="${item.title[lang]}">
         <a class="works noise" href="${item.link || '#'}" rel="noopener">
           <h2>${item.category.join(" / ")}<br>${item.title[lang]}</h2>
-          View More
         </a>
         <p>${truncateText(item.caption[lang])}</p>
         <p>${truncateText(item.text[lang])}</p>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html" style="margin-top: 1rem;">Contact</a>
       </div>
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
