@@ -324,6 +324,10 @@ main a {
     opacity: 0.95;
 }
 
+button {
+    font-size: 1.2rem;
+}
+
 
 main {
     position: relative;
