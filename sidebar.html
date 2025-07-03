@@ -41,9 +41,6 @@
     margin: 0 auto;
     overflow: hidden;
     max-height: 60vh;
-    overflow-y: scroll;
-    transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
-    opacity: 1;
   }
 
 
@@ -111,7 +108,9 @@
   @media screen and (min-width: 1299px) {
     #sidebar-container {
       width: 15vmin;
+      width: auto;
       left: 4rem;
+      position: absolute;
     }
   }
 
@@ -142,6 +141,10 @@
 
     #category-menu {
       max-height: 40vh;
+          overflow-y: scroll;
+    transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 1;
+
     }
 
     #category-menu p {
