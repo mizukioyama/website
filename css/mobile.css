@@ -149,10 +149,6 @@ h1 {
         margin-left: 0 !important;
     }
 
-    .gallery .content {
-        grid-template-columns: 50% 50%;
-    }
-
     .gallery .content,
     #info .content,
     #contact .content,
@@ -164,6 +160,13 @@ h1 {
         padding: 0 3vmin;
         backdrop-filter: none;
         gap: 3vmin;
+    }
+
+        .gallery .content {
+        width: 80vw;
+        padding: 0 5vmin;
+        gap: 2vmin;
+        grid-template-columns: 50% 50%;
     }
 
     #info .content,

@@ -305,6 +305,7 @@ nav .noise {
 
     .toggle_btn {
         height: 65px;
+        right: 2vmin;
     }
 
     nav ::-webkit-scrollbar {
