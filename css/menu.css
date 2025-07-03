@@ -304,8 +304,8 @@ nav .noise {
     }
 
     .toggle_btn {
-        height: 65px;
-        right: 2vmin;
+        height: 70px;
+        right: 1.5rem;
     }
 
     nav ::-webkit-scrollbar {
@@ -329,7 +329,7 @@ nav .noise {
     }
 
     .toggle_btn span:nth-child(2) {
-        top: 0%;
+        top: -20%;
     }
 
     .open .toggle_btn span:nth-child(2) {
