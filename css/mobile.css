@@ -41,7 +41,7 @@
         margin: 0 auto;
         padding-bottom: 10em;
         padding: 5rem 2.5rem 10rem;
-        backdrop-filter: blur(7px);
+        backdrop-filter: blur(15px);
         z-index: 10;
         display: block;
     }
@@ -167,7 +167,7 @@ h1 {
     }
 
         .gallery .content {
-        width: 80vw;
+        width: 90vw;
         padding: 0 5vmin;
         gap: 2vmin;
         grid-template-columns: 50% 50%;
