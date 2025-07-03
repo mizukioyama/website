@@ -271,12 +271,12 @@ function setupCategoryFilter() {
         Category | ${selectedCategoryLabel}
       </p>
         <img src="${item.img}" alt="${item.title[lang]}">
-        <a class="works noise" href="${item.link || '#'}" rel="noopener">
+        <a class="works" href="${item.link || '#'}" rel="noopener">
           <h2>${item.category.join(" / ")}<br>${item.title[lang]}</h2>
         </a>
         <p>${truncateText(item.caption[lang])}</p>
         <p>${truncateText(item.text[lang])}</p>
-        <a href="contact.html" style="margin-top: 1rem;">Contact</a>
+        <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;">Contact</a>
       </div>
       <button id="modalCloseBtn" style="margin-top: 1rem;">Close</button>
     `;
