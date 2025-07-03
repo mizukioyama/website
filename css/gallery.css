@@ -9,7 +9,7 @@
 #langChenge {
     position: fixed;
     top: 5.5rem;
-    left: 4rem;
+    left: 8rem;
 }
 
 /* ========== Common ========== */
@@ -133,7 +133,7 @@ h1 {
 
 .h1-text {
     position: absolute;
-    left: 30vmin;
+    left: 8rem;
     top: 20rem;
     z-index: 2;
 }
@@ -142,7 +142,7 @@ h1 {
 /* スクロールダウンの本体 */
 .scroll {
     position: absolute;
-    left: 25vmin;
+    left: 5vmin;
     top: 0;
     writing-mode: vertical-rl;
     background: #fff;
@@ -241,7 +241,7 @@ main a {
     padding: 0;
     padding-right: 0.5rem;
     top: 3rem;
-    left: 4rem;
+    left: 8rem;
     text-shadow: 0 0 0px var(--inv);
     z-index: 1000;
 }
