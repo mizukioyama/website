@@ -115,12 +115,6 @@
   }
 
   @media screen and (max-width: 599px) {
-  #category-menu.collapsed {
-    max-height: 0;
-    gap: 0;
-    pointer-events: none;
-    opacity: 0;
-  }
 
     #sidebar-container {
       position: fixed;
@@ -133,6 +127,14 @@
       backdrop-filter: blur(20px);
       border: 1px solid rgba(200, 200, 200, 0.25);
     }
+
+    #category-menu.collapsed {
+    max-height: 0;
+    gap: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+
 
     #category-header {
       font-size: 1.6rem;
