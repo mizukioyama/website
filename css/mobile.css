@@ -47,7 +47,6 @@
     }
 
     h1 {
-        font-family: 'jost', sans-serif;
         font-size: 2rem;
     }
 
@@ -106,7 +105,7 @@
 
     footer a,
     header a {
-        font-family: 'jost', sans-serif;
+        font-family: "Jost", sans-serif;
         font-size: 1rem;
         line-height: 1.4;
         color: var(--inv);
