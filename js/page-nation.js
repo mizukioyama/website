@@ -277,8 +277,8 @@ function setupCategoryFilter() {
         <p>${truncateText(item.caption[lang])}</p>
         <p>${truncateText(item.text[lang])}</p>
         <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;">Contact</a>
+        <button id="modalCloseBtn">Close</button>
       </div>
-      <button id="modalCloseBtn">Close</button>
     `;
 
         // アニメーション方向をランダム選択（top, bottom, left, right）
