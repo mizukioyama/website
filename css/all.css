@@ -339,7 +339,8 @@ header a,
 }
 
 footer a::before,
-header a::before {
+header a::before,
+#category-menu li::before {
   content: '';
   position: absolute;
   display: block;
@@ -352,11 +353,15 @@ header a::before {
   transition: all 0.5s ease;
 }
 
-a:hover::before {
+a:hover::before,
+#category-menu li:hover::before {
   width: 110%;
 }
 
-a:hover {
+a:hover,
+a:active,
+#category-menu li:hover,
+#category-menu li.active {
   /*background-position: -100% 0; 背景色の位置 */
   text-shadow: 0 1px 3px var(--inv);
   opacity: 1;
