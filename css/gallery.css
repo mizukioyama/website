@@ -278,12 +278,26 @@ main a {
     }
 }
 
+@keyframes stretch-line {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 .page-line {
-  animation: scroll-anim linear;
-  animation-timeline: scroll();
+  height: 2px;
   background-color: #B9314F;
   border-radius: 8px;
-  width: calc(100% - 48px);
+
+  /* 初期状態 */
+  width: 0%;
+
+  /* スクロールに合わせて width が 0% → 100% に */
+  animation: stretch-line linear forwards;
+  animation-timeline: scroll();
 }
 
 
