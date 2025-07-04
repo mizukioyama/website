@@ -278,11 +278,18 @@ main a {
     }
 }
 
-@keyframes stretch-line {
-  0% {
+/* スクロールに合わせたタイムライン */
+@scroll-timeline scroll-line {
+  source: auto;
+  orientation: block;
+}
+
+/* 幅が伸びていくアニメーション */
+@keyframes scroll-grow {
+  from {
     width: 0%;
   }
-  100% {
+  to {
     width: 100%;
   }
 }
@@ -295,9 +302,12 @@ main a {
   /* 初期状態 */
   width: 0%;
 
-  /* スクロールに合わせて width が 0% → 100% に */
-  animation: stretch-line linear forwards;
-  animation-timeline: scroll();
+  /* スクロールに連動したアニメーション */
+  animation-name: scroll-grow;
+  animation-duration: 1s;
+  animation-timeline: scroll-line;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
 }
 
 
