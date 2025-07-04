@@ -360,8 +360,7 @@ main {
     max-width: 1400px;
     max-width: 1100px;
     height: 100%;
-    margin-top: 45vmin;
-    padding: 3rem 2rem;
+    margin: 45vmin auto 0;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
     position: relative;
     overflow: hidden;
@@ -370,6 +369,10 @@ main {
     justify-content: center;
     /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
+}
+
+.art-page .content {
+    padding: 3rem 2rem;
 }
 
 .art-page .work {
@@ -385,12 +388,8 @@ main {
 #state .content,
 #contact .content,
 #policy .content {
-    background: none;
     box-shadow: none;
-    backdrop-filter: none;
-    /*margin: 25vmin auto 0;*/
-    /*padding: 3rem 10vmin;*/
-    /*width: 50%;*/
+    width: 50%;
     max-width: 1000px;
 }
 

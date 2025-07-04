@@ -186,13 +186,16 @@
         padding: 0;
     }
 
-    .work,
-    .art-page .work {
+    .work {
         justify-content: flex-start;
     }
 
+    .art-page .work {
+        margin-top: 2rem;
+    }
+
     .work h2 {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     #gallery-container .work p {
