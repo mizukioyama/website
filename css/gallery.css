@@ -318,8 +318,7 @@ main {
     position: relative;
     width: 100%;
     margin: 0 auto;
-    padding: 10vmin 2rem;
-    padding: 30vmin 2rem 55rem;
+    padding: 30vmin 2rem;
     backdrop-filter: blur(15px);
     /*background: rgb(25 125 80 / 10%);
     background: rgb(20 61 7 / 14%);
@@ -329,6 +328,10 @@ main {
     z-index: 1;
     display: flex;
     justify-content: space-between;
+}
+
+.art-page main {
+    padding: 30vmin 2rem 60rem;
 }
 
 /*.art-page main p:nth-child(1) {
