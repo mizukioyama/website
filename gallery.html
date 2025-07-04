@@ -226,6 +226,25 @@
 
   <div id="footer-container"></div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const line = document.querySelector(".page-line");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          line.classList.add("animated");
+          observer.unobserve(entry.target); // 一度きりのアニメーションならこれでOK
+        }
+      });
+    }, {
+      threshold: 0.3 // 30%表示されたら発火
+    });
+
+    observer.observe(line);
+  });
+</script>
+
 </body>
 
 </html>

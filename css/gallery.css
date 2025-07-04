@@ -278,37 +278,19 @@ main a {
     }
 }
 
-/* スクロールアニメーションに使うタイムラインを .page-line に対して定義 */
-@scroll-timeline pageLineTimeline {
-  source: auto;
-  orientation: block;
-  scroll-offsets: start 0%, end 100%;
-}
-
-/* 幅が伸びるアニメーション */
-@keyframes expandLine {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
-}
-
 .page-line {
   height: 2px;
   background-color: #B9314F;
-  border-radius: 8px;
-
-  /* 初期状態で幅0 */
   width: 0%;
-
-  /* スクロール連動アニメーション */
-  animation-name: expandLine;
-  animation-timeline: pageLineTimeline;
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  animation-timing-function: ease;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  position: relative;
+  transition: width 1s ease;
+  border-radius: 8px;
+}
+.page-line.animated {
+  width: 100%;
 }
 
 
