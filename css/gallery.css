@@ -281,16 +281,17 @@ main a {
 .page-line {
   height: 2px;
   background-color: #B9314F;
-  width: 0%;
+  width: 0;
   left: 50%;
-  top: 0;
   transform: translateX(-50%);
   position: relative;
   transition: width 1s ease;
   border-radius: 8px;
 }
+
+/* アニメーション時に横に伸びる */
 .page-line.animated {
-  width: 100%;
+  width: calc(100% - 48px); /* 画面左右の余白分を調整 */
 }
 
 
