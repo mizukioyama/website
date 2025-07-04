@@ -4,7 +4,7 @@
         width: 100vw;
         height: 70svh;
         min-height: 500px;
-        padding: 4rem;
+        padding: 4rem 8rem;
         bottom: 0;
         background: rgba(20, 20, 20, 0.09);
         backdrop-filter: blur(20px);
