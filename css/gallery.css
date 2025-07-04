@@ -280,12 +280,12 @@ main a {
 
 .page-line {
   height: 2px;
-  background-color: #B9314F;
+  background-color: #555;
   width: 0%;
   left: 50%;
   transform: translateX(-50%);
   position: relative;
-  transition: width 0.4s ease;
+  transition: width 1s ease;
   border-radius: 8px;
 }
 
