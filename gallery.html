@@ -125,9 +125,10 @@
     }
 
     #modalCloseBtn {
+      font-size: 1.2rem;
       position: absolute;
-      top: 2vmin;
-      right: 5vmin;
+      top: 4vmin;
+      right: 8vmin;
       cursor: pointer;
     }
 
@@ -135,6 +136,9 @@
       mix-blend-mode: difference;
     }
 
+    .modal-box a::before {
+      display: none;
+    }
 
     @keyframes slideInBottom {
       from {
@@ -155,9 +159,14 @@
     @media screen and (max-width: 599px) {
       .modal-box {
         width: 85%;
-        height: 70%;
+        height: 80svh;
+        min-height: 80svh;
         max-width: 380px;
         padding: 1.5rem;
+      }
+
+      .noise.cg-text {
+        font-size: 1.2rem !important;
       }
 
       .modal-box h2 {
@@ -173,58 +182,15 @@
       .modal-box .work-img {
         width: 100%;
       }
+
+      #modalCloseBtn {
+        font-size: 1rem;
+      }
     }
 
-    /* アニメーション共通設定 
-@keyframes slideInTop {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -60%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translate(-60%, -50%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translate(-40%, -50%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.modal-box.animate-top {
-  animation: slideInTop 0.4s ease-out forwards;
-}
-
-.modal-box.animate-left {
-  animation: slideInLeft 0.4s ease-out forwards;
-}
-
-.modal-box.animate-right {
-  animation: slideInRight 0.4s ease-out forwards;
-}*/
-
-.dud {
-  color: #757575;
-}
-
+    .dud {
+      color: #757575;
+    }
   </style>
 </head>
 
@@ -232,19 +198,19 @@
   <div id="header-container"></div>
   <div class="ripples"></div>
 
-<div class="h1-text" data-title="Art Index" data-subtitle="作品一覧">
-  <h1 class="noise text"></h1>
-  <p class="noise subtext"></p>
-</div>
+  <div class="h1-text" data-title="Art Index" data-subtitle="作品一覧">
+    <h1 class="noise text"></h1>
+    <p class="noise subtext"></p>
+  </div>
 
-<main class="gallery">
-  <div class="scroll"></div>
-  <div id="sidebar-container"></div>
+  <main class="gallery">
+    <div class="scroll"></div>
+    <div id="sidebar-container"></div>
 
     <div class="gallery-containt">
-    <div id="gallery-container" class="content"></div>
-    <!-- ページネーション -->
-    <div id="pagination"></div>
+      <div id="gallery-container" class="content"></div>
+      <!-- ページネーション -->
+      <div id="pagination"></div>
     </div>
   </main>
 

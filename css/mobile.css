@@ -1,5 +1,5 @@
 @media screen and (max-width: 599px) {
-    
+
     .typing-container p {
         font-size: 1rem;
     }
@@ -46,20 +46,20 @@
         display: block;
     }
 
-h1 {
+    h1 {
         font-family: 'jost', sans-serif;
         font-size: 2rem;
-}
+    }
 
-.h1-text {
-    position: absolute;
-    left: 2.5rem;
-    top: 15rem;
-}
+    .h1-text {
+        position: absolute;
+        left: 2.5rem;
+        top: 15rem;
+    }
 
-.h1-text p {
-    font-size: 1rem;
-}
+    .h1-text p {
+        font-size: 1rem;
+    }
 
     .scroll {
         left: 1.25rem;
@@ -154,7 +154,7 @@ h1 {
     }
 
     .gallery .content,
-    #info .content,
+    #state .content,
     #contact .content,
     #policy .content {
         margin: 0 auto;
@@ -166,14 +166,14 @@ h1 {
         gap: 3vmin;
     }
 
-        .gallery .content {
+    .gallery .content {
         width: 90vw;
         padding: 0 5vmin;
         gap: 2vmin;
         grid-template-columns: 50% 50%;
     }
 
-    #info .content,
+    #state .content,
     #contact .content,
     #policy .content {
         padding: 0;
@@ -187,7 +187,8 @@ h1 {
         padding: 0;
     }
 
-    .work,.art-page .work {
+    .work,
+    .art-page .work {
         justify-content: flex-start;
     }
 
@@ -232,7 +233,8 @@ h1 {
     #state h3 {
         padding: 2.5rem 2rem;
     }
-    #state .content .work:nth-child(n+3) h3{
+
+    #state .content .work:nth-child(n+3) h3 {
         padding: 0.5rem 2rem;
     }
 
