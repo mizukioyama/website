@@ -278,14 +278,15 @@ main a {
     }
 }
 
-/* スクロールに合わせたタイムライン */
-@scroll-timeline scroll-line {
+/* スクロールアニメーションに使うタイムラインを .page-line に対して定義 */
+@scroll-timeline pageLineTimeline {
   source: auto;
   orientation: block;
+  scroll-offsets: start 0%, end 100%;
 }
 
-/* 幅が伸びていくアニメーション */
-@keyframes scroll-grow {
+/* 幅が伸びるアニメーション */
+@keyframes expandLine {
   from {
     width: 0%;
   }
@@ -299,15 +300,15 @@ main a {
   background-color: #B9314F;
   border-radius: 8px;
 
-  /* 初期状態 */
+  /* 初期状態で幅0 */
   width: 0%;
 
-  /* スクロールに連動したアニメーション */
-  animation-name: scroll-grow;
+  /* スクロール連動アニメーション */
+  animation-name: expandLine;
+  animation-timeline: pageLineTimeline;
   animation-duration: 1s;
-  animation-timeline: scroll-line;
   animation-fill-mode: both;
-  animation-timing-function: linear;
+  animation-timing-function: ease;
 }
 
 
