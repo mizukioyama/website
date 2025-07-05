@@ -230,7 +230,8 @@ function setupCategoryFilter() {
             //カテゴリ改行
 const formattedCategories = item.category.map((cat, index) => {
         return index === 1 ? `<br>${cat}` : cat;
-    }).join(" | ");
+    }).join(" ");
+
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
@@ -239,8 +240,8 @@ const formattedCategories = item.category.map((cat, index) => {
             </p>
 
             <div class="work-img">
+            <img src="${item.img}" alt="${item.title[lang]}">
             <a href="#" class="noise button view-policy-button" data-index="${filtered.indexOf(item)}">
-                <img src="${item.img}" alt="${item.title[lang]}">
                 <h2>${item.title[lang]}<br>${formattedCategories}</h2>
             </a>
             </div>
