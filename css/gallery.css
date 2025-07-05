@@ -230,10 +230,6 @@ main li {
     padding: 0 0.5rem;
 }
 
-main a {
-    border-bottom: 1px solid;
-}
-
 /* head */
 .head a {
     position: fixed;
@@ -485,7 +481,6 @@ main {
 /*=======info page*/
 
 #gallery-container .work p {
-    font-weight: 200;
     width: 100%;
     color: var(--inv);
 }
