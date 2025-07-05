@@ -243,7 +243,7 @@ function setupCategoryFilter() {
             <img src="${item.img}" alt="${item.title[lang]}">
             <a href="#" class="noise button view-policy-button" data-index="${filtered.indexOf(item)}">
                 <h2>${item.title[lang]}</h2>
-                <p>${formattedCategories}</>
+                <p>${formattedCategories}</p>
             </a>
             </div>
         `;
@@ -283,7 +283,7 @@ function setupCategoryFilter() {
             <img src="${item.img}" alt="${item.title[lang]}">
             <a class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
-                <p>${formattedCategories}</>
+                <p>${formattedCategories}</p>
             </a>
             <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
