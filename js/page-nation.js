@@ -271,10 +271,12 @@ function setupCategoryFilter() {
         const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
         const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-        // ✅ ここでカテゴリを整形（2個目に <br> を入れる）
-        const formattedCategories = item.category.map((cat, index) => {
-            return index === 1 ? `<br>${cat}` : cat;
-        }).join(" ");
+//カテゴリ改行
+            const formattedCategories = item.category.map((cat, index) => {
+  return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
+    ? `${cat}<br>` // 3つごとに改行
+    : cat;
+}).join(" ");
 
         const modalBox = document.getElementById("modalBox");
 
