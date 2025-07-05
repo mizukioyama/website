@@ -244,7 +244,7 @@ function setupCategoryFilter() {
 
             <div class="work-img">
             <img src="${item.img}" alt="${item.title[lang]}">
-            <a href="#" class="noise button view-policy-button" data-index="${filtered.indexOf(item)}">
+            <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
                 <h2>${item.title[lang]}</h2>
                 <p>${firstLine}<br>${secondLine}</p>
             </a>
