@@ -296,7 +296,7 @@ nav .noise {
     }
 
     .inner li a {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     .inner li:nth-of-type(5) a {
@@ -326,6 +326,10 @@ nav .noise {
         width: auto;
         height: 300px;
         left: 0;
+    }
+
+    .open #mask li {
+        font-weight: 400;
     }
 
     .toggle_btn span:nth-child(2) {
