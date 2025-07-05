@@ -185,9 +185,9 @@
         justify-content: flex-start;
     }
 
-    /*.art-page .work {
-        margin-top: 2rem;
-    }*/
+    .art-page .work {
+        justify-content: flex-start;
+    }
 
     .work h2 {
         font-size: 1rem;
@@ -201,7 +201,7 @@
 
     #gallery-container .work:nth-child(1) .noise {
         font-size: 1rem !important;
-        top: -5vmin !important;
+        top: -10vmin !important;
     }
 
     #gallery-container a::before {
