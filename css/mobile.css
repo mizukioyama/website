@@ -231,10 +231,6 @@
         gap: 1.5rem;
     }
 
-    main#state {
-        display: block;
-    }
-
     #state h3 {
         padding: 2.5rem 2rem;
     }
