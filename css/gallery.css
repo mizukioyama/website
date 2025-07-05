@@ -482,7 +482,8 @@ main {
 
 #gallery-container .work p {
     font-weight: 200;
-    width: 35%;
+    width: 100%;
+    color: var(--inv);
 }
 
 .work-img {

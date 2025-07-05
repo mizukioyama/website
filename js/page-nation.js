@@ -229,8 +229,11 @@ function setupCategoryFilter() {
         pageItems.forEach(item => {
             //カテゴリ改行
             const formattedCategories = item.category.map((cat, index) => {
-                return index === 1 ? `<br>${cat}` : cat;
-            }).join(" ");
+  return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
+    ? `${cat}<br>` // 3つごとに改行
+    : cat;
+}).join(" ");
+
 
             const div = document.createElement("div");
             div.className = "work";
@@ -243,7 +246,7 @@ function setupCategoryFilter() {
             <img src="${item.img}" alt="${item.title[lang]}">
             <a href="#" class="noise button view-policy-button" data-index="${filtered.indexOf(item)}">
                 <h2>${item.title[lang]}</h2>
-                <p>${formattedCategories}</p>
+                <p>${firstLine}<br>${secondLine}</p>
             </a>
             </div>
         `;
@@ -283,7 +286,7 @@ function setupCategoryFilter() {
             <img src="${item.img}" alt="${item.title[lang]}">
             <a class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
-                <p>${formattedCategories}</p>
+                <p>${firstLine}<br>${secondLine}</p>
             </a>
             <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
