@@ -203,7 +203,7 @@
         top: -5vmin !important;
     }
 
-    .works-img a::before {
+    #gallery-container a::before {
         display: none;
     }
 
