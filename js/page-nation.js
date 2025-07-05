@@ -228,7 +228,7 @@ function renderGallery() {
     container.innerHTML = "";
     pageItems.forEach(item => {
         const formattedCategories = item.category.map((cat, index) => {
-            return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
+            return ((index + 1) % 2 === 0 && index !== item.category.length - 1)
                 ? `${cat}<br>` : cat;
         }).join(" ");
 
@@ -270,7 +270,7 @@ function showModal(item) {
     const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
     const formattedCategories = item.category.map((cat, index) => {
-        return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
+        return ((index + 1) % 2 === 0 && index !== item.category.length - 1)
             ? `${cat}<br>` : cat;
     }).join(" ");
 
