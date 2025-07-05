@@ -195,6 +195,7 @@
 
     #gallery-container .work p {
         width: 100%;
+        line-height: 1.6;
         letter-spacing: 0.05rem;
     }
 
