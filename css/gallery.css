@@ -276,7 +276,7 @@ main li {
 
 .page-line {
   height: 2px;
-  background-color: #555;
+  background-color: #3b3b3b;
   width: 0%;
   left: 50%;
   transform: translateX(-50%);
