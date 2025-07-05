@@ -203,6 +203,10 @@
         top: -5vmin !important;
     }
 
+    .works-img a::before {
+        display: none;
+    }
+
     .gallery ol p {
         font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
         font-weight: 600;
