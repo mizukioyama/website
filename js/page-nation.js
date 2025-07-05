@@ -271,26 +271,26 @@ function setupCategoryFilter() {
         // ✅ ここでカテゴリを整形（2個目に <br> を入れる）
         const formattedCategories = item.category.map((cat, index) => {
             return index === 1 ? `<br>${cat}` : cat;
-        }).join(" | ");
+        }).join(" ");
 
         const modalBox = document.getElementById("modalBox");
 
         modalBox.innerHTML = `
-    <div class="work-img">
-      <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 0; width: fit-content; border-bottom: 1px solid;">
-        Category | ${selectedCategoryLabel}
-      </p>
-      <img src="${item.img}" alt="${item.title[lang]}">
-      <a class="works" href="${item.link || '#'}" rel="noopener">
-        <h2>${item.title[lang]}</h2>
-        <p>${formattedCategories}</>
-      </a>
-      <p>${truncateText(item.caption[lang])}</p>
-      <p>${truncateText(item.text[lang])}</p>
-      <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;">Contact</a>
-      <button id="modalCloseBtn">Close</button>
-    </div>
-  `;
+            <div class="work-img">
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 0; width: fit-content; border-bottom: 1px solid;">
+                Category | ${selectedCategoryLabel}
+            </p>
+            <img src="${item.img}" alt="${item.title[lang]}">
+            <a class="works" href="${item.link || '#'}" rel="noopener">
+                <h2>${item.title[lang]}</h2>
+                <p>${formattedCategories}</>
+            </a>
+            <p>${truncateText(item.caption[lang])}</p>
+            <p>${truncateText(item.text[lang])}</p>
+            <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;">Contact</a>
+            <button id="modalCloseBtn">Close</button>
+            </div>
+        `;
 
         const directions = ["bottom"];
         const randomDir = directions[Math.floor(Math.random() * directions.length)];
