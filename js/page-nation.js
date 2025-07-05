@@ -184,7 +184,7 @@ function setupCategoryFilter() {
             title: { ja: "輝き / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Certification", "2021"],
+            category: ["2021", "Natureinspire", "Paint", "Certification"],
             img: "img/輝き-web.jpg",
             link: "pages/2024work.html"
         },//========2010~17
