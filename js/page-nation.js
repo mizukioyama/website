@@ -213,26 +213,26 @@ function setupCategoryFilter() {
         return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
 
-function renderGallery() {
-    const lang = getLang();
-    const container = document.getElementById("gallery-container");
-    container.classList.remove("show");
+    function renderGallery() {
+        const lang = getLang();
+        const container = document.getElementById("gallery-container");
+        container.classList.remove("show");
 
-    filtered = filterArtworks();
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
+        filtered = filterArtworks();
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageItems = filtered.slice(start, start + itemsPerPage);
 
-    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-    container.innerHTML = "";
-    pageItems.forEach(item => {
-        const firstLine = item.category[0] || "";
-        const secondLine = item.category.slice(1).join(" ") || "";
+        container.innerHTML = "";
+        pageItems.forEach(item => {
+            const firstLine = item.category[0] || "";
+            const secondLine = item.category.slice(1).join(" ") || "";
 
-        const div = document.createElement("div");
-        div.className = "work";
-        div.innerHTML = `
+            const div = document.createElement("div");
+            div.className = "work";
+            div.innerHTML = `
             <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: 100%; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid;">
                 Category | ${selectedCategoryLabel}
             </p>
@@ -245,36 +245,36 @@ function renderGallery() {
                 </a>
             </div>
         `;
-        container.appendChild(div);
-    });
-
-    renderPagination(filtered.length);
-    setTimeout(() => container.classList.add("show"), 3);
-    smoothScrollToTop(400);
-
-    document.querySelectorAll(".view-policy-button").forEach(button => {
-        button.addEventListener("click", (e) => {
-            e.preventDefault();
-            const index = parseInt(button.getAttribute("data-index"));
-            showModal(filtered[index]);
+            container.appendChild(div);
         });
-    });
-}
+
+        renderPagination(filtered.length);
+        setTimeout(() => container.classList.add("show"), 3);
+        smoothScrollToTop(400);
+
+        document.querySelectorAll(".view-policy-button").forEach(button => {
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                const index = parseInt(button.getAttribute("data-index"));
+                showModal(filtered[index]);
+            });
+        });
+    }
 
 
-function showModal(item) {
-    const lang = getLang();
-    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+    function showModal(item) {
+        const lang = getLang();
+        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-    const firstLine = item.category[0] || "";
-    const secondLine = item.category.slice(1).join(" ") || "";
+        const firstLine = item.category[0] || "";
+        const secondLine = item.category.slice(1).join(" ") || "";
 
-    const modalBox = document.getElementById("modalBox");
+        const modalBox = document.getElementById("modalBox");
 
-    modalBox.innerHTML = `
+        modalBox.innerHTML = `
         <div class="work-img">
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 0; width: fit-content; border-bottom: 1px solid;">
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 0; width: fit-content; border-bottom: 1px solid; line-height: 2;">
                 Category | ${selectedCategoryLabel}
             </p>
             <img src="${item.img}" alt="${item.title[lang]}">
@@ -289,22 +289,22 @@ function showModal(item) {
         </div>
     `;
 
-    const directions = ["bottom"];
-    const randomDir = directions[Math.floor(Math.random() * directions.length)];
+        const directions = ["bottom"];
+        const randomDir = directions[Math.floor(Math.random() * directions.length)];
 
-    modalBox.className = `modal-box animate-${randomDir}`;
-    document.getElementById("modalOverlay").style.display = "block";
-    modalBox.style.display = "block";
+        modalBox.className = `modal-box animate-${randomDir}`;
+        document.getElementById("modalOverlay").style.display = "block";
+        modalBox.style.display = "block";
 
-    document.getElementById("modalCloseBtn").onclick = closeModal;
-    document.getElementById("modalOverlay").onclick = closeModal;
+        document.getElementById("modalCloseBtn").onclick = closeModal;
+        document.getElementById("modalOverlay").onclick = closeModal;
 
-    function closeModal() {
-        modalBox.style.display = "none";
-        document.getElementById("modalOverlay").style.display = "none";
-        modalBox.className = "modal-box"; // アニメーション解除
+        function closeModal() {
+            modalBox.style.display = "none";
+            document.getElementById("modalOverlay").style.display = "none";
+            modalBox.className = "modal-box"; // アニメーション解除
+        }
     }
-}
 
 
 

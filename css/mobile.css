@@ -140,7 +140,7 @@
     }
 
     .art-page .gallery {
-        padding: 10vmin 0 10vmin 2.5rem;
+        padding: 10vmin 0 30vmin 2.5rem;
     }
 
     body p:nth-child(n+1) {
@@ -229,6 +229,7 @@
     }
 
     #pagination {
+        margin: 5vmin auto;
         gap: 1.5rem;
     }
 

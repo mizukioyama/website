@@ -235,6 +235,7 @@ main li {
     position: fixed;
     justify-content: flex-start;
     font-size: 1.4rem;
+    font-weight: 400;
     letter-spacing: 0.09rem;
     padding: 0;
     padding-right: 0.5rem;

@@ -52,6 +52,7 @@
     margin-left: 1rem;
     padding: 0;
     width: 100%;
+    padding-left: 0.5vmin;
     display: block;
     cursor: pointer;
     overflow: hidden;
@@ -100,7 +101,7 @@
       position: fixed;
       width: auto;
       min-width: 10vmin;
-      top: 5%;
+      top: 7.5%;
       right: 0;
       padding: 0.75rem 0.5rem;
       backdrop-filter: blur(20px);
@@ -109,29 +110,38 @@
     }
 
     #category-menu.collapsed {
-    max-height: 0;
-    gap: 0;
-    pointer-events: none;
-    opacity: 0;
-  }
+      max-height: 0;
+      gap: 0;
+      pointer-events: none;
+      opacity: 0;
+    }
 
 
     #category-header {
       font-size: 1.6rem;
+      font-weight: bold;
+      padding: 0.35rem 1vmin;
+      top: 2px;
       left: 0;
     }
 
     #category-menu {
       max-height: 40vh;
-          overflow-y: scroll;
-    transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
-    opacity: 1;
+      overflow-y: scroll;
+      transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
+      opacity: 1;
 
+    }
+
+    #category-menu li {
+      margin: 0;
+      padding-left: 1vmin;
+      border-bottom: 2px solid var(--inv);
     }
 
     #category-menu p {
       font-size: 1.2rem;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.2;
     }
 
