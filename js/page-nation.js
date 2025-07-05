@@ -157,7 +157,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "戦争 / 2021", en: "No Title / 2021" },
+            title: { ja: "戦争", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Exhibition"],
@@ -165,7 +165,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "幸緑 / 2021", en: "No Title / 2021" },
+            title: { ja: "幸緑", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Exhibition"],
@@ -173,7 +173,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "金雲 / 2021", en: "No Title / 2021" },
+            title: { ja: "金雲", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Exhibition"],
@@ -181,7 +181,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "輝き / 2021", en: "No Title / 2021" },
+            title: { ja: "輝き", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Certification"],
@@ -189,7 +189,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//========2010~17
         {
-            title: { ja: "海底 / 2017", en: "No Title / 2017" },
+            title: { ja: "海底", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010", "Natureinspire", "Paint", "Certification"],
