@@ -213,106 +213,103 @@ function setupCategoryFilter() {
         return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
 
-    function renderGallery() {
-        const lang = getLang();
-        const container = document.getElementById("gallery-container");
-        container.classList.remove("show");
+function renderGallery() {
+    const lang = getLang();
+    const container = document.getElementById("gallery-container");
+    container.classList.remove("show");
 
-        filtered = filterArtworks();
-        const start = (currentPage - 1) * itemsPerPage;
-        const pageItems = filtered.slice(start, start + itemsPerPage);
+    filtered = filterArtworks();
+    const start = (currentPage - 1) * itemsPerPage;
+    const pageItems = filtered.slice(start, start + itemsPerPage);
 
-        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-        container.innerHTML = "";
-        pageItems.forEach(item => {
-            //カテゴリ改行
-            const formattedCategories = item.category.map((cat, index) => {
-  return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
-    ? `${cat}<br>` // 3つごとに改行
-    : cat;
-}).join(" ");
+    container.innerHTML = "";
+    pageItems.forEach(item => {
+        const formattedCategories = item.category.map((cat, index) => {
+            return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
+                ? `${cat}<br>` : cat;
+        }).join(" ");
 
-
-            const div = document.createElement("div");
-            div.className = "work";
-            div.innerHTML = `
+        const div = document.createElement("div");
+        div.className = "work";
+        div.innerHTML = `
             <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: 100%; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid;">
-                Category|${selectedCategoryLabel}
+                Category | ${selectedCategoryLabel}
             </p>
 
             <div class="work-img">
-            <img src="${item.img}" alt="${item.title[lang]}">
-            <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
-                <h2>${item.title[lang]}</h2>
-                <p>${firstLine}<br>${secondLine}</p>
-            </a>
+                <img src="${item.img}" alt="${item.title[lang]}">
+                <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
+                    <h2>${item.title[lang]}</h2>
+                    <p>${formattedCategories}</p>
+                </a>
             </div>
         `;
-            container.appendChild(div);
+        container.appendChild(div);
+    });
+
+    renderPagination(filtered.length);
+    setTimeout(() => container.classList.add("show"), 3);
+    smoothScrollToTop(400);
+
+    document.querySelectorAll(".view-policy-button").forEach(button => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            const index = parseInt(button.getAttribute("data-index"));
+            showModal(filtered[index]);
         });
+    });
+}
 
-        renderPagination(filtered.length);
-        setTimeout(() => container.classList.add("show"), 3);
-        smoothScrollToTop(400);
 
-        document.querySelectorAll(".view-policy-button").forEach(button => {
-            button.addEventListener("click", (e) => {
-                e.preventDefault();
-                const index = parseInt(button.getAttribute("data-index"));
-                showModal(filtered[index]);
-            });
-        });
-    }
+function showModal(item) {
+    const lang = getLang();
+    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-    function showModal(item) {
-        const lang = getLang();
-        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+    const formattedCategories = item.category.map((cat, index) => {
+        return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
+            ? `${cat}<br>` : cat;
+    }).join(" ");
 
-//カテゴリ改行
-            const formattedCategories = item.category.map((cat, index) => {
-  return ((index + 1) % 3 === 0 && index !== item.category.length - 1)
-    ? `${cat}<br>` // 3つごとに改行
-    : cat;
-}).join(" ");
+    const modalBox = document.getElementById("modalBox");
 
-        const modalBox = document.getElementById("modalBox");
-
-        modalBox.innerHTML = `
-            <div class="work-img">
+    modalBox.innerHTML = `
+        <div class="work-img">
             <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 0; width: fit-content; border-bottom: 1px solid;">
                 Category | ${selectedCategoryLabel}
             </p>
             <img src="${item.img}" alt="${item.title[lang]}">
             <a class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
-                <p>${firstLine}<br>${secondLine}</p>
+                <p>${formattedCategories}</p>
             </a>
             <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
             <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;">Contact</a>
             <button id="modalCloseBtn">Close</button>
-            </div>
-        `;
+        </div>
+    `;
 
-        const directions = ["bottom"];
-        const randomDir = directions[Math.floor(Math.random() * directions.length)];
+    const directions = ["bottom"];
+    const randomDir = directions[Math.floor(Math.random() * directions.length)];
 
-        modalBox.className = `modal-box animate-${randomDir}`;
-        document.getElementById("modalOverlay").style.display = "block";
-        modalBox.style.display = "block";
+    modalBox.className = `modal-box animate-${randomDir}`;
+    document.getElementById("modalOverlay").style.display = "block";
+    modalBox.style.display = "block";
 
-        document.getElementById("modalCloseBtn").onclick = closeModal;
-        document.getElementById("modalOverlay").onclick = closeModal;
+    document.getElementById("modalCloseBtn").onclick = closeModal;
+    document.getElementById("modalOverlay").onclick = closeModal;
 
-        function closeModal() {
-            modalBox.style.display = "none";
-            document.getElementById("modalOverlay").style.display = "none";
-            modalBox.className = "modal-box"; // アニメーション解除
-        }
+    function closeModal() {
+        modalBox.style.display = "none";
+        document.getElementById("modalOverlay").style.display = "none";
+        modalBox.className = "modal-box"; // アニメーション解除
     }
+}
+
 
 
     function renderPagination(totalItems) {
