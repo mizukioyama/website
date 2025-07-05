@@ -196,7 +196,7 @@
     #gallery-container .work p {
         width: 100%;
         line-height: 1.6;
-        letter-spacing: 0.05rem;
+        letter-spacing: 0;
     }
 
     #gallery-container .work:nth-child(1) .noise {
