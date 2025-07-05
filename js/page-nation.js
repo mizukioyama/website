@@ -227,6 +227,10 @@ function setupCategoryFilter() {
 
         container.innerHTML = "";
         pageItems.forEach(item => {
+            //カテゴリ改行
+const formattedCategories = item.category.map((cat, index) => {
+        return index === 1 ? `<br>${cat}` : cat;
+    }).join(" | ");
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
@@ -235,11 +239,10 @@ function setupCategoryFilter() {
             </p>
 
             <div class="work-img">
+            <a href="#" class="noise button view-policy-button" data-index="${filtered.indexOf(item)}">
                 <img src="${item.img}" alt="${item.title[lang]}">
-                <h2>${item.category.join(" / ")}<br>${item.title[lang]}</h2>
-                <a href="#" class="noise button view-policy-button" data-index="${filtered.indexOf(item)}">
-                  View More
-                </a>
+                <h2>${item.title[lang]}<br>${formattedCategories}</h2>
+            </a>
             </div>
         `;
             container.appendChild(div);
@@ -272,7 +275,7 @@ function setupCategoryFilter() {
       </p>
         <img src="${item.img}" alt="${item.title[lang]}">
         <a class="works" href="${item.link || '#'}" rel="noopener">
-          <h2>${item.category.join(" / ")}<br>${item.title[lang]}</h2>
+          <h2>${item.title[lang]}<br>${formattedCategories}</h2>
         </a>
         <p>${truncateText(item.caption[lang])}</p>
         <p>${truncateText(item.text[lang])}</p>
