@@ -169,13 +169,8 @@
         width: 90vw;
         padding: 0 5vmin;
         gap: 2vmin;
+        margin-top: 80svh;
         grid-template-columns: 50% 50%;
-    }
-
-    #state .content,
-    #contact .content,
-    #policy .content {
-        padding: 0;
     }
 
     #policy .content li {
