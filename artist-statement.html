@@ -54,7 +54,7 @@
     <meta name="twitter:image" content="https://mizukioyama.github.io/images/ogp.jpg">
 
     <!-- Favicon -->
-    <link rel="icon" href="web.ico">
+    <link rel="icon" href="img/web.ico">
 
     <!-- キャッシュ制御 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -105,10 +105,10 @@
     <main id="state" class="gallery">
         <div class="scroll"></div>
         
-        <div class="state-box">
-        <img src="img/202343-2.jpg" alt="" class="state-img" lang="ja">
+        <div lang="ja" class="state-box">
+        <img src="img/202343-2.jpg" alt="" class="state-img">
         
-        <div lang="ja" class="content">
+        <div class="content">
             <h2 class="noise">プロフィール</h2>
             <div class="work">
                 <p>
@@ -176,8 +176,8 @@
         </div>
         </div>
         
-        <div class="state-box">
-            <div lang="ja" class="content" style="margin-top: 0;">
+        <div lang="ja" class="state-box">
+            <div class="content" style="margin-top: 0;">
             <hr>
             <h2 class="noise">画歴</h2>
             <div class="work">
@@ -212,9 +212,9 @@
         <!-- ja  -->
 
         <!-- en  -->
-        <div class="state-box">
-        <img src="img/202343-2.jpg" alt="" class="state-img" lang="en">
-        <div lang="en" class="content">
+        <div lang="en" class="state-box">
+        <img src="img/202343-2.jpg" alt="" class="state-img">
+        <div class="content">
             <h2 class="noise">Abstract painter Mizuki Oyama</h2>
             <div class="work">
                 <p>
@@ -298,8 +298,8 @@
         </div>
         
         
-        <div class="state-box">
-            <div lang="en" class="content" style="margin-top: 0;">
+        <div lang="en" class="state-box">
+            <div class="content" style="margin-top: 0;">
                 <hr>
             <h2 class="noise">Art History</h2>
             <div class="work">
@@ -336,24 +336,6 @@
     </main>
 
     <div id="footer-container"></div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const animatedLines = document.querySelectorAll(".line");
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-animated");
-        observer.unobserve(entry.target); // 一度だけ実行したい場合
-      }
-    });
-  }, {
-    threshold: 0.6 // 60% 表示されたら発火
-  });
-
-  animatedLines.forEach(line => observer.observe(line));
-});
-</script>
 
 </body>
 
