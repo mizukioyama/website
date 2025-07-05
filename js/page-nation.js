@@ -7,7 +7,7 @@ function setupCategoryFilter() {
             title: { ja: "蒼想", en: "Order：Blue Thought" },
             caption: { ja: "青に想いを重ねて結晶した「蒼想」は、そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "2024"],
+            category: ["2024", "Natureinspire", "Paint"],
             img: "img/蒼想-web.jpg",
             link: "pages/2024work.html"
         },//Unreleased
@@ -15,7 +15,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Digital", "Unreleased", "2023"],
+            category: ["2023", "Digital", "Unreleased"],
             img: "img/202344-1-web.jpg",
             link: "pages/2024work.html"
         },
@@ -23,7 +23,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Digital", "Unreleased", "2023"],
+            category: ["2023", "Digital", "Unreleased"],
             img: "img/202342-web.jpg",
             link: "pages/2024work.html"
         },
@@ -31,7 +31,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Digital", "Unreleased", "2023"],
+            category: ["2023", "Digital", "Unreleased"],
             img: "img/202341-web.jpg",
             link: "pages/2024work.html"
         },
@@ -39,7 +39,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Digital", "Unreleased", "2023"],
+            category: ["2023", "Digital", "Unreleased"],
             img: "img/202340-web.jpg",
             link: "pages/2024work.html"
 
@@ -48,7 +48,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Digital", "Unreleased", "2023"],
+            category: ["2023", "Digital", "Unreleased"],
             img: "img/202338-web.jpg",
             link: "pages/2024work.html"
         },
@@ -56,7 +56,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Digital", "Unreleased", "2023"],
+            category: ["2023", "Digital", "Unreleased"],
             img: "img/202337-web.jpg",
             link: "pages/2024work.html"
         },
@@ -64,7 +64,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Digital", "Unreleased", "2023"],
+            category: ["2023", "Digital", "Unreleased"],
             img: "img/202334-web.jpg",
             link: "pages/2024work.html"
         },//2022
@@ -72,7 +72,7 @@ function setupCategoryFilter() {
             title: { ja: "映し神", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/映し神-web.jpg",
             link: "pages/2024work.html"
         },
@@ -80,7 +80,7 @@ function setupCategoryFilter() {
             title: { ja: "挑戦", en: "No Title" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/挑戦-web.jpg",
             link: "pages/2024work.html"
         },//========2021
@@ -88,7 +88,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202109-web.jpg",
             link: "pages/2024work.html"
         },
@@ -96,7 +96,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202108-web.jpg",
             link: "pages/2024work.html"
         },
@@ -104,7 +104,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202107-web.jpg",
             link: "pages/2024work.html"
         },
@@ -112,7 +112,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202106-web.jpg",
             link: "pages/2024work.html"
         },
@@ -120,7 +120,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202105-web.jpg",
             link: "pages/2024work.html"
         },
@@ -128,7 +128,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202104-web.jpg",
             link: "pages/2024work.html"
         },
@@ -136,7 +136,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202103-web.jpg",
             link: "pages/2024work.html"
         },
@@ -144,7 +144,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202102-web.jpg",
             link: "pages/2024work.html"
         },
@@ -152,7 +152,7 @@ function setupCategoryFilter() {
             title: { ja: "No Title | View More", en: "No Title | View More" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2022"],
+            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202101-web.jpg",
             link: "pages/2024work.html"
         },
@@ -160,7 +160,7 @@ function setupCategoryFilter() {
             title: { ja: "戦争 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2021"],
+            category: ["2021", "Natureinspire", "Paint", "Exhibition"],
             img: "img/戦争-web.jpg",
             link: "pages/2024work.html"
         },
@@ -168,7 +168,7 @@ function setupCategoryFilter() {
             title: { ja: "幸緑 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2021"],
+            category: ["2021", "Natureinspire", "Paint", "Exhibition"],
             img: "img/幸緑-web.jpg",
             link: "pages/2024work.html"
         },
@@ -176,7 +176,7 @@ function setupCategoryFilter() {
             title: { ja: "金雲 / 2021", en: "No Title / 2021" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Exhibition", "2021"],
+            category: ["2021", "Natureinspire", "Paint", "Exhibition"],
             img: "img/金雲-web.jpg",
             link: "pages/2024work.html"
         },
@@ -192,7 +192,7 @@ function setupCategoryFilter() {
             title: { ja: "海底 / 2017", en: "No Title / 2017" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["Natureinspire", "Paint", "Certification", "2010"],
+            category: ["2010", "Natureinspire", "Paint", "Certification"],
             img: "img/海底-web.jpg",
             link: "pages/2024work.html"
         }
@@ -227,10 +227,8 @@ function renderGallery() {
 
     container.innerHTML = "";
     pageItems.forEach(item => {
-        const formattedCategories = item.category.map((cat, index) => {
-            return ((index + 1) % 2 === 0 && index !== item.category.length - 1)
-                ? `${cat}<br>` : cat;
-        }).join(" ");
+        const firstLine = item.category[0] || "";
+        const secondLine = item.category.slice(1).join(" ") || "";
 
         const div = document.createElement("div");
         div.className = "work";
@@ -242,8 +240,8 @@ function renderGallery() {
             <div class="work-img">
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
-                    <h2>${item.title[lang]}</h2>
-                    <p>${formattedCategories}</p>
+                <h2>${item.title[lang]}</h2>
+                <p>${firstLine}<br>${secondLine}</p>
                 </a>
             </div>
         `;
@@ -269,10 +267,8 @@ function showModal(item) {
     const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
     const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-    const formattedCategories = item.category.map((cat, index) => {
-        return ((index + 1) % 2 === 0 && index !== item.category.length - 1)
-            ? `${cat}<br>` : cat;
-    }).join(" ");
+    const firstLine = item.category[0] || "";
+    const secondLine = item.category.slice(1).join(" ") || "";
 
     const modalBox = document.getElementById("modalBox");
 
@@ -284,7 +280,7 @@ function showModal(item) {
             <img src="${item.img}" alt="${item.title[lang]}">
             <a class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
-                <p>${formattedCategories}</p>
+                <p>${firstLine}<br>${secondLine}</p>
             </a>
             <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
