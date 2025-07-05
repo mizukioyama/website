@@ -483,6 +483,7 @@ main {
 #gallery-container .work p {
     width: 100%;
     color: var(--inv);
+    line-height: 1.2;
 }
 
 .work-img {
