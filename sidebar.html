@@ -107,14 +107,14 @@
       border: 1px solid rgba(200, 200, 200, 0.25);
       border-right: none;
     }
-
+/* 閉じるアニメーション
     #category-menu.collapsed {
       max-height: 0;
       gap: 0;
       pointer-events: none;
       opacity: 0;
     }
-
+*/
 
     #category-header {
       font-size: 1.6rem;
@@ -134,14 +134,18 @@
 
     #category-menu li {
       margin: 0;
+      margin-bottom: 1vmin;
       padding-left: 1vmin;
-      border-bottom: 2px solid var(--inv);
+      border-bottom: 0px solid var(--inv);
     }
 
     #category-menu p {
-      font-size: 1.2rem;
+      font-size: 1.2rem !important;
       font-weight: 500;
       line-height: 1.2;
+      width: 100%;
+      justify-content: flex-start;
+      border-bottom: 1px solid var(--inv);
     }
 
     #sidebar-container ul li {
