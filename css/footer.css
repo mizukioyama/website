@@ -21,8 +21,10 @@
         text-shadow: 0px 0px 3px rgba(246, 246, 246, 0.5);
     }
 
+    footer a:nth-of-type(n+5) {
+        font-size: 1.05rem !important;
+    }
     footer a:nth-of-type(5) {
-        font-size: 1rem !important;
         margin-top: 10vmin;
     }
 
