@@ -165,11 +165,15 @@
         gap: 3vmin;
     }
 
+    #state .content {
+        margin: 0;
+    }
+
     .gallery .content {
         width: 90vw;
         padding: 0 5vmin;
         gap: 2vmin;
-        margin-top: 90svh;
+        margin-top: 85svh;
         grid-template-columns: 50% 50%;
     }
 
