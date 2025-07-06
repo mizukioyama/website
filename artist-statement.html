@@ -89,8 +89,13 @@
         .state-box {
             display: flex;
             width: 100%;
-            flex-direction: column;
-            align-items: flex-start;
+        }
+
+        @media screen and (max-width: 599px) {
+            .state-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
