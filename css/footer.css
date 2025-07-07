@@ -57,11 +57,11 @@
             padding: 3rem 2.5rem 0;
         }
 
-        footer a:nth-of-type(5) {
+        footer a:nth-of-type(n+5) {
             font-size: 0.85rem !important;
         }
 
-        footer a:nth-of-type(n+5) {
+        footer a:nth-of-type(5) {
             margin-top: 20vmin;
         }
 
