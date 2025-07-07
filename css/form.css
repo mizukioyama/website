@@ -30,32 +30,9 @@ input[type="radio"]:checked + label {
   opacity: 1;
 }
 
-input[type="radio"]:checked + label::after {
-  opacity: 1;
-}
-
 /* チェックボックスの角を角丸なしに */
 form input[type="checkbox"] {
   border-radius: 2px;
-}
-
-/* 擬似要素：選択時のインナー表示 */
-form input[type="checkbox"]::before
-/*form input[type="radio"]::before*/ {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 0.7rem;
-  height: 0.7rem;
-  background-color: var(--hover);
-  box-shadow: 0 1px 2px rgba(46, 46, 46, 0.45);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
 /* チェックボックスは四角い中身 */
@@ -63,6 +40,7 @@ form input[type="checkbox"]::before {
   width: 1rem;
   height: 1rem;
   border-radius: 0;
+  opacity: 0;
 }
 
 /* チェックされたら内側を表示 */
@@ -406,7 +384,7 @@ input:-webkit-autofill:focus {
       font-size: clamp(1.4rem, 1.171rem + 1.14vw, 1.6rem);
    }*/
    .contact-form .label {
-      font-size: 1rem;
+      font-size: 0.9rem;
       left: 2.75%;
       top: 5.75%;
       line-height: 2;
