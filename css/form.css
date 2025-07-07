@@ -11,11 +11,6 @@
 /* ラジオボタンは非表示（見た目はラベルで表現） */
 input[type="radio"] {
   display: none;
-}
-
-/* inputは非表示（クリックできるよう position + opacity） */
-input[type="radio"] {
-  position: absolute;
   opacity: 0;
 }
 
@@ -31,42 +26,10 @@ input[type="radio"] {
   transition: opacity 0.3s ease;
 }
 
-/* カスタムラジオ表示（外側の円） */
-.radio-group label::before {
-  content: "";
-  position: absolute;
-  top: 0.2rem;
-  left: 0;
-  width: 1rem;
-  height: 1rem;
-  border: 1px solid var(--hover);
-  border-radius: 50%;
-  background: var(--inv);
-}
-
-/* カスタムラジオ表示（チェック時の内側の円） */
-.radio-group label::after {
-  content: "";
-  position: absolute;
-  top: 0.45rem;
-  left: 0.25rem;
-  width: 0.5rem;
-  height: 0.5rem;
-  background: var(--hover);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 /* 選択されたときだけラベルにスタイルを適用 */
 input[type="radio"]:checked + label {
   opacity: 1;
 }
-
-input[type="radio"]:checked + label::after {
-  opacity: 1;
-}
-
 
 /* チェックボックスの角を角丸なしに */
 form input[type="checkbox"] {
