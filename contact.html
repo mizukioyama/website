@@ -115,10 +115,10 @@
         <div class="form-field col align-center">
           <div class="radio-group">
             <label>
-              <input type="radio" name="inquiryType" value="依頼" required> 依頼
+              <input type="radio" name="inquiryType" value="依頼" required> request|依頼
             </label>
             <label>
-              <input type="radio" name="inquiryType" value="問い合わせ" required> 問い合わせ
+              <input type="radio" name="inquiryType" value="問い合わせ" required> inquiry|問い合わせ
             </label>
           </div>
         </div>
@@ -126,17 +126,18 @@
         <div class="form-row">
           <div class="form-col">
             <div class="form-field col x-50">
-              <input type="text" id="name" name="name" class="input-text" required>
-              <label for="name" class="label">お名前 <span>*</span></label>
+              <input type="text" id="name_furigana" name="name_furigana" class="input-text" required />
+              <label for="name_furigana" class="label"><span>*</span> subject（件名）</label>
             </div>
+
             <div class="form-field col x-50">
-              <input type="text" id="name_furigana" name="name_furigana" class="input-text" autocomplete="off"
-                required />
-              <label for="name_furigana" class="label">ふりがな <span>*</span></label>
+              <input type="text" id="name" name="name" class="input-text" autocomplete="name" required>
+              <label for="name" class="label"><span>*</span> Name（お名前）</label>
             </div>
+
             <div class="form-field col x-50">
-              <input type="email" id="email" name="email" class="input-text" required>
-              <label for="email" class="label">メールアドレス <span>*</span></label>
+              <input type="email" id="email" name="email" class="input-text" autocomplete="email" required>
+              <label for="email" class="label">Mail（メールアドレス）</label>
             </div>
           </div>
 
@@ -149,174 +150,12 @@
         <div class="form-field col align-center">
           <label>
             <p>
+              Please check our SitePolicy when using this site.
+              <br>
               <input type="checkbox" name="consent" value="同意する" required>
-              当サイトをご利用の際は,
+              当Webサイトをご利用の際は, SitePolicy をご確認ください.
+              <br>
               <a href="#" class="button" data-modal="modal-content">SitePolicy</a>
-              をご確認ください.
-            </p>
-          </label>
-          <button type="submit" class="submit-btn">送信</button>
-        </div>
-      </form>
-
-      <!-- modal -->
-      <div class="modal-overlay"></div>
-      <div class="modal" id="modal-content">
-        <button class="close">&times;</button>
-        <!-- Privacy Policy -->
-        <h2>
-          プライバシーポリシー
-        </h2>
-        <p>
-          当サイトはSmile Coordinate（以下、当社と記載）が提供しています。
-          当社では、お客様のプライバシーを尊重し、安心してサービスをお受けいただくために、
-          以下の通り個人情報の保護に関する法律およびその他の法令を遵守し、個人情報の保護に努めます。
-        </p>
-
-        <ul>
-          <h3>
-            <span>1,</span>個人情報の取得・利用について
-          </h3>
-          <p>
-            当社では、以下の目的のため、お客様からお知らせいただいた氏名、住所、
-            電話番号、メールアドレスなどの情報を利用させていただきます。
-          </p>
-          <li>
-            ・お客様から当社へいただいたお問い合わせに関するご連絡のため
-          </li>
-          <li>
-            ・各種サービスのお申し込み・ご請求・お支払いなどの確認のため
-          </li>
-          <li>
-            ・各種サービスで使用するためにお客様にお渡しする教材や資料の作成のため
-          </li>
-          <li>
-            ・各種サービスで使用する教材や資料などの送付のため
-          </li>
-          <li>
-            ・当社の商品・サービスに関するアンケート調査のため
-          </li>
-
-          <h3>
-            <span>2,</span>個人情報の管理について
-          </h3>
-          <p>
-            当社は、個人情報の正確性を保ち、また、個人情報の紛失、破壊、改ざん及び漏えいを防止するため、
-            不正アクセスに対する適正な情報セキュリティ対策などの必要な対策を講じ、これを安全に管理いたします。
-          </p>
-
-          <h3>
-            <span>3,</span>第三者への提供について
-          </h3>
-          <p>
-            当社は、お客様よりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、
-            個人情報を第三者に開示いたしません。
-          </p>
-          <li>
-            ・お客様の同意がある場合
-          </li>
-          <li>
-            ・お客様が希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合
-          </li>
-          <li>
-            ・法令に基づき開示することが必要である場合
-          </li>
-
-          <h3>
-            <span>4,</span>個人情報の開示・訂正・削除について
-          </h3>
-          <p>
-            個人情報をお知らせいただきましたお客様は、いつでも当社に対して、当社が有している
-            ご本人の個人情報をご本人のみに開示するよう求めることができます。
-            開示の結果、当該個人情報に誤りがある場合は、当社に対して当該個人情報の訂正または削除を
-            要求することができます。
-            <br>
-            当社では、お客様からの要求に従い適切な措置を速やかに行います。
-            その他、お客様のプライバシー保護に関して疑問・質問・ご要望などございましたら、
-            お問い合わせフォームよりいつでもご連絡ください。誠意をもって対応することをお約束いたします。
-          </p>
-        </ul>
-      </div>
-
-      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-      <!-- modal -->
-      <div id="thanksModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>
-            お問い合わせありがとうございます♪
-            <br>
-            確認できましたら折り返しご連絡いたしますので、返信まで1日～2日ほどお待ちください😊
-            <br>
-            もし宜しければ、公式LINEのご登録もお願いいたします♪
-            <br>
-            ※入力いただいたアドレス宛に、自動返信メールと返信の連絡をお送りしますので、ご確認お願いいたします。
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-    <div lang="en" class="content">
-      <p>
-        当ページから連絡が行えます。
-        <br>
-        内容の送信から約1週間以内に折り返しの連絡をいたしますが、こちらの都合により連絡が遅くなる場合がございます。
-        <br>
-        ※ご連絡用のアドレスは、必ず受信できるメールアドレスをご入力ください。
-        <br>
-        （自動返信メールが届かない場合はアドレスが違う可能性があるので、再度フォームから内容の送信をお願いいたします。）
-      </p>
-
-      <!-- フォーム（そのまま使える） -->
-      <form id="contactForm" class="contact-form"
-        action="https://script.google.com/macros/s/AKfycbzoUuy55Qp_68KMrDZvPYddua90275SJF7a26y8Omnzj1MrY3_dGPnNUz8sSSpSeLE6/exec"
-        method="POST">
-
-        <div class="form-field col align-center">
-          <h3>
-            Contact Form
-          </h3>
-          <div class="radio-group">
-            <label>
-              <input type="radio" name="inquiryType" value="依頼" required> 依頼
-            </label>
-            <label>
-              <input type="radio" name="inquiryType" value="問い合わせ" required> 問い合わせ
-            </label>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-col">
-            <div class="form-field col x-50">
-              <input type="text" id="name" name="name" class="input-text" required>
-              <label for="name" class="label">お名前 <span>*</span></label>
-            </div>
-            <div class="form-field col x-50">
-              <input type="text" id="name_furigana" name="name_furigana" class="input-text" autocomplete="off"
-                required />
-              <label for="name_furigana" class="label">ふりがな <span>*</span></label>
-            </div>
-            <div class="form-field col x-50">
-              <input type="email" id="email" name="email" class="input-text" required>
-              <label for="email" class="label">メールアドレス <span>*</span></label>
-            </div>
-          </div>
-
-          <div class="form-field col x-100">
-            <textarea id="message" name="message" class="input-text"></textarea>
-            <label for="message" class="label label-text">備考</label>
-          </div>
-        </div>
-
-        <div class="form-field col align-center">
-          <label>
-            <p>
-              <input type="checkbox" name="consent" value="同意する" required>
-              当サイトをご利用の際は,
-              <a href="#" class="button" data-modal="modal-content">SitePolicy</a>
-              をご確認ください.
             </p>
           </label>
           <button type="submit" class="submit-btn">送信</button>
