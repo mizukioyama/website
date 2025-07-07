@@ -7,6 +7,10 @@
    vertical-align: sub;
 }
 
+.radio-group input {
+   display: none;
+}
+
 form input {
    position: relative;
    appearance: none;
@@ -33,6 +37,11 @@ form input[type="radio"]:checked::before {
 }
 .radio-group label:active,
 .radio-group input[type="radio"]:focus {
+   opacity: 1;
+}
+
+form input[type="checkbox"]:checked::before,
+form input[type="radio"]:checked::before {
    opacity: 1;
 }
 
