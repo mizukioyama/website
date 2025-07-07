@@ -283,7 +283,7 @@ nav .noise {
 
     .inner {
         width: 100%;
-        min-height: 50svh;
+        min-height: 60svh;
         padding: 3rem 2.5rem 0;
     }
 
@@ -296,7 +296,8 @@ nav .noise {
     }
 
     .inner li a {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+        font-weight: 400;
     }
 
     .inner li:nth-of-type(n+5) a {
@@ -312,6 +313,10 @@ nav .noise {
         display: none;
     }
 
+    .open nav {
+        overflow-y: scroll;
+    }
+
     .open #mask {
         width: 100%;
         min-height: 85vh;
@@ -319,6 +324,7 @@ nav .noise {
     }
 
     #mask p {
+        font-size: 1.2rem;
         margin-top: 3rem;
     }
 
