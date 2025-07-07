@@ -8,22 +8,30 @@
   vertical-align: sub;
 }
 
-/* ラジオグループの input を非表示に */
-form input[type="radio"] {
+/* ラジオボタンは非表示（見た目はラベルで表現） */
+input[type="radio"] {
   display: none;
 }
 
-/* カスタムスタイルのラジオ・チェックボックス */
-form input {
+/* ラベルスタイル（初期は薄く） */
+.radio-group label {
+  display: inline-block;
   position: relative;
-  appearance: none;
-  width: 1rem;
-  height: 1rem;
-  border: 1px solid var(--hover);
-  border-radius: 50%;
-  background: var(--inv);
-  opacity: 0.5; /* ← 初期状態：薄く */
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  opacity: 0.5;
+  cursor: pointer;
   transition: opacity 0.3s ease;
+}
+
+/* チェック時：ラベルを濃く、内側の丸を表示 */
+input[type="radio"]:checked + label {
+  opacity: 1;
+}
+
+input[type="radio"]:checked + label::after {
+  opacity: 1;
 }
 
 /* チェックボックスの角を角丸なしに */
@@ -31,29 +39,9 @@ form input[type="checkbox"] {
   border-radius: 2px;
 }
 
-/* ラベルスタイル（薄い） */
-.radio-group label {
-  font-size: 1rem;
-  font-weight: 300;
-  opacity: 0.5;
-  cursor: pointer;
-}
-
-/* フォーカス or アクティブ時に濃く */
-.radio-group label:active,
-.radio-group input[type="radio"]:focus + label {
-  opacity: 1;
-}
-
-/* チェック時のスタイル */
-form input[type="checkbox"]:checked,
-form input[type="radio"]:checked {
-  opacity: 1; /* ← 選択中：濃く表示 */
-}
-
 /* 擬似要素：選択時のインナー表示 */
-form input[type="checkbox"]::before,
-form input[type="radio"]::before {
+form input[type="checkbox"]::before
+/*form input[type="radio"]::before*/ {
   content: "";
   position: absolute;
   top: 0;
@@ -80,27 +68,6 @@ form input[type="checkbox"]::before {
 /* チェックされたら内側を表示 */
 form input[type="checkbox"]:checked::before,
 form input[type="radio"]:checked::before {
-  opacity: 1;
-}
-
-/* 表示部分 */
-.custom-radio {
-  display: inline-block;
-  padding-left: 1.5rem;
-  position: relative;
-  font-size: 1rem;
-  font-weight: 300;
-  opacity: 0.5;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-
-/* チェックされたとき、ラベルの span に反映 */
-.radio-group input:checked + .custom-radio {
-  opacity: 1;
-}
-
-.radio-group input:checked + .custom-radio::after {
   opacity: 1;
 }
 
