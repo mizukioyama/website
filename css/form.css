@@ -22,7 +22,6 @@ form input {
   border: 1px solid var(--hover);
   border-radius: 50%;
   background: var(--inv);
-  box-shadow: inset hsla(0, 0%, 0%, 0.95) 0px 1px 4px 0px;
   opacity: 0.5; /* ← 初期状態：薄く */
   transition: opacity 0.3s ease;
 }
@@ -114,7 +113,7 @@ form input[type="radio"]:checked::before {
   border: 1px solid var(--hover);
   border-radius: 50%;
   background: var(--inv);
-  box-shadow: inset hsla(0, 0%, 0%, 0.95) 0px 1px 4px 0px;
+  box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
 }
 
 /* 擬似要素: 選択中の中の点 */
@@ -200,12 +199,14 @@ input:-webkit-autofill:focus {
    padding-left: 2rem;
    background: rgba(0, 0, 0, 0.5);
    backdrop-filter: blur(10px);
+   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
    border-radius: 0;
 }
 .contact-form #message {
    height: 150pt;
    margin: 0 auto;
    padding-top: 1rem;
+   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
 }
 .contact-form .input-text:focus {
    outline: none;
@@ -247,7 +248,7 @@ input:-webkit-autofill:focus {
    padding: 0.5rem 0;
    margin: 1.5rem auto;
    border: none;
-   box-shadow: inset 0px 1px 3px rgba(46, 46, 46, 0.5);
+   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
    cursor: pointer;
    transition: all 0.35s ease;
 }
