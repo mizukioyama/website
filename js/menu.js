@@ -169,5 +169,5 @@ document.addEventListener("DOMContentLoaded", () => {
   const fx = new TextScramble(h1);
   fx.setText(title); // h1にアニメーション
 
-  p.textContent = subtitle; // pはそのまま表示
+  p.innerHTML = subtitle; // <br>を有効にするために innerHTML を使用
 });
