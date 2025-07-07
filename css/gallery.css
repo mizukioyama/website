@@ -397,8 +397,14 @@ main {
 }
 
 #state h2 {
-    font-size: 2.4rem;
     line-height: 1;
+}
+
+@media screen and (min-width: 1299px) {
+    #state h2 {
+        font-size: 2.4rem;
+    }
+    
 }
 
 #policy h2 {
