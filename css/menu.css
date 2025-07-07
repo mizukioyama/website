@@ -242,13 +242,13 @@ nav .noise {
 }
 
 .open #mask li {
-    font-weight: 200;
+    font-weight: 400;
     width: auto;
     color: #ddd;
     margin-top: 3em;
     padding: 0.25rem;
     border-bottom: 1px solid;
-    letter-spacing: 0.07rem;
+    letter-spacing: 0.02rem;
     mix-blend-mode: hard-light;
 }
 
@@ -266,7 +266,7 @@ nav .noise {
         margin-top: 10vmin;
     }
 
-    .inner li:nth-of-type(5) a {
+    .inner li:nth-of-type(n+5) a {
         font-size: 1.2rem;
     }
 
@@ -299,7 +299,7 @@ nav .noise {
         font-size: 1.4rem;
     }
 
-    .inner li:nth-of-type(5) a {
+    .inner li:nth-of-type(n+5) a {
         font-size: 1rem;
     }
 
@@ -326,10 +326,6 @@ nav .noise {
         width: auto;
         height: 300px;
         left: 0;
-    }
-
-    .open #mask li {
-        font-weight: 400;
     }
 
     .toggle_btn span:nth-child(2) {

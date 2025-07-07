@@ -59,9 +59,11 @@
 
         footer a:nth-of-type(5) {
             font-size: 0.85rem !important;
-            margin-top: 20vmin;
         }
 
+        footer a:nth-of-type(n+5) {
+            margin-top: 20vmin;
+        }
 
         footer a:hover {
             color: var(--inv) !important;
