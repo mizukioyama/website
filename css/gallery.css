@@ -200,6 +200,7 @@ h2 {
 span.name {
     font-size: 2rem;
     font-weight: 300;
+    line-height: 1;
 }
 
 .gallery-containt h2 {
@@ -393,6 +394,10 @@ main {
 #policy h2,
 #policy h3 {
     justify-content: flex-start;
+}
+
+#state h2 {
+    line-height: 1;
 }
 
 #policy h2 {
