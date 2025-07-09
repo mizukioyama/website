@@ -389,7 +389,7 @@ main {
     max-width: 1000px;
 }
 
-#state .content {
+#state .state-box:nth-child(2) .content {
     width: 40%;
 }
 
