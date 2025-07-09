@@ -5,7 +5,7 @@ function setupCategoryFilter() {
     const artworks = [
         {
             title: { ja: "蒼想 | 込められた思想とエネルギーの永続性", en: "Order：Blue Thought" },
-            caption: { ja: "青に想いを重ねて結晶した「蒼想」は、そっと触れることで、視点や感覚に変化の芽が宿るよう願いを込めました。未来への静かな祈りのかたちです。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
+            caption: { ja: "青という色に想いを重ね、広がりと深みを同時に内包する構成とした。未来や希望を連想させつつ、冷たさや距離感も含ませることで単純なポジティブさを避け、見る人の感情と解釈を試す。観る者が意識を向けた瞬間に波動が伝わり、視点や思考を変化させる装置として機能することを意図した作品である。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
             text: { ja: "青という色に想いを重ね、広がりと深みを同時に内包する構成とした。未来や希望を連想させつつ、冷たさや距離感も含ませることで単純なポジティブさを避け、見る人の感情と解釈を試す。観る者が意識を向けた瞬間に波動が伝わり、視点や思考を変化させる装置として機能することを意図した作品である。", en: "The color blue is layered with emotions, creating a composition that simultaneously encompasses breadth and depth. While evoking images of the future and hope, the piece also includes a sense of coldness and distance, avoiding simple positivity and testing the viewer's emotions and interpretations. The work is intended to function as a device that transmits vibrations the moment the viewer turns their attention to it, changing their perspective and way of thinking." },
             category: ["2024", "Natureinspire", "Paint", "Order"],
             img: "img/蒼想-web.jpg",
