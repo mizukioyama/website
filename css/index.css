@@ -711,19 +711,19 @@ footer,
     #vanta-bg {
         opacity: 0.35;
     }
-    
+
   h1 {
     line-height: 1;
   }
 
   .card {
-    width: 90%;
-    height: 90%;
+    width: 98svw;
+    height: 99svh;
   }
 
   .back__slide::before {
-    width: 92.5%;
-    height: 91.5%;
+    width: 100svw;
+    height: 100svh;
   }
 
   .content__slide {
@@ -741,9 +741,33 @@ footer,
     bottom: 0.5%;
   }
 
+.card__slide:first-child .number {
+    left: 2rem;
+    top: 3rem;
+}
+
   .number:before {
     height: 2.5rem;
   }
+
+  .number:before {
+    height: 1px;
+        width: 3rem;
+        top: 0.75rem;
+        left: 0;
+        border-top: 1px solid;
+        transform: translatex(-130%);
+  }
+
+  .card__slide .number {
+  transform: translatex(-5rem);
+  transition: transform 1400ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1200ms 1600ms linear;
+}
+
+.card__slide.active .number {
+  transform: translatex(0rem);
+  transition: transform 800ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 600ms 1200ms linear;
+}
 
   .date {
     letter-spacing: 0.05rem;
