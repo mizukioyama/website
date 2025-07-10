@@ -36,7 +36,6 @@ nav {
     font-weight: 500;
     color: var(--inv);
     height: 100%;
-    mix-blend-mode: luminosity;
     /*text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);*/
 }
 
@@ -58,7 +57,7 @@ nav {
 
 nav .noise {
     display: block;
-    background-image: linear-gradient(to right, var(--inv) 30%, var(--text) 100%);
+    background-image: linear-gradient(to right, #878787, #2d2d2d);
 }
 
 .home .inner .noise {

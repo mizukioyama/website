@@ -6,13 +6,13 @@
         min-height: 500px;
         padding: 4rem 8rem;
         bottom: 0;
-        background: rgba(20, 20, 20, 0.09);
+        background: rgba(20, 20, 20, 0.55);
         backdrop-filter: blur(20px);
         z-index: 100;
     }
 
     footer .noise {
-        background-image: linear-gradient(to right, #fff);
+        background-image: linear-gradient(to right, #9b9b9b);
     }
 
     footer a {
