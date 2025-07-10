@@ -354,6 +354,11 @@ main {
     background-color: rgba(0, 0, 0, 0.45);
 }
 
+.bio main {
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 /*.art-page main p:nth-child(1) {
     font-size: 1.4rem;
     padding-top: 8rem;
