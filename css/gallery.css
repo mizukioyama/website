@@ -388,6 +388,7 @@ main {
 
 .art-page .content {
     padding: 3rem 2rem;
+    background: rgba(0, 15, 15, 0.4);
 }
 
 .art-page .work {
