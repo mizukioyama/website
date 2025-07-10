@@ -166,7 +166,7 @@ nav .noise {
 }
 
 .open .toggle_btn span:nth-child(2) {
-    top: 70%;
+    top: 72.5%;
     transform: translate(0%, 0%) rotate(90deg);
     transition: all 1s ease;
     opacity: 1;
@@ -296,7 +296,7 @@ nav .noise {
 
     .inner li a {
         font-size: 1.8rem;
-        font-weight: 300;
+        font-weight: 400;
     }
 
     .inner li:nth-of-type(n+5) a {
@@ -345,6 +345,6 @@ nav .noise {
     }
 
     .open .toggle_btn span:nth-child(2) {
-        top: 70%;
+        top: 52.5%;
     }
 }
