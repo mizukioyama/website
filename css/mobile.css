@@ -32,7 +32,12 @@
 
     /*== bg water ==*/
     .ripples {
-        width: 100vw;
+        width: 100svw;
+        height: 100svh;
+    }
+
+    #vanta-bg {
+        opacity: 0.2;
     }
 
     main {

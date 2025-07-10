@@ -329,7 +329,8 @@ nav .noise {
 
     .open #mask ul {
         width: auto;
-        height: 300px;
+        height: 60svh;
+        min-height: 300px;
         left: 0;
     }
 

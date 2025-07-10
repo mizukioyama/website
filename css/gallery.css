@@ -46,6 +46,15 @@ body {
     transition: font-family 1s ease-in-out;
 }
 
+#vanta-bg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+}
+
 /*h1 {
     font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
     font-size: 6rem;
@@ -289,7 +298,7 @@ main li {
 
 .page-line {
     height: 2px;
-    background-color: #3b3b3b;
+    background-color: var(--text);
     width: 0%;
     left: 50%;
     transform: translateX(-50%);
