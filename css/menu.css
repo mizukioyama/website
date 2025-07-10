@@ -335,8 +335,13 @@ nav .noise {
         left: 0;
     }
 
+    .toggle_btn span {
+        bottom: 30px;
+        background: #c0c0c0;
+    }
+
     .toggle_btn span:nth-child(2) {
-        top: -20%;
+        top: -10%;
     }
 
     .open .toggle_btn span:nth-child(2) {
