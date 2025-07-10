@@ -18,6 +18,14 @@ body,
   background-color: var(--inv);
 }
 
+#vanta-bg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+}
 
 /*=======セキュリティ*/
 canvas {
@@ -700,7 +708,10 @@ footer,
 
 
 @media screen and (max-width: 599px) {
-
+    #vanta-bg {
+        opacity: 0.35;
+    }
+    
   h1 {
     line-height: 1;
   }
