@@ -741,14 +741,11 @@ footer,
     bottom: 0.5%;
   }
 
-.card__slide:first-child .number {
+.card__slide:first-child .number,
+.card__slide:nth-child(even) .number {
     left: 2rem;
     top: 3rem;
 }
-
-  .number:before {
-    height: 2.5rem;
-  }
 
   .number:before {
     height: 1px;
