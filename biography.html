@@ -20,7 +20,8 @@
 
     <!-- 背景用 JavaScript -->
     <script src="js/jquery.ripples-min.js"></script>
-    <script src="js/bg_wave.js"></script>
+    <script src="p5.min.js"></script>
+    <script src="vanta.trunk.min.js"></script>
 
     <script src="js/cursor.js"></script>
     <script src="js/loading.js"></script>
@@ -112,8 +113,8 @@
 
 <body>
     <div id="header-container"></div>
-    <div class="ripples"></div>
-
+    <div id="vanta-bg-bio"></div>
+    
     <div class="h1-text" data-title="Biography">
         <h1 class="noise text"></h1>
     </div>
@@ -281,6 +282,20 @@
 
     <div id="footer-container"></div>
 
+<script>
+VANTA.TRUNK({
+  el: "#vanta-bg-bio",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  color: 0xffffff,
+  chaos: 2.50
+})
+</script>
 </body>
 
 </html>

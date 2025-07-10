@@ -46,7 +46,8 @@ body {
     transition: font-family 1s ease-in-out;
 }
 
-#vanta-bg {
+#vanta-bg,
+#vanta-bg-bio {
     width: 100vw;
     height: 100vh;
     position: fixed;
