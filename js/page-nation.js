@@ -17,7 +17,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202344-1-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -25,7 +25,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202342-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -33,7 +33,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202341-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -41,7 +41,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202340-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
 
         },
         {
@@ -50,7 +50,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202338-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "心樹 | エネルギー伝達の設計", en: "NoTitle" },
@@ -66,7 +66,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202337-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -74,7 +74,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202334-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },//2022
         {
             title: { ja: "映し神 | 永続する見えない設計", en: "NoTitle" },
@@ -98,7 +98,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202109-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -106,7 +106,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202108-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -114,7 +114,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202107-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -122,7 +122,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202106-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -130,7 +130,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202105-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -138,7 +138,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202104-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -146,7 +146,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202103-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -154,7 +154,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202102-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
@@ -162,7 +162,7 @@ function setupCategoryFilter() {
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
             img: "img/202101-web.jpg",
-            link: "pages/2024work.html"
+            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
         },
         {
             title: { ja: "戦争 | 永続する見えない設計", en: "NoTitle" },

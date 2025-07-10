@@ -160,6 +160,7 @@ h1 {
     top: 0;
     writing-mode: vertical-rl;
     background: #fff;
+    background: rgba(240, 255, 255, 0.4);
     width: 2px;
     height: 100%;
     z-index: 100;
@@ -351,7 +352,7 @@ main {
 
 .art-page main {
     padding: 30vmin 2rem 80rem;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.65);
 }
 
 .bio main {
