@@ -128,7 +128,7 @@ nav .noise {
 .open nav {
     right: 0;
     backdrop-filter: blur(20px);
-    background-color: rgba(220, 220, 210, 0.25);
+    background-color: rgba(220, 220, 210, 0.5);
     mix-blend-mode: hard-light;
 }
 
@@ -227,7 +227,7 @@ nav .noise {
     font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
     position: relative;
     margin-top: 50vmin;
-    text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.5);
+    text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.85);
 }
 
 .open #mask ul {
@@ -282,8 +282,8 @@ nav .noise {
 
     .inner {
         width: 100%;
-        min-height: 60svh;
-        padding: 3rem 2.5rem 0;
+        min-height: 65svh;
+        padding: 1.5rem 2.5rem 0;
     }
 
     .inner ul {
@@ -318,6 +318,7 @@ nav .noise {
 
     .open #mask {
         width: 100%;
+        height: auto;
         min-height: 85vh;
         padding: 0.5rem;
     }
@@ -330,7 +331,7 @@ nav .noise {
     .open #mask ul {
         width: auto;
         height: 60svh;
-        min-height: 300px;
+        min-height: 350px;
         left: 0;
     }
 
