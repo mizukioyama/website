@@ -4,15 +4,15 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
-            title: { ja: "蒼想 | 込められた思想とエネルギーの永続性", en: "Order：Blue Thought" },
-            caption: { ja: "青という色に想いを重ね、広がりと深みを同時に内包する構成とした。未来や希望を連想させつつ、冷たさや距離感も含ませることで単純なポジティブさを避け、見る人の感情と解釈を試す。観る者が意識を向けた瞬間に波動が伝わり、視点や思考を変化させる装置として機能することを意図した作品である。", en: "The 'Aoso', crystallized with thoughts of blue, has been imbued with a wish that merely touching it will plant the seeds of change in perspective and sensation. It is a form of quiet prayer for the future." },
-            text: { ja: "青という色に想いを重ね、広がりと深みを同時に内包する構成とした。未来や希望を連想させつつ、冷たさや距離感も含ませることで単純なポジティブさを避け、見る人の感情と解釈を試す。観る者が意識を向けた瞬間に波動が伝わり、視点や思考を変化させる装置として機能することを意図した作品である。", en: "The color blue is layered with emotions, creating a composition that simultaneously encompasses breadth and depth. While evoking images of the future and hope, the piece also includes a sense of coldness and distance, avoiding simple positivity and testing the viewer's emotions and interpretations. The work is intended to function as a device that transmits vibrations the moment the viewer turns their attention to it, changing their perspective and way of thinking." },
+            title: { ja: "蒼想 | 永続する見えない設計", en: "Order：Blue Thought" },
+            caption: { ja: "青が喚起する未来や希望の印象に、あえて冷たさや距離感を織り交ぜることで、安易な感情の誘導を避けた。観る人の意識が作品に触れた瞬間、見えない波動が静かに作用し、思考や視点に変化をもたらすよう設計している。この作品は、時間を超えて作用する「感覚の設計図」として存在している。", en: "By intentionally weaving in coolness and a sense of distance into the impression of the future and hope that blue evokes, I avoided easy emotional manipulation. The moment the viewer's consciousness touches the work, an unseen wave quietly acts, designed to bring about changes in thought and perspective. This work exists as a 'blueprint of sensation' that functions beyond the constraints of time." },
+            text: { ja: "思いや意図は、言葉にすることで確かに伝わる。一方で、波動やエネルギーは可視化できず、感じ取れる人にしか届かない。しかし、言葉がなくとも“何か”が伝わる感覚が存在する。果たして永く残るのは、明確な言語か、それとも目に見えない感覚なのか。本作はその問いを視覚的に構成し、見る人の内に働きかける設計とした。", en: "Thoughts and intentions are certainly conveyed through words. On the other hand, vibrations and energy cannot be visualized and only reach those who can perceive them. However, there exists a sensation that something is communicated even without words. What ultimately remains longer: clear language or the invisible sensations? This work is visually structured around that question, designed to engage the inner workings of the viewer." },
             category: ["2024", "Natureinspire", "Paint", "Order"],
             img: "img/蒼想-web.jpg",
             link: "pages/2024work.html"
         },//Unreleased
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
@@ -20,7 +20,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
@@ -28,7 +28,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
@@ -36,7 +36,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
@@ -45,7 +45,7 @@ function setupCategoryFilter() {
 
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
@@ -53,7 +53,15 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "心樹 | エネルギー伝達の設計", en: "NoTitle" },
+            caption: { ja: "展示：デジタル", en: "Unpublished: AI generated" },
+            text: { ja: "目に見えないエネルギーや波動が、人の心や感覚にどのように伝わり作用するかを主題に据えたシリーズ。物質的な形態を超え、視覚表現を通じて感覚や思考を変容させる設計を意図。作品に込めたエネルギーは、言葉や説明を介さずとも、受け手の無意識に作用し、感情や解釈を揺さぶる装置として機能する。伝達されるものは曖昧で、固定された意味を持たない一方で、観る人の意識を媒介として伝わる。見えない設計図のように構築された作品群は、鑑賞のたびに異なる波動を放ち、時間や距離を超えて感覚の奥深くに残り続けることを目指しています。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
+            category: ["2023", "Digital", "Unreleased"],
+            img: "img/心樹-web.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
@@ -61,7 +69,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
@@ -69,7 +77,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//2022
         {
-            title: { ja: "映し神 | 込められた思想とエネルギーの永続性", en: "NoTitle" },
+            title: { ja: "映し神 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -77,7 +85,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "挑戦 | 込められた思想とエネルギーの永続性", en: "NoTitle" },
+            title: { ja: "挑戦 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -85,7 +93,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//========2021
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -93,7 +101,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -101,7 +109,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -109,7 +117,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -117,7 +125,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -125,7 +133,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -133,7 +141,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -141,7 +149,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -149,7 +157,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle | デジタルデータとエネルギーの性質", en: "NoTitle" },
+            title: { ja: "NoTitle | 無質量のエネルギー設計", en: "NoTitle" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Natureinspire", "Paint", "Exhibition"],
@@ -157,7 +165,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "戦争 | 込められた思想とエネルギーの永続性", en: "NoTitle" },
+            title: { ja: "戦争 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Exhibition"],
@@ -165,7 +173,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "幸緑 |込められた思想とエネルギーの永続性", en: "NoTitle" },
+            title: { ja: "幸緑 |永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Exhibition"],
@@ -173,7 +181,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "金雲 | 込められた思想とエネルギーの永続性", en: "NoTitle" },
+            title: { ja: "金雲 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Exhibition"],
@@ -181,7 +189,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "輝き | 込められた思想とエネルギーの永続性", en: "NoTitle" },
+            title: { ja: "輝き | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint", "Certification"],
@@ -189,7 +197,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//========2010~17
         {
-            title: { ja: "海底 | 込められた思想とエネルギーの永続性", en: "NoTitle" },
+            title: { ja: "海底 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：アナログ（ペイント）", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010", "Natureinspire", "Paint", "Certification"],
