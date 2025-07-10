@@ -17,6 +17,10 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js"
         crossorigin="anonymous"></script>
+
+    <script src="js/three.r134.min.js"></script>
+    <script src="js/vanta.fog.min.js"></script>
+
     <script src="js/time.js"></script>
     <script src="js/cursor.js"></script>
     <script src="js/loading.js"></script>
@@ -95,6 +99,7 @@
     <div id="custom-context-menu">画像の保存は禁止されています</div>-->
 
     <div id="header-container"></div>
+    <div id="vanta-bg"></div>
 
     <main class="top-page">
         <!--main-->
@@ -539,6 +544,23 @@
         }
     </style>
 
+<script>
+VANTA.FOG({
+  el: "#vanta-bg",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  highlightColor: 0x181818,
+  midtoneColor: 0xb3b3b3,
+  lowlightColor: 0x3f3ff,
+  baseColor: 0xfafffc,
+  blurFactor: 0.50,
+  speed: 0.50,
+  zoom: 1.20
+})
+</script>
 </body>
 
 </html>
