@@ -297,7 +297,7 @@ function setupCategoryFilter() {
             <br>
             For inquiries about this work, please contact us through the Contact form on our website.
             </p>
-            <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;" rel="noopener">View More</a>
+            <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;" rel="noopener" target="_blank">View More</a>
             <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;">Contact</a>
             <button id="modalCloseBtn">Close</button>
         </div>
