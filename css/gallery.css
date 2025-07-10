@@ -341,7 +341,7 @@ main {
     /*background: rgb(25 125 80 / 10%);
     background: rgb(20 61 7 / 14%);
     background-color: rgba(20, 20, 20, 0.09);*/
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0px 7px rgba(0, 0, 0, 1);
     z-index: 1;
     display: flex;
@@ -350,6 +350,7 @@ main {
 
 .art-page main {
     padding: 30vmin 2rem 80rem;
+    background-color: rgba(0, 0, 0, 0.45);
 }
 
 /*.art-page main p:nth-child(1) {
