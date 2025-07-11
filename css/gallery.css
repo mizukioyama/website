@@ -144,7 +144,7 @@ h1 {
 .h1-text {
     position: absolute;
     left: 20vmin;
-    top: 35vmin;
+    top: 40vmin;
     z-index: 100;
 }
 
