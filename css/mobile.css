@@ -154,6 +154,7 @@
     }
 
     .art-page .gallery {
+        background-color: rgba(0, 0, 0, 0.55);
         padding: 10vmin 0 30vmin 2.5rem;
     }
 
@@ -178,6 +179,7 @@
         padding: 0 3vmin;
         backdrop-filter: none;
         gap: 3vmin;
+        backdrop-filter: blur(10px);
     }
 
     #state .content {
