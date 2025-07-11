@@ -33,7 +33,9 @@ input[type="radio"]:checked + label {
 
 /* チェックボックスの角を角丸なしに */
 form input[type="checkbox"] {
-  border-radius: 2px;
+   height: 2.5vmin;
+   border-radius: 2px;
+   opacity: 0.8;
 }
 
 /* チェックボックスは四角い中身 */
