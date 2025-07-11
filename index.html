@@ -27,6 +27,10 @@
     <script src="js/menu.js"></script>
     <!--<script src="js/security.js"></script>-->
 
+    <!-- Font -->
+    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
     <!-- ✅ SEO強化 -->
     <meta name="description"
         content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
@@ -65,13 +69,14 @@
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net;
-    style-src 'self' 'unsafe-inline' https://use.typekit.net;
-    font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+    script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdn.jsdelivr.net https://unpkg.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.typekit.net;
+    font-src 'self' https://fonts.gstatic.com https://use.typekit.net;
     img-src 'self' data:;
-    connect-src 'self';
+    connect-src 'self' https://script.google.com;
     object-src 'none';
     ">
+
 
     <!--画像遅延読み込み
   <img data-src="path/to/image.jpg" alt="example">

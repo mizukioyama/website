@@ -232,8 +232,9 @@ nav .noise {
 
 .open #mask ul {
     position: relative;
-    margin-top: 1rem;
+    width: auto;
     height: 400px;
+    margin-top: 1rem;
     padding: 0.5rem;
     overflow: hidden scroll;
     box-shadow: inset 0 0px 7px rgba(0, 0, 0, 0.9);
