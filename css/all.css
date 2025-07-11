@@ -353,6 +353,10 @@ header a::before,
   transition: all 0.5s ease;
 }
 
+.home header a::before {
+  background-color: var(--text);
+}
+
 a:hover::before,
 #category-menu li:hover::before {
   width: 110%;
