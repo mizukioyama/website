@@ -196,9 +196,8 @@ input:-webkit-autofill:focus {
    letter-spacing: 0.015rem;
 }
 
-.align-center a {
+.align-center label {
    color: var(--accent);
-   font-weight: 400;
    border-bottom: 3px solid var(--inv);
    margin-top: 2vmin;
 }
