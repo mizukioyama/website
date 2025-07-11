@@ -58,7 +58,6 @@
 /* 閉じるボタン */
 .modal .close {
    position: absolute;
-   top: 2rem;
    right: 5rem;
    background: none;
    border: none;
