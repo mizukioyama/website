@@ -51,6 +51,10 @@ nav {
     text-shadow: 1px 1px 2px var(--inv);
 }
 
+.home #navArea .inner li a::before:hover {
+    background: var(--text);
+}
+
 .home #navArea .inner li a:hover {
     text-shadow: 0 0px 0px var(--text);
 }
@@ -61,7 +65,7 @@ nav .noise {
 }
 
 .home .inner .noise {
-    background-image: linear-gradient(to right, rgba(46, 46, 46, 0.15) 30%, var(--text) 100%);
+    background-image: linear-gradient(to right, rgba(46, 46, 46, 0.75) 30%, var(--text) 100%);
 }
 
 .home nav .noise:nth-last-child {
