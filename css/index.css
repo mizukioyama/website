@@ -713,6 +713,9 @@ footer,
   h1 {
     line-height: 1;
   }
+  h2 {
+    font-size: 1.8rem;
+  }
 
   .card {
     width: 98svw;
@@ -778,12 +781,17 @@ footer,
   }
 
   .desc {
+    font-size: 0.8rem;
     margin: 0 auto;
   }
 
   .button-wrap,
   .button {
     margin-top: 0;
+  }
+  .button {
+    font-size: 0.9rem;
+    padding: 1rem 0.5rem;
   }
 }
 
