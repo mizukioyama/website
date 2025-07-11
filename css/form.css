@@ -59,6 +59,10 @@ form input[type="radio"]:checked::before {
    margin: 0 auto;
 }
 
+form {
+   margin-top: 60vmin;
+}
+
 label {
    font-size: 1.2rem;
 }

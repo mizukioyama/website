@@ -410,6 +410,12 @@ main {
     max-width: 1000px;
 }
 
+#contact .content {
+    display: block;
+    margin: 0;
+    margin-top: 60vmin;
+}
+
 #state h2,
 #state h3,
 #policy h2,
