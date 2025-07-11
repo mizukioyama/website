@@ -410,11 +410,11 @@
             ※返信まで1日～2日ほどかかる場合があります.
           </p>
           <p>
-Thank you for your inquiry.
-<br>
-We will reply to your registered address as soon as we can confirm the details.
-<br>
-*It may take 1 to 2 days for a response.
+            Thank you for your inquiry.
+            <br>
+            We will reply to your registered address as soon as we can confirm the details.
+            <br>
+            *It may take 1 to 2 days for a response.
           </p>
         </div>
       </div>
@@ -504,9 +504,13 @@ We will reply to your registered address as soon as we can confirm the details.
     }
 
     @media screen and (max-width: 599px) {
+      #modal-toggle:checked~.modal-box {
+        transform: translate(-50%, 70%);
+      }
+
       .modal-box {
         width: 85%;
-        height: 70%;
+        height: 80svh;
         padding: 1.5rem;
       }
 
