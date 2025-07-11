@@ -59,7 +59,7 @@
         position: absolute;
         left: 2.5rem;
         top: 20rem;
-        top: 55%;
+        top: 50%;
     }
 
     .h1-text p {
@@ -209,11 +209,12 @@
     }
 
     .art-page .work {
+        min-height: 320px;
         justify-content: flex-start;
     }
 
     .work h2 {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     #gallery-container .work p {
