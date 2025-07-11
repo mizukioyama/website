@@ -177,7 +177,7 @@ input:-webkit-autofill:focus {
    font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
    display: flex;
    gap: 1.2rem;
-   margin-top: 1.5rem;
+   margin-top: 10vmin;
 }
 .align-center {
    width: 100%;
@@ -185,7 +185,7 @@ input:-webkit-autofill:focus {
    margin-top: 3em;
 }
 .align-center:last-child {
-   margin-top: 1em;
+   margin-top: 1.5rem;
 }
 .align-center p {
    /*display: flex;
@@ -194,12 +194,6 @@ input:-webkit-autofill:focus {
    margin: 0;
    line-height: 1.6;
    letter-spacing: 0.015rem;
-}
-
-.align-center label {
-   color: var(--accent);
-   border-bottom: 3px solid var(--inv);
-   margin-top: 2vmin;
 }
 
 /*===================== モーダルウィンドウ =====================*/
