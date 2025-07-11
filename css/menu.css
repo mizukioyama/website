@@ -39,9 +39,9 @@ nav {
     /*text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);*/
 }
 
-.home #navArea .inner li a {
+/*.home #navArea .inner li a {
     text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.85);
-}
+}*/
 
 #navArea .inner li a::before {
     bottom: 0;
