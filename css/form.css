@@ -55,12 +55,8 @@ form input[type="radio"]:checked::before {
 .contact-form {
    display: grid;
    /*width: 65%;*/
-   width: auto;
+   width: 45%;
    margin: 60vmin auto 0;
-}
-
-form {
-   margin-top: 60vmin;
 }
 
 label {
@@ -337,6 +333,7 @@ input:-webkit-autofill:focus {
 @media screen and (max-width: 600px) {
    .contact-form {
       width: 100%;
+      margin: 0 auto;
    }
    .form-row {
       display: block;

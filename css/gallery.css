@@ -412,6 +412,7 @@ main {
 
 #contact .content {
     display: block;
+    width: 35%;
 }
 
 #state h2,
