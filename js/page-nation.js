@@ -293,7 +293,7 @@ function setupCategoryFilter() {
             <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
             <p>
-            この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。
+            作品「${item.title[lang]}」についてのお問合せは当WebサイトのContactフォームからお問い合わせください。
             <br>
             For inquiries about this work, please contact us through the Contact form on our website.
             </p>
