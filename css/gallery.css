@@ -16,29 +16,16 @@
 html,
 body {
     font-weight: 300;
-    overflow-x: hidden;
-    /*background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url("../img/202343-2.jpg");
     background: var(--text);
+    overflow-x: hidden;
+    background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url("../img/202343-2.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-position: center;*/
+    background-position: center;
+    will-change: transform;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100dvh;
-  background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url("../img/202343-2.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  z-index: -1;
-}
 
 /*== bg water ==*/
 .ripples {
