@@ -43,9 +43,9 @@
     #vanta-bg-bio {
     }
 
-body {
+/*body {
   height: calc(var(--vh, 1vh) * 100);
-}
+}*/
 
     main {
         position: relative;
