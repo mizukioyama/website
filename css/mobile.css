@@ -43,6 +43,10 @@
     #vanta-bg-bio {
     }
 
+body {
+    height: 100dvh;
+}
+
     main {
         position: relative;
         width: 100%;
