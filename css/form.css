@@ -348,7 +348,7 @@ input:-webkit-autofill:focus {
    }
    .contact-form .input-text:focus+.label,
    .contact-form .input-text.not-empty+.label {
-      transform: translateY(-2.4rem);
+      transform: translateY(-2rem);
    }
 
 /*   .contact-form .submit-btn,
