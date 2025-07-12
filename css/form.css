@@ -356,7 +356,7 @@ input:-webkit-autofill:focus {
       font-size: clamp(1.8rem, 1.571rem + 1.14vw, 2rem);
    }*/
    .contact-form .input-text {
-      /*font-size: 1.6rem;*/
+      font-size: 1rem;
       height: 40pt;
       padding-left: 1rem;
       background: var(--sub);
