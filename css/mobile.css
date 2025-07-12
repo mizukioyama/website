@@ -179,7 +179,6 @@
         padding: 0 3vmin;
         backdrop-filter: none;
         gap: 3vmin;
-        backdrop-filter: blur(10px);
     }
 
     #state .content {

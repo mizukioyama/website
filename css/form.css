@@ -56,7 +56,7 @@ form input[type="radio"]:checked::before {
    display: grid;
    /*width: 65%;*/
    width: auto;
-   margin: 0 auto;
+   margin: 60vmin auto 0;
 }
 
 form {
@@ -183,7 +183,7 @@ input:-webkit-autofill:focus {
    font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
    display: flex;
    gap: 1.2rem;
-   margin-top: 10vmin;
+   /*margin-top: 10vmin;*/
 }
 .align-center {
    width: 100%;
