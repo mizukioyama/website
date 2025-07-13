@@ -53,8 +53,11 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    opacity: 0.75;
     mix-blend-mode: hard-light;
+}
+
+#vanta-bg-bio {
+    opacity: 0.75;
 }
 
 /*h1 {

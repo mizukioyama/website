@@ -21,6 +21,8 @@
     <!-- 背景用 JavaScript -->
     <script src="js/jquery.ripples-min.js"></script>
     <script src="js/bg_wave.js"></script>
+    <script src="js/p5.min.js"></script>
+    <script src="js/vanta.trunk.min.js"></script>
 
     <script src="js/cursor.js"></script>
     <script src="js/loading.js"></script>
@@ -113,6 +115,7 @@
 <body>
     <div id="header-container"></div>
     <div class="ripples"></div>
+    <div id="vanta-bg-bio"></div>
 
     <div class="h1-text" data-title="Artist Statement" data-subtitle="自然、心、感情、<br>在り方、生命、<br>記憶、波動、エネルギー">
         <h1 class="noise text"></h1>
@@ -310,7 +313,21 @@
     </main>
 
     <div id="footer-container"></div>
-
+    
+<script>
+VANTA.TRUNK({
+  el: "#vanta-bg-bio",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 0.70,
+  color: 0xffffff,
+  chaos: 2.50
+})
+</script>
 </body>
 
 </html>
