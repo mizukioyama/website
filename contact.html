@@ -132,11 +132,11 @@ please use the form on this page.
         action="https://script.google.com/macros/s/AKfycby6VnCry8KbUvOEA1g137SR5YvkdRI5QgXCq9LUqQWtHWeqWMFIGXn3DA05HryKs5qUCw/exec"
         method="POST">
 
-        <div class="radio-group">
-          <input type="radio" id="radio1" name="inquiryType" value="依頼" required="required">
+        <div class="radio-group" required="required">
+          <input type="radio" id="radio1" name="inquiryType" value="依頼">
           <label for="radio1">request<br>依頼</label>
 
-          <input type="radio" id="radio2" name="inquiryType" value="問い合わせ" required="required">
+          <input type="radio" id="radio2" name="inquiryType" value="問い合わせ">
           <label for="radio2">inquiry<br>問い合わせ</label>
         </div>
 
@@ -161,7 +161,7 @@ please use the form on this page.
 
           <div class="form-field col x-100">
             <textarea id="message" name="message" class="input-text"></textarea>
-            <label for="message" class="label label-text">備考</label>
+            <label for="message" class="label label-text"> Remarks（備考）</label>
           </div>
         </div>
 
@@ -175,7 +175,7 @@ please use the form on this page.
             </p>
           </label>
           <label for="modal-toggle" class="modal-open-label">SitePolicy</label>
-          <button type="submit" class="submit-btn">送信</button>
+          <button type="submit" class="submit-btn">Send</button>
         </div>
       </form>
 
