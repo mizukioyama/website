@@ -457,8 +457,8 @@ input:-webkit-autofill:focus {
 
    #thanksModal .modal-content {
       width: 85svw;
-      height: 80svh;
-      transform: translate(-50%, 50%);
+      max-height: 80svh;
+      transform: translate(-50%, 80vmin);
    }
 
    #thanksModal.show {
@@ -466,8 +466,7 @@ input:-webkit-autofill:focus {
    }
 
    #thanksModal .close {
-      bottom: 0 !important;
-      right: 1rem;
+      right: 45%;
       font-size: 1.2rem;
    }
 
