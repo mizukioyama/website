@@ -147,8 +147,10 @@ input:-webkit-autofill:focus {
 }
 
 .contact-form .label span {
-   font-size: 1rem;
+   font-size: 1.2rem;
    color: rgba(146, 146, 146, 0.5);
+   color: var(--accent);
+   letter-spacing: -4px;
    transition: all 0.3s ease;
 }
 
@@ -407,6 +409,10 @@ input:-webkit-autofill:focus {
       line-height: 1.4;
       letter-spacing: 0.01rem;
    }
+
+.contact-form .label span {
+   font-size: 1rem;
+}
 
    /*.contact-form .label,
    .align-center p,
