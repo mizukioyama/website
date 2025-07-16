@@ -53,9 +53,10 @@ form input[type="radio"]:checked::before {
 
 .contact-form {
    display: grid;
-   /*width: 65%;*/
-   width: 45%;
-   margin: 60vmin auto 0;
+   /*width: 65%;
+   margin: 60vmin auto 0;*/
+   width: 50%;
+   margin-top: 60vmin;
 }
 
 label {
@@ -164,7 +165,7 @@ input:-webkit-autofill:focus {
    letter-spacing: 0.2rem;
    line-height: 1.5rem;
    padding: 0.5rem 0;
-   margin: 1.5rem auto;
+   margin-top: 2rem;
    border: none;
    box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
    cursor: pointer;
@@ -172,7 +173,7 @@ input:-webkit-autofill:focus {
 }
 
 .contact-form .submit-btn:hover {
-   color: var(--text);
+   color: rgba(180, 180, 180);
    border: none;
 }
 
