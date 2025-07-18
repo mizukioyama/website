@@ -232,7 +232,7 @@ function setupCategoryFilter() {
             title: { ja: "海底 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010", "Natureinspire", "Paint", "Certification"],
+            category: ["2010-2017", "Natureinspire", "Paint", "Certification"],
             img: "img/海底-web.jpg",
             link: "pages/2024work.html"
         },
@@ -240,15 +240,15 @@ function setupCategoryFilter() {
             title: { ja: "無題 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010", "Natureinspire", "Paint", "Certification"],
-            img: "img/無題-web.jpg",
+            category: ["2010-2017", "Natureinspire", "Paint", "Certification"],
+            img: "img/2017無題-web.jpg",
             link: "pages/2024work.html"
         },
         {
             title: { ja: "201702 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010", "Natureinspire", "Paint", "Certification"],
+            category: ["2010-2017", "Natureinspire", "Paint", "Certification"],
             img: "img/201702-web.jpg",
             link: "pages/2024work.html"
         },
@@ -256,7 +256,7 @@ function setupCategoryFilter() {
             title: { ja: "201701 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010", "Natureinspire", "Paint", "Certification"],
+            category: ["2010-2017", "Natureinspire", "Paint", "Certification"],
             img: "img/201701-web.jpg",
             link: "pages/2024work.html"
         },
@@ -264,7 +264,7 @@ function setupCategoryFilter() {
             title: { ja: "201601 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010", "Natureinspire", "Paint", "Certification"],
+            category: ["2010-2017", "Natureinspire", "Paint", "Certification"],
             img: "img/201601-web.jpg",
             link: "pages/2024work.html"
         },
@@ -272,7 +272,7 @@ function setupCategoryFilter() {
             title: { ja: "201501 | 永続する見えない設計", en: "NoTitle" },
             caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010", "Natureinspire", "Paint", "Certification"],
+            category: ["2010-2017", "Natureinspire", "Paint", "Certification"],
             img: "img/201501-web.jpg",
             link: "pages/2024work.html"
         }
