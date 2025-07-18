@@ -229,7 +229,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//========2010~17
         {
-            title: { ja: "201702", en: "NoTitle" },
+            title: { ja: "#201702", en: "NoTitle" },
             caption: { ja: "未発表：コラージュ", en: "Unpublished: AI generated" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Unpublished"],
@@ -237,7 +237,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "201701", en: "NoTitle" },
+            title: { ja: "#201701", en: "NoTitle" },
             caption: { ja: "未発表：コラージュ", en: "Unpublished: AI generated" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Unpublished"],
