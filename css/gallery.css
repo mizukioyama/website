@@ -442,8 +442,7 @@ main {
 }
 
 #policy h3 {
-    padding-left: 0.5rem;
-    padding-bottom: 0.25rem;
+    line-height: 1.6;
     margin-top: 10vmin;
     border-bottom: 1px solid;
 }
@@ -523,11 +522,6 @@ main#state {
 #state .work:nth-child(n+3) ol p:nth-child(n+3) {
     margin-top: 5vmin;
 }
-
-#policy .content p {
-    padding-left: 0.5rem;
-}
-
 
 /*=======info page*/
 

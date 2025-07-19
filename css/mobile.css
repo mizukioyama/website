@@ -169,7 +169,7 @@
     }
 
     .art-page .gallery p:nth-child(n+1) {
-        font-size: 1rem !important;
+        font-size: 0.8rem !important;
         margin-left: 0 !important;
     }
 
@@ -219,12 +219,17 @@
     }
 
     .art-page .work {
-        min-height: 320px;
+        min-height: 350px;
         justify-content: flex-start;
     }
 
     .work h2 {
         font-size: 0.9rem;
+    }
+
+    .works {
+        display: grid;
+        gap: inherit;
     }
 
     #gallery-container .work p {
