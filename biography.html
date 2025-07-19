@@ -110,47 +110,52 @@
             }
         }
     </style>
-<style>
-  .table-container {
-    overflow-x: auto;
-    margin-bottom: 2rem;
-    border: 1px solid #ddd;
-    background-color: #fdfdfd;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 500px;
-  }
-
-  th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-    white-space: nowrap;
-  }
-
-  th {
-    background-color: #333;
-    color: #fff;
-    font-weight: 500;
-  }
-
-  caption {
-    caption-side: top;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin: 1rem 0;
-    color: #222;
-  }
-
-  @media (max-width: 600px) {
-    th, td {
-      font-size: 0.9rem;
+  <style>
+    .exhibition-table {
+      margin: 2rem auto;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+      border: 1px solid #ccc;
+      font-family: "Hiragino Mincho ProN", serif;
+      background-color: #fdfdfd;
     }
-  }
-</style>
+
+    .exhibition-table caption {
+      background: #333;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    .exhibition-table th,
+    .exhibition-table td {
+      padding: 0.8rem;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .exhibition-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* スマホでも横並びを維持 */
+    .exhibition-table td:nth-child(1) {
+      width: 15%;
+      white-space: nowrap;
+    }
+
+    .exhibition-table td:nth-child(2) {
+      width: 55%;
+    }
+
+    .exhibition-table td:nth-child(3) {
+      width: 30%;
+      white-space: nowrap;
+    }
+  </style>
 </head>
 
 <body class="bio">
@@ -231,50 +236,62 @@
                         <li>2016 | 第67回宮城県高等学校美術展 優秀賞</li>
                     </ol>
                 </div>
-            </div>
-<!-- 出展歴 -->
-<div class="table-container">
-  <table>
-    <caption>出展歴</caption>
-    <thead>
-      <tr>
-        <th>年</th>
-        <th>月</th>
-        <th>展示名</th>
-        <th>会場</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>2025</td><td>03</td><td>日台の絆展</td><td>台湾</td></tr>
-      <tr><td>2023</td><td>06</td><td>第2回日仏友好オリジナル切手展</td><td>フランス</td></tr>
-      <tr><td>2022</td><td>11</td><td>芸術の虎展</td><td>日光東照宮美術館</td></tr>
-      <tr><td>2022</td><td>04</td><td>日アセアン友好文化交流展</td><td>東京アセアンセンター</td></tr>
-      <tr><td>2021</td><td>11</td><td>サロン・ド・アール・ジャポネ</td><td>フランス</td></tr>
-      <tr><td>2021</td><td>08</td><td>OASISU2021</td><td>大阪あべのハルカス</td></tr>
-      <tr><td>2021</td><td>04</td><td>チャリティアート展</td><td>東京</td></tr>
-    </tbody>
+  <!-- 出展歴：2025 -->
+  <table class="exhibition-table">
+    <caption>2025</caption>
+    <tr>
+      <td>03</td>
+      <td>日台の絆展</td>
+      <td>台湾</td>
+    </tr>
   </table>
-</div>
 
-<!-- 認定 / 賞 -->
-<div class="table-container">
-  <table>
-    <caption>認定 / 賞</caption>
-    <thead>
-      <tr>
-        <th>年</th>
-        <th>内容</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>2025</td><td>日台の絆展（会場 / 台湾）</td></tr>
-      <tr><td>2022</td><td>徳川家康作家之賞</td></tr>
-      <tr><td>2022</td><td>日本・モンゴル外交関係樹立50周年記念事業認定</td></tr>
-      <tr><td>2021</td><td>TAJO「Artista del post luminescenza e sole bianco.【残照と白日の芸術家】」認定</td></tr>
-      <tr><td>2016</td><td>第67回宮城県高等学校美術展 優秀賞</td></tr>
-    </tbody>
+  <!-- 出展歴：2023 -->
+  <table class="exhibition-table">
+    <caption>2023</caption>
+    <tr>
+      <td>06</td>
+      <td>第2回日仏友好オリジナル切手展</td>
+      <td>フランス</td>
+    </tr>
   </table>
-</div>
+
+  <!-- 出展歴：2022 -->
+  <table class="exhibition-table">
+    <caption>2022</caption>
+    <tr>
+      <td>11</td>
+      <td>芸術の虎展</td>
+      <td>日光東照宮美術館</td>
+    </tr>
+    <tr>
+      <td>04</td>
+      <td>日アセアン友好文化交流展</td>
+      <td>東京アセアンセンター</td>
+    </tr>
+  </table>
+
+  <!-- 出展歴：2021 -->
+  <table class="exhibition-table">
+    <caption>2021</caption>
+    <tr>
+      <td>11</td>
+      <td>サロン・ド・アール・ジャポネ</td>
+      <td>フランス</td>
+    </tr>
+    <tr>
+      <td>08</td>
+      <td>OASISU2021</td>
+      <td>大阪あべのハルカス</td>
+    </tr>
+    <tr>
+      <td>04</td>
+      <td>チャリティアート展</td>
+      <td>東京</td>
+    </tr>
+  </table>
+
+            </div>
         </div>
         <!-- ja  -->
 
