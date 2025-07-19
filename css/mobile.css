@@ -227,7 +227,7 @@
         font-size: 0.9rem;
     }
 
-    .works {
+    .work-img a {
         display: grid;
         gap: inherit;
     }

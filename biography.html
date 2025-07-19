@@ -110,52 +110,50 @@
             }
         }
     </style>
-  <style>
-    .exhibition-table {
-      margin: 2rem auto;
-      border-collapse: collapse;
+    <style>
+            .award-table {
       width: 100%;
-      max-width: 600px;
-      border: 1px solid #ccc;
-      font-family: "Hiragino Mincho ProN", serif;
-      background-color: #fdfdfd;
+      border-collapse: collapse;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .exhibition-table caption {
-      background: #333;
-      color: #fff;
-      font-weight: bold;
-      font-size: 1.2rem;
-      padding: 0.5rem;
+    .award-table th, .award-table td {
+      padding: 1rem;
       text-align: left;
+      border-bottom: 1px solid #333;
+      font-size: 0.95rem;
     }
 
-    .exhibition-table th,
-    .exhibition-table td {
-      padding: 0.8rem;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
+    .award-table th {
+      color: #aaa;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
-    .exhibition-table tr:last-child td {
-      border-bottom: none;
+    .award-table a {
+      color: #7cc7ff;
+      text-decoration: underline;
     }
 
-    /* スマホでも横並びを維持 */
-    .exhibition-table td:nth-child(1) {
-      width: 15%;
-      white-space: nowrap;
-    }
+    @media screen and (max-width: 600px) {
+      .award-table th, .award-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+      }
 
-    .exhibition-table td:nth-child(2) {
-      width: 55%;
-    }
+      .award-table tr {
+        display: block;
+        margin-bottom: 1.5rem;
+      }
 
-    .exhibition-table td:nth-child(3) {
-      width: 30%;
-      white-space: nowrap;
+      .award-table th {
+        padding-bottom: 0.2rem;
+      }
     }
-  </style>
+    </style>
 </head>
 
 <body class="bio">
@@ -236,61 +234,32 @@
                         <li>2016 | 第67回宮城県高等学校美術展 優秀賞</li>
                     </ol>
                 </div>
-  <!-- 出展歴：2025 -->
-  <table class="exhibition-table">
-    <caption>2025</caption>
-    <tr>
-      <td>03</td>
-      <td>日台の絆展</td>
-      <td>台湾</td>
-    </tr>
+  <table class="award-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Award and Honor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>2023</td><td>ユーキャン新語・流行語大賞 生成AI</td></tr>
+      <tr><td>2023</td><td>令和5年度科学技術分野の文部科学大臣表彰 若手科学者賞</td></tr>
+      <tr><td>2022</td><td>World Economic Forum Young Global Leaders 選出</td></tr>
+      <tr><td>2021</td><td>Apollo Magazine 40 UNDER 40 ART AND TECH</td></tr>
+      <tr><td>2021</td><td>PMI Future 50</td></tr>
+      <tr><td>2021</td><td>MIT Technology Review Innovators Under 35 Japan</td></tr>
+      <tr><td>2020</td><td>デジタルコンテンツEXPO Innovative Technologies 2020</td></tr>
+      <tr><td>2019</td><td><a href="#">SXSW Creative Experience ARROW Awards, Best Immersive Experience</a></td></tr>
+      <tr><td>2019</td><td>Cannes Lions 2019 Music Bronze</td></tr>
+      <tr><td>2019</td><td>Cannes Lions 2019 SDGs Shortlist</td></tr>
+      <tr><td>2017</td><td>St. Gallen Symposium Leaders of Tomorrow</td></tr>
+      <tr><td>2017</td><td>Spikes Asia Bronze</td></tr>
+      <tr><td>2016</td><td>Prix Ars Electronica Honorary Mention</td></tr>
+      <tr><td>2016</td><td>Starts Prize Honorary Mention</td></tr>
+      <tr><td>2015</td><td>World Technology Award</td></tr>
+      <tr><td>2014</td><td>Laval Virtual Award (Grand Prix du Jury)</td></tr>
+    </tbody>
   </table>
-
-  <!-- 出展歴：2023 -->
-  <table class="exhibition-table">
-    <caption>2023</caption>
-    <tr>
-      <td>06</td>
-      <td>第2回日仏友好オリジナル切手展</td>
-      <td>フランス</td>
-    </tr>
-  </table>
-
-  <!-- 出展歴：2022 -->
-  <table class="exhibition-table">
-    <caption>2022</caption>
-    <tr>
-      <td>11</td>
-      <td>芸術の虎展</td>
-      <td>日光東照宮美術館</td>
-    </tr>
-    <tr>
-      <td>04</td>
-      <td>日アセアン友好文化交流展</td>
-      <td>東京アセアンセンター</td>
-    </tr>
-  </table>
-
-  <!-- 出展歴：2021 -->
-  <table class="exhibition-table">
-    <caption>2021</caption>
-    <tr>
-      <td>11</td>
-      <td>サロン・ド・アール・ジャポネ</td>
-      <td>フランス</td>
-    </tr>
-    <tr>
-      <td>08</td>
-      <td>OASISU2021</td>
-      <td>大阪あべのハルカス</td>
-    </tr>
-    <tr>
-      <td>04</td>
-      <td>チャリティアート展</td>
-      <td>東京</td>
-    </tr>
-  </table>
-
             </div>
         </div>
         <!-- ja  -->
