@@ -25,12 +25,16 @@ input[type="radio"] {
    transition: opacity 0.3s ease;
 }
 
+.radio-group label:hover {
+   opacity: 0.7;
+}
+
 /* 選択されたときだけラベルにスタイルを適用 */
 input[type="radio"]:checked+label {
    opacity: 1;
 }
 
-/* チェックボックスの角を角丸なしに */
+/* チェックボックス */
 form input[type="checkbox"] {
    height: 2.25vmin;
    border-radius: 2px;
@@ -47,7 +51,6 @@ form input[type="checkbox"]::before {
 
 /* チェックされたら内側を表示 */
 form input[type="checkbox"]:checked::before,
-form input[type="radio"]:hover::before,
 form input[type="radio"]:checked::before {
    opacity: 1;
 }
