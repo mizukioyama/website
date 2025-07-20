@@ -313,7 +313,7 @@ function setupCategoryFilter() {
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: 100%; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
                 Category | ${selectedCategoryLabel}
             </p>
 
