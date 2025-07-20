@@ -427,13 +427,25 @@ please use the form on this page.
   <style>
     .modal-open-label {
       color: var(--accent);
-      border-bottom: 2px solid var(--inv);
-      margin-top: 2vmin;
-      opacity: 0.5;
+      /*border-bottom: 2px solid var(--inv);*/
+      margin-top: 1vmin;
+      opacity: 0.8;
+      position: relative;
+      display: block;
     }
     .modal-open-label:hover,
     .modal-open-label:active {
       opacity: 1;
+    }
+
+    #contact .modal-open-label::before {
+      width: 5px;
+      height: 2px;
+      left: 0;
+      background-color: var(--inv);
+    }
+    #contact .modal-open-label:hover::before {
+      width: 100%;
     }
 
     /* チェックボックスは非表示 */

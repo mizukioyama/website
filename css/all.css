@@ -358,7 +358,6 @@ header a::before,
 }
 
 a:hover::before,
-#contact .modal-open-label:hover::before,
 #category-menu li:hover::before {
   width: 110%;
 }
