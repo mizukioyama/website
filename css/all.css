@@ -295,9 +295,8 @@ body {
 hr {
   width: 50%;
   height: 1px;
-  margin: 10% auto;
-  background: var(--inv);
-  opacity: 0.3;
+  margin: 15vmin auto;
+  background: #777;
 }
 
 h1 {
