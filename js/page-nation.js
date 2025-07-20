@@ -225,7 +225,7 @@ function setupCategoryFilter() {
             caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Natureinspire", "Paint"],
-            img: "img/202100-web.jpg",
+            img: "img/202101-web.jpg",
             link: "pages/2024work.html"
         },//========2010~17
         {
