@@ -310,8 +310,7 @@ p {
   line-height: 2;
 }
 
-a,
-#contact .modal-open-label {
+a {
   /*font-family: Arial, Helvetica, sans-serif;*/
   font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
   color: var(--inv);
@@ -328,7 +327,6 @@ a,
 
 footer a,
 header a,
-#contact .modal-open-label,
 #category-menu li {
   text-decoration: none;
   padding: 0.5rem 0.75rem 0.5rem 0;
@@ -360,15 +358,13 @@ header a::before,
 }
 
 a:hover::before,
-#contact .modal-open-label::before,
+#contact .modal-open-label:hover::before,
 #category-menu li:hover::before {
   width: 110%;
 }
 
 a:hover,
 a:active,
-#contact .modal-open-label:hover,
-#contact .modal-open-label:active,
 #category-menu li:hover,
 #category-menu li.active {
   /*background-position: -100% 0; 背景色の位置 */
