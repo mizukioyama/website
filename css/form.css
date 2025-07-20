@@ -47,6 +47,7 @@ form input[type="checkbox"]::before {
 
 /* チェックされたら内側を表示 */
 form input[type="checkbox"]:checked::before,
+form input[type="radio"]:hover::before,
 form input[type="radio"]:checked::before {
    opacity: 1;
 }
