@@ -111,46 +111,46 @@
         }
     </style>
     <style>
-            .award-table {
+   table {
       width: 100%;
       border-collapse: collapse;
-      max-width: 800px;
-      margin: 0 auto;
+      table-layout: fixed;
     }
 
-    .award-table th, .award-table td {
-      padding: 1rem;
-      text-align: left;
+    th, td {
+      padding: 1rem 0;
       border-bottom: 1px solid #333;
-      font-size: 0.95rem;
+      vertical-align: top;
     }
 
-    .award-table th {
-      color: #aaa;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
+    th {
+      text-align: left;
+      font-size: 0.8rem;
+      color: #999;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: normal;
     }
 
-    .award-table a {
-      color: #7cc7ff;
-      text-decoration: underline;
+    td.year {
+      width: 20%;
+      white-space: nowrap;
+      font-size: 1rem;
+      font-weight: 300;
     }
 
-    @media screen and (max-width: 600px) {
-      .award-table th, .award-table td {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-      }
+    td.content {
+      width: 80%;
+      font-size: 1rem;
+      font-weight: 300;
+    }
 
-      .award-table tr {
-        display: block;
-        margin-bottom: 1.5rem;
+    @media (max-width: 768px) {
+      td.year {
+        width: 30%;
       }
-
-      .award-table th {
-        padding-bottom: 0.2rem;
+      td.content {
+        width: 70%;
       }
     }
     </style>
@@ -234,7 +234,8 @@
                         <li>2016 | 第67回宮城県高等学校美術展 優秀賞</li>
                     </ol>
                 </div>
-  <table class="award-table">
+
+  <table>
     <thead>
       <tr>
         <th>Year</th>
@@ -242,24 +243,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>2023</td><td>ユーキャン新語・流行語大賞 生成AI</td></tr>
-      <tr><td>2023</td><td>令和5年度科学技術分野の文部科学大臣表彰 若手科学者賞</td></tr>
-      <tr><td>2022</td><td>World Economic Forum Young Global Leaders 選出</td></tr>
-      <tr><td>2021</td><td>Apollo Magazine 40 UNDER 40 ART AND TECH</td></tr>
-      <tr><td>2021</td><td>PMI Future 50</td></tr>
-      <tr><td>2021</td><td>MIT Technology Review Innovators Under 35 Japan</td></tr>
-      <tr><td>2020</td><td>デジタルコンテンツEXPO Innovative Technologies 2020</td></tr>
-      <tr><td>2019</td><td><a href="#">SXSW Creative Experience ARROW Awards, Best Immersive Experience</a></td></tr>
-      <tr><td>2019</td><td>Cannes Lions 2019 Music Bronze</td></tr>
-      <tr><td>2019</td><td>Cannes Lions 2019 SDGs Shortlist</td></tr>
-      <tr><td>2017</td><td>St. Gallen Symposium Leaders of Tomorrow</td></tr>
-      <tr><td>2017</td><td>Spikes Asia Bronze</td></tr>
-      <tr><td>2016</td><td>Prix Ars Electronica Honorary Mention</td></tr>
-      <tr><td>2016</td><td>Starts Prize Honorary Mention</td></tr>
-      <tr><td>2015</td><td>World Technology Award</td></tr>
-      <tr><td>2014</td><td>Laval Virtual Award (Grand Prix du Jury)</td></tr>
+      <tr><td class="year">2023</td><td class="content">ユーキャン新語・流行語大賞 生成AI</td></tr>
+      <tr><td class="year">2023</td><td class="content">令和5年度科学技術分野の文部科学大臣表彰 若手科学者賞</td></tr>
+      <tr><td class="year">2022</td><td class="content">World Economic Forum Young Global Leaders 選出</td></tr>
+      <tr><td class="year">2021</td><td class="content">Apollo Magazine 40 UNDER 40 ART AND TECH</td></tr>
+      <tr><td class="year">2021</td><td class="content">PMI Future 50</td></tr>
+      <tr><td class="year">2021</td><td class="content">MIT Technology Review Innovators Under 35 Japan</td></tr>
+      <tr><td class="year">2020</td><td class="content">デジタルコンテンツEXPO Innovative Technologies 2020</td></tr>
+      <tr><td class="year">2019</td><td class="content">SXSW Creative Experience ARROW Awards, Best Immersive Experience</td></tr>
+      <tr><td class="year">2019</td><td class="content">Cannes Lions 2019 Music Bronze</td></tr>
+      <tr><td class="year">2019</td><td class="content">Cannes Lions 2019 SDGs Shortlist</td></tr>
+      <tr><td class="year">2017</td><td class="content">St. Gallen Symposium Leaders of Tomorrow</td></tr>
+      <tr><td class="year">2017</td><td class="content">Spikes Asia Bronze</td></tr>
+      <tr><td class="year">2016</td><td class="content">Prix Ars Electronica Honorary Mention</td></tr>
+      <tr><td class="year">2016</td><td class="content">Starts Prize Honorary Mention</td></tr>
+      <tr><td class="year">2015</td><td class="content">World Technology Award</td></tr>
+      <tr><td class="year">2014</td><td class="content">Laval Virtual Award (Grand Prix du Jury)</td></tr>
     </tbody>
   </table>
+  
             </div>
         </div>
         <!-- ja  -->

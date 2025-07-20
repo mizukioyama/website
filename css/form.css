@@ -170,14 +170,15 @@ input:-webkit-autofill:focus {
    padding: 0.5rem 0;
    margin-top: 2rem;
    border: none;
-   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
+   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 0px 100px 15px;
    cursor: pointer;
    transition: all 0.35s ease;
 }
 
 .contact-form .submit-btn:hover {
-   color: rgba(180, 180, 180);
-   border: none;
+   color: rgba(160, 160, 160);
+   background: var(--inv);
+   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 1px 5px 0px;
 }
 
 .radio-group,
@@ -329,6 +330,7 @@ input:-webkit-autofill:focus {
       margin: 0;
       margin-bottom: 0.5rem;
       margin-top: 1rem;
+      box-shadow: inset hsla(0, 0%, 0%, 1) 0px 0px 25px 20px;
    }
 
    .align-center:last-child {
@@ -372,7 +374,7 @@ input:-webkit-autofill:focus {
 
    .contact-form {
       width: 100%;
-      margin: 0 auto;
+      margin: 15vmin auto 0;
    }
 
    .form-row {
@@ -440,13 +442,13 @@ input:-webkit-autofill:focus {
    }
 
    .contact-form .submit-btn:active {
-      color: var(--text);
-      background: var(--accent);
+      text-shadow: 0 2px 4px #000;
+      box-shadow: inset hsla(0, 0%, 0%, 1) 0px 0px 95px 0px;
+      box-shadow: inset hsl(0deg 0% 19.05%) 0px 0px 55px 0px;
    }
 
    .radio-group {
       justify-content: center;
-      margin-top: 2rem;
    }
 
    .align-center p {
