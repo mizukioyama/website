@@ -163,8 +163,8 @@ h1 {
     left: 5vmin;
     top: 0;
     writing-mode: vertical-rl;
-    background: #fff;
-    background: rgba(240, 255, 255, 0.4);
+    background: var(--inv);
+    /*background: rgba(240, 255, 255, 0.4);*/
     width: 2px;
     height: 100%;
     z-index: 100;
