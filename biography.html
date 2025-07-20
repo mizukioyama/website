@@ -111,48 +111,58 @@
         }
     </style>
     <style>
-   table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
 
-    th, td {
-      padding: 1rem 0;
-      border-bottom: 1px solid #333;
-      vertical-align: top;
-    }
+        th,
+        td {
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+            vertical-align: top;
+        }
 
-    th {
-      text-align: left;
-      font-size: 0.8rem;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: normal;
-    }
+        th {
+            text-align: left;
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: normal;
+        }
 
-    td.year {
-      width: 20%;
-      white-space: nowrap;
-      font-size: 1rem;
-      font-weight: 300;
-    }
+        td.year {
+            width: 20%;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
 
-    td.tb-content {
-      width: 80%;
-      font-size: 0.8rem;
-      font-weight: 300;
-    }
+        td.tb-content {
+            width: 80%;
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
 
-    @media (max-width: 768px) {
-      td.year {
-        width: 30%;
-      }
-      td.tb-content {
-        width: 70%;
-      }
-    }
+        @media (max-width: 768px) {
+            td.year {
+                width: 30%;
+            }
+
+            td.tb-content {
+                width: 70%;
+            }
+
+            .tb-title {
+                width: 30%;
+            }
+            
+            .tb-title:nth-child {
+                width: 70%;
+            }
+        }
     </style>
 </head>
 
@@ -181,7 +191,7 @@
                         幼少期からASD、ADHDの特性を持ち、周囲の説明や常識よりも自分の中に湧く感覚や衝動を大切にしてきた。
                         授業中もノートに絵を描き続け、言葉にならない内側と向き合う時間を手放さなかった。
                     </p>
-                    
+
                     <p style="margin-top: 5vmin;">
                         高校で美術部に入部し、初めて抽象画に取り組む。
                         3年時の作品「無題」で優秀賞を受賞。構成や意味を考えず、ただ感覚のままに描いた作品が評価された経験が、自分にとって大きな転機となった。
@@ -235,56 +245,72 @@
                     </ol>
                 </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>出展歴｜Exhibition history</th>
-      </tr>
-    </thead>
-    <tbody>
-<table>
-  <tbody>
-    <!-- 出展歴 -->
-    <tr><td class="year">2025</td><td class="tb-content">03 | 日台の絆展 / 会場 | 台湾</td></tr>
-    <tr><td class="year">2023</td><td class="tb-content">06 | 第2回日仏友好オリジナル切手展 / 会場 | フランス</td></tr>
-    <tr><td class="year">2022</td><td class="tb-content">11 | 芸術の虎展 / 会場 | 日光東照宮美術館<br>04 | 日アセアン友好文化交流展 / 会場 | 東京アセアンセンター</td></tr>
-    <tr><td class="year">2021</td><td class="tb-content">11 | サロン・ド・アール・ジャポネ / 会場 | フランス
-        <br>08 | OASISU2021 / 会場 | 大阪あべのハルカス
-        <br>04 | チャリティアート展 / 会場 | 東京</td></tr>
-  </tbody>
-</table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="tb-title">Year</th>
+                            <th class="tb-title">出展歴｜Exhibition history</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 出展歴 -->
+                        <tr>
+                            <td class="year">2025</td>
+                            <td class="tb-content">03 | 日台の絆展 / 会場 | 台湾</td>
+                        </tr>
+                        <tr>
+                            <td class="year">2023</td>
+                            <td class="tb-content">06 | 第2回日仏友好オリジナル切手展 / 会場 | フランス</td>
+                        </tr>
+                        <tr>
+                            <td class="year">2022</td>
+                            <td class="tb-content">11 | 芸術の虎展 / 会場 | 日光東照宮美術館<br>04 | 日アセアン友好文化交流展 / 会場 | 東京アセアンセンター
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="year">2021</td>
+                            <td class="tb-content">11 | サロン・ド・アール・ジャポネ / 会場 | フランス
+                                <br>08 | OASISU2021 / 会場 | 大阪あべのハルカス
+                                <br>04 | チャリティアート展 / 会場 | 東京
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-<!-- 認定 / 賞 -->
-  <table>
-        <thead>
-      <tr>
-        <th>Year</th>
-        <th>認定 賞｜Certification Award</th>
-      </tr>
-    </thead>
-    <tbody>
-<table>
-  <tbody>
-    <tr><td class="year">2025</td><td class="tb-content">日台の絆展（会場 / 台湾）</td></tr>
-    <tr><td class="year">2022</td><td class="tb-content">
-        徳川家康作家之賞<br>
-        日本・モンゴル外交関係樹立50周年記念事業認定</td></tr>
-    <tr>
-      <td class="year">2021</td>
-      <td class="tb-content">
-        TAJO (トスカーナ芸術鑑定機構)<br>
-        <span style="font-size: 0.95em; color: #aaa;">
-          ピエールジャコモ・ペトリオーリ博士による、「Artista del post luminescenza e sole bianco.【残照と白日の芸術家】」認定
-        </span>
-      </td>
-    </tr>
-    <tr><td class="year">2016</td><td class="tb-content">第67回宮城県高等学校美術展 優秀賞</td></tr>
-  </tbody>
-</table>
-
-    </tbody>
-  </table>
+                <!-- 認定 / 賞 -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="tb-title">Year</th>
+                            <th class="tb-title">認定 賞｜Certification Award</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="year">2025</td>
+                            <td class="tb-content">日台の絆展（会場 / 台湾）</td>
+                        </tr>
+                        <tr>
+                            <td class="year">2022</td>
+                            <td class="tb-content">
+                                徳川家康作家之賞<br>
+                                日本・モンゴル外交関係樹立50周年記念事業認定</td>
+                        </tr>
+                        <tr>
+                            <td class="year">2021</td>
+                            <td class="tb-content">
+                                TAJO (トスカーナ芸術鑑定機構)<br>
+                                <span style="font-size: 0.95em; color: #aaa;">
+                                    ピエールジャコモ・ペトリオーリ博士による、「Artista del post luminescenza e sole bianco.【残照と白日の芸術家】」認定
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="year">2016</td>
+                            <td class="tb-content">第67回宮城県高等学校美術展 優秀賞</td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
         </div>
@@ -382,20 +408,20 @@
 
     <div id="footer-container"></div>
 
-<script>
-VANTA.TRUNK({
-  el: "#vanta-bg-bio",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 0.70,
-  color: 0xffffff,
-  chaos: 2.50
-})
-</script>
+    <script>
+        VANTA.TRUNK({
+            el: "#vanta-bg-bio",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 0.70,
+            color: 0xffffff,
+            chaos: 2.50
+        })
+    </script>
 </body>
 
 </html>
