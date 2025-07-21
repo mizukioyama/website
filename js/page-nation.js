@@ -4,232 +4,224 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
-            title: { ja: "蒼想", en: "Order：Blue Thought" },
+            title: { ja: "蒼想", en: "Sōsō / Soso" },
             caption: { ja: "青が喚起する未来や希望の印象に、あえて冷たさや距離感を織り交ぜることで、安易な感情の誘導を避けた。観る人の意識が作品に触れた瞬間、見えない波動が静かに作用し、思考や視点に変化をもたらすよう設計している。この作品は、時間を超えて作用する「感覚の設計図」として存在している。", en: "By intentionally weaving in coolness and a sense of distance into the impression of the future and hope that blue evokes, I avoided easy emotional manipulation. The moment the viewer's consciousness touches the work, an unseen wave quietly acts, designed to bring about changes in thought and perspective. This work exists as a 'blueprint of sensation' that functions beyond the constraints of time." },
             text: { ja: "思いや意図は、言葉にすることで確かに伝わる。一方で、波動やエネルギーは可視化できず、感じ取れる人にしか届かない。しかし、言葉がなくとも“何か”が伝わる感覚が存在する。果たして永く残るのは、明確な言語か、それとも目に見えない感覚なのか。本作はその問いを視覚的に構成し、見る人の内に働きかける設計とした。", en: "Thoughts and intentions are certainly conveyed through words. On the other hand, vibrations and energy cannot be visualized and only reach those who can perceive them. However, there exists a sensation that something is communicated even without words. What ultimately remains longer: clear language or the invisible sensations? This work is visually structured around that question, designed to engage the inner workings of the viewer." },
-            category: ["2024", "Natureinspire", "Paint", "Order"],
+            category: ["2024", "Paint"],
             img: "img/蒼想-web.jpg",
             link: "pages/2024work.html"
         },//Unreleased
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2344", en: "#2344" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202344-1-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2342", en: "#2342" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202342-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2341", en: "#2341" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202341-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2340", en: "#2340" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202340-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
 
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2339", en: "#2339" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202338-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "心樹 | エネルギー伝達の設計", en: "NoTitle" },
-            caption: { ja: "展示：デジタル", en: "Unpublished: AI generated" },
+            title: { ja: "心樹", en: "Shinju" },
+            caption: { ja: "展示：デジタル", en: "Exhibition：Digital" },
             text: { ja: "目に見えないエネルギーや波動が、人の心や感覚にどのように伝わり作用するかを主題に据えたシリーズ。物質的な形態を超え、視覚表現を通じて感覚や思考を変容させる設計を意図。作品に込めたエネルギーは、言葉や説明を介さずとも、受け手の無意識に作用し、感情や解釈を揺さぶる装置として機能する。伝達されるものは曖昧で、固定された意味を持たない一方で、観る人の意識を媒介として伝わる。見えない設計図のように構築された作品群は、鑑賞のたびに異なる波動を放ち、時間や距離を超えて感覚の奥深くに残り続けることを目指しています。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Exhibition"],
             img: "img/心樹-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2337", en: "#2337" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202337-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2334", en: "#2334" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202334-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },//2022
         {
-            title: { ja: "映し神", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "映し神", en: "Utsushigami" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2022", "Paint", "Exhibition"],
             img: "img/映し神-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "202203", en: "NoTitle" },
+            title: { ja: "#2203", en: "#2203" },
             caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2022", "Digital", "Exhibition"],
             img: "img/202203-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "202202", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "#2202", en: "#2202" },
+            caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2022", "Paint"],
             img: "img/202202-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "202201", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "#2201", en: "#2201" },
+            caption: { ja: "未発表：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2022", "Digital"],
             img: "img/202201-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "挑戦", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "挑戦", en: "Chōsen / Chousen" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2022", "Paint", "Exhibition"],
             img: "img/挑戦-web.jpg",
             link: "pages/2024work.html"
         },//========2021
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2109", en: "#2109" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202109-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2108", en: "#2108" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202108-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2107", en: "#2107" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202107-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2106", en: "#2106" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202106-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2105", en: "#2105" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202105-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2104", en: "#2104" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202104-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2103", en: "#2103" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202103-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2102", en: "#2102" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202102-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "NoTitle", en: "NoTitle" },
+            title: { ja: "#2101", en: "#2101" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint"],
             img: "img/202101-web.jpg",
-            link: "https://opensea.io/ja/collection/unreleased-art-works/overview"
+            link: "https://opensea.io/collection/massless-energy-art/overview"
         },
         {
-            title: { ja: "戦争", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "戦争", en: "Sensō / Senso" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint", "Exhibition"],
             img: "img/戦争-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "幸緑", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "幸緑", en: "Konryoku" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint", "Exhibition"],
             img: "img/幸緑-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "金雲", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "金雲", en: "Kin’un / Kinuun" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Natureinspire", "Paint", "Exhibition"],
+            category: ["2021", "Paint", "Exhibition"],
             img: "img/金雲-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "輝き", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "輝き", en: "Kagayaki" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Natureinspire", "Paint"],
+            category: ["2021", "Paint", "Certified"],
             img: "img/輝き-web.jpg",
-            link: "pages/2024work.html"
-        },
-        {
-            title: { ja: "#202100", en: "NoTitle" },
-            caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
-            text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Natureinspire", "Paint"],
-            img: "img/202101-web.jpg",
             link: "pages/2024work.html"
         },//========2010~17
         {
-            title: { ja: "#201702", en: "NoTitle" },
+            title: { ja: "#1702", en: "#1702" },
             caption: { ja: "未発表：コラージュ", en: "Unpublished: AI generated" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Unpublished"],
@@ -237,7 +229,7 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "#201701", en: "NoTitle" },
+            title: { ja: "#1701", en: "#1701" },
             caption: { ja: "未発表：コラージュ", en: "Unpublished: AI generated" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Unpublished"],
@@ -245,34 +237,34 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "海底", en: "NoTitle" },
+            title: { ja: "海底", en: "Kaitei" },
             caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "高校3年次制作作品。<br>当初は「冬」をテーマに描き始めたが、完成した作品を改めて見つめたとき、深海を連想させるような印象を受けたため「海底」と改題。深海に差し込むような白い光や、感情が色彩として混ざり合うような表現を通して、内面の静けさや揺らぎを描いた一枚。見る者によって異なる景色が立ち現れる、抽象的な感覚表現を目指した。<br>2022年｜日本・モンゴル外交関係樹立50周年記念事業認定 作品", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010-2017", "Natureinspire", "Paint"],
+            category: ["2010-2017", "Paint", "Certified"],
             img: "img/海底-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "無題", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "無題", en: "Mudai" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "高校3年次に制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010-2017", "Unpublished", "Paint", "Exhibition"],
+            category: ["2010-2017", "Paint", "Exhibition"],
             img: "img/2016無題-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "#201402", en: "NoTitle" },
+            title: { ja: "#1402", en: "#1402" },
             caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "高校1年次、2作目の作品。<br>頭の中にあるイメージや感覚を、そのまま画面に落とし込むことを意識して制作した。具象的なモチーフを持たず、線や色彩、構成の流れを通じて思考の断片を可視化している。完成された形を目指すのではなく、描く行為そのものを探求する過程でもあった。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010-2017", "Unpublished", "Paint"],
+            category: ["2010-2017", "Paint", "Unpublished"],
             img: "img/201402-web.jpg",
             link: "pages/2024work.html"
         },
         {
-            title: { ja: "#201401", en: "NoTitle" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            title: { ja: "#1401", en: "#1401" },
+            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2010-2017", "Unpublished", "Paint", "Exhibition"],
+            category: ["2010-2017", "Paint", "Exhibition"],
             img: "img/201401-web.jpg",
             link: "pages/2024work.html"
         }
