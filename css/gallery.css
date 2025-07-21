@@ -545,6 +545,12 @@ main#state {
 }
 
 /*========link*/
+    .work-img a {
+        display: grid;
+        gap: inherit;
+    }
+
+
 .works {
     text-decoration: none;
     color: inherit;

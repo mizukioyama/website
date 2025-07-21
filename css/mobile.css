@@ -227,11 +227,6 @@
         font-size: 0.9rem;
     }
 
-    .work-img a {
-        display: grid;
-        gap: inherit;
-    }
-
     #gallery-container .work p {
         width: 100%;
         line-height: 1.6;
