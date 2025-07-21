@@ -96,7 +96,7 @@ function setupCategoryFilter() {
             title: { ja: "#2202", en: "#2202" },
             caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Paint"],
+            category: ["2022", "Paint", "Unreleased"],
             img: "img/202202-web.jpg",
             link: "pages/2024work.html"
         },
@@ -104,7 +104,7 @@ function setupCategoryFilter() {
             title: { ja: "#2201", en: "#2201" },
             caption: { ja: "未発表：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Digital"],
+            category: ["2022", "Digital", "Unreleased"],
             img: "img/202201-web.jpg",
             link: "pages/2024work.html"
         },
@@ -120,7 +120,7 @@ function setupCategoryFilter() {
             title: { ja: "#2109", en: "#2109" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Digital", "Unreleased"],
             img: "img/202109-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -128,7 +128,7 @@ function setupCategoryFilter() {
             title: { ja: "#2108", en: "#2108" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Digital", "Unreleased"],
             img: "img/202108-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -136,7 +136,7 @@ function setupCategoryFilter() {
             title: { ja: "#2107", en: "#2107" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Digital", "Unreleased"],
             img: "img/202107-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -144,7 +144,7 @@ function setupCategoryFilter() {
             title: { ja: "#2106", en: "#2106" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Digital", "Unreleased"],
             img: "img/202106-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -152,7 +152,7 @@ function setupCategoryFilter() {
             title: { ja: "#2105", en: "#2105" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Digital", "Unreleased"],
             img: "img/202105-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -160,7 +160,7 @@ function setupCategoryFilter() {
             title: { ja: "#2104", en: "#2104" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Digital", "Unreleased"],
             img: "img/202104-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -168,7 +168,7 @@ function setupCategoryFilter() {
             title: { ja: "#2103", en: "#2103" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Paint", "Unreleased"],
             img: "img/202103-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -176,7 +176,7 @@ function setupCategoryFilter() {
             title: { ja: "#2102", en: "#2102" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Paint", "Unreleased"],
             img: "img/202102-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
@@ -184,7 +184,7 @@ function setupCategoryFilter() {
             title: { ja: "#2101", en: "#2101" },
             caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2021", "Paint"],
+            category: ["2021", "Paint", "Unreleased"],
             img: "img/202101-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
         },
