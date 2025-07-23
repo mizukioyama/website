@@ -548,8 +548,8 @@ main#state {
 /*========link*/
 .work-img a {
     display: grid;
-    /*gap: inherit;*/
-    gap: 1rem;
+    align-content: space-between;
+    height: 100px;
 }
 
 

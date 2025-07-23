@@ -78,7 +78,7 @@ function setupCategoryFilter() {
         },//2022
         {
             title: { ja: "映し神", en: "Utsushigami" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Paint", "Exhibition"],
             img: "img/映し神-web.jpg",
@@ -86,7 +86,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2203", en: "#2203" },
-            caption: { ja: "展示：ペイント", en: "Unpublished: AI generated" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Digital", "Exhibition"],
             img: "img/202203-web.jpg",
@@ -94,7 +94,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2202", en: "#2202" },
-            caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Paint", "Unreleased"],
             img: "img/202202-web.jpg",
@@ -110,7 +110,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "挑戦", en: "Chōsen / Chousen" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Paint", "Exhibition"],
             img: "img/挑戦-web.jpg",
@@ -190,7 +190,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "戦争", en: "Sensō / Senso" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Paint", "Exhibition"],
             img: "img/戦争-web.jpg",
@@ -198,7 +198,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "幸緑", en: "Konryoku" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Paint", "Exhibition"],
             img: "img/幸緑-web.jpg",
@@ -206,7 +206,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "金雲", en: "Kin’un / Kinuun" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Paint", "Exhibition"],
             img: "img/金雲-web.jpg",
@@ -214,7 +214,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "輝き", en: "Kagayaki" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Paint", "Certified"],
             img: "img/輝き-web.jpg",
@@ -238,7 +238,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "海底", en: "Kaitei" },
-            caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "高校3年次制作作品。<br>当初は「冬」をテーマに描き始めたが、完成した作品を改めて見つめたとき、深海を連想させるような印象を受けたため「海底」と改題。深海に差し込むような白い光や、感情が色彩として混ざり合うような表現を通して、内面の静けさや揺らぎを描いた一枚。見る者によって異なる景色が立ち現れる、抽象的な感覚表現を目指した。<br>2022年｜日本・モンゴル外交関係樹立50周年記念事業認定 作品", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Paint", "Certified"],
             img: "img/海底-web.jpg",
@@ -246,7 +246,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "無題", en: "Mudai" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "高校3年次に制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Paint", "Exhibition"],
             img: "img/2016無題-web.jpg",
@@ -254,7 +254,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#1402", en: "#1402" },
-            caption: { ja: "未発表：ペイント", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "高校1年次、2作目の作品。<br>頭の中にあるイメージや感覚を、そのまま画面に落とし込むことを意識して制作した。具象的なモチーフを持たず、線や色彩、構成の流れを通じて思考の断片を可視化している。完成された形を目指すのではなく、描く行為そのものを探求する過程でもあった。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Paint", "Unpublished"],
             img: "img/201402-web.jpg",
@@ -262,7 +262,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#1401", en: "#1401" },
-            caption: { ja: "展示：ペイント", en: "Exhibition：Paint" },
+            caption: { ja: "展示作品｜Category：Paint", en: "Exhibition：Paint" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Paint", "Exhibition"],
             img: "img/201401-web.jpg",
@@ -346,7 +346,7 @@ function setupCategoryFilter() {
 
         modalBox.innerHTML = `
         <div class="work-img">
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: 0; left: 0; width: fit-content; border-bottom: 1px solid;">
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: -1rem; left: 0; width: fit-content; border-bottom: 1px solid;">
                 Category | ${selectedCategoryLabel}
             </p>
             <img src="${item.img}" alt="${item.title[lang]}">
@@ -359,10 +359,10 @@ function setupCategoryFilter() {
             <p>
             作品「${item.title[lang]}」についてのお問合せは当WebサイトのContactフォームからお問い合わせください。
             <br>
-            For inquiries about this work, please contact us through the Contact form on our website.
+            For inquiries about the work "${item.title[lang]}", please contact us using the contact form on this website.
             </p>
-            <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;" rel="noopener" target="_blank">View More</a>
-            <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid;">Contact</a>
+            <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
+            <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;">Contact</a>
             <button id="modalCloseBtn">Close</button>
         </div>
     `;
