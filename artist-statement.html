@@ -113,6 +113,63 @@
             }
         }
     </style>
+    <style>
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #aaa;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid #2196F3;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -17px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+        }
+    </style>
 </head>
 
 <body id="state">
@@ -123,7 +180,8 @@
     <div class="h1-text" data-title="Artist Statement" data-subtitle="自然、心、<br>感情、在り方、<br>想像、生命、<br>記憶、波動、エネルギー">
         <h1 class="noise text"></h1>
         <p class="subtext"></p>
-        <p class="subtext-en">Nature, Mind,<br>Emotions, State of being,<br>Imagination, Life,<br>Memory, Vibrations, Energy</p>
+        <p class="subtext-en">Nature, Mind,<br>Emotions, State of being,<br>Imagination, Life,<br>Memory, Vibrations,
+            Energy</p>
     </div>
 
     <main class="gallery">
@@ -136,47 +194,46 @@
             <div lang="ja" class="content">
                 <div class="work">
                     <p>
-                        「NatureInspire」を抽象的に自由に表現する。
-                        自然そのものの在り方から学び、着想を得る。
-                        常に変化し、秩序と混沌を含み、曖昧で自由であること。
-                        流動する線、滲む色、揺らめく影。
-                        決まった意味を持たず、解釈を強制しない。
-                        深く五感に働きかけ、心を動かす。
-                        制作では、自然と同じように意図と偶然を共存させる。
-                        完全に制御せず、予期せぬ滲みや混ざりを受け入れ、対話しながら形を見出す。
-                        計画した線を引くこともあれば、予測不能な変化をそのまま受け止める。
-                        これは自然の摂理に倣う行為。
-                    </p>
+                        「NatureInspire」とは、自然の在り方に学びながら、感覚と対話を重ねて生まれる。
+自然は、秩序と混沌、静けさと動き、意図と偶然を同時に含む。
+その曖昧さにこそ、人の心や感情と通じ合う何かがある。
+私の作品は、そうした自然の姿勢を写し取るように、抽象的で、解釈を限定しないかたちで存在する。
+</p>
                     <p style="margin-top: 5vmin;">
-                        抽象を選ぶ理由は、枠のない表現であること。
-                        「正しさ」を持たず、鑑賞者に解釈を委ね、問いを投げかける。
-                        何を感じるか、どう受け取るかを縛らない。
-                        その自由さが思考を揺さぶり、感情を刺激し、脳を活性化させる。
-                        考え、感じ、また考える。
-                        そのプロセスが情報過多な現代で失われがちな「余白」を取り戻す手がかりになる。
-                    </p>
+制作では、計画と予測不能の狭間に立ち、描くというより「応答する」ことを意識している。
+滲み、混ざり、揺らめく形や線に耳を澄ませ、画面とのやりとりの中で形が浮かび上がる。
+意味を与えすぎず、制御しすぎず、ただそこに現れる「在り方」を大切にする。
+それは、自然と向き合う時と同じような感覚だ。
+</p>
                     <p style="margin-top: 5vmin;">
-                        自然に身を置くと、無意識に呼吸が深まり、感覚が開く。
-                        情報や効率から離れ、ただ「在る」状態に戻る。
-                        アートも同じように、心に静かな変化を起こす力を持つ。
-                        言葉にならない感覚に耳を澄ませ、内面を動かす。
-                        脳を刺激し、神経をほぐし、心にゆとりを生むもう一つの「回復のかたち」になる。
-                    </p>
+抽象を選ぶ理由は、「正しさ」がないこと。
+見る人に問いを委ね、「これは何だろう」「なぜ惹かれるのだろう」と思考を開く。
+感じること、考えること、自分の内面と向き合う時間を持つこと。
+アートを通して、情報や効率では埋められない余白に光を当てたい。
+</p>
                     <p style="margin-top: 5vmin;">
-                        模倣も下書きも行わず、意味や構成に縛られない。
-                        内側に現れる感覚や衝動をそのまま受け取り、湧けば描き、描けなければ描かない。
-                        ただそれだけを大切にする。
-                    </p>
+日々の生活の中でふと感じる違和感や、小さな感情の揺れ、
+自然のなかで静かに呼吸が深まるような瞬間。
+そのどれもが、作品の源になっている。
+記憶や感情、波動やエネルギーといった目に見えないものを、
+色や形、線やリズムに置き換えて、画面に立ち上げていく。
+</p>
                     <p style="margin-top: 5vmin;">
-                        色や形、リズムを通して脳を刺激し、軽度の認知症や精神疲労を抱える人々にもやさしいアプローチを探る。
-                        強制しない、副作用がない。
-                        感覚を開き、自然に近い方法で脳を整える。
-                        「NatureInspire」は、自然のように自由で、強く、優しく、曖昧で、解釈を開かれたものを目指す。
-                        見る人の心を揺さぶり、感情や記憶に深く浸透し、時間をかけて変化し続ける。
-                        作品の前で立ち止まり、「これは何だろう」と考える。
-                        ただ感じる時間を過ごす。
-                        心に風が通るような体験を引き起こす。
-                        それがアートにできる最も素朴で力強い働き。
+模倣や下書きは行わず、
+
+内側に湧く衝動や感覚がすべての起点であり、それが現れないときは描かない。
+無理にかたちにしないことで、逆に自然なかたちが浮かび上がることを信じている。
+</p>
+                    <p style="margin-top: 5vmin;">
+私にとってアートは、感覚を開く装置であり、回復のかたちのひとつ。
+認知の疲れや感情の停滞にも寄り添い、見る人の心にゆっくりと風を通す。
+解釈を押しつけず、ただそこに「ある」ものとして。
+目に見えないものを感じ取ろうとする意志こそ、アートの根源的な力だと考えている。
+</p>
+                    <p style="margin-top: 5vmin;">
+作品は、誰かの記憶や感情と交差した瞬間に、また新しい意味を持ち始める。
+だから私は、答えを提示するのではなく、問いを開いたまま差し出す。
+それが、アートにできる最も素朴で力強いことだと考える。
                     </p>
                     <hr>
                     <p>
@@ -210,6 +267,26 @@
                         目に見えるものだけでなく、目に見えないものを捉えようとする姿勢を提示する。
                         それがアートの根源的な力。
                     </p>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2023年</h3>
+                        <p>出来事1</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2024年</h3>
+                        <p>出来事2</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2025年</h3>
+                        <p>出来事3</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -317,21 +394,21 @@
     </main>
 
     <div id="footer-container"></div>
-    
-<script>
-VANTA.TRUNK({
-  el: "#vanta-bg-bio",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 0.70,
-  color: 0xffffff,
-  chaos: 2.50
-})
-</script>
+
+    <script>
+        VANTA.TRUNK({
+            el: "#vanta-bg-bio",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 0.70,
+            color: 0xffffff,
+            chaos: 2.50
+        })
+    </script>
 </body>
 
 </html>
