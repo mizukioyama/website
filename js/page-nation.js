@@ -346,16 +346,13 @@ function setupCategoryFilter() {
 
         modalBox.innerHTML = `
         <div class="work-img">
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: -1rem; left: 0; width: fit-content; border-bottom: 1px solid;">
-                Category | ${selectedCategoryLabel}
-            </p>
+            <p>${truncateText(item.caption[lang])}</p>
             <img src="${item.img}" alt="${item.title[lang]}" style="opacity: 1;">
             <div class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
                 <p>${firstLine}<br>${secondLine}</p>
             </div>
             <div class="modal-text">
-            <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
             <p>
             作品「${item.title[lang]}」についてのお問合せは当WebサイトのContactフォームからお問い合わせください。
