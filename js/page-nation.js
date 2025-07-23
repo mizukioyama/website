@@ -13,7 +13,7 @@ function setupCategoryFilter() {
         },//Unreleased
         {
             title: { ja: "#2344", en: "#2344" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202344-1-web.jpg",
@@ -21,7 +21,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2342", en: "#2342" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202342-web.jpg",
@@ -29,7 +29,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2341", en: "#2341" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202341-web.jpg",
@@ -37,7 +37,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2340", en: "#2340" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202340-web.jpg",
@@ -46,7 +46,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2339", en: "#2339" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202338-web.jpg",
@@ -62,7 +62,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2337", en: "#2337" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202337-web.jpg",
@@ -70,7 +70,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2334", en: "#2334" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital", "Unreleased"],
             img: "img/202334-web.jpg",
@@ -88,7 +88,7 @@ function setupCategoryFilter() {
             title: { ja: "#2203", en: "#2203" },
             caption: { ja: "展示作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
-            category: ["2022", "Digital", "Exhibition"],
+            category: ["2022", "Paint", "Exhibition"],
             img: "img/202203-web.jpg",
             link: "pages/2024work.html"
         },
@@ -102,7 +102,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2201", en: "#2201" },
-            caption: { ja: "未発表：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2022", "Digital", "Unreleased"],
             img: "img/202201-web.jpg",
@@ -118,7 +118,7 @@ function setupCategoryFilter() {
         },//========2021
         {
             title: { ja: "#2109", en: "#2109" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Digital", "Unreleased"],
             img: "img/202109-web.jpg",
@@ -126,7 +126,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2108", en: "#2108" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Digital", "Unreleased"],
             img: "img/202108-web.jpg",
@@ -134,7 +134,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2107", en: "#2107" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Digital", "Unreleased"],
             img: "img/202107-web.jpg",
@@ -142,7 +142,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2106", en: "#2106" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Digital", "Unreleased"],
             img: "img/202106-web.jpg",
@@ -150,7 +150,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2105", en: "#2105" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Digital", "Unreleased"],
             img: "img/202105-web.jpg",
@@ -158,7 +158,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2104", en: "#2104" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Digital", "Unreleased"],
             img: "img/202104-web.jpg",
@@ -166,7 +166,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2103", en: "#2103" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Paint", "Unreleased"],
             img: "img/202103-web.jpg",
@@ -174,7 +174,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2102", en: "#2102" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Paint", "Unreleased"],
             img: "img/202102-web.jpg",
@@ -182,7 +182,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#2101", en: "#2101" },
-            caption: { ja: "未発表作品：デジタル", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Paint", en: "Unpublished: AI generated" },
             text: { ja: "この作品についてのお問合せは当ウェブサイトのContactフォームからお問い合わせください。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2021", "Paint", "Unreleased"],
             img: "img/202101-web.jpg",
@@ -222,7 +222,7 @@ function setupCategoryFilter() {
         },//========2010~17
         {
             title: { ja: "#1702", en: "#1702" },
-            caption: { ja: "未発表：コラージュ", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Unpublished", en: "Unpublished: AI generated" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Unpublished"],
             img: "img/201702-web.jpg",
@@ -230,7 +230,7 @@ function setupCategoryFilter() {
         },
         {
             title: { ja: "#1701", en: "#1701" },
-            caption: { ja: "未発表：コラージュ", en: "Unpublished: AI generated" },
+            caption: { ja: "未発表作品｜Category：Unpublished", en: "Unpublished: AI generated" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2010-2017", "Unpublished"],
             img: "img/201701-web.jpg",
