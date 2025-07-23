@@ -436,7 +436,7 @@ main {
     #state h2 {
         font-size: 2.4rem;
     }
-    .bio .work:nth-child(3) h2 {
+    #bio .work:nth-child(3) h2 {
         margin-bottom: 5vmin;
     }
 
@@ -493,7 +493,7 @@ main {
     font-size: 0.85rem;
 }
 
-#state .content li::before,
+/*#state .content li::before,
 #policy .content li::before {
     content: "";
     width: 10px;
@@ -502,7 +502,7 @@ main {
     left: 0.5%;
     top: 45%;
     background: rgba(200, 200, 200, 0.6);
-}
+}*/
 
 #state .work p,
 #conract .work p,
@@ -511,7 +511,8 @@ main {
     padding: 0;
 }
 
-#state main {
+#state main,
+#bio main {
     display: block;
 }
 
