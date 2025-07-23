@@ -350,10 +350,11 @@ function setupCategoryFilter() {
                 Category | ${selectedCategoryLabel}
             </p>
             <img src="${item.img}" alt="${item.title[lang]}">
-            <a class="works" href="${item.link || '#'}" rel="noopener">
+            <div class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
                 <p>${firstLine}<br>${secondLine}</p>
-            </a>
+            </div>
+            <div class="modal-text">
             <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
             <p>
@@ -361,6 +362,7 @@ function setupCategoryFilter() {
             <br>
             For inquiries about the work "${item.title[lang]}", please contact us using the contact form on this website.
             </p>
+            </div>
             <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
             <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;">Contact</a>
             <button id="modalCloseBtn">Close</button>
