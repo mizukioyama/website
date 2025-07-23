@@ -363,7 +363,7 @@ function setupCategoryFilter() {
             For inquiries about the work "${item.title[lang]}", please contact us using the contact form on this website.
             </p>
             </div>
-            <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
+            <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 2vmin; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
             <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;">Contact</a>
             <button id="modalCloseBtn">Close</button>
         </div>
