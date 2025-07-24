@@ -150,6 +150,30 @@ function setupCategoryFilter() {
             link: "pages/2024work.html"
         },//========2021
         {
+            title: { ja: "#2110", en: "#2110" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished Works｜Category：Digital" },
+            
+            category: ["2021", "Digital", "Unreleased"],
+            img: "img/202110-web.jpg",
+            link: "https://opensea.io/collection/massless-energy-art/overview"
+        },
+        {
+            title: { ja: "広縁", en: "Kōen" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished Works｜Category：Digital" },
+            
+            category: ["2021", "Digital", "Unreleased"],
+            img: "img/広縁-web.jpg",
+            link: "https://opensea.io/collection/massless-energy-art/overview"
+        },
+        {
+            title: { ja: "心境", en: "Shinkyō" },
+            caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished Works｜Category：Digital" },
+            
+            category: ["2021", "Digital", "Unreleased"],
+            img: "img/心境-web.jpg",
+            link: "https://opensea.io/collection/massless-energy-art/overview"
+        },
+        {
             title: { ja: "#2109", en: "#2109" },
             caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished Works｜Category：Digital" },
             
