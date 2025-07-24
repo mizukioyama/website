@@ -36,7 +36,7 @@ input[type="radio"]:checked+label {
 
 /* チェックボックス */
 form input[type="checkbox"] {
-   height: 2.25vmin;
+   height: 1.45rem;
    border-radius: 2px;
    opacity: 0.8;
 }
@@ -373,7 +373,7 @@ input:-webkit-autofill:focus {
 
 @media screen and (max-width: 600px) {
    form input[type="checkbox"] {
-      height: 4.5vmin;
+      height: 1rem;
    }
 
    .contact-form {
