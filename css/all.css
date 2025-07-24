@@ -299,6 +299,10 @@ hr {
   background: #777;
 }
 
+.home hr {
+  margin: 5vmin auto;
+}
+
 h1 {
   width: 100%;
   font-family: "Jost", sans-serif !important;

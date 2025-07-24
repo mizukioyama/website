@@ -112,11 +112,11 @@
       z-index: 1001;
     }
 
-.modal-box .work-img .works {
-    display: grid;
-    align-content: space-between;
-    height: 100px;
-}
+    .modal-box .work-img .works {
+      display: grid;
+      align-content: space-between;
+      height: 100px;
+    }
 
     .modal-box .work-img {
       max-width: 450px;
@@ -135,12 +135,13 @@
     .modal-box p {
       line-height: 1.6;
     }
-.modal-text p {
-  font-size: 1rem;
-  margin-top: 3vmin;
-  line-height: 2;
-  text-shadow: 0 2px 2px var(--text);
-}
+
+    .modal-text p {
+      font-size: 1rem;
+      margin-top: 3vmin;
+      line-height: 2;
+      text-shadow: 0 2px 2px var(--text);
+    }
 
     #modalCloseBtn {
       font-size: 1.2rem;
@@ -243,49 +244,49 @@
 
   <div id="footer-container"></div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const lines = document.querySelectorAll(".page-line");
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const lines = document.querySelectorAll(".page-line");
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const ratio = entry.intersectionRatio; // 0〜1
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const ratio = entry.intersectionRatio; // 0〜1
 
-        if (entry.isIntersecting) {
-          // 中心に近づくほど幅が広がる（最大100%）
-          const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
-          //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
-          entry.target.style.width = `100%`;
-        } else {
-          // 画面外に出たら0%
-          entry.target.style.width = `0%`;
-        }
+          if (entry.isIntersecting) {
+            // 中心に近づくほど幅が広がる（最大100%）
+            const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
+            //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
+            entry.target.style.width = `100%`;
+          } else {
+            // 画面外に出たら0%
+            entry.target.style.width = `0%`;
+          }
+        });
+      }, {
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100) // 0〜1まで100段階
       });
-    }, {
-      threshold: Array.from({ length: 101 }, (_, i) => i / 100) // 0〜1まで100段階
+
+      lines.forEach(line => observer.observe(line));
     });
+  </script>
 
-    lines.forEach(line => observer.observe(line));
-  });
-</script>
-
-<script>
-VANTA.FOG({
-  el: "#vanta-bg",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  highlightColor: 0x181818,
-  midtoneColor: 0xb3b3b3,
-  lowlightColor: 0x3f3ff,
-  baseColor: 0xfafffc,
-  blurFactor: 0.60,
-  speed: 1.00,
-  zoom: 0.40
-})
-</script>
+  <script>
+    VANTA.FOG({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      highlightColor: 0x181818,
+      midtoneColor: 0xb3b3b3,
+      lowlightColor: 0x3f3ff,
+      baseColor: 0xfafffc,
+      blurFactor: 0.60,
+      speed: 1.00,
+      zoom: 0.40
+    })
+  </script>
 
 </body>
 

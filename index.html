@@ -66,35 +66,35 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdn.jsdelivr.net https://unpkg.com;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.typekit.net;
-    font-src 'self' https://fonts.gstatic.com https://use.typekit.net;
-    img-src 'self' data:;
-    connect-src 'self' https://script.google.com;
-    object-src 'none';
-    ">
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://use.typekit.net;
+        font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        object-src 'none';
+        ">
 
     <!--画像遅延読み込み
   <img data-src="path/to/image.jpg" alt="example">
   -->
 </head>
 
-  <div id="loading-bg">
+<div id="loading-bg">
     <div class="typing-container">
-      <p class="typing-line" data-text="当Webサイトはアニメーションが常に動作しているため、端末の充電を大幅に消耗します."></p>
-      <p class="typing-line" data-text="外出中での閲覧には十分にご注意ください."></p>
-      <p class="typing-line" data-text="小山より." style="text-align: center; width: 100%;"></p>
-      <p class="typing-line" data-text="This website uses up a lot of battery power due to constant animation."></p>
-      <p class="typing-line" data-text="Please be careful when viewing this website while out and about."></p>
-      <p class="typing-line" data-text="From Oyama." style="text-align: center; width: 100%;"></p>
+        <p class="typing-line" data-text="当Webサイトはアニメーションが常に動作しているため、端末の充電を大幅に消耗します."></p>
+        <p class="typing-line" data-text="外出中での閲覧には十分にご注意ください."></p>
+        <p class="typing-line" data-text="小山より." style="text-align: center; width: 100%;"></p>
+        <p class="typing-line" data-text="This website uses up a lot of battery power due to constant animation."></p>
+        <p class="typing-line" data-text="Please be careful when viewing this website while out and about."></p>
+        <p class="typing-line" data-text="From Oyama." style="text-align: center; width: 100%;"></p>
     </div>
     <div class="noise"
-      style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
+        style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
     </div>
-  </div>
+</div>
 
 <!--作品保護-->
 
@@ -134,9 +134,9 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="card_line"></div>
-            
+
             <!-- in item -->
             <div id="mainContent" class="card">
                 <div class="card__slide active">
@@ -542,29 +542,30 @@
                 height: 70%;
                 padding: 1.5rem;
             }
+
             .modal-box p {
                 letter-spacing: 0.05rem;
             }
         }
     </style>
 
-<script>
-VANTA.FOG({
-  el: "#vanta-bg",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  highlightColor: 0x181818,
-  midtoneColor: 0xb3b3b3,
-  lowlightColor: 0x3f3ff,
-  baseColor: 0xfafffc,
-  blurFactor: 0.50,
-  speed: 0.50,
-  zoom: 1.20
-})
-</script>
+    <script>
+        VANTA.FOG({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            highlightColor: 0x181818,
+            midtoneColor: 0xb3b3b3,
+            lowlightColor: 0x3f3ff,
+            baseColor: 0xfafffc,
+            blurFactor: 0.50,
+            speed: 0.50,
+            zoom: 1.20
+        })
+    </script>
 </body>
 
 </html>
