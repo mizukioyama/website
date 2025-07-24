@@ -45,7 +45,7 @@ function setupCategoryFilter() {
 
         },
         {
-            title: { ja: "#2339", en: "#2339" },
+            title: { ja: "#2338", en: "#2338" },
             caption: { ja: "未発表作品｜Category：Digital", en: "Unpublished: AI generated" },
             
             category: ["2023", "Digital", "Unreleased"],
@@ -357,6 +357,7 @@ function setupCategoryFilter() {
             <div class="modal-text">
             <p>${truncateText(item.caption[lang])}</p>
             <p>${truncateText(item.text[lang])}</p>
+            <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;">Contact</a>
             <p>
             作品「${item.title[lang]}」についてのお問合せは当WebサイトのContactフォームからお問い合わせください。
             <br>
@@ -364,7 +365,6 @@ function setupCategoryFilter() {
             </p>
             </div>
             <a href="${item.link || '#'}" class="noise" style="font-size: 1.4rem; margin-top: 2vmin; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
-            <a href="contact.html" class="noise" style="font-size: 1.4rem; margin-top: 1rem; border-bottom: 3px solid; height: fit-content;">Contact</a>
             <button id="modalCloseBtn">Close</button>
         </div>
     `;
