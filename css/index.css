@@ -161,6 +161,7 @@ p {
   position: absolute;
   top: 10%;
   left: 30vmin;
+  background-image: linear-gradient(to right, var(--text));
 }
 
 .creator .noise {
