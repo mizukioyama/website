@@ -21,7 +21,7 @@ waitForJQuery(function ($) {
                 inProgress = true;
 
                 $('.active').addClass('exit');
-                $('.active').removeClass('active');
+                $('.active').not('#langChenge .active').removeClass('active');
                 slideElements.forEach(elem => {
                     $(`${elem}:nth-child(${index})`).addClass('active');
                 });

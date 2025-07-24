@@ -47,6 +47,7 @@ canvas {
 .noise {
   display: flex;
   background-image: linear-gradient(to right, var(--bg), blue);
+  background-image: linear-gradient(to right, var(--bg));
 }
 
 /* ========== Common ========== */
@@ -169,6 +170,7 @@ p {
   position: absolute;
   bottom: 10%;
   right: 30vmin;
+  background-image: linear-gradient(to right, var(--text));
 }
 
 .time-display {
