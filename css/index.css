@@ -55,8 +55,6 @@ canvas {
 
 h1 {
   font-size: 1rem;
-  columns: var(--inv);
-  font-weight: 300;
 }
 
 h2 {
@@ -162,6 +160,7 @@ p {
   top: 10%;
   left: 30vmin;
   padding: 0.15vmin 0.75vmin;
+  color: var(--inv);
   background-image: linear-gradient(to right, var(--text));
 }
 
