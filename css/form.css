@@ -120,7 +120,7 @@ input:-webkit-autofill:focus {
    padding-left: 2rem;
    background: rgba(0, 0, 0, 0.5);
    backdrop-filter: blur(10px);
-   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
+   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 1px 4px 2px;
    border-radius: 0;
 }
 
@@ -128,7 +128,7 @@ input:-webkit-autofill:focus {
    height: 150pt;
    margin: 0 auto;
    padding-top: 1rem;
-   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 2px 4px 2px;
+   box-shadow: inset hsla(0, 0%, 0%, 1) 0px 1px 4px 2px;
 }
 
 .contact-form .input-text:focus {
