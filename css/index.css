@@ -54,9 +54,9 @@ canvas {
 /* ========== Common ========== */
 
 h1 {
-  font-family: 'jost', sans-serif;
   font-size: 1rem;
-  color: var(--text);
+  columns: var(--inv);
+  font-weight: 300;
 }
 
 h2 {
@@ -161,6 +161,7 @@ p {
   position: absolute;
   top: 10%;
   left: 30vmin;
+  padding: 0.15vmin 0.75vmin;
   background-image: linear-gradient(to right, var(--text));
 }
 
@@ -172,11 +173,9 @@ p {
   position: absolute;
   bottom: 10%;
   right: 30vmin;
+  padding: 0.15vmin 0.75vmin;
+  color: var(--inv);
   background-image: linear-gradient(to right, var(--text));
-}
-
-.time-display {
-  color: var(--text);
 }
 
 /* ========== Card Slide ========== */
