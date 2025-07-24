@@ -246,6 +246,14 @@ body {
   }
 
   .home #langChenge .inner_label .noise {
+    mask: repeating-radial-gradient(circle at center,
+            #000,
+            var(--lines),
+            #000,
+            0,
+            #0000,
+            calc(var(--lines) * 1.5),
+            #0000 0);
     background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
   }
 }
