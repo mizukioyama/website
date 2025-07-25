@@ -603,7 +603,7 @@
             if (!el) return;
 
             if (diff <= 0) {
-                el.textContent = "開催中！";
+                el.textContent = "OPEN";
                 return;
             }
 
@@ -615,7 +615,7 @@
             const hours = Math.floor((diff % msInDay) / msInHour);
             const minutes = Math.floor((diff % msInHour) / msInMinute);
 
-            el.textContent = `${days}日 ${hours}時間 ${minutes}分`;
+            el.textContent = `${days}D ${hours}H ${minutes}M`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {

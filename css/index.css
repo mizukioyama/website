@@ -332,7 +332,7 @@ p {
 
 .date {
   color: #ddd;
-  font-family: "Roboto Mono", monospace;
+  /*font-family: "Roboto Mono", monospace;*/
   position: absolute;
   width: 100%;
   left: 3%;
@@ -354,8 +354,8 @@ p {
   content: "";
   display: inline-block;
   width: 3rem;
-  margin-right: 0.5rem;
-  border-bottom: 0.1rem solid var(--inv);
+  margin-right: 0.15rem;
+  border-bottom: 1px solid;
   transform: translatey(-0.3rem);
 }
 
@@ -772,16 +772,22 @@ footer,
 }
 
   .date {
+    font-size: 0.85rem;
     letter-spacing: 0.05rem;
     bottom: calc(3% - 0.5rem);
+  }
+
+  .date:before {
+    width: 2rem;
   }
 
   .date__time {
     display: block;
     opacity: 0.5;
     position: absolute;
-    right: 5%;
+    right: 10%;
     bottom: 0;
+    font-size: 0.6rem;
   }
 
   .desc {
