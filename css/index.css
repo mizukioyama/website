@@ -478,6 +478,7 @@ p {
   width: 50%;
   height: 100%;
   margin: 0 auto;
+  pointer-events: none;
 }
 
 .content__slide:nth-child(even) {
