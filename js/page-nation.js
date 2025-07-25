@@ -16,7 +16,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2344", en: "#2344" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202344-1-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -24,7 +24,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2342", en: "#2342" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202342-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -32,7 +32,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2341", en: "#2341" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202341-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -40,7 +40,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2340", en: "#2340" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202340-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -49,7 +49,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2339", en: "#2339" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202339-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -57,7 +57,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2338", en: "#2338" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202338-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -65,6 +65,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "心樹", en: "Shinju" },
             caption: { ja: "展示作品：デジタル", en: "Exhibited works" },
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             text: { ja: "目に見えないエネルギーや波動が、人の心や感覚にどのように伝わり作用するかを主題に据えたシリーズ。物質的な形態を超え、視覚表現を通じて感覚や思考を変容させる設計を意図。作品に込めたエネルギーは、言葉や説明を介さずとも、受け手の無意識に作用し、感情や解釈を揺さぶる装置として機能する。伝達されるものは曖昧で、固定された意味を持たない一方で、観る人の意識を媒介として伝わる。見えない設計図のように構築された作品群は、鑑賞のたびに異なる波動を放ち、時間や距離を超えて感覚の奥深くに残り続けることを目指しています。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital"],
             img: "img/心樹-web.jpg",
@@ -73,7 +74,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2337", en: "#2337" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202337-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -81,7 +82,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2336", en: "#2336" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202336-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -89,7 +90,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2334", en: "#2334" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202334-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -97,7 +98,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2326", en: "#2326" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202326-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -105,7 +106,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2319", en: "#2319" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202319-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -137,7 +138,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2201", en: "#2201" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2022", "Digital"],
             img: "img/202201-web.jpg",
             link: "pages/2024work.html"
@@ -153,7 +154,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2110", en: "#2110" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "映像, 加工", en: "Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202110-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -161,7 +162,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "広縁", en: "Kōen" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "映像, 加工", en: "Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/広縁-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -169,7 +170,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "心境", en: "Shinkyō" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "映像, 加工", en: "Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/心境-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -177,7 +178,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2109", en: "#2109" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202109-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -185,7 +186,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2108", en: "#2108" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202108-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -193,7 +194,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2107", en: "#2107" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202107-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -201,7 +202,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2106", en: "#2106" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202106-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -209,7 +210,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2105", en: "#2105" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202105-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -217,7 +218,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2104", en: "#2104" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202104-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -225,7 +226,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2103", en: "#2103" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202103-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -233,7 +234,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2102", en: "#2102" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202102-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -241,7 +242,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2101", en: "#2101" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+            textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             category: ["2021", "Digital"],
             img: "img/202101-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -451,7 +452,7 @@ function setupCategoryFilter() {
             <div class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
                 <p>${firstLine}<br>Media：${secondLine}</p>
-                <p class="text-content">${truncateText(item.textContent[lang])}</p>
+                <p class="text-content">(${truncateText(item.textContent[lang])})</p>
                 <p>${truncateText(item.caption[lang])}</p>
             </div>
             <div class="modal-text">
