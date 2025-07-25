@@ -234,7 +234,7 @@ body {
 #langChenge .en:hover,
 #langChenge .ja.active,
 #langChenge .en.active {
-  font-weight: 400;
+  font-weight: 500;
   opacity: 1;
 }
 
