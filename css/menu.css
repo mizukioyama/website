@@ -288,7 +288,7 @@ nav .noise {
     .inner {
         width: 100%;
         min-height: 65svh;
-        padding: 1.5rem 2.5rem 0;
+        padding: 2.5rem 2.5rem 0;
     }
 
     .inner ul {
@@ -343,7 +343,7 @@ nav .noise {
     .open #mask li {
         font-size: 0.85rem;
     }
-    
+
     .toggle_btn span {
         bottom: 30px;
         background: #c0c0c0;
