@@ -451,8 +451,10 @@ function setupCategoryFilter() {
             <img src="${item.img}" alt="${item.title[lang]}" style="opacity: 1;">
             <div class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
-                <p>${firstLine}<br>Media：${secondLine}</p>
+                <p>
+                ${firstLine}<br>Media：${secondLine}
                 <span class="text-content">(${truncateText(item.textContent[lang])})</span>
+                </p>
                 <p>${truncateText(item.caption[lang])}</p>
             </div>
             <div class="modal-text">
