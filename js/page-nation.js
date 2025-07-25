@@ -452,10 +452,10 @@ function setupCategoryFilter() {
             <div class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
                 <p>
-                ${firstLine}<br>Media：${secondLine}
+                ${firstLine}<br>Media：${secondLine}<br>
                 <span class="text-content">(${truncateText(item.textContent[lang])})</span>
+                <br>${truncateText(item.caption[lang])}
                 </p>
-                <p>${truncateText(item.caption[lang])}</p>
             </div>
             <div class="modal-text">
             <p>${truncateText(item.text[lang])}</p>
