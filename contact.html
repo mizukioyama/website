@@ -115,301 +115,301 @@
         （自動返信メールが届かない場合はアドレスを確認してから、再度フォームの送信をお願いします。）
       </p>
       <p style="margin-top: 5vmin;">
-For requests and inquiries,
-<br>
-please use the form on this page.
-<br>
-* Replies are generally expected within about a week, but there may be delays due to our circumstances.
-<br>
-* Please make sure to enter a valid email address that can receive messages.
-<br>
-(If you do not receive the automatic reply email, please check your address and resubmit the form.)
+        For requests and inquiries,
+        <br>
+        please use the form on this page.
+        <br>
+        * Replies are generally expected within about a week, but there may be delays due to our circumstances.
+        <br>
+        * Please make sure to enter a valid email address that can receive messages.
+        <br>
+        (If you do not receive the automatic reply email, please check your address and resubmit the form.)
       </p>
     </div>
 
-      <!-- フォーム（そのまま使える） -->
-      <form id="contactForm" class="contact-form"
-        action="https://script.google.com/macros/s/AKfycby6VnCry8KbUvOEA1g137SR5YvkdRI5QgXCq9LUqQWtHWeqWMFIGXn3DA05HryKs5qUCw/exec"
-        method="POST">
+    <!-- フォーム（そのまま使える） -->
+    <form id="contactForm" class="contact-form"
+      action="https://script.google.com/macros/s/AKfycby6VnCry8KbUvOEA1g137SR5YvkdRI5QgXCq9LUqQWtHWeqWMFIGXn3DA05HryKs5qUCw/exec"
+      method="POST">
 
-        <fieldset class="radio-group" required>
-          <input type="radio" id="radio1" name="inquiryType" value="依頼" required>
-          <label for="radio1">request<br>依頼</label>
+      <fieldset class="radio-group" required>
+        <input type="radio" id="radio1" name="inquiryType" value="依頼" required>
+        <label for="radio1">request<br>依頼</label>
 
-          <input type="radio" id="radio2" name="inquiryType" value="問い合わせ">
-          <label for="radio2">inquiry<br>問い合わせ</label>
-        </fieldset>
+        <input type="radio" id="radio2" name="inquiryType" value="問い合わせ">
+        <label for="radio2">inquiry<br>問い合わせ</label>
+      </fieldset>
 
 
-        <div class="form-row">
-          <div class="form-col">
-            <div class="form-field col x-50">
-              <input type="text" id="name_furigana" name="name_furigana" class="input-text" required />
-              <label for="name_furigana" class="label"><span>*</span> Subject（件名）</label>
-            </div>
-
-            <div class="form-field col x-50">
-              <input type="text" id="name" name="name" class="input-text" autocomplete="name" required>
-              <label for="name" class="label"><span>*</span> Name（お名前）</label>
-            </div>
-
-            <div class="form-field col x-50">
-              <input type="email" id="email" name="email" class="input-text" autocomplete="email" required>
-              <label for="email" class="label"><span>*</span> Mail（メールアドレス）</label>
-            </div>
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-field col x-50">
+            <input type="text" id="name_furigana" name="name_furigana" class="input-text" required />
+            <label for="name_furigana" class="label"><span>*</span> Subject（件名）</label>
           </div>
 
-          <div class="form-field col x-100">
-            <textarea id="message" name="message" class="input-text"></textarea>
-            <label for="message" class="label label-text">Remarks（備考）</label>
+          <div class="form-field col x-50">
+            <input type="text" id="name" name="name" class="input-text" autocomplete="name" required>
+            <label for="name" class="label"><span>*</span> Name（お名前）</label>
+          </div>
+
+          <div class="form-field col x-50">
+            <input type="email" id="email" name="email" class="input-text" autocomplete="email" required>
+            <label for="email" class="label"><span>*</span> Mail（メールアドレス）</label>
           </div>
         </div>
 
-        <div class="form-field col align-center">
-          <label>
-            <p>
-              Please check our SitePolicy when using this site.
-              <br>
-              <input type="checkbox" name="consent" value="同意する" required>
-              当Webサイトをご利用の際は, SitePolicy をご確認ください.
-            </p>
-          </label>
-          <label for="modal-toggle" class="modal-open-label">SitePolicy</label>
-          <button type="submit" class="submit-btn">Send</button>
+        <div class="form-field col x-100">
+          <textarea id="message" name="message" class="input-text"></textarea>
+          <label for="message" class="label label-text">Remarks（備考）</label>
         </div>
-      </form>
+      </div>
 
-      <!-- チェックボックスで状態制御 -->
-      <input type="checkbox" id="modal-toggle">
-      <!-- モーダルオーバーレイ -->
-      <div class="modal-overlay"></div>
-      <!-- モーダル本体 -->
-      <div class="modal-box">
-        <h2>Site Policy</h2>
-        <p>
-          当ページは小山瑞樹のPortfolioサイトのご利用についての禁止事項及び注意事項を記載しています。<br>
-          作品の私的ご利用も含めて、作品の取り扱いについての注意事項も記載しているので、必ずご理解の上ご利用をお願いいたします。
-        </p>
-        <p>
-          本ウェブサイト（https://mizukioyama.github.io/以下のディレクトリ。以下「当ウェブサイト」といいます。）をご利用されるお客さまは、以下の内容を十分にお読みください。
-        </p>
-        <p class="modal-en">
-          This page describes the prohibited matters and precautions for using Mizuki Oyama's Portfolio site.
-          <br>
-          Please be sure to understand the precautions for handling the works, including personal use of the works,
-          before using the site.
-        </p>
-
-        <p class="modal-en">
-          Customers who use this website (directory below https://mizukioyama.github.io/. Hereinafter referred to as
-          "this website") should read the following contents carefully.
-        </p>
-
-        <div class="policy">
-
-          <h3>免責事項</h3>
-          
+      <div class="form-field col align-center">
+        <label>
           <p>
-            当ウェブサイトに掲載する情報については、正確性や完全性に細心の注意を払っていますが、その内容について保証するものではありません。<br>
-            掲載された情報に基づいて生じた損害やトラブル等について、小山瑞樹は一切の責任を負いません。<br>
-            内容は予告なく変更・削除されることがあります。
+            Please check our SitePolicy when using this site.
+            <br>
+            <input type="checkbox" name="consent" value="同意する" required>
+            当Webサイトをご利用の際は, SitePolicy をご確認ください.
           </p>
-          
-          <h3 class="modal-en">Disclaimer</h3>
-          <p class="modal-en">
-            While we pay close attention to the accuracy and completeness of the information posted on this website,
-            we do not guarantee its contents. <br>
-            Mizuki Oyama bears no responsibility for any damage or trouble caused by the information posted on this
-            website. <br>
-            The contents may be changed or deleted without notice.
-          </p>
-
-          <h3>著作権および知的財産権</h3>
-          <p>
-            当ウェブサイトに掲載されている文章、写真、画像、ロゴ、動画、デザイン等のコンテンツは、小山瑞樹または正当な権利を有する第三者が著作権その他の知的財産権を有しています。<br>
-            著作権法により認められた場合を除き、小山瑞樹の事前の許可なく、複製・改変・転載・配布・再利用・保存など一切の利用を禁止します。
-          </p>
-          
-          <h3 class="modal-en">Copyright and Intellectual Property Rights</h3>
-          <p class="modal-en">
-            The contents of this website, including text, photos, images, logos, videos, and designs, are
-            copyrighted and owned by Mizuki Oyama or third parties with legitimate rights. <br>
-            Any use, including copying, modification, reprinting, distribution, reuse, and storage, is prohibited
-            without Mizuki Oyama's prior permission, except as permitted by copyright law.
-          </p>
-
-          <h3>禁止行為</h3>
-          <p>
-            ・当ウェブサイトの内容を、無断で保存・転載・転用する行為<br>
-            ・当ウェブサイトに掲載されているコンテンツを名誉や信用を毀損する目的で使用する行為<br>
-            ・小山瑞樹本人の許可なく、作品や情報を私的利用の範囲を超えて利用する行為<br>
-            <strong>※特に「文章・画像を含む当サイトのデータを保存しないでください」。</strong>
-          </p>
-
-          <h3 class="modal-en">Prohibited Acts</h3>
-          <p class="modal-en">
-            ・Saving, reprinting, or reusing the contents of this website without permission<br>
-            ・Using the content of this website for the purpose of damaging the reputation or credibility<br>
-            ・Using works or information beyond the scope of personal use without Mizuki Oyama's permission<br>
-            <strong>*In particular, "Do not save data from this website, including text and images." </strong>
-          </p>
-
-          <h3>リンクについて</h3>
-          <p>
-            当ウェブサイトへのリンクは、営利・非営利を問わず原則として自由です。<br>
-            ただし、以下のいずれかに該当する場合、リンクの削除を求めたり、法的措置を講じることがあります。
-          </p>
-          <ul>
-            <li>小山瑞樹または第三者を誹謗中傷する内容、信用を毀損する意図のある内容を含むウェブサイト</li>
-            <li>小山瑞樹または第三者の著作権・商標権・プライバシー権・肖像権などの権利を侵害する、またはそのおそれのあるウェブサイト</li>
-          </ul>
-
-          <h3 class="modal-en">About Links</h3>
-          <p class="modal-en">
-            In principle, links to this website are free, whether for commercial or non-commercial purposes. <br>
-            However, if any of the following applies, we may request the removal of the link or take legal action.
-          </p>
-          <ul>
-            <li>Websites that contain content that slanders or libels Mizuki Oyama or third parties, or content
-              intended to damage their credibility.</li>
-            <li>Websites that infringe or are likely to infringe on the copyright, trademark, privacy, or portrait
-              rights of Mizuki Oyama or third parties.</li>
-          </ul>
-
-          <hr>
-
-          <h2 style="margin-top: 3rem;">Privacy Policy</h2>
-
-          <h3 style="margin: 0;">基本的考え方</h3>
-          <p>
-            当ウェブサイトでは、円滑なサービス提供のため、必要な範囲で個人情報を収集することがあります。収集した情報は利用目的の範囲内で適切に管理・使用します。
-          </p>
-          
-          <h3 class="modal-en" style="margin: 0;">Basic Policy</h3>
-          <p class="modal-en">
-            This website may collect personal information to the extent necessary to provide smooth service. The
-            collected information will be managed and used appropriately within the scope of the purpose of use.
-          </p>
-
-          <h3>収集する個人情報の範囲</h3>
-          <p>
-            氏名、メールアドレスなど、特定の個人を識別可能な情報が含まれます。
-          </p>
-
-          <h3 class="modal-en">Scope of personal information collected</h3>
-          <p class="modal-en">
-            Includes information that can identify a specific individual, such as name and email address.
-          </p>
-
-          <h3>利用目的</h3>
-          <p>
-            サービス提供、お問い合わせへの対応、確認のご連絡など、運営上必要な目的で使用します。
-          </p>
-
-          <h3 class="modal-en">Purpose of use</h3>
-          <p class="modal-en">
-            Used for operational purposes such as providing services, responding to inquiries, and contacting you
-            for confirmation.
-          </p>
-
-          <h3>利用および提供の制限</h3>
-          <p>
-            法令に基づく場合や不正アクセスなど正当な理由がある場合を除き、目的外の利用や第三者への提供はいたしません。
-          </p>
-
-          <h3 class="modal-en">Restrictions on use and provision</h3>
-          <p class="modal-en">
-            Except in cases based on laws and regulations or where there is a legitimate reason such as unauthorized
-            access, we will not use it for any other purpose or provide it to a third party.
-          </p>
-
-          <h3>安全確保の措置</h3>
-          <p>
-            個人情報の漏洩・滅失・毀損の防止に必要な措置を講じ、委託先にも同様の安全管理を徹底させます。
-          </p>
-
-          <h3 class="modal-en">Measures to ensure safety</h3>
-          <p class="modal-en">
-            We will take necessary measures to prevent the leakage, loss, and damage of personal information, and
-            will ensure that our subcontractors also implement similar safety management.
-          </p>
-
-          <h3>個人情報の開示・訂正・削除</h3>
-          <p>
-            ご本人からの請求があった場合には、適切な方法で対応いたします。
-          </p>
-
-          <h3 class="modal-en">Disclosure, correction, and deletion of personal information</h3>
-          <p class="modal-en">
-            If there is a request from the person in question, we will respond in an appropriate manner.
-          </p>
-
-          <h3>適用範囲</h3>
-          <p>
-            本ポリシーは、当ウェブサイトにおいてのみ適用されます。他サイトではそれぞれの規定に従ってください。
-          </p>
-
-          <h3 class="modal-en">Scope</h3>
-          <p class="modal-en">
-            This policy applies only to this website. Please follow the respective regulations for other websites.
-          </p>
-
-          <h3>お問い合わせ先</h3>
-          <p>
-            個人情報の取り扱いや本ポリシーに関するご質問は、当ウェブサイト内のコンタクトページからお問い合わせください。
-          </p>
-
-          <h3 class="modal-en">Contact Information</h3>
-          <p class="modal-en">
-            If you have any questions about the handling of personal information or this policy, please contact us
-            via the contact page on this website.
-          </p>
-
-          <h3>プライバシーポリシーの変更</h3>
-          <p>
-            必要に応じて本ポリシーを予告なく変更することがあります。
-          </p>
-
-          <h3 class="modal-en">Changes to Privacy Policy</h3>
-          <p class="modal-en">
-            This policy may be changed without notice as necessary.
-          </p>
-        </div>
-        <hr>
-        <p>
-          Site Policyを確認しました。
-        </p>
-        <p class="modal-en">
-          I have checked the site policy.
-        </p>
-
-        <label for="modal-toggle" class="button modal-close-label">
-          Close
         </label>
+        <label for="modal-toggle" class="modal-open-label">SitePolicy</label>
+        <button type="submit" class="submit-btn">Send</button>
       </div>
+    </form>
+
+    <!-- チェックボックスで状態制御 -->
+    <input type="checkbox" id="modal-toggle">
+    <!-- モーダルオーバーレイ -->
+    <div class="modal-overlay"></div>
+    <!-- モーダル本体 -->
+    <div class="modal-box">
+      <h2>Site Policy</h2>
+      <p>
+        当ページは小山瑞樹のPortfolioサイトのご利用についての禁止事項及び注意事項を記載しています。<br>
+        作品の私的ご利用も含めて、作品の取り扱いについての注意事項も記載しているので、必ずご理解の上ご利用をお願いいたします。
+      </p>
+      <p>
+        本ウェブサイト（https://mizukioyama.github.io/以下のディレクトリ。以下「当ウェブサイト」といいます。）をご利用されるお客さまは、以下の内容を十分にお読みください。
+      </p>
+      <p class="modal-en">
+        This page describes the prohibited matters and precautions for using Mizuki Oyama's Portfolio site.
+        <br>
+        Please be sure to understand the precautions for handling the works, including personal use of the works,
+        before using the site.
+      </p>
+
+      <p class="modal-en">
+        Customers who use this website (directory below https://mizukioyama.github.io/. Hereinafter referred to as
+        "this website") should read the following contents carefully.
+      </p>
+
+      <div class="policy">
+
+        <h3>免責事項</h3>
+
+        <p>
+          当ウェブサイトに掲載する情報については、正確性や完全性に細心の注意を払っていますが、その内容について保証するものではありません。<br>
+          掲載された情報に基づいて生じた損害やトラブル等について、小山瑞樹は一切の責任を負いません。<br>
+          内容は予告なく変更・削除されることがあります。
+        </p>
+
+        <h3 class="modal-en">Disclaimer</h3>
+        <p class="modal-en">
+          While we pay close attention to the accuracy and completeness of the information posted on this website,
+          we do not guarantee its contents. <br>
+          Mizuki Oyama bears no responsibility for any damage or trouble caused by the information posted on this
+          website. <br>
+          The contents may be changed or deleted without notice.
+        </p>
+
+        <h3>著作権および知的財産権</h3>
+        <p>
+          当ウェブサイトに掲載されている文章、写真、画像、ロゴ、動画、デザイン等のコンテンツは、小山瑞樹または正当な権利を有する第三者が著作権その他の知的財産権を有しています。<br>
+          著作権法により認められた場合を除き、小山瑞樹の事前の許可なく、複製・改変・転載・配布・再利用・保存など一切の利用を禁止します。
+        </p>
+
+        <h3 class="modal-en">Copyright and Intellectual Property Rights</h3>
+        <p class="modal-en">
+          The contents of this website, including text, photos, images, logos, videos, and designs, are
+          copyrighted and owned by Mizuki Oyama or third parties with legitimate rights. <br>
+          Any use, including copying, modification, reprinting, distribution, reuse, and storage, is prohibited
+          without Mizuki Oyama's prior permission, except as permitted by copyright law.
+        </p>
+
+        <h3>禁止行為</h3>
+        <p>
+          ・当ウェブサイトの内容を、無断で保存・転載・転用する行為<br>
+          ・当ウェブサイトに掲載されているコンテンツを名誉や信用を毀損する目的で使用する行為<br>
+          ・小山瑞樹本人の許可なく、作品や情報を私的利用の範囲を超えて利用する行為<br>
+          <strong>※特に「文章・画像を含む当サイトのデータを保存しないでください」。</strong>
+        </p>
+
+        <h3 class="modal-en">Prohibited Acts</h3>
+        <p class="modal-en">
+          ・Saving, reprinting, or reusing the contents of this website without permission<br>
+          ・Using the content of this website for the purpose of damaging the reputation or credibility<br>
+          ・Using works or information beyond the scope of personal use without Mizuki Oyama's permission<br>
+          <strong>*In particular, "Do not save data from this website, including text and images." </strong>
+        </p>
+
+        <h3>リンクについて</h3>
+        <p>
+          当ウェブサイトへのリンクは、営利・非営利を問わず原則として自由です。<br>
+          ただし、以下のいずれかに該当する場合、リンクの削除を求めたり、法的措置を講じることがあります。
+        </p>
+        <ul>
+          <li>小山瑞樹または第三者を誹謗中傷する内容、信用を毀損する意図のある内容を含むウェブサイト</li>
+          <li>小山瑞樹または第三者の著作権・商標権・プライバシー権・肖像権などの権利を侵害する、またはそのおそれのあるウェブサイト</li>
+        </ul>
+
+        <h3 class="modal-en">About Links</h3>
+        <p class="modal-en">
+          In principle, links to this website are free, whether for commercial or non-commercial purposes. <br>
+          However, if any of the following applies, we may request the removal of the link or take legal action.
+        </p>
+        <ul>
+          <li>Websites that contain content that slanders or libels Mizuki Oyama or third parties, or content
+            intended to damage their credibility.</li>
+          <li>Websites that infringe or are likely to infringe on the copyright, trademark, privacy, or portrait
+            rights of Mizuki Oyama or third parties.</li>
+        </ul>
+
+        <hr>
+
+        <h2 style="margin-top: 3rem;">Privacy Policy</h2>
+
+        <h3 style="margin: 0;">基本的考え方</h3>
+        <p>
+          当ウェブサイトでは、円滑なサービス提供のため、必要な範囲で個人情報を収集することがあります。収集した情報は利用目的の範囲内で適切に管理・使用します。
+        </p>
+
+        <h3 class="modal-en" style="margin: 0;">Basic Policy</h3>
+        <p class="modal-en">
+          This website may collect personal information to the extent necessary to provide smooth service. The
+          collected information will be managed and used appropriately within the scope of the purpose of use.
+        </p>
+
+        <h3>収集する個人情報の範囲</h3>
+        <p>
+          氏名、メールアドレスなど、特定の個人を識別可能な情報が含まれます。
+        </p>
+
+        <h3 class="modal-en">Scope of personal information collected</h3>
+        <p class="modal-en">
+          Includes information that can identify a specific individual, such as name and email address.
+        </p>
+
+        <h3>利用目的</h3>
+        <p>
+          サービス提供、お問い合わせへの対応、確認のご連絡など、運営上必要な目的で使用します。
+        </p>
+
+        <h3 class="modal-en">Purpose of use</h3>
+        <p class="modal-en">
+          Used for operational purposes such as providing services, responding to inquiries, and contacting you
+          for confirmation.
+        </p>
+
+        <h3>利用および提供の制限</h3>
+        <p>
+          法令に基づく場合や不正アクセスなど正当な理由がある場合を除き、目的外の利用や第三者への提供はいたしません。
+        </p>
+
+        <h3 class="modal-en">Restrictions on use and provision</h3>
+        <p class="modal-en">
+          Except in cases based on laws and regulations or where there is a legitimate reason such as unauthorized
+          access, we will not use it for any other purpose or provide it to a third party.
+        </p>
+
+        <h3>安全確保の措置</h3>
+        <p>
+          個人情報の漏洩・滅失・毀損の防止に必要な措置を講じ、委託先にも同様の安全管理を徹底させます。
+        </p>
+
+        <h3 class="modal-en">Measures to ensure safety</h3>
+        <p class="modal-en">
+          We will take necessary measures to prevent the leakage, loss, and damage of personal information, and
+          will ensure that our subcontractors also implement similar safety management.
+        </p>
+
+        <h3>個人情報の開示・訂正・削除</h3>
+        <p>
+          ご本人からの請求があった場合には、適切な方法で対応いたします。
+        </p>
+
+        <h3 class="modal-en">Disclosure, correction, and deletion of personal information</h3>
+        <p class="modal-en">
+          If there is a request from the person in question, we will respond in an appropriate manner.
+        </p>
+
+        <h3>適用範囲</h3>
+        <p>
+          本ポリシーは、当ウェブサイトにおいてのみ適用されます。他サイトではそれぞれの規定に従ってください。
+        </p>
+
+        <h3 class="modal-en">Scope</h3>
+        <p class="modal-en">
+          This policy applies only to this website. Please follow the respective regulations for other websites.
+        </p>
+
+        <h3>お問い合わせ先</h3>
+        <p>
+          個人情報の取り扱いや本ポリシーに関するご質問は、当ウェブサイト内のコンタクトページからお問い合わせください。
+        </p>
+
+        <h3 class="modal-en">Contact Information</h3>
+        <p class="modal-en">
+          If you have any questions about the handling of personal information or this policy, please contact us
+          via the contact page on this website.
+        </p>
+
+        <h3>プライバシーポリシーの変更</h3>
+        <p>
+          必要に応じて本ポリシーを予告なく変更することがあります。
+        </p>
+
+        <h3 class="modal-en">Changes to Privacy Policy</h3>
+        <p class="modal-en">
+          This policy may be changed without notice as necessary.
+        </p>
+      </div>
+      <hr>
+      <p>
+        Site Policyを確認しました。
+      </p>
+      <p class="modal-en">
+        I have checked the site policy.
+      </p>
+
+      <label for="modal-toggle" class="button modal-close-label">
+        Close
+      </label>
+    </div>
 
 
-      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-      <!-- modal -->
-      <div id="thanksModal" class="modal">
-        <div class="modal-content">
-          <span class="close">Close</span>
-          <p>
-            お問い合わせありがとうございます.
-            <br>
-            内容の確認ができ次第登録アドレスに回答を返信いたします.
-            <br>
-            ※返信まで1日～2日ほどかかる場合があります.
-          </p>
-          <p>
-            Thank you for your inquiry.
-            <br>
-            We will reply to your registered address as soon as we can confirm the details.
-            <br>
-            *It may take 1 to 2 days for a response.
-          </p>
-        </div>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <!-- modal -->
+    <div id="thanksModal" class="modal">
+      <div class="modal-content">
+        <span class="close">Close</span>
+        <p>
+          お問い合わせありがとうございます.
+          <br>
+          内容の確認ができ次第登録アドレスに回答を返信いたします.
+          <br>
+          ※返信まで1日～2日ほどかかる場合があります.
+        </p>
+        <p>
+          Thank you for your inquiry.
+          <br>
+          We will reply to your registered address as soon as we can confirm the details.
+          <br>
+          *It may take 1 to 2 days for a response.
+        </p>
       </div>
+    </div>
 
   </main>
 
@@ -425,6 +425,7 @@ please use the form on this page.
       position: relative;
       display: block;
     }
+
     .modal-open-label:hover,
     .modal-open-label:active {
       opacity: 1;
@@ -436,6 +437,7 @@ please use the form on this page.
       left: 0;
       background-color: var(--inv);
     }
+
     #contact .modal-open-label:hover::before {
       width: 100%;
     }
@@ -514,15 +516,18 @@ please use the form on this page.
       visibility: visible;
       transform: translate(-50%, 40%);
     }
-h3.modal-en {
-    margin: 0;
-    font-size: 1rem;
-    margin-bottom: 0.2vmin;
-}
-p.modal-en {
-    font-size: 0.8rem !important;
-    line-height: 1.5;
-}
+
+    h3.modal-en {
+      font-size: 1rem;
+      margin-top: 1vmin;
+      margin-bottom: 0.2vmin;
+    }
+
+    p.modal-en {
+      font-size: 0.8rem !important;
+      line-height: 1.5;
+    }
+
     @media screen and (max-width: 599px) {
       #modal-toggle:checked~.modal-box {
         transform: translate(-50%, 50vmin);
@@ -538,27 +543,28 @@ p.modal-en {
         font-size: 0.8rem;
         letter-spacing: 0.05rem;
       }
+
       p.modal-en {
-    font-size: 0.65rem !important;
-    line-height: 1.5;
-}
+        font-size: 0.65rem !important;
+        line-height: 1.5;
+      }
     }
   </style>
 
-<script>
-VANTA.TRUNK({
-  el: "#vanta-bg-bio",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 0.70,
-  color: 0xffffff,
-  chaos: 2.50
-})
-</script>
+  <script>
+    VANTA.TRUNK({
+      el: "#vanta-bg-bio",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 0.70,
+      color: 0xffffff,
+      chaos: 2.50
+    })
+  </script>
 </body>
 
 </html>
