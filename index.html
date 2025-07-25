@@ -146,7 +146,7 @@
                     </span>
                     <span class="date">
                         2010 to present
-                        <span class="date__time" id="elapsed-time">00:00PM</span>
+                        <span class="date__time" id="elapsed-time-1">00:00PM</span>
                     </span>
                 </div>
                 <div class="card__slide">
@@ -155,9 +155,9 @@
                         02
                     </span>
                     <span class="date">
-  Look forward to it
-  <span class="date__time" id="countdown">00:00PM</span>
-</span>
+                        Look forward to it
+                        <span class="date__time" id="countdown-2">00:00PM</span>
+                    </span>
 
                 </div>
                 <div class="content">
@@ -179,7 +179,8 @@
                             It mainly features introductions to works and the artist's profile.
                             For inquiries regarding the works, please contact us via the form on the Contact page.
                             <br>
-                            *Please note: All data on this site (texts, images, etc..) is not to be saved, reproduced, or used without permission.
+                            *Please note: All data on this site (texts, images, etc..) is not to be saved, reproduced,
+                            or used without permission.
                         </p>
                         <div class="button-wrap">
                             <a href="#" class="button">
@@ -564,73 +565,66 @@
         })
     </script>
 
-<script>
-  function updateElapsedTime() {
-    const startDate = new Date('2024-05-01T00:00:00'); // 制作開始日
-    const now = new Date();
+    <script>
+        function updateElapsedTime() {
+            const startDate = new Date('2024-05-01T00:00:00');
+            const now = new Date();
 
-    let diff = now - startDate; // ミリ秒差
+            let diff = now - startDate;
 
-    const msInMinute = 1000 * 60;
-    const msInHour = msInMinute * 60;
-    const msInDay = msInHour * 24;
-    const msInMonth = msInDay * 30.44;
-    const msInYear = msInDay * 365.25;
+            const msInMinute = 1000 * 60;
+            const msInHour = msInMinute * 60;
+            const msInDay = msInHour * 24;
+            const msInMonth = msInDay * 30.44;
+            const msInYear = msInDay * 365.25;
 
-    const years = Math.floor(diff / msInYear);
-    diff %= msInYear;
-    const months = Math.floor(diff / msInMonth);
-    diff %= msInMonth;
-    const days = Math.floor(diff / msInDay);
-    diff %= msInDay;
-    const hours = Math.floor(diff / msInHour);
-    diff %= msInHour;
-    const minutes = Math.floor(diff / msInMinute);
+            const years = Math.floor(diff / msInYear);
+            diff %= msInYear;
+            const months = Math.floor(diff / msInMonth);
+            diff %= msInMonth;
+            const days = Math.floor(diff / msInDay);
+            diff %= msInDay;
+            const hours = Math.floor(diff / msInHour);
+            diff %= msInHour;
+            const minutes = Math.floor(diff / msInMinute);
 
-    const result = `${years}Year ${months}Month ${days}Day ${hours}Time ${minutes}Minute`;
+            const result = `${years}Y ${months}M ${days}D ${hours}H ${minutes}Min`;
+            const el = document.getElementById('elapsed-time-1');
+            if (el) el.textContent = result;
+        }
 
-    const el = document.getElementById('elapsed-time');
-    if (el) {
-      el.textContent = result;
-    }
-  }
+        function updateCountdown() {
+            const targetDate = new Date('2025-12-25T00:00:00');
+            const now = new Date();
 
-  // DOMが読み込まれてから実行
-  document.addEventListener('DOMContentLoaded', function () {
-    updateElapsedTime();
-    setInterval(updateElapsedTime, 60000);
-  });
-</script>
+            const diff = targetDate - now;
 
-<script>
-  function updateCountdown() {
-    const targetDate = new Date('2025-12-25T00:00:00'); // 展示会開始日
-    const now = new Date();
+            const el = document.getElementById('countdown-2');
+            if (!el) return;
 
-    const diff = targetDate - now;
+            if (diff <= 0) {
+                el.textContent = "開催中！";
+                return;
+            }
 
-    if (diff <= 0) {
-      document.getElementById('countdown').textContent = "開催中！";
-      return;
-    }
+            const msInMinute = 1000 * 60;
+            const msInHour = msInMinute * 60;
+            const msInDay = msInHour * 24;
 
-    const msInMinute = 1000 * 60;
-    const msInHour = msInMinute * 60;
-    const msInDay = msInHour * 24;
+            const days = Math.floor(diff / msInDay);
+            const hours = Math.floor((diff % msInDay) / msInHour);
+            const minutes = Math.floor((diff % msInHour) / msInMinute);
 
-    const days = Math.floor(diff / msInDay);
-    const hours = Math.floor((diff % msInDay) / msInHour);
-    const minutes = Math.floor((diff % msInHour) / msInMinute);
+            el.textContent = `${days}日 ${hours}時間 ${minutes}分`;
+        }
 
-    document.getElementById('countdown').textContent = `${days}日 ${hours}時間 ${minutes}分`;
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    updateCountdown();
-    setInterval(updateCountdown, 60000); // 1分ごとに更新
-  });
-</script>
-
+        document.addEventListener('DOMContentLoaded', () => {
+            updateElapsedTime();
+            updateCountdown();
+            setInterval(updateElapsedTime, 60000);
+            setInterval(updateCountdown, 60000);
+        });
+    </script>
 
 
 </body>
