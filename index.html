@@ -129,9 +129,9 @@
                             AbstractArtist / MizukiOyama
                         </h1>
                     </div>
-                    <!--<div class="time">
+                    <div class="time">
                         Japan Tokyo Time: <span id="tokyo-time" class="time-display"></span>
-                    </div>-->
+                    </div>
                 </div>
             </div>
 
@@ -147,7 +147,7 @@
                     <span class="date">
                         2010 to present
                         <span class="date__time">
-                            <span id="tokyo-time" class="time-display"></span>
+                            00:00PM
                         </span>
                     </span>
                 </div>
@@ -566,6 +566,40 @@
             zoom: 0.80
         })
     </script>
+
+<script>
+  function updateElapsedTime() {
+    const startDate = new Date('2024-05-01T00:00:00'); // 制作開始日
+    const now = new Date();
+
+    let diff = now - startDate; // ミリ秒差
+
+    const msInSecond = 1000;
+    const msInMinute = msInSecond * 60;
+    const msInHour = msInMinute * 60;
+    const msInDay = msInHour * 24;
+    const msInMonth = msInDay * 30.44; // 平均的な月日数
+    const msInYear = msInDay * 365.25;
+
+    const years = Math.floor(diff / msInYear);
+    diff %= msInYear;
+    const months = Math.floor(diff / msInMonth);
+    diff %= msInMonth;
+    const days = Math.floor(diff / msInDay);
+    diff %= msInDay;
+    const hours = Math.floor(diff / msInHour);
+    diff %= msInHour;
+    const minutes = Math.floor(diff / msInMinute);
+
+    const result = `${years}Year ${months}Month ${days}Day ${hours}Time ${minutes}Minute`;
+    document.getElementById('elapsed-time').textContent = result;
+  }
+
+  // 初回と1分ごとに更新
+  updateElapsedTime();
+  setInterval(updateElapsedTime, 60000);
+</script>
+
 </body>
 
 </html>
