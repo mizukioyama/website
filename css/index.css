@@ -160,7 +160,7 @@ p {
   position: absolute;
   top: 10%;
   left: 30vmin;
-  padding: 0.15vmin 0.75vmin;
+  padding: 0.15vmin 0.75vmin 0.25vmin;
   color: var(--inv);
   background-image: linear-gradient(to right, var(--text));
 }
@@ -173,7 +173,7 @@ p {
   position: absolute;
   bottom: 10%;
   right: 30vmin;
-  padding: 0.15vmin 0.75vmin;
+  padding: 0.15vmin 0.75vmin 0.25vmin;
   color: var(--inv);
   background-image: linear-gradient(to right, var(--text));
 }
