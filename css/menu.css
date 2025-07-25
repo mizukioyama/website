@@ -340,6 +340,10 @@ nav .noise {
         left: 0;
     }
 
+    .open #mask li {
+        font-size: 0.85rem;
+    }
+    
     .toggle_btn span {
         bottom: 30px;
         background: #c0c0c0;

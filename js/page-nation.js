@@ -456,9 +456,9 @@ function setupCategoryFilter() {
             <p>${truncateText(item.text[lang])}</p>
             <a href="${item.link || '#'}" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
             <p>
-            作品「${item.title[lang]}」についてのお問合せは当WebサイトのContactフォームからお問い合わせください。
+            作品「${item.title[lang]}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。
             <br>
-            For inquiries about the work "${item.title[lang]}", please contact us using the contact form on this website.
+            For inquiries about the work "${item.title[lang]}", please contact us using the form on the Contact page of this website.
             </p>
             <a href="contact.html" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;">Contact</a>
             </div>
