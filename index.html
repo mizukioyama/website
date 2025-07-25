@@ -155,9 +155,10 @@
                         02
                     </span>
                     <span class="date">
-                        Look forward to it
-                        <span class="date__time" id="elapsed-time">00:00PM</span>
-                    </span>
+  Look forward to it
+  <span class="date__time" id="countdown">00:00PM</span>
+</span>
+
                 </div>
                 <div class="content">
                     <div class="content__slide active">
@@ -600,6 +601,36 @@
     setInterval(updateElapsedTime, 60000);
   });
 </script>
+
+<script>
+  function updateCountdown() {
+    const targetDate = new Date('2025-12-25T00:00:00'); // 展示会開始日
+    const now = new Date();
+
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').textContent = "開催中！";
+      return;
+    }
+
+    const msInMinute = 1000 * 60;
+    const msInHour = msInMinute * 60;
+    const msInDay = msInHour * 24;
+
+    const days = Math.floor(diff / msInDay);
+    const hours = Math.floor((diff % msInDay) / msInHour);
+    const minutes = Math.floor((diff % msInHour) / msInMinute);
+
+    document.getElementById('countdown').textContent = `${days}日 ${hours}時間 ${minutes}分`;
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    updateCountdown();
+    setInterval(updateCountdown, 60000); // 1分ごとに更新
+  });
+</script>
+
 
 
 </body>

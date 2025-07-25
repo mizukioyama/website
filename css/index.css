@@ -345,7 +345,9 @@ p {
 }
 
 .date__time {
-  opacity: 0.5;
+  opacity: 0.75;
+  font-size: 0.7rem;
+  letter-spacing: 0.05rem;
 }
 
 .date:before {
