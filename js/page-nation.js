@@ -469,11 +469,11 @@ function setupCategoryFilter() {
                 <span class="text-content">(${truncateText(item.textContent[lang])})</span>
                 <br>${truncateText(item.caption[lang])}
                 </p>
-                <p class="noise cg-text" style="font-weight: 500; position: relative; top: 1rem; left: 0; width: fit-content; border-bottom: 1px solid;">
+                <p class="noise cg-text" style="font-weight: 500; position: relative; top: 0rem; left: 0; width: fit-content; border-bottom: 1px solid;">
                 Category | ${secondLine}
                 </p>
             </div>
-            <img src="${item.ImageData}" alt="${item.title[lang]}" style="opacity: 1;">
+            <img src="${item.ImageData}" alt="${item.title[lang]}" style="margin: 5vmin auto; opacity: 1;">
             <div class="modal-text">
             <p>${truncateText(item.text[lang])}</p>
             <a href="${item.link || '#'}" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
@@ -483,8 +483,8 @@ function setupCategoryFilter() {
             For inquiries about the work, please contact us using the form on the Contact page of this website.
             </p>
             <a href="contact.html" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;">Contact</a>
-            </div>
             <button id="modalCloseBtn">Close</button>
+            </div>
         </div>
     `;
 
