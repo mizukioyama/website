@@ -480,7 +480,7 @@ function setupCategoryFilter() {
             <p>
             作品「${item.title[lang]}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。
             <br>
-            For inquiries about the work "${item.title[en]}", please contact us using the form on the Contact page of this website.
+            For inquiries about the work, please contact us using the form on the Contact page of this website.
             </p>
             <a href="contact.html" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;">Contact</a>
             </div>
