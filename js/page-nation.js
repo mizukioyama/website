@@ -17,7 +17,7 @@ function setupCategoryFilter() {
             //gallery img
             img: "img/蒼想-web.jpg",
             //modal img
-            ImageData: "img/海底-web.jpg",
+            ImageData: "img/202343-2.jpg",
             //リンクは販売している作品のみにする？
             link: "pages/2024work.html"
         },//Unreleased
