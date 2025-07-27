@@ -537,7 +537,7 @@ main {
     line-height: 1.2;
 }
 
-.work-img {
+#gallery-container .work-img {
     position: relative;
     display: grid;
     max-width: 450px;

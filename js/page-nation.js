@@ -4,14 +4,21 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
+            //title
             title: { ja: "蒼想", en: "Sōsō / Soso" },
+            //展示、未展示
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            //caption: { ja: "青が喚起する未来や希望のイメージに、あえて冷たさや距離感を織り交ぜることで、感情の安易な誘導を避けている。観る人の意識が作品に触れた瞬間、見えない波動が静かに作用し、思考や視点にゆるやかな変化をもたらすよう設計。本作は、時間を超えて働きかける「感覚の設計図」として存在している。思いや意図は、言葉にすることで確かに伝わる。一方で、波動やエネルギーは可視化できず、感じ取れる人にしか届かない。それでも、言葉がなくとも“何か”が伝わる感覚は、確かに存在する。果たして、永く残るのは明確な言語なのか、それとも目に見えない感覚なのか。本作は、その問いを視覚的に構成し、見る人の内側に静かに働きかける。", en: "By deliberately interweaving coldness and distance into the images of future and hope evoked by the color blue, the artist avoids easy emotional manipulation.The moment the viewer's consciousness comes into contact with the work, invisible vibrations quietly act, bringing about a gradual change in their thinking and perspective.This work exists as a 'blueprint for the senses' that works across time.Thoughts and intentions can certainly be communicated by putting them into words.On the other hand, vibrations and energy cannot be visualized, and can only be reached by those who can feel them.Even so, there is certainly a sense that can convey 'something' even without words.Is it clear language that lingers for the longest, or an invisible sensation?This work visually constructs this question, quietly working on the viewer's inner self." },
-            text: { ja: "僕は作品を制作する上で、「Nature Inspire」を根源に据えています。その中でこの作品は、「エネルギー伝達の設計」をテーマに制作しています。", en: "I base my work on 'Nature Inspire,' and this piece was created with the theme of 'energy transmission design.'" },
+            //制作について、キャプション
+            text: { ja: "小山瑞樹は作品を制作する上で、「Nature Inspire」を根源に据えています。その中でこの作品は、「エネルギー伝達の設計」をテーマに制作しています。", en: "I base my work on 'Nature Inspire,' and this piece was created with the theme of 'energy transmission design.'" },
+            //制作 年、ジャンル
             category: ["2024", "Paint"],
+            //作法
             textContent: { ja: "油絵具, 水彩, アクリル, キャンバス, オーダー", en: "Oil paint, watercolor, acrylic, canvas, order" },
+            //gallery img
             img: "img/蒼想-web.jpg",
+            //modal img
             ImageData: "img/海底-web.jpg",
+            //リンクは販売している作品のみにする？
             link: "pages/2024work.html"
         },//Unreleased
         {
@@ -455,25 +462,25 @@ function setupCategoryFilter() {
 
         modalBox.innerHTML = `
         <div class="work-img">
-                    <div class="works" href="${item.link || '#'}" rel="noopener">
+            <div class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
                 <p>
                 ${firstLine}<br>Media：${secondLine}<br>
                 <span class="text-content">(${truncateText(item.textContent[lang])})</span>
                 <br>${truncateText(item.caption[lang])}
                 </p>
+                <p class="noise cg-text" style="font-weight: 500; position: relative; top: 1rem; left: 0; width: fit-content; border-bottom: 1px solid;">
+                Category | ${secondLine}
+                </p>
             </div>
             <img src="${item.ImageData}" alt="${item.title[lang]}" style="opacity: 1;">
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: -1rem; left: 0; width: fit-content; border-bottom: 1px solid;">
-                Category | ${secondLine}
-            </p>
             <div class="modal-text">
             <p>${truncateText(item.text[lang])}</p>
             <a href="${item.link || '#'}" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
             <p>
             作品「${item.title[lang]}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。
             <br>
-            For inquiries about the work "${item.title[lang]}", please contact us using the form on the Contact page of this website.
+            For inquiries about the work "${item.title[en]}", please contact us using the form on the Contact page of this website.
             </p>
             <a href="contact.html" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;">Contact</a>
             </div>
