@@ -298,6 +298,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1701", en: "#1701" },
             caption: { ja: "未発表作品｜Category：Collage", en: "Unpublished Works｜Category：Collage" },
+            textContent: { ja: "コラージュ, 画用紙", en: "Collage, Drawing paper" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "This is a piece that I worked on as an assignment after entering a vocational school's design department. I focused on the visual change of 'how it looks' by tearing a piece of paper and recomposing it. Through the simple act of tearing and pasting, I explored new expressions and relationships of the material. By tinkering with the everyday material of paper, this piece attempted to free itself from fixed images." },
             category: ["2010-2017", "Collage"],
             img: "img/201701-web.jpg",
@@ -306,6 +307,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "海底", en: "Kaitei" },
             caption: { ja: "未発表作品 Certified", en: "Unpublished Works" },
+            textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校3年次制作。<br>当初は「冬」をテーマに描き始めたが、完成した作品を改めて見つめたとき、深海を連想させるような印象を受けたため「海底」と改題。深海に差し込むような白い光や、感情が色彩として混ざり合うような表現を通して、内面の静けさや揺らぎを描いた一枚。見る者によって異なる景色が立ち現れる、抽象的な感覚表現を目指した。<br>本作は、日本・モンゴル外交関係樹立50周年記念事業認定より公式認定を受けています。", en: "Created in the third year of high school. <br>Initially, he started painting with the theme of 'winter', but when he looked at the finished work again, he was reminded of the deep sea, so he renamed it 'Undersea'. This piece depicts inner tranquility and fluctuation through the expression of white light shining into the deep sea and emotions mixed together as colors. He aimed for an abstract sensory expression that will reveal different scenes depending on the viewer. <br>This work has been officially certified as part of the 50th anniversary of the establishment of diplomatic relations between Japan and Mongolia." },
             category: ["2010-2017", "Paint"],
             img: "img/海底-web.jpg",
@@ -314,6 +316,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "無題", en: "Mudai" },
             caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校3年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
             img: "img/2016無題-web.jpg",
@@ -322,6 +325,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1504", en: "#1504" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
+            textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校2年次制作。", en: "" },
             category: ["2010-2017", "Paint"],
             img: "img/201504-web.jpg",
@@ -330,6 +334,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1503", en: "#1503" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
+            textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校2年次制作。", en: "" },
             category: ["2010-2017", "Paint"],
             img: "img/201503-web.jpg",
@@ -338,6 +343,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1502", en: "#1502" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
+            textContent: { ja: "Paint, イラスト, 画用紙", en: "Paint, Illustration, Drawing paper" },
             text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
             img: "img/201502-web.jpg",
@@ -346,6 +352,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1501", en: "#1501" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
+            textContent: { ja: "Paint, イラスト, 画用紙", en: "Paint, Illustration, Drawing paper" },
             text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
             img: "img/201501-web.jpg",
@@ -354,7 +361,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1402", en: "#1402" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            textContent: { ja: "Paint, 加工", en: "Generative AI, processing" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次2作目の作品。<br>頭の中にあるイメージや感覚を、そのまま画面に落とし込むことを意識して制作した。具象的なモチーフを持たず、線や色彩、構成の流れを通じて思考の断片を可視化している。完成された形を目指すのではなく、描く行為そのものを探求する過程でもあった。", en: "This is my second work from my first year of high school. I created this piece with the intention of putting the images and feelings in my head directly onto the canvas. There is no concrete motif, and I visualize fragments of my thoughts through lines, colors, and the flow of the composition. It was also a process of exploring the act of drawing itself, rather than aiming for a completed form." },
             category: ["2010-2017", "Paint"],
             img: "img/201402-web.jpg",
@@ -363,6 +370,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1401", en: "#1401" },
             caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
             img: "img/201401-web.jpg",
