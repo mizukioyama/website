@@ -354,6 +354,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#1402", en: "#1402" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
+            textContent: { ja: "Paint, 加工", en: "Generative AI, processing" },
             text: { ja: "高校1年次2作目の作品。<br>頭の中にあるイメージや感覚を、そのまま画面に落とし込むことを意識して制作した。具象的なモチーフを持たず、線や色彩、構成の流れを通じて思考の断片を可視化している。完成された形を目指すのではなく、描く行為そのものを探求する過程でもあった。", en: "This is my second work from my first year of high school. I created this piece with the intention of putting the images and feelings in my head directly onto the canvas. There is no concrete motif, and I visualize fragments of my thoughts through lines, colors, and the flow of the composition. It was also a process of exploring the act of drawing itself, rather than aiming for a completed form." },
             category: ["2010-2017", "Paint"],
             img: "img/201402-web.jpg",
