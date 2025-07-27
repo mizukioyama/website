@@ -11,6 +11,7 @@ function setupCategoryFilter() {
             category: ["2024", "Paint"],
             textContent: { ja: "油絵具, 水彩, アクリル, キャンバス, オーダー", en: "Oil paint, watercolor, acrylic, canvas, order" },
             img: "img/蒼想-web.jpg",
+            ImageData: "img/海底-web.jpg",
             link: "pages/2024work.html"
         },//Unreleased
         {
@@ -114,7 +115,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "映し神", en: "Utsushigami" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-            
+
             category: ["2022", "Paint"],
             img: "img/映し神-web.jpg",
             link: "pages/2024work.html"
@@ -122,7 +123,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2203", en: "#2203" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-            
+
             category: ["2022", "Paint"],
             img: "img/202203-web.jpg",
             link: "pages/2024work.html"
@@ -130,7 +131,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2202", en: "#2202" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+
             category: ["2022", "Paint"],
             img: "img/202202-web.jpg",
             link: "pages/2024work.html"
@@ -146,7 +147,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "挑戦", en: "Chōsen / Chousen" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-            
+
             category: ["2022", "Paint"],
             img: "img/挑戦-web.jpg",
             link: "pages/2024work.html"
@@ -250,7 +251,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "戦争", en: "Sensō / Senso" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-            
+
             category: ["2021", "Paint"],
             img: "img/戦争-web.jpg",
             link: "pages/2024work.html"
@@ -258,7 +259,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "幸緑", en: "Konryoku" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-            
+
             category: ["2021", "Paint"],
             img: "img/幸緑-web.jpg",
             link: "pages/2024work.html"
@@ -282,7 +283,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2100", en: "#2100" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            
+
             category: ["2021", "Paint"],
             img: "img/202100-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
@@ -454,11 +455,7 @@ function setupCategoryFilter() {
 
         modalBox.innerHTML = `
         <div class="work-img">
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: -1rem; left: 0; width: fit-content; border-bottom: 1px solid;">
-                Category | ${secondLine}
-            </p>
-            <img src="${item.img}" alt="${item.title[lang]}" style="opacity: 1;">
-            <div class="works" href="${item.link || '#'}" rel="noopener">
+                    <div class="works" href="${item.link || '#'}" rel="noopener">
                 <h2>${item.title[lang]}</h2>
                 <p>
                 ${firstLine}<br>Media：${secondLine}<br>
@@ -466,6 +463,10 @@ function setupCategoryFilter() {
                 <br>${truncateText(item.caption[lang])}
                 </p>
             </div>
+            <img src="${item.ImageData}" alt="${item.title[lang]}" style="opacity: 1;">
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: relative; top: -1rem; left: 0; width: fit-content; border-bottom: 1px solid;">
+                Category | ${secondLine}
+            </p>
             <div class="modal-text">
             <p>${truncateText(item.text[lang])}</p>
             <a href="${item.link || '#'}" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
