@@ -329,7 +329,7 @@ function setupCategoryFilter() {
             category: ["2010-2017", "Paint"],
             img: "img/2016無題-web.jpg",
             link: "pages/2024work.html"
-        },
+        },//#2015
         {
             title: { ja: "#1504", en: "#1504" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
@@ -365,7 +365,7 @@ function setupCategoryFilter() {
             category: ["2010-2017", "Paint"],
             img: "img/201501-web.jpg",
             link: "pages/2024work.html"
-        },
+        },//#2014
         {
             title: { ja: "#1402", en: "#1402" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
@@ -382,6 +382,69 @@ function setupCategoryFilter() {
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
             img: "img/201401-web.jpg",
+            link: "pages/2024work.html"
+        },//#2013
+        {
+            title: { ja: "#1307", en: "#1307" },
+            caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
+            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            category: ["2010-2017", "Paint"],
+            img: "img/201307-web.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "#1306", en: "#1306" },
+            caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
+            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            category: ["2010-2017", "Paint"],
+            img: "img/201306-web.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "#1305", en: "#1305" },
+            caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
+            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            category: ["2010-2017", "Paint"],
+            img: "img/201305-web.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "#1304", en: "#1304" },
+            caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
+            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            category: ["2010-2017", "Paint"],
+            img: "img/201304-web.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "#1303", en: "#1303" },
+            caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
+            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            category: ["2010-2017", "Paint"],
+            img: "img/201303-web.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "#1302", en: "#1302" },
+            caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
+            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            category: ["2010-2017", "Paint"],
+            img: "img/201302-web.jpg",
+            link: "pages/2024work.html"
+        },
+        {
+            title: { ja: "#1301", en: "#1301" },
+            caption: { ja: "展示作品", en: "Exhibited works" },
+            textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
+            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            category: ["2010-2017", "Paint"],
+            img: "img/201301-web.jpg",
             link: "pages/2024work.html"
         }
     ];
