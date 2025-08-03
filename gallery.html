@@ -102,7 +102,7 @@
       transform: translate(-50%, -50%);
       background: rgba(110, 110, 110, 0.5);
       backdrop-filter: blur(25px);
-      padding: 4rem 35vmin;
+      padding: 4rem 35vmin 15vmin;
       width: 98svw;
       /*max-width: 1100px;*/
       min-height: 90vh;
@@ -116,7 +116,8 @@
       display: grid;
       align-content: space-between;
       justify-items: end;
-      height: 160px;
+      /*height: 160px;*/
+      height: auto;
       width: auto;
     }
 
@@ -137,8 +138,7 @@
       font-weight: 300;
     }
 
-    .modal-box p {
-      font-size: 1rem;
+    .modal-text p {
       line-height: 1.6;
     }
 
@@ -147,10 +147,12 @@
     }
 
     .modal-text p {
+      font-size: 1rem;
       margin-top: 3vmin;
       text-shadow: 0 2px 2px var(--text);
       /*line-height: 2;*/
-      margin-top: 10vmin;
+      margin-top: 5vmin;
+      margin-bottom: 2vmin;
     }
 
     .text-content {
@@ -196,7 +198,7 @@
         height: 80svh;
         min-height: 80svh;
         max-width: 380px;
-        padding: 2rem 2.5rem;
+        padding: 2rem 2.5rem 20vmin;
       }
 
       .noise.cg-text {
@@ -210,11 +212,11 @@
       .modal-box p {
         font-size: 0.85rem;
         left: 0 !important;
-        letter-spacing: 0.05rem;
+        letter-spacing: 0.15rem;
       }
 
       .modal-text p {
-        margin-top: 25vmin;
+        margin-top: 15vmin;
       }
 
       .modal-box .text-content {
@@ -306,7 +308,7 @@
       lowlightColor: 0x3f3ff,
       baseColor: 0xfafffc,
       blurFactor: 0.60,
-      speed: 0.70,
+      speed: 0.50,
       zoom: 0.40
     })
   </script>

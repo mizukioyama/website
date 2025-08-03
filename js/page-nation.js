@@ -300,8 +300,7 @@ function setupCategoryFilter() {
             caption: { ja: "未発表作品｜Category：Collage", en: "Unpublished Works｜Category：Collage" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "This is a piece that I worked on as an assignment after entering a vocational school's design department. I focused on the visual change of 'how it looks' by tearing a piece of paper and recomposing it. Through the simple act of tearing and pasting, I explored new expressions and relationships of the material. By tinkering with the everyday material of paper, this piece attempted to free itself from fixed images." },
             category: ["2010-2017", "Collage"],
-            img: "img/201702-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201702-web.jpg"
         },
         {
             title: { ja: "#1701", en: "#1701" },
@@ -309,8 +308,7 @@ function setupCategoryFilter() {
             textContent: { ja: "コラージュ, 画用紙", en: "Collage, Drawing paper" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "This is a piece that I worked on as an assignment after entering a vocational school's design department. I focused on the visual change of 'how it looks' by tearing a piece of paper and recomposing it. Through the simple act of tearing and pasting, I explored new expressions and relationships of the material. By tinkering with the everyday material of paper, this piece attempted to free itself from fixed images." },
             category: ["2010-2017", "Collage"],
-            img: "img/201701-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201701-web.jpg"
         },
         {
             title: { ja: "海底", en: "Kaitei" },
@@ -318,8 +316,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校3年次制作。<br>当初は「冬」をテーマに描き始めたが、完成した作品を改めて見つめたとき、深海を連想させるような印象を受けたため「海底」と改題。深海に差し込むような白い光や、感情が色彩として混ざり合うような表現を通して、内面の静けさや揺らぎを描いた一枚。見る者によって異なる景色が立ち現れる、抽象的な感覚表現を目指した。<br>本作は、日本・モンゴル外交関係樹立50周年記念事業認定より公式認定を受けています。", en: "Created in the third year of high school. <br>Initially, he started painting with the theme of 'winter', but when he looked at the finished work again, he was reminded of the deep sea, so he renamed it 'Undersea'. This piece depicts inner tranquility and fluctuation through the expression of white light shining into the deep sea and emotions mixed together as colors. He aimed for an abstract sensory expression that will reveal different scenes depending on the viewer. <br>This work has been officially certified as part of the 50th anniversary of the establishment of diplomatic relations between Japan and Mongolia." },
             category: ["2010-2017", "Paint"],
-            img: "img/海底-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/海底-web.jpg"
         },
         {
             title: { ja: "無題", en: "Mudai" },
@@ -327,8 +324,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校3年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
-            img: "img/2016無題-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/2016無題-web.jpg"
         },//#2015
         {
             title: { ja: "#1504", en: "#1504" },
@@ -336,8 +332,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校2年次制作。", en: "" },
             category: ["2010-2017", "Paint"],
-            img: "img/201504-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201504-web.jpg"
         },
         {
             title: { ja: "#1503", en: "#1503" },
@@ -345,8 +340,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
             text: { ja: "高校2年次制作。", en: "" },
             category: ["2010-2017", "Paint"],
-            img: "img/201503-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201503-web.jpg"
         },
         {
             title: { ja: "#1502", en: "#1502" },
@@ -354,8 +348,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, イラスト, 画用紙", en: "Paint, Illustration, Drawing paper" },
             text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
-            img: "img/201502-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201502-web.jpg"
         },
         {
             title: { ja: "#1501", en: "#1501" },
@@ -363,8 +356,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, イラスト, 画用紙", en: "Paint, Illustration, Drawing paper" },
             text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
-            img: "img/201501-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201501-web.jpg"
         },//#2014
         {
             title: { ja: "#1402", en: "#1402" },
@@ -372,8 +364,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次2作目の作品。<br>頭の中にあるイメージや感覚を、そのまま画面に落とし込むことを意識して制作した。具象的なモチーフを持たず、線や色彩、構成の流れを通じて思考の断片を可視化している。完成された形を目指すのではなく、描く行為そのものを探求する過程でもあった。", en: "This is my second work from my first year of high school. I created this piece with the intention of putting the images and feelings in my head directly onto the canvas. There is no concrete motif, and I visualize fragments of my thoughts through lines, colors, and the flow of the composition. It was also a process of exploring the act of drawing itself, rather than aiming for a completed form." },
             category: ["2010-2017", "Paint"],
-            img: "img/201402-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201402-web.jpg"
         },
         {
             title: { ja: "#1401", en: "#1401" },
@@ -381,8 +372,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201401-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201401-web.jpg"
         },//#2013
         {
             title: { ja: "#1307", en: "#1307" },
@@ -390,8 +380,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201307-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201307-web.jpg"
         },
         {
             title: { ja: "#1306", en: "#1306" },
@@ -399,8 +388,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201306-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201306-web.jpg"
         },
         {
             title: { ja: "#1305", en: "#1305" },
@@ -408,8 +396,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201305-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201305-web.jpg"
         },
         {
             title: { ja: "#1304", en: "#1304" },
@@ -417,8 +404,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201304-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201304-web.jpg"
         },
         {
             title: { ja: "#1303", en: "#1303" },
@@ -426,8 +412,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201303-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201303-web.jpg"
         },
         {
             title: { ja: "#1302", en: "#1302" },
@@ -435,8 +420,7 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201302-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201302-web.jpg"
         },
         {
             title: { ja: "#1301", en: "#1301" },
@@ -444,129 +428,162 @@ function setupCategoryFilter() {
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
             text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
             category: ["2010-2017", "Paint"],
-            img: "img/201301-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/201301-web.jpg"
         }
     ];
 
-    const itemsPerPage = 8;
-    let selectedCategory = "all";
-    let currentPage = 1;
-    let filtered = []; // モーダル表示に必要
+const itemsPerPage = 8;
+let selectedCategory = "all";
+let currentPage = 1;
+let filtered = [];
 
-    function filterArtworks() {
-        return selectedCategory === "all"
-            ? artworks
-            : artworks.filter(item => item.category.includes(selectedCategory));
-    }
+function getLang() {
+    return document.documentElement.lang === "ja" ? "ja" : "en";
+}
 
-    function truncateText(text, maxLength = 200) {
-        return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
-    }
+function filterArtworks() {
+    return selectedCategory === "all"
+        ? artworks
+        : artworks.filter(item => item.category.includes(selectedCategory));
+}
 
-    function renderGallery() {
-        const lang = getLang();
-        const container = document.getElementById("gallery-container");
-        container.classList.remove("show");
+function truncateText(text, maxLength = 200) {
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+}
 
-        filtered = filterArtworks();
-        const start = (currentPage - 1) * itemsPerPage;
-        const pageItems = filtered.slice(start, start + itemsPerPage);
+function renderGallery() {
+    const lang = getLang();
+    const container = document.getElementById("gallery-container");
+    container.classList.remove("show");
 
-        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+    filtered = filterArtworks();
+    const start = (currentPage - 1) * itemsPerPage;
+    const pageItems = filtered.slice(start, start + itemsPerPage);
 
-        container.innerHTML = "";
-        pageItems.forEach(item => {
-            const firstLine = item.category[0] || "";
-            const secondLine = item.category.slice(1).join(" ") || "";
+    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-            const div = document.createElement("div");
-            div.className = "work";
-            div.innerHTML = `
-            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
-                Category | ${selectedCategoryLabel}
-            </p>
-
-            <div class="work-img">
-                <img src="${item.img}" alt="${item.title[lang]}">
-                <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
-                <h2>${item.title[lang]}</h2>
-                <p>${firstLine}<br>${secondLine}</p>
-                </a>
-            </div>
-        `;
-            container.appendChild(div);
-        });
-
-        renderPagination(filtered.length);
-        setTimeout(() => container.classList.add("show"), 3);
-        smoothScrollToTop(400);
-
-        document.querySelectorAll(".view-policy-button").forEach(button => {
-            button.addEventListener("click", (e) => {
-                e.preventDefault();
-                const index = parseInt(button.getAttribute("data-index"));
-                showModal(filtered[index]);
-            });
-        });
-    }
-
-
-    function showModal(item) {
-        const lang = getLang();
-        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
-
+    container.innerHTML = "";
+    pageItems.forEach(item => {
         const firstLine = item.category[0] || "";
         const secondLine = item.category.slice(1).join(" ") || "";
 
-        const modalBox = document.getElementById("modalBox");
+        const div = document.createElement("div");
+        div.className = "work";
+        div.innerHTML = `
+            <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
+                Category | ${selectedCategoryLabel}
+            </p>
+            <div class="work-img">
+                <img src="${item.img}" alt="${item.title[lang]}">
+                <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
+                    <h2>${item.title[lang]}</h2>
+                    <p>${firstLine}<br>${secondLine}</p>
+                </a>
+            </div>
+        `;
+        container.appendChild(div);
+    });
 
-        modalBox.innerHTML = `
+    renderPagination(filtered.length);
+    setTimeout(() => container.classList.add("show"), 3);
+    smoothScrollToTop(400);
+
+    document.querySelectorAll(".view-policy-button").forEach(button => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            const index = parseInt(button.getAttribute("data-index"));
+            showModal(filtered[index]);
+        });
+    });
+}
+
+function showModal(item) {
+    const lang = getLang();
+    const firstLine = item.category[0] || "";
+    const secondLine = item.category.slice(1).join(" ") || "";
+    const hasLink = !!item.link;
+    const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
+
+    const modalBox = document.getElementById("modalBox");
+
+    modalBox.innerHTML = `
         <div class="work-img">
-            <div class="works" href="${item.link || '#'}" rel="noopener">
+            <div class="works">
                 <h2>${item.title[lang]}</h2>
                 <p>
-                ${firstLine}<br>Media：${secondLine}<br>
-                <span class="text-content">(${truncateText(item.textContent[lang])})</span>
-                <br>${truncateText(item.caption[lang])}
+                    ${firstLine}<br>Media：${secondLine}<br>
+                    <span class="text-content">(${truncateText(item.textContent[lang])})</span><br>
+                    ${truncateText(item.caption[lang])}
                 </p>
             </div>
-            <img src="${item.ImageData}" alt="${item.title[lang]}" style="margin: 5vmin auto; opacity: 1;">
+            <img src="${item.ImageData || item.img}" alt="${item.title[lang]}" style="margin: 5vmin auto; opacity: 1;">
             <p class="noise cg-text" style="font-weight: 500; position: relative; top: 0rem; left: 0; width: fit-content; border-bottom: 1px solid;">
                 Category | ${secondLine}
             </p>
             <div class="modal-text">
-            <p>${truncateText(item.text[lang])}</p>
-            <a href="${item.link || '#'}" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;" rel="noopener" target="_blank">View More</a>
-            <p>
-            作品「${item.title[lang]}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。
-            <br>
-            For inquiries about the work, please contact us using the form on the Contact page of this website.
-            </p>
-            <a href="contact.html" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid; height: fit-content;">Contact</a>
-            <button id="modalCloseBtn">Close</button>
+                <p>${truncateText(item.text[lang])}</p>
+                ${hasLink ? `
+                <a href="${item.link}" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid;" rel="noopener" target="_blank">${buttonLabel} More</a>
+                ` : ""}
+                <p>
+                    作品「${item.title[lang]}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。
+                    <br>
+                    For inquiries about the work, please contact us using the form on the Contact page of this website.
+                </p>
+                <a href="contact.html" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
+                <button id="modalCloseBtn">Close</button>
             </div>
         </div>
     `;
 
-        const directions = ["bottom"];
-        const randomDir = directions[Math.floor(Math.random() * directions.length)];
+    modalBox.className = `modal-box animate-bottom`;
+    document.getElementById("modalOverlay").style.display = "block";
+    modalBox.style.display = "block";
 
-        modalBox.className = `modal-box animate-${randomDir}`;
-        document.getElementById("modalOverlay").style.display = "block";
-        modalBox.style.display = "block";
+    document.getElementById("modalCloseBtn").onclick = closeModal;
+    document.getElementById("modalOverlay").onclick = closeModal;
 
-        document.getElementById("modalCloseBtn").onclick = closeModal;
-        document.getElementById("modalOverlay").onclick = closeModal;
+    function closeModal() {
+        modalBox.style.display = "none";
+        document.getElementById("modalOverlay").style.display = "none";
+        modalBox.className = "modal-box";
+    }
+}
 
-        function closeModal() {
-            modalBox.style.display = "none";
-            document.getElementById("modalOverlay").style.display = "none";
-            modalBox.className = "modal-box"; // アニメーション解除
+function renderPagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const pagination = document.getElementById("pagination");
+    if (!pagination) return;
+    pagination.innerHTML = "";
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.className = i === currentPage ? "active" : "";
+        btn.addEventListener("click", () => {
+            currentPage = i;
+            renderGallery();
+        });
+        pagination.appendChild(btn);
+    }
+}
+
+function smoothScrollToTop(duration) {
+    const start = window.scrollY || document.documentElement.scrollTop;
+    const startTime = performance.now();
+
+    function scroll(timestamp) {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, start * (1 - progress));
+        if (progress < 1) {
+            requestAnimationFrame(scroll);
         }
     }
+
+    requestAnimationFrame(scroll);
+}
 
 
 
