@@ -417,45 +417,45 @@ function setupCategoryFilter() {
         }
     ];
 
-const itemsPerPage = 8;
-let selectedCategory = "all";
-let currentPage = 1;
-let filtered = [];
+    const itemsPerPage = 8;
+    let selectedCategory = "all";
+    let currentPage = 1;
+    let filtered = [];
 
-function getLang() {
-    return document.documentElement.lang === "ja" ? "ja" : "en";
-}
+    function getLang() {
+        return document.documentElement.lang === "ja" ? "ja" : "en";
+    }
 
-function filterArtworks() {
-    return selectedCategory === "all"
-        ? artworks
-        : artworks.filter(item => item.category.includes(selectedCategory));
-}
+    function filterArtworks() {
+        return selectedCategory === "all"
+            ? artworks
+            : artworks.filter(item => item.category.includes(selectedCategory));
+    }
 
-function truncateText(text, maxLength = 200) {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
-}
+    function truncateText(text, maxLength = 200) {
+        return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+    }
 
-function renderGallery() {
-    const lang = getLang();
-    const container = document.getElementById("gallery-container");
-    container.classList.remove("show");
+    function renderGallery() {
+        const lang = getLang();
+        const container = document.getElementById("gallery-container");
+        container.classList.remove("show");
 
-    filtered = filterArtworks();
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
+        filtered = filterArtworks();
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageItems = filtered.slice(start, start + itemsPerPage);
 
-    const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-    const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
+        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
 
-    container.innerHTML = "";
-    pageItems.forEach(item => {
-        const firstLine = item.category[0] || "";
-        const secondLine = item.category.slice(1).join(" ") || "";
+        container.innerHTML = "";
+        pageItems.forEach(item => {
+            const firstLine = item.category[0] || "";
+            const secondLine = item.category.slice(1).join(" ") || "";
 
-        const div = document.createElement("div");
-        div.className = "work";
-        div.innerHTML = `
+            const div = document.createElement("div");
+            div.className = "work";
+            div.innerHTML = `
             <p class="noise cg-text" style="font-size: 1.4rem; font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
                 Category | ${selectedCategoryLabel}
             </p>
@@ -467,32 +467,32 @@ function renderGallery() {
                 </a>
             </div>
         `;
-        container.appendChild(div);
-    });
-
-    renderPagination(filtered.length);
-    setTimeout(() => container.classList.add("show"), 3);
-    smoothScrollToTop(400);
-
-    document.querySelectorAll(".view-policy-button").forEach(button => {
-        button.addEventListener("click", (e) => {
-            e.preventDefault();
-            const index = parseInt(button.getAttribute("data-index"));
-            showModal(filtered[index]);
+            container.appendChild(div);
         });
-    });
-}
 
-function showModal(item) {
-    const lang = getLang();
-    const firstLine = item.category[0] || "";
-    const secondLine = item.category.slice(1).join(" ") || "";
-    const hasLink = !!item.link;
-    const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
+        renderPagination(filtered.length);
+        setTimeout(() => container.classList.add("show"), 3);
+        smoothScrollToTop(400);
 
-    const modalBox = document.getElementById("modalBox");
+        document.querySelectorAll(".view-policy-button").forEach(button => {
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                const index = parseInt(button.getAttribute("data-index"));
+                showModal(filtered[index]);
+            });
+        });
+    }
 
-    modalBox.innerHTML = `
+    function showModal(item) {
+        const lang = getLang();
+        const firstLine = item.category[0] || "";
+        const secondLine = item.category.slice(1).join(" ") || "";
+        const hasLink = !!item.link;
+        const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
+
+        const modalBox = document.getElementById("modalBox");
+
+        modalBox.innerHTML = `
         <div class="work-img">
             <div class="works">
                 <h2>${item.title[lang]}</h2>
@@ -524,53 +524,53 @@ function showModal(item) {
         </div>
     `;
 
-    modalBox.className = `modal-box animate-bottom`;
-    document.getElementById("modalOverlay").style.display = "block";
-    modalBox.style.display = "block";
+        modalBox.className = `modal-box animate-bottom`;
+        document.getElementById("modalOverlay").style.display = "block";
+        modalBox.style.display = "block";
 
-    document.getElementById("modalCloseBtn").onclick = closeModal;
-    document.getElementById("modalOverlay").onclick = closeModal;
+        document.getElementById("modalCloseBtn").onclick = closeModal;
+        document.getElementById("modalOverlay").onclick = closeModal;
 
-    function closeModal() {
-        modalBox.style.display = "none";
-        document.getElementById("modalOverlay").style.display = "none";
-        modalBox.className = "modal-box";
-    }
-}
-
-function renderPagination(totalItems) {
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const pagination = document.getElementById("pagination");
-    if (!pagination) return;
-    pagination.innerHTML = "";
-
-    for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.className = i === currentPage ? "active" : "";
-        btn.addEventListener("click", () => {
-            currentPage = i;
-            renderGallery();
-        });
-        pagination.appendChild(btn);
-    }
-}
-
-function smoothScrollToTop(duration) {
-    const start = window.scrollY || document.documentElement.scrollTop;
-    const startTime = performance.now();
-
-    function scroll(timestamp) {
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, start * (1 - progress));
-        if (progress < 1) {
-            requestAnimationFrame(scroll);
+        function closeModal() {
+            modalBox.style.display = "none";
+            document.getElementById("modalOverlay").style.display = "none";
+            modalBox.className = "modal-box";
         }
     }
 
-    requestAnimationFrame(scroll);
-}
+    function renderPagination(totalItems) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const pagination = document.getElementById("pagination");
+        if (!pagination) return;
+        pagination.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = i;
+            btn.className = i === currentPage ? "active" : "";
+            btn.addEventListener("click", () => {
+                currentPage = i;
+                renderGallery();
+            });
+            pagination.appendChild(btn);
+        }
+    }
+
+    function smoothScrollToTop(duration) {
+        const start = window.scrollY || document.documentElement.scrollTop;
+        const startTime = performance.now();
+
+        function scroll(timestamp) {
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            window.scrollTo(0, start * (1 - progress));
+            if (progress < 1) {
+                requestAnimationFrame(scroll);
+            }
+        }
+
+        requestAnimationFrame(scroll);
+    }
 
 
 

@@ -436,6 +436,7 @@ main {
     #state h2 {
         font-size: 2.4rem;
     }
+
     #bio .work:nth-child(3) h2 {
         margin-bottom: 5vmin;
     }
