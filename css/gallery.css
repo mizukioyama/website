@@ -550,7 +550,7 @@ main {
 }
 
 /*========link*/
-.work-img a {
+.gallery-containt .work-img a {
     display: grid;
     align-content: space-between;
     height: 100px;

@@ -1,3 +1,5 @@
+const { link } = require("fs");
+
 function setupCategoryFilter() {
     //let currentLang = localStorage.getItem("lang") || "ja";
     //const getLang = () => currentLang;
@@ -17,9 +19,7 @@ function setupCategoryFilter() {
             //gallery img
             img: "img/蒼想-web.jpg",
             //modal img
-            ImageData: "img/202343-2.jpg",
-            //リンクは販売している作品のみにする？
-            link: "pages/2024work.html"
+            ImageData: "img/202343-2.jpg"
         },//Unreleased
         {
             title: { ja: "#2344", en: "#2344" },
@@ -122,26 +122,20 @@ function setupCategoryFilter() {
         {
             title: { ja: "映し神", en: "Utsushigami" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-
             category: ["2022", "Paint"],
-            img: "img/映し神-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/映し神-web.jpg"
         },
         {
             title: { ja: "#2203", en: "#2203" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-
             category: ["2022", "Paint"],
-            img: "img/202203-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/202203-web.jpg"
         },
         {
             title: { ja: "#2202", en: "#2202" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-
             category: ["2022", "Paint"],
-            img: "img/202202-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/202202-web.jpg"
         },
         {
             title: { ja: "#2201", en: "#2201" },
@@ -149,15 +143,13 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2022", "Digital"],
             img: "img/202201-web.jpg",
-            link: "pages/2024work.html"
+            link: ""
         },
         {
             title: { ja: "挑戦", en: "Chōsen / Chousen" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-
             category: ["2022", "Paint"],
-            img: "img/挑戦-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/挑戦-web.jpg"
         },//========2021
         {
             title: { ja: "#2110", en: "#2110" },
@@ -258,39 +250,32 @@ function setupCategoryFilter() {
         {
             title: { ja: "戦争", en: "Sensō / Senso" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-
             category: ["2021", "Paint"],
-            img: "img/戦争-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/戦争-web.jpg"
         },
         {
             title: { ja: "幸緑", en: "Konryoku" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-
             category: ["2021", "Paint"],
-            img: "img/幸緑-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/幸緑-web.jpg"
         },
         {
             title: { ja: "金雲", en: "Kin’un / Kinuun" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "幸福を呼ぶ、輝きたなびく雲をイメージ。金色の中に、静けさと力強さが同居する。人は、たった一つの色から何を感じ、何を思い出すのか。この作品は、見る人の記憶や感情にそっと問いかける。", en: "The image is of sparkling, fluttering clouds that bring happiness. Calmness and strength coexist in the gold color. What do people feel and remember from just one color? This work gently questions the memories and emotions of the viewer." },
             category: ["2021", "Paint"],
-            img: "img/金雲-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/金雲-web.jpg"
         },
         {
             title: { ja: "輝き", en: "Kagayaki" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "光と闇が混ざり合う狭間。その中から生まれる「輝き」は、ただ明るいだけの光ではなく、闇を知ることで初めて放たれる深みを持った光。この作品は、人生や内面に潜む暗がりを抱えながらも、そこから立ち上がる力や、心の奥で静かに灯る希望を象徴しています。見る人の中にある「影」にそっと寄り添いながらも、無意識の領域へ静かに光を届け、感情の奥深くを揺らすことを意図しています。「輝き」は固定された意味を持たず、観るたびに異なる解釈や波動をもたらします。それはまるで、あなたの心が必要とするメッセージを、そっと差し出すかのように。<br>本作は、TAJO（トスカーナ芸術鑑定機構）より公式認定を受けています。", en: "A gap where light and darkness mix.The 'glow' that emerges from there is not just bright light, but a deep light that can only be emitted by knowing the darkness.This work symbolizes the strength to rise from the darkness that lurks in one's life and within oneself, and the hope that quietly lights up deep in the heart.The work is intended to gently embrace the 'shadow' within the viewer, while quietly delivering light to the unconscious and stirring the depths of one's emotions.'Glow' has no fixed meaning, and brings about different interpretations and vibrations each time you view it.It is as if it is gently offering you a message that your heart needs." },
             category: ["2021", "Paint", "Certified"],
-            img: "img/輝き-web.jpg",
-            link: "pages/2024work.html"
+            img: "img/輝き-web.jpg"
         },
         {
             title: { ja: "#2100", en: "#2100" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-
             category: ["2021", "Paint"],
             img: "img/202100-web.jpg",
             link: "https://opensea.io/collection/massless-energy-art/overview"
