@@ -231,6 +231,10 @@
         justify-content: flex-start;
     }
 
+    .gallery-containt .work-img a {
+        height: 80px;
+    }
+
     .work h2 {
         font-size: 0.9rem;
     }

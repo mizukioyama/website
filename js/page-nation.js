@@ -497,8 +497,10 @@ function showModal(item) {
             <div class="works">
                 <h2>${item.title[lang]}</h2>
                 <p>
-                    ${firstLine}<br>Media：${secondLine}<br>
-                    <span class="text-content">(${truncateText(item.textContent[lang])})</span><br>
+                    ${firstLine}
+                    <br>
+                    Media：${secondLine}<span class="text-content">(${truncateText(item.textContent[lang])})</span>
+                    <br>
                     ${truncateText(item.caption[lang])}
                 </p>
             </div>
