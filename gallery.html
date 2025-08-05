@@ -91,8 +91,28 @@
       height: 100vh;
       background: rgba(130, 130, 130, 0.25);
       backdrop-filter: blur(5px);
-      z-index: 1000;
+      z-index: 999;
+      background: linear-gradient(63deg, #0D0D0D, #757575, #222222);
+      background-size: 600% 600%;
+      animation: GradientBackground 22s ease infinite;
     }
+
+    @keyframes GradientBackground {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    ;
+
 
     /* モーダル本体 */
     .modal-box {
@@ -109,7 +129,7 @@
       height: 97%;
       overflow-y: auto;
       box-shadow: 0 2px 10px #000;
-      z-index: 1001;
+      z-index: 998;
     }
 
     .modal-box .work-img .works {
@@ -195,11 +215,9 @@
 
     @media screen and (max-width: 599px) {
       .modal-box {
-        width: 85%;
-        height: 80svh;
-        min-height: 80svh;
-        max-width: 380px;
-        padding: 2rem 2.5rem 20vmin;
+        height: 98svh;
+        min-height: 90svh;
+        padding: 4rem 2rem 5rem;
       }
 
       .noise.cg-text {
@@ -212,8 +230,8 @@
 
       .modal-box p {
         font-size: 0.85rem;
-        left: 0 !important;
-        letter-spacing: 0.15rem;
+        /*left: 0 !important;*/
+        line-height: 1.4;
       }
 
       .modal-text p {
