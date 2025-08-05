@@ -92,27 +92,7 @@
       background: rgba(130, 130, 130, 0.25);
       backdrop-filter: blur(5px);
       z-index: 999;
-      background: linear-gradient(63deg, #0D0D0D, #757575, #222222);
-      background-size: 600% 600%;
-      animation: GradientBackground 22s ease infinite;
     }
-
-    @keyframes GradientBackground {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    ;
-
 
     /* モーダル本体 */
     .modal-box {
@@ -130,7 +110,22 @@
       overflow-y: auto;
       box-shadow: 0 2px 10px #000;
       z-index: 998;
+      background: linear-gradient(63deg, #0D0D0D, #757575, #222222);
+      background-size: 600% 600%;
+      animation: GradientBackground 22s ease infinite;
     }
+    
+    @keyframes GradientBackground {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      };
 
     .modal-box .work-img .works {
       display: grid;
