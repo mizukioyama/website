@@ -89,8 +89,8 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(130, 130, 130, 0.25);
-      backdrop-filter: blur(5px);
+      /*background: rgba(130, 130, 130, 0.25);
+      backdrop-filter: blur(5px);*/
       z-index: 998;
     }
 
@@ -100,8 +100,6 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(110, 110, 110, 0.5);
-      backdrop-filter: blur(25px);
       padding: 4rem 35vmin 15vmin;
       width: 98svw;
       /*max-width: 1100px;*/
@@ -110,12 +108,14 @@
       overflow-y: auto;
       box-shadow: 0 2px 10px #000;
       z-index: 999;
+      backdrop-filter: blur(30px);
+      /*background: rgba(110, 110, 110, 0.5);
       background: linear-gradient(63deg, #0D0D0D, #757575, #222222);
       background-size: 600% 600%;
-      animation: GradientBackground 22s ease infinite;
+      animation: GradientBackground 22s ease infinite;*/
     }
 
-        @keyframes GradientBackground {
+        /*@keyframes GradientBackground {
           0% {
             background-position: 0% 50%;
           }
@@ -127,7 +127,7 @@
           100% {
             background-position: 0% 50%;
           }
-        };
+        };*/
       
 
     .modal-box .work-img .works {
