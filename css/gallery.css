@@ -435,7 +435,8 @@ main {
 
     #state h2 {
         font-size: 2.4rem;
-        line-height: 1.8;
+        align-items: end;
+        margin-bottom: 1vmin;
     }
 
     #bio .work:nth-child(3) h2 {
