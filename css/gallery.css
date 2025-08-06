@@ -216,7 +216,7 @@ h2 {
 }
 
 span.name {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 300;
     line-height: 1;
 }
@@ -436,6 +436,7 @@ main {
     #state h2 {
         font-size: 2.4rem;
         display: block;
+        line-height: 1.8;
     }
 
     #bio .work:nth-child(3) h2 {
