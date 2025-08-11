@@ -424,7 +424,7 @@ main {
 }
 
 #state h2 {
-    display: table-caption;
+    /*display: table-caption;*/
     line-height: normal;
 }
 
