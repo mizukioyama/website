@@ -423,10 +423,6 @@ main {
     justify-content: flex-start;
 }
 
-#state h2 {
-    line-height: 1;
-}
-
 @media screen and (min-width: 1299px) {
     #state .state-box:nth-child(2) .content {
         width: 40%;
