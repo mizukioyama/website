@@ -216,7 +216,7 @@ h2 {
 }
 
 span.name {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     line-height: 1;
 }
 
@@ -421,6 +421,11 @@ main {
 #policy h2,
 #policy h3 {
     justify-content: flex-start;
+}
+
+#state h2 {
+    display: table-caption;
+    line-height: normal;
 }
 
 @media screen and (min-width: 1299px) {
