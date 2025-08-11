@@ -305,6 +305,7 @@ hr {
   height: 1px;
   margin: 15vmin auto;
   background: #777;
+  background: #333;
 }
 
 .modal-box hr {
