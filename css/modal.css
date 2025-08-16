@@ -28,8 +28,7 @@
 /* モーダルのスタイル */
 .modal {
    position: absolute;
-   padding: 10vmin;
-   padding: 10vh;
+   padding: 5vh 10vh;
    height: 65vh;
    width: 60vw;
    z-index: 1000;
