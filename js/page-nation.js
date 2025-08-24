@@ -19,7 +19,7 @@ function setupCategoryFilter() {
             //gallery img
             img: "img/蒼想-web.jpg",
             //modal img
-            ImageData: "img/202343-2.jpg"
+            ImageData: "img/蒼想-web02.jpg"
         },//Unreleased
         {
             title: { ja: "#2344", en: "#2344" },
