@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "#category-header",
     "#category-menu li",
     ".work-img a",
-    "#pagination"
+    "#pagination",
+    "#modalCloseBtn"
   ];
 
   document.querySelectorAll(hoverTargets.join(", ")).forEach(el => {
@@ -99,7 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "#category-header",
     "#category-menu li",
     ".work-img a",
-    "#pagination"
+    "#pagination",
+    "#modalCloseBtn"
   ];
 
   document.querySelectorAll(hoverTargets.join(", ")).forEach(el => {
