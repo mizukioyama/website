@@ -11,7 +11,7 @@ function setupCategoryFilter() {
             //展示、未展示
             caption: { ja: "未発表作品", en: "Unpublished Works" },
             //制作について、キャプション
-            text: { ja: "青が喚起する未来や希望のイメージに、あえて冷たさや距離感を織り交ぜることで、感情の安易な誘導を避けている。本作は、観る人の意識が作品に触れた瞬間、見えない波動が静かに作用し、思考や視点に時間を超えて働きかける「感覚の設計図」のようなゆるやかな変化をもたらす存在となる。思いや意図は、言葉にすることで確かに伝わる。一方で、波動やエネルギーは可視化できず、感じ取れる人にしか届かない。それでも、言葉がなくとも“何か”が伝わる感覚は、確かに存在する。果たして、永く残るのは明確な言語なのか、それとも目に見えない感覚なのか。その問いを視覚的に構成し、見る人の内側に静かに働きかける。", en: "By deliberately interweaving coldness and distance into the image of the future and hope evoked by blue, we avoid the easy manipulation of emotions. This work becomes a presence that, at the moment an observer's consciousness touches it, quietly influences with an invisible wave, bringing about a gentle change akin to a 'blueprint of sensation' that works on thoughts and perspectives beyond time.Thoughts and intentions certainly convey meaning when expressed in words. On the other hand, waves and energies cannot be visualized and only reach those who can perceive them.Even so, the sense that 'something' is conveyed without words indeed exists.What truly lasts longer: clear language or invisible sensations? This question is visually constructed and quietly influences the inner self of the observer." },
+            text: { ja: "青が喚起する未来や希望のイメージに、あえて冷たさや距離感を織り交ぜることで、感情の安易な誘導を避けている。<br>本作は、観る人の意識が作品に触れた瞬間、見えない波動が静かに作用し、思考や視点に時間を超えて働きかける「感覚の設計図」のようなゆるやかな変化をもたらす存在となる。思いや意図は、言葉にすることで確かに伝わる。一方で、波動やエネルギーは可視化できず、感じ取れる人にしか届かない。それでも、言葉がなくとも“何か”が伝わる感覚は、確かに存在する。果たして、永く残るのは明確な言語なのか、それとも目に見えない感覚なのか。その問いを視覚的に構成し、見る人の内側に静かに働きかける。", en: "By deliberately interweaving coldness and distance into the image of the future and hope evoked by blue, we avoid the easy manipulation of emotions. This work becomes a presence that, at the moment an observer's consciousness touches it, quietly influences with an invisible wave, bringing about a gentle change akin to a 'blueprint of sensation' that works on thoughts and perspectives beyond time.Thoughts and intentions certainly convey meaning when expressed in words. On the other hand, waves and energies cannot be visualized and only reach those who can perceive them.Even so, the sense that 'something' is conveyed without words indeed exists.What truly lasts longer: clear language or invisible sensations? This question is visually constructed and quietly influences the inner self of the observer." },
             //制作 年、ジャンル
             category: ["2024", "Paint"],
             //作法
@@ -514,7 +514,7 @@ function setupCategoryFilter() {
             <div class="modal-text">
                 <p>${truncateText(item.text[lang])}</p>
                 ${hasLink ? `
-                <a href="${item.link}" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid;" rel="noopener" target="_blank">${buttonLabel} More</a>
+                <a href="${item.link}" class="noise" style="font-size: 1.6rem; margin-top: 1vmin; border-bottom: 3px solid;" rel="noopener" target="_blank">${buttonLabel} More</a>
                 ` : ""}
                 <p lang="ja">
                     作品「${item.title[lang]}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。
@@ -522,7 +522,7 @@ function setupCategoryFilter() {
                 <p lang="en">
                     For inquiries about the work「${item.title[lang]}」, please contact us using the form on the Contact page of this website.
                 </p>
-                <a href="contact.html" class="noise" style="font-size: 1.2rem; margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
+                <a href="contact.html" class="noise" style="font-size: 1.6rem; margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
                 <button id="modalCloseBtn">Close</button>
             </div>
         </div>
