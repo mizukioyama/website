@@ -486,16 +486,21 @@ function setupCategoryFilter() {
         });
     }
 
-    function showModal(item) {
-        const lang = getLang();
-        const firstLine = item.category[0] || "";
-        const secondLine = item.category.slice(1).join(" ") || "";
-        const hasLink = !!item.link;
-        const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
+function showModal(item) {
+    const lang = getLang();
+    const firstLine = item.category[0] || "";
+    const secondLine = item.category.slice(1).join(" ") || "";
+    const hasLink = !!item.link;
+    const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
 
-        const modalBox = document.getElementById("modalBox");
+    const modalBox = document.getElementById("modalBox");
 
-        modalBox.innerHTML = `
+    // 言語別メッセージ
+    const inquiryMessage = lang === "ja"
+        ? `作品「${item.title.ja}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。`
+        : `For inquiries about the work「${item.title.en}」, please contact us using the form on the Contact page of this website.`;
+
+    modalBox.innerHTML = `
         <div class="work-img">
             <div class="works">
                 <h2>${item.title[lang]}</h2>
@@ -516,12 +521,7 @@ function setupCategoryFilter() {
                 ${hasLink ? `
                 <a href="${item.link}" class="noise" style="font-size: 1.6rem; margin-top: 1vmin; border-bottom: 3px solid;" rel="noopener" target="_blank">${buttonLabel} More</a>
                 ` : ""}
-                <p lang="ja">
-                    作品「${item.title[lang]}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。
-                </p>
-                <p lang="en">
-                    For inquiries about the work「${item.title[lang]}」, please contact us using the form on the Contact page of this website.
-                </p>
+                <p>${inquiryMessage}</p>
                 <a href="contact.html" class="noise" style="font-size: 1.6rem; margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
                 <button id="modalCloseBtn">Close</button>
             </div>
