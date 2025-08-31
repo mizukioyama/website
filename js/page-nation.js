@@ -435,7 +435,7 @@ function setupCategoryFilter() {
             : artworks.filter(item => item.category.includes(selectedCategory));
     }
 
-    function truncateText(text, maxLength = 300) {
+    function truncateText(text, maxLength = 500) {
         return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
 
