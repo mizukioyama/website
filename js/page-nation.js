@@ -6,6 +6,15 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
+            title: { ja: "#2344", en: "#2344" },
+            caption: { ja: "未発表作品", en: "Unpublished Works" },
+            text: { ja: "目に見えないエネルギーや波動が、人の心や感覚にどのように伝わり作用するかを主題に据えたシリーズ。物質的な形態を超え、視覚表現を通じて感覚や思考を変容させる設計を意図。作品に込めたエネルギーは、言葉や説明を介さずとも、受け手の無意識に作用し、感情や解釈を揺さぶる装置として機能する。伝達されるものは曖昧で、固定された意味を持たない一方で、観る人の意識を媒介として伝わる。見えない設計図のように構築された作品群は、鑑賞のたびに異なる波動を放ち、時間や距離を超えて感覚の奥深くに残り続けることを目指しています。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
+            category: ["2023", "Digital"],
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
+            img: "img/time-and-change-web.jpg",
+            ImageData: "img/time-and-change.jpg"
+        },
+        {
             //title
             title: { ja: "蒼想", en: "Sōsō / Soso" },
             //展示、未展示
