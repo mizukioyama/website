@@ -11,7 +11,7 @@ function setupCategoryFilter() {
             //展示、未展示
             caption: { ja: "未発表作品", en: "Unpublished Works" },
             //制作について、キャプション
-            text: { ja: "小山瑞樹は作品を制作する上で、「Nature Inspire」を根源に据えています。その中でこの作品は、「エネルギー伝達の設計」をテーマに制作しています。", en: "I base my work on 'Nature Inspire,' and this piece was created with the theme of 'energy transmission design.'" },
+            text: { ja: "青が喚起する未来や希望のイメージに、あえて冷たさや距離感を織り交ぜることで、感情の安易な誘導を避けている。観る人の意識が作品に触れた瞬間、見えない波動が静かに作用し、思考や視点にゆるやかな変化をもたらすよう設計している。本作は、時間を超えて働きかける「感覚の設計図」として存在している。思いや意図は、言葉にすることで確かに伝わる。一方で、波動やエネルギーは可視化できず、感じ取れる人にしか届かない。それでも、言葉がなくとも“何か”が伝わる感覚は、確かに存在する。果たして、永く残るのは明確な言語なのか、それとも目に見えない感覚なのか。本作は、その問いを視覚的に構成し、見る人の内側に静かに働きかける。", en: "By deliberately intertwining a sense of coldness and distance with the imagery of future and hope that blue evokes, I am avoiding the easy manipulation of emotions. The moment the viewer's consciousness touches the artwork, an invisible wave quietly acts, bringing about a gentle change in thought and perspective. This work exists as a 'blueprint of sensation' that influences beyond the constraints of time. Thoughts and intentions can surely be conveyed through words. However, waves and energies cannot be visualized and only reach those who can perceive them. Even so, the sense that 'something' is conveyed without words certainly exists. Ultimately, what remains longer: clear language or an invisible sensation? This work visually constructs that question and quietly influences the viewer's inner self." },
             //制作 年、ジャンル
             category: ["2024", "Paint"],
             //作法
@@ -28,16 +28,17 @@ function setupCategoryFilter() {
             category: ["2023", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202344-1-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2342", en: "#2342" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
+            text: { ja: "目に見えないエネルギーや波動が、人の心や感覚にどのように伝わり作用するかを主題に据えたシリーズ。物質的な形態を超え、視覚表現を通じて感覚や思考を変容させる設計を意図。作品に込めたエネルギーは、言葉や説明を介さずとも、受け手の無意識に作用し、感情や解釈を揺さぶる装置として機能する。伝達されるものは曖昧で、固定された意味を持たない一方で、観る人の意識を媒介として伝わる。見えない設計図のように構築された作品群は、鑑賞のたびに異なる波動を放ち、時間や距離を超えて感覚の奥深くに残り続けることを目指しています。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
             category: ["2023", "Digital"],
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202342-web.jpg",
             ImageData: "img/202343-2.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2341", en: "#2341" },
@@ -45,7 +46,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202341-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2340", en: "#2340" },
@@ -53,7 +54,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202340-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
 
         },
         {
@@ -62,7 +63,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202339-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2338", en: "#2338" },
@@ -70,13 +71,13 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202338-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "心樹", en: "Shinju" },
             caption: { ja: "展示作品：デジタル", en: "Exhibited works" },
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
-            text: { ja: "目に見えないエネルギーや波動が、人の心や感覚にどのように伝わり作用するかを主題に据えたシリーズ。物質的な形態を超え、視覚表現を通じて感覚や思考を変容させる設計を意図。作品に込めたエネルギーは、言葉や説明を介さずとも、受け手の無意識に作用し、感情や解釈を揺さぶる装置として機能する。伝達されるものは曖昧で、固定された意味を持たない一方で、観る人の意識を媒介として伝わる。見えない設計図のように構築された作品群は、鑑賞のたびに異なる波動を放ち、時間や距離を超えて感覚の奥深くに残り続けることを目指しています。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
+            text: { ja: "幾重にも重ねた変化の葉が、やがてひとつの球体を結び、 それは心の奥底──静かにたゆたう源を象っています。 大地に根を張るように、静かに光る 目には見えない「エネルギー（心）の源」を表現しました。", en: "The layers of changing leaves, stacked upon each other, eventually form a single sphere, which symbolizes the depths of the heart – a quietly swaying source. Just as roots are anchored in the earth, it expresses the unseen 'source of energy (heart)' that shines quietly." },
             category: ["2023", "Digital"],
             img: "img/心樹-web.jpg",
             ImageData: "img/202343-2.jpg"
@@ -87,7 +88,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202337-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2336", en: "#2336" },
@@ -95,7 +96,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202336-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2334", en: "#2334" },
@@ -103,7 +104,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202334-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2326", en: "#2326" },
@@ -111,7 +112,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202326-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
             title: { ja: "#2319", en: "#2319" },
@@ -119,7 +120,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202319-web.jpg",
-            link: "https://opensea.io/ja/collection/massless-energy-art"
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },//2022
         {
             title: { ja: "映し神", en: "Utsushigami" },
