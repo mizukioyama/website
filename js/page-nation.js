@@ -37,6 +37,7 @@ function setupCategoryFilter() {
             category: ["2023", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202344-1-web.jpg",
+            ImageData: "img/202344-1-web.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -46,7 +47,7 @@ function setupCategoryFilter() {
             category: ["2023", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202342-web.jpg",
-            ImageData: "img/202343-2.jpg",
+            ImageData: "img/202342.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -55,6 +56,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202341-web.jpg",
+            ImageData: "img/202341.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -63,6 +65,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202340-web.jpg",
+            ImageData: "img/202340.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
 
         },
@@ -72,6 +75,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202339-web.jpg",
+            ImageData: "img/202339.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -80,6 +84,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202338-web.jpg",
+            ImageData: "img/202338.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -97,6 +102,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202337-web.jpg",
+            ImageData: "img/202337.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -105,6 +111,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202336-web.jpg",
+            ImageData: "img/202336.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -113,6 +120,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202334-web.jpg",
+            ImageData: "img/202334.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -121,6 +129,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202326-web.jpg",
+            ImageData: "img/202326.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -129,6 +138,7 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             category: ["2023", "Digital"],
             img: "img/202319-web.jpg",
+            ImageData: "img/202319.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },//2022
         {
