@@ -31,9 +31,9 @@ function setupCategoryFilter() {
             ImageData: "img/蒼想-web02.jpg"
         },//Unreleased
         {
-            title: { ja: "#2344", en: "#2344" },
+            title: { ja: "幽昧", en: "#2344" },
             caption: { ja: "未発表作品", en: "Unpublished Works" },
-            text: { ja: "目に見えないエネルギーや波動が、人の心や感覚にどのように伝わり作用するかを主題に据えたシリーズ。物質的な形態を超え、視覚表現を通じて感覚や思考を変容させる設計を意図。作品に込めたエネルギーは、言葉や説明を介さずとも、受け手の無意識に作用し、感情や解釈を揺さぶる装置として機能する。伝達されるものは曖昧で、固定された意味を持たない一方で、観る人の意識を媒介として伝わる。見えない設計図のように構築された作品群は、鑑賞のたびに異なる波動を放ち、時間や距離を超えて感覚の奥深くに残り続けることを目指しています。", en: "For inquiries about this work, please contact us through the Contact form on our website." },
+            text: { ja: "白と黒の境界が溶け合い、煙のように漂う曖昧な意識。形を持たない影が交わり、視覚では掴みきれない“感覚”が静かに揺らめく。本作は、まがまがしさと抽象の間を往還する「思考の断片」を可視化した存在である。言葉では定義できない何かが、あなたの奥底に触れるかもしれない。見えるものと、見えないもの。語られるものと、語られないもの。果たして、心に残るのはどちらなのか――その問いを、煙の靄の向こうに投げかける。", en: "The boundary between white and black melts away, creating an ambiguous consciousness that drifts like smoke. Shape-less shadows intertwine, and a 'sensation' that cannot be grasped visually quietly flickers.This work is a manifestation of 'fragments of thought' that traverse between the uncanny and the abstract. Something that cannot be defined by words may touch the depths of your being.The visible and the invisible. The things that are spoken and the things that remain unspoken.Which is it that lingers in the heart? — This question is cast beyond the mist of smoke." },
             category: ["2023", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202344-1-web.jpg",
