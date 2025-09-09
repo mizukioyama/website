@@ -37,7 +37,7 @@ function setupCategoryFilter() {
             category: ["2023", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202344-1-web.jpg",
-            ImageData: "img/202344-1-web.jpg",
+            ImageData: "img/202344-1.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -130,6 +130,24 @@ function setupCategoryFilter() {
             category: ["2023", "Digital"],
             img: "img/202326-web.jpg",
             ImageData: "img/202326.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
+            title: { ja: "#23,000,02", en: "#23,000,02" },
+            caption: { ja: "未発表作品", en: "Unpublished Works" },
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            category: ["2023", "Photo"],
+            img: "img/23,000,02.jpg",
+            ImageData: "img/23,000,02-2.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
+            title: { ja: "#23,000,01", en: "#23,000,01" },
+            caption: { ja: "未発表作品", en: "Unpublished Works" },
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            category: ["2023", "Photo"],
+            img: "img/23,000,01.jpg",
+            ImageData: "img/23,000,01-2.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
