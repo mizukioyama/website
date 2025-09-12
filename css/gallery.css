@@ -23,6 +23,7 @@ body {
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
+    transition: background-image 0.5s, color 0.5s;
 }
 
 body.dark-theme {
