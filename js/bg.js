@@ -25,18 +25,22 @@ function isInRange(hour, start, end) {
 }
 
 function applyTheme() {
-  const body = document.body;
-  if (!body) return; // 安全ガード
+  const elements = document.querySelectorAll("body, .modal-box"); // ← body と .modal-box 両方
+  if (!elements.length) return;
 
   const hour = getJapanHour();
+  let theme = "light";
 
   if (isInRange(hour, themeSettings.am.start, themeSettings.am.end)) {
-    body.classList.remove("dark-theme");
-    body.classList.add("light-theme");
+    theme = "light";
   } else {
-    body.classList.remove("light-theme");
-    body.classList.add("dark-theme");
+    theme = "dark";
   }
+
+  elements.forEach(el => {
+    el.classList.remove("light-theme", "dark-theme");
+    el.classList.add(theme + "-theme");
+  });
 }
 
 // DOM が読み込まれてから実行（head に置く場合でも defer を併用するか、このイベントリスナを使えば安全）
