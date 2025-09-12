@@ -6,10 +6,6 @@
     background-image: linear-gradient(to right, #ffffff 0%, #ffffffa6 100%);
 }
 
-h2,h3,h3,.noise {
-    mix-blend-mode: difference;
-}
-
 #langChenge {
     position: fixed;
     top: 5.5rem;
@@ -33,8 +29,8 @@ body {
 /* 黒系 */
 body.dark-theme,
 body.dark-theme .modal-box {
-  background-color: rgba(200, 200, 200, 0.3);
-  color: var(--def);
+  background-color: rgba(200, 200, 200);
+  color: rgba(200, 200, 200);
 }
 
 /*== bg water ==*/
