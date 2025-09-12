@@ -30,6 +30,10 @@ body.dark-theme {
     color: var(--def);
     background: var(--inv);
     background-image: linear-gradient(rgba(200, 200, 200, 0.62), rgba(200, 200, 200, 0.62)), url("../img/202343-2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
 }
 
 /*== bg water ==*/
