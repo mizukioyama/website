@@ -25,6 +25,10 @@ body {
     background-position: center;
 }
 
+body.dark-theme {
+    color: var(--def);
+    background: var(--inv);
+}
 
 /*== bg water ==*/
 .ripples {
