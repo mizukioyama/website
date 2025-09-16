@@ -26,12 +26,13 @@ body {
     transition: background-color 0.5s, color 0.5s;
 }
 
-/* 黒系 */
+/* 黒系 js
 body.dark-theme,
 body.dark-theme .modal-box {
   background-color: rgba(200, 200, 200, 0.3);
   color: rgba(200, 200, 200);
 }
+*/
 
 /*== bg water ==*/
 .ripples {
