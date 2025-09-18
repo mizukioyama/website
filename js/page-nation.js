@@ -177,7 +177,7 @@ function setupCategoryFilter() {
             category: ["2022", "Paint"],
             textContent: { ja: "Paint", en: "Paint" },
             img: "img/映し神-web.jpg",
-            ImageData: "img/映し神-web.jpg"
+            ImageData: "img/映し神.jpg"
         },
         {
             title: { ja: "#2203", en: "#2203" },
@@ -214,7 +214,7 @@ function setupCategoryFilter() {
             category: ["2022", "Paint"],
             textContent: { ja: "Paint", en: "Paint" },
             img: "img/挑戦-web.jpg",
-            ImageData: "img/挑戦-web.jpg"
+            ImageData: "img/挑戦.jpg"
         },//========2021
         {
             title: { ja: "#2110", en: "#2110" },
@@ -341,8 +341,9 @@ function setupCategoryFilter() {
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2021", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/戦争-web.jpg",
-            ImageData: "img/挑戦.jpg"
+            ImageData: "img/戦争.jpg"
         },
         {
             title: { ja: "幸緑", en: "Konryoku" },
