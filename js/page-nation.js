@@ -28,7 +28,7 @@ function setupCategoryFilter() {
             //gallery img
             img: "img/蒼想-web.jpg",
             //modal img
-            ImageData: "img/蒼想-web02.jpg"
+            ImageData: "img/蒼想.jpg"
         },//Unreleased
         {
             title: { ja: "幽昧", en: "#2344" },
