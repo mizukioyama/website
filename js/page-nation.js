@@ -175,6 +175,7 @@ function setupCategoryFilter() {
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2022", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/映し神-web.jpg",
             ImageData: "img/映し神-web.jpg"
         },
@@ -183,6 +184,7 @@ function setupCategoryFilter() {
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2022", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/202203-web.jpg",
             ImageData: "img/202203.jpg"
         },
@@ -191,6 +193,7 @@ function setupCategoryFilter() {
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2022", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/202202-web.jpg",
             ImageData: "img/202202.jpg"
         },
@@ -209,6 +212,7 @@ function setupCategoryFilter() {
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2022", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/挑戦-web.jpg",
             ImageData: "img/挑戦-web.jpg"
         },//========2021
@@ -345,6 +349,7 @@ function setupCategoryFilter() {
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2021", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/幸緑-web.jpg",
             ImageData: "img/幸緑.jpg",
         },
@@ -353,6 +358,7 @@ function setupCategoryFilter() {
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "幸福を呼ぶ、輝きたなびく雲をイメージ。金色の中に、静けさと力強さが同居する。人は、たった一つの色から何を感じ、何を思い出すのか。この作品は、見る人の記憶や感情にそっと問いかける。", en: "The image is of sparkling, fluttering clouds that bring happiness. Calmness and strength coexist in the gold color. What do people feel and remember from just one color? This work gently questions the memories and emotions of the viewer." },
             category: ["2021", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/金雲-web.jpg",
             ImageData: "img/金雲.jpg",
         },
@@ -361,6 +367,7 @@ function setupCategoryFilter() {
             caption: { ja: "展示作品", en: "Exhibited works" },
             text: { ja: "光と闇が混ざり合う狭間。その中から生まれる「輝き」は、ただ明るいだけの光ではなく、闇を知ることで初めて放たれる深みを持った光。この作品は、人生や内面に潜む暗がりを抱えながらも、そこから立ち上がる力や、心の奥で静かに灯る希望を象徴しています。見る人の中にある「影」にそっと寄り添いながらも、無意識の領域へ静かに光を届け、感情の奥深くを揺らすことを意図しています。「輝き」は固定された意味を持たず、観るたびに異なる解釈や波動をもたらします。それはまるで、あなたの心が必要とするメッセージを、そっと差し出すかのように。<br>本作は、TAJO（トスカーナ芸術鑑定機構）より公式認定を受けています。", en: "A gap where light and darkness mix.The 'glow' that emerges from there is not just bright light, but a deep light that can only be emitted by knowing the darkness.This work symbolizes the strength to rise from the darkness that lurks in one's life and within oneself, and the hope that quietly lights up deep in the heart.The work is intended to gently embrace the 'shadow' within the viewer, while quietly delivering light to the unconscious and stirring the depths of one's emotions.'Glow' has no fixed meaning, and brings about different interpretations and vibrations each time you view it.It is as if it is gently offering you a message that your heart needs." },
             category: ["2021", "Paint", "Certified"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/輝き-web.jpg",
             ImageData: "img/輝き.jpg",
         },
@@ -369,6 +376,7 @@ function setupCategoryFilter() {
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2021", "Paint"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/202100-web.jpg",
             ImageData: "img/202100.jpg",
             link: "https://opensea.io/ja/collection/massless-energy-art"
@@ -378,6 +386,7 @@ function setupCategoryFilter() {
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "専門学校デザイン科に入学後、課題制作として取り組んだ作品。一枚の紙を破り、構成し直すことで「見え方が変わる」という視覚的変化に着目。破る、貼るというシンプルな行為を通して、素材の新たな表情や関係性を探った。紙という日常的な素材に手を加えることで、固定されたイメージからの解放を試みた作品。", en: "This is a piece that I worked on as an assignment after entering a vocational school's design department. I focused on the visual change of 'how it looks' by tearing a piece of paper and recomposing it. Through the simple act of tearing and pasting, I explored new expressions and relationships of the material. By tinkering with the everyday material of paper, this piece attempted to free itself from fixed images." },
             category: ["2010-2017", "Collage"],
+            textContent: { ja: "Paint", en: "Paint" },
             img: "img/201702-web.jpg",
             ImageData: "img/201702.jpg",
         },
