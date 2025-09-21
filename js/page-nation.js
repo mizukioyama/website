@@ -9,7 +9,7 @@ function setupCategoryFilter() {
             title: { ja: "時間と変化", en: "Time and change" },
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },
-            category: ["2023", "Digital"],
+            category: ["2025", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202501-web.jpg",
             ImageData: "img/202501.jpg"
@@ -18,7 +18,7 @@ function setupCategoryFilter() {
             title: { ja: "時間と変化", en: "Time and change" },
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },
-            category: ["2023", "Digital"],
+            category: ["2025", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/time-and-change-web.jpg",
             ImageData: "img/time-and-change.jpg"
