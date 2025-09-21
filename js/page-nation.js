@@ -11,6 +11,15 @@ function setupCategoryFilter() {
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2023", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
+            img: "img/202501-web.jpg",
+            ImageData: "img/202501.jpg"
+        },
+        {
+            title: { ja: "時間と変化", en: "Time and change" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2023", "Digital"],
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/time-and-change-web.jpg",
             ImageData: "img/time-and-change.jpg"
         },
@@ -82,6 +91,36 @@ function setupCategoryFilter() {
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
+            title: { ja: "#23,000,08", en: "#23,000,08" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2023", "Photo"],
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            img: "img/23,000,08-web.jpg",
+            ImageData: "img/23,000,08.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
+            title: { ja: "#23,000,07", en: "#23,000,07" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2023", "Photo"],
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            img: "img/23,000,07-web.jpg",
+            ImageData: "img/23,000,07.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
+            title: { ja: "#23,000,06", en: "#23,000,06" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2023", "Photo"],
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            img: "img/23,000,06-web.jpg",
+            ImageData: "img/23,000,06.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
             title: { ja: "#2338", en: "#2338" },
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },
@@ -108,6 +147,36 @@ function setupCategoryFilter() {
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202337-web.jpg",
             ImageData: "img/202337.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
+            title: { ja: "#23,000,05", en: "#23,000,05" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2023", "Photo"],
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            img: "img/23,000,05-web.jpg",
+            ImageData: "img/23,000,05.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
+            title: { ja: "#23,000,04", en: "#23,000,04" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2023", "Photo"],
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            img: "img/23,000,04-web.jpg",
+            ImageData: "img/23,000,04.jpg",
+            link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
+        },
+        {
+            title: { ja: "#23,000,03", en: "#23,000,03" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2023", "Photo"],
+            textContent: { ja: "Photo, 加工", en: "Photo, processing" },
+            img: "img/23,000,03-web.jpg",
+            ImageData: "img/23,000,03.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -146,8 +215,8 @@ function setupCategoryFilter() {
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2023", "Photo"],
             textContent: { ja: "Photo, 加工", en: "Photo, processing" },
-            img: "img/23,000,02.jpg",
-            ImageData: "img/23,000,02-2.jpg",
+            img: "img/23,000,02-web.jpg",
+            ImageData: "img/23,000,02.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
@@ -156,8 +225,8 @@ function setupCategoryFilter() {
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2023", "Photo"],
             textContent: { ja: "Photo, 加工", en: "Photo, processing" },
-            img: "img/23,000,01.jpg",
-            ImageData: "img/23,000,01-2.jpg",
+            img: "img/23,000,01-web.jpg",
+            ImageData: "img/23,000,01.jpg",
             link: "https://opensea.io/0x99c7a15cd91d9acb4d9fb047e453639f0efa2335/galleries"
         },
         {
