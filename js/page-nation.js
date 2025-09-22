@@ -42,7 +42,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2403", en: "#2403" },
             caption: { ja: "未発表", en: "Unpublished" },
-            text: { ja: "白と黒の境界が溶け合い、煙のように漂う曖昧な意識。形を持たない影が交わり、視覚では掴みきれない“感覚”が静かに揺らめく。本作は、まがまがしさと抽象の間を往還する「思考の断片」を可視化した存在である。言葉では定義できない何かが、あなたの奥底に触れるかもしれない。見えるものと、見えないもの。語られるものと、語られないもの。心に残るのはどちらなのか――", en: "The boundaries of black and white melt away, drifting like smoke in an ambiguous consciousness. Formless shadows intertwine, and a 'sensation' that cannot be grasped by sight quietly flickers. This work is a visual representation of 'fragments of thought' that oscillate between the eerie and the abstract. Something that cannot be defined by words may touch the depths of you. What is visible and what is unseen. What is spoken and what is unsaid. Which one lingers in the heart?" },
+            text: { ja: "準備中...", en: "Preparing…" },
             category: ["2024", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202403-web.jpg",
@@ -52,7 +52,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2402", en: "#2402" },
             caption: { ja: "未発表", en: "Unpublished" },
-            text: { ja: "白と黒の境界が溶け合い、煙のように漂う曖昧な意識。形を持たない影が交わり、視覚では掴みきれない“感覚”が静かに揺らめく。本作は、まがまがしさと抽象の間を往還する「思考の断片」を可視化した存在である。言葉では定義できない何かが、あなたの奥底に触れるかもしれない。見えるものと、見えないもの。語られるものと、語られないもの。心に残るのはどちらなのか――", en: "The boundaries of black and white melt away, drifting like smoke in an ambiguous consciousness. Formless shadows intertwine, and a 'sensation' that cannot be grasped by sight quietly flickers. This work is a visual representation of 'fragments of thought' that oscillate between the eerie and the abstract. Something that cannot be defined by words may touch the depths of you. What is visible and what is unseen. What is spoken and what is unsaid. Which one lingers in the heart?" },
+            text: { ja: "準備中...", en: "Preparing…" },
             category: ["2024", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202402-web.jpg",
@@ -62,7 +62,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2401", en: "#2401" },
             caption: { ja: "未発表", en: "Unpublished" },
-            text: { ja: "白と黒の境界が溶け合い、煙のように漂う曖昧な意識。形を持たない影が交わり、視覚では掴みきれない“感覚”が静かに揺らめく。本作は、まがまがしさと抽象の間を往還する「思考の断片」を可視化した存在である。言葉では定義できない何かが、あなたの奥底に触れるかもしれない。見えるものと、見えないもの。語られるものと、語られないもの。心に残るのはどちらなのか――", en: "The boundaries of black and white melt away, drifting like smoke in an ambiguous consciousness. Formless shadows intertwine, and a 'sensation' that cannot be grasped by sight quietly flickers. This work is a visual representation of 'fragments of thought' that oscillate between the eerie and the abstract. Something that cannot be defined by words may touch the depths of you. What is visible and what is unseen. What is spoken and what is unsaid. Which one lingers in the heart?" },
+            text: { ja: "準備中...", en: "Preparing…" },
             category: ["2024", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202401-web.jpg",
