@@ -347,8 +347,8 @@
     lowlightColor: 0x3f3ff,
     baseColor: 0xfafffc,
     blurFactor: 0.60,
-    speed: 0.5,   // 動きの速さ
-    zoom: 0.40
+    speed: 0.45,   // 動きの速さ
+    zoom: 0.35
   });
 
   // === 流れ方向制御（右下 → 左下 の繰り返し） ===
@@ -358,7 +358,7 @@
 
   const interval = 100; // 0.1秒ごと
   const switchRight = 25000; // 10秒後に左下へ切り替え
-  const switchLeft = 18000;  // 8秒後に右下へ戻す
+  const switchLeft = 38000;  // 8秒後に右下へ戻す
 
   setInterval(() => {
     elapsed += interval;
