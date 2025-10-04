@@ -172,6 +172,7 @@ h1 {
     top: 0;
     writing-mode: vertical-rl;
     background: var(--inv);
+    box-shadow: 0 0 5px var(--inv);
     /*background: rgba(240, 255, 255, 0.4);*/
     width: 2px;
     height: 100%;
@@ -195,27 +196,27 @@ h1 {
 /* スクロールアニメーションの定義 */
 @keyframes scroll {
     0% {
-        box-shadow: 0 0 5px var(--inv);
         transform: scale(1, 0);
         transform-origin: 0 0;
+        box-shadow: none;
     }
 
     50% {
-        box-shadow: 0 0 5px var(--inv);
         transform: scale(1, 1);
         transform-origin: 0 0;
+        box-shadow: none;
     }
 
     51% {
-        box-shadow: 0 0 5px var(--inv);
         transform: scale(1, 1);
         transform-origin: 0 100%;
+        box-shadow: none;
     }
 
     100% {
-        box-shadow: 0 0 5px var(--inv);
         transform: scale(1, 0);
         transform-origin: 0 100%;
+        box-shadow: none;
     }
 }
 
