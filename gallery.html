@@ -347,7 +347,7 @@
     lowlightColor: 0x3f3ff,
     baseColor: 0xfafffc,
     blurFactor: 0.60,
-    speed: 0.50,  // ← 初期方向（右方向）
+    speed: 0.85,  // ← 初期方向（右方向）
     zoom: 0.40
   });
 
@@ -363,10 +363,10 @@
 
     if (elapsed === switchRight) {
       direction = -1; // 左方向に切り替え
-      vantaEffect.setOptions({ speed: -0.5 });
+      vantaEffect.setOptions({ speed: -1.5 });
     } else if (elapsed === switchLeft) {
       direction = 1; // 右方向に戻す
-      vantaEffect.setOptions({ speed: 0.5 });
+      vantaEffect.setOptions({ speed: 1.5 });
       elapsed = 0; // カウンターリセット
     }
 
