@@ -34,8 +34,8 @@
         $ripplesContainer.ripples('drop', x, y, dropRadius, strength);
     
         // 次の波紋を発生させるまでのランダムな待ち時間
-        var minInterval = 450; // 最小待ち時間（ミリ秒）
-        var maxInterval = 200; // 最大待ち時間（ミリ秒）
+        var minInterval = 220; // 最小待ち時間（ミリ秒）
+        var maxInterval = 400; // 最大待ち時間（ミリ秒）
         var nextInterval = Math.floor(Math.random() * (maxInterval - minInterval + 0.5) + minInterval);
     
         // 次の波紋を発生させる
