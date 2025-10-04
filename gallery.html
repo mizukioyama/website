@@ -334,23 +334,44 @@
     });
   </script>
 
-  <script>
-    VANTA.FOG({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      highlightColor: 0x181818,
-      midtoneColor: 0xb3b3b3,
-      lowlightColor: 0x3f3ff,
-      baseColor: 0xfafffc,
-      blurFactor: 0.60,
-      speed: 0.50,
-      zoom: 0.40
-    })
-  </script>
+<script>
+  let vantaEffect = VANTA.FOG({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0x181818,
+    midtoneColor: 0xb3b3b3,
+    lowlightColor: 0x3f3ff,
+    baseColor: 0xfafffc,
+    blurFactor: 0.60,
+    speed: 0.50,  // ← 初期方向（右方向）
+    zoom: 0.40
+  });
+
+  // === 方向反転制御 ===
+  let direction = 1; // 1:右方向, -1:左方向
+  let elapsed = 0;
+  const interval = 1000; // 1秒ごとに経過時間をカウント
+  const switchRight = 10; // 10秒右
+  const switchLeft = 18;  // 18秒で左（計8秒間左に）
+
+  setInterval(() => {
+    elapsed++;
+
+    if (elapsed === switchRight) {
+      direction = -1; // 左方向に切り替え
+      vantaEffect.setOptions({ speed: -0.5 });
+    } else if (elapsed === switchLeft) {
+      direction = 1; // 右方向に戻す
+      vantaEffect.setOptions({ speed: 0.5 });
+      elapsed = 0; // カウンターリセット
+    }
+
+  }, interval);
+</script>
 
 </body>
 
