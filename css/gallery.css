@@ -172,7 +172,7 @@ h1 {
     top: 0;
     writing-mode: vertical-rl;
     background: var(--inv);
-    box-shadow: 0 0 5px #000;
+    box-shadow: 0 0 3px #000;
     /*background: rgba(240, 255, 255, 0.4);*/
     width: 1.5px;
     height: 100%;
