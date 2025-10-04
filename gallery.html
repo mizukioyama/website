@@ -347,27 +347,37 @@
     lowlightColor: 0x3f3ff,
     baseColor: 0xfafffc,
     blurFactor: 0.60,
-    speed: 0.85,  // ← 初期方向（右方向）
+    speed: 0.5,   // 動きの速さ
     zoom: 0.40
   });
 
-  // === 方向反転制御 ===
-  let direction = 1; // 1:右方向, -1:左方向
+  // === 流れ方向制御（右下 → 左下 の繰り返し） ===
+  let directionX = 1;  // X方向（右:+1 / 左:-1）
+  let directionY = 1;  // Y方向（下:+1 / 上:-1）
   let elapsed = 0;
-  const interval = 1000; // 1秒ごとに経過時間をカウント
-  const switchRight = 10; // 10秒右
-  const switchLeft = 18;  // 18秒で左（計8秒間左に）
+
+  const interval = 100; // 0.1秒ごと
+  const switchRight = 10000; // 10秒後に左下へ切り替え
+  const switchLeft = 18000;  // 8秒後に右下へ戻す
 
   setInterval(() => {
-    elapsed++;
+    elapsed += interval;
 
     if (elapsed === switchRight) {
-      direction = -1; // 左方向に切り替え
-      vantaEffect.setOptions({ speed: -1.5 });
-    } else if (elapsed === switchLeft) {
-      direction = 1; // 右方向に戻す
-      vantaEffect.setOptions({ speed: 1.5 });
-      elapsed = 0; // カウンターリセット
+      // 左下方向
+      directionX = -1;
+    } else if (elapsed >= switchLeft) {
+      // 右下方向
+      directionX = 1;
+      elapsed = 0;
+    }
+
+    // fog の内部 offset に擬似的な移動ベクトルを与える
+    // speed に小さく影響を与えることで“方向感”を再現
+    if (vantaEffect.uniforms) {
+      const time = performance.now() * 0.00005;
+      vantaEffect.uniforms.time.value = time * directionX; // X方向
+      vantaEffect.uniforms.zoom.value = 0.40 + (directionY * 0.02); // 下方向感
     }
 
   }, interval);
