@@ -172,9 +172,9 @@ h1 {
     top: 0;
     writing-mode: vertical-rl;
     background: var(--inv);
-    box-shadow: 0 0 5px var(--inv);
+    box-shadow: 0 0 5px #000;
     /*background: rgba(240, 255, 255, 0.4);*/
-    width: 2px;
+    width: 1.5px;
     height: 100%;
     z-index: 100;
     opacity: 0.5;
@@ -186,9 +186,8 @@ h1 {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 2px;
+    width: 1.5px;
     height: 100%;
-    box-shadow: 0 0 5px #000;
     background-color: #000;
     animation: scroll 15s infinite;
 }
@@ -198,25 +197,21 @@ h1 {
     0% {
         transform: scale(1, 0);
         transform-origin: 0 0;
-        box-shadow: none;
     }
 
     50% {
         transform: scale(1, 1);
         transform-origin: 0 0;
-        box-shadow: none;
     }
 
     51% {
         transform: scale(1, 1);
         transform-origin: 0 100%;
-        box-shadow: none;
     }
 
     100% {
         transform: scale(1, 0);
         transform-origin: 0 100%;
-        box-shadow: none;
     }
 }
 
