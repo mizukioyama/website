@@ -177,6 +177,28 @@
         <label for="modal-toggle" class="modal-open-label">SitePolicy</label>
         <button type="submit" class="submit-btn">Send</button>
       </div>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <!-- modal -->
+    <div id="thanksModal" class="modal">
+      <div class="modal-content">
+        <span class="close">Close</span>
+        <p>
+          お問い合わせありがとうございます.
+          <br>
+          内容の確認ができ次第,登録アドレス宛に返信いたします.
+          <br>
+          ※返信まで1週間ほどかかる場合があります.
+        </p>
+        <p>
+          Thank you for your inquiry.
+          <br>
+          We will reply to your registered email address as soon as we can confirm the details.
+          <br>
+          ※It may take about a week to receive a response.
+        </p>
+      </div>
+    </div>
     </form>
 
     <!-- チェックボックスで状態制御 -->
@@ -386,29 +408,6 @@
       <label for="modal-toggle" class="button modal-close-label">
         Close
       </label>
-    </div>
-
-
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-    <!-- modal -->
-    <div id="thanksModal" class="modal">
-      <div class="modal-content">
-        <span class="close">Close</span>
-        <p>
-          お問い合わせありがとうございます.
-          <br>
-          内容の確認ができ次第登録アドレス宛に返信いたします.
-          <br>
-          ※返信まで1日～1週間かかる場合があります.
-        </p>
-        <p>
-          Thank you for your inquiry.
-          <br>
-          I will reply to the registered address as soon as I can confirm the contents.
-          <br>
-          *It may take 1 day to 1 week to receive a reply.
-        </p>
-      </div>
     </div>
 
   </main>
