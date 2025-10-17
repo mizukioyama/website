@@ -475,7 +475,7 @@ input:-webkit-autofill:focus {
    }
 
    #thanksModal .modal-content {
-      width: 95svw;
+      width: 96svw;
       height: 95svh;
       /*top: 50%;*/
       top: -70vmin;
