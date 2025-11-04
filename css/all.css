@@ -220,7 +220,7 @@ body {
   width: 8px;
   height: 8px;
   background-color: rgba(255, 255, 255);
-  animation: gradientGlow 4s infinite alternate ease-in-out;
+  animation: gradientGlow 8s infinite alternate ease-in-out;
 }
 
 /* ====== ストーカー（追従カーソル） ====== */
@@ -229,7 +229,7 @@ body {
   height: 15px;
   border: 2px solid rgba(255, 255, 255);
   transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
-  animation: gradientGlow 5s infinite alternate ease-in-out;
+  animation: gradientGlow 6s infinite alternate ease-in-out;
 }
 
 /* ====== ホバー時のエフェクト ====== */
