@@ -713,8 +713,8 @@ function showModal(item) {
 
     // 言語別メッセージ
     const inquiryMessage = lang === "ja"
-        ? `作品「${item.title.ja}」についてのお問い合せは当WebサイトのContactページのフォームよりご連絡ください。`
-        : `For inquiries about the work「${item.title.en}」, please contact us using the form on the Contact page of this website.`;
+        ? `作品「${item.title.ja}」についてのお問い合せ、購入は当WebサイトのContactページのフォームよりご連絡ください。`
+        : `For inquiries about or to purchase the work "${item.title.en}", please contact us using the form on the Contact page of this website.`;
 
     modalBox.innerHTML = `
         <div class="work-img">
