@@ -6,6 +6,24 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
+            title: { ja: "#2504", en: "#2504" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2025", "Digital"],
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
+            img: "img/202504-web.jpg",
+            ImageData: "img/202504.jpg"
+        },
+        {
+            title: { ja: "#2503", en: "#2503" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2025", "Digital"],
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
+            img: "img/202503-web.jpg",
+            ImageData: "img/202503.jpg"
+        },
+        {
             title: { ja: "#2501", en: "#2501" },
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },

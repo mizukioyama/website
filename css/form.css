@@ -488,7 +488,7 @@ input:-webkit-autofill:focus {
    }
 
    #thanksModal.show {
-      transform: translate(0%, 20%);
+      transform: translate(-10%, 20%);
    }
 
    #thanksModal .close {
