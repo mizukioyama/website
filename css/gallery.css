@@ -575,7 +575,8 @@ main {
 }
 
 #gallery-container .work .noise {
-    background-image: linear-gradient(to right, #fff 0%, #2e7185 100%);
+    /*background-image: linear-gradient(to right, #fff 0%, #2e7185 100%);*/
+    background-image: linear-gradient(to right, #fff 0%, #0f5357 100%);
 }
 
 #gallery-container .work:nth-child(n+2) .cg-text {
