@@ -747,7 +747,6 @@ function showModal(item) {
                 </p>
             </div>
             <img src="${item.ImageData || item.img}" alt="${item.title[lang]}" style="margin: 10vmin auto; opacity: 0.85;">
-            <div id="vanta-img-bg"></div>
             <p class="noise cg-text" style="font-weight: 500; position: relative; top: 0rem; left: 0; width: fit-content; border-bottom: 1px solid;">
                 Category | ${secondLine}
             </p>
@@ -960,53 +959,3 @@ function showModal(item) {
     renderGallery(); // 初期描画
 
 }
-
-
-
-/* ==============================
-   2つ目の煙エフェクト (#vanta-img-bg)
-============================== */
-let vantaEffectimg = VANTA.FOG({
-  el: "#vanta-img-bg",
-  mouseControls: false,
-  touchControls: false,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  highlightColor: 0x181818,
-  midtoneColor: 0xb3b3b3,
-  lowlightColor: 0x0033ff,
-  baseColor: 0xfafffc,
-  blurFactor: 0.60,
-  speed: 0.45,
-  zoom: 0.40
-});
-
-let directionX2 = 1;
-let elapsed2 = 0;
-const interval2 = 100;
-const switchRight2 = 25000;
-const switchLeft2 = 38000;
-
-setInterval(() => {
-  elapsed2 += interval2;
-
-  if (elapsed2 >= switchRight2 && elapsed2 < switchLeft2) {
-    directionX2 = -1;
-  } else if (elapsed2 >= switchLeft2) {
-    directionX2 = 1;
-    elapsed2 = 0;
-  }
-
-  if (vantaEffect2 && vantaEffect2.options) {
-    const baseSpeed = 0.45;
-    const baseZoom = 0.40;
-    vantaEffect2.options.speed = baseSpeed + (directionX2 * 0.05);
-    vantaEffect2.options.zoom = baseZoom + (Math.sin(performance.now() * 0.0005) * 0.02);
-  }
-}, interval2);
-
-window.addEventListener('resize', () => {
-  if (vantaEffect1) vantaEffect1.resize();
-  if (vantaEffect2) vantaEffect2.resize();
-});
