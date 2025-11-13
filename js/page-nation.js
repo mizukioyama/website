@@ -746,7 +746,7 @@ function showModal(item) {
                     ${truncateText(item.caption[lang])}
                 </p>
             </div>
-            <img src="${item.ImageData || item.img}" alt="${item.title[lang]}" style="margin: 10vmin auto; opacity: 1;">
+            <img src="${item.ImageData || item.img}" alt="${item.title[lang]}" style="margin: 10vmin auto; opacity: 0.85;">
             <div id="vanta-img-bg"></div>
             <p class="noise cg-text" style="font-weight: 500; position: relative; top: 0rem; left: 0; width: fit-content; border-bottom: 1px solid;">
                 Category | ${secondLine}
