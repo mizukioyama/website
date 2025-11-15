@@ -11,8 +11,8 @@ function setupCategoryFilter() {
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2025", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
-            img: "img/202504-web.jpg",
-            ImageData: "img/202504.jpg"
+            img: "img/海淵-web.jpg",
+            ImageData: "img/海淵.jpg"
         },
         {
             title: { ja: "#2504", en: "#2504" },
