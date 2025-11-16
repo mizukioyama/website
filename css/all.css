@@ -384,8 +384,9 @@ hr {
   width: 50%;
   height: 1px;
   margin: 15vmin auto;
-  background: #777;
-  background: #333;
+  /*background: #777;
+  background: #333;*/
+  background: #999;
 }
 
 .modal-box hr {
@@ -396,7 +397,7 @@ h1 {
   width: 100%;
   font-family: "Jost", sans-serif !important;
   font-optical-sizing: auto;
-  font-weight: 400; /* お好みで変更 */
+  font-weight: 400; /* 好みで変更 */
 }
 
 p {
