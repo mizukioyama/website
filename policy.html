@@ -324,9 +324,9 @@
 
             if (entry.isIntersecting) {
                 // 中心に近づくほど幅が広がる（最大100%）
-                const widthPercent = Math.floor(ratio * 50); // 例: 0.4 → 40%
+                const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
                 //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
-                entry.target.style.width = `100%`;
+                entry.target.style.width = `50%`;
             } else {
                 // 画面外に出たら0%
                 entry.target.style.width = `0%`;
