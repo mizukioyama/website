@@ -33,7 +33,7 @@ nav {
 }
 
 .inner li a {
-    font-weight: 500;
+    font-weight: 400;
     color: var(--inv);
     height: 100%;
     /*text-shadow: 0px 0px 3px rgba(46, 46, 46, 0.35);*/
@@ -278,6 +278,10 @@ nav .noise {
 }
 
 @media screen and (max-width: 599px) {
+    nav .noise {
+        display: block;
+        background-image: linear-gradient(to right, #878787, #000);
+    }
     .toggle_btn {
         height: 35px;
     }
