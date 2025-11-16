@@ -79,6 +79,20 @@
 
 </head>
 
+<style>
+    .page-line {
+        height: 1px;
+        background-color: var(--text);
+        width: 0%;
+        left: 50%;
+        margin: 15vmin auto;
+        transform: translateX(-50%);
+        position: relative;
+        transition: width 1s ease;
+        border-radius: 8px;
+    }
+</style>
+
 <body>
     <div id="header-container"></div>
     <div class="ripples"></div>
@@ -134,7 +148,7 @@
                 <li>小山瑞樹または第三者の著作権・商標権・プライバシー権・肖像権などの権利を侵害する、またはそのおそれのあるウェブサイト</li>
             </ul>
 
-            <hr>
+            <div class="page-line"></div>
 
             <h2 class="noise" style="margin-top: 3rem;">Privacy Policy</h2>
 
@@ -240,7 +254,7 @@
                     rights of Mizuki Koyama or third parties.</li>
             </ul>
 
-            <hr>
+            <div class="page-line"></div>
 
             <h2 class="noise" style="margin-top: 3rem;">Privacy Policy</h2>
 
@@ -300,6 +314,31 @@
 
     <div id="footer-container"></div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const lines = document.querySelectorAll(".page-line");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+            const ratio = entry.intersectionRatio; // 0〜1
+
+            if (entry.isIntersecting) {
+                // 中心に近づくほど幅が広がる（最大100%）
+                const widthPercent = Math.floor(ratio * 50); // 例: 0.4 → 40%
+                //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
+                entry.target.style.width = `100%`;
+            } else {
+                // 画面外に出たら0%
+                entry.target.style.width = `0%`;
+            }
+            });
+        }, {
+            threshold: Array.from({ length: 101 }, (_, i) => i / 100) // 0〜1まで100段階
+        });
+
+        lines.forEach(line => observer.observe(line));
+        });
+    </script>
 </body>
 
 </html>

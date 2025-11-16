@@ -85,10 +85,11 @@
         }
 
         .page-line {
-            height: 2px;
+            height: 1px;
             background-color: var(--text);
             width: 0%;
             left: 50%;
+            margin: 15vmin auto;
             transform: translateX(-50%);
             position: relative;
             transition: width 1s ease;
@@ -441,7 +442,7 @@
 
             if (entry.isIntersecting) {
                 // 中心に近づくほど幅が広がる（最大100%）
-                const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
+                const widthPercent = Math.floor(ratio * 50); // 例: 0.4 → 40%
                 //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
                 entry.target.style.width = `100%`;
             } else {
