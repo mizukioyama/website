@@ -1,48 +1,74 @@
-    $(function() {
-        // 初期化
+$(function () {
+    // 波紋コンテナ
     var $ripplesContainer = $('div.ripples');
+
     $ripplesContainer.ripples({
-    //解像度
         resolution: 512,
-    //半径指定
         dropRadius: 20,
-    //乱れ
         perturbance: 0.5,
     });
-    
-        // マウス移動イベントで波紋を発生させる
-        $(document).on('mousemove', function(event) {
-        // マウスの位置を取得
+
+    /* ----------------------------------
+       ★ ランダム波の最大数を制限する設定
+    ---------------------------------- */
+    let maxRandomDrops = 50; // ← 好きな数に変更（30〜100）
+    let currentRandomDrops = 0;
+
+    /* ----------------------------------
+       ★ マウスの波紋（常時許可）
+       → 波の大きさも自動調整（ゆっくり動くと小さく）
+    ---------------------------------- */
+    let lastX = 0;
+    let lastY = 0;
+
+    $(document).on('mousemove', function (event) {
         var x = event.clientX;
         var y = event.clientY;
-    
-        // 発生させる波紋のパラメータ
-        var dropRadius = 10;
-        var strength = 0.1;
-    
-        // マウスの位置で波紋を発生させる
-        $ripplesContainer.ripples('drop', x, y, dropRadius, strength);
-        });
-    
-        // 自動的にランダムな位置で波紋を発生させる関数
-        function triggerRandomDrop() {
+
+        // マウス移動速度から波サイズを決定
+        var dx = x - lastX;
+        var dy = y - lastY;
+        var speed = Math.sqrt(dx * dx + dy * dy);
+
+        var dropRadius = 5 + Math.min(speed / 4, 30); // 自動調整された波の大きさ
+        var strength = 0.05 + Math.min(speed / 500, 0.15);
+
+        $ripplesContainer.ripples("drop", x, y, dropRadius, strength);
+
+        lastX = x;
+        lastY = y;
+    });
+
+    /* ----------------------------------
+       ★ ランダム波の発生（最大数を超えたら停止）
+       → 波の大きさも自動調整（小〜大）
+    ---------------------------------- */
+    function triggerRandomDrop() {
+
+        // 最大数を超えたらランダム波はこれ以上出さない
+        if (currentRandomDrops >= maxRandomDrops) return;
+
+        currentRandomDrops++;
+
         var x = Math.random() * $ripplesContainer.outerWidth();
         var y = Math.random() * $ripplesContainer.outerHeight();
-        var dropRadius = 20;
-        var strength = 0.1 + Math.random() * 0.1;
-    
-        $ripplesContainer.ripples('drop', x, y, dropRadius, strength);
-    
-        // 次の波紋を発生させるまでのランダムな待ち時間
-        var minInterval = 220; // 最小待ち時間（ミリ秒）
-        var maxInterval = 400; // 最大待ち時間（ミリ秒）
-        var nextInterval = Math.floor(Math.random() * (maxInterval - minInterval + 0.5) + minInterval);
-    
-        // 次の波紋を発生させる
+
+        // 波の大きさを自動調整
+        var dropRadius = 10 + Math.random() * 30; // 10〜40px
+        var strength = 0.08 + Math.random() * 0.15;
+
+        $ripplesContainer.ripples("drop", x, y, dropRadius, strength);
+
+        // ランダム間隔
+        var minInterval = 220;
+        var maxInterval = 400;
+        var nextInterval = Math.floor(
+            Math.random() * (maxInterval - minInterval + 1) + minInterval
+        );
+
         setTimeout(triggerRandomDrop, nextInterval);
-        }
-    
-        // 初期状態で波紋を発生させる
-        triggerRandomDrop();
-    });
-    
+    }
+
+    // ランダム波スタート
+    triggerRandomDrop();
+});
