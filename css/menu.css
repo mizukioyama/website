@@ -198,6 +198,10 @@ nav .noise {
     transition: 0.8s ease;
 }
 
+#mask hr {
+    background: #999;
+}
+
 .open #mask {
     display: block;
     position: relative;
