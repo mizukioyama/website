@@ -80,6 +80,17 @@
     ">
 
     <style>
+        .page-line {
+            height: 2px;
+            background-color: var(--text);
+            width: 0%;
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+            transition: width 1s ease;
+            border-radius: 8px;
+        }
+
         .state-img {
             position: relative;
             width: 35%;
@@ -117,20 +128,19 @@
                 font-size: 0.8rem;
             }
 
-        .timeline ul {
-            font-size: 0.7rem;
-        }
-        #state .content .timeline li {
-            font-size: 0.6rem;
-            margin-left: 0.25rem;
-            padding-left: 0.75rem;
-            padding-bottom: 4rem;
-            border-left: 1px solid var(--text);
+            .timeline ul {
+                font-size: 0.7rem;
+            }
+
+            #state .content .timeline li {
+                font-size: 0.6rem;
+                margin-left: 0.25rem;
+                padding-left: 0.75rem;
+                padding-bottom: 4rem;
+                border-left: 1px solid var(--text);
+            }
         }
 
-        }
-    </style>
-    <style>
         .timeline {
             position: relative;
             margin: 20vmin auto 0;
@@ -217,7 +227,9 @@
                         だから小山瑞樹は、答えを提示するのではなく、問いを開いたまま差し出す。
                         それが、アートにできる最も素朴で力強いことだと考える。
                     </p>
-                    <hr>
+
+                    <div class="page-line"></div>
+                    
                     <p>
                         アートを固定された答えではなく、問いを生む場と捉える。
                         意味や正しさを押しつけず、見る人の内側にある感覚や記憶を刺激することを目指す。
@@ -324,7 +336,9 @@
                         Therefore, Mizuki Oyama presents not answers, but keeps questions open.
                         I believe that this is the most fundamental and powerful thing that art can do.
                     </p>
-                    <hr>
+
+                    <div class="page-line"></div>
+
                     <p>
                         He sees art as a place that gives rise to questions, not fixed answers.
                         He aims to stimulate the senses and memories inside the viewer, without imposing meaning or
@@ -400,6 +414,32 @@
 
     <div id="footer-container"></div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const lines = document.querySelectorAll(".page-line");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+            const ratio = entry.intersectionRatio; // 0〜1
+
+            if (entry.isIntersecting) {
+                // 中心に近づくほど幅が広がる（最大100%）
+                const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
+                //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
+                entry.target.style.width = `100%`;
+            } else {
+                // 画面外に出たら0%
+                entry.target.style.width = `0%`;
+            }
+            });
+        }, {
+            threshold: Array.from({ length: 101 }, (_, i) => i / 100) // 0〜1まで100段階
+        });
+
+        lines.forEach(line => observer.observe(line));
+        });
+    </script>
+    
     <script>
         VANTA.TRUNK({
             el: "#vanta-bg-bio",

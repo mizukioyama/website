@@ -84,8 +84,20 @@
             display: none;
         }
 
+        .page-line {
+            height: 2px;
+            background-color: var(--text);
+            width: 0%;
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+            transition: width 1s ease;
+            border-radius: 8px;
+        }
+
         .content hr {
-            background: #333;
+            /*background: #333;*/
+            background: var(--text);
         }
 
         .state-img {
@@ -152,7 +164,7 @@
         th,
         td {
             padding: 1rem 0;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid var(--text);
             vertical-align: top;
         }
 
@@ -326,7 +338,7 @@
 
         <div class="state-box">
             <div class="content" style="display: block; margin-top: 0;">
-                <hr>
+                <div class="page-line"></div>
                 
                 <h2 class="noise">画歴｜Painting history</h2>
                 
@@ -418,6 +430,32 @@
     </main>
 
     <div id="footer-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const lines = document.querySelectorAll(".page-line");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+            const ratio = entry.intersectionRatio; // 0〜1
+
+            if (entry.isIntersecting) {
+                // 中心に近づくほど幅が広がる（最大100%）
+                const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
+                //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
+                entry.target.style.width = `100%`;
+            } else {
+                // 画面外に出たら0%
+                entry.target.style.width = `0%`;
+            }
+            });
+        }, {
+            threshold: Array.from({ length: 101 }, (_, i) => i / 100) // 0〜1まで100段階
+        });
+
+        lines.forEach(line => observer.observe(line));
+        });
+    </script>
 
     <script>
         VANTA.TRUNK({

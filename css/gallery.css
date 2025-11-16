@@ -337,14 +337,14 @@ main li {
 }
 
 .next-btn {
-    opacity: 0.75;
+    opacity: 0.8;
 }
 
 .page-btn:hover,
 .page-btn.active,
 .next-btn:hover,
 .next-btn:active {
-    opacity: 0.95;
+    opacity: 0.8;
 }
 
 main {

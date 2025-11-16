@@ -386,7 +386,7 @@ hr {
   margin: 15vmin auto;
   /*background: #777;
   background: #333;*/
-  background: #999;
+  background: var(--text);
 }
 
 .modal-box hr {
