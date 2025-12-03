@@ -365,7 +365,7 @@ main {
 
 .art-page main {
     padding: 30vmin 2rem 80rem;
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(15px);
 }
 
