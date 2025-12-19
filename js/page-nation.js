@@ -6,6 +6,15 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
+            title: { ja: "蒼縁", en: "sōen" },
+            caption: { ja: "未発表", en: "Unpublished" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2025", "Digital"],
+            textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
+            img: "img/蒼縁-web.jpg",
+            ImageData: "img/蒼縁.jpg"
+        },
+        {
             title: { ja: "海淵", en: "Kaien" },
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },
