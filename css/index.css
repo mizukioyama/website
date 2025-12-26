@@ -118,7 +118,7 @@ p {
 }
 
 .back__slide:nth-child(even)::before {
-  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/202343-2.jpg");
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/心樹.jpg");
 }
 
 /* フロント画像 */

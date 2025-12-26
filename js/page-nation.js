@@ -203,7 +203,7 @@ function setupCategoryFilter() {
             text: { ja: "幾重にも重ねた変化の葉が、やがてひとつの球体を結び、 それは心の奥底──静かにたゆたう源を象っています。 大地に根を張るように、静かに光る 目には見えない「エネルギー（心）の源」を表現しました。", en: "The layers of changing leaves, stacked upon each other, eventually form a single sphere, which symbolizes the depths of the heart – a quietly swaying source. Just as roots are anchored in the earth, it expresses the unseen 'source of energy (heart)' that shines quietly." },
             category: ["2023", "Digital"],
             img: "img/心樹-web.jpg",
-            ImageData: "img/202343-2.jpg"
+            ImageData: "img/心樹.jpg"
         },
         {
             title: { ja: "#2337", en: "#2337" },
