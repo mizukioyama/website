@@ -394,7 +394,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "#2108", en: "#2108" },
             caption: { ja: "未発表", en: "Unpublished" },
-            text: { ja: "準備中...", en: "Preparing…" },
+            text: { ja: "写真と作品を組み合わせ、加工。リアルを切り取り作品へ。", en: "Combining and editing photos and works. Capturing reality and turning it into art." },
             category: ["2021", "Digital"],
             textContent: { ja: "Photo, 生成AI, 加工", en: "Photo, Generative AI, processing" },
             img: "img/202108-web.jpg",
