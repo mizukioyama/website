@@ -1,0 +1,150 @@
+
+        /* 全体のスタイル */
+        body {
+          font-family: 'Roboto', Arial, sans-serif;
+          background: linear-gradient(to bottom, #f9f9f9, #eaeaea);
+          color: #333;
+          margin: 0;
+          padding: 0;
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      ul,li {
+          list-style: auto;
+          margin: 0 auto;
+          padding: 0;
+      }
+      ul {
+        margin: 2vmin auto;
+      }
+
+      li::marker {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      /* 質問コンテナ */
+      .container {
+          width: 850px;
+          background: #fff;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          padding: 4vmin;
+          margin: 0 auto;
+          display: grid;
+          justify-content: center;
+          align-items: center;
+      }
+
+      #question-container {
+        font-weight: 500;
+        padding: 2vmin;
+      }
+      /* モーダルのコンテンツ */
+      #result-container {
+        font-weight: 500;
+          background: #fff;
+          padding: 5vmin;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      #advice-content {
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      /* 質問のテキスト */
+      .container h2 {
+          font-size: 1.4rem;
+          color: #4a90e2;
+          margin-bottom: 15px;
+          text-align: center;
+      }
+
+      /* コンテンツ部分 */
+      .container p {
+          font-size: 1rem;
+          color: #333;
+          margin-bottom: 20px;
+      }
+
+      .container span {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      /* オプションリスト */
+      .options {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 3vmin;
+      }
+
+      /* オプションボタン */
+      button {
+          background: #4a90e2;
+          color: #fff;
+          border: none;
+          border-radius: 25px;
+          padding: 10px 20px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      button:hover {
+          background: #357abd;
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+          transform: translateY(-2px);
+      }
+
+      button:focus {
+          outline: 2px solid #72b3f4;
+      }
+
+        #contact-info {
+          font-weight: 500;
+          display: grid;
+        }
+
+      input {
+        border: none;
+        border-bottom: 1px solid;
+        font-size: 1rem;
+        margin: 1vmin auto;
+        padding: 0.5vmin;
+      }
+
+      #name,
+      #address {
+        width: 40%;
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      /* レスポンシブデザイン */
+      @media screen and (max-width: 768px) {
+          .container {
+            width: 90%;
+            min-height: 100vh;
+          }
+          .container h2 {
+            font-size: 1.2rem;
+          }
+          #question-container {
+            font-weight: 400;
+          }
+          button {
+              font-size: 0.9rem;
+              padding: 8px 15px;
+          }
+      }

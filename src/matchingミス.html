@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web制作ヒアリング</title>
+    <link rel="icon" href="./assets/images/pd.ico">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Content-Security-Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://code.jquery.com 'unsafe-inline';
+    style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'unsafe-inline';
+    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
+    img-src 'self' https://pdmizuki.github.io/website/ data:;
+    connect-src 'self' https://pdmizuki.github.io;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self' https://pdmizuki.github.io;
+    ">
+
+    <script nonce="random1234" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body data-page="matching">
+
+    <div class="container">
+
+        <!-- 質問セクション -->
+        <div id="question-container">
+            <h2 class="question">質問がここに表示されます</h2>
+            <ul class="options">
+                <!-- 質問の選択肢が動的に挿入されます -->
+            </ul>
+
+            <!-- 自由記述のテキスト回答欄 -->
+            <div class="text-answer">
+                <label for="textAnswer">自由記述欄：</label><br>
+                <textarea id="textAnswer" name="textAnswer" rows="4" cols="60" placeholder="ここに自由記述の回答を入力してください"></textarea>
+            </div>
+
+            <p>
+                ※個人情報を含めた情報は、お客様の同意が無い場合では収集いたしません。<br>
+                ※こちらからの案内を希望される方のみ、氏名、連絡先アドレスを入力してお送りください。後日こちらから案内の連絡をいたします。
+            </p>
+        </div>
+
+        <!-- 回答内容の確認・修正エリア -->
+        <div id="id98" class="confirmation-section">
+            <h3>回答内容の確認・修正</h3>
+            <label for="editTextAnswer">自由記述の内容を修正：</label><br>
+            <textarea id="editTextAnswer" rows="4" cols="60" placeholder="ここで自由記述欄の内容を修正できます"></textarea><br>
+            <button onclick="updateTextAnswer()">修正を反映</button>
+        </div>
+
+    </div>
+
+    <script>
+        function updateTextAnswer() {
+            const editedText = document.getElementById("editTextAnswer").value;
+            document.getElementById("textAnswer").value = editedText;
+            alert("自由記述の内容が更新されました！");
+        }
+    </script>
+</body>
+
+
+</html>

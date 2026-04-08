@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 .noise {
     display: flex;
     /*background-image: linear-gradient(to right, #fff 0%, #000 70%);
@@ -16,9 +18,8 @@
 html,
 body {
     font-weight: 300;
-    background: #000;
     overflow-x: hidden;
-    background-image: linear-gradient(rgba(20, 20, 20, 0.62), rgba(20, 20, 20, 0.62)), url("../img/202343-2.jpg");
+    background-image: linear-gradient(rgba(20, 20, 20, 0.3), rgba(20, 20, 20, 0.3)), url("../img/shinju.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -324,6 +325,7 @@ main li {
 
 
 #pagination {
+    font-size: clamp(1rem, 0.582rem + 0.52vw, 1.2rem);
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -360,12 +362,12 @@ main {
     box-shadow: inset 0 0px 7px rgba(0, 0, 0, 1);
     z-index: 1;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .art-page main {
     padding: 30vmin 2rem 80rem;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(15px);
 }
 

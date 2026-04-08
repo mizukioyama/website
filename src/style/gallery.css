@@ -1,0 +1,696 @@
+.noise {
+    display: flex;
+    background-image: linear-gradient(to right, #fff 0%, #000 70%);
+}
+
+/* ========== Common ========== */
+html,
+body {
+    font-weight: 300;
+    width: 100%;
+    height: auto;
+    color: var(--inv);
+    background: var(--text);
+    overflow-x: hidden;
+}
+
+
+/*== bg water ==*/
+div.ripples-2 {
+    width: 100%;
+    height: 100%;
+    background: rgba(25, 25, 25);
+    position: fixed;
+    opacity: 0.25;
+    z-index: 1;
+}
+
+.ripples-2,
+.ripples-2 canvas {
+    pointer-events: none;
+}
+
+.font-change-text {
+    font-family: 'Arial', Not serif-JP;
+    transition: font-family 1s ease-in-out;
+}
+
+h1 {
+    font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
+    font-size: 4rem;
+    font-weight: 400;
+    padding-top: 8rem;
+    position: relative;
+    color: transparent;
+    text-shadow: 0 0 0 rgba(200, 200, 200, 0.5);
+    /*background-image: linear-gradient(to right, var(--text), var(--bg));*/
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: shine 15s infinite;
+}
+
+@keyframes shine {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* スクロールダウンの本体 */
+.scroll {
+  position: absolute;
+  right: 50%;
+  top: 40vmin;
+  writing-mode: vertical-rl;
+  z-index: 10;
+}
+
+/* アニメーションする縦線部分 */
+.scroll::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -115px;
+  margin: auto;
+  width: 1px;
+  height: 100px;
+  background-color: var(--inv); /* --text 変数がなければ黒 */
+  animation: scroll-line 2s infinite;
+}
+
+/* スクロールアニメーションの定義 */
+@keyframes scroll-line {
+  0% {
+    transform: scale(1, 0);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1, 1);
+    transform-origin: 0 0;
+    opacity: 0.3;
+  }
+  51% {
+    transform: scale(1, 1);
+    transform-origin: 0 100%;
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1, 0);
+    transform-origin: 0 100%;
+    opacity: 0.3;
+  }
+}
+
+
+h2 {
+    font-size: clamp(2rem, calc(2rem + 0.5vw), 2.4rem);
+    color: var(--def);
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: var(--def);
+}
+
+h4 {
+    font-size: 1.2rem;
+    color: var(--def);
+}
+
+img:hover {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+    box-shadow: 0 3px 8px 0px #242424;
+}
+
+p {
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+    line-height: 2;
+}
+
+main li {
+    font-family: 'jost', "poiret-one", Not serif-JP;
+    position: relative;
+    color: var(--inv);
+    margin-bottom: 2vmin;
+    padding: 0 0.5rem;
+}
+
+a {
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+    color: var(--inv);
+    display: block;
+    height: fit-content;
+    text-decoration: none;
+    overflow: hidden;
+    transition-duration: 0.8s;
+}
+
+a::before {
+    content: '-';
+    width: 3px;
+    left: 0;
+}
+
+a::before:hover {
+    width: 5px;
+}
+
+/* head */
+.head a {
+    position: fixed;
+    font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.6em);
+    font-weight: 400;
+    top: 0.5%;
+    left: 0.5%;
+    z-index: 100;
+    background-image: linear-gradient(90deg,
+            var(--inv) 0%,
+            var(--def) 50%,
+            var(--inv) 100%);
+    background-size: 400% 400%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shine 5s infinite;
+}
+
+.head a::after {
+    content: '･';
+    color: var(--inv);
+    margin: 0 -3% 0 -1%;
+    animation: blink 0.3s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+footer a,
+header a,
+.category a {
+    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+    text-decoration: none;
+    width: fit-content;
+    color: var(--inv);
+    text-align: left;
+    padding: 0.25rem 0.5rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+footer a::before,
+header a::before,
+.category a::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 1px;
+    color: var(--inv);
+    left: 0;
+    bottom: 0;
+    background-color: var(--inv);
+    transition: width 0.5s ease;
+}
+
+a:hover::before {
+    color: var(--bg);
+    width: 100%;
+}
+
+a:hover {
+    color: var(--def) !important;
+    text-shadow: 0 2px 3px var(--def);
+    transform: matrix(-3rem);
+}
+
+.top .content {
+    margin: 30em auto 0;
+}
+
+.flex .content .quote {
+    text-align: right;
+}
+
+.content ol {
+    width: 100%;
+}
+
+.exhibition .content ol p {
+    font-size: clamp(1.4rem, calc(1.4rem + 0.5vw), 1.8rem);
+    padding: 1em 0 0;
+}
+
+.exhibition .content ol p::before {
+    content: '-';
+    padding-right: 0.2em;
+}
+
+.exhibition .content li {
+    width: clamp(70%, 100%, 65%);
+    margin: 0 0 3em 15%;
+    padding: 2em 3em 3em;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+}
+
+.exhibition .content ol:last-child li {
+    width: clamp(65%, 100%, 50%);
+    margin-bottom: 3%;
+    padding: 0 0 0 10em;
+}
+
+/*==Natureinspire page*/
+.top .content h2,
+.top .content h3,
+.top .content h4 {
+    margin: 0;
+    padding: 1em 0 0 calc(12vw - 10%);
+    letter-spacing: .25em;
+    color: transparent;
+    background: var(--inv);
+    background-clip: text;
+    -webkit-background-clip: text;
+    transform-origin: bottom left;
+    text-shadow: -1px 1px 1px rgba(0 0, 0, 0.65);
+}
+
+.top .content h3,
+.top .content h4 {
+    border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+}
+
+.top .content h3 {
+    margin-top: 10%;
+}
+
+/*==Statement page*/
+.statement .content {
+    width: clamp(50%, 100%, 35%);
+    padding: 1em 0em 3em;
+    margin-top: -40%;
+    margin-left: calc(60vw - 5%);
+}
+
+.statement .content:nth-child(2) {
+    width: clamp(50%, 100%, 35%);
+    margin-top: 0em;
+    margin-left: calc(20vw - 5%);
+}
+
+.statement .content h2,
+.statement .content h3,
+.statement .content h4 {
+    margin: 0;
+    width: fit-content;
+    color: var(--inv);
+    padding: 1em 0.1em 0 calc(6vw - 10%);
+    letter-spacing: .25em;
+    text-shadow: -1px 1px 1px rgba(0 0, 0, 0.5);
+    border-bottom: 1px solid var(--inv);
+}
+
+.statement .content li {
+    width: clamp(58%, 100%, 35%);
+    margin-left: calc(10vw - 5%);
+}
+
+/*==Gallrey page
+.gallery {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+}
+*/
+
+.art-info {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.art-info .flex {
+    width: clamp(75%, 100%, 55%);
+    margin: 5% 0 0 25%;
+    background: rgba(0, 0, 0, 0);
+}
+
+.page {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: 10vmin auto 0;
+    padding: 0;
+    gap: 2vmin;
+
+    a::before {
+        display: none;
+    }
+}
+
+.page li {
+    margin: 0;
+}
+
+.page li a {
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.page-link {
+    text-decoration: none;
+    color: var(--bg);
+}
+
+.page-link.disabled {
+    pointer-events: none;
+    color: var(--def);
+}
+
+.arrow-button {
+    display: block;
+    font-family: "poiret-one", Not serif-JP;
+    font-size: 2.4rem;
+    font-weight: 100;
+    color: var(--inv);
+    padding: 1.5rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    transition: transform 0.3s ease, color 0.3s ease;
+
+    &:hover {
+        transform: scale(1.3, 1);
+        color: #434343;
+    }
+}
+
+.left-arrow {
+    position: absolute;
+    left: 0rem;
+}
+
+.right-arrow {
+    position: absolute;
+    right: -10rem;
+}
+
+
+
+main {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10vmin 2rem;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0px 7px rgba(0, 0, 0, 0.9);
+    z-index: 1;
+}
+
+/* コンテナ定義（.gallery .content をコンテナに） */
+.gallery .content {
+    container-type: inline-size;
+    container-name: gallery;
+    width: clamp(55%, 100%, 45%);
+    max-width: 1000px;
+    height: 100%;
+    margin-top: 30vmin;
+    margin-left: 55vmin;
+    padding: 1em 2em;
+    box-shadow: inset 0 0 10px rgba(20, 20, 20, 0.7);
+    background: rgba(46, 46, 46, 0.2);
+    backdrop-filter: blur(20px);
+}
+
+.work {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    min-height: 350px;
+    margin: 0 auto 4rem;
+    gap: 3rem;
+}
+
+/*=======info page*/
+#info .content,
+#policy .content {
+    padding-top: 3rem;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+#info .work {
+    display: grid;
+    margin-top: 0;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+#info h2,
+#policy h2 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#info h3 {
+    margin-bottom: 2vmin;
+}
+
+#info h2,
+#info h3,
+#policy h2,
+#policy h3 {
+    justify-content: flex-start;
+}
+
+#policy h2 {
+    margin-bottom: 2vmin;
+}
+
+#policy h3 {
+    padding-left: 0.5rem;
+    padding-bottom: 0.25rem;
+    margin-top: 10vmin;
+    border-bottom: 1px solid;
+}
+
+#info h3::before,
+#policy h3::before {
+    display: none;
+}
+
+#policy .content li {
+    padding: 0;
+    margin: 0.75vmin 0;
+    padding-left: 2rem;
+}
+#info .content li {
+    padding: 0.25rem 0 0.5rem 1.5rem;
+    margin-bottom: 1vmin;
+}
+
+#info .content li::before,
+#policy .content li::before {
+    content: "";
+    width: 10px;
+    height: 1px;
+    position: absolute;
+    left: 0.5%;
+    top: 45%;
+    background: rgba(200, 200, 200, 0.6);
+}
+
+#info .work p,
+#policy .content p {
+    width: 100%;
+    font-size: 1rem;
+}
+
+#info .work ol p {
+    border-bottom: 1px solid;
+}
+#policy .content p {
+    padding-left: 0.5rem;
+}
+
+/*=======info page*/
+
+.work p {
+    font-size: 0.8rem;
+    width: 50%;
+}
+
+.work-img {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    width: 40%;
+    max-width: 350px;
+    filter: grayscale(50%);
+}
+
+.works::before {
+    display: none;
+}
+
+/*========link*/
+.works {
+    text-decoration: none;
+    color: inherit;
+}
+.works p {
+    letter-spacing: 0.1rem;
+}
+
+.works img {
+    clip-path: polygon(10% 0%, 100% 0, 100% 90%, 100% 90%, 90% 100%, 0 100%, 0 10%);
+}
+
+.works a:hover {
+    color: var(--def);
+    background: var(--def);
+}
+
+
+/*===copyright*/
+.dli-external-link {
+    font-family: 'jost';
+    font-size: 1rem;
+    font-weight: 400;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    mix-blend-mode: difference;
+}
+
+.dli-external-link img {
+    width: 100%;
+}
+
+.dli-external-link::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    left: 55px;
+    width: 13px;
+    height: 13px;
+    line-height: 1;
+    border: 1px solid rgba(200, 200, 200, 0.75);
+    border-radius: 0.1em;
+    box-sizing: content-box;
+    vertical-align: middle;
+}
+
+.dli-external-link::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid rgba(200, 200, 200, 0.75);
+    border-radius: 0.08em;
+    border-bottom: 0;
+    border-left: 0;
+    background: none;
+    box-sizing: border-box;
+}
+
+/*=== コンテナクエリで縦並びに切り替え ===*/
+@container gallery (max-width: 700px) {
+    .work {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .work>p,
+    .work-img {
+        width: 100%;
+    }
+
+    .work>p {
+        order: 2;
+        margin-top: 1rem;
+    }
+
+    .work-img {
+        order: 1;
+        max-width: 100%;
+    }
+}
+
+
+
+/*===art-info*/
+.copyright {
+    text-align: left;
+    margin-top: 15em;
+}
+
+.copyright::before {
+    content: url(https://paradigmart.natureinspire.jp/wp-content/uploads/2024/05/ff0872c868ca2a513ef1f5686c2751f5.png);
+    position: absolute;
+    right: -10%;
+    top: 35%;
+    box-shadow: none;
+}
+
+.gallery .content h2,
+.gallery .content h3,
+.gallery .content h4 {
+    color: var(--inv);
+    margin: 0;
+    letter-spacing: .25em;
+}
+
+.gallery .content h3::before {
+    content: 'Category';
+    font-size: clamp(0.9rem, calc(0.9rem + 0.5vw), 1rem);
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+}
+
+.caption {
+    margin-top: 10em;
+}
+
+
+
+/*---------------------*/
+.art-info .content img {
+    width: clamp(700px, 100%, 60%);
+    height: 40vh;
+    filter: grayscale(50%);
+}
+
+.art-info img:hover {
+    filter: grayscale(0);
+    transform: scale(1);
+}
+
+.art-info .content {
+    width: clamp(100%, 100%, 80%);
+    margin: 0 20%;
+    background: rgba(0, 0, 0, 0);
+}

@@ -1,0 +1,65 @@
+<div class="category">
+    <ol>
+        <p class="noise">All Category</p>
+        <li><a href="gallery_top.html" class="category-link noise" data-page="all" data-href="gallery_top.html">All</a></li>
+        <li><a href="digital_top.html" class="category-link noise" data-page="digital" data-href="digital_top.html">Digital</a></li>
+        <li><a href="analog_top.html" class="category-link noise" data-page="analog" data-href="analog_top.html">Analog</a></li>
+        <li><a href="exhibition_top.html" class="category-link noise" data-page="exhibition" data-href="exhibition_top.html">Exhibition</a></li>
+        <li><a href="unreleased_top.html" class="category-link noise" data-page="unreleased" data-href="unreleased.html">Unreleased</a></li>
+    </ol>
+    <ol style="margin-top: 10vmin;">
+        <p class="noise">Production year</p>
+        <li><a href="2025.html" class="category-link noise" data-page="25" data-href="2025.html">2025</a></li>
+        <li><a href="2024.html" class="category-link noise" data-page="24" data-href="2024.html">2024</a></li>
+        <li><a href="2023.html" class="category-link noise" data-page="23" data-href="2023.html">2023</a></li>
+        <li><a href="2022.html" class="category-link noise" data-page="22" data-href="2022.html">2022</a></li>
+        <li><a href="2021.html" class="category-link noise" data-page="21" data-href="2021.html">2021</a></li>
+    </ol>
+</div>
+
+
+<style>
+    #sidebar-container {
+        position: fixed;
+        left: 0;
+    }
+
+    .category {
+        position: fixed;
+        top: 45vmin;
+        left: 10%;
+        z-index: 1;
+    }
+
+    .category p {
+        font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.45rem);
+        font-weight: 400;
+        text-shadow: 0 0 1px var(--inv);
+    }
+
+    .category ol {
+        padding: 0;
+    }
+
+    .category ol li {
+        margin: 0;
+        margin-top: 1em;
+        margin-left: 10vmin;
+    }
+
+    .gallery .category a {
+        font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+        text-shadow: 0 0 2px var(--inv);
+    }
+
+    .category ol:last-child li a {
+        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+    }
+
+    .category-link.disabled {
+        pointer-events: none;
+        color: grey;
+        /* 無効化されたリンクの色 */
+        text-decoration: none;
+    }
+</style>

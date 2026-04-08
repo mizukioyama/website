@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /* ベース設定: チェックボックス・ラジオ共通 */
 :where(input[type="checkbox"], input[type="radio"]) {
    font-size: inherit;
