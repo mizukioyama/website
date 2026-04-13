@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>SEO特化ブログ</title>
+   <style>
+      .blog-list main {
+         height: 100%;
+         margin-top: 8vmin;
+      }
+
+      .blog-list .container {
+         display: flex;
+         flex: 2;
+         width: 100%;
+         gap: 5vmin;
+      }
+
+      .blog-list .sidebar {
+         width: 25%;
+      }
+
+      .blog-list .sidebar h2 {
+         font-size: 1.4rem;
+      }
+
+      .blog-list .sidebar h2:nth-of-type(2) {
+         margin-top: 3vmin;
+      }
+
+      .blog-list .sidebar ul li {
+         padding-left: 1vmin;
+         cursor: pointer;
+      }
+
+      .blog-list .sidebar ul li:hover {
+         color: var(--accent);
+      }
+
+      .blog-list .article-container {
+         width: 75%;
+      }
+
+      .blog-list .article-card {
+         padding: 1vmin;
+         margin: 0 auto 1vmin;
+      }
+
+      .blog-list .pagination {
+         position: absolute;
+         right: 30%;
+         bottom: -5%;
+         width: fit-content;
+      }
+
+      .blog-list .article-card img {
+         width: 25%;
+         height: 150px;
+         object-fit: cover;
+      }
+   </style>
+</head>
+
+<body data-page="blog" class="blog-list">
+   <header>
+      <div class="logo"><a href="index.html">PD</a></div>
+      <nav class="navbar">
+         <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="service.html">SERVICE</a></li>
+            <li><a href="blog_list.html">BLOG</a></li>
+            <li><a href="contact.html">CONTCT</a></li>
+         </ul>
+      </nav>
+   </header>
+   <main>
+      <div class="container">
+         <aside class="sidebar">
+            <h2>カテゴリー</h2>
+            <ul id="category-list"></ul>
+            <h2>ジャンル</h2>
+            <ul id="genre-list"></ul>
+         </aside>
+
+         <div id="article-container" class="article-container"></div>
+         <div class="pagination">
+            <button id="prev-page">前のページ</button>
+            <span id="page-info"></span>
+            <button id="next-page">次のページ</button>
+         </div>
+   </main>
+   </div>
+   <footer>
+      <p>&copy; 2024 SEOブログサイト. All Rights Reserved.</p>
+   </footer>
+   <script src="script.js"></script>
+   <script>
+      // サンプル記事データ
+      const articles = [
+         {
+            title: "記事タイトル1",
+            genre: "テクノロジー",
+            category: "SEO",
+            description: "概要1",
+            thumbnail: "https://via.placeholder.com/800x400"
+         },
+         {
+            title: "記事タイトル2",
+            genre: "ライフスタイル",
+            category: "プログラミング",
+            description: "概要2",
+            thumbnail: "https://via.placeholder.com/800x400"
+         },
+         {
+            title: "記事タイトル3",
+            genre: "ビジネス",
+            category: "マーケティング",
+            description: "概要3",
+            thumbnail: "https://via.placeholder.com/800x400"
+         },
+         {
+            title: "記事タイトル4",
+            genre: "教育",
+            category: "デザイン",
+            description: "概要4",
+            thumbnail: "https://via.placeholder.com/800x400"
+         },
+         {
+            title: "記事タイトル5",
+            genre: "健康",
+            category: "フィットネス",
+            description: "概要5",
+            thumbnail: "https://via.placeholder.com/800x400"
+         },
+         {
+            title: "記事タイトル6",
+            genre: "テクノロジー",
+            category: "AI",
+            description: "概要6",
+            thumbnail: "https://via.placeholder.com/800x400"
+         },
+         {
+            title: "記事タイトル7",
+            genre: "旅行",
+            category: "ガイド",
+            description: "概要7",
+            thumbnail: "https://via.placeholder.com/800x400"
+         },
+         {
+            title: "記事タイトル8",
+            genre: "エンタメ",
+            category: "映画",
+            description: "概要8",
+            thumbnail: "https://via.placeholder.com/800x400"
+         }
+      ];
+
+      // ページネーション設定
+      const articlesPerPage = 4;
+      let currentPage = 1;
+      let filteredArticles = [...articles]; // 初期状態では全ての記事を表示
+
+      // DOM要素
+      const articleContainer = document.getElementById("article-container");
+      const prevPageBtn = document.getElementById("prev-page");
+      const nextPageBtn = document.getElementById("next-page");
+      const pageInfo = document.getElementById("page-info");
+      const categoryList = document.getElementById("category-list");
+      const genreList = document.getElementById("genre-list");
+
+      // ユニークなカテゴリーとジャンルを取得
+      const uniqueCategories = [...new Set(articles.map(article => article.category))];
+      const uniqueGenres = [...new Set(articles.map(article => article.genre))];
+
+      // カテゴリーとジャンルをサイドバーに表示
+      function renderSidebar() {
+         uniqueCategories.forEach(category => {
+            const li = document.createElement("li");
+            li.textContent = category;
+            li.addEventListener("click", () => filterArticlesByCategory(category));
+            categoryList.appendChild(li);
+         });
+
+         uniqueGenres.forEach(genre => {
+            const li = document.createElement("li");
+            li.textContent = genre;
+            li.addEventListener("click", () => filterArticlesByGenre(genre));
+            genreList.appendChild(li);
+         });
+      }
+
+      // カテゴリーで記事をフィルタリング
+      function filterArticlesByCategory(category) {
+         filteredArticles = articles.filter(article => article.category === category);
+         currentPage = 1;
+         renderArticles();
+      }
+
+      // ジャンルで記事をフィルタリング
+      function filterArticlesByGenre(genre) {
+         filteredArticles = articles.filter(article => article.genre === genre);
+         currentPage = 1;
+         renderArticles();
+      }
+
+      // ページネーションを更新
+      function renderArticles() {
+         // 表示する記事の開始と終了インデックス
+         const startIndex = (currentPage - 1) * articlesPerPage;
+         const endIndex = startIndex + articlesPerPage;
+
+         // 記事を表示
+         articleContainer.innerHTML = "";
+         const visibleArticles = filteredArticles.slice(startIndex, endIndex);
+         visibleArticles.forEach(article => {
+            const articleCard = document.createElement("div");
+            articleCard.classList.add("article-card");
+            articleCard.innerHTML = `
+      <img src="${article.thumbnail}" alt="${article.title}">
+      <h3>
+      <a href="#">${article.title}</a>
+      </h3>
+      <p><strong>ジャンル:</strong> ${article.genre} | <strong>カテゴリー:</strong> ${article.category}</p>
+      <p>${article.description}</p>
+   `;
+            articleContainer.appendChild(articleCard);
+         });
+
+         // ページ情報を更新
+         const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+         pageInfo.textContent = `${currentPage} / ${totalPages}`;
+
+         // ボタンの有効・無効化
+         prevPageBtn.disabled = currentPage === 1;
+         nextPageBtn.disabled = currentPage === totalPages;
+      }
+
+      // ページ変更ハンドラ
+      prevPageBtn.addEventListener("click", () => {
+         if (currentPage > 1) {
+            currentPage--;
+            renderArticles();
+         }
+      });
+
+      nextPageBtn.addEventListener("click", () => {
+         const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+         if (currentPage < totalPages) {
+            currentPage++;
+            renderArticles();
+         }
+      });
+
+      // 初期表示
+      document.addEventListener("DOMContentLoaded", () => {
+         renderSidebar();
+         renderArticles();
+      });
+
+   </script>
+</body>
+
+</html>

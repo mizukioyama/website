@@ -1,0 +1,58 @@
+    /*PC*/
+    footer {
+        position: relative;
+        width: 100vw;
+        min-height: 500px;
+        padding: 4vmin;
+        bottom: 0;
+        background: rgba(20, 20, 20, 0.09);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+    }
+
+    footer a {
+        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.3rem);
+        display: block;
+        font-weight: 400;
+        margin-top: 2vmin;
+        opacity: 0.5;
+    }
+
+    footer a:hover {
+        color: var(--inv) !important;
+        opacity: 0.95;
+    }
+    .foot {
+        font-size: clamp(0.9rem, calc( 0.9rem + 0.5vw), 0.95rem);
+        color: var(--inv);
+        text-align: right;
+        position: absolute;
+        padding: 0.25em 3em;
+        bottom: 0%;
+        right: 0%;
+    }
+
+    /*security logo*/
+    .grecaptcha-badge {
+        visibility: hidden;
+    }
+
+
+    @media only screen and (max-width:600px) {
+        footer {
+            height: 350px;
+            padding: 3em 2em 0;
+            border-top: 1px solid;
+        }
+        footer div a {
+            margin-top: 4em;
+        }
+        footer a:hover {
+            color: var(--inv) !important;
+            opacity: 0.95;
+        }
+        .foot {
+            font-size: clamp(0.8rem, calc( 0.8rem + 0.5vw), 0.9rem);
+            padding: 0.25em 1em;
+        }
+    }

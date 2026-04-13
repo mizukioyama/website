@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="SEOに特化したブログサイト">
+  <meta name="keywords" content="ブログ, SEO, デザイナー, Webデザイン">
+  <title>PD＿Blog / デザイン</title>
+
+  <link rel="icon" href="../assets/images/pd.ico">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Meta Tags -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Content-Security-Policy -->
+  <meta http-equiv="Content-Security-Policy" content="
+     default-src 'self';
+     script-src 'self' https://code.jquery.com 'nonce-random1234' 'unsafe-inline';
+     style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'unsafe-inline';
+     font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
+     img-src 'self' https://pdmizuki.github.io/website/ data:;
+     connect-src 'self' https://pdmizuki.github.io;
+     frame-ancestors 'self';  /* 'none' から 'self' に変更 */
+     object-src 'none';
+     base-uri 'self';
+     form-action 'self' https://pdmizuki.github.io;
+  ">
+
+  <script nonce="random1234" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+</head>
+
+<body data-page="blog">
+  <header>
+    <div class="logo"><a href="index.html">
+          <img src="../assets/images/logo-tyep.png" alt="PD,PrecisionDesign">
+       </a>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="service.html">SERVICE</a></li>
+        <li><a href="blog_list.html">BLOG</a></li>
+        <li><a href="contact.html">CONTCT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <section class="categories">
+        <h2>カテゴリー</h2>
+        <ul>
+          <li><a href="categories.html?category=works">Works</a></li>
+          <li><a href="categories.html?category=results">実績</a></li>
+          <li><a href="categories.html?category=design">デザイン</a></li>
+          <li><a href="categories.html?category=web-development">Web制作</a></li>
+          <li><a href="categories.html?category=seo">SEO</a></li>
+          <li><a href="categories.html?category=marketing">マーケティング</a></li>
+          <li><a href="categories.html?category=business-support">個人事業サポート</a></li>
+        </ul>
+      </section>
+      <section class="toc">
+        <h2>目次</h2>
+        <ul id="toc-list"></ul>
+      </section>
+    </aside>
+
+    <section class="content">
+      <article>
+        <img src="thumbnail.jpg" alt="記事のサムネイル">
+        <h1>デザイン</h1>
+        <div class="article-meta">
+          <span class="category"><a href="categories.html?category=seo">デザイン</a></span>
+          <span class="genre">ジャンル：デザイン</span>
+        </div>
+        <p>
+          この記事では、SEOに関する最新のヒントやテクニックについて解説します。
+          <br>
+          現代のデジタルマーケティングにおいて、SEO（検索エンジン最適化）はウェブサイトの成功に欠かせない要素となっています。
+          ブログやウェブサイトを運営する上で、検索エンジンの上位に表示されることはアクセス数を増やし、ビジネスやサービスの認知度を高めるために非常に重要です。
+          SEOの基本的な考え方と、プロフェッショナルが実践しているSEOのテクニックをご紹介します。
+        </p>
+
+        <h2>SEOの基本</h2>
+        <p>
+          SEOとは、検索エンジンがあなたのウェブサイトを正しく評価し、適切な順位で表示するための最適化プロセスです。
+          ユーザーが検索する際、ほとんどの人は検索結果の1ページ目にしか目を通しません。
+          そのため、検索結果で上位に表示されることは、ターゲットとなるユーザーにリーチするための重要な手段となります。
+          <br>
+          たとえば、「Webデザインの学習方法」というキーワードで検索するユーザーは、具体的な情報や役立つコンテンツを求めています。
+          SEOを適切に施すことで、あなたのサイトがこのようなニーズを持つユーザーの目に届きやすくなるのです。
+        </p>
+
+        <h2>キーワードリサーチ</h2>
+        <p>
+          SEO対策の第一歩は、キーワードリサーチです。これは、ターゲットオーディエンスがどのような言葉やフレーズで検索をしているのかを理解するプロセスです。以下は、効果的なキーワードリサーチのポイントです：
+        </p>
+        <ol>
+          <li>
+            関連キーワードのリストアップ: GoogleキーワードプランナーやUbersuggestなどのツールを活用して、トラフィックが高いキーワードを見つける。
+          </li>
+          <li>
+            検索意図を把握する: 「購入目的」「情報収集目的」など、ユーザーが何を求めているのかを分析。
+          </li>
+          <li>
+            競合分析: 同じキーワードで競合がどのようなコンテンツを提供しているのかを調査する。
+          </li>
+        </ol>
+
+        <h2>高品質なコンテンツ</h2>
+        <p>
+          検索エンジンのアルゴリズムは、ユーザーに価値を提供するコンテンツを重視します。
+          そのため、単にキーワードを詰め込むのではなく、以下のポイントを押さえたコンテンツ作成が重要です。
+        </p>
+        <ol>
+          <li>
+            オリジナリティ: 他サイトのコピーではなく、独自の視点や専門的な情報を盛り込む。
+          </li>
+          <li>
+            読者の悩みを解決する内容: 読者が直面している課題や疑問に具体的な回答を提供。
+          </li>
+          <li>
+            読みやすい構造: 見出し（H1、H2、H3）を適切に使い、箇条書きや画像を活用して視認性を向上。
+          </li>
+        </ol>
+
+        <h2>内外のリンク</h2>
+        <p>
+          コンテンツ内で適切な内部リンク（自サイト内の他ページへのリンク）を設定することで、訪問者が他の記事やサービスページにスムーズに移動できます。
+          また、外部リンク（他サイトへのリンク）は信頼性を高める要素にもなります。
+        <ol>
+          以下のポイントを意識してください
+          <li>
+            関連性のあるリンクを配置: 読者にとって有益な情報を提供できるリンク先を選ぶ。
+          </li>
+          <li>
+            リンクテキスト（アンカーテキスト）を工夫: 「詳しくはこちら」よりも「SEOの具体的なテクニックはこちら」のように、リンク先の内容を明確に伝えるテキストを使用。
+          </li>
+        </ol>
+        </p>
+
+        <h2>モバイルフレンドリー</h2>
+        <p>
+          Googleはモバイルファーストインデックスを採用しており、モバイルデバイスでの表示が検索順位に影響を与えます。
+          そのため、サイト全体がモバイルフレンドリーであることが不可欠です。
+        </p>
+        <ol>
+          以下の点を確認しましょう
+          <li>
+            スマートフォンやタブレットでの表示速度をチェック。
+          </li>
+          <li>
+            レスポンシブデザインを採用し、画面サイズに応じた最適なレイアウトを提供。
+          </li>
+          <li>
+            タップしやすいボタンサイズや適切なフォントサイズを設定。
+          </li>
+        </ol>
+
+        <h2>ページ速度の最適化</h2>
+        <p>
+          サイトの読み込み速度は、ユーザーエクスペリエンス（UX）だけでなく、SEOにも大きな影響を与えます。
+          読み込みが遅いサイトは検索エンジンからの評価が下がり、離脱率も増加します。以下の改善策を実施しましょう。
+        </p>
+        <ol>
+          <li>
+            画像の圧縮やWebP形式への変換。
+          </li>
+          <li>
+            JavaScriptやCSSの最適化。
+          </li>
+          <li>
+            キャッシュ機能の利用。
+          </li>
+        </ol>
+
+        <h2>SEOテクニック</h2>
+        <p>
+          プロフェッショナルは、基本的なSEO対策に加えて以下のような高度なテクニックを駆使しています
+        </p>
+        <ol>
+          <li>
+            構造化データの活用: リッチスニペットとして検索結果に表示されるよう、構造化データを設定。
+          </li>
+          <li>
+            ローカルSEO: 地域に特化したビジネスの場合、Googleマイビジネスを活用してローカル検索での可視性を向上。
+          </li>
+          <li>
+            定期的な分析と改善: GoogleアナリティクスやSearch Consoleを使ってデータを分析し、改善ポイントを特定。
+          </li>
+        </ol>
+
+        <h2>まとめ</h2>
+        <p>継続的な改善が鍵</p>
+        <p>
+          SEO対策は、一度設定すれば完了するものではありません。
+          検索エンジンのアルゴリズムは常に進化しており、ユーザーの検索意図も変化します。
+          そのため、定期的な見直しと改善を行い、最新のトレンドに対応することが重要です。
+          まずは基本を押さえ、自分のサイトやブログに適した方法を実践しましょう。
+          SEOを正しく理解し、継続的に取り組むことで、検索エンジン上位表示という目標に近づけるはずです。
+        </p>
+      </article>
+
+      <section class="articles">
+        <h2>最新記事</h2>
+        <div class="article-card">
+          <img src="thumbnail1.jpg" alt="ブログ記事 画像">
+          <h3><a href="blog_seo.html">SEO対策の基本</a></h3>
+          <p>記事の概要説明がここに入ります。</p>
+        </div>
+        <div class="article-card">
+          <img src="thumbnail2.jpg" alt="記事2">
+          <h3><a href="blog_seo-keyword.html">SEO キーワードリサーチ</a></h3>
+          <p>記事の概要説明がここに入ります。</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; PD Blog. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bot</title>
+</head>
+<body>
+    <!-- ChatBot ウィンドウ -->
+    <div id="chat-window" style="display: none;">
+        <div id="close-button">CLOSE</div>
+        <div class="chatbot-container">
+            <div id="chat" class="chat-window"></div>
+
+            <p>項目を選択してください</p>
+            <div class="input-container">
+                <div class="radio-options">
+                    <label>
+                        <input type="radio" name="category" value="about">
+                        <span>PDについて</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="works">
+                        <span>PDでできること</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="category" value="その他">
+                        <span>その他</span>
+                    </label>
+                </div>
+                <div class="radio-options keyword-options">
+                    <!-- キーワード選択肢はカテゴリー選択後にJSで動的に生成 -->
+                </div>
+
+                <div class="button-container">
+                    <button id="send-button" class="send-button panel">Send</button>
+                    <button id="clear-button" class="clear-button panel">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
