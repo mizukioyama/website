@@ -1,0 +1,11 @@
+module.exports = {
+   presets: [
+      ["@babel/preset-env", {
+         bugfixes: true,
+         modules: false,
+         targets: {
+            esmodules: true
+         }
+      }]
+   ]
+};

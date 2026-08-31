@@ -1,5 +1,3 @@
-console.log("Hello, Webpack!");
-
 // ページ判定
 const page = document.body.dataset.page; // 例: <body data-page="contact"> のように設定
 
@@ -16,11 +14,16 @@ switch (page) {
       import("./js/page.js");
       break;
 
+   case "info":
+   case "policy":
+      import("./style/gallery.css");
+      import("./js/bg_wave.js");
+      break;
+
    case "contact":
       import("./js/bg_wave.js");
       import("./style/gallery.css");
       import("./style/form.css");
-      import("./js/form.js");
       break;
 
    case "matching":
@@ -56,16 +59,3 @@ import "./js/all.js"; // section
 import "./js/cursor.js"; // cursor
 import "./js/load.js"; // load
 import "./js/side-foot.js"; // head foot
-
-/////////// all images
-import "./assets/images/pd-bg-img.jpg";
-import "./assets/images/pd-body-bg.jpg";
-import "./assets/images/230053-2.jpg";
-import "./assets/images/sinju-suisai02.png";
-// bg
-import "./assets/images/text-gold.png";
-import "./assets/images/text-bronze.png";
-//mobile
-import "./assets/images/mobile-main-second.png";
-
-import "./assets/audio/tukinohikari.mp3";

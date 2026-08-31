@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeButton = document.querySelector('.close');
   const contactForm = document.getElementById('contactForm');
 
+  if (!modal || !closeButton || !contactForm) {
+    return;
+  }
+
   modal.style.display = "none";
 
   function toggleLabel(input) {

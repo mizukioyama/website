@@ -208,8 +208,6 @@ function displayResult() {
    // アドバイスを生成して表示
    const advice = generateAdvice();
 
-   document.getElementById("submit-button").onclick = sendToServer;
-   document.getElementById("reload-button").onclick = () => location.reload();
 }
 
 
@@ -236,23 +234,16 @@ function generateAdvice() {
 }
 
 
-submitButton.addEventListener("click", (event) => {
-   event.preventDefault(); // フォーム送信のデフォルト動作を防止
-   sendToServer();
-});
-
-
 document.addEventListener("DOMContentLoaded", () => {
    console.log("DOMが読み込まれました");
 
    const submitButton = document.getElementById("submit-button");
    const reloadButton = document.getElementById("reload-button");
-   const modal = document.getElementById("modal");
-   const closeModal = document.getElementById("close-modal");
-   const modalMessage = document.getElementById("modal-message");
+   const modal = document.getElementById("successModal");
+   const closeModal = document.getElementById("closeModal");
+   const modalMessage = document.getElementById("modalMessage");
 
-   if (!submitButton || !modal || !closeModal || !modalMessage) {
-      console.error("エラー: 必須要素が見つかりません。");
+   if (!submitButton || !reloadButton || !modal || !closeModal || !modalMessage) {
       return;
    }
 

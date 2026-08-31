@@ -3,7 +3,10 @@ import $ from "jquery";
 $(document).ready(function () {
     // サイドバーの読み込み
     fetch("sidebar.html")
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP error: ' + response.status);
+            return response.text();
+        })
         .then(data => {
             $('#sidebar-container').html(data);
         })
@@ -20,6 +23,8 @@ $(document).ready(function () {
         })
         .then(data => {
             $('#footer-container').html(data);
+            const year = document.getElementById('year');
+            if (year) year.textContent = new Date().getFullYear();
             console.log("footer loaded!");
         })
         .catch(error => {

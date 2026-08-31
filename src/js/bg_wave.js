@@ -1,16 +1,26 @@
+import "../../js/jquery.ripples-min.js";
 import $ from "jquery";
 
 $(function () {
     // 初期化
     var $ripplesContainer = $('div.ripples-2');
-    $ripplesContainer.ripples({
-        //解像度
-        resolution: 512,
-        //半径指定
-        dropRadius: 20,
-        //乱れ
-        perturbance: 0.5,
-    });
+    if (!$ripplesContainer.length || typeof $.fn.ripples !== "function") {
+        return;
+    }
+
+    try {
+        $ripplesContainer.ripples({
+            //解像度
+            resolution: 512,
+            //半径指定
+            dropRadius: 20,
+            //乱れ
+            perturbance: 0.5,
+        });
+    } catch (error) {
+        console.warn("Ripple background is unavailable:", error);
+        return;
+    }
 
     // マウス移動イベントで波紋を発生させる
     $(document).on('mousemove', function (event) {
