@@ -8,4 +8,11 @@
    <div class="foot">&copy; <span id="year"></span>
       Mizuki Oyama
    </div>
+   <script>
+      function toggleAccordion(element) {
+         element.classList.toggle("active");
+      }
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+   </script>
 </footer>

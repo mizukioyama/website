@@ -2,35 +2,35 @@
   "name": "website",
   "version": "1.0.0",
   "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack serve --mode development",
+    "build": "webpack",
     "check:js": "node scripts/check-js.cjs",
     "check:links": "node scripts/check-links.cjs",
     "check": "npm run check:js && npm run build && npm run check:links",
     "deploy": "gh-pages -d docs"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "devDependencies": {
     "@babel/core": "^7.26.7",
     "@babel/preset-env": "^7.26.7",
     "babel-loader": "^9.2.1",
-    "copy-webpack-plugin": "^14.0.0",
+    "copy-webpack-plugin": "^12.0.2",
     "csp-html-webpack-plugin": "^5.1.0",
     "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
     "gh-pages": "^6.3.0",
+    "html-webpack-inline-source-plugin": "^0.0.10",
     "html-webpack-plugin": "^5.6.3",
-    "image-minimizer-webpack-plugin": "^5.0.0",
     "mini-css-extract-plugin": "^2.9.2",
-    "sharp": "^0.35.4",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^6.0.0"
+    "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "jquery": "^3.7.1"
   }
 }

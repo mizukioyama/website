@@ -9,10 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
    // ヘッダー読み込み
    fetch("header.html")
-      .then(response => {
-         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-         return response.text();
-      })
+      .then(response => response.text())
       .then(data => {
          const headerContainer = document.getElementById("header-container");
          if (!headerContainer) return;
@@ -23,8 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             new multi_language(); // 言語初期化
             initializeTyping();
          });
-      })
-      .catch(error => console.error("Error loading header:", error));
+      });
 });
 
 // =======================

@@ -359,12 +359,6 @@ function generateAdvice() {
    return advice; // 必要に応じて戻り値として返却
 }
 
-submitButton.addEventListener("click", (event) => {
-   event.preventDefault(); // フォーム送信のデフォルト動作を防止
-   sendToServer();
-});
-
-
 document.addEventListener("DOMContentLoaded", () => {
    const submitButton = document.getElementById("submit-button");
    const reloadButton = document.getElementById("reload-button");

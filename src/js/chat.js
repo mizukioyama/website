@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   function loadChatBotTemplate() {
     fetch('bot.html')
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-        return response.text();
-      })
+      .then(response => response.text())
       .then(data => {
         document.body.insertAdjacentHTML('beforeend', data);
         initializeChatBot();

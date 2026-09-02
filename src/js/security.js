@@ -1,23 +1,22 @@
-import artworkUrl from "../assets/images/230053-2.jpg";
-
 // 保存妨害：toDataURL 無効化
 HTMLCanvasElement.prototype.toDataURL = function () {
   alert("画像の保存は禁止されています。");
   return "";
 };
 
+import artworkUrl from '../assets/images/230053-2.jpg';
+
 // Canvas に画像描画
 const canvas = document.getElementById('artCanvas');
-if (canvas) {
-  const ctx = canvas.getContext('2d');
-  const img = new Image();
+const ctx = canvas && canvas.getContext('2d');
+const img = new Image();
 
+if (canvas && ctx) {
   img.onload = function () {
-    if (!ctx) return;
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     ctx.font = '20px sans-serif';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-    ctx.fillText('© Mizuki Oyama', canvas.width - 170, canvas.height - 20);
+    ctx.fillText('© YourName', canvas.width - 150, canvas.height - 20);
   };
   img.src = artworkUrl;
 }
@@ -39,8 +38,8 @@ document.addEventListener('click', () => {
 
 // 特定キーで作品非表示
 window.addEventListener('keydown', (e) => {
-  if (canvas && [16, 44, 91, 92].includes(e.keyCode)) {
-    canvas.style.visibility = 'hidden';
+  if ([16, 44, 91, 92].includes(e.keyCode)) {
+    if (canvas) canvas.style.visibility = 'hidden';
   }
 });
 
