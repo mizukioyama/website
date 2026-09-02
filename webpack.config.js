@@ -134,12 +134,16 @@ module.exports = {
                to: path.resolve(__dirname, "docs/assets/fonts")
             },
             {
-               from: path.resolve(__dirname, "img/web.ico"),
+               from: path.resolve(__dirname, "src/assets/images/favicon.ico"),
                to: path.resolve(__dirname, "docs/favicon.ico")
             },
             {
-               from: path.resolve(__dirname, "img/web.ico"),
+               from: path.resolve(__dirname, "src/assets/images/favicon.ico"),
                to: path.resolve(__dirname, "docs/assets/images/pd.ico")
+            },
+            {
+               from: path.resolve(__dirname, "src/public"),
+               to: path.resolve(__dirname, "docs")
             },
             {
                from: path.resolve(__dirname, "src/assets/images"),

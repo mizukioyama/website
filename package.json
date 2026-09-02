@@ -1,7 +1,7 @@
 {
   "name": "website",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "webpack",
     "check:js": "node scripts/check-js.cjs",
