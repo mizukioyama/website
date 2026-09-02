@@ -1,0 +1,309 @@
+@charset "utf-8";
+
+@media screen and (max-width: 599px) {
+
+    .typing-container p {
+        font-size: 0.8rem;
+        font-size: 7px;
+    }
+
+    .head a {
+        font-size: 1rem;
+        left: 2.5rem;
+        mask: repeating-radial-gradient(circle at center,
+            #000,
+            var(--lines),
+            #000,
+            0,
+            #0000,
+            calc(var(--lines) * 1.5),
+            #0000 0);
+    }
+
+    .head a span {
+        letter-spacing: 0;
+    }
+
+    #langChenge {
+        top: 4.5rem;
+        left: 2.4rem;
+    }
+
+    /*body::before {
+                content: "";
+                display: block;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                border: 5px solid var(--inv);
+                z-index: 20;
+                pointer-events: none;
+                mix-blend-mode: difference;
+            }*/
+
+    /*== bg water ==*/
+    .ripples {
+        width: 100svw;
+        height: 100svh;
+    }
+
+    #vanta-bg {
+        opacity: 0.65;
+    }
+
+    #vanta-bg-bio {
+    }
+
+/*body {
+  height: calc(var(--vh, 1vh) * 100);
+}*/
+
+    main {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 10em;
+        padding: 5rem 2.5rem 15rem;
+        backdrop-filter: blur(15px);
+        z-index: 10;
+        display: block;
+    }
+
+    .art-page main {
+        backdrop-filter: blur(10px);
+    }
+
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    .h1-text {
+        left: 2.5rem;
+        top: 52%;
+    }
+
+    .h1-text p {
+        font-size: 1rem;
+    }
+
+    .scroll {
+        left: 1.25rem;
+        width: 1px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    span.name {
+        font-size: 0.9rem;
+        font-weight: 300;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    h4 {
+        font-size: 0.9rem;
+    }
+
+    p {
+        font-size: 0.75rem;
+        letter-spacing: 0.05rem;
+    }
+
+    li {
+        font-size: 0.85rem;
+        line-height: 2;
+    }
+
+    a {
+        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+        transition-duration: 0.8s;
+    }
+
+    a::before {
+        content: '-';
+        width: 3px;
+        left: 0;
+    }
+
+    a::before:hover {
+        width: 5px;
+    }
+
+    footer a,
+    header a {
+        font-family: "Jost", sans-serif;
+        font-size: 1rem;
+        line-height: 1.4;
+        color: var(--inv);
+        position: relative;
+        overflow: hidden;
+        padding: 0.25rem 0.75rem 0.25rem 0;
+    }
+
+    footer a::before,
+    header a::before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 1px;
+        color: var(--inv);
+        left: 0;
+        bottom: 0;
+        background-color: var(--inv);
+        transition: width 0.5s ease;
+    }
+
+    a:hover::before {
+        color: #fff;
+        width: 100%;
+    }
+
+    a:hover {
+        color: var(--def) !important;
+        text-shadow: 0 2px 3px var(--def);
+        transform: matrix(-3rem);
+    }
+
+    .art-page .gallery {
+        background-color: rgba(0, 0, 0, 0.55);
+        padding: 10vmin 0 30vmin 2.5rem;
+    }
+
+    body p:nth-child(n+1) {
+        margin-left: 0 !important;
+    }
+
+    .art-page .gallery p:nth-child(n+1) {
+        font-size: 0.8rem !important;
+        margin-left: 0 !important;
+    }
+
+    .gallery .content,
+    #state .content,
+    #contact .content,
+    #policy .content {
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        margin: 115vmin auto 0;
+        margin: 80svh auto 0;
+        padding: 0 3vmin;
+        backdrop-filter: none;
+        gap: 3vmin;
+    }
+
+    #state .content {
+        margin: 0;
+    }
+    #state .content li {
+        padding: 0.5rem 0 0 1.2rem;
+    }
+    #state .content li::before,
+    #policy .content li::before {
+        top: 50%;
+    }
+
+    .gallery .content {
+        width: 90vw;
+        padding: 0 5vmin;
+        gap: 0;
+        margin-top: 80svh;
+        grid-template-columns: 50% 50%;
+    }
+
+    #policy .content li {
+        font-size: 0.65rem;
+        padding-left: 1rem;
+    }
+
+    .works {
+        padding: 0;
+    }
+
+    .work {
+        justify-content: flex-start;
+    }
+
+    .art-page .work {
+        min-height: 350px;
+        justify-content: flex-start;
+    }
+
+    .gallery-containt .work-img a {
+        height: 80px;
+    }
+
+    .work h2 {
+        font-size: 0.9rem;
+    }
+
+    #gallery-container .work p {
+        width: 100%;
+        line-height: 1.6;
+        letter-spacing: 0;
+    }
+
+    #gallery-container .work:nth-child(1) .noise {
+        font-size: 1rem !important;
+        top: -10vmin !important;
+    }
+
+    #gallery-container a::before {
+        display: none;
+    }
+
+    .gallery ol p {
+        font-size: 1.2rem;
+        font-weight: 300;
+        width: fit-content;
+        margin-top: 5vmin !important;
+        line-height: 1;
+        padding-left: 0;
+    }
+
+    .gallery li {
+        width: fit-content;
+    }
+
+    .gallery li a:hover {
+        background: var(--inv);
+    }
+
+    .work .noise {
+        letter-spacing: 0.075rem;
+    }
+
+    #pagination {
+        margin: 5vmin auto;
+        gap: 1.5rem;
+    }
+
+    #state h3 {
+        padding: 2.5rem 2rem;
+    }
+
+    #state .content .work:nth-child(n+3) h3 {
+        padding: 0.5rem 2rem;
+    }
+
+    #state .work:nth-child(2) h3 {
+        width: auto;
+        margin-top: 20vmin;
+    }
+
+    #state .work h3::before {
+        width: 20px;
+        top: 50%;
+    }
+
+    #state .work:nth-child(n+3) ol p {
+        font-size: 1rem;
+    }
+
+}

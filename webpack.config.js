@@ -120,7 +120,10 @@ module.exports = {
       // 複数HTMLページを出力
       ...htmlPages.map(page => new HtmlWebpackPlugin({
          template: `./src/${page}.html`,
-         filename: `${page}.html`
+         filename: `${page}.html`,
+         // Gallery keeps its verified legacy assets while the remaining pages
+         // use the shared Webpack bundle.
+         chunks: page === "gallery" ? [] : ["main"]
       })),
 
       new MiniCssExtractPlugin({
