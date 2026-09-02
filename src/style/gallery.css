@@ -441,6 +441,93 @@ main {
     backdrop-filter: blur(20px);
 }
 
+/* Mobile gallery layout */
+@media screen and (max-width: 599px) {
+    main.gallery {
+        padding: 6rem 1rem 4rem;
+    }
+
+    .gallery > h1 {
+        max-width: 100%;
+        padding-top: 2rem;
+        font-size: clamp(2.75rem, 14vw, 4rem);
+        line-height: 1.05;
+        overflow-wrap: anywhere;
+    }
+
+    .gallery > p {
+        margin-top: 1rem;
+    }
+
+    .gallery .scroll {
+        display: none;
+    }
+
+    .gallery #sidebar-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .gallery #sidebar-container .category {
+        position: relative;
+        top: auto;
+        left: auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        margin-top: 3rem;
+    }
+
+    .gallery #sidebar-container .category ol {
+        margin: 0 !important;
+    }
+
+    .gallery #sidebar-container .category ol li {
+        margin: 0.75rem 0 0;
+    }
+
+    .gallery .content {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin: 3rem 0 0;
+        padding: 1.25rem;
+    }
+
+    .gallery .work {
+        min-height: 0;
+        margin-bottom: 4rem;
+        gap: 1.5rem;
+    }
+
+    .gallery .work > p,
+    .gallery .work-img {
+        width: 100%;
+    }
+
+    .gallery .work-img > span:first-child {
+        position: static !important;
+        transform: none !important;
+    }
+
+    .gallery .page {
+        width: 100%;
+        margin-top: 2rem;
+        gap: 0;
+    }
+
+    .gallery .page li a,
+    .gallery .arrow-button {
+        padding: 0.75rem;
+    }
+
+    .gallery .left-arrow,
+    .gallery .right-arrow {
+        position: static;
+    }
+}
+
 .work {
     display: flex;
     justify-content: space-between;
