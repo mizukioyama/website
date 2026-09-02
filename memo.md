@@ -4,7 +4,7 @@ https://github.com/mizukioyama
 # ① 初回だけ
 
 git config --global user.name "m.oyama"
-git config --global user.email "o.mizuki.art@gmail.com"
+git config --global user.email "oyamawprks24@gmail.com"
 
 # ② クローン
 
