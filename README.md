@@ -15,6 +15,7 @@ Portfolio website built with Webpack and deployed to GitHub Pages.
 ```bash
 npm ci
 npm run check
+npm run dev
 ```
 
 Edit files in `src/`. The deployment workflow builds `docs/` automatically, so generated files should not be edited directly.
