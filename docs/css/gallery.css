@@ -440,7 +440,7 @@ main {
 }
 
 @media screen and (min-width: 1299px) {
-    #state .state-box:nth-child(2) .content {
+    #state .state-box-secondary .content {
         width: 40%;
     }
 

@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const h1 = container.querySelector("h1.text");
   const p = container.querySelector("p.subtext");
-  if (!h1 || !p) return;
+  if (!h1) return;
 
   const title = container.dataset.title || "Art Index";
   const subtitle = container.dataset.subtitle || "Nature Inspire";
@@ -184,5 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fx = new TextScramble(h1);
   fx.setText(title); // h1にアニメーション
 
-  p.innerHTML = subtitle; // <br>を有効にするために innerHTML を使用
+  if (p) {
+    p.innerHTML = subtitle; // <br>を有効にするために innerHTML を使用
+  }
 });

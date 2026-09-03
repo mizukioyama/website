@@ -203,7 +203,7 @@
     }
 
     /* Keep the statement body below the overlaid title and keyword list. */
-    #state.artist-statement-page .state-box .content {
+    #state.artist-statement-page .state-box-primary .content {
         margin-top: clamp(9rem, 24vh, 14rem);
     }
 
