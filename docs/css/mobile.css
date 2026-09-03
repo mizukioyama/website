@@ -201,6 +201,12 @@
     #state .content {
         margin: 0;
     }
+
+    /* Keep the statement body below the overlaid title and keyword list. */
+    #state.artist-statement-page .state-box .content {
+        margin-top: clamp(9rem, 24vh, 14rem);
+    }
+
     #state .content li {
         padding: 0.5rem 0 0 1.2rem;
     }
