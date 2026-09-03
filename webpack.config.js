@@ -17,11 +17,15 @@ const cspPolicy = {
       "'self'",
       "https://cdnjs.cloudflare.com",
       "https://fonts.googleapis.com",
+      "https://use.typekit.net",
+      "https://p.typekit.net",
+      "https://unpkg.com",
       "https://cdn.jsdelivr.net"
    ],
    'font-src': [
       "'self'",
       "https://fonts.gstatic.com",
+      "https://use.typekit.net",
       "https://cdnjs.cloudflare.com",
       "https://cdn.jsdelivr.net",
       "data:"
@@ -41,21 +45,31 @@ const cspPolicy = {
    ],
    'object-src': ["'none'"],
    'base-uri': ["'self'"],
-   'form-action': ["'self'", "https://mizukioyama.github.io"]
+   'form-action': ["'self'", "https://mizukioyama.github.io", "https://script.google.com"]
 };
 
 const htmlPages = [
    "index",
+   "artist-statement",
+   "biography",
    "information",
    "gallery",
    "contact",
    "policy",
    "matching",
-   "header",
-   "footer",
-   "sidebar",
    "bot"
 ];
+
+// These pages are restored from the verified backup and intentionally keep
+// their original CSS/JavaScript links so their appearance does not change.
+const backupPages = new Set([
+   "index",
+   "artist-statement",
+   "biography",
+   "gallery",
+   "contact",
+   "policy"
+]);
 
 module.exports = {
    mode: "production",
@@ -120,7 +134,8 @@ module.exports = {
       // 複数HTMLページを出力
       ...htmlPages.map(page => new HtmlWebpackPlugin({
          template: `./src/${page}.html`,
-         filename: `${page}.html`
+         filename: `${page}.html`,
+         chunks: backupPages.has(page) ? [] : ["main"]
       })),
 
       new MiniCssExtractPlugin({
@@ -140,6 +155,11 @@ module.exports = {
             {
                from: path.resolve(__dirname, "img/web.ico"),
                to: path.resolve(__dirname, "docs/assets/images/pd.ico")
+            },
+            {
+               // Static backup assets and the header/sidebar/footer fragments.
+               from: path.resolve(__dirname, "src/public"),
+               to: path.resolve(__dirname, "docs")
             },
             {
                from: path.resolve(__dirname, "src/assets/images"),

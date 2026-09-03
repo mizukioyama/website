@@ -1,0 +1,1 @@
+$(document).ready((function(){fetch("footer.html").then((t=>{if(!t.ok)throw new Error(`Footer request failed: ${t.status}`);return t.text()})).then((t=>{$("#footer-container").html(t)})).catch((t=>{console.error("Error loading footer:",t)}))}));

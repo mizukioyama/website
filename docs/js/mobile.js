@@ -1,0 +1,1 @@
+function setViewportHeight(){const e=.01*window.innerHeight;document.documentElement.style.setProperty("--vh",`${e}px`)}window.addEventListener("resize",setViewportHeight),window.addEventListener("orientationchange",setViewportHeight),window.addEventListener("DOMContentLoaded",setViewportHeight);
