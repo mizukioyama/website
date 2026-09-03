@@ -1,0 +1,997 @@
+npm list webpack
+
+npm run build
+
+ls -la dist
+
+npm install --save-dev gh-pages
+
+
+"scripts": {
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
+}
+
+
+git add .
+git commit -m "Initial commit"
+git push origin main
+npm run deploy
+
+
+npm run build
+
+npm install --save-dev mini-css-extract-plugin css-loader babel-loader @babel/core @babel/preset-env copy-webpack-plugin
+
+npm run build
+
+"scripts": {
+  "build": "webpack",
+  "deploy": "gh-pages -d dist"
+}
+
+
+ls package.json
+
+cd ~/website
+
+npx webpack -v
+
+
+npm run
+
+
+npx webpack -v
+npx webpack-cli -v
+
+npm install
+
+
+rm -rf node_modules package-lock.json
+npm install
+
+
+npm run build
+
+rm -rf node_modules package-lock.json
+npm install
+
+
+npx webpack -v
+
+npm run build
+
+ls -R
+
+
+npm install -D mini-css-extract-plugin copy-webpack-plugin
+
+ls -R
+
+npm run build
+
+ls -R src
+
+
+pwd
+
+"C:\website"
+
+ls
+
+ls -R src
+
+npm run build
+
+
+npm install -D mini-css-extract-plugin
+
+npm run build
+
+
+npm install -D copy-webpack-plugin
+
+npm run build
+
+npm install -D babel-loader @babel/core @babel/preset-env
+
+npm run build
+
+
+npm install css-loader style-loader --save-dev
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
+};
+
+
+chat.js
+function toggleChatWindow() {
+  const chatWindow = document.getElementById('chat-window');
+  chatWindow.style.display = chatWindow.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleChatWindow() {  // ← これが重複している
+  const chatWindow = document.getElementById('chat-window');
+  chatWindow.style.display = chatWindow.style.display === 'block' ? 'none' : 'block';
+}
+
+
+npm run build
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
+};
+
+
+ src: url("../fonts/Jost-Regular.woff2") format("woff2"),
+        url("../fonts/Jost-Regular.woff") format("woff");
+
+src: url("../webfonts/fa-solid-900.woff2") format("woff2"),
+        url("../webfonts/fa-solid-900.woff") format("woff");
+
+
+
+
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[name][ext]",
+        },
+      }
+    ]
+  },
+  resolve: {
+    alias: {
+      fonts: path.resolve(__dirname, "src/assets/fonts/")
+    }
+  }
+
+assets/fonts/[name][ext]
+
+  npm run build
+
+  rm -rf node_modules/.cache
+npm run build
+
+
+
+
+const path = require("path");
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[name][ext]",
+        },
+      }
+    ]
+  },
+  resolve: {
+    alias: {
+      fonts: path.resolve(__dirname, "src/assets/fonts/")
+    }
+  }
+};
+
+
+エラー解決しない
+再修正
+
+npm run build
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[name][ext]',
+        },
+      },
+    ],
+  },
+};
+
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../webfonts/fa-solid-900.woff2') format('woff2'),
+       url('../webfonts/fa-solid-900.woff') format('woff');
+}
+
+
+npm run build
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|ttf|eot|otf)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[name][ext]'
+        }
+      }
+    ]
+  }
+};
+
+
+new CopyWebpackPlugin({
+   patterns: [
+      { from: "src/assets/images", to: "assets/images" },
+      { from: "src/assets/fonts", to: "assets/fonts" }, // ✅ Jost フォントをコピー
+      { from: "node_modules/@fortawesome/fontawesome-free/webfonts", to: "assets/webfonts" } // ✅ Font Awesome の webfonts をコピー
+   ]
+})
+
+
+npm run build
+
+rm -rf node_modules/.cache
+npm run build
+
+
+ls src/assets/fonts/
+
+
+@font-face {
+    font-family: 'Jost';
+    src: url('./jost-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jost';
+    src: url('./jost-600.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('./fa-solid-900.woff2') format('woff2'),
+         url('./fa-solid-900.woff') format('woff');
+}
+
+
+rm -rf node_modules/.cache
+npm run build
+
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2') format('woff2'),
+       url('../../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff') format('woff');
+}
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]',
+        },
+      },
+    ],
+  },
+};
+
+
+npm install @fortawesome/fontawesome-free --save
+
+
+rm -rf node_modules/.cache
+npm run build
+
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  src: url("~@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2"),
+       url("~@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff") format("woff");
+}
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "fonts/[name][ext]",
+        },
+      },
+    ],
+  },
+};
+
+
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+
+oyama@DESKTOP-I1MTIG4 MINGW64 /c/website (main)
+$ npm list @fortawesome/fontawesome-free
+website@1.0.0 C:\website
+└── @fortawesome/fontawesome-free@6.7.2
+
+npm run build
+
+GPTに確認
+oyama@DESKTOP-I1MTIG4 MINGW64 /c/website (main)
+$ ls node_modules/@fortawesome/fontawesome-free/webfonts/
+fa-brands-400.ttf    fa-regular-400.ttf    fa-solid-900.ttf    fa-v4compatibility.ttf
+fa-brands-400.woff2  fa-regular-400.woff2  fa-solid-900.woff2  fa-v4compatibility.woff2
+
+
+npm list @fortawesome/fontawesome-free
+
+ls node_modules/@fortawesome/fontawesome-free/webfonts/
+
+
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+module.exports = {
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'node_modules/@fortawesome/fontawesome-free/webfonts',
+          to: 'webfonts'
+        }
+      ]
+    })
+  ]
+};
+
+
+rm -rf node_modules/.cache
+npm run build
+
+
+npm uninstall @fortawesome/fontawesome-free
+npm install @fortawesome/fontawesome-free
+
+npm run build
+
+ls dist/assets/fonts/
+
+
+new CopyWebpackPlugin({
+   patterns: [
+      {
+         from: path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"),
+         to: path.resolve(__dirname, "dist/fonts"), // `dist/fonts/` にコピー
+      }
+   ]
+})
+
+rm -rf node_modules/.cache
+npm run build
+
+
+C:\website\src\assets\fonts\fa-solid-900.ttf
+
+
+new CopyWebpackPlugin({
+   patterns: [
+      {
+         from: path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"),
+         to: path.resolve(__dirname, "dist/assets/fonts"), // distにコピーする
+      }
+   ]
+})
+
+
+C:src\assets\fonts\fa-solid-900.woff2
+C:src\assets\fonts\fa-solid-900.woff
+
+
+npm install @fortawesome/fontawesome-free --save
+
+ls -l ./src/assets/fonts/
+
+
+mkdir -p src/assets/fonts
+cp node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2 src/assets/fonts/
+cp node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff src/assets/fonts/
+
+
+const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+module.exports = {
+   // 他の設定...
+   plugins: [
+      new CopyWebpackPlugin({
+         patterns: [
+            {
+               from: path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"),
+               to: path.resolve(__dirname, "dist/assets/fonts")
+            }
+         ]
+      })
+   ]
+};
+
+
+@font-face {
+   font-family: 'Font Awesome 5 Free';
+   src: url("/assets/fonts/fa-solid-900.woff2") format("woff2"),
+        url("/assets/fonts/fa-solid-900.woff") format("woff");
+   font-weight: 900;
+   font-style: normal;
+   font-display: swap;
+}
+
+
+rm -rf node_modules/.cache
+npm run build
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]'
+        }
+      }
+    ]
+  }
+};
+
+
+rm -rf node_modules/.cache
+npm run build
+
+
+git add .
+git commit -m "Initial commit"
+git push origin main
+npm run deploy
+
+git add .
+git commit -m "Initial commit"
+git push origin main
+
+
+entry: {
+  main: "./src/index.js"
+},
+
+
+module.exports = {
+  entry: {
+    main: "./src/index.js"
+  },
+  output: {
+    filename: "js/[name].js", // dist/js/main.js に出力
+    path: path.resolve(__dirname, "dist")
+  }
+};
+
+
+Git hubでjs/css読み込めない
+適用方法、最適化
+
+
+rm -rf dist/
+npm run build
+
+git add .
+git commit -m "Initial commit"
+git push origin main
+
+
+
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",  // 変更する場合はここを適切に
+    clean: true
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      }
+    ]
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "styles/main.css",  // ここを確認
+    })
+  ]
+};
+
+
+module.exports = {
+  devtool: "source-map", // eval を使わない安全なソースマップ
+};
+
+
+
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    clean: true
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      }
+    ]
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "styles/main.css", // 正しく dist/styles/main.css に出力される
+    })
+  ],
+  devServer: {
+    static: path.resolve(__dirname, "dist"),
+    hot: true
+  }
+};
+
+
+rm -rf dist/
+npm run build
+
+
+git add .
+git commit -m "Initial commit"
+git push origin main
+
+ls dist/
+
+
+git status
+
+git add dist/
+git commit -m "Update dist folder"
+git push origin main
+
+
+npm install -g gh-pages
+npm run build
+gh-pages -d dist
+
+
+git check-ignore -v dist/
+
+
+git status
+
+
+git check-ignore -v dist/
+
+
+rm -rf dist/
+npm run build
+ls -l dist/
+
+
+git rm -r --cached dist/
+git add dist/
+git commit -m "Force update dist folder"
+git push origin main
+
+
+npm install -g gh-pages
+npm run build
+gh-pages -d dist
+
+
+dist\styles\main.css
+dist\js\main.js
+
+
+npm install jquery
+
+
+rm -rf dist/
+npm run build
+
+
+touch src/blog.html
+
+src\blog\categories.html
+
+
+npm run build
+
+git に反映
+git add .
+git commit -m "Initial commit"
+git push origin main
+
+
+npx webpack --watch
+npx webpack serve
+
+ls C:/website/src/blog.html
+ls C:/website/src/blog/categories.html
+
+
+rm -rf node_modules/.cache
+
+
+npx webpack --watch
+git rm -r --cached .
+git add .
+git commit -m "Clear cache and update"
+
+
+npm install image-minimizer-webpack-plugin imagemin imagemin-mozjpeg imagemin-pngquant --save-dev
+
+npx webpack --watch
+
+
+
+rm -rf node_modules package-lock.json
+npm install
+
+npm install imagemin-gifsicle --save-dev
+
+yarn add imagemin-gifsicle --dev
+
+
+rm -rf node_modules package-lock.json
+npm cache clean --force
+npm install
+npx webpack --watch
+
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.ico$/,
+        type: 'asset/resource',
+      },
+    ],
+  },
+};
+
+
+npm install imagemin-svgo --save-dev
+
+
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+
+
+git status
+
+git commit -m "Add dist folder"
+git push origin main
+
+
+git subtree push --prefix dist origin gh-pages
+
+git restore dist/
+
+
+git rm -r --cached dist/
+
+
+git add .gitignore
+git commit -m "Ignore dist directory"
+
+
+git diff package.json
+git diff webpack.config.js
+
+
+dist/
+
+rm -rf dist/
+
+rmdir /s /q dist
+
+npm run build
+
+
+ rm -rf C:/website/dist
+ rm -rf C:/website/assets
+
+ npx webpack serve
+
+npx webpack serve --stats-error-details
+
+
+rm -rf node_modules package-lock.json dist
+npm install
+npm run build
+
+
+git rm -r --cached .
+git add .
+git commit -m "Clear cache and update"
+
+git push origin main
+
+
+git commit -m "Add dist folder"
+git push origin main
+
+
+npm install -g gh-pages
+npm run build
+gh-pages -d dist
+
+
+git rm -r --cached dist/
+git add dist/
+git commit -m "Force update dist folder"
+git push origin main
+
+
+npm install -g gh-pages
+npm run build
+gh-pages -d dist
+
+
+
+git add .
+git commit -m "デプロイ: 最新の更新"
+
+
+git remote -v
+
+git push -u origin main
+
+
+git push origin --delete gh-pages  // GitHub Pagesのキャッシュを削除
+git push origin main  // 再デプロイ
+git push origin gh-pages  // 再デプロイ
+
+
+git checkout -b gh-pages
+
+git add .
+git commit -m "GitHub Pages用のデプロイ"
+git push -u origin gh-pages
+
+
+git branch -r
+
+
+git push origin gh-pages
+
+
+git checkout gh-pages
+
+ls -la
+
+
+mv docs/index.html .
+git add .
+git commit -m "Move index.html to root"
+git push origin gh-pages
+
+
+git rm -rf .
+mv dist/* .
+git add .
+git commit -m "Deploy only dist to gh-pages"
+git push origin gh-pages --force
+
+
+ls -la
+
+git status
+
+
+git reset --hard HEAD~1
+
+
+mv dist/* .
+git add .
+git commit -m "Move dist contents to root"
+git push origin gh-pages --force
+
+
+rm -rf index.html about.html contact.html footer.html header.html policy.html service.html css/ js/
+rm -rf categories.html
+rm -rf assets/ fonts/ styles/
+rm -rf .vscode/
+rm -rf dist/
+rm -rf assets/
+
+npm run build
+
+
+npx webpack -v
+
+
+
+rm -rf node_modules package-lock.json
+npm install
+
+npm install --save-dev webpack webpack-cli
+
+npm install -g webpack webpack-cli
+
+npm run build
+
+
+git add .
+git commit -m "Rebuild and prepare for deployment"
+git push origin gh-pages --force
+
+
+rm -rf node_modules package-lock.json
+npm install
+
+
+npm install --save-dev webpack webpack-cli
+
+npm run build
+
+
+ping json.schemastore.org
+
+
+git status
+
+
+git add .
+git commit -m "head foot html"
+git push origin gh-pages
+
+
+git commit --allow-empty -m "Trigger GitHub Pages update"
+git push origin gh-pages
+
+
+git checkout gh-pages
+git pull origin gh-pages
+
+
+git checkout gh-pages
+git merge main
+git push origin gh-pages
+
+git checkout gh-pages
+ls
+
+
+git checkout gh-pages
+git commit --allow-empty -m "Trigger GitHub Pages update"
+git push origin gh-pages
+
+
+git checkout gh-pages
+git commit --allow-empty -m "Trigger GitHub Pages update"
+git push origin gh-pages
+
+//プッシュ
+npm run build
+git add docs
+git commit -m "form"
+git push origin gh-pages
+
+//webpack修正時
+npm run build
+//確認
+ls docs/blog
+
+
+//強制上書き
+git push origin gh-pages --force
+
+
+//docs削除
+rm -rf docs
+//ビルド実行
+npm run build
+
+
+
+//docs/ ディレクトリを再生成
+npx webpack --mode production
+//blog.html確認
+ls src/blog
+
+
+npm run build
+//変更の追加
+git add .
+//再コミット（メモ付け）
+git commit -m "js css"
+//リモートにプッシュ（変更の同期）
+git push origin gh-pages
+//全ての変更をコミット
+c
+
+csp読み込み
+imgアップロード
+
+
+git pull origin gh-pages --rebase
+
+git stash
+//今の作業を退避
+git pull origin gh-pages --rebase
+//最新の状態を取得して統合
+git stash pop
+//退避した作業を戻す
+git push origin gh-pages
+//GitHubに反映
+
+
+
+メモ
+リンク反応しない
+アニメーション動作が遅い
+カードデザイン 見直し
+
+追加修正
+javascriptに修正：未（アコーディオン、card、リストタブ、section、タブ、Form、チャット）
+CONTACTForm
+aoudio webpack設定
+section js 回転左右
+div.section => section
+
+blog style/ css
+html js
+ブログjs、ページネーション、カテゴリー

@@ -1,9 +1,8 @@
 {
   "name": "website",
   "version": "1.0.0",
-  "private": true,
+  "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --mode development",
     "build": "webpack",
     "check:js": "node scripts/check-js.cjs",
     "check:links": "node scripts/check-links.cjs",

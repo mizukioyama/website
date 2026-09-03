@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WORK FLOW</title>
+  <style>
+body {
+  font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+}
+
+.workflow {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.workflow h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 60px;
+}
+
+.timeline-container {
+  position: relative;
+  margin-left: 40px;
+  padding-left: 20px;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  background-color: #000;
+  height: 0;
+  opacity: 0;
+   transition: opacity 2.5s ease, transform 1.2s ease, height 1.5s ease-out;
+   transform: translateY(15px);
+}
+
+.line.visible {
+   opacity: 1;
+   filter: blur(0);
+   transform: translateY(0);
+}
+
+.step {
+  position: relative;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.circle {
+  position: absolute;
+  left: -40px;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+.content {
+  padding-left: 20px;
+}
+
+.content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.content p {
+  margin: 0.5rem 0 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+  .circle {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 0.8rem;
+    left: -30px;
+  }
+
+  .content h3 {
+    font-size: 1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+   <section class="workflow">
+      <h2>WORK FLOW</h2>
+      <div class="timeline-container">
+        <div class="line" id="line"></div>
+        <div class="step">
+          <div class="circle">01</div>
+          <div class="content">
+            <h3>ご相談・お問い合わせ</h3>
+            <p>フォームよりお気軽にご連絡ください。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="circle">02</div>
+          <div class="content">
+            <h3>ヒアリング</h3>
+            <p>今感じていることや思いを丁寧にお聞きします。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="circle">03</div>
+          <div class="content">
+            <h3>セッション設計</h3>
+            <p>目標やテーマに合わせてサポート内容を調整します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <script>
+const steps = document.querySelectorAll('.step,.line');
+const line = document.getElementById('line');
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+
+        // Update the line height to reach the currently visible step
+        const stepOffset = entry.target.offsetTop + entry.target.clientHeight / 2;
+        line.style.height = `${stepOffset}px`;
+      }
+    });
+  },
+  {
+    threshold: 0.4
+  }
+);
+
+steps.forEach(step => observer.observe(step));
+
+  </script>
+</body>
+</html>

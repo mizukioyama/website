@@ -17,14 +17,11 @@ const cspPolicy = {
       "'self'",
       "https://cdnjs.cloudflare.com",
       "https://fonts.googleapis.com",
-      "https://use.typekit.net",
-      "https://p.typekit.net",
       "https://cdn.jsdelivr.net"
    ],
    'font-src': [
       "'self'",
       "https://fonts.gstatic.com",
-      "https://use.typekit.net",
       "https://cdnjs.cloudflare.com",
       "https://cdn.jsdelivr.net",
       "data:"
@@ -49,8 +46,6 @@ const cspPolicy = {
 
 const htmlPages = [
    "index",
-   "artist-statement",
-   "biography",
    "information",
    "gallery",
    "contact",
@@ -61,18 +56,6 @@ const htmlPages = [
    "sidebar",
    "bot"
 ];
-
-const legacyPages = new Set([
-   "index",
-   "artist-statement",
-   "biography",
-   "gallery",
-   "contact",
-   "policy",
-   "header",
-   "footer",
-   "sidebar"
-]);
 
 module.exports = {
    mode: "production",
@@ -137,9 +120,7 @@ module.exports = {
       // 複数HTMLページを出力
       ...htmlPages.map(page => new HtmlWebpackPlugin({
          template: `./src/${page}.html`,
-         filename: `${page}.html`,
-         // Pages restored from the verified backup load their original assets.
-         chunks: legacyPages.has(page) ? [] : ["main"]
+         filename: `${page}.html`
       })),
 
       new MiniCssExtractPlugin({
@@ -153,16 +134,12 @@ module.exports = {
                to: path.resolve(__dirname, "docs/assets/fonts")
             },
             {
-               from: path.resolve(__dirname, "src/assets/images/favicon.ico"),
+               from: path.resolve(__dirname, "img/web.ico"),
                to: path.resolve(__dirname, "docs/favicon.ico")
             },
             {
-               from: path.resolve(__dirname, "src/assets/images/favicon.ico"),
+               from: path.resolve(__dirname, "img/web.ico"),
                to: path.resolve(__dirname, "docs/assets/images/pd.ico")
-            },
-            {
-               from: path.resolve(__dirname, "src/public"),
-               to: path.resolve(__dirname, "docs")
             },
             {
                from: path.resolve(__dirname, "src/assets/images"),

@@ -1,6 +1,1 @@
 node_modules/
-docs/
-
-# Local build and tool output
-*.log
-.DS_Store

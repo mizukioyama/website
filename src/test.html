@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabs Example</title>
+  <style>
+    :root {
+  --border: rgba(255, 255, 255, 0.3);
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  padding: 3em 0 5em;
+  min-height: 60svh;
+}
+
+.tabs-container {
+  display: flex;
+  position: fixed;
+  bottom: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  background: rgba(46, 46, 46, 0.65);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--border);
+  background-image: repeating-linear-gradient(
+    120deg,
+    transparent,
+    transparent 1px,
+    rgba(146, 146, 146, 0.45) 1px,
+    rgba(146, 146, 146, 0.01) 2px
+  );
+  box-shadow: 0px 0px 8px 0px #000;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity 0.6s ease, bottom 0.6s ease;
+  z-index: 10;
+}
+
+.tabs-container--top {
+  bottom: 2rem;
+  opacity: 1;
+}
+
+.tab {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-size: 1.2rem;
+}
+
+.tab-slider {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: white;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+  class StickyNavigation {
+    constructor() {
+      this.currentId = null;
+      this.currentTab = null;
+      this.tabs = document.querySelectorAll('.tab');
+      this.tabSlider = document.querySelector('.tab-slider');
+      this.tabsContainer = document.querySelector('.tabs-container');
+      this.tabContainerHeight = this.tabsContainer.offsetHeight || 50;
+      this.offsetAdjust = 0;
+
+      this.init();
+    }
+
+    init() {
+      this.tabs.forEach(tab => {
+        tab.addEventListener('click', (event) => this.onTabClick(event, tab));
+      });
+
+      window.addEventListener('scroll', () => this.onScroll());
+      window.addEventListener('resize', () => {
+        this.tabContainerHeight = this.tabsContainer.offsetHeight;
+        this.setSliderCss();
+      });
+
+      this.onScroll();
+    }
+
+    onTabClick(event, tab) {
+      event.preventDefault();
+      const targetId = tab.getAttribute('href');
+      const target = document.querySelector(targetId);
+      if (target) {
+        const scrollTop = target.offsetTop - this.tabContainerHeight + 1 + this.offsetAdjust;
+        window.scrollTo({
+          top: scrollTop,
+          behavior: 'smooth'
+        });
+
+        setTimeout(() => {
+          this.setSliderCss();
+        }, 500);
+      }
+    }
+
+    onScroll() {
+      this.checkTabContainerPosition();
+      this.findCurrentTabSelector();
+    }
+
+    checkTabContainerPosition() {
+      const tabs = document.querySelector('.tabs');
+      if (!tabs) return;
+
+      const offset = tabs.offsetTop + tabs.offsetHeight - this.tabContainerHeight + this.offsetAdjust;
+      if (window.scrollY > offset) {
+        this.tabsContainer.classList.add('tabs-container--top');
+      } else {
+        this.tabsContainer.classList.remove('tabs-container--top');
+      }
+    }
+
+    findCurrentTabSelector() {
+      let newCurrentId = null;
+      let newCurrentTab = null;
+
+      this.tabs.forEach(tab => {
+        const id = tab.getAttribute('href');
+        const target = document.querySelector(id);
+        if (target) {
+          const offsetTop = target.offsetTop - this.tabContainerHeight + this.offsetAdjust;
+          const offsetBottom = target.offsetTop + target.offsetHeight - this.tabContainerHeight + this.offsetAdjust;
+
+          if (window.scrollY >= offsetTop && window.scrollY < offsetBottom) {
+            newCurrentId = id;
+            newCurrentTab = tab;
+          }
+        }
+      });
+
+      if (this.currentId !== newCurrentId || this.currentId === null) {
+        this.currentId = newCurrentId;
+        this.currentTab = newCurrentTab;
+        this.setSliderCss();
+      }
+    }
+
+    setSliderCss() {
+      if (this.currentTab && this.tabSlider) {
+        const width = this.currentTab.offsetWidth;
+        const left = this.currentTab.offsetLeft;
+
+        this.tabSlider.style.width = width + 'px';
+        this.tabSlider.style.left = left + 'px';
+      }
+    }
+  }
+
+  new StickyNavigation();
+});
+
+  </script>
+</head>
+<body>
+  <section class="tabs">
+    <div class="top-h1">
+      <h1 class="fade_bottom">Service Us</h1>
+      <p class="caption">提供するサービス.</p>
+    </div>
+    <p class="fade_bottom caption">
+      提供するものにこだわりを.<br />
+      触れ合い、関われることに感謝を.
+    </p>
+
+    <!-- tab list -->
+    <div class="tabs-container">
+      <a class="tab" href="#tab--first">Maine</a>
+      <a class="tab" href="#tab--second">Sub</a>
+      <a class="tab" href="#tab--third">Flow</a>
+      <a class="tab" href="#tab--fourth">Plan</a>
+      <span class="tab-slider"></span>
+    </div>
+  </section>
+
+  <!-- 各セクション（スクロール対象） -->
+  <div id="tab--first" style="height: 100vh; background: #eee;"></div>
+  <div id="tab--second" style="height: 100vh; background: #ccc;"></div>
+  <div id="tab--third" style="height: 100vh; background: #aaa;"></div>
+  <div id="tab--fourth" style="height: 100vh; background: #888;"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

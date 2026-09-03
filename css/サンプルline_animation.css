@@ -1,0 +1,130 @@
+    <div class="lines">
+        <div class="line_1"></div>
+        <div class="line_2"></div>
+        <div class="line_3"></div>
+        <div class="line_4"></div>
+        <div class="line_5"></div>
+        <div class="line_6"></div>
+        <div class="line_7"></div>
+        <div class="line_8"></div>
+    </div>
+
+    <style>
+        /* line */
+    .lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 60vw;
+        z-index: -1;
+    }
+    .lines .line_1,.lines .line_2,.lines .line_3,.lines .line_4,.lines .line_5,.lines .line_6,.lines .line_7,.lines .line_8 {
+        position: absolute;
+        width: 1px;
+        height: 200vh;
+        top: 0;
+        left: 50%;
+        background: rgba(25, 25, 25, 0.05);
+        z-index: -1;
+    }
+    .lines .line_1::after,.lines .line_2::after,.lines .line_3::after,.lines .line_4::after,.lines .line_5::after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 100vh;
+        width: 100%;
+        top: -50%;
+        left: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.137) 0%, #c1c1c1 75%, #07070798 100%);
+        animation: drop 40s 30s infinite;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+    }
+    .lines .line_6::after,.lines .line_7::after,.lines .line_8::after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 100vh;
+        width: 100%;
+        top: -50%;
+        left: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #c1c1c1 75%, #070707 100%);
+        animation: up 20s 10s infinite;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+    }
+    .line_1 {
+        margin: 0 auto;
+    }
+    .line_1::after {
+        animation-delay: 12s;
+    }
+    .line_2 {
+        margin-left: 15%;
+    }
+    .line_2::after {
+        animation-delay: 13s;
+    }
+    .line_3 {
+        margin-left: -15%;
+    }
+    .line_3::after {
+        animation-delay: 14s;
+    }
+    .line_4 {
+        margin-left: 25%;
+    }
+    .line_4::after {
+        animation-delay: 15s;
+    }
+    .line_5 {
+        margin-left: -25%;
+    }
+    .line_5::after {
+        animation-delay: 16s;
+    }
+    @keyframes drop {
+        0% {
+            top: -50%;
+        }
+        50% {
+            top: 100%;
+        }
+        100% {
+            top: -50%;
+        }
+    }
+    /* UP*/
+    .line_6 {
+        margin-left: -35%;
+    }
+    .line_6::after {
+        animation-delay: 20s;
+    }
+    .line_7 {
+        margin-left: 35%;
+    }
+    .line_7::after {
+        animation-delay: 20s;
+    }
+    .line_8 {
+        margin: 0 auto;
+    }
+    .line_8::after {
+        animation-delay: 10s;
+    }
+    @keyframes up {
+        0% {
+            top: 100%;
+        }
+        50% {
+            top: -50%;
+        }
+        100% {
+            top: 100%;
+        }
+    }
+    </style>

@@ -1,0 +1,398 @@
+body {
+  background: #ddd;
+}
+
+.warp {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.warp .inner span {
+  font-size: 5rem;
+  color: #212121;
+  letter-spacing: 0.1rem;
+}
+.warp .inner img {
+  opacity: 0.5;
+}
+.warp .is-active {
+  animation: glitch 0.3s 0.3s steps(100);
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  1% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  2% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  3% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  4% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  5% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  6% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  7% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  8% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  9% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  10% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #010101;
+  }
+  11% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  12% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  13% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  14% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  15% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  16% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  17% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  18% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  19% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  20% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #010101;
+  }
+  21% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  22% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  23% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  24% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  25% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  26% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  27% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  28% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  29% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  30% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #010101;
+  }
+  31% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  32% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  33% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  34% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  35% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  36% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  37% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  38% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  39% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  40% {
+    text-shadow: -3px 0 0 #010101, -3px 0 0 #575757;
+  }
+  41% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  42% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  43% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  44% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  45% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  46% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  47% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  48% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  49% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  50% {
+    text-shadow: 3px 0 0 #010101, 3px 0 0 #575757;
+  }
+  51% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  52% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  53% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  54% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  55% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  56% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  57% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  58% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  59% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  60% {
+    text-shadow: 50px 0 0 #010101, -50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  61% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  62% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  63% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  64% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  65% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  66% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  67% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  68% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  69% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  70% {
+    text-shadow: -50px 0 0 #010101, 50px 0 0 #575757;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  71% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  72% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  73% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  74% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  75% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  76% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  77% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  78% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  79% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  80% {
+    text-shadow: 3px 0 0 #010101, -3px 0 0 #002fff;
+  }
+  81% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  82% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  83% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  84% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  85% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  86% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  87% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  88% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  89% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  90% {
+    text-shadow: -20px 0 0 #010101, 20px 0 0 #002fff;
+    filter: blur(0.5px);
+    color: transparent;
+  }
+  91% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  92% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  93% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  94% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  95% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  96% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  97% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  98% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  99% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+  100% {
+    text-shadow: 0px 0 0 #010101, 0px 0 0 #002fff;
+    filter: blur(0.5px);
+  }
+}/*# sourceMappingURL=glitch.css.map */

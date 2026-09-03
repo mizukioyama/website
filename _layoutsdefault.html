@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <title>{{ page.title }}</title>
+
+   <!-- CSS -->
+   <link rel="stylesheet" href="{{ "CSS/pc.css" | relative_url }}">
+   <link rel="stylesheet" href="{{ "CSS/sp.css" | relative_url }}">
+   <link rel="stylesheet" href="{{ "CSS/index.css" | relative_url }}">
+   <link rel="stylesheet" href="{{ "CSS/menu.css" | relative_url }}">
+   <link rel="stylesheet" href="{{ "CSS/footer.css" | relative_url }}">
+
+   <!-- CSS アニメーション -->
+   <link rel="stylesheet" href="CSS/animation.css">
+   <link rel="stylesheet" href="CSS/glitch.css">
+   <link rel="stylesheet" href="CSS/noise-channel_shift.css">
+   <!-- JavaScript -->
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+   <script src="{{ "/JS/menu.js" | relative_url }}"></script>
+   <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+   </script>
+</head>
+<body oncontextmenu="return false;">
+   {% include header.html %}
+
+   <div class="scroll"></div>
+
+   <!-- Sidebar -->
+   <div class="category">
+      <ol>
+            <p>Category</p>
+            <li><a href="https://www.natureinspire.jp/information/">all</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">analog</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">digital</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">photo</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">Exhibition</a></li>
+      </ol>
+      <ol>
+            <p>year</p>
+            <li><a href="https://www.natureinspire.jp/information/">2024</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">2023</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">2022</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">2021</a></li>
+            <li><a href="https://www.natureinspire.jp/information/">2010-17</a></li>
+      </ol>
+   </div>
+
+
+   <div class="flex">
+      <!-- 左側 -->
+      <div class="content">
+         {% for work in page.left_works %}
+         <div class="work">
+            <a class="works" href="{{ work.url }}">
+                  <img src="{{ work.img_src }}" alt="Main Image">
+                  <span class="dli-external-link"><span></span></span>
+            </a>
+            <h3>{{ work.category }}</h3>
+            <p>{{ work.title }}</p>
+         </div>
+         {% endfor %}
+      </div>
+      <!-- 右側 -->
+      <div class="content">
+         {% for work in page.right_works %}
+         <div class="work">
+            <a class="works" href="{{ work.url }}">
+                  <img src="{{ work.img_src }}" alt="Main Image">
+                  <span class="dli-external-link"><span></span></span>
+            </a>
+            <h3>{{ work.category }}</h3>
+            <p>{{ work.title }}</p>
+         </div>
+         {% endfor %}
+      </div>
+   </div>
+
+
+         <!-- 記事のリスト -->
+      {% for post in paginator.posts %}
+            <article>
+               <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+               <p>{{ post.excerpt }}</p>
+            </article>
+      {% endfor %}
+
+      <!-- ページネーション -->
+      <ol class="page">
+            {% if paginator.previous_page %}
+               <li><a href="{{ paginator.previous_page_path }}" class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</a></li>
+            {% else %}
+               <li class="arrow-button left-arrow disabled">&#x21BC;</li>
+            {% endif %}
+
+            {% for page in (1..paginator.total_pages) %}
+               {% if page == paginator.page %}
+                  <li><a href="{{ https://mizukioyama.github.io/portfolio.github.io/gallery_top.html }}" class="current">{{ page }}</a></li>
+               {% else %}
+                  <li><a href="{{ paginator.page_path | replace: ':num', page }}">{{ page }}</a></li>
+               {% endif %}
+            {% endfor %}
+
+            {% if paginator.next_page %}
+               <li><a href="{{ paginator.next_page_path }}" class="arrow-button right-arrow" aria-label="Next">&#x21C0;</a></li>
+            {% else %}
+               <li class="arrow-button right-arrow disabled">&#x21C0;</li>
+            {% endif %}
+      </ol>
+   </main>
+
+   {{ content }}
+   {% include footer.html %}
+
+</body>
+</html>

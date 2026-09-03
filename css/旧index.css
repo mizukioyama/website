@@ -1,0 +1,358 @@
+@charset "UTF-8";
+
+/* カーソルを非表示にする */
+* {
+    cursor: none !important;
+}
+
+#cursor,
+#stalker {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    z-index: 9999;
+}
+
+/* カーソルのスタイル */
+#cursor {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    /* 光沢のある効果 */
+}
+
+#stalker {
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255, 255, 255);
+    transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    /* 光沢のある効果 */
+}
+
+/* ホバー時のスタイル */
+.cursor--hover {
+    width: 40px !important;
+    height: 40px !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    /* ホバー時の光沢のある効果 */
+}
+
+.stalker--hover {
+    width: 50px !important;
+    height: 50px !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    /* ホバー時の光沢のある効果 */
+}
+
+/*== down-up ==*/
+.scroll-top {
+    position: fixed;
+    right: 20px;
+    bottom: 10px;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    transition-duration: 1.5s;
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: tb-rl;
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+}
+
+@keyframes arrowmove {
+    0% {
+        bottom: 20px;
+    }
+
+    50% {
+        bottom: 25px;
+    }
+
+    100% {
+        bottom: 20px;
+    }
+}
+
+/*.scroll-viewクラスがついたら出現*/
+.scroll-top.scroll-view {
+    opacity: 1;
+    visibility: visible;
+}
+
+/*リンク全体の aタグの形状*/
+.scroll-top a {
+    text-decoration: none;
+    color: #ccc;
+    text-transform: uppercase;
+    margin-top: 8px;
+    margin-right: 3px;
+    font-size: 13px;
+    display: block;
+}
+
+/*スクロールリンクの形状*/
+.js-scroll a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 1px;
+    height: 70px;
+    background: #666;
+}
+
+.js-scroll a::before {
+    content: "";
+    position: absolute;
+    top: 55px;
+    width: 1px;
+    height: 15px;
+    right: -7px;
+    background: #666;
+    transform: skewX(-31deg);
+}
+
+/*Edge IE11 hack*/
+_:-ms-lang(x),
+.js-scroll a::before {
+    right: -11px;
+}
+
+/*ページトップリンクの形状*/
+.js-pagetop a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 1px;
+    height: 80px;
+    background: #666;
+}
+
+.js-pagetop a::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    width: 1px;
+    right: -7px;
+    height: 15px;
+    background: #666;
+    transform: skewX(31deg);
+}
+
+/*Edge IE11 hack*/
+_:-ms-lang(x),
+.js-pagetop a::before {
+    right: 0;
+}
+
+/*== 多言語==*/
+#langChenge input[type="radio"] {
+    display: none;
+}
+
+#langChenge .inner_label {
+    display: grid;
+    position: fixed;
+    align-items: center;
+    justify-items: center;
+    width: fit-content;
+    top: 0.25%;
+    right: -3.5%;
+    margin: 0;
+    transform: translate(0%, 0%);
+    z-index: 9999;
+    pointer-events: none;
+}
+
+#langChenge label {
+    pointer-events: all;
+}
+
+#langChenge label div {
+    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
+    font-family: Not serif-JP;
+    color: var(--inv);
+    mix-blend-mode: difference;
+    transition: all 0.9s ease-out;
+    text-shadow: 1px 0px 2px #414141, 1px 0px 2px #330000;
+    text-shadow: hsla(0, 0%, 10%, 0.2) 0px 0px 0px, inset hsla(0, 0%, 0%, 0.5) 0px 1px 3px 1px;
+    text-shadow: -1px -1px 2px rgba(20, 20, 20, 0.5), inset 1px 0px 5px rgba(20, 20, 20, 0.3);
+    /*animation: glitch_label 0.2s 0.2s steps(15) infinite;*/
+}
+
+#langChenge label:hover {
+    color: #fff;
+}
+
+/* === 選択されていない言語は非表示にする ==== */
+#langJa:not(:checked)~* *:lang(ja),
+#langEn:not(:checked)~* *:lang(en) {
+    display: none;
+}
+
+/* === 選択されている言語のラベル色を変更 ==== */
+#langJa:checked~label[for="langJa"],
+#langEn:checked~label[for="langEn"] {
+    color: #fff;
+    margin: 0;
+}
+
+#langChenge label[for="langJa"] .ja,
+#langChenge label[for="langEn"] .en {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#langJa:checked~label[for="langJa"] .ja,
+#langEn:checked~label[for="langEn"] .en {
+    opacity: 1;
+}
+
+#langChenge label[for="langJa"],
+#langChenge label[for="langEn"] {
+    position: relative;
+    /* 相対位置に設定 */
+    display: inline-block;
+    /* インラインブロック要素に変更 */
+}
+
+
+/*== Scrollbar ==*/
+::-webkit-scrollbar {
+    width: 0.2rem;
+    background: rgba(40, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0) inset;
+    background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: 0 0 2px 1px rgba(31, 30, 30, 0.76) inset;
+    background: rgba(20, 20, 20);
+}
+
+/*font-change*/
+.Animation-container {
+    height: 10%;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 1;
+}
+
+.custom-text {
+    font-weight: 100;
+    font-size: 14em;
+    color: #FAFAFA;
+}
+
+.dud {
+    color: #ccc;
+}
+
+.scrollDown_p {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 3px rgba(20, 20, 20, 0.5);
+    color: rgba(25, 25, 25, 0.69);
+    padding: 0.5rem 1rem;
+    transform: rotate(-90deg);
+    transform-origin: right;
+    /* 回転の基準点を左下に設定 */
+    position: absolute;
+    /* 絶対位置に設定 */
+    bottom: 40%;
+    right: 2.5%;
+    border: 1px solid #000;
+    width: 60px;
+    height: 40px;
+    border-radius: 40%;
+}
+
+.scrollDown {
+    display: block;
+    width: 2px;
+    height: 120%;
+    transform: rotate(0deg);
+    background-image: linear-gradient(0deg,
+            rgba(5, 5, 5, 0.5) 0%,
+            rgb(255, 255, 255) 50%,
+            rgba(255, 255, 255, 0.5) 100%,
+            transparent);
+    background-repeat: no-repeat;
+    background-size: 200% 200%;
+    animation-name: scroll-down;
+    animation-duration: 14s;
+    animation-timing-function: cubic-bezier(0.22, 109.9, 210, 1);
+    animation-delay: 7s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: backwards;
+    transform-origin: left;
+    position: fixed;
+    bottom: 0%;
+    right: 1%;
+    z-index: 100;
+}
+
+/*
+    .scrollDown:nth-child(2) {
+        width: 1px;
+        right: 2%;
+        bottom: -5%;
+        transform: rotate(0deg);
+        animation-delay: 7s;
+    }*/
+@keyframes scroll-down {
+    0% {
+        background-position: 0 100%;
+    }
+
+    50% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 -100%;
+    }
+}
+
+/*    <div class="scroll-down">
+    <div class="frame">
+        <div class="scroll_line"></div>
+    </div>
+    </div>*/
+
+.scroll_line {
+    width: 1px;
+    height: 10px;
+    border-radius: 25%;
+    background-color: #212121;
+    animation-name: scroll;
+    animation-duration: 2.2s;
+    animation-timing-function: cubic-bezier(.15, .41, .69, .94);
+    animation-iteration-count: infinite;
+}
+
+@keyframes scroll {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(25px);
+        opacity: 0;
+    }
+}

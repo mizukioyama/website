@@ -1,0 +1,18 @@
+<footer>
+   <a class="noise" href="gallery.html">Art Index</a>
+   <a class="noise" href="artist-statement.html">Artist Statement</a>
+   <a class="noise" href="biography.html">Biography</a>
+   <a class="noise" href="contact.html">Contact Us</a>
+   <a class="noise" href="policy.html">Site Policy</a>
+   
+   <div class="foot">&copy; <span id="year"></span>
+      Mizuki Oyama
+   </div>
+   <script>
+      function toggleAccordion(element) {
+         element.classList.toggle("active");
+      }
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+   </script>
+</footer>

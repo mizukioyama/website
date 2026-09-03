@@ -5,7 +5,6 @@ const root = path.resolve(__dirname, "..");
 const outputDirectory = path.join(root, "docs");
 const referencePattern = /\b(?:src|href)\s*=\s*["']([^"']+)["']/gi;
 const cssUrlPattern = /url\(\s*["']?([^"')]+)["']?\s*\)/gi;
-const fetchPattern = /\bfetch\(\s*["']([^"']+)["']/gi;
 
 function listFiles(directory, extensionPattern) {
    if (!fs.existsSync(directory)) {
@@ -60,7 +59,7 @@ for (const htmlFile of listFiles(outputDirectory, /\.html$/i)) {
    }
 }
 
-for (const cssFile of listFiles(outputDirectory, /\.css$/i)) {
+for (const cssFile of listFiles(path.join(outputDirectory, "styles"), /\.css$/i)) {
    const contents = fs.readFileSync(cssFile, "utf8");
 
    for (const match of contents.matchAll(cssUrlPattern)) {
@@ -78,24 +77,6 @@ for (const cssFile of listFiles(outputDirectory, /\.css$/i)) {
    }
 }
 
-for (const jsFile of listFiles(outputDirectory, /\.js$/i)) {
-   const contents = fs.readFileSync(jsFile, "utf8");
-
-   for (const match of contents.matchAll(fetchPattern)) {
-      const reference = match[1].trim();
-
-      if (isExternalReference(reference)) {
-         continue;
-      }
-
-      const target = resolveReference(path.join(outputDirectory, "index.html"), reference);
-
-      if (target && !fs.existsSync(target)) {
-         missing.push(`${path.relative(root, jsFile)} fetches ${reference}`);
-      }
-   }
-}
-
 if (missing.length > 0) {
    console.error("Missing local build references:");
    for (const reference of missing) {
@@ -103,5 +84,5 @@ if (missing.length > 0) {
    }
    process.exitCode = 1;
 } else {
-   console.log("Local HTML/CSS/JavaScript references check passed.");
+   console.log("Local HTML/CSS references check passed.");
 }

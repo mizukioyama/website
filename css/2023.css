@@ -1,0 +1,178 @@
+@charset "utf-8";
+    
+    body {
+        background-image: url("HTML/img/background.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }  
+    /* 新しいスタイル */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 50;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 0px;
+        max-width: 100vw;
+        width: 100%;
+        max-height: 100vh;
+        height: 100%;
+        overflow: auto;
+        display: flex;
+    }
+
+    .modal-left, .modal-right {
+        flex: 1;
+        padding: 0px;
+        width: 50%;
+    }
+
+    .modal-left {
+        flex: 1;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .modal-right {
+        flex: 1;
+        padding: 100px;
+        width: 100%;
+    }
+        /* ボタンのスタイルをカスタマイズ */
+    .close-btn {
+        content: '';
+        position: absolute;
+        color: #fff;
+        top: 10%;
+        right: 10%;
+        padding: 30px 30px;
+        border: 2px solid #000; /* ボーダーを太く */
+        background: #000;
+        cursor: pointer;
+    }
+    .close-btn:hover {
+        color: #000;
+        background: #ddd;
+    }
+    /* 新しいスタイル */
+    .slide-out {
+        transform: translateY(100%);
+        opacity: 0.5;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .card:not(.card-clicked).slide-out {
+        transform: translateY(100%) !important;
+        opacity: 0.3 !important;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    /* 新しいスタイル */
+    .card-clicked {
+        transform: rotateX(180deg);
+        transition: transform 1s ease;
+        /* アニメーション速度を調整 */
+        z-index: 2;
+    }
+    
+    .container {
+        position: absolute;
+        height: 500px;
+        width: 850px;
+        margin-top: 15%;
+        left: calc(50% - 430px);
+        display: flex;
+    }
+
+    .card {
+        display: flex;
+        height: 360px;
+        width: 280px;
+        background-color: #17141d;
+        border-radius: 10px;
+        box-shadow: -1rem 0 3rem rgba(255, 255, 255, 0.3);
+        /*   margin-left: -50px; */
+        transition: 0.4s ease-out;
+        position: relative;
+        left: 0px;
+    }
+
+    .card:not(:first-child) {
+        margin-left: -50px;
+    }
+
+    .card:hover {
+        transform: rotateY(-360deg);
+        transition: 1.8s ease-out;
+    }
+
+    .title {
+        color: #ddd;
+        font-weight: 300;
+        width: 55%;
+        position: absolute;
+        left: 20px;
+        top: 10px;
+    }
+
+    .bar {
+        position: absolute;
+        top: 100px;
+        left: 20px;
+        height: 5px;
+        width: 210px;
+    }
+
+    .emptybar {
+        background-color: #2e3033;
+        width: 100%;
+        height: 100%;
+    }
+
+    /*color-line*/
+    .filledbar {
+        position: absolute;
+        top: 0px;
+        z-index: 0;
+        width: 0px;
+        height: 100%;
+        background: rgb(0,154,217);
+        background: linear-gradient(90deg, rgba(0,0,200,0.7) 0%, rgba(0,160,160,1) 65%, rgba(0,186,160,0.2) 100%);
+        transition: 0.6s ease-out;
+    }
+
+    .card:hover .filledbar {
+        width:210px;
+        transition: 0.4s ease-out;
+    }
+
+    .circle {
+        position: absolute;
+        top: 150px;
+        left: calc(50% - 60px);
+    }
+
+    .stroke {
+        stroke: white;
+        stroke-dasharray: 360;
+        stroke-dashoffset: 360;
+        transition: 0.6s ease-out;
+    }
+
+    svg {
+        fill: #17141d;
+        stroke-width: 2px;
+    }
+
+    .card:hover .stroke {
+        stroke-dashoffset: 0;
+        transition: 0.6s ease-out;
+    }
