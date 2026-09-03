@@ -2,110 +2,389 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nature inspire | Art Index</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>O.MIZUKI | Art Index</title>
 
-    <!-- Font -->
-    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/noise.css">
+  <link rel="stylesheet" href="css/all.css">
+  <link rel="stylesheet" href="css/gallery.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/font.css">
 
-    <!-- ✅ SEO強化 -->
-    <meta name="description"
-        content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
-    <meta name="keywords" content="ポートフォリオ, 自然, アート, Webデザイン, 作品集, クリエイティブ, Nature inspire">
-    <meta name="author" content="あなたの名前（またはブランド名）">
-    <link rel="canonical" href="https://mizukioyama.github.io/"> <!-- ご自身のURLに差し替えてください -->
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 
-    <!-- OGP（SNSシェア用） -->
-    <meta property="og:title" content="Nature inspire | 自然とアートのポートフォリオ">
-    <meta property="og:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mizukioyama.github.io/">
-    <meta property="og:image" content="https://mizukioyama.github.io/images/ogp.jpg"> <!-- OGP画像を用意してください -->
-    <meta property="og:site_name" content="Nature inspire">
+  <!-- 背景用 JavaScript -->
+  <!--<script src="js/jquery.ripples-min.js"></script>
+  <script src="js/bg_wave.js"></script>-->
+  <script src="js/three.r134.min.js"></script>
+  <script src="js/vanta.fog.min.js"></script>
 
-    <!-- Twitterカード -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Nature inspire | 自然とアートのポートフォリオ">
-    <meta name="twitter:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
-    <meta name="twitter:image" content="https://mizukioyama.github.io/images/ogp.jpg">
+  <script src="js/cursor.js"></script>
+  <script src="js/page-nation.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/side.js"></script>
+  <script src="js/footer.js"></script>
+  <!--<script src="js/bg.js" defer></script>-->
 
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico">
+  <!-- Font -->
+  <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- キャッシュ制御 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+  <!-- ✅ SEO強化 -->
+  <meta name="description"
+    content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
+  <meta name="keywords" content="ポートフォリオ, 自然, アート, Webデザイン, 作品集, クリエイティブ, Nature inspire">
+  <meta name="author" content="あなたの名前（またはブランド名）">
+  <!-- ご自身のURLに差し替えてください -->
+  <link rel="canonical" href="https://mizukioyama.github.io/gallery.html">
 
-    <!-- セキュリティ -->
-    <meta name="referrer" content="strict-origin">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <!-- OGP（SNSシェア用） -->
+  <meta property="og:title" content="Nature inspire | 自然とアートのポートフォリオ">
+  <meta property="og:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mizukioyama.github.io/">
+  <meta property="og:image" content="https://mizukioyama.github.io/images/ogp.jpg"> <!-- OGP画像を用意してください -->
+  <meta property="og:site_name" content="Nature inspire">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Twitterカード -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nature inspire | 自然とアートのポートフォリオ">
+  <meta name="twitter:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+  <meta name="twitter:image" content="https://mizukioyama.github.io/images/ogp.jpg">
 
+  <!-- Favicon -->
+  <link rel="icon" href="img/web.ico">
+
+  <!-- キャッシュ制御 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- セキュリティ -->
+  <meta name="referrer" content="strict-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://use.typekit.net;
+        font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        object-src 'none';
+        ">
+
+  <style>
+    /* モーダルオーバーレイ */
+    .modal-overlay {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      /*background: rgba(130, 130, 130, 0.25);
+      backdrop-filter: blur(5px);*/
+      z-index: 998;
+    }
+
+    /* モーダル本体 */
+    .modal-box {
+      position: fixed !important;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 5rem 25rem 20rem;
+      /*width: 98svw;*/
+      width: 95dvw;
+      /*max-width: 1100px;*/
+      min-height: 90vh;
+      /*height: 97%;*/
+      height: 95dvh;
+      overflow-y: auto;
+      /*box-shadow: 0 2px 10px #000;*/
+      box-shadow: 0 0px 20px #000;
+      z-index: 999;
+      backdrop-filter: blur(50px);
+      backdrop-filter: blur(20px);
+      background: rgba(0, 0, 0, 0.25);
+      background: rgba(100, 100, 100, 0.1);
+      /*background: rgba(110, 110, 110, 0.5);
+      background: linear-gradient(63deg, #0D0D0D, #757575, #222222);
+      background-size: 600% 600%;
+      animation: GradientBackground 22s ease infinite;*/
+    }
+
+    /*@keyframes GradientBackground {
+          0% {
+            background-position: 0% 50%;
+          }
+
+          50% {
+            background-position: 100% 50%;
+          }
+
+          100% {
+            background-position: 0% 50%;
+          }
+        };*/
+
+
+    .modal-box .work-img .works {
+      display: grid;
+      align-content: space-between;
+      justify-items: end;
+      /*height: 160px;*/
+      height: auto;
+      width: auto;
+    }
+
+    .modal-box .work-img .works p {
+      text-align: end;
+    }
+
+    .modal-box .work-img {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /*.modal-box .work-img img {
+      height: 60svh;
+      clip-path: polygon(0% 10%, 100% 10%, 100% 100%, 100% 90%, 0% 90%, 0 100%, 0 0%);
+    }*/
+
+    .modal-box .dli-external-link {
+      top: 1%;
+    }
+
+    .modal-box h2 {
+      font-weight: 300;
+    }
+
+    .modal-text {
+      position: relative;
+    }
+
+    .modal-text p {
+      margin-top: 3vmin;
+      text-shadow: 0 2px 2px var(--text);
+      line-height: 2.4;
+      margin-top: 8vmin;
+      margin-bottom: 2vmin;
+    }
+
+    .modal-text p:nth-child(1) {
+      margin: 0;
+      margin-top: 5vmin;
+    }
+
+    .text-content {
+      font-size: 0.9rem;
+    }
+
+
+    #modalCloseBtn {
+      font-size: 1.8rem;
+      position: absolute;
+      bottom: -5rem;
+      right: 0;
+      cursor: pointer;
+    }
+
+    #modalCloseBtn:hover {
+      mix-blend-mode: difference;
+    }
+
+    .modal-box a::before {
+      display: none;
+    }
+
+    @keyframes slideInBottom {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .modal-box.animate-bottom {
+      animation: slideInBottom 0.4s ease-out forwards;
+    }
+
+    @media screen and (max-width: 599px) {
+      .modal-box {
+        height: 98svh;
+        min-height: 90svh;
+        /*padding: 10rem 2rem 5rem;*/
+        padding: 8rem 2rem 7rem;
+      }
+
+      .noise.cg-text {
+        font-size: 1.2rem !important;
+      }
+
+      /*.modal-box h2 {
+        font-size: 1rem;
+      }*/
+
+      .modal-box p {
+        font-size: 0.85rem;
+        letter-spacing: 0.05rem;
+        /*left: 0 !important;*/
+      }
+
+      .modal-text p {
+        margin-top: 15vmin;
+      }
+
+      .modal-text a {
+        margin-top: 5vmin !important;
+      }
+
+      .modal-box .text-content {
+        font-size: 0.65rem;
+      }
+
+      .modal-box .work-img {
+        width: 100%;
+      }
+
+      #modalCloseBtn {
+        font-size: 1rem;
+        bottom: -2.5rem;
+      }
+
+      .modal-box .work-img img {
+        height: auto;
+        clip-path: polygon(0% 5%, 100% 5%, 100% 100%, 100% 95%, 0% 95%, 0 100%, 0 0%);
+      }
+    }
+
+    .dud {
+      color: #757575;
+    }
+  </style>
 </head>
 
-<body data-current-page="1" data-current-category="all" data-page="gallery">
-    <div id="header-container"></div>
-    <div class="ripples-2"></div>
-    <main class="gallery">
+<body data-current-page="1" data-current-category="all" class="art-page">
+  <div id="header-container"></div>
+  <!--<div class="ripples"></div>-->
+  <div id="vanta-bg"></div>
 
-        <h1 class="noise">
-            Art Index
-        </h1>
-        <p class="noise">
-            Nature inspire
-        </p>
-        <div class="scroll"></div>
-        <div id="sidebar-container"></div>
+  <main class="gallery">
+  <div class="h1-text" data-title="Art Index" data-subtitle="作品一覧">
+    <h1 class="noise text"></h1>
+    <p class="noise subtext"></p>
+  </div>
 
-        <div class="content">
-            <span>Category / ALL</span>
-            <!--01-->
-            <div class="work">
-                <p>
-                    Caption
-                    <br>
-                    アナログ作品「挑戦」から芽吹いた、デジタルの樹。
-                    幾重にも重ねた編集の葉が、やがてひとつの球体を結び、それは心の奥底──静かにたゆたう源（みなもと）を象っています。
-                    大地に根を張るように、青は深い静けさを、緑は命の循環を、黄色は内に宿る希望の光を。
-                    自然の色をまといながら、目には見えない「心の樹形図」を描きました。
-                </p>
-                <div class="work-img">
-                    <span
-                        style="position: absolute; top: 25%; left: -8.5vmin; letter-spacing: 0.5rem; transform: rotate(-90deg);">Digital
-                        Art</span>
-                    <img src="assets/images/230053-2.jpg"
-                        alt="デジタル作品『心樹』">
-                    <span class="dli-external-link">©Oyama</span>
-                    <a class="works" href="">
-                        <h3>
-                            digital / Exhibition
-                        </h3>
-                        <p>
-                            Title：心樹 / 2023
-                        </p>
-                    </a>
-                </div>
-            </div>
+    <div class="scroll"></div>
+    <div id="sidebar-container"></div>
 
-        </div>
+    <div class="gallery-containt">
+      <div id="gallery-container" class="content"></div>
+      <!-- ページネーション -->
+      <div class="page-line" style="margin-top: 5rem;"></div>
+      <div id="pagination"></div>
+      <div class="page-line"></div>
+    </div>
+  </main>
 
-    <ol class="page">
-        <li><button class="arrow-button left-arrow" aria-label="Previous">&#x21BC;</button></li>
-        <li><a href="gallery.html" class="page-link" data-page="1" data-href="gallery.html" aria-current="page">1</a></li>
-        <li><a href="gallery.html" class="page-link" data-page="2" data-href="gallery.html">2</a></li>
-        <li><a href="gallery.html" class="page-link" data-page="3" data-href="gallery.html">3</a></li>
-        <li><a href="gallery.html" class="page-link" data-page="4" data-href="gallery.html">4</a></li>
-        <li><a href="gallery.html" class="page-link" data-page="5" data-href="gallery.html">5</a></li>
-        <li><button class="arrow-button right-arrow" aria-label="Next">&#x21C0;</button></li>
-    </ol>
+  <!-- モーダルオーバーレイ -->
+  <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
 
-    </main>
+  <!-- モーダル本体 -->
+  <div class="modal-box" id="modalBox" style="display: none;"></div>
 
-    <div id="footer-container"></div>
+  <div id="footer-container"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const lines = document.querySelectorAll(".page-line");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const ratio = entry.intersectionRatio; // 0〜1
+
+          if (entry.isIntersecting) {
+            // 中心に近づくほど幅が広がる（最大100%）
+            const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
+            //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
+            entry.target.style.width = `100%`;
+          } else {
+            // 画面外に出たら0%
+            entry.target.style.width = `0%`;
+          }
+        });
+      }, {
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100) // 0〜1まで100段階
+      });
+
+      lines.forEach(line => observer.observe(line));
+    });
+  </script>
+
+  <script>
+    let vantaEffect = VANTA.FOG({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      highlightColor: 0x181818,
+      midtoneColor: 0xb3b3b3,
+      lowlightColor: 0x3f3ff,
+      baseColor: 0xfafffc,
+      blurFactor: 0.60,
+      speed: 0.45,   // 動きの速さ
+      zoom: 0.40
+    });
+
+    // === 流れ方向制御（右下 → 左下 の繰り返し） ===
+    let directionX = 1; // 右:+1 / 左:-1
+    let elapsed = 0;
+    const interval = 100;     // 0.1秒ごと
+    const switchRight = 25000; // 25秒後に左下へ切り替え
+    const switchLeft = 38000;  // 38秒後に右下へ戻す
+
+    setInterval(() => {
+      elapsed += interval;
+
+      if (elapsed >= switchRight && elapsed < switchLeft) {
+        // 左下方向（左へ流す）
+        directionX = -1;
+      } else if (elapsed >= switchLeft) {
+        // 右下方向（右へ流す）
+        directionX = 1;
+        elapsed = 0;
+      }
+
+      // speed と zoom を変化させて流れる方向感を再現
+      if (vantaEffect && vantaEffect.options) {
+        const baseSpeed = 0.45;
+        const baseZoom = 0.40;
+
+        // X方向で流れを切り替え（speedを擬似的に変化）
+        vantaEffect.options.speed = baseSpeed + (directionX * 0.05);
+
+        // zoom をわずかに変化させて“流れ”を感じさせる
+        vantaEffect.options.zoom = baseZoom + (Math.sin(performance.now() * 0.0005) * 0.02);
+      }
+
+    }, interval);
+  </script>
+
 
 </body>
 

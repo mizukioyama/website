@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>O.MIZUKI | Artist Statement</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/noise.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/font.css">
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+
+    <!-- 背景用 JavaScript -->
+    <script src="js/jquery.ripples-min.js"></script>
+    <script src="js/bg_wave.js"></script>
+    <script src="js/p5.min.js"></script>
+    <script src="js/vanta.trunk.min.js"></script>
+
+    <script src="js/cursor.js"></script>
+    <script src="js/loading.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/footer.js"></script>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- ✅ SEO強化 -->
+    <meta name="description"
+        content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
+    <meta name="keywords" content="ポートフォリオ, 自然, アート, Webデザイン, 作品集, クリエイティブ, Nature inspire">
+    <meta name="author" content="あなたの名前（またはブランド名）">
+    <!-- ご自身のURLに差し替えてください -->
+    <link rel="canonical" href="https://mizukioyama.github.io/artist-statement.html">
+
+    <!-- OGP（SNSシェア用） -->
+    <meta property="og:title" content="Nature inspire | 自然とアートのポートフォリオ">
+    <meta property="og:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mizukioyama.github.io/">
+    <meta property="og:image" content="https://mizukioyama.github.io/images/ogp.jpg"> <!-- OGP画像を用意してください -->
+    <meta property="og:site_name" content="Nature inspire">
+
+    <!-- Twitterカード -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nature inspire | 自然とアートのポートフォリオ">
+    <meta name="twitter:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
+    <meta name="twitter:image" content="https://mizukioyama.github.io/images/ogp.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/web.ico">
+
+    <!-- キャッシュ制御 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- セキュリティ -->
+    <meta name="referrer" content="strict-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://use.typekit.net;
+        font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        object-src 'none';
+    ">
+
+    <style>
+        .page-line {
+            height: 1px;
+            background-color: var(--text);
+            width: 0%;
+            left: 50%;
+            margin: 15vmin 0 15vmin;
+            transform: translateX(-50%);
+            position: relative;
+            transition: width 1s ease;
+            border-radius: 8px;
+        }
+
+        .state-img {
+            position: relative;
+            width: 35%;
+            left: 6rem;
+            top: 60vmin;
+        }
+
+        .state-box {
+            display: flex;
+            width: 100%;
+        }
+
+        p.subtext-en {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        @media screen and (max-width: 599px) {
+            .state-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .state-box:nth-child(2) {
+                margin-top: 130vmin;
+            }
+
+            .state-img {
+                width: auto;
+                left: 0;
+                top: -10px;
+            }
+
+            p.subtext-en {
+                font-size: 0.8rem;
+            }
+
+            .timeline ul {
+                font-size: 0.7rem;
+            }
+
+            #state .content .timeline li {
+                font-size: 0.6rem;
+                margin-left: 0.25rem;
+                padding-left: 0.75rem;
+                padding-bottom: 4rem;
+                border-left: 1px solid var(--text);
+            }
+        }
+
+        .timeline {
+            position: relative;
+            margin: 20vmin auto 0;
+        }
+
+        .timeline ul {
+            font-weight: 400;
+            margin-top: 1vmin;
+        }
+        .timeline li {
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            border-left: 1px solid var(--text);
+        }
+
+        #state .content li {
+            padding-top: 0.5rem;
+            padding-bottom: 5.5rem;
+            margin-top: 0.25rem;
+        }
+
+    </style>
+</head>
+
+<body id="state">
+    <div id="header-container"></div>
+    <div class="ripples"></div>
+    <div id="vanta-bg-bio"></div>
+
+    <main class="gallery">
+            <div class="h1-text" data-title="Artist Statement" data-subtitle="自然、心、<br>感情、在り方、<br>想像、生命、<br>記憶、波動、エネルギー">
+                <h1 class="noise text"></h1>
+                <p class="subtext"></p>
+                <p class="subtext-en">Nature, Mind,<br>Emotions, State of being,<br>Imagination, Life,<br>Memory, Vibrations,
+                    Energy</p>
+            </div>
+        <div class="scroll"></div>
+
+        <div class="state-box">
+            <div lang="ja" class="state-img">
+                <img src="img/202344-2-web.jpg" alt="">
+            </div>
+            <div lang="ja" class="content">
+                <div class="work">
+                    <p>
+                        「NatureInspire」とは、自然の在り方に学びながら、感覚と対話を重ねて生まれる。
+                        自然は、秩序と混沌、静けさと動き、意図と偶然を同時に含む。
+                        その曖昧さにこそ、人の心や感情と通じ合う何かがある。
+                        小山瑞樹の作品は、そうした自然の姿勢を写し取るように、抽象的で、解釈を限定しないかたちで存在する。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        制作では、計画と予測不能の狭間に立ち、描くというより「応答する」ことを意識している。
+                        滲み、混ざり、揺らめく形や線に耳を澄ませ、画面とのやりとりの中で形が浮かび上がる。
+                        意味を与えすぎず、制御しすぎず、ただそこに現れる「在り方」を大切にする。
+                        それは、自然と向き合う時と同じような感覚。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        抽象を選ぶ理由は、「正しさ」がないこと。
+                        見る人に問いを委ね、「これは何だろう」「なぜ惹かれるのだろう」と思考を開く。
+                        感じること、考えること、自分の内面と向き合う時間を持つこと。
+                        アートを通して、情報や効率では埋められない余白に光を当てたい。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        日々の生活の中でふと感じる違和感や、小さな感情の揺れ、
+                        自然のなかで静かに呼吸が深まるような瞬間。
+                        そのどれもが、作品の源になっている。
+                        記憶や感情、波動やエネルギーといった目に見えないものを、
+                        色や形、線やリズムに置き換えて、画面に立ち上げていく。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        模倣や下書きは行わず、
+                        内側に湧く衝動や感覚がすべての起点であり、それが現れないときは描かない。
+                        無理にかたちにしないことで、逆に自然なかたちが浮かび上がることを信じている。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        小山瑞樹にとってアートは、感覚を開く装置であり、回復のかたちのひとつ。
+                        認知の疲れや感情の停滞にも寄り添い、見る人の心にゆっくりと風を通す。
+                        解釈を押しつけず、ただそこに「ある」ものとして。
+                        目に見えないものを感じ取ろうとする意志こそ、アートの根源的な力だと考えている。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        作品は、誰かの記憶や感情と交差した瞬間に、また新しい意味を持ち始める。
+                        だから小山瑞樹は、答えを提示するのではなく、問いを開いたまま差し出す。
+                        それが、アートにできる最も素朴で力強いことだと考える。
+                    </p>
+
+                    <div class="page-line"></div>
+                    
+                    <p>
+                        アートを固定された答えではなく、問いを生む場と捉える。
+                        意味や正しさを押しつけず、見る人の内側にある感覚や記憶を刺激することを目指す。
+                        自然の在り方に強く影響を受ける。
+                        秩序と混沌、偶然と必然、生成と崩壊を同時に含む自然の姿は、人間の感情や思考と響き合う。
+                        決まった形を持たず、常に変化し続けるものを画面に立ち上げる。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        描く行為をコントロールだけで終わらせない。
+                        滲み、混ざり、歪みといった偶発的な要素を受け入れる。
+                        「描く」というより「対話する」行為として向き合う。
+                        画面と応答を重ね、意図を超えたものを顕現させる。
+                        <br>
+                        抽象を選ぶのは、正解を閉じ込めないため。
+                        「何を描いたのか」ではなく、「どう感じるか」「何を思い出すか」を人に委ねる。
+                        同じ作品でも、見る人や時間によって解釈が変わることを肯定する。
+                        そこにアートの自由がある。
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        作品は見る人の思考や感覚と交わり、そこで完成に近づく。
+                        一方向のメッセージを押しつけるのではなく、解釈を開いたまま差し出す。
+                        その余白が、他者との間に新しい問いや感情を生む。
+                        <br>
+                        アートを特別な場所に閉じ込めない。
+                        日常に置かれ、視界の端にあっても良い。
+                        見るたびに異なる印象を与え、無意識を揺らし、言葉にならないものを伝える。
+                        アートは装飾ではなく、感覚を開く装置と捉える。
+                        制作を通して「感じる」という行為の豊かさを取り戻す。
+                        目に見えるものだけでなく、目に見えないものを捉えようとする姿勢を提示する。
+                        それがアートの根源的な力。
+                    </p>
+                </div>
+
+                <div class="timeline">
+                    <ul>
+                        01 なぜ作るのか
+                        <li>
+                            なぜ作りたいのかは明確には言えない。ただ、気づきやゆとりを与えてくれるような何かを表現したい気持ちがある。
+                            自分の考え、人、命から浮かぶイメージ──変化するもの、見る人によって異なる見え方をするもの──に惹かれ、それを大切にしている。
+                        </li>
+                    </ul>
+                    <ul>
+                        02 何に向き合っているのか
+                        <li>
+                            生きることに向き合い、人への思いやりや共感を大切にしたい。
+                            変化する感覚や思考、日常の中での体験や五感を通じて得られるものと、作品を通してつながっていきたい。
+                        </li>
+                    </ul>
+                    <ul>
+                        03 表現したいものの根源
+                        <li>
+                            一人として同じ人間がいないように、作品も一つとして同じものではない。
+                            個人の内面と深く結びついているが、感情を直接表すのではなく、見る人に問いを投げかけるような存在を目指している。
+                        </li>
+                    </ul>
+                    <ul>
+                        04「生命」とは
+                        <li>
+                            生命を感じる瞬間は限られている。だからこそ、その瞬間に感じたものだけを作品として表現している。
+                            全てを生命に見立てるわけではなく、生命と同じように限られた瞬間、感覚によって表れるものを掬い取っている。
+                        </li>
+                    </ul>
+                    <ul>
+                        05「記憶」や「無意識」について
+                        <li>
+                            作者自身、そして鑑賞者の記憶や無意識の層にも触れるような作品でありたい。
+                            視点や角度によって見え方が変わることも含めて、固定されないものを表現したい。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- ja  -->
+
+        <!-- en  -->
+        <div class="state-box">
+            <div lang="en" class="state-img">
+                <img src="img/202343-2.jpg" alt="">
+            </div>
+            <div lang="en" class="content">
+                <h2 class="noise">Artist Statement</h2>
+                <div class="work">
+                    <p>
+                        "NatureInspire" is created through layering sensations and dialogues while learning from the nature of existence. Nature encompasses order and chaos, stillness and movement, intention and coincidence simultaneously. It is in that ambiguity that there is something that resonates with the human heart and emotions. Mizuki Oyama's works exist in an abstract form that reflects this attitude of nature, without limiting interpretation.
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        In my work, I stand between the planned and the unpredictable, and am conscious of "responding" rather than drawing. I listen closely to the shapes and lines that bleed, blend, and flicker, and the shapes emerge from my interactions with the screen. I value the "way of being" that simply appears there, without giving too much meaning or controlling too much. It is the same feeling as when I face nature.
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        The reason I choose abstraction is because there is no "correctness." I leave the questions to the viewer, and open my mind to questions such as "What is this?" and "Why am I attracted to it?" It is about feeling, thinking, and having time to face one's inner self. Through art, I want to shed light on the blank spaces that cannot be filled by information or efficiency.
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        I do not imitate or sketch, but the impulses and sensations that well up within me are the starting point for everything, and I do not paint if they do not appear. I believe that by not forcing a shape, a natural shape will emerge.
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        For Mizuki Oyama, art is a device that opens the senses and a form of healing.
+                        It accompanies the fatigue of cognition and the stagnation of emotions, gently allowing the wind to pass through the hearts of those who see it.
+                        It does not impose interpretations, simply existing as it is.
+                        I believe that the will to sense what is invisible is the fundamental power of art.
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        A work begins to take on new meaning at the moment it intersects with someone's memories and emotions.
+                        Therefore, Mizuki Oyama presents not answers, but keeps questions open.
+                        I believe that this is the most fundamental and powerful thing that art can do.
+                    </p>
+
+                    <div class="page-line"></div>
+
+                    <p>
+                        He sees art as a place that gives rise to questions, not fixed answers.
+                        He aims to stimulate the senses and memories inside the viewer, without imposing meaning or
+                        correctness.
+                        He is strongly influenced by the state of nature.
+                        The form of nature, which simultaneously contains order and chaos, chance and necessity,
+                        creation and destruction, resonates with human emotions and thoughts.
+                        He brings to life on the canvas something that has no set form and is constantly changing.
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        He does not end the act of drawing with just control.
+                        He accepts accidental elements such as bleeding, mixing, and distortion.
+                        He approaches it as an act of "dialogue" rather than "drawing".
+                        He overlaps the screen and the response to manifest something that goes beyond his intention.
+                        He chooses abstraction in order not to lock in the correct answer.
+                        He leaves it up to people to decide "how they feel" and "what they remember", rather than "what
+                        they drew".
+                        He affirms that the same work can be interpreted differently depending on the viewer and the
+                        time.
+                        Therein lies the freedom of art.
+                    </p>
+                    <p style="margin-top: 5vmin;">
+                        The work interacts with the viewer's thoughts and senses, and approaches completion there.
+                        He does not impose a one-way message, but presents it with an open interpretation.
+                        This blank space gives rise to new questions and emotions between people.
+                        Art should not be confined to a special place.
+                        It can be placed in everyday life, at the edge of one's field of vision.
+                        It gives a different impression every time one looks at it, shakes the subconscious, and
+                        communicates things that cannot be put into words.
+                        Art should not be seen as decoration, but as a device to open the senses.
+                        Through the creation of art, one can regain the richness of the act of "feeling." It presents an
+                        attitude of trying to grasp not only what is visible, but also what is invisible.
+                        That is the fundamental power of art.
+                    </p>
+                </div>
+
+                <div class="timeline">
+                    <ul>
+                        01 Why make it
+                        <li>
+                            I can't say exactly why I want to make things. But I have a desire to express something that gives people awareness and space. I am attracted to and value images that arise from my own thoughts, people, and life - things that change, things that look different to the viewer.
+                        </li>
+                    </ul>
+                    <ul>
+                        02 What are we facing
+                        <li>
+                            I want to face life and value compassion and empathy for others. I want to connect through my work with changing sensations and thoughts, experiences in everyday life, and things that we obtain through our five senses.
+                        </li>
+                    </ul>
+                    <ul>
+                        03 The origin of what I want to express
+                        <li>
+                            Just as there is no one person who is the same, no two works are the same. Although my work is deeply connected to the inner world of individuals, I aim to create something that poses questions to the viewer, rather than directly expressing emotions.
+                        </li>
+                    </ul>
+                    <ul>
+                        04 What is "Life"
+                        <li>
+                            There are only a limited number of moments when you feel life. That is why I express only what I feel at that moment in my work. I do not liken everything to life, but rather, just like life, I capture what appears in a limited moment, through my senses.
+                        </li>
+                    </ul>
+                    <ul>
+                        05 About "memory" and "unconsciousness"
+                        <li>
+                            I want my work to touch upon the memory and unconsciousness of both the artist and the viewer. I want to express something that is not fixed, including how it looks different depending on the viewpoint or angle.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const lines = document.querySelectorAll(".page-line");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+            const ratio = entry.intersectionRatio; // 0〜1
+
+            if (entry.isIntersecting) {
+                // 中心に近づくほど幅が広がる（最大100%）
+                const widthPercent = Math.floor(ratio * 100); // 例: 0.4 → 40%
+                //entry.target.style.width = `calc(${widthPercent}% - 48px)`;
+                entry.target.style.width = `50%`;
+            } else {
+                // 画面外に出たら0%
+                entry.target.style.width = `0%`;
+            }
+            });
+        }, {
+            threshold: Array.from({ length: 101 }, (_, i) => i / 100) // 0〜1まで100段階
+        });
+
+        lines.forEach(line => observer.observe(line));
+        });
+    </script>
+    
+    <script>
+        VANTA.TRUNK({
+            el: "#vanta-bg-bio",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 0.70,
+            color: 0xffffff,
+            chaos: 2.50
+        })
+    </script>
+</body>
+
+</html>
