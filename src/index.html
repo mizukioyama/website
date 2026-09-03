@@ -4,43 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>小山瑞樹 Webサイト | MIZUKI OYAMA</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/noise.css">
-    <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
-
-    <!-- JS -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js"
-        crossorigin="anonymous"></script>
-
-    <script src="js/three.r134.min.js"></script>
-    <script src="js/vanta.fog.min.js"></script>
-
-    <script src="js/time.js"></script>
-    <script src="js/cursor.js"></script>
-    <script src="js/loading.js"></script>
-    <script src="js/menu.js"></script>
-    <!--<script src="js/security.js"></script>-->
-
-    <!-- Font -->
-    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <title>Nature inspire | 自然とArtが調和する</title>
 
     <!-- ✅ SEO強化 -->
-    <meta name="description" content="Nature inspire. 生命, 自然, 感覚をテーマにした抽象作品.">
-    <meta name="keywords" content="Nature inspire,MizukiOyama,AbstractArtist,Art Index,Portfolio">
-    <meta name="author" content="MizukiOyama">
-    <!-- ご自身のURLに差し替えてください -->
-    <link rel="canonical" href="https://mizukioyama.github.io/website/">
+    <meta name="description"
+        content="Nature inspire は、自然とアートの融合をテーマにしたポートフォリオサイトです。繊細なデザインとインスピレーションを通して、独自のビジュアル表現を紹介します。">
+    <meta name="keywords" content="ポートフォリオ, 自然, アート, Webデザイン, 作品集, クリエイティブ, Nature inspire">
+    <meta name="author" content="あなたの名前（またはブランド名）">
+    <link rel="canonical" href="https://mizukioyama.github.io/"> <!-- ご自身のURLに差し替えてください -->
 
     <!-- OGP（SNSシェア用） -->
-    <meta property="og:title" content="Nature inspire | 抽象作品.">
-    <meta property="og:description" content="Nature inspire. 生命, 自然, 感覚をテーマにした抽象作品.">
+    <meta property="og:title" content="Nature inspire | 自然とアートのポートフォリオ">
+    <meta property="og:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mizukioyama.github.io/">
     <meta property="og:image" content="https://mizukioyama.github.io/images/ogp.jpg"> <!-- OGP画像を用意してください -->
@@ -48,12 +23,12 @@
 
     <!-- Twitterカード -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Nature inspire | 抽象作品.">
-    <meta name="twitter:description" content="Nature inspire. 生命, 自然, 感覚をテーマにした抽象作品.">
+    <meta name="twitter:title" content="Nature inspire | 自然とアートのポートフォリオ">
+    <meta name="twitter:description" content="自然から着想を得たアート作品をまとめたポートフォリオサイト。">
     <meta name="twitter:image" content="https://mizukioyama.github.io/images/ogp.jpg">
 
     <!-- Favicon -->
-    <link rel="icon" href="img/web.ico">
+    <link rel="icon" href="favicon.ico">
 
     <!-- キャッシュ制御 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -65,58 +40,51 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdn.jsdelivr.net https://unpkg.com;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.typekit.net;
-    font-src 'self' https://fonts.gstatic.com https://use.typekit.net;
-    img-src 'self' data:;
-    connect-src 'self' https://script.google.com;
-    object-src 'none';
-    ">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Mizuki Oyama",
+            "url": "https://mizukioyama.github.io/pd/",
+            "image": "https://mizukioyama.github.io/pd/assets/images/ogp.jpg",
+            "jobTitle": "Webデザイナー",
+            "description": "想いを形に、こだわりをデザインするWebクリエイター。",
+            "sameAs": [
+            "https://twitter.com/your_account",
+            "https://www.instagram.com/your_account"
+            ]
+        }
+    </script>
+    <!-- jQuery CDN を head または body の一番上に追加 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!--画像遅延読み込み
   <img data-src="path/to/image.jpg" alt="example">
   -->
 </head>
 
-<div id="loading-bg">
-    <div class="typing-container">
-        <p class="typing-line" data-text="当Webサイトはアニメーションが常に動作しているため、端末の充電を大幅に消耗します."></p>
-        <p class="typing-line" data-text="外出中での閲覧には十分にご注意ください."></p>
-        <p class="typing-line" data-text="小山より." style="text-align: center; width: 100%;"></p>
-        <p class="typing-line" data-text="This website uses up a lot of battery power due to constant animation."></p>
-        <p class="typing-line" data-text="Please be careful when viewing this website while out and about."></p>
-        <p class="typing-line" data-text="From Oyama." style="text-align: center; width: 100%;"></p>
-    </div>
-    <div class="noise"
-        style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
-    </div>
-</div>
+
 
 <!--作品保護-->
 
-<body class="home">
-    <!--<canvas id="artCanvas" width="800" height="600"></canvas>
-    <div id="custom-context-menu">画像の保存は禁止されています</div>-->
+<body data-page="home" class="home">
+    <canvas id="artCanvas" width="800" height="600"></canvas>
+    <div id="custom-context-menu">画像の保存は禁止されています</div>
 
     <div id="header-container"></div>
-    <div id="vanta-bg"></div>
 
     <main class="top-page">
         <!--main-->
         <div class="wrap">
-            <!-- out text -->
             <div class="back">
                 <div class="back__slide active">
                     <div class="progress"></div>
                     <div class="creator">
-                        <h1>
+                        <h1 class="noise">
                             Exhibition / Close
                         </h1>
                     </div>
-                    <div class="time">
+                    <div class="time noise">
                         France Paris Time: <span id="paris-time" class="time-display"></span>
                     </div>
                 </div>
@@ -124,19 +92,17 @@
                     <div class="progress"></div>
                     <div class="back-front-image"></div>
                     <div class="creator">
-                        <h1>
-                            AbstractArtist / MizukiOyama
+                        <h1 class="noise">
+                            Artist / MizukiOyama
+                            Nature inspire.
                         </h1>
                     </div>
-                    <div class="time">
+                    <div class="time noise">
                         Japan Tokyo Time: <span id="tokyo-time" class="time-display"></span>
                     </div>
                 </div>
             </div>
 
-            <div class="card_line"></div>
-
-            <!-- in item -->
             <div id="mainContent" class="card">
                 <div class="card__slide active">
                     <!--<div class="image"></div>-->
@@ -145,7 +111,9 @@
                     </span>
                     <span class="date">
                         2010 to present
-                        <span class="date__time" id="elapsed-time-1">00:00PM</span>
+                        <span class="date__time">
+                            00:00PM
+                        </span>
                     </span>
                 </div>
                 <div class="card__slide">
@@ -155,9 +123,10 @@
                     </span>
                     <span class="date">
                         Look forward to it
-                        <span class="date__time" id="countdown-2">00:00PM</span>
+                        <span class="date__time">
+                            00:00PM
+                        </span>
                     </span>
-
                 </div>
                 <div class="content">
                     <div class="content__slide active">
@@ -165,21 +134,20 @@
                             About the Artist.
                         </h2>
                         <p class="desc" lang="ja">
-                            当Webサイトは、抽象画家 小山瑞樹の公式サイトです。
+                            抽象画家 mizuki の作品ページです。
                             <br>
-                            作品の紹介や作家プロフィールを中心に掲載しています。
-                            作品に関するお問い合わせは、Contactページのフォームよりご連絡ください。
+                            作品ページで作品をご覧いただけます。
+                            作品に関するお問い合わせは、お問い合わせページのフォームをご利用ください。
                             <br>
-                            ※当サイト内のすべてのデータ（文章・画像など）について、無断での保存・転載・使用はご遠慮ください。
+                            注意事項：当サイトのデータ（文章、画像、を含む）を保存しないでください。
                         </p>
                         <p class="desc" lang="en">
-                            This website is the official site of abstract painter Mizuki Oyama.
+                            This is the work page of abstract painter mizuki.
                             <br>
-                            It mainly features introductions to works and the artist's profile.
-                            For inquiries regarding the works, please contact us via the form on the Contact page.
+                            You can view his works on the Works page.
+                            For inquiries about his works, please use the form on the Contact page.
                             <br>
-                            ※Please refrain from saving, reproducing, or using any data (text, images, etc.) on this
-                            site without permission.
+                            *Note: Please do not save any data from this site (including text and images).
                         </p>
                         <div class="button-wrap">
                             <a href="#" class="button">
@@ -194,14 +162,14 @@
                     </div>
                     <div class="content__slide">
                         <h2 class="title title__inner noise">
-                            Exhibition｜close.
+                            Exhibition / close.
                         </h2>
                         <p class="desc" lang="ja">
                             公開期間中のデジタル展示の閲覧方法、および閲覧上の注意については、サイトポリシーをご確認ください。
                             <br>
                             お問い合わせは、Contactページのフォームをご利用ください。
                             <br>
-                            ※利用規約、注意事項は当Webサイトのサイトポリシーをご確認ください。
+                            ※利用規約、注意事項は当サイトのサイトポリシーをご確認ください。
                         </p>
                         <p class="desc" lang="en">
                             Please check the site policy for how to view the digital exhibition during the exhibition
@@ -209,7 +177,7 @@
                             <br>
                             For inquiries, please use the form on the Contact page.
                             <br>
-                            *Please check the site's policy for terms of use and precautions.
+                            *Please check the site policy of this site for terms of use and important points to note.
                         </p>
                         <div class="button-wrap">
                             <a href="#" class="button">
@@ -224,13 +192,11 @@
                     <div class="content__ping content__ping--noanimation"></div>
                 </div>
                 <div class="noise"
-                    style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.15); top: 0; z-index: -1;">
+                    style="content: ''; display: flex; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.25); top: 0;">
                 </div>
             </div>
         </div>
-        <div class="noise"
-            style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
-        </div>
+        <div class="noise" style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.35); top: 0;"></div>
     </main>
 
     <!-- チェックボックスで状態制御 -->
@@ -334,9 +300,9 @@
         </div>
         <hr lang="ja">
         <p lang="ja">
-            Site Policyを確認しました。
-            <br>
             作品ページへ移動します。
+            <br>
+            Site Policyを確認しましたか？
         </p>
 
         <p lang="en">
@@ -447,196 +413,17 @@
         </div>
         <hr lang="en">
         <p lang="en">
-            I have read and agree to the Site Policy.
-            <br>
             Go to the work page.
+            <br>
+            Have you checked the Site Policy?
         </p>
-        <a href="./gallery.html" class="button" style="margin-top: 3rem;" target="_blank">
+        <a href="gallery.html" class="button" style="margin-top: 3rem;" target="_blank">
             view
         </a>
         <label for="modal-toggle" class="button modal-close-label">
             Close
         </label>
     </div>
-
-
-    <style>
-        /* チェックボックスは非表示 */
-        #modal-toggle {
-            display: none;
-        }
-
-        /* オーバーレイ */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-            z-index: 10;
-        }
-
-        /* モーダル本体 */
-        .modal-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -60%);
-            padding: 30px;
-            border-radius: 10px 0 0 10px;
-            width: 100%;
-            max-width: 400px;
-            height: 60%;
-            line-height: 2;
-            letter-spacing: 0.08em;
-            overflow: hidden;
-            overflow-y: scroll;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(10px);
-            background: rgba(200, 200, 200, 0.15);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            z-index: 20;
-        }
-
-        .modal-box h2 {
-            font-size: 1.8rem;
-            font-weight: 300;
-        }
-
-        .modal-box h3 {
-            font-size: 1.2rem;
-            margin-top: 6rem;
-            margin-bottom: 1vmin;
-            border-bottom: 1px solid;
-            line-height: 1.4;
-        }
-
-        .modal-box p {
-            font-size: 0.9rem;
-            font-weight: 300;
-        }
-
-        /* 開いた状態 */
-        #modal-toggle:checked~.modal-overlay {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #modal-toggle:checked~.modal-box {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, -50%);
-        }
-
-        @media screen and (max-width: 599px) {
-            .modal-box {
-                width: 85%;
-                height: 70%;
-                padding: 1.5rem;
-            }
-
-            .modal-box h2 {
-                font-size: 1.4rem;
-            }
-
-            .modal-box h3 {
-                font-size: 1rem;
-            }
-
-            .modal-box p {
-                font-size: 0.8rem;
-                letter-spacing: 0.05rem;
-            }
-        }
-    </style>
-
-    <script>
-        VANTA.FOG({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            highlightColor: 0x181818,
-            midtoneColor: 0xb3b3b3,
-            lowlightColor: 0x3f3ff,
-            baseColor: 0xfafffc,
-            blurFactor: 0.50,
-            speed: 0.60,
-            zoom: 0.80
-        })
-    </script>
-
-    <script>
-        function updateElapsedTime() {
-            const startDate = new Date('2024-05-01T00:00:00');
-            const now = new Date();
-
-            let diff = now - startDate;
-
-            const msInMinute = 1000 * 60;
-            const msInHour = msInMinute * 60;
-            const msInDay = msInHour * 24;
-            const msInMonth = msInDay * 30.44;
-            const msInYear = msInDay * 365.25;
-
-            const years = Math.floor(diff / msInYear);
-            diff %= msInYear;
-            const months = Math.floor(diff / msInMonth);
-            diff %= msInMonth;
-            const days = Math.floor(diff / msInDay);
-            diff %= msInDay;
-            const hours = Math.floor(diff / msInHour);
-            diff %= msInHour;
-            const minutes = Math.floor(diff / msInMinute);
-
-            const result = `${years}Y ${months}M ${days}D ${hours}H ${minutes}Min`;
-            const el = document.getElementById('elapsed-time-1');
-            if (el) el.textContent = result;
-        }
-
-        function updateCountdown() {
-            const targetDate = new Date('2025-12-25T00:00:00');
-            const now = new Date();
-
-            const diff = targetDate - now;
-
-            const el = document.getElementById('countdown-2');
-            if (!el) return;
-
-            if (diff <= 0) {
-                el.textContent = "OPEN";
-                return;
-            }
-
-            const msInMinute = 1000 * 60;
-            const msInHour = msInMinute * 60;
-            const msInDay = msInHour * 24;
-
-            const days = Math.floor(diff / msInDay);
-            const hours = Math.floor((diff % msInDay) / msInHour);
-            const minutes = Math.floor((diff % msInHour) / msInMinute);
-
-            el.textContent = `${days}D ${hours}H ${minutes}M`;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateElapsedTime();
-            updateCountdown();
-            setInterval(updateElapsedTime, 60000);
-            setInterval(updateCountdown, 60000);
-        });
-    </script>
-
 
 </body>
 

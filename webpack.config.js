@@ -33,7 +33,11 @@ const cspPolicy = {
    'img-src': [
       "'self'",
       "data:",
-      "https://mizukioyama.github.io/website/"
+      "https://mizukioyama.github.io/website/",
+      // Some legacy gallery records use images hosted in the repository.
+      // Keep the host explicitly allow-listed so CSP does not hide artwork
+      // when those records are enabled again.
+      "https://raw.githubusercontent.com"
    ],
    'connect-src': [
       "'self'",
@@ -48,6 +52,37 @@ const cspPolicy = {
    'form-action': ["'self'", "https://mizukioyama.github.io", "https://script.google.com"]
 };
 
+// csp-html-webpack-plugin serializes documents through Cheerio. Cheerio
+// escapes operators such as `&&` and `=>` inside inline scripts, where HTML
+// entities are not decoded by the browser's script parser. Restore only the
+// script bodies after adding the CSP so the generated pages remain executable.
+function restoreInlineScriptEntities(html) {
+   const entities = {
+      "&amp;": "&",
+      "&lt;": "<",
+      "&gt;": ">"
+   };
+
+   return html.replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi, (_match, open, body, close) => {
+      const decodedBody = body.replace(/&(?:amp|lt|gt);/g, entity => entities[entity]);
+      return `${open}${decodedBody}${close}`;
+   });
+}
+
+function processCsp(builtPolicy, htmlPluginData, $) {
+   let metaTag = $('meta[http-equiv="Content-Security-Policy"]');
+
+   if (!metaTag.length) {
+      $('head').prepend('<meta http-equiv="Content-Security-Policy">');
+      metaTag = $('meta[http-equiv="Content-Security-Policy"]');
+   }
+
+   metaTag.attr('content', builtPolicy);
+
+   const serializedHtml = htmlPluginData.plugin.options.xhtml ? $.xml() : $.html();
+   htmlPluginData.html = restoreInlineScriptEntities(serializedHtml);
+}
+
 const htmlPages = [
    "index",
    "artist-statement",
@@ -60,15 +95,12 @@ const htmlPages = [
    "bot"
 ];
 
-// These pages are restored from the verified backup and intentionally keep
-// their original CSS/JavaScript links so their appearance does not change.
+// These two pages are maintained as standalone legacy documents. The other
+// pages use the verified backup templates together with the common Webpack
+// bundle, matching the backup's generated output structure.
 const backupPages = new Set([
-   "index",
    "artist-statement",
-   "biography",
-   "gallery",
-   "contact",
-   "policy"
+   "biography"
 ]);
 
 module.exports = {
@@ -175,7 +207,8 @@ module.exports = {
             'script-src': true,
             'style-src': false
          },
-         nonceEnabled: false
+         nonceEnabled: false,
+         processFn: processCsp
       })
    ],
    devServer: {

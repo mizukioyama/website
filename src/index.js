@@ -45,6 +45,7 @@ import "./style/footer.css";   // フッター
 import "./style/noise.css";    // ノイズ
 import "./style/all.css";      // 全ページ共通
 import "./style/menu.css";     // メニュー
+import "./style/sidebar.css";  // 動的サイドバー
 //import "https://use.typekit.net/meg7mel.css";
 
 // 共通 JavaScript

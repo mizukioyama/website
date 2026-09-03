@@ -1,160 +1,18 @@
-<p id="category-header" class="noise">・</p>
-<ul id="category-menu">
-
-  <p class="noise">Category</p>
-  <li data-category="all" class="active noise">All</li>
-  <li data-category="Digital" class="noise">Digital</li>
-  <li data-category="Paint" class="noise">Paint</li>
-  <!--<li data-category="Natureinspire" class="noise">Natureinspire</li>-->
-  <li data-category="Exhibition" class="noise">Exhibition</li>
-  <li data-category="Certified" class="noise">Certified</li>
-  <li data-category="Photo" class="noise">Photo</li>
-  <li data-category="Unreleased" class="noise">Unreleased</li>
-
-  <p class="noise" style="margin-top: 1rem;">Year</p>
-  <li data-category="2025" class="noise">2025</li>
-  <li data-category="2024" class="noise">2024</li>
-  <li data-category="2023" class="noise">2023</li>
-  <li data-category="2022" class="noise">2022</li>
-  <li data-category="2021" class="noise">2021</li>
-  <li data-category="2010-2017" class="noise">2010~2017</li>
-
-</ul>
-
-<style>
-  .work {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease forwards;
-  }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  #category-menu {
-    display: grid;
-    gap: 5px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-
-
-  #category-menu p {
-    font-size: 2rem;
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  #category-menu li {
-    font-size: 1.6rem;
-    margin-left: 1rem;
-    padding: 0;
-    width: 100%;
-    padding-left: 0.5vmin;
-    display: block;
-    cursor: pointer;
-    overflow: hidden;
-    transition-duration: 0.8s;
-    border-bottom: 1px solid var(--inv);
-    text-shadow: 0 0 0px var(--inv);
-    opacity: 0.4;
-  }
-
-  #sidebar-container {
-    top: 20vh;
-    z-index: 100;
-    padding: 0.75rem 0;
-  }
-
-  #sidebar-container .noise {
-    background-image: linear-gradient(to right, var(--inv));
-  }
-
-  #category-header {
-    cursor: pointer;
-    font-size: 1.8rem;
-    font-weight: 400;
-    width: 100%;
-    top: 0;
-    left: -10px;
-    position: absolute;
-    line-height: 0.5;
-    padding: 0.35rem 0;
-    justify-content: flex-start;
-  }
-
-  @media screen and (min-width: 1299px) {
-    #sidebar-container {
-      width: 15vmin;
-      width: fit-content;
-      margin-top: 20vmin;
-      position: relative;
-    }
-  }
-
-  @media screen and (max-width: 599px) {
-
-    #sidebar-container {
-      position: fixed;
-      width: auto;
-      min-width: 20vmin;
-      top: 7.5%;
-      right: 0;
-      padding: 0.75rem 0.5rem;
-      border: 1px solid rgba(200, 200, 200, 0.25);
-      border-right: none;
-    }
-/* 閉じるアニメーション
-    #category-menu.collapsed {
-      max-height: 0;
-      gap: 0;
-      pointer-events: none;
-      opacity: 0;
-    }
-*/
-
-    #category-header {
-      font-size: 1.6rem;
-      font-weight: bold;
-      padding: 0.35rem 1vmin;
-      top: 2px;
-      left: 0;
-    }
-
-    #category-menu {
-      max-height: 40vh;
-      overflow-y: scroll;
-      transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
-      opacity: 1;
-
-    }
-
-    #category-menu li {
-      margin: 0;
-      margin-bottom: 1vmin;
-      padding-left: 1vmin;
-      border-bottom: 0px solid var(--inv);
-    }
-
-    #category-menu p {
-      font-size: 1.2rem !important;
-      font-weight: 500;
-      line-height: 1.2;
-      width: 100%;
-      justify-content: flex-start;
-      border-bottom: 1px solid var(--inv);
-    }
-
-    #sidebar-container ul li {
-      font-size: 1rem;
-    }
-
-    .work .noise {
-      top: -5%;
-    }
-  }
-</style>
+<div class="category">
+    <ol>
+        <p class="noise">All Category</p>
+        <li><a href="gallery.html#category=all" class="category-link noise" data-page="all" data-href="gallery.html#category=all">All</a></li>
+        <li><a href="gallery.html#category=digital" class="category-link noise" data-page="digital" data-href="gallery.html#category=digital">Digital</a></li>
+        <li><a href="gallery.html#category=analog" class="category-link noise" data-page="analog" data-href="gallery.html#category=analog">Analog</a></li>
+        <li><a href="gallery.html#category=exhibition" class="category-link noise" data-page="exhibition" data-href="gallery.html#category=exhibition">Exhibition</a></li>
+        <li><a href="gallery.html#category=unreleased" class="category-link noise" data-page="unreleased" data-href="gallery.html#category=unreleased">Unreleased</a></li>
+    </ol>
+    <ol style="margin-top: 10vmin;">
+        <p class="noise">Production year</p>
+        <li><a href="gallery.html#year=2025" class="category-link noise" data-page="2025" data-href="gallery.html#year=2025">2025</a></li>
+        <li><a href="gallery.html#year=2024" class="category-link noise" data-page="2024" data-href="gallery.html#year=2024">2024</a></li>
+        <li><a href="gallery.html#year=2023" class="category-link noise" data-page="2023" data-href="gallery.html#year=2023">2023</a></li>
+        <li><a href="gallery.html#year=2022" class="category-link noise" data-page="2022" data-href="gallery.html#year=2022">2022</a></li>
+        <li><a href="gallery.html#year=2021" class="category-link noise" data-page="2021" data-href="gallery.html#year=2021">2021</a></li>
+    </ol>
+</div>

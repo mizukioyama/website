@@ -5,8 +5,9 @@
   "scripts": {
     "build": "webpack",
     "check:js": "node scripts/check-js.cjs",
+    "check:generated": "node scripts/check-generated.cjs",
     "check:links": "node scripts/check-links.cjs",
-    "check": "npm run check:js && npm run build && npm run check:links",
+    "check": "npm run check:js && npm run build && npm run check:generated && npm run check:links",
     "deploy": "gh-pages -d docs"
   },
   "keywords": [],
