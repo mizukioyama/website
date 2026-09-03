@@ -8,7 +8,14 @@ $(document).ready(function () {
       return response.text();
     })
     .then(data => {
-      $('#footer-container').html(data);
+      const footerContainer = document.getElementById('footer-container');
+      if (!footerContainer) return;
+
+      footerContainer.innerHTML = data;
+      const year = footerContainer.querySelector('#year');
+      if (year) {
+        year.textContent = String(new Date().getFullYear());
+      }
     })
     .catch(error => {
       console.error('Error loading footer:', error);

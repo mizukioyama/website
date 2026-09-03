@@ -69,4 +69,6 @@ import "./assets/images/text-bronze.png";
 //mobile
 import "./assets/images/mobile-main-second.png";
 
+// Keep the backup audio available for a future audio-control feature. It is
+// not played automatically and is therefore not part of the visual fix.
 import "./assets/audio/tukinohikari.mp3";

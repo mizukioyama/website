@@ -29,10 +29,28 @@ if (!fs.existsSync(outputDirectory)) {
 
 const failures = [];
 let scriptCount = 0;
+const generatedPageNames = new Set([
+   "index.html",
+   "artist-statement.html",
+   "biography.html",
+   "bot.html",
+   "contact.html",
+   "gallery.html",
+   "information.html",
+   "matching.html",
+   "policy.html"
+]);
 
 for (const absolutePath of listHtmlFiles(outputDirectory)) {
    const relativePath = path.relative(root, absolutePath);
    const html = fs.readFileSync(absolutePath, "utf8");
+   const isGeneratedPage = path.dirname(absolutePath) === outputDirectory
+      && generatedPageNames.has(path.basename(absolutePath));
+
+   if (isGeneratedPage && !/^\s*<!doctype\s+html\s*>/i.test(html)) {
+      failures.push(`${relativePath}: missing a standards-mode <!DOCTYPE html>`);
+   }
+
    const scriptPattern = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
    let match;
    let scriptIndex = 0;

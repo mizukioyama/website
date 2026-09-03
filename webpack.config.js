@@ -1,9 +1,43 @@
 const path = require("path");
+const fs = require("fs");
+const crypto = require("crypto");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CspHtmlWebpackPlugin = require("csp-html-webpack-plugin");
 const webpack = require("webpack");
+
+// Static fragments are fetched after the page CSP has been created. Include
+// hashes for their legacy inline blocks so restoring the backup markup does
+// not cause the browser to discard the sidebar styles or footer script.
+function getFragmentHashes(filePath, tagName) {
+   if (!fs.existsSync(filePath)) {
+      return [];
+   }
+
+   const source = fs.readFileSync(filePath, "utf8");
+   const pattern = new RegExp(`<${tagName}\\b[^>]*>([\\s\\S]*?)<\\/${tagName}\\s*>`, "gi");
+   const hashes = new Set();
+
+   for (const match of source.matchAll(pattern)) {
+      const bodies = new Set([match[1], match[1].replace(/\r\n?/g, "\n")]);
+      for (const body of bodies) {
+         const digest = crypto.createHash("sha256").update(body, "utf8").digest("base64");
+         hashes.add(`'sha256-${digest}'`);
+      }
+   }
+
+   return [...hashes];
+}
+
+const fragmentScriptHashes = getFragmentHashes(
+   path.resolve(__dirname, "src/public/footer.html"),
+   "script"
+);
+const fragmentStyleHashes = getFragmentHashes(
+   path.resolve(__dirname, "src/public/sidebar.html"),
+   "style"
+);
 
 const cspPolicy = {
    'default-src': ["'self'"],
@@ -11,7 +45,8 @@ const cspPolicy = {
       "'self'",
       "https://code.jquery.com",
       "https://cdnjs.cloudflare.com",
-      "https://cdn.jsdelivr.net"
+      "https://cdn.jsdelivr.net",
+      ...fragmentScriptHashes
    ],
    'style-src': [
       "'self'",
@@ -20,12 +55,18 @@ const cspPolicy = {
       "https://use.typekit.net",
       "https://p.typekit.net",
       "https://unpkg.com",
-      "https://cdn.jsdelivr.net"
+      "https://cdn.jsdelivr.net",
+      ...fragmentStyleHashes
    ],
+   // The legacy templates still use inline style attributes. Keep those
+   // attributes working while the styles are gradually moved into CSS files.
+   // Inline <style> blocks are covered by the hashes enabled below.
+   'style-src-attr': ["'unsafe-inline'"],
    'font-src': [
       "'self'",
       "https://fonts.gstatic.com",
       "https://use.typekit.net",
+      "https://p.typekit.net",
       "https://cdnjs.cloudflare.com",
       "https://cdn.jsdelivr.net",
       "data:"
@@ -37,7 +78,9 @@ const cspPolicy = {
       // Some legacy gallery records use images hosted in the repository.
       // Keep the host explicitly allow-listed so CSP does not hide artwork
       // when those records are enabled again.
-      "https://raw.githubusercontent.com"
+      "https://raw.githubusercontent.com",
+      // The external artwork credit/icon used by the gallery stylesheet.
+      "https://paradigmart.natureinspire.jp"
    ],
    'connect-src': [
       "'self'",
@@ -69,6 +112,19 @@ function restoreInlineScriptEntities(html) {
    });
 }
 
+// Cheerio may serialize the HTML5 doctype as `<!DOCTYPE >`. That empty
+// doctype puts the generated document into quirks mode in browsers, which can
+// change box sizing and CSS layout even when the source styles are correct.
+// Keep the generated output in standards mode by restoring the source HTML5
+// doctype after CSP processing.
+function restoreHtml5Doctype(html, sourceHtml) {
+   if (!/^\s*<!doctype\s+html\s*>/i.test(sourceHtml)) {
+      return html;
+   }
+
+   return html.replace(/^\s*<!doctype[^>]*>/i, "<!DOCTYPE html>");
+}
+
 function processCsp(builtPolicy, htmlPluginData, $) {
    let metaTag = $('meta[http-equiv="Content-Security-Policy"]');
 
@@ -80,7 +136,8 @@ function processCsp(builtPolicy, htmlPluginData, $) {
    metaTag.attr('content', builtPolicy);
 
    const serializedHtml = htmlPluginData.plugin.options.xhtml ? $.xml() : $.html();
-   htmlPluginData.html = restoreInlineScriptEntities(serializedHtml);
+   const standardsHtml = restoreHtml5Doctype(serializedHtml, htmlPluginData.html);
+   htmlPluginData.html = restoreInlineScriptEntities(standardsHtml);
 }
 
 const htmlPages = [
@@ -95,12 +152,18 @@ const htmlPages = [
    "bot"
 ];
 
-// These two pages are maintained as standalone legacy documents. The other
-// pages use the verified backup templates together with the common Webpack
-// bundle, matching the backup's generated output structure.
+// These pages intentionally keep the verified backup templates and their
+// static backup CSS/JavaScript links. The remaining pages use the common
+// Webpack bundle. Keeping the visual pages on the same source files as the
+// backup prevents a second, subtly different CSS implementation from being
+// emitted while the runtime-only pages continue to use the hardened bundle.
 const backupPages = new Set([
+   "index",
    "artist-statement",
-   "biography"
+   "biography",
+   "gallery",
+   "contact",
+   "policy"
 ]);
 
 module.exports = {
@@ -205,9 +268,12 @@ module.exports = {
          hashingMethod: 'sha256',
          hashEnabled: {
             'script-src': true,
+            'style-src': true
+         },
+         nonceEnabled: {
+            'script-src': false,
             'style-src': false
          },
-         nonceEnabled: false,
          processFn: processCsp
       })
    ],
