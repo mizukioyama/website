@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // This file is bundled once, but a duplicate copy used to create two
+    // cursor/stalker pairs and two mousemove handlers on every page.
+    if (document.getElementById("cursor") || document.getElementById("stalker")) {
+        return;
+    }
+
     const cursor = document.createElement("div");
     cursor.id = "cursor";
     document.body.appendChild(cursor);
@@ -7,74 +13,63 @@ document.addEventListener("DOMContentLoaded", function () {
     stalker.id = "stalker";
     document.body.appendChild(stalker);
 
-    // 追従処理
-    document.addEventListener("mousemove", e => {
-        const { clientX: x, clientY: y } = e;
-
-        cursor.style.opacity = "1";
-        stalker.style.opacity = "1";
-
-        cursor.style.top = `${y}px`;
-        cursor.style.left = `${x}px`;
-
-        setTimeout(() => {
-            stalker.style.top = `${y}px`;
-            stalker.style.left = `${x}px`;
-        }, 100);
-    });
-
-    // ホバー処理（対象を自由に追加可能）
-    document.querySelectorAll("body a, header .toggle_btn span, label, header a, footer a").forEach(el => {
-        el.addEventListener("mouseenter", () => {
-            cursor.classList.add("cursor--hover");
-            stalker.classList.add("stalker--hover");
-        });
-        el.addEventListener("mouseleave", () => {
-            cursor.classList.remove("cursor--hover");
-            stalker.classList.remove("stalker--hover");
-        });
-    });
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const cursor = document.createElement("div");
-    cursor.id = "cursor";
-    document.body.appendChild(cursor);
-
-    const stalker = document.createElement("div");
-    stalker.id = "stalker";
-    document.body.appendChild(stalker);
-
-    // 追従処理
-    document.addEventListener("mousemove", e => {
-        const { clientX: x, clientY: y } = e;
-
-        cursor.style.opacity = "1";
-        stalker.style.opacity = "1";
-
-        cursor.style.top = `${y}px`;
-        cursor.style.left = `${x}px`;
-
-        setTimeout(() => {
-            stalker.style.top = `${y}px`;
-            stalker.style.left = `${x}px`;
-        }, 100);
-    });
-
-    // ホバー処理（対象を自由に追加可能）
-    document.querySelectorAll("body a, .toggle_btn, label").forEach(el => {
-        el.addEventListener("mouseenter", () => {
-            cursor.classList.add("cursor--hover");
-            stalker.classList.add("stalker--hover");
-        });
-        el.addEventListener("mouseleave", () => {
-            cursor.classList.remove("cursor--hover");
-            stalker.classList.remove("stalker--hover");
-        });
-    });
-
-    // 初期非表示（オプション）
     cursor.style.opacity = "0";
     stalker.style.opacity = "0";
+
+    document.addEventListener("mousemove", event => {
+        const { clientX: x, clientY: y } = event;
+
+        cursor.style.opacity = "1";
+        stalker.style.opacity = "1";
+        cursor.style.top = `${y}px`;
+        cursor.style.left = `${x}px`;
+
+        setTimeout(() => {
+            stalker.style.top = `${y}px`;
+            stalker.style.left = `${x}px`;
+        }, 100);
+    });
+
+    // Delegation keeps hover behavior working for header/footer fragments
+    // that are loaded after this bundle and avoids one listener per element.
+    const hoverSelector = [
+        "a",
+        "button",
+        ".button",
+        ".toggle_btn",
+        "label",
+        "#category-header",
+        "#category-menu li",
+        ".work-img a",
+        "#pagination",
+        "#modalCloseBtn"
+    ].join(", ");
+
+    const findHoverTarget = node => {
+        if (!node || node.nodeType !== 1 || typeof node.closest !== "function") {
+            return null;
+        }
+        return node.closest(hoverSelector);
+    };
+
+    const setHoverState = active => {
+        cursor.classList.toggle("cursor--hover", Boolean(active));
+        stalker.classList.toggle("stalker--hover", Boolean(active));
+    };
+
+    document.addEventListener("mouseover", event => {
+        const target = findHoverTarget(event.target);
+        const related = findHoverTarget(event.relatedTarget);
+        if (target !== related) {
+            setHoverState(target);
+        }
+    });
+
+    document.addEventListener("mouseout", event => {
+        const target = findHoverTarget(event.target);
+        const related = findHoverTarget(event.relatedTarget);
+        if (target && target !== related) {
+            setHoverState(null);
+        }
+    });
 });

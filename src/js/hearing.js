@@ -127,9 +127,6 @@ const questions = {
    }
 };
 
-// ページ読み込み時に最初の質問を表示
-window.onload = displayQuestion;
-
 // 質問を表示する関数
 function displayQuestion() {
    const questionContainer = document.getElementById("question-container");
@@ -208,8 +205,6 @@ function displayResult() {
    // アドバイスを生成して表示
    const advice = generateAdvice();
 
-   document.getElementById("submit-button").onclick = sendToServer;
-   document.getElementById("reload-button").onclick = () => location.reload();
 }
 
 
@@ -245,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
    const closeModal = document.getElementById("close-modal");
    const modalMessage = document.getElementById("modal-message");
 
-   if (!submitButton || !modal || !closeModal || !modalMessage) {
+   if (!submitButton || !reloadButton || !modal || !closeModal || !modalMessage) {
       console.error("エラー: 必須要素が見つかりません。");
       return;
    }

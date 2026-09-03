@@ -68,7 +68,9 @@
         <h3>
             申し込み / 問い合わせ
           </h3>
-          <form>
+          <form id="contactForm" class="contact-form"
+            action="https://script.google.com/macros/s/AKfycbwFuUPAnQG0oZ0bU_vN2rRMBo7f3_CjGq2dNUTc9XZDAr84K5f9nmUXxF0S5uPpZsjjtQ/exec"
+            method="POST">
           <div class="radio-group">
             <label>
               <input type="radio" name="inquiryType" value="申込" required> 申し込み
@@ -105,13 +107,25 @@
             <p>
               <input type="checkbox" name="consent" value="同意する" required>
               当サイトをご利用の際は、
-              <a href="#" class="button" data-modal="modal--third">SitePolicy</a>
+              <a href="policy.html" class="button" target="_blank" rel="noopener">SitePolicy</a>
               をご確認ください。
             </p>
           </label>
           <button type="submit" class="submit-btn">送信</button>
         </div>
       </form>
+
+          <div id="thanksModal" class="modal" hidden aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="thanks-title">
+              <button type="button" class="close" aria-label="Close">Close</button>
+              <p id="thanks-title">
+                お問い合わせありがとうございます。<br>
+                内容を確認のうえ、担当者よりご連絡いたします。
+              </p>
+            </div>
+          </div>
+
+          <p id="form-status" role="status" aria-live="polite"></p>
 
         </div>
     </main>
