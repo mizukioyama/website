@@ -793,128 +793,103 @@ function showModal(item) {
     }
 
     function renderPagination(totalItems) {
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-        const pagination = document.getElementById("pagination");
-        if (!pagination) return;
-        pagination.innerHTML = "";
-
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement("button");
-            btn.textContent = i;
-            btn.className = i === currentPage ? "active" : "";
-            btn.addEventListener("click", () => {
-                currentPage = i;
-                renderGallery();
-            });
-            pagination.appendChild(btn);
-        }
-    }
-
-    function smoothScrollToTop(duration) {
-        const start = window.scrollY || document.documentElement.scrollTop;
-        const startTime = performance.now();
-
-        function scroll(timestamp) {
-            const elapsed = timestamp - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            window.scrollTo(0, start * (1 - progress));
-            if (progress < 1) {
-                requestAnimationFrame(scroll);
-            }
-        }
-
-        requestAnimationFrame(scroll);
-    }
-
-
-
-    function renderPagination(totalItems) {
         const pagination = document.getElementById("pagination");
         const totalPages = Math.ceil(totalItems / itemsPerPage);
+        if (!pagination || totalPages === 0) return;
+
         pagination.innerHTML = "";
 
-        const maxVisible = 5;
+        // スマートフォンでは、先頭・現在位置・末尾の最大3個に絞る。
+        // デスクトップでは従来どおり、現在位置の前後を含む最大5個を表示する。
+        const maxVisibleNumbers = window.matchMedia("(max-width: 599px)").matches ? 3 : 5;
+        const pageItems = getPaginationItems(totalPages, maxVisibleNumbers);
 
-        // 「前へ」ボタン
         if (currentPage > 1) {
-            const prevBtn = document.createElement("button");
-            prevBtn.textContent = "Back";
-            prevBtn.className = "prev-btn";
-            prevBtn.addEventListener("click", () => {
+            addNavigationButton("Back", "prev-btn", () => {
                 currentPage--;
                 renderGallery();
                 window.scrollTo({ top: 0, behavior: "smooth" });
             });
-            pagination.appendChild(prevBtn);
         }
 
-        // 最初のページ
-        addPageButton(1);
-
-        let startPage = Math.max(2, currentPage - 1);
-        let endPage = Math.min(totalPages - 1, currentPage + 1);
-
-        // 範囲調整（最大表示数を超えないように）
-        while (endPage - startPage + 1 > maxVisible - 2) {
-            if (startPage > 2) {
-                startPage--;
-            } else if (endPage < totalPages - 1) {
-                endPage++;
-            } else {
-                break;
+        pageItems.forEach(item => {
+            if (item === "...") {
+                const dots = document.createElement("span");
+                dots.textContent = "...";
+                dots.className = "dots";
+                pagination.appendChild(dots);
+                return;
             }
-        }
 
-        // 省略記号（先頭と中間の間）
-        if (startPage > 2) {
-            const dots = document.createElement("span");
-            dots.textContent = "...";
-            dots.className = "dots";
-            pagination.appendChild(dots);
-        }
+            addPageButton(item);
+        });
 
-        // 中間ページ
-        for (let i = startPage; i <= endPage; i++) {
-            addPageButton(i);
-        }
-
-        // 省略記号（中間と末尾の間）
-        if (endPage < totalPages - 1) {
-            const dots = document.createElement("span");
-            dots.textContent = "...";
-            dots.className = "dots";
-            pagination.appendChild(dots);
-        }
-
-        // 最後のページ（最終ページが2以上であれば）
-        if (totalPages > 1) {
-            addPageButton(totalPages);
-        }
-
-        // 「次へ」ボタン
         if (currentPage < totalPages) {
-            const nextBtn = document.createElement("button");
-            nextBtn.textContent = "Next";
-            nextBtn.className = "next-btn";
-            nextBtn.addEventListener("click", () => {
+            addNavigationButton("Next", "next-btn", () => {
                 currentPage++;
                 renderGallery();
                 window.scrollTo({ top: 0, behavior: "smooth" });
             });
-            pagination.appendChild(nextBtn);
         }
 
-        // 共通：ページ番号ボタン作成関数
+        function getPaginationItems(pageCount, maxNumbers) {
+            if (pageCount <= maxNumbers) {
+                return Array.from({ length: pageCount }, (_, index) => index + 1);
+            }
+
+            const pageNumbers = new Set([1, pageCount]);
+
+            if (maxNumbers === 3) {
+                if (currentPage <= 2) {
+                    pageNumbers.add(2);
+                } else if (currentPage >= pageCount - 1) {
+                    pageNumbers.add(pageCount - 1);
+                } else {
+                    pageNumbers.add(currentPage);
+                }
+            } else if (currentPage <= 2) {
+                pageNumbers.add(2);
+                pageNumbers.add(3);
+            } else if (currentPage >= pageCount - 1) {
+                pageNumbers.add(pageCount - 2);
+                pageNumbers.add(pageCount - 1);
+            } else {
+                pageNumbers.add(currentPage - 1);
+                pageNumbers.add(currentPage);
+                pageNumbers.add(currentPage + 1);
+            }
+
+            const sortedPages = [...pageNumbers]
+                .filter(page => page >= 1 && page <= pageCount)
+                .sort((a, b) => a - b);
+
+            return sortedPages.reduce((items, page, index) => {
+                if (index > 0 && page - sortedPages[index - 1] > 1) {
+                    items.push("...");
+                }
+                items.push(page);
+                return items;
+            }, []);
+        }
+
+        function addNavigationButton(label, className, handler) {
+            const button = document.createElement("button");
+            button.textContent = label;
+            button.className = className;
+            button.addEventListener("click", handler);
+            pagination.appendChild(button);
+        }
+
         function addPageButton(pageNumber) {
-            const btn = document.createElement("button");
-            btn.textContent = pageNumber;
-            btn.className = "page-btn" + (pageNumber === currentPage ? " active" : "");
-            btn.addEventListener("click", () => {
+            const button = document.createElement("button");
+            button.textContent = pageNumber;
+            button.className = "page-btn" + (pageNumber === currentPage ? " active" : "");
+            button.addEventListener("click", () => {
                 currentPage = pageNumber;
                 renderGallery();
                 window.scrollTo({ top: 0, behavior: "smooth" });
             });
-            pagination.appendChild(btn);
+            pagination.appendChild(button);
         }
     }
 

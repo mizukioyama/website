@@ -79,7 +79,7 @@
 
     .h1-text {
         left: 2.5rem;
-        top: 52%;
+        top: clamp(8rem, 20vh, 12rem);
     }
 
     .h1-text p {
