@@ -422,6 +422,21 @@ main {
     max-width: 1000px;
 }
 
+/* Keep the biography history in a normal, readable document flow. */
+#state .state-box-history {
+    display: block;
+    width: 100%;
+}
+
+#state .state-box-history > .content {
+    display: block;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
 #contact .content {
     display: block;
     width: 35%;
