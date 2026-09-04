@@ -155,21 +155,30 @@
             }
         }
         
-        table {
+        .history-table {
             width: 100%;
             border-collapse: collapse;
             table-layout: fixed;
         }
 
-        th,
-        td {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--text);
-            vertical-align: top;
+        .history-table col.history-year-column {
+            width: 20%;
         }
 
-        th {
+        .history-table col.history-content-column {
+            width: 80%;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--text);
+            vertical-align: top !important;
             text-align: left;
+            line-height: 1.8;
+        }
+
+        .history-table th {
             font-size: var(--font-list-size);
             color: #999;
             text-transform: uppercase;
@@ -177,38 +186,50 @@
             font-weight: normal;
         }
 
-        th.tb-title:first-child,
-        td.year {
-            width: 20%;
+        .history-table td.year {
             white-space: nowrap;
             font-size: var(--font-list-size);
             font-weight: 400;
+            padding-right: 1rem;
         }
 
-        th.tb-title:last-child,
-        td.tb-content {
-            width: 80%;
+        .history-table td.tb-content {
+            min-width: 0;
             font-size: var(--font-list-size);
             font-weight: 300;
+            overflow-wrap: anywhere;
         }
 
-        td.tb-content span {
+        .history-table td.tb-content span {
+            display: block;
+            margin-top: 0.35rem;
             font-size: var(--font-list-size);
+            line-height: 1.8;
         }
 
         @media (max-width: 768px) {
-            th.tb-title:first-child,
-            td.year {
+            .history-table col.history-year-column {
                 width: 30%;
             }
 
-            th.tb-title:last-child,
-            td.tb-content {
+            .history-table col.history-content-column {
                 width: 70%;
+            }
+
+            .history-table th,
+            .history-table td {
+                padding: 0.75rem 0;
+            }
+
+            .history-table td.year {
+                padding-right: 0.5rem;
+            }
+
+            .history-table td.tb-content {
                 font-size: var(--font-list-size);
             }
 
-            td.tb-content span {
+            .history-table td.tb-content span {
                 font-size: var(--font-list-size);
             }
 
@@ -343,7 +364,11 @@
                 
                 <h2 class="noise">画歴｜Painting history</h2>
                 
-                <table>
+                <table class="history-table">
+                    <colgroup>
+                        <col class="history-year-column">
+                        <col class="history-content-column">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th class="tb-title">Year</th>
@@ -354,18 +379,18 @@
                         <!-- 出展歴 -->
                         <tr>
                             <td class="year">2025</td>
-                            <td class="tb-content">03｜日台の絆展 会場 / 台湾<br>
+                            <td class="tb-content">03｜日台の絆展 会場 / 台湾
                                 <span>March｜Japan-Taiwan Bond Exhibition Venue / Taiwan</span></td>
                         </tr>
                         <tr>
                             <td class="year">2023</td>
-                            <td class="tb-content">06｜第2回日仏友好オリジナル切手展 会場 / フランス<br>
+                            <td class="tb-content">06｜第2回日仏友好オリジナル切手展 会場 / フランス
                                 <span>June | 2nd Japan-France Friendship Original Stamp Exhibition Venue / France</span></td>
                         </tr>
                         <tr>
                             <td class="year">2022</td>
                             <td class="tb-content">11｜芸術の虎展 会場 / 日光東照宮美術館
-                                <br>04｜日アセアン友好文化交流展 会場 / 東京アセアンセンター<br>
+                                <br>04｜日アセアン友好文化交流展 会場 / 東京アセアンセンター
                                 <span>November | Tigers of Art Exhibition Venue: Nikko Toshogu Museum
                                 <br>April | Japan-ASEAN Friendship and Cultural Exchange Exhibition Venue: Tokyo ASEAN Centre</span>
                             </td>
@@ -374,7 +399,7 @@
                             <td class="year">2021</td>
                             <td class="tb-content">11｜サロン・ド・アール・ジャポネ 会場 / フランス
                                 <br>08｜OASISU2021 会場 / 大阪あべのハルカス
-                                <br>04｜チャリティアート展 会場 / 東京<br>
+                                <br>04｜チャリティアート展 会場 / 東京
                                 <span>November | Salon d'Art Japonais, Venue: France
                                 <br>August | OASISU 2021, Venue: Abeno Harukas, Osaka
                                 <br>April | Charity Art Exhibition, Venue: Tokyo</span>
@@ -384,7 +409,11 @@
                 </table>
 
                 <!-- 認定 / 賞 -->
-                <table>
+                <table class="history-table">
+                    <colgroup>
+                        <col class="history-year-column">
+                        <col class="history-content-column">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th class="tb-title">Year</th>
@@ -394,18 +423,18 @@
                     <tbody>
                         <tr>
                             <td class="year">2025</td>
-                            <td class="tb-content">日仏友好貢献親善大賞<br>
+                            <td class="tb-content">日仏友好貢献親善大賞
                             <span>Japan-France Friendship Contribution Goodwill Award</span></td>
                         </tr>
                         <tr>
                             <td class="year">2022</td>
                             <td class="tb-content">
                                 徳川家康作家之賞<br>
-                                日本・モンゴル外交関係樹立50周年記念事業認定<br>
+                                日本・モンゴル外交関係樹立50周年記念事業認定
                                 <span>
                                 Tokugawa Ieyasu Writers' Award<br>
                                 Certified as a project commemorating the 50th anniversary of the establishment of diplomatic relations between Japan and Mongolia
-                            </span></td>
+                                </span></td>
                         </tr>
                         <tr>
                             <td class="year">2021</td>
