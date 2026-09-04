@@ -422,7 +422,7 @@ main {
     max-width: 1000px;
 }
 
-/* Keep the biography history in a normal, readable document flow. */
+/* Keep the biography history in the backup information-page width. */
 #state .state-box-history {
     display: block;
     width: 100%;
@@ -430,8 +430,9 @@ main {
 
 #state .state-box-history > .content {
     display: block;
-    width: 100%;
+    width: 50%;
     max-width: 1000px;
+    height: auto;
     margin: 0 auto;
     box-sizing: border-box;
     overflow: visible;

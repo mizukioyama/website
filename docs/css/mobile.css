@@ -82,6 +82,11 @@
         top: clamp(8rem, 20vh, 12rem);
     }
 
+    /* Keep the statement and biography title position from the backup. */
+    body#state .h1-text {
+        top: 52%;
+    }
+
     .h1-text p {
         font-size: 1rem;
     }
@@ -200,6 +205,11 @@
 
     #state .content {
         margin: 0;
+    }
+
+    /* Match the backup width while keeping the history content visible. */
+    #state .state-box-history > .content {
+        width: 100%;
     }
 
     /* Keep the statement body below the overlaid title and keyword list. */

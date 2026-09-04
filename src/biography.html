@@ -159,7 +159,6 @@
             width: 100%;
             border-collapse: collapse;
             table-layout: fixed;
-            table-layout: auto;
         }
 
         th,
@@ -178,6 +177,7 @@
             font-weight: normal;
         }
 
+        th.tb-title:first-child,
         td.year {
             width: 20%;
             white-space: nowrap;
@@ -185,6 +185,7 @@
             font-weight: 400;
         }
 
+        th.tb-title:last-child,
         td.tb-content {
             width: 80%;
             font-size: 0.9rem;
@@ -196,10 +197,12 @@
         }
 
         @media (max-width: 768px) {
+            th.tb-title:first-child,
             td.year {
                 width: 30%;
             }
 
+            th.tb-title:last-child,
             td.tb-content {
                 width: 70%;
                 font-size: 0.75rem;
@@ -209,9 +212,6 @@
                 font-size: 0.65rem;
             }
 
-            .tb-title {
-                width: 30%;
-            }
         }
     </style>
 </head>
