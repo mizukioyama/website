@@ -74,7 +74,7 @@
     }
 
     h1 {
-        font-size: 2.4rem;
+        font-size: var(--font-h1-size);
     }
 
     .h1-text {
@@ -97,7 +97,7 @@
     }
 
     h2 {
-        font-size: 1.2rem;
+        font-size: var(--font-h2-size);
         font-weight: 500;
     }
 
@@ -115,12 +115,12 @@
     }
 
     p {
-        font-size: var(--font-body-mobile);
+        font-size: var(--font-body-size);
         letter-spacing: 0.05rem;
     }
 
     li {
-        font-size: var(--font-list-mobile-size);
+        font-size: var(--font-list-size);
         line-height: 2;
     }
 
@@ -185,7 +185,7 @@
     }
 
     .art-page .gallery p:nth-child(n+1) {
-        font-size: 0.8rem !important;
+        font-size: var(--font-body-size) !important;
         margin-left: 0 !important;
     }
 
@@ -234,7 +234,7 @@
     }
 
     #policy .content li {
-        font-size: 0.65rem;
+        font-size: var(--font-list-size);
         padding-left: 1rem;
     }
 

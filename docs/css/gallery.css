@@ -119,8 +119,7 @@ body.dark-theme .modal-box {
 }*/
 
 h1 {
-    font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
-    font-size: 5.4rem;
+    font-size: var(--font-h1-size);
     font-weight: 300;
     width: fit-content;
     line-height: 1.2;
@@ -218,7 +217,7 @@ h1 {
 
 
 h2 {
-    font-size: 2.8rem;
+    font-size: var(--font-h2-size);
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -461,7 +460,7 @@ main {
     }
 
     #state h2 {
-        font-size: 2.4rem;
+        font-size: var(--font-h2-size);
         align-items: end;
         margin-bottom: 1vmin;
     }
@@ -520,7 +519,7 @@ main {
 }
 
 #state .content li span {
-    font-size: 0.85rem;
+    font-size: var(--font-list-size);
 }
 
 /*#state .content li::before,
@@ -602,7 +601,7 @@ main {
 }
 
 .works p {
-    font-size: 1rem;
+    font-size: var(--font-body-size);
     letter-spacing: 0.1rem;
     line-height: 1.8;
 }

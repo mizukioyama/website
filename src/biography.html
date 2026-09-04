@@ -124,7 +124,7 @@
             #0000 0);
         }
         p.text{
-            font-size: 1rem;
+            font-size: var(--font-body-size);
             line-height: 1.8;
             border-top: 1px solid #333;
             padding: 0.5rem 4.5rem 0 0 !important;
@@ -146,7 +146,7 @@
                 top: -10px;
             }
             p.text{
-                font-size: 0.65rem;
+                font-size: var(--font-body-size);
                 margin-top: 0.5rem !important;
                 padding: 0.5rem 2rem 0 0 !important;
             }
@@ -170,7 +170,7 @@
 
         th {
             text-align: left;
-            font-size: 1rem;
+            font-size: var(--font-list-size);
             color: #999;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -181,19 +181,19 @@
         td.year {
             width: 20%;
             white-space: nowrap;
-            font-size: 0.9rem;
+            font-size: var(--font-list-size);
             font-weight: 400;
         }
 
         th.tb-title:last-child,
         td.tb-content {
             width: 80%;
-            font-size: 0.9rem;
+            font-size: var(--font-list-size);
             font-weight: 300;
         }
 
         td.tb-content span {
-            font-size: 0.8rem;
+            font-size: var(--font-list-size);
         }
 
         @media (max-width: 768px) {
@@ -205,11 +205,11 @@
             th.tb-title:last-child,
             td.tb-content {
                 width: 70%;
-                font-size: 0.75rem;
+                font-size: var(--font-list-size);
             }
 
             td.tb-content span {
-                font-size: 0.65rem;
+                font-size: var(--font-list-size);
             }
 
         }

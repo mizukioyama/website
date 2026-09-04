@@ -380,19 +380,41 @@ body {
   --text: #2e2e2e;
   --bg: #cedde6;
 
-  /* Responsive body/list typography. Keep the current body scale adjustable. */
-  --font-body-min: 1rem;
-  --font-body-fluid: calc(0.477rem + 0.64vw);
-  --font-body-max: 1.25rem;
+  /* Responsive body, list, and heading typography. */
+  --font-body-min: 0.625rem;
+  --font-body-fluid: calc(0.546rem + 0.393vw);
+  --font-body-max: 0.9rem;
   --font-body-size: clamp(
     var(--font-body-min),
     var(--font-body-fluid),
     var(--font-body-max)
   );
-  --font-body-mobile: 0.75rem;
-  --font-list-offset: 0.125rem;
-  --font-list-size: calc(var(--font-body-size) - var(--font-list-offset));
-  --font-list-mobile-size: calc(var(--font-body-mobile) - var(--font-list-offset));
+  --font-list-min: 0.5625rem;
+  --font-list-fluid: calc(0.509rem + 0.268vw);
+  --font-list-max: 0.75rem;
+  --font-list-size: clamp(
+    var(--font-list-min),
+    var(--font-list-fluid),
+    var(--font-list-max)
+  );
+  --font-h1-min: 2.2rem;
+  --font-h1-fluid: calc(1.4rem + 4vw);
+  --font-h1-max: 5rem;
+  --font-h1-size: clamp(
+    var(--font-h1-min),
+    var(--font-h1-fluid),
+    var(--font-h1-max)
+  );
+  --font-h2-min: 1.1rem;
+  --font-h2-fluid: calc(0.7rem + 2vw);
+  --font-h2-max: 2.4rem;
+  --font-h2-size: clamp(
+    var(--font-h2-min),
+    var(--font-h2-fluid),
+    var(--font-h2-max)
+  );
+  --font-home-h1-size: clamp(0.9rem, calc(0.85rem + 0.15vw), 0.95rem);
+  --font-home-h2-size: clamp(1.4rem, calc(1.2rem + 0.5vw), 1.6rem);
   color-scheme: light dark;
 }
 

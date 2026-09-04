@@ -57,15 +57,15 @@ canvas {
 /* ========== Common ========== */
 
 h1 {
-  font-size: 1rem;
+  font-size: var(--font-home-h1-size);
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: var(--font-home-h2-size);
 }
 
 p {
-  font-size: 1rem;
+  font-size: var(--font-body-size);
   letter-spacing: 0.1em;
 }
 
@@ -724,7 +724,7 @@ footer,
     line-height: 1;
   }
   h2 {
-    font-size: 1.6rem;
+    font-size: var(--font-home-h2-size);
   }
 
   .card {
@@ -797,7 +797,7 @@ footer,
   }
 
   .desc {
-    font-size: 0.8rem;
+    font-size: var(--font-body-size);
     margin: 0 auto;
   }
 
