@@ -379,6 +379,20 @@ body {
   --inv: #f9fafb;
   --text: #2e2e2e;
   --bg: #cedde6;
+
+  /* Responsive body/list typography. Keep the current body scale adjustable. */
+  --font-body-min: 1rem;
+  --font-body-fluid: calc(0.477rem + 0.64vw);
+  --font-body-max: 1.25rem;
+  --font-body-size: clamp(
+    var(--font-body-min),
+    var(--font-body-fluid),
+    var(--font-body-max)
+  );
+  --font-body-mobile: 0.75rem;
+  --font-list-offset: 0.125rem;
+  --font-list-size: calc(var(--font-body-size) - var(--font-list-offset));
+  --font-list-mobile-size: calc(var(--font-body-mobile) - var(--font-list-offset));
   color-scheme: light dark;
 }
 

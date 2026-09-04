@@ -254,13 +254,13 @@ img:hover {
 }
 
 p {
-    font-size: 1.2rem;
-    font-size: clamp(1rem, 0.477rem + 0.64vw, 1.25rem);
+    font-size: var(--font-body-size);
     letter-spacing: 0.05rem;
     line-height: 2.4;
 }
 
 main li {
+    font-size: var(--font-list-size);
     position: relative;
     color: var(--inv);
     margin-bottom: 2vmin;

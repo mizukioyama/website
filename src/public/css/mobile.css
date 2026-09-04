@@ -115,12 +115,12 @@
     }
 
     p {
-        font-size: 0.75rem;
+        font-size: var(--font-body-mobile);
         letter-spacing: 0.05rem;
     }
 
     li {
-        font-size: 0.85rem;
+        font-size: var(--font-list-mobile-size);
         line-height: 2;
     }
 
