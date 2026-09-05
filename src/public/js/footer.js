@@ -1,23 +1,12 @@
-$(document).ready(function () {
-  // フッター読み込み
-  fetch("footer.html")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Footer request failed: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(data => {
-      const footerContainer = document.getElementById('footer-container');
-      if (!footerContainer) return;
-
-      footerContainer.innerHTML = data;
-      const year = footerContainer.querySelector('#year');
-      if (year) {
-        year.textContent = String(new Date().getFullYear());
-      }
-    })
-    .catch(error => {
-      console.error('Error loading footer:', error);
-    });
-});
+/**
+ * Footer initialization is integrated into menu.js.
+ * This compatibility shim avoids duplicate rendering if an older page still
+ * includes this file during a staged update.
+ */
+if (typeof initializeFooter === "function") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeFooter, { once: true });
+  } else {
+    initializeFooter();
+  }
+}

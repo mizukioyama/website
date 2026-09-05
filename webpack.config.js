@@ -166,6 +166,13 @@ const backupPages = new Set([
    "policy"
 ]);
 
+// The root pages are the local preview source of truth for the visual pages.
+// Use the same files in the Pages build so local preview and production cannot
+// silently drift into two different layouts.
+const localPageTemplates = new Map(
+   [...backupPages].map(page => [page, path.resolve(__dirname, `${page}.html`)])
+);
+
 module.exports = {
    mode: "production",
    devtool: "source-map",
@@ -228,7 +235,7 @@ module.exports = {
 
       // 複数HTMLページを出力
       ...htmlPages.map(page => new HtmlWebpackPlugin({
-         template: `./src/${page}.html`,
+         template: localPageTemplates.get(page) || `./src/${page}.html`,
          filename: `${page}.html`,
          chunks: backupPages.has(page) ? [] : ["main"]
       })),
@@ -255,6 +262,56 @@ module.exports = {
                // Static backup assets and the header/sidebar/footer fragments.
                from: path.resolve(__dirname, "src/public"),
                to: path.resolve(__dirname, "docs")
+            },
+            // Keep the public visual assets aligned with the root files used
+            // by the local preview without copying unrelated legacy styles.
+            ...[
+               "all.css",
+               "font.css",
+               "footer.css",
+               "form.css",
+               "gallery.css",
+               "index.css",
+               "menu.css",
+               "mobile.css",
+               "modal.css",
+               "noise.css"
+            ].map(file => ({
+               from: path.resolve(__dirname, "css", file),
+               to: path.resolve(__dirname, "docs/css", file),
+               force: true
+            })),
+            {
+               // Only copy scripts used by the root visual pages. This keeps
+               // unrelated legacy files out of the production asset graph.
+               from: path.resolve(__dirname, "js/bg_wave.js"),
+               to: path.resolve(__dirname, "docs/js/bg_wave.js"),
+               force: true
+            },
+            ...[
+               "cursor.js",
+               "footer.js",
+               "form.js",
+               "jquery.ripples-min.js",
+               "loading.js",
+               "menu.js",
+               "mobile.js",
+               "p5.min.js",
+               "page-nation.js",
+               "side.js",
+               "three.r134.min.js",
+               "time.js",
+               "vanta.fog.min.js",
+               "vanta.trunk.min.js"
+            ].map(file => ({
+               from: path.resolve(__dirname, "js", file),
+               to: path.resolve(__dirname, "docs/js", file),
+               force: true
+            })),
+            {
+               from: path.resolve(__dirname, "img"),
+               to: path.resolve(__dirname, "docs/img"),
+               force: true
             },
             {
                from: path.resolve(__dirname, "src/assets/images"),

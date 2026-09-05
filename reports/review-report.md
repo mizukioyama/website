@@ -40,3 +40,20 @@
 - 5ページから`js/footer.js`の重複読み込みを外し、`js/footer.js`は削除せず互換シムとして残した。
 - ローカルブラウザで5ページのフッター1件、5リンク、年表示、メニュー開閉、言語切替を確認した。
 - `js/page-nation.js`のブラウザ非対応な`require("fs")`エラーと、VANTAの既存警告は今回の対象外として残っている。
+
+## Local / Public Alignment
+
+- ローカルプレビューはリポジトリ直下のHTML/CSS/JavaScriptを読み込み、GitHub Pagesは`src`から`docs`を生成していたため、同じページURLでも別のレイアウト・画像・カーソル実装が表示されていた。
+- `webpack.config.js`のビジュアル6ページ（トップ、Artist Statement、Biography、Gallery、Contact、Site Policy）のテンプレートを直下HTMLへ統一した。
+- 公開ビルドでは、直下ページが使用するCSS、画像、JavaScriptを優先して配置し、Information・Matching・Bot用のWebpackバンドルは`js/main.js`を保持するようにした。
+- `js/cursor.js`と`src/js/cursor.js`の重複DOMContentLoaded処理を1つへ統合し、重複生成ガードとイベント委譲を共通化した。生成後の`docs/js/cursor.js`も1組のカーソルを生成する。
+
+## Alignment Verification
+
+- クリーン環境で`npm ci`: PASS
+- `npm run build`: PASS（asset size warningのみ）
+- `npm run check:js`: PASS（40 files、17 inline scripts）
+- `npm run check:generated`: PASS（12 scripts）
+- `npm run check:links`: PASS
+- 生成されたビジュアル6ページのCSS資産ハッシュ: 直下版と一致
+- 実画面の再確認: PENDING（検証時にMacがロック中。公開URLはPagesの再生成完了後に確認が必要）
