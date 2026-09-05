@@ -1,11 +1,12 @@
-$(document).ready(function () {
-  // フッター読み込み
-  fetch("footer.html")
-    .then(response => response.text())
-    .then(data => {
-      $('#footer-container').html(data);
-    })
-    .catch(error => {
-      console.error('Error loading footer:', error);
-    });
-});
+/**
+ * Footer initialization is integrated into menu.js.
+ * This compatibility shim avoids duplicate rendering if an older page still
+ * includes this file during a staged update.
+ */
+if (typeof initializeFooter === "function") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeFooter, { once: true });
+  } else {
+    initializeFooter();
+  }
+}
