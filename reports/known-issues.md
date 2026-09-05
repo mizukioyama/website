@@ -10,6 +10,6 @@
 - ルートの`header-container`と`footer-container`は、`js/menu.js`が生成したDOMを挿入するために必要である。削除する場合は、JS側でマウント位置を作成する別変更が必要になる。
 - `js/footer.js`は互換シムとして残している。削除には明示的な削除承認が必要で、ルートページからは読み込まれていない。
 - `js/page-nation.js`はブラウザで`require("fs")`を実行するため、ギャラリーページで`require is not defined`が発生する。今回のヘッダー／フッター統合では変更していない。
-- GitHub Pagesはpush後にGitHub Actionsで再生成されるため、公開URLが新しい直下版へ切り替わるまで旧成果物が表示される場合がある。
+- GitHub Pagesの再生成後に公開ファイル同期は確認済み。ブラウザキャッシュやCDNの状態によって切替直後に旧成果物が見える場合は、強制再読み込みで確認する。
 - 今回の生成版をブラウザで再表示する確認は、Macがロック中だったため未実施。Macのロック解除後に公開6ページとカーソルを確認する。
 - `src/public/js/menu.js`と`src/public/js/footer.js`には旧ページ向けのfetch実装が残るが、今回のビジュアル6ページは直下版の`js/menu.js`を使い、`footer.js`を読み込まない。将来の旧ページ整理は別作業とする。

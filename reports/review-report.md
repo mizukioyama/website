@@ -57,3 +57,12 @@
 - `npm run check:links`: PASS
 - 生成されたビジュアル6ページのCSS資産ハッシュ: 直下版と一致
 - 実画面の再確認: PENDING（検証時にMacがロック中。公開URLはPagesの再生成完了後に確認が必要）
+
+## Public Deployment Verification
+
+- GitHub `origin/main` が`6386369`を指すことを確認した。
+- `https://mizukioyama.github.io/website/`の主要6ページを取得し、各ページの`header-container`、`footer-container`、`cursor.js`、`menu.js`を確認した。
+- 主要6ページの`footer.js`読み込みは0件で、カーソルスクリプトは各ページ1件だった。
+- 公開`menu.js`はヘッダーfetchを行わず、静的マークアップ生成を含む。公開`footer.js`は互換シムで、フッターfetchを行わない。
+- 公開`css/all.css`と`css/gallery.css`のSHA-256はローカル直下版と一致した。
+- 公開ファイル同期: PASS。実画面の見た目・カーソル操作: PENDING（Macロック中のため物理操作未実施）。
