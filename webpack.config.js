@@ -35,7 +35,7 @@ const fragmentScriptHashes = getFragmentHashes(
    "script"
 );
 const fragmentStyleHashes = getFragmentHashes(
-   path.resolve(__dirname, "src/public/sidebar.html"),
+   path.resolve(__dirname, "sidebar.html"),
    "style"
 );
 
@@ -262,11 +262,16 @@ module.exports = {
                from: path.resolve(__dirname, "img/web.ico"),
                to: path.resolve(__dirname, "docs/assets/images/pd.ico")
             },
-            ...["header", "footer", "sidebar"].map(page => ({
+            ...["header", "footer"].map(page => ({
                from: path.resolve(__dirname, `src/${page}.html`),
                to: path.resolve(__dirname, `docs/${page}.html`),
                force: true
             })),
+            {
+               from: path.resolve(__dirname, "sidebar.html"),
+               to: path.resolve(__dirname, "docs/sidebar.html"),
+               force: true
+            },
             // Copy the same visual pages and assets used by the local
             // preview. This avoids reintroducing legacy public assets.
             ...rootVisualPages.map(page => ({
