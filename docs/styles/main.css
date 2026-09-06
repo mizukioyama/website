@@ -260,6 +260,39 @@ body {
    z-index: 9999;
 }
 
+@keyframes gradientGlow {
+   0% {
+      box-shadow:
+         0 0 5px rgba(0, 100, 100, 0.26),
+         0 0 5px rgba(0, 0, 155, 0.4),
+         0 0 5px rgba(100, 0, 100, 0.4);
+   }
+   25% {
+      box-shadow:
+         0 0 5px rgba(0, 0, 155, 0.4),
+         0 0 5px rgba(0, 100, 100, 0.26),
+         0 0 5px rgba(100, 0, 100, 0.4);
+   }
+   50% {
+      box-shadow:
+         0 0 5px rgba(0, 0, 155, 0.4),
+         0 0 5px rgba(100, 0, 100, 0.4),
+         0 0 5px rgba(0, 100, 100, 0.26);
+   }
+   75% {
+      box-shadow:
+         0 0 5px rgba(0, 0, 155, 0.4),
+         0 0 5px rgba(0, 100, 100, 0.26),
+         0 0 5px rgba(100, 0, 100, 0.4);
+   }
+   100% {
+      box-shadow:
+         0 0 5px rgba(0, 100, 100, 0.26),
+         0 0 5px rgba(0, 0, 155, 0.4),
+         0 0 5px rgba(100, 0, 100, 0.4);
+   }
+}
+
 #cursor {
    width: 8px;
    height: 8px;
@@ -272,19 +305,17 @@ body {
    height: 15px;
    border: 2px solid rgba(255, 255, 255);
    transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
-   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+   animation: gradientGlow 6s infinite alternate ease-in-out;
 }
 
 .cursor--hover {
    width: 40px !important;
    height: 40px !important;
-   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .stalker--hover {
    width: 50px !important;
    height: 50px !important;
-   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 /*======load*/
