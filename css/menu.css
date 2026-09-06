@@ -35,6 +35,7 @@ nav {
 }
 
 .inner li a {
+    font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem);
     font-weight: 400;
     color: var(--inv);
     height: 100%;
@@ -235,7 +236,7 @@ nav .noise {
 
 #mask p {
     font-weight: 500;
-    font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
+    font-size: clamp(1.2rem, calc(1rem + 0.6vw), 1.4rem);
     position: relative;
     margin-top: 50vmin;
     text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.85);
@@ -270,7 +271,7 @@ nav .noise {
 
 @media screen and (min-width: 1299px) {
     .inner li a {
-        font-size: 1.6rem;
+        font-size: clamp(1.2rem, calc(1rem + 0.6vw), 1.6rem);
     }
 
     .inner ul li:nth-of-type(5) {
@@ -278,7 +279,7 @@ nav .noise {
     }
 
     .inner li:nth-of-type(n+5) a {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem);
     }
 
 }
@@ -311,12 +312,12 @@ nav .noise {
     }
 
     .inner li a {
-        font-size: 1.8rem;
+        font-size: clamp(1.6rem, calc(1.4rem + 0.8vw), 1.8rem);
         font-weight: 400;
     }
 
     .inner li:nth-of-type(n+5) a {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem);
     }
 
     .toggle_btn {
@@ -340,7 +341,6 @@ nav .noise {
     }
 
     #mask p {
-        font-size: 1.2rem;
         margin-top: 3rem;
     }
 
@@ -352,7 +352,7 @@ nav .noise {
     }
 
     .open #mask li {
-        font-size: 0.85rem;
+        font-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.85rem);
     }
 
     .toggle_btn span {

@@ -487,11 +487,11 @@
     }
 
     .modal-box h2 {
-      font-size: 1.8rem;
+      font-size: clamp(1.4rem, calc(1.1rem + 0.8vw), 1.8rem);
     }
 
     .modal-box h3 {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, calc(0.85rem + 0.4vw), 1.2rem);
       line-height: 1.4;
       margin-top: 6rem;
       border-bottom: 1px solid;
@@ -499,7 +499,7 @@
     }
 
     .modal-box p {
-      font-size: 1rem;
+      font-size: clamp(0.8rem, calc(0.65rem + 0.7vw), 1rem);
       line-height: 1.8;
     }
 
@@ -516,13 +516,13 @@
     }
 
     h3.modal-en {
-      font-size: 1rem;
+      font-size: clamp(0.85rem, calc(0.75rem + 0.4vw), 1rem);
       margin-top: 1vmin;
       margin-bottom: 0.2vmin;
     }
 
     p.modal-en {
-      font-size: 0.8rem !important;
+      font-size: clamp(0.65rem, calc(0.55rem + 0.4vw), 0.8rem) !important;
       line-height: 1.5;
     }
 
@@ -538,12 +538,10 @@
       }
 
       .modal-box p {
-        font-size: 0.8rem;
         letter-spacing: 0.05rem;
       }
 
       p.modal-en {
-        font-size: 0.65rem !important;
         line-height: 1.5;
       }
     }

@@ -131,6 +131,14 @@ body {
    font-style: normal;
 }
 
+html {
+   font-size: 100%;
+}
+
+body {
+   font-size: clamp(0.875rem, calc(0.75rem + 0.4vw), 1rem);
+}
+
 
 /* ========== Custom Cursor ========== */
 * {
@@ -229,7 +237,7 @@ body {
 }
 
 .typing-container p {
-   font-size: 1rem;
+   font-size: clamp(0.8rem, calc(0.7rem + 0.4vw), 1rem);
    font-weight: 500;
 }
 

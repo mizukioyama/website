@@ -15,7 +15,7 @@ canvas {
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: clamp(0.75rem, calc(0.65rem + 0.35vw), 0.875rem);
   z-index: 99;
   pointer-events: none;
   user-select: none;
@@ -73,11 +73,11 @@ canvas {
 }
 
 .modal-box h2 {
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, calc(1.1rem + 0.8vw), 1.8rem);
 }
 
 .modal-box h3 {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, calc(0.85rem + 0.4vw), 1.2rem);
   margin-top: 2rem;
 }
 
@@ -112,16 +112,16 @@ body,
 }
 
 h1 {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, calc(0.85rem + 0.2vw), 1rem);
   color: var(--text);
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: clamp(1.6rem, calc(1.35rem + 0.8vw), 2rem);
 }
 
 p {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, calc(0.75rem + 0.4vw), 1rem);
   letter-spacing: 0.1em;
 }
 
@@ -172,11 +172,11 @@ p {
 
 /* 背景画像 */
 .back__slide:nth-child(1)::before {
-  background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url("../assets/images/230053-2.jpg");
+  background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url("/src/assets/images/230053-2.jpg");
 }
 
 .back__slide:nth-child(even)::before {
-  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../assets/images/couryoku.jpg");
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("/src/assets/images/couryoku.jpg");
 }
 
 /* フロント画像 */
@@ -292,7 +292,7 @@ p {
 
 /*== 内容 ==*/
 .card__slide .image {
-  background-image: url("../assets/images/230053-2.jpg");
+  background-image: url("/src/assets/images/230053-2.jpg");
   background-size: 85% auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -310,7 +310,7 @@ p {
 
 .card__slide:nth-child(even) .image {
   left: 65%;
-  background-image: url("../assets/images/couryoku.jpg");
+  background-image: url("/src/assets/images/couryoku.jpg");
   pointer-events: none;
   transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
 }
@@ -647,7 +647,7 @@ p {
 
 .button {
   display: inline-block;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, calc(0.8rem + 0.3vw), 1rem);
   width: 100%;
   text-align: center;
   color: var(--inv);
@@ -751,7 +751,7 @@ footer,
 
 @media screen and (min-width: 600px) and (max-width: 1199px) {
   .typing00 {
-    font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
+    font-size: clamp(1.4rem, calc(1.2rem + 0.8vw), 1.8rem);
   }
 }
 

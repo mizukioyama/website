@@ -118,7 +118,7 @@ input:-webkit-autofill:focus {
 }
 
 .contact-form .label span {
-   font-size: 1.2rem;
+   font-size: clamp(1rem, calc(0.9rem + 0.5vw), 1.2rem);
    color: var(--hover);
    transition: all 0.3s ease;
 }
@@ -345,7 +345,7 @@ input:-webkit-autofill:focus {
       font-size: clamp(1.8rem, 1.571rem + 1.14vw, 2rem);
    }
    .contact-form .input-text {
-      font-size: 1.6rem;
+      font-size: clamp(1.2rem, calc(1rem + 0.8vw), 1.6rem);
       height: 40pt;
       padding-left: 1rem;
       background: var(--sub);

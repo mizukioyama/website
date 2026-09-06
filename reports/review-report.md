@@ -66,3 +66,31 @@
 - 公開`menu.js`はヘッダーfetchを行わず、静的マークアップ生成を含む。公開`footer.js`は互換シムで、フッターfetchを行わない。
 - 公開`css/all.css`と`css/gallery.css`のSHA-256はローカル直下版と一致した。
 - 公開ファイル同期: PASS。実画面の見た目・カーソル操作: PENDING（Macロック中のため物理操作未実施）。
+
+## 2026-09-06 Responsive Typography Push Scope
+
+### 対象
+
+- 主要6ページのルートHTML/CSS、アクティブな`src/style`、サイドバー、GitHub Pages用`docs`の対応CSS・HTML。
+- リモート`origin/main`の既存コミットを親にし、今回のフォント調整とレビュー資料だけを新しいコミットへ分離する。
+
+### 実装
+
+- 固定`font-size`を、既存の大きい値を最大値として`clamp(min, preferred, max)`へ変更した。
+- 新規の最小値・最大値は`rem`、推奨値は`rem`と`vw`で指定した。
+- 共通のclampが適用されるモバイル側の重複固定指定は除去し、フォーム、モーダル、メニュー、フッター、サイドバー、ページネーションも対象に含めた。
+- 生成HTMLのインラインスタイルを変更した箇所は、CSPの`style-src`ハッシュも再計算して更新した。
+- HTML構造、クラス名、レイアウト、アニメーション、動作、カーソル実装は変更していない。
+
+### 検証境界
+
+- JavaScript構文・リンク検査、clamp構文検査、差分の空白検査を実施する。
+- 実機Safari/iOS/Android、物理マウス・タッチ、GitHub Pages再生成後の実画面は別途確認が必要である。
+
+### 検証結果
+
+- 対象45ファイルを検査し、`font-clamps=266`、アクティブな非レスポンシブ固定値`0`、不正なclamp`0`だった。
+- `npm run check:js`: PASS（22ファイル）。
+- `npm run check:links`: PASS。
+- `git diff --check`: PASS。
+- レビュー資料ZIP: PASS（`unzip -tq`）。

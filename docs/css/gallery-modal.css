@@ -77,11 +77,11 @@
 }
 
 .modal-box#modalBox .text-content {
-  font-size: 0.9rem;
+  font-size: clamp(0.65rem, calc(0.5rem + 0.5vw), 0.9rem);
 }
 
 .modal-box#modalBox #modalCloseBtn {
-  font-size: 1.8rem;
+  font-size: clamp(1rem, calc(0.75rem + 1vw), 1.8rem);
   position: absolute;
   bottom: -5rem;
   right: 0;
@@ -120,11 +120,11 @@
   }
 
   .modal-box#modalBox .noise.cg-text {
-    font-size: 1.2rem !important;
+    font-size: clamp(1rem, calc(0.85rem + 0.5vw), 1.2rem) !important;
   }
 
   .modal-box#modalBox p {
-    font-size: 0.85rem;
+    font-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.85rem);
     letter-spacing: 0.05rem;
   }
 
@@ -137,7 +137,7 @@
   }
 
   .modal-box#modalBox .text-content {
-    font-size: 0.65rem;
+    font-size: clamp(0.6rem, calc(0.5rem + 0.4vw), 0.65rem);
   }
 
   .modal-box#modalBox .work-img {
@@ -145,7 +145,7 @@
   }
 
   .modal-box#modalBox #modalCloseBtn {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem);
     bottom: -2.5rem;
   }
 

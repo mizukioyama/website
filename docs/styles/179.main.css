@@ -36,8 +36,7 @@ div.ripples-2 {
 }
 
 h1 {
-    font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
-    font-size: 4rem;
+    font-size: clamp(2.4rem, calc(1.5rem + 2.5vw), 4rem);
     font-weight: 400;
     padding-top: 8rem;
     position: relative;
@@ -113,12 +112,12 @@ h2 {
 }
 
 h3 {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, calc(0.85rem + 0.4vw), 1.2rem);
     color: var(--def);
 }
 
 h4 {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, calc(0.85rem + 0.4vw), 1.2rem);
     color: var(--def);
 }
 
@@ -129,7 +128,7 @@ img:hover {
 }
 
 p {
-    font-size: 1rem;
+    font-size: clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem);
     letter-spacing: 0.05rem;
     line-height: 2;
 }
@@ -166,7 +165,7 @@ a::before:hover {
 /* head */
 .head a {
     position: fixed;
-    font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.6em);
+    font-size: clamp(1.2rem, calc(1rem + 0.6vw), 1.6rem);
     font-weight: 400;
     top: 0.5%;
     left: 0.5%;
@@ -371,7 +370,7 @@ a:hover {
 }
 
 .page li a {
-    font-size: 1rem;
+    font-size: clamp(0.8rem, calc(0.7rem + 0.4vw), 1rem);
     padding: 1rem;
 }
 
@@ -388,7 +387,7 @@ a:hover {
 .arrow-button {
     display: block;
     font-family: "poiret-one", Not serif-JP;
-    font-size: 2.4rem;
+    font-size: clamp(1.8rem, calc(1.4rem + 1vw), 2.4rem);
     font-weight: 100;
     color: var(--inv);
     padding: 1.5rem;
@@ -523,7 +522,7 @@ main {
 #info .work p,
 #policy .content p {
     width: 100%;
-    font-size: 1rem;
+    font-size: clamp(0.8rem, calc(0.65rem + 0.5vw), 1rem);
 }
 
 #info .work ol p {
@@ -536,7 +535,7 @@ main {
 /*=======info page*/
 
 .work p {
-    font-size: 0.8rem;
+    font-size: clamp(0.7rem, calc(0.6rem + 0.4vw), 0.8rem);
     width: 50%;
 }
 
@@ -575,7 +574,7 @@ main {
 /*===copyright*/
 .dli-external-link {
     font-family: 'jost';
-    font-size: 1rem;
+    font-size: clamp(0.8rem, calc(0.7rem + 0.4vw), 1rem);
     font-weight: 400;
     position: absolute;
     top: 1%;

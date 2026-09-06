@@ -104,7 +104,7 @@
         }
 
         p.subtext-en {
-            font-size: 1rem;
+            font-size: clamp(0.8rem, calc(0.65rem + 0.5vw), 1rem);
             line-height: 1.8;
         }
 
@@ -124,16 +124,8 @@
                 top: -10px;
             }
 
-            p.subtext-en {
-                font-size: 0.8rem;
-            }
-
-            .timeline ul {
-                font-size: 0.7rem;
-            }
-
             #state .content .timeline li {
-                font-size: 0.6rem;
+                font-size: clamp(0.6rem, calc(0.5rem + 0.3vw), 0.7rem);
                 margin-left: 0.25rem;
                 padding-left: 0.75rem;
                 padding-bottom: 4rem;
@@ -147,11 +139,12 @@
         }
 
         .timeline ul {
+            font-size: clamp(0.65rem, calc(0.55rem + 0.4vw), 0.7rem);
             font-weight: 400;
             margin-top: 1vmin;
         }
         .timeline li {
-            font-size: 0.85rem;
+            font-size: clamp(0.7rem, calc(0.6rem + 0.4vw), 0.85rem);
             margin-left: 0.5rem;
             border-left: 1px solid var(--text);
         }

@@ -30,3 +30,17 @@
 2. 公開ビルドのCSS・画像・ページ固有JavaScriptがローカル直下版と一致し、非ビジュアルページの`js/main.js`を上書きしていないこと。
 3. ローカルと公開の各ページで`#cursor`と`#stalker`が1件ずつになり、リンク、ボタン、メニュー、ページネーションのホバー表示が同じこと。
 4. Pages再生成後に、キャッシュを含めて公開6ページの見た目がローカル直下版と一致すること。
+
+## 2026-09-06 Responsive Typography Push Review
+
+Please review only the responsive `font-size` changes included in the push candidate.
+
+1. Confirm that active fixed font sizes were converted to `clamp(min, preferred, max)` with `rem` minimum and maximum values.
+2. Confirm that the existing larger desktop values remain the clamp maxima and that mobile overrides do not introduce clipping or unexpected wrapping.
+3. Check the six root visual pages and the active generated `docs` assets at 320px, 390px, 768px, 1024px, and desktop widths.
+4. Confirm that HTML structure, class names, layout rules, animations, menu/footer behavior, cursor behavior, forms, modals, tables, and pagination remain unchanged.
+5. Treat physical Safari/iOS/Android and real pointer/touch acceptance as pending until manually checked.
+
+### Review boundary
+
+This request is for local/static review of the responsive typography push candidate. Unrelated deletions, untracked files, and the stale local branch state must remain excluded.

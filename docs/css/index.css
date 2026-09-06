@@ -41,7 +41,7 @@ canvas {
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: clamp(0.75rem, calc(0.65rem + 0.35vw), 0.875rem);
   z-index: 99;
   pointer-events: none;
   user-select: none;
@@ -343,12 +343,13 @@ p {
   transform-origin: 0 50%;
   transform: rotate(0deg);
   font-weight: 400;
+  font-size: clamp(0.85rem, calc(0.75rem + 0.3vw), 1rem);
   z-index: -1;
 }
 
 .date__time {
   opacity: 0.75;
-  font-size: 0.7rem;
+  font-size: clamp(0.6rem, calc(0.52rem + 0.3vw), 0.7rem);
   letter-spacing: 0.05rem;
 }
 
@@ -561,6 +562,7 @@ p {
   color: #f9fafbb3;
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
   margin: 1rem auto 0;
+  font-size: clamp(0.8rem, calc(0.65rem + 0.5vw), 1rem);
   line-height: 1.8;
 }
 
@@ -596,7 +598,7 @@ p {
 
 .button {
   display: inline-block;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, calc(0.8rem + 0.3vw), 1rem);
   width: 100%;
   text-align: center;
   color: var(--inv);
@@ -778,7 +780,6 @@ footer,
 }
 
   .date {
-    font-size: 0.85rem;
     letter-spacing: 0.05rem;
     bottom: calc(3% - 0.5rem);
   }
@@ -793,11 +794,9 @@ footer,
     position: absolute;
     right: 10%;
     bottom: 0;
-    font-size: 0.6rem;
   }
 
   .desc {
-    font-size: var(--font-body-size);
     margin: 0 auto;
   }
 
@@ -806,14 +805,13 @@ footer,
     margin-top: 0;
   }
   .button {
-    font-size: 0.9rem;
     padding: 1rem 0.5rem;
   }
 }
 
 @media screen and (min-width: 600px) and (max-width: 1199px) {
   .typing00 {
-    font-size: clamp(1.4em, calc(1.4em + 0.5vw), 1.8em);
+    font-size: clamp(1.4rem, calc(1.2rem + 0.8vw), 1.8rem);
   }
 }
 
