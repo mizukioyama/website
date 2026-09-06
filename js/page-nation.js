@@ -1,5 +1,3 @@
-const { link } = require("fs");
-
 function setupCategoryFilter() {
     //let currentLang = localStorage.getItem("lang") || "ja";
     //const getLang = () => currentLang;

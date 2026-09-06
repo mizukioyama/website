@@ -140,38 +140,42 @@ function processCsp(builtPolicy, htmlPluginData, $) {
    htmlPluginData.html = restoreInlineScriptEntities(standardsHtml);
 }
 
-const htmlPages = [
-   "index",
-   "artist-statement",
-   "biography",
-   "information",
-   "gallery",
-   "contact",
-   "policy",
-   "matching",
-   "bot"
-];
-
-// These pages intentionally keep the verified backup templates and their
-// static backup CSS/JavaScript links. The remaining pages use the common
-// Webpack bundle. Keeping the visual pages on the same source files as the
-// backup prevents a second, subtly different CSS implementation from being
-// emitted while the runtime-only pages continue to use the hardened bundle.
-const backupPages = new Set([
+// The root HTML files are the visual source of truth for the public site.
+// Keep these pages static so page-specific CSS and scripts are not rewritten
+// by HtmlWebpackPlugin or its CSP post-processing.
+const rootVisualPages = [
    "index",
    "artist-statement",
    "biography",
    "gallery",
    "contact",
    "policy"
-]);
+];
 
-// The root pages are the local preview source of truth for the visual pages.
-// Use the same files in the Pages build so local preview and production cannot
-// silently drift into two different layouts.
-const localPageTemplates = new Map(
-   [...backupPages].map(page => [page, path.resolve(__dirname, `${page}.html`)])
-);
+const rootVisualScripts = [
+   "bg_wave.js",
+   "cursor.js",
+   "form.js",
+   "jquery-3.7.1.min.js",
+   "jquery.ripples-min.js",
+   "loading.js",
+   "menu.js",
+   "mobile.js",
+   "p5.min.js",
+   "page-nation.js",
+   "side.js",
+   "three.r134.min.js",
+   "time.js",
+   "vanta.fog.min.js",
+   "vanta.trunk.min.js"
+];
+
+// Pages that still use the current src-based Webpack application bundle.
+const htmlPages = [
+   "information",
+   "matching",
+   "bot"
+];
 
 module.exports = {
    mode: "production",
@@ -235,9 +239,9 @@ module.exports = {
 
       // 複数HTMLページを出力
       ...htmlPages.map(page => new HtmlWebpackPlugin({
-         template: localPageTemplates.get(page) || `./src/${page}.html`,
+         template: `./src/${page}.html`,
          filename: `${page}.html`,
-         chunks: backupPages.has(page) ? [] : ["main"]
+         chunks: ["main"]
       })),
 
       new MiniCssExtractPlugin({
@@ -258,54 +262,28 @@ module.exports = {
                from: path.resolve(__dirname, "img/web.ico"),
                to: path.resolve(__dirname, "docs/assets/images/pd.ico")
             },
-            {
-               // Static backup assets and the header/sidebar/footer fragments.
-               from: path.resolve(__dirname, "src/public"),
-               to: path.resolve(__dirname, "docs")
-            },
-            // Keep the public visual assets aligned with the root files used
-            // by the local preview without copying unrelated legacy styles.
-            ...[
-               "all.css",
-               "font.css",
-               "footer.css",
-               "form.css",
-               "gallery.css",
-               "index.css",
-               "menu.css",
-               "mobile.css",
-               "modal.css",
-               "noise.css"
-            ].map(file => ({
-               from: path.resolve(__dirname, "css", file),
-               to: path.resolve(__dirname, "docs/css", file),
+            ...["header", "footer", "sidebar"].map(page => ({
+               from: path.resolve(__dirname, `src/${page}.html`),
+               to: path.resolve(__dirname, `docs/${page}.html`),
+               force: true
+            })),
+            // Copy the same visual pages and assets used by the local
+            // preview. This avoids reintroducing legacy public assets.
+            ...rootVisualPages.map(page => ({
+               from: path.resolve(__dirname, `${page}.html`),
+               to: path.resolve(__dirname, `docs/${page}.html`),
                force: true
             })),
             {
-               // Only copy scripts used by the root visual pages. This keeps
-               // unrelated legacy files out of the production asset graph.
-               from: path.resolve(__dirname, "js/bg_wave.js"),
-               to: path.resolve(__dirname, "docs/js/bg_wave.js"),
+               from: path.resolve(__dirname, "css"),
+               to: path.resolve(__dirname, "docs/css"),
                force: true
             },
-            ...[
-               "cursor.js",
-               "footer.js",
-               "form.js",
-               "jquery.ripples-min.js",
-               "loading.js",
-               "menu.js",
-               "mobile.js",
-               "p5.min.js",
-               "page-nation.js",
-               "side.js",
-               "three.r134.min.js",
-               "time.js",
-               "vanta.fog.min.js",
-               "vanta.trunk.min.js"
-            ].map(file => ({
-               from: path.resolve(__dirname, "js", file),
-               to: path.resolve(__dirname, "docs/js", file),
+            // Copy only scripts referenced by the root visual pages. This
+            // excludes unused legacy files from the production asset graph.
+            ...rootVisualScripts.map(file => ({
+               from: path.resolve(__dirname, `js/${file}`),
+               to: path.resolve(__dirname, `docs/js/${file}`),
                force: true
             })),
             {
