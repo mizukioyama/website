@@ -98,6 +98,21 @@ Please review only the width and breakpoint changes in the root visual CSS/HTML 
 
 This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
 
+## 2026-09-07 Mobile Footer 90% Width Review
+
+Please review only the mobile footer container width change in `css/footer.css`.
+
+### Required checks
+
+1. Confirm that `#footer-container` uses the same 90% and nested `calc()`/`clamp()` policy as the mobile gallery.
+2. Confirm that the generated `footer` remains 100% of its responsive container without horizontal overflow.
+3. Confirm that desktop and tablet footer widths remain unchanged.
+4. Treat physical-device acceptance and public deployment as separate pending checks.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
 ## 2026-09-07 Mobile Gallery 90% Width Review
 
 Please review only the mobile gallery wrapper change in `css/mobile.css`.
@@ -162,6 +177,21 @@ Please review only the current sidebar integration and gallery/footer width chan
 5. Confirm that the gallery width increase and footer padding reduction do not introduce horizontal overflow at 320px, 390px, 600px, 768px, 1024px, or desktop widths.
 6. Confirm that gallery grid columns, modal behavior, pagination, and footer structure remain unchanged.
 7. Treat generated `docs/` output, public deployment, and physical mobile/touch acceptance as separate pending boundaries.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
+## 2026-09-07 Footer Full Device Width Review
+
+Please review only the mobile full-width footer change in `css/footer.css`.
+
+### Required checks
+
+1. Confirm that `#footer-container` is `width: 100%` at mobile widths and no longer uses the 90% rule.
+2. Confirm that `min-width: 100%` and `max-width: 100%` prevent the global `fit-content` reset from shrinking the footer.
+3. Confirm that the generated `footer`, links, and copyright remain within the viewport without horizontal overflow.
+4. Treat physical-device acceptance and public deployment as separate pending checks.
 
 ### Review boundary
 

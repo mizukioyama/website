@@ -79,3 +79,17 @@
 - Static checks passed; physical Safari/iOS/Android, touch, and exact rendered-width acceptance remain pending.
 - Public GitHub Pages was not updated for this correction.
 - The pre-edit rollback copy is `/tmp/website-gallery-mobile-90-backup-20260907/`.
+
+## 2026-09-07 Mobile Footer 90% Width
+
+- Mobile `#footer-container` now follows the same 90% responsive width policy as the gallery.
+- Static checks passed; exact rendered mobile width and physical touch acceptance remain pending.
+- Public GitHub Pages was not updated for this correction.
+- The pre-edit rollback copy is `/tmp/website-footer-mobile-90-backup-20260907/`.
+
+## 2026-09-07 Footer Full Device Width
+
+- The mobile footer container now uses full device/content width instead of 90%.
+- Explicit `min-width` and `max-width` protect it from the global `div { width: fit-content; }` reset.
+- Static checks are expected to pass after this change; public deployment and physical mobile/touch acceptance remain pending.
+- The pre-edit rollback copy is `/tmp/website-footer-device-width-backup-20260907/`.

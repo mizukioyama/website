@@ -287,6 +287,28 @@ The browser showed an unrelated existing `require is not defined` error from `js
 
 - Generated `docs/` was not regenerated in place because unrelated generated changes remain in the working tree.
 - Public GitHub Pages was not pushed for this correction.
+
+## 2026-09-07 Mobile Footer 90% Width
+
+### Implemented
+
+- Applied the same mobile `min(90%, calc(100vw - clamp(...)))` width policy to `#footer-container`.
+- Kept the generated `footer` at `width: 100%` of that responsive container.
+- Preserved desktop and tablet footer widths and existing footer markup.
+- Created a pre-edit rollback copy at `/tmp/website-footer-mobile-90-backup-20260907/`.
+
+### Verification
+
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- `node --check js/menu.js`: PASS.
+- `node --check js/page-nation.js`: PASS.
+- Focused `git diff --check`: PASS.
+
+### Boundary
+
+- Physical mobile-device and touch acceptance remain pending.
+- Public GitHub Pages was not pushed for this correction.
 - Physical mobile-device and touch acceptance remain pending.
 
 ## 2026-09-07 Mobile Gallery 90% Width
@@ -310,3 +332,25 @@ The browser showed an unrelated existing `require is not defined` error from `js
 
 - Physical mobile-device and touch acceptance remain pending.
 - Public GitHub Pages was not pushed for this correction.
+
+## 2026-09-07 Footer Full Device Width
+
+### Implemented
+
+- Changed the mobile `#footer-container` from the 90% rule to `width: 100%`.
+- Added `min-width: 100%` and `max-width: 100%` so the global `div { width: fit-content; }` reset cannot shrink the footer container.
+- Kept the generated `footer` at full container width.
+- Created a pre-edit rollback copy at `/tmp/website-footer-device-width-backup-20260907/`.
+
+### Verification
+
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- `node --check js/menu.js`: PASS.
+- `node --check js/page-nation.js`: PASS.
+- Focused `git diff --check`: PASS.
+
+### Boundary
+
+- Public GitHub Pages was not pushed for this correction.
+- Physical mobile-device and touch acceptance remain pending.

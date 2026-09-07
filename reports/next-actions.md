@@ -72,7 +72,21 @@
 2. Confirm footer links and copyright text use the available width without clipping or unintended line wrapping.
 3. Rebuild and inspect generated `docs/` only after the unrelated generated changes are reviewed.
 4. Push and verify GitHub Pages only after explicit approval.
+
+## 2026-09-07 Mobile Footer 90% Follow-up
+
+1. Check the footer container and generated footer at 320px, 390px, and 599px.
+2. Confirm footer links and copyright text remain readable within the 90% container.
+3. Repeat the check on a physical mobile device before final acceptance.
+4. Push and verify GitHub Pages only after explicit approval.
 5. Perform physical Safari/iOS/Android and touch acceptance separately.
+
+## 2026-09-07 Footer Full Device Width Follow-up
+
+1. Check the public/mobile footer width after an approved push at 375px and 390px.
+2. Confirm the footer background and links span the device content width without horizontal overflow.
+3. Perform physical Safari/iOS/Android and touch acceptance separately.
+4. Push and verify GitHub Pages only after explicit approval.
 
 ## 2026-09-07 Mobile Gallery 90% Follow-up
 

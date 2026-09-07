@@ -66,6 +66,15 @@
 - [ ] Confirm the two-column gallery and pagination remain usable on a physical mobile device.
 - [ ] Push and verify the public site after explicit approval.
 
+## 2026-09-07 Mobile Footer 90% Check
+
+- [x] Confirm the mobile footer container uses a 90% width basis.
+- [x] Confirm the footer itself remains 100% of the responsive container.
+- [x] Confirm JavaScript syntax, local references, and focused whitespace checks pass.
+- [ ] Check footer text and links at 320px, 390px, and 599px.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+- [ ] Push and verify the public site after explicit approval.
+
 ## 2026-09-07 Gallery 55% and Footer Width Check
 
 - [x] Confirm the local gallery renders after the width correction.
@@ -74,6 +83,15 @@
 - [x] Confirm JavaScript syntax, local references, and focused whitespace checks pass.
 - [ ] Check gallery and footer at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
 - [ ] Rebuild and inspect generated `docs/` after reviewing unrelated generated changes.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+
+## 2026-09-07 Footer Full Device Width Check
+
+- [x] Confirm the mobile footer rule is `width: 100%`.
+- [x] Confirm `min-width` and `max-width` are both constrained to 100%.
+- [x] Confirm JavaScript syntax, local references, and focused whitespace checks pass.
+- [ ] Check the footer at 375px and 390px without horizontal overflow.
 - [ ] Push and verify the public site after explicit approval.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
 
