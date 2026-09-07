@@ -451,6 +451,33 @@ The browser showed an unrelated existing `require is not defined` error from `js
 - Screenshot-based and physical-device visual acceptance remain pending.
 - Public deployment requires a separate explicit push.
 
+## 2026-09-07 Gallery Layout Restoration
+
+### Root Cause
+
+- The right-alignment rule added `margin-top: 60vmin` to `.gallery-containt` while the existing `.gallery .content` already had the same vertical offset.
+- The two margins stacked and pushed the artwork area below its intended position.
+
+### Implemented
+
+- Restored the outer `.gallery-containt` margin to `0`.
+- Kept the existing `.gallery .content` `margin-top: 60vmin` as the sole artwork offset.
+- Kept the sidebar/artwork right-alignment grid and the mobile breakpoint behavior unchanged.
+
+### Verification
+
+- Backup comparison identified the duplicate margin: PASS.
+- Local desktop screenshot after the fix: PASS.
+- Local mobile screenshot after the fix: PASS.
+- `npm run check:js`: PASS.
+- `npm run check:links`: PASS.
+- Focused CSS whitespace check: PASS.
+
+### Boundary
+
+- Public deployment has not been updated for this restoration.
+- Physical-device acceptance remains pending.
+
 ## 2026-09-07 Gallery Sidebar Right Alignment
 
 ### Implemented

@@ -10,7 +10,8 @@ Please review only the gallery layout addition in `css/gallery.css`.
 2. Confirm that `clamp()` and `calc()` keep the two-column layout within the available width at 600px, 768px, 1024px, and desktop widths.
 3. Confirm that the combined sidebar/artwork group is right-aligned without changing the gallery HTML, artwork rendering, pagination, modal, or JavaScript behavior.
 4. Confirm that widths below 600px retain the existing fixed sidebar and mobile artwork behavior.
-5. Treat screenshot-based, physical-device, generated-output, and public-deployment checks as separate boundaries.
+5. Confirm that the outer `.gallery-containt` does not duplicate the existing `.gallery .content` vertical offset.
+6. Treat screenshot-based, physical-device, generated-output, and public-deployment checks as separate boundaries.
 
 ### Review boundary
 

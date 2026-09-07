@@ -130,3 +130,9 @@
 - Desktop/tablet gallery positioning now uses a right-aligned grid with approximately 20% sidebar, 15% gap, and up to 55% artwork area.
 - Mobile widths below 600px retain the existing fixed sidebar behavior.
 - Exact screenshot comparison, physical-device testing, generated-output synchronization, and public deployment remain pending.
+
+## 2026-09-07 Gallery Layout Restoration
+
+- The duplicate `60vmin` outer margin was removed after comparing the current CSS with the pre-alignment backup.
+- Local desktop and mobile screenshots now show the artwork area at the intended vertical position.
+- Public deployment and physical-device acceptance remain pending.

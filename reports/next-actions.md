@@ -81,6 +81,12 @@
 4. Push and verify GitHub Pages only after explicit approval.
 5. Perform physical Safari/iOS/Android and touch acceptance separately.
 
+## 2026-09-07 Gallery Layout Restoration Follow-up
+
+1. Compare the public gallery after an approved push at desktop and mobile widths.
+2. Confirm the artwork area does not receive a duplicate vertical offset after build generation.
+3. Perform physical Safari/iOS/Android and touch acceptance separately.
+
 ## 2026-09-07 Footer Full Device Width Follow-up
 
 1. Check the public/mobile footer width after an approved push at 375px and 390px.

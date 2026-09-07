@@ -57,6 +57,16 @@
 - [ ] Repeat the width check on generated `docs` pages after an approved production build and deployment.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
 
+## 2026-09-07 Gallery Layout Restoration Check
+
+- [x] Compare the current CSS with the pre-right-alignment backup.
+- [x] Remove the duplicate outer `60vmin` margin.
+- [x] Confirm local desktop artwork positioning after the fix.
+- [x] Confirm local mobile sidebar and artwork rendering after the fix.
+- [x] Pass JavaScript, local-reference, and focused CSS checks.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+
 ## 2026-09-07 Gallery Sidebar Right Alignment Check
 
 - [x] Keep gallery HTML and JavaScript unchanged.

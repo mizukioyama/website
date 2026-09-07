@@ -648,7 +648,8 @@ main {
         width: 100%;
         max-width: none;
         min-width: 0;
-        margin: 60vmin 0 0;
+        /* Keep the existing 60vmin offset on .gallery .content only. */
+        margin: 0;
     }
 }
 
