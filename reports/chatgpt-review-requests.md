@@ -98,6 +98,22 @@ Please review only the width and breakpoint changes in the root visual CSS/HTML 
 
 This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
 
+## 2026-09-07 CSS Organization Audit Review
+
+Please review the CSS load cleanup and rollback archive.
+
+### Required checks
+
+1. Confirm that the five root pages and five legacy `src/` templates no longer request `css/font.css`.
+2. Confirm that `chatbot.css`, `gallery_top.css`, `サンプルline_animation.css`, `font.css`, and `matchingミス.css` have no active source references.
+3. Confirm that the five candidates are retained in `archive/css-delete-candidates-20260907/` and were not permanently deleted.
+4. Confirm that generated `docs/css/` is treated as build output and is regenerated rather than edited as a source file.
+5. Confirm that legacy CSS referenced by `_layoutsdefault.html` remains available.
+
+### Review boundary
+
+This request is for local code review only. Permanent deletion, deployment, and physical-device acceptance remain separate actions.
+
 ## 2026-09-07 Footer Layout Restoration Review
 
 Please review the footer layout restoration in `css/footer.css`.

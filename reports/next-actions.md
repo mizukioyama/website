@@ -101,3 +101,10 @@
 2. Confirm the footer remains full device width without changing its internal spacing or link layout.
 3. Perform physical Safari/iOS/Android and touch acceptance separately.
 4. Push and verify GitHub Pages only after explicit approval.
+
+## 2026-09-07 CSS Organization Follow-up
+
+1. Decide whether to permanently delete the five archived CSS candidates.
+2. If approved, create a fresh backup, run a final reference scan, delete only the approved exact files, and verify the build.
+3. Regenerate and inspect `docs/` before any further public deployment.
+4. Verify rendered desktop/mobile parity after deployment.

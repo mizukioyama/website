@@ -504,8 +504,8 @@ main {
 
 /* コンテナ定義（.gallery .content をコンテナに） */
 .gallery-containt {
-    width: min(100%, calc(100vw - 2rem));
-    max-width: 1500px;
+    width: min(72%, calc(100vw - 2rem));
+    max-width: none;
     min-width: 0;
     margin-inline: auto;
 }
@@ -514,8 +514,8 @@ main {
     container-type: inline-size;
     container-name: gallery;
     /*width: clamp(55%, 100%, 45%);*/
-    width: min(100%, calc(100vw - 2rem));
-    max-width: 1400px;
+    width: 100%;
+    max-width: none;
     height: 100%;
     margin: 60vmin auto 0;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
@@ -594,6 +594,10 @@ main {
 }
 
 @media screen and (min-width: 1299px) {
+    .gallery-containt {
+        width: min(55%, calc(100vw - 2rem));
+    }
+
     #state .state-box:nth-child(2) .content {
         width: min(40%, calc(100% - 2rem));
     }

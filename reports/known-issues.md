@@ -101,3 +101,11 @@
 - Full device-width container and footer constraints remain intentionally enabled.
 - Public deployment and physical mobile/touch acceptance remain pending.
 - The pre-edit rollback copy is `/tmp/website-footer-layout-restore-backup-20260907/`.
+
+## 2026-09-07 CSS Organization Audit
+
+- Five unreferenced CSS candidates were moved to `archive/css-delete-candidates-20260907/` and remain available for rollback.
+- Root-page and legacy `src/` template links to `css/font.css` were removed after confirming that no active duration-variable consumer remains.
+- Generated `docs/css/` was not edited directly; it requires a later build to synchronize with the source tree.
+- The pre-move file backup is `/tmp/website-css-delete-backup-20260907/`.
+- Permanent deletion and physical rendered-device acceptance remain pending.

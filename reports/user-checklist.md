@@ -125,3 +125,14 @@
 - [x] Keep the footer container and footer at full device width.
 - [ ] Compare local and public rendered layouts after an approved push.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+
+## 2026-09-07 CSS Organization Check
+
+- [x] Inventory root-page CSS, Webpack source CSS, and generated CSS separately.
+- [x] Confirm legacy layout CSS references before treating files as unused.
+- [x] Remove the unused `font.css` request from the five root pages and five legacy `src/` templates.
+- [x] Move the five unreferenced CSS candidates into one rollback archive folder.
+- [x] Preserve the moved files because permanent deletion approval was not provided.
+- [ ] Approve or reject permanent deletion of the five archived CSS candidates.
+- [ ] Regenerate and inspect `docs/` after the source cleanup.
+- [ ] Verify rendered desktop/mobile parity after deployment.
