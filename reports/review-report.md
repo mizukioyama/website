@@ -261,3 +261,52 @@ The browser showed an unrelated existing `require is not defined` error from `js
 - The generated `docs/` output was not regenerated in place because unrelated generated changes are present.
 - Public GitHub Pages was not pushed or deployed in this task.
 - Physical mobile-device and touch acceptance remain pending; the mobile rules were statically reviewed but not accepted as a physical-device result.
+
+## 2026-09-07 Gallery 55% and Footer Width Correction
+
+### Implemented
+
+- Reduced the desktop gallery wrapper to approximately `55%` of the available main content width.
+- Set the intermediate breakpoint to approximately `72%` so tablet layouts retain usable two-column artwork cards.
+- Kept the mobile gallery wrapper and content at `100%` within the mobile page padding.
+- Made `#footer-container` and `footer` explicitly use the full available width, with `box-sizing: border-box` and reduced responsive side padding.
+- Set footer links to use the full footer content width so the visible footer region does not remain artificially narrow.
+- Created a pre-edit rollback copy at `/tmp/website-gallery-footer-55-backup-20260907/`.
+
+### Verification
+
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- `node --check js/menu.js`: PASS.
+- `node --check js/page-nation.js`: PASS.
+- Focused `git diff --check`: PASS.
+- Local browser: gallery sidebar, artwork grid, pagination, header, and footer rendered after the width change.
+- Local HTTP log: no runtime request for `sidebar.html`.
+
+### Boundary
+
+- Generated `docs/` was not regenerated in place because unrelated generated changes remain in the working tree.
+- Public GitHub Pages was not pushed for this correction.
+- Physical mobile-device and touch acceptance remain pending.
+
+## 2026-09-07 Mobile Gallery 90% Width
+
+### Implemented
+
+- Set the mobile `.gallery-containt` width to `min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)))`.
+- Kept the inner gallery content at `width: 100%` so it follows the responsive wrapper without exceeding it.
+- Left the desktop 55% and tablet 72% gallery rules unchanged.
+- Created a pre-edit rollback copy at `/tmp/website-gallery-mobile-90-backup-20260907/`.
+
+### Verification
+
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- `node --check js/menu.js`: PASS.
+- `node --check js/page-nation.js`: PASS.
+- Focused `git diff --check`: PASS.
+
+### Boundary
+
+- Physical mobile-device and touch acceptance remain pending.
+- Public GitHub Pages was not pushed for this correction.

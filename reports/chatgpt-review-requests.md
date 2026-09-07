@@ -98,6 +98,38 @@ Please review only the width and breakpoint changes in the root visual CSS/HTML 
 
 This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
 
+## 2026-09-07 Mobile Gallery 90% Width Review
+
+Please review only the mobile gallery wrapper change in `css/mobile.css`.
+
+### Required checks
+
+1. Confirm that the mobile gallery wrapper uses 90% as its width basis.
+2. Confirm that the nested `calc()` and `clamp()` prevent viewport overflow at 320px, 390px, and 599px.
+3. Confirm that the inner gallery remains `width: 100%` of the wrapper and keeps the existing two-column mobile grid.
+4. Confirm that desktop 55% and tablet 72% rules remain unaffected.
+5. Treat physical-device acceptance and public deployment as separate pending checks.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
+## 2026-09-07 Gallery 55% and Footer Width Correction Review
+
+Please review only the latest width correction in `css/gallery.css`, `css/mobile.css`, and `css/footer.css`.
+
+### Required checks
+
+1. Confirm that desktop gallery width resolves to approximately `55%` at the existing desktop breakpoint.
+2. Confirm that tablet and mobile breakpoints prevent unusable cards or horizontal overflow.
+3. Confirm that `#footer-container`, `footer`, and footer links use the available width without changing footer structure or link order.
+4. Confirm that footer padding remains responsive and does not clip content at 320px, 390px, 600px, 768px, 1024px, or desktop widths.
+5. Treat generated `docs/`, public deployment, and physical-device acceptance as separate pending checks.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
 ## 2026-09-07 JavaScript Integration Review
 
 Please review only the JavaScript integration changes in `js/menu.js`, `js/page-nation.js`, the six root HTML script lists, and `webpack.config.js`.

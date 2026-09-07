@@ -64,3 +64,18 @@
 - The requested width adjustment is applied to the active root CSS. The generated `docs/` output was not regenerated in place because it contains unrelated generated changes.
 - Public GitHub Pages was not updated for this change; deployment and public visual verification remain pending explicit push/deploy approval.
 - The pre-edit rollback copy is `/tmp/website-sidebar-width-backup-20260907/`.
+
+## 2026-09-07 Gallery 55% and Footer Width Correction
+
+- Desktop gallery content is now constrained to approximately 55%; tablet uses a wider intermediate value and mobile uses the available content width.
+- Footer width is explicitly full-width at both the container and element level, with responsive padding reduced to expose more content area.
+- Local desktop browser verification passed. Mobile CSS was statically checked, but physical Safari/iOS/Android and touch acceptance remain pending.
+- Public GitHub Pages was not updated for this correction; deployment and public visual verification remain pending explicit approval.
+- The pre-edit rollback copy is `/tmp/website-gallery-footer-55-backup-20260907/`.
+
+## 2026-09-07 Mobile Gallery 90% Width
+
+- Mobile gallery width now uses a 90% basis with nested `calc()`/`clamp()` constraints.
+- Static checks passed; physical Safari/iOS/Android, touch, and exact rendered-width acceptance remain pending.
+- Public GitHub Pages was not updated for this correction.
+- The pre-edit rollback copy is `/tmp/website-gallery-mobile-90-backup-20260907/`.

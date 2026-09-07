@@ -175,6 +175,12 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .gallery-containt {
+        width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)));
+        max-width: 100%;
+        margin-inline: auto;
+    }
+
     #policy .content li {
         font-size: clamp(0.6rem, calc(0.5rem + 0.35vw), 0.65rem);
         padding-left: 1rem;

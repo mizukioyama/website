@@ -65,3 +65,18 @@
 3. Rebuild the actual `docs/` directory only after the mixed generated-output changes are reviewed; inspect the generated diff before publication.
 4. Push and verify GitHub Pages only after explicit approval; public deployment is not part of this task.
 5. Perform physical Safari/iOS/Android and touch acceptance separately from static and local-browser verification.
+
+## 2026-09-07 Gallery 55% and Footer Width Follow-up
+
+1. Check the gallery at desktop, tablet, 390px, and 320px widths and confirm the intended 55%/72%/100% transitions.
+2. Confirm footer links and copyright text use the available width without clipping or unintended line wrapping.
+3. Rebuild and inspect generated `docs/` only after the unrelated generated changes are reviewed.
+4. Push and verify GitHub Pages only after explicit approval.
+5. Perform physical Safari/iOS/Android and touch acceptance separately.
+
+## 2026-09-07 Mobile Gallery 90% Follow-up
+
+1. Check gallery width and horizontal overflow at 320px, 390px, and 599px.
+2. Confirm the two-column artwork grid and pagination remain usable within the 90% wrapper.
+3. Repeat the check on a physical mobile device before final acceptance.
+4. Push and verify GitHub Pages only after explicit approval.

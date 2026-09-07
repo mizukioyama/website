@@ -57,6 +57,26 @@
 - [ ] Repeat the width check on generated `docs` pages after an approved production build and deployment.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
 
+## 2026-09-07 Mobile Gallery 90% Check
+
+- [x] Confirm the mobile wrapper uses a 90% width basis.
+- [x] Confirm `calc()` and `clamp()` are present in the mobile width rule.
+- [x] Confirm JavaScript syntax, local references, and focused whitespace checks pass.
+- [ ] Check 320px, 390px, and 599px rendered widths for overflow.
+- [ ] Confirm the two-column gallery and pagination remain usable on a physical mobile device.
+- [ ] Push and verify the public site after explicit approval.
+
+## 2026-09-07 Gallery 55% and Footer Width Check
+
+- [x] Confirm the local gallery renders after the width correction.
+- [x] Confirm the desktop gallery rule is approximately 55% and mobile override is 100%.
+- [x] Confirm footer container and footer element use the full available width.
+- [x] Confirm JavaScript syntax, local references, and focused whitespace checks pass.
+- [ ] Check gallery and footer at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
+- [ ] Rebuild and inspect generated `docs/` after reviewing unrelated generated changes.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+
 ## 2026-09-07 Sidebar JS/CSS and Width Check
 
 - [x] Confirm the local gallery renders the sidebar from `menu.js` without fetching `sidebar.html`.
