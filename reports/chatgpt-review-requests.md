@@ -53,3 +53,15 @@ Please review only the `min()`/`calc()` and breakpoint width changes in the root
 2. Confirm that the existing two-column gallery behavior and desktop visual baseline remain unchanged.
 3. Confirm that the corrected source gallery declarations are valid CSS and do not reintroduce reversed `clamp()` behavior.
 4. Treat generated-output synchronization, physical-device acceptance, and public post-deployment visual checks as separate boundaries.
+
+## 2026-09-07 JavaScript Integration Review
+
+Please review only the JavaScript integration changes in `js/menu.js`, `js/page-nation.js`, and the six root HTML script lists.
+
+1. Confirm that `p5.min.js` remains required by `vanta.trunk.min.js` and the existing `VANTA.TRUNK` calls.
+2. Confirm that cursor and loading behavior is preserved after moving it into `menu.js`.
+3. Confirm that gallery sidebar loading, category filtering, pagination, and scroll collapse are preserved after moving it into `page-nation.js`.
+4. Confirm that page-specific scripts and vendor libraries remain correctly separated.
+5. Confirm that no unrelated working-tree changes are included in the push.
+
+This is a local code review request. Do not delete, deploy, or modify external services without separate approval.

@@ -25,3 +25,10 @@
 1. After Pages regeneration, compare the six root visual pages at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
 2. Check the gallery modal, footer padding, menu offset, biography table, contact form, and matching form for clipping or horizontal scrolling.
 3. Complete physical Safari/iOS/Android and touch-device acceptance separately from static validation.
+
+## 2026-09-07 JavaScript Integration
+
+1. Review the focused integration commit and confirm cursor, loading, header, footer, and gallery behavior.
+2. If deletion is desired, explicitly approve removal of the retained compatibility files after a fresh reference scan and backup.
+3. Perform physical Safari/iOS/Android and touch acceptance separately from static validation.
+4. After push, confirm that GitHub Actions installs FontAwesome webfonts and completes the production build.

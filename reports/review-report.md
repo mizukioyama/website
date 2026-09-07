@@ -108,3 +108,39 @@
 - 対象CSSとインラインCSSの構文解析、`check:js`、`check:links`、差分空白検査、レビュー資料ZIP検証を実施する。
 - 390px幅のBiographyとContactで、本文折返しと固定幅フォームによる横溢れがないことを確認する。
 - 生成`docs`の完全同期、実機Safari/iOS/Android、公開後の実画面は別途確認する。
+
+## 2026-09-07 JavaScript Dependency Audit and Integration
+
+### Scope
+
+- Targets: the six canonical root pages, `js/menu.js`, and `js/page-nation.js`.
+- No JavaScript source file was deleted; the local pre-edit backup is `/tmp/website-js-integration-backup-20260907/`.
+- Existing markup, class names, CSS, animation timing, and page-specific behavior were preserved.
+
+### p5 Decision
+
+- `p5.min.js` is required by `vanta.trunk.min.js`, which creates `VANTA.TRUNK` with `window.p5` and calls p5 canvas lifecycle methods.
+- `artist-statement.html`, `biography.html`, and `contact.html` each initialize `VANTA.TRUNK`.
+- `p5.min.js` was retained because removing it would break the existing trunk background.
+
+### Implemented
+
+- Integrated custom cursor initialization and the loading-screen typing routine into `js/menu.js`.
+- Removed root-page runtime references to `cursor.js` and `loading.js`.
+- Integrated gallery sidebar fetch, category toggle, and scroll collapse behavior into `js/page-nation.js`.
+- Removed the gallery runtime reference to `side.js`.
+- Kept page-specific scripts and vendor/runtime libraries separate.
+- Kept the original integrated files available; complete deletion remains approval-gated.
+
+### Verification
+
+- `npm run check:js`: PASS.
+- `npm run check:links`: PASS.
+- Local browser: gallery sidebar, pagination, header, footer, Biography, and Contact loaded from the integrated path.
+- The local source validation passed; the remote-main reproduction build was blocked by the pre-existing local dependency gap `node_modules/@fortawesome/fontawesome-free/webfonts`.
+
+### Boundary
+
+- Existing local uncommitted changes were excluded from this commit.
+- No dependency or Webpack workaround was added for the missing local FontAwesome webfont directory.
+- Physical Safari/iOS/Android and real pointer/touch acceptance remain pending.

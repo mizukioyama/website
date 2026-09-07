@@ -51,3 +51,10 @@ Gitで今回のコミットを親コミットへ戻せば、今回の修正を�
 - [x] ローカル390px幅でContactフォームが固定幅で横溢れしないことを確認する。
 - [ ] ギャラリーモーダル、フッター、メニュー、matchingフォームを確認する。
 - [ ] 実機Safari/iOS/Androidとタッチ操作を確認する。
+
+## 2026-09-07 JavaScript Integration Check
+
+- [x] Confirm p5 is retained because the existing VANTA.TRUNK background depends on it.
+- [x] Confirm the six root pages use common cursor, loading, header, and footer behavior through `menu.js`.
+- [x] Confirm gallery sidebar loading and category setup work through `page-nation.js`.
+- [ ] Repeat the checks on the public pages after deployment and perform physical-device acceptance.

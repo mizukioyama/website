@@ -975,3 +975,51 @@ function showModal(item) {
     renderGallery(); // 初期描画
 
 }
+
+// ギャラリー専用サイドバーの読み込みと開閉処理を同じ初期化経路に集約する。
+if (typeof window.jQuery === "function") {
+    window.jQuery(document).ready(function initializeGallerySidebar() {
+        fetch("sidebar.html")
+            .then(response => response.text())
+            .then(data => {
+                const sidebarContainer = document.getElementById("sidebar-container");
+                if (!sidebarContainer) return;
+
+                sidebarContainer.innerHTML = data;
+                setupCategoryToggle();
+                setupCategoryFilter();
+            })
+            .catch(error => {
+                console.error("Error loading sidebar:", error);
+            });
+
+        function setupCategoryToggle() {
+            const categoryMenu = document.getElementById("category-menu");
+            const categoryHeader = document.getElementById("category-header");
+            let isManuallyToggled = false;
+
+            if (!categoryMenu || !categoryHeader) {
+                console.warn("Category menu or header not found.");
+                return;
+            }
+
+            categoryHeader.addEventListener("click", () => {
+                categoryMenu.classList.toggle("collapsed");
+                isManuallyToggled = true;
+                setTimeout(() => {
+                    isManuallyToggled = false;
+                }, 3000);
+            });
+
+            window.addEventListener("scroll", () => {
+                if (isManuallyToggled) return;
+                const scrollY = window.scrollY || window.pageYOffset;
+                if (scrollY > 200) {
+                    categoryMenu.classList.add("collapsed");
+                } else {
+                    categoryMenu.classList.remove("collapsed");
+                }
+            });
+        }
+    });
+}

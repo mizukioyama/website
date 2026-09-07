@@ -160,6 +160,129 @@ function loadDeferredImages() {
   });
 }
 
+/**
+ * Initialize the custom cursor once the document body is available.
+ * @returns {void}
+ */
+function initializeCustomCursor() {
+  if (document.getElementById("cursor") || document.getElementById("stalker")) {
+    return;
+  }
+
+  const cursor = document.createElement("div");
+  cursor.id = "cursor";
+  document.body.appendChild(cursor);
+
+  const stalker = document.createElement("div");
+  stalker.id = "stalker";
+  document.body.appendChild(stalker);
+
+  cursor.style.opacity = "0";
+  stalker.style.opacity = "0";
+
+  document.addEventListener("mousemove", event => {
+    const { clientX: x, clientY: y } = event;
+
+    cursor.style.opacity = "1";
+    stalker.style.opacity = "1";
+    cursor.style.top = `${y}px`;
+    cursor.style.left = `${x}px`;
+
+    setTimeout(() => {
+      stalker.style.top = `${y}px`;
+      stalker.style.left = `${x}px`;
+    }, 100);
+  });
+
+  const hoverSelector = [
+    "a",
+    "button",
+    ".button",
+    ".toggle_btn",
+    "label",
+    "nav ul li a",
+    "#category-header",
+    "#category-menu li",
+    ".work-img a",
+    "#pagination",
+    "#modalCloseBtn"
+  ].join(", ");
+
+  const findHoverTarget = node => {
+    if (!node || node.nodeType !== 1 || typeof node.closest !== "function") {
+      return null;
+    }
+    return node.closest(hoverSelector);
+  };
+
+  const setHoverState = active => {
+    cursor.classList.toggle("cursor--hover", Boolean(active));
+    stalker.classList.toggle("stalker--hover", Boolean(active));
+  };
+
+  document.addEventListener("mouseover", event => {
+    const target = findHoverTarget(event.target);
+    const related = findHoverTarget(event.relatedTarget);
+    if (target !== related) {
+      setHoverState(target);
+    }
+  });
+
+  document.addEventListener("mouseout", event => {
+    const target = findHoverTarget(event.target);
+    const related = findHoverTarget(event.relatedTarget);
+    if (target && target !== related) {
+      setHoverState(null);
+    }
+  });
+}
+
+/**
+ * Type the optional loading-screen copy and then dismiss its backdrop.
+ * @returns {void}
+ */
+function initializeTyping() {
+  const lines = document.querySelectorAll('.typing-line');
+  const typingSpeed = 55;
+
+  function typeLine(lineEl, text, callback) {
+    let i = 0;
+    function typeChar() {
+      if (i < text.length) {
+        lineEl.textContent += text[i++];
+        setTimeout(typeChar, typingSpeed);
+      } else {
+        callback();
+      }
+    }
+    typeChar();
+  }
+
+  function typeAllLines(index = 0) {
+    if (index >= lines.length) {
+      setTimeout(() => {
+        const loadingBg = document.getElementById('loading-bg');
+        if (loadingBg) {
+          loadingBg.style.transition = 'opacity 0.8s';
+          loadingBg.style.opacity = 0;
+          setTimeout(() => {
+            loadingBg.style.display = 'none';
+          }, 650);
+        }
+      }, 500);
+      return;
+    }
+
+    const line = lines[index];
+    const text = line.dataset.text;
+    typeLine(line, text, () => typeAllLines(index + 1));
+  }
+
+  if (lines.length > 0) {
+    typeAllLines();
+  }
+}
+
 function normalizeLanguage(value) {
   return value === "en" ? "en" : "ja";
 }
@@ -354,6 +477,7 @@ class TextScramble {
 
 // 実行部分
 document.addEventListener("DOMContentLoaded", () => {
+  initializeCustomCursor();
   loadDeferredImages();
   initializeHeader();
   initializeFooter();

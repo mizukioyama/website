@@ -27,3 +27,10 @@
 - The working tree contains unrelated generated changes, deletions, and untracked files; they were excluded from this scoped commit.
 - Physical Safari/iOS/Android, touch input, and post-deployment public visual acceptance remain pending.
 - Legacy/test-only width files remain unchanged because they are outside the active page/build path.
+
+## 2026-09-07 JavaScript Integration
+
+- `p5.min.js` is required by `vanta.trunk.min.js` for the artist statement, biography, and contact backgrounds.
+- `js/cursor.js`, `js/loading.js`, and `js/side.js` remain available after their runtime logic was integrated; they were not deleted without explicit approval.
+- Public deployment and physical Safari/iOS/Android or touch acceptance remain pending.
+- The local reproduction build is blocked by a missing `node_modules/@fortawesome/fontawesome-free/webfonts` directory; dependency installation/CI build verification remains pending.
