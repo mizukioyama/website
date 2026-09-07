@@ -976,50 +976,48 @@ function showModal(item) {
 
 }
 
-// ギャラリー専用サイドバーの読み込みと開閉処理を同じ初期化経路に集約する。
-if (typeof window.jQuery === "function") {
-    window.jQuery(document).ready(function initializeGallerySidebar() {
-        fetch("sidebar.html")
-            .then(response => response.text())
-            .then(data => {
-                const sidebarContainer = document.getElementById("sidebar-container");
-                if (!sidebarContainer) return;
+// サイドバーはmenu.jsで生成し、準備完了イベント後にギャラリー処理を開始する。
+let gallerySidebarInitialized = false;
 
-                sidebarContainer.innerHTML = data;
-                setupCategoryToggle();
-                setupCategoryFilter();
-            })
-            .catch(error => {
-                console.error("Error loading sidebar:", error);
-            });
+function initializeGallerySidebar() {
+    if (gallerySidebarInitialized) return;
 
-        function setupCategoryToggle() {
-            const categoryMenu = document.getElementById("category-menu");
-            const categoryHeader = document.getElementById("category-header");
-            let isManuallyToggled = false;
+    const sidebarContainer = document.getElementById("sidebar-container");
+    if (!sidebarContainer || !document.getElementById("category-menu")) return;
 
-            if (!categoryMenu || !categoryHeader) {
-                console.warn("Category menu or header not found.");
-                return;
-            }
+    gallerySidebarInitialized = true;
+    setupCategoryToggle();
+    setupCategoryFilter();
+}
 
-            categoryHeader.addEventListener("click", () => {
-                categoryMenu.classList.toggle("collapsed");
-                isManuallyToggled = true;
-                setTimeout(() => {
-                    isManuallyToggled = false;
-                }, 3000);
-            });
+function setupCategoryToggle() {
+    const categoryMenu = document.getElementById("category-menu");
+    const categoryHeader = document.getElementById("category-header");
+    let isManuallyToggled = false;
 
-            window.addEventListener("scroll", () => {
-                if (isManuallyToggled) return;
-                const scrollY = window.scrollY || window.pageYOffset;
-                if (scrollY > 200) {
-                    categoryMenu.classList.add("collapsed");
-                } else {
-                    categoryMenu.classList.remove("collapsed");
-                }
-            });
+    if (!categoryMenu || !categoryHeader) {
+        console.warn("Category menu or header not found.");
+        return;
+    }
+
+    categoryHeader.addEventListener("click", () => {
+        categoryMenu.classList.toggle("collapsed");
+        isManuallyToggled = true;
+        setTimeout(() => {
+            isManuallyToggled = false;
+        }, 3000);
+    });
+
+    window.addEventListener("scroll", () => {
+        if (isManuallyToggled) return;
+        const scrollY = window.scrollY || window.pageYOffset;
+        if (scrollY > 200) {
+            categoryMenu.classList.add("collapsed");
+        } else {
+            categoryMenu.classList.remove("collapsed");
         }
     });
 }
+
+document.addEventListener("site:sidebar-ready", initializeGallerySidebar);
+document.addEventListener("DOMContentLoaded", initializeGallerySidebar);

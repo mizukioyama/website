@@ -6,7 +6,7 @@
         width: 100%;
         height: 70svh;
         min-height: 500px;
-        padding: 4rem clamp(2.5rem, calc(12.6vw - 2.225rem), 8rem);
+        padding: 4rem clamp(1.5rem, calc(7vw - 1rem), 6rem);
         bottom: 0;
         background: rgba(0, 15, 15, 0.7);
         backdrop-filter: blur(20px);
@@ -56,7 +56,7 @@
     @media only screen and (max-width:600px) {
         footer {
             min-height: 80svh;
-            padding: 3rem 2.5rem 0;
+            padding: 3rem 1.5rem 0;
         }
 
         footer a {

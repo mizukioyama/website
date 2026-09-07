@@ -1,146 +1,263 @@
-# website 修正レビュー報告
+# Header / Footer Review Report
 
-## 対象
+## Scope
 
-- リポジトリ: `mizukioyama/website`
-- 基準バックアップ: `website-main.zip`
-- バックアップSHA-256: `4881c2c66d01eb78f178c3bec40248d99db0a3ad2680b1d3cd19d507a294b944`
-- 作業方針: バックアップを基準にし、表示用HTML/CSS・画像・レイアウトを不要に変更しない
+- Target: `js/menu.js` and the root page script references
+- Compatibility: `js/footer.js` remains as a non-destructive compatibility shim
+- Not changed: `header.html`, `footer.html`, `css/menu.css`, `css/footer.css`
+- Backups: `backups/20260905_103000_before_header_footer_js_css/` and `backups/20260905_110500_before_footer_into_menu/`
 
-## 検出した原因と対応
+## Implemented
 
-1. `src/js/security.js` が `artCanvas` のないページでも `getContext()` を呼び、全ページで例外になる状態だった。Canvasが存在するときだけ描画し、存在しないときは安全に終了するよう修正した。旧404画像参照は、既存の作品画像をWebpack管理の参照に変更した。
-2. `src/js/bg_wave.js` が利用できないRipple APIを無条件に呼んでいた。APIの存在確認と例外処理を追加し、対応環境でない場合は表示を止めずに終了するよう修正した。
-3. `src/js/hearing.js` と `src/js/matching.js` に、スコープ外の `submitButton` を参照するイベント登録があったため除去した。DOM準備後の登録は維持している。
-4. `src/js/all.js` が `header-container` のないヒアリング画面でも `innerHTML` を設定していたため、コンテナがある場合だけ実行するよう修正した。
-5. `src/assets/js/structured-data.js` と `src/index.html` のJSON/JavaScript内コメントにより構文・JSON-LDが不正だったため、値を変えずコメントだけ除去し、JavaScript側を有効な定数にした。
-6. 情報ページの存在しないCSS/JS参照、存在しないfavicon、未収録ページへのリンクを整理した。画面構造、文言、画像、CSSルールは変更していない。
-7. `gh-pages` の出力先を存在しない `dist` から実際の公開成果物 `docs` に修正した。
-8. mozjpeg/pngquant等のネイティブ圧縮工程をWebpackから除去した。現行環境では実行ファイルのコンパイルに失敗していたためで、元画像をそのまま出力し表示内容を変えないためのビルド安定化である。
+- Removed runtime `fetch("header.html")` and `fetch("footer.html")` dependencies.
+- Removed the footer's runtime dependency on jQuery.
+- Integrated footer rendering, year output, and `toggleAccordion` into `js/menu.js`.
+- Removed redundant `js/footer.js` script tags from the five root pages that render a footer.
+- Kept `js/footer.js` as a compatibility shim without its own rendering or event setup.
+- Recreated the existing header and footer DOM from JavaScript using `<template>` and `DocumentFragment` cloning.
+- Preserved the existing element order, class names, links, labels, language attributes, exhibition text, and footer year output.
+- Preserved menu open/close behavior and added keyboard operation without changing visual styles.
+- Kept both `selectedLang` and legacy `lang` storage keys synchronized for existing page scripts.
+- Added null checks for missing containers and missing title/subtitle elements.
+- Kept the existing CSS files unchanged because their selectors already target the generated structure.
 
-## 検証結果
+## Verification
 
-- バックアップZIP整合性: PASS (`unzip -tq`)
-- クリーン依存関係インストール: PASS (`npm ci`)
-- JavaScript構文検査: PASS (22 files)
-- Webpackビルド: PASS（asset size warningのみ）
-- HTML/CSSローカル参照検査: PASS
-- ブラウザ主要6ページ: PASS（エラーなし）
-- トップカード位置: バックアップと修正版で一致（x=305.20, y=169.20, w=669.59, h=381.59）
+- `node --check js/menu.js`: PASS
+- `node --check js/footer.js`: PASS
+- `git diff --check`: PASS
+- No active root HTML page references `js/footer.js`: PASS
+- `js/menu.js` contains the only root footer implementation: PASS
+- Generated header markup compared with `header.html` after whitespace normalization: identical.
+- Generated footer visible markup compared with `footer.html` without its inline script: identical.
+- Browser check on the local site: header, footer year, English switch, menu open/close, and mask close: PASS.
 
-## 判定
+## Boundary
 
-表示基準を保ったまま、再現可能なビルドと主要ページの実行時例外を改善できた。モバイル実機、外部画像配信、フォーム送信先の実送信は未確認である。
+The browser showed an unrelated existing `require is not defined` error from `js/page-nation.js` and the existing warning from `vanta.trunk.min.js`: `No THREE defined on window`. Neither is part of the footer integration; no header/footer error was observed.
 
-## Header / Footer Integration
+## 2026-09-06 Public Visual Alignment
 
-- ルートの`js/menu.js`に、既存のヘッダーとフッターの生成処理を統合した。
-- `header.html`と`footer.html`の表示用構造、クラス名、リンク、文言、CSSは維持した。
-- `header-container`と`footer-container`は、JavaScript生成物を挿入するマウント位置として残している。これらを削除する場合は、JS側で挿入先を新規作成する別の構造変更が必要になる。
-- 5ページから`js/footer.js`の重複読み込みを外し、`js/footer.js`は削除せず互換シムとして残した。
-- ローカルブラウザで5ページのフッター1件、5リンク、年表示、メニュー開閉、言語切替を確認した。
-- `js/page-nation.js`のブラウザ非対応な`require("fs")`エラーと、VANTAの既存警告は今回の対象外として残っている。
+### Scope
 
-## Local / Public Alignment
+- Target files: `webpack.config.js` and `js/page-nation.js`.
+- Root visual pages kept as the source of truth: `index`, `artist-statement`, `biography`, `gallery`, `contact`, and `policy`.
+- Existing user changes, deleted files, and external services were not altered.
+- Backup directory: `backups/20260906_before_public_visual_alignment/`.
 
-- ローカルプレビューはリポジトリ直下のHTML/CSS/JavaScriptを読み込み、GitHub Pagesは`src`から`docs`を生成していたため、同じページURLでも別のレイアウト・画像・カーソル実装が表示されていた。
-- `webpack.config.js`のビジュアル6ページ（トップ、Artist Statement、Biography、Gallery、Contact、Site Policy）のテンプレートを直下HTMLへ統一した。
-- 公開ビルドでは、直下ページが使用するCSS、画像、JavaScriptを優先して配置し、Information・Matching・Bot用のWebpackバンドルは`js/main.js`を保持するようにした。
-- `js/cursor.js`と`src/js/cursor.js`の重複DOMContentLoaded処理を1つへ統合し、重複生成ガードとイベント委譲を共通化した。生成後の`docs/js/cursor.js`も1組のカーソルを生成する。
+### Implemented
 
-## Alignment Verification
+- Copied the six root visual pages directly into `docs` so page-specific inline CSS and scripts are not rewritten by the src-based HTML build.
+- Copied the root `css` and `img` directories used by the local preview.
+- Copied an explicit allowlist of root visual scripts instead of the whole root `js` directory. This prevents an unused legacy script from breaking the public build.
+- Removed the unused browser-incompatible `require("fs")` statement from `js/page-nation.js` so the existing browser script can load normally.
+- Preserved the existing HTML structure, class names, CSS, visual page scripts, cursor implementation, and page behavior.
 
-- クリーン環境で`npm ci`: PASS
-- `npm run build`: PASS（asset size warningのみ）
-- `npm run check:js`: PASS（40 files、17 inline scripts）
-- `npm run check:generated`: PASS（12 scripts）
-- `npm run check:links`: PASS
-- 生成されたビジュアル6ページのCSS資産ハッシュ: 直下版と一致
-- 実画面の再確認: PENDING（検証時にMacがロック中。公開URLはPagesの再生成完了後に確認が必要）
+### Verification
 
-## Public Deployment Verification
+- `npm run check`: PASS (`check:js`, production build, and local link check).
+- `node --check webpack.config.js`: PASS.
+- `git diff --check -- js/page-nation.js webpack.config.js`: PASS.
+- Same-tab browser comparison at `390x844`: all six pages matched in layout metrics, image dimensions, canvas count, modal state, and document height.
+- Same-tab browser comparison at `1710x895`: all six pages matched in the same checks.
+- Gallery after the change: 8 rendered work elements and 5 pagination controls in both local and generated pages.
+- The regenerated `docs` output contains the same root visual page assets as the local preview; the page-nation `require` error is no longer present in the source or generated script.
 
-- GitHub `origin/main` が`6386369`を指すことを確認した。
-- `https://mizukioyama.github.io/website/`の主要6ページを取得し、各ページの`header-container`、`footer-container`、`cursor.js`、`menu.js`を確認した。
-- 主要6ページの`footer.js`読み込みは0件で、カーソルスクリプトは各ページ1件だった。
-- 公開`menu.js`はヘッダーfetchを行わず、静的マークアップ生成を含む。公開`footer.js`は互換シムで、フッターfetchを行わない。
-- 公開`css/all.css`と`css/gallery.css`のSHA-256はローカル直下版と一致した。
-- 公開ファイル同期: PASS。実画面の見た目・カーソル操作: PENDING（Macロック中のため物理操作未実施）。
+### Boundary
 
-## 2026-09-06 Responsive Typography Push Scope
+- The live GitHub Pages site was not changed in this turn. A push and the resulting Actions deployment are still required before the public URL can be declared aligned.
+- The browser showed the existing VANTA warning `No THREE defined on window` and browser-extension warnings. These are outside the visual alignment change.
+- The missing `img/心樹-web.jpg` remains unchanged in both local and generated pages; no replacement image was guessed.
 
-### 対象
+## 2026-09-06 Public Verification
 
-- 主要6ページのルートHTML/CSS、アクティブな`src/style`、サイドバー、GitHub Pages用`docs`の対応CSS・HTML。
-- リモート`origin/main`の既存コミットを親にし、今回のフォント調整とレビュー資料だけを新しいコミットへ分離する。
+### Deployment
 
-### 実装
+- The public build was corrected to copy the root `sidebar.html`; the previous `src/sidebar.html` copy was a different structure and caused the mobile flow/layout mismatch.
+- The follow-up commit is `2e960b5100a39ed1e3b14f726da0d4cfb072e8b3` and changes only `webpack.config.js` relative to `32217179b5b533feefb0367333609040ceef29de`.
+- GitHub Actions run 29 completed successfully: `https://github.com/mizukioyama/website/actions/runs/34021183962`.
 
-- 固定`font-size`を、既存の大きい値を最大値として`clamp(min, preferred, max)`へ変更した。
-- 新規の最小値・最大値は`rem`、推奨値は`rem`と`vw`で指定した。
-- 共通のclampが適用されるモバイル側の重複固定指定は除去し、フォーム、モーダル、メニュー、フッター、サイドバー、ページネーションも対象に含めた。
-- 生成HTMLのインラインスタイルを変更した箇所は、CSPの`style-src`ハッシュも再計算して更新した。
-- HTML構造、クラス名、レイアウト、アニメーション、動作、カーソル実装は変更していない。
+### Verification
 
-### 検証境界
+- Public `gallery.html` at `390x844`: root sidebar structure, `position: fixed`, gallery start at approximately `714px`, 8 images, 5 pagination controls, fixed menu, and both cursor elements present.
+- Public `gallery.html` at `1710x895`: root sidebar structure, 8 images, 5 pagination controls, fixed menu, and footer rendered.
+- Public `gallery.html`, `sidebar.html`, `css/gallery.css`, and `css/mobile.css` match the local root files by SHA-256.
+- Same mobile audit across all six public root pages confirmed header/cursor presence and no horizontal overflow; the expected index page omission of the footer was preserved.
+- Public visual scripts match the reproduced production build output; the deployed one-line form is production compression, not a separate UI implementation.
 
-- JavaScript構文・リンク検査、clamp構文検査、差分の空白検査を実施する。
-- 実機Safari/iOS/Android、物理マウス・タッチ、GitHub Pages再生成後の実画面は別途確認が必要である。
+### Remaining Boundary
 
-### 検証結果
+- Physical-device Safari/iOS and Android acceptance is not covered by the browser check.
+- The existing VANTA warning and missing `img/心樹-web.jpg` remain outside this alignment fix.
 
-- 対象45ファイルを検査し、`font-clamps=266`、アクティブな非レスポンシブ固定値`0`、不正なclamp`0`だった。
-- `npm run check:js`: PASS（22ファイル）。
-- `npm run check:links`: PASS。
-- `git diff --check`: PASS。
-- レビュー資料ZIP: PASS（`unzip -tq`）。
+## 2026-09-06 Cursor Visual Parity
+
+### Scope
+
+- Target files: `src/style/all.css`, the generated `docs/styles/main.css`, and the six root visual pages.
+- Static root pages continue to use the existing `css/all.css` and `js/cursor.js` implementation with a cursor-only cache version.
+- Backup directory: `backups/20260906_before_cursor_visual_fix/`.
+
+### Implemented
+
+- Synchronized the Webpack cursor CSS with the static-page cursor design.
+- Added the same `gradientGlow` animation to the stalker ring.
+- Preserved the existing cursor sizes, hover sizes, blend mode, z-index, and hidden native cursor behavior.
+- Updated the generated bundle CSS so local/generated pages do not retain the former static white-ring variant.
+- Added a cursor-only version query to the shared CSS and JS references on the six static root pages so stale public subresources are not reused.
+
+### Verification
+
+- `node --check js/cursor.js`: PASS.
+- `node --check src/js/cursor.js`: PASS.
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- Source and generated cursor CSS blocks match in declarations and animation settings.
+- All six root visual pages reference the versioned cursor CSS and JS assets.
+- Public browser inspection confirmed one `#cursor`, one `#stalker`, `cursor: none`, 8px dot, 15px ring, and the `gradientGlow` animation.
+
+### Deployment
+
+- Public commit: `e4e388397f224e45f970820466fc17f7bebf8f06`.
+- GitHub Actions run 30 completed successfully: `https://github.com/mizukioyama/website/actions/runs/34023920689`.
+- Post-deployment `biography.html` loaded `css/all.css?v=20260906-cursor` and `js/cursor.js?v=20260906-cursor` and retained the expected cursor geometry.
+
+### Boundary
+
+- Physical mouse/touch acceptance on Safari, iOS, and Android remains pending.
+- The public static-page assets were already aligned; this change closes the separate Webpack CSS path mismatch and adds a cache refresh boundary for the cursor assets.
+
+## 2026-09-06 Responsive Typography
+
+### Scope
+
+- Target: the six canonical root visual pages, the two active Webpack source pages, shared CSS, sidebar markup, and the corresponding `docs` assets.
+- Design boundary: preserve the current effective desktop values as the `clamp()` maximum, while retaining smaller mobile values through the minimum and viewport interpolation.
+- Backup: `backups/20260906_before_responsive_font_size/`.
+
+### Implemented
+
+- Converted active fixed `font-size` declarations for body text, headings, links, menus, footers, forms, modals, tables, timelines, sidebars, and matching-page controls to `clamp(min, preferred, max)`.
+- Used `rem` for every new minimum and maximum and `rem` plus `vw` in the preferred value.
+- Removed duplicate mobile fixed-size overrides where the shared clamp now provides the responsive interpolation.
+- Synchronized the root CSS copies in `docs/css` and updated the active Webpack CSS chunks and inline page styles.
+- Kept HTML structure, class names, colors, layout rules, animations, and behavior unchanged.
+- Left legacy/test-only typography files outside the active page/build path unchanged.
+
+### Verification
+
+- Active and generated target scan: 282 `clamp()` font-size declarations; all have three arguments and `rem` minimum/maximum values.
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- Root CSS and `docs/css` eight-file synchronization: PASS.
+- Focused `git diff --check` for edited source styles and sidebar files: PASS.
+- Visual browser and physical-device acceptance at desktop/mobile widths: PENDING.
+
+### Boundary
+
+- No push or deployment was performed for this typography-only change.
+- Remaining fixed values are confined to legacy/test or unused style paths and were not changed to avoid altering unrelated pages.
 
 ## 2026-09-07 Responsive Width Hardening
 
-### 対象と実装
+### Scope
 
-- ルートのギャラリー、カード、フォーム、モーダル、フッター、メニュー、Biography/Artist Statementの画像・表、およびアクティブな`src/style`を対象にした。
-- 固定幅と過大なviewport幅を`min()`、`calc()`、既存ブレイクポイントへ置き換え、`min-width: 0`、`max-width: 100%`、長文折返しを追加した。
-- HTML構造、クラス名、アニメーション、既存のデスクトップ表示意図は変更していない。
+- Targeted only width-related display-risk areas in the root visual CSS/HTML and the active `src/style` CSS path.
+- Preserved existing classes, DOM structure, animation rules, gallery column intent, modal behavior, and page-specific visual direction.
+- Created a pre-edit copy of all width targets and reports at `/tmp/website-main-width-backup/`.
 
-### 検証
+### Implemented
 
-- 対象CSSとインラインCSSの構文解析、`check:js`、`check:links`、差分空白検査、レビュー資料ZIP検証を実施する。
-- 390px幅のBiographyとContactで、本文折返しと固定幅フォームによる横溢れがないことを確認する。
-- 生成`docs`の完全同期、実機Safari/iOS/Android、公開後の実画面は別途確認する。
+- Replaced viewport-overflow-prone `100vw`/`100svw`/`-webkit-fill-available` declarations with containing-block-safe widths.
+- Added `min()` and `calc()` guards for gallery containers, cards, footers, forms, modal panels, menu offsets, and the matching form's former fixed `850px` container.
+- Replaced reversed or ineffective percentage `clamp()` width declarations in the active source gallery styles with valid `min()`/`calc()` rules.
+- Added breakpoint-specific centering and max-width guards for the source gallery and legacy information layouts from tablet through mobile widths.
+- Added `min-width: 0`, `max-width: 100%`, wrapping, and safe image/text constraints to prevent flex/grid children and biography tables from forcing horizontal overflow.
+
+### Verification
+
+- CSS parse: PASS (13 targeted CSS files parsed with PostCSS).
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- Local browser load at desktop width: PASS for `biography.html`.
+- Local Chrome screenshot at `390x844`: PASS for biography text wrapping and contact layout; the page remained usable within the narrow viewport.
+- Targeted remaining-width scan: no active reversed width `clamp()` or targeted fixed `100vw`/`100svw`/`850px`/`52vmin` declarations remained; one commented legacy example remains for reference.
+- `check:generated` could not run because `scripts/check-generated.cjs` is absent from the current working tree.
+- No push, deployment, external send, or deletion was performed.
+
+### Boundary
+
+- The current working tree already contains unrelated generated-output edits, deletions, and untracked files. They were not reset or included in this width change.
+- The local browser logged pre-existing missing image requests for `img/心樹-web.jpg` and `img/202343-2.jpg`; no replacement was guessed.
+- Physical Safari/iOS/Android acceptance and post-deployment public verification remain pending.
 
 ## 2026-09-07 JavaScript Dependency Audit and Integration
 
 ### Scope
 
-- Targets: the six canonical root pages, `js/menu.js`, and `js/page-nation.js`.
-- No JavaScript source file was deleted; the local pre-edit backup is `/tmp/website-js-integration-backup-20260907/`.
-- Existing markup, class names, CSS, animation timing, and page-specific behavior were preserved.
+- Targets: the six canonical root pages, `js/menu.js`, `js/page-nation.js`, and `webpack.config.js`.
+- Safety boundary: no JavaScript source file was deleted; the pre-edit backup is `/tmp/website-js-integration-backup-20260907/`.
+- Visual boundary: existing markup, class names, CSS, animation timing, and page-specific behavior were preserved.
 
 ### p5 Decision
 
 - `p5.min.js` is required by `vanta.trunk.min.js`, which creates `VANTA.TRUNK` with `window.p5` and calls p5 canvas lifecycle methods.
 - `artist-statement.html`, `biography.html`, and `contact.html` each initialize `VANTA.TRUNK`.
-- `p5.min.js` was retained because removing it would break the existing trunk background.
+- `p5.min.js` was therefore retained. Removing it would remove or break the existing trunk background and would not be a display-preserving cleanup.
 
 ### Implemented
 
-- Integrated custom cursor initialization and the loading-screen typing routine into `js/menu.js`.
-- Removed root-page runtime references to `cursor.js` and `loading.js`.
-- Integrated gallery sidebar fetch, category toggle, and scroll collapse behavior into `js/page-nation.js`.
-- Removed the gallery runtime reference to `side.js`.
-- Kept page-specific scripts and vendor/runtime libraries separate.
-- Kept the original integrated files available; complete deletion remains approval-gated.
+- Integrated the custom cursor initialization from `js/cursor.js` into `js/menu.js`.
+- Integrated the loading-screen typing routine from `js/loading.js` into `js/menu.js`.
+- Removed the root-page runtime references to `cursor.js` and `loading.js`; all six root pages now use the common `menu.js` path for these behaviors.
+- Integrated the gallery sidebar fetch, category toggle, and scroll collapse behavior from `js/side.js` into `js/page-nation.js`.
+- Removed the gallery runtime reference to `side.js`; `page-nation.js` still invokes `setupCategoryFilter()` only after the sidebar is loaded.
+- Kept `form.js`, `time.js`, `mobile.js`, and `bg_wave.js` page-specific because they serve different pages or require page-specific/vendor dependencies.
+- Kept jQuery, jquery-ripples, Three.js, p5, and VANTA files separate as vendor/runtime assets rather than manually merging them.
+- Kept the original integrated files and their compatibility copy entries in the Webpack allowlist; complete deletion remains approval-gated.
 
 ### Verification
 
-- `npm run check:js`: PASS.
+- `npm run check:js`: PASS (22 files).
 - `npm run check:links`: PASS.
-- Local browser: gallery sidebar, pagination, header, footer, Biography, and Contact loaded from the integrated path.
-- The local source validation passed; the remote-main reproduction build was blocked by the pre-existing local dependency gap `node_modules/@fortawesome/fontawesome-free/webfonts`.
+- `node --check js/menu.js`: PASS.
+- `node --check js/page-nation.js`: PASS.
+- `node --check webpack.config.js`: PASS.
+- Focused `git diff --check` for this integration: PASS.
+- Local browser: gallery sidebar, category list, gallery items, pagination, header, and footer loaded from the integrated path.
+- Local browser: Biography common header/footer and Contact form loaded without a runtime failure.
+- Isolated production build in `/tmp/website-js-build-validation-20260907/`: PASS; generated root pages reference only `menu.js` plus `page-nation.js` on gallery, while p5 and VANTA assets remain available.
 
 ### Boundary
 
-- Existing local uncommitted changes were excluded from this commit.
-- No dependency or Webpack workaround was added for the missing local FontAwesome webfont directory.
+- The working `docs/` directory was not regenerated because it contains unrelated tracked and untracked generated changes; only the isolated build was used for output verification.
+- GitHub Pages was not pushed or deployed in this task.
 - Physical Safari/iOS/Android and real pointer/touch acceptance remain pending.
+
+## 2026-09-07 Sidebar JS/CSS and Gallery/Footer Width
+
+### Implemented
+
+- Moved the existing gallery sidebar markup into `js/menu.js` as `SIDEBAR_MARKUP` and render it with a `template` and `replaceChildren`.
+- Replaced the gallery `sidebar.html` fetch with a `site:sidebar-ready` event between `menu.js` and `page-nation.js`; category filtering, pagination, and scroll toggle behavior remain in the existing gallery flow.
+- Moved sidebar layout, responsive rules, and work fade-in animation from the partial HTML into `css/gallery.css`.
+- Kept `sidebar.html` as a compatibility/reference partial without its inline style block; it is no longer requested during gallery initialization.
+- Increased the active gallery content limit from `1100px` to `1400px`, added a fluid `.gallery-containt` wrapper, and kept the mobile gallery content at `width: 100%` within its responsive parent.
+- Reduced excessive footer side padding with `clamp()` on desktop and mobile so the footer content uses more of the available width without changing its structure.
+- Created a pre-edit rollback copy at `/tmp/website-sidebar-width-backup-20260907/`.
+
+### Verification
+
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- `node --check js/menu.js`: PASS.
+- `node --check js/page-nation.js`: PASS.
+- Focused `git diff --check`: PASS.
+- Local gallery browser: sidebar categories, gallery items, pagination, header, and footer rendered successfully.
+- Local HTTP log: no runtime request for `sidebar.html`; only the gallery document, CSS, and JavaScript were requested.
+
+### Boundary
+
+- The generated `docs/` output was not regenerated in place because unrelated generated changes are present.
+- Public GitHub Pages was not pushed or deployed in this task.
+- Physical mobile-device and touch acceptance remain pending; the mobile rules were statically reviewed but not accepted as a physical-device result.

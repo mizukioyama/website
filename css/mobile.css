@@ -130,7 +130,7 @@
 
     .art-page .gallery {
         background-color: rgba(0, 0, 0, 0.55);
-        padding: 10vmin 0 30vmin 2.5rem;
+        padding: 10vmin 0 30vmin clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
     }
 
     body p:nth-child(n+1) {
@@ -168,7 +168,7 @@
     }
 
     .gallery .content {
-        width: min(90vw, calc(100% - clamp(0rem, calc(0.25rem + 1vw), 0.5rem)));
+        width: 100%;
         padding: 0 5vmin;
         gap: 0;
         margin-top: 80svh;

@@ -1,60 +1,80 @@
-# ユーザー確認チェックリスト
+# User Checklist
 
-## 自動検証済み
+- [ ] Open `index.html` and confirm the header appears without waiting for an HTML partial.
+- [ ] Open the menu and confirm the five links and exhibition information are unchanged.
+- [ ] Close the menu by clicking the mask.
+- [ ] Switch between `Ja` and `En` and confirm the active state and language content.
+- [ ] Open `artist-statement.html` and confirm the footer links and current year appear.
+- [ ] Repeat the footer check on `biography.html`, `contact.html`, and `policy.html`.
+- [ ] Confirm the footer still appears when only `js/menu.js` is loaded by the page.
+- [ ] Check one desktop and one mobile viewport for clipping or spacing changes.
+- [ ] Confirm that the original HTML files remain available as rollback/reference files.
 
-- [x] バックアップZIPの整合性を確認
-- [x] `npm ci` が成功
-- [x] `npm run build` が成功
-- [x] 生成物のHTML/CSSローカル参照が全件成立
-- [x] 主要6ページのブラウザ表示でコンソールエラーなし
-- [x] トップカードの位置がバックアップと一致
-- [x] ローカル直下版のビジュアル6ページを公開ビルドのテンプレートに統一
-- [x] 公開ビルドのCSS資産ハッシュがローカル直下版と一致
-- [x] カーソルの重複初期化を除去し、1組の生成へ統一
-- [x] push後の公開6ページで直下版のHTML・JavaScript構成を確認
-- [x] 公開CSSのSHA-256がローカル直下版と一致
+## 2026-09-06 Visual Alignment Check
 
-## ユーザー確認が必要
+- [ ] After approved deployment, hard-reload the public `index.html`, `artist-statement.html`, `biography.html`, `gallery.html`, `contact.html`, and `policy.html` pages.
+- [ ] Compare the public pages at a desktop width and a mobile width against the local preview.
+- [ ] Confirm that the cursor shape, size, color, and hover movement match the local preview.
+- [ ] Confirm that the gallery shows the same work count, pagination controls, modal content, and close behavior.
+- [ ] Confirm that the menu and footer retain the same links, spacing, language controls, and current year.
+- [ ] Record any remaining VANTA warning or missing biography image separately from visual alignment.
 
-- [ ] 実際の公開URLでトップの背景・カード・アニメーションを確認
-- [ ] 実機スマートフォンで表示とスクロールを確認
-- [ ] ヘッダーメニュー、言語切替、ギャラリーリンクを操作
-- [ ] ヒアリング画面で回答を進め、送信前の確認まで操作
-- [ ] Contactフォームは送信せず、入力・バリデーション表示だけ確認
-- [ ] 外部画像が公開環境のCSPで許可されるか確認
-- [ ] Pages再生成後、公開URLの表示がローカル直下版と一致することを確認
-- [ ] 公開URLとローカルURLのカーソルが1組ずつで、ホバー表示も一致することを確認
+## 2026-09-06 Public Browser Evidence
 
-## 戻し方
+- [x] GitHub Actions completed successfully for the public alignment commit.
+- [x] Public mobile gallery checked at `390x844` with the local sidebar structure and fixed positioning.
+- [x] Public desktop gallery checked at `1710x895` with the local sidebar structure, gallery, pagination, menu, and footer.
+- [x] Public root HTML/CSS resource hashes match the local source files.
+- [ ] Repeat the visual check on a physical iOS/Android device and with physical mouse/touch input.
 
-Gitで今回のコミットを親コミットへ戻せば、今回の修正をまとめて取り消せる。作業中に保存した元バックアップは削除していない。
+## 2026-09-06 Cursor Visual Check
 
-## Responsive Typography Check
+- [ ] Hard-reload the local and public pages before comparing the cursor.
+- [ ] Confirm the 8px white dot and 15px ring appear together on desktop.
+- [ ] Confirm the ring glow animation and hover enlargement match the local preview.
+- [ ] Confirm the native cursor remains hidden while the custom cursor follows the pointer.
+- [ ] Confirm mobile/touch pages have no unintended cursor artifact.
+- [x] Confirm the cursor deployment completed successfully and the public biography page loads the versioned cursor assets.
 
-- [ ] 主要6ページを320px、390px、768px、1024px、デスクトップ幅で確認する。
-- [ ] 見出し・本文・リンクの階層と、既存の大きいデスクトップ値が保たれていることを確認する。
-- [ ] 日本語・英語の切れ、意図しない改行、横スクロールがないことを確認する。
-- [ ] メニュー、フッター、モーダル、フォーム、表、タイムライン、キャプション、ページネーションを確認する。
-- [ ] 公開URLをPages再生成後に強制再読み込みして確認する。
-- [ ] 実機Safari/iOS/Android、物理マウス・タッチでの確認結果を記録する。
+## 2026-09-06 Responsive Typography Check
 
-## Header / Footer追加確認
+- [ ] Check `index.html`, `artist-statement.html`, `biography.html`, `gallery.html`, `contact.html`, and `policy.html` locally at 320px, 390px, 768px, 1024px, and desktop widths.
+- [ ] Confirm headings and body text keep the intended hierarchy and largest existing desktop size.
+- [ ] Confirm Japanese and English text do not clip or produce unintended horizontal overflow.
+- [ ] Open the menu and footer and confirm link spacing remains unchanged.
+- [ ] Open gallery/contact modals and confirm their text, close controls, and scroll behavior remain usable.
+- [ ] Check the contact form, biography table, timeline, captions, and pagination on a narrow viewport.
+- [ ] Repeat the check on a physical iOS/Android device or record it as pending.
 
-- [ ] `header-container`と`footer-container`を残した状態で表示を確認する。
-- [ ] ルートページのHTMLに`js/footer.js`の読み込みがないことを確認する。
-- [ ] `menu.js`のみでフッターが1件表示され、5リンクと年表示が出ることを確認する。
+## 2026-09-07 Responsive Width Check
 
-## Responsive Width Check
+- [ ] Check `index.html`, `artist-statement.html`, `biography.html`, `gallery.html`, `contact.html`, `policy.html`, and the matching page at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
+- [x] Confirm the local Biography page loads at desktop width without a layout-breaking error.
+- [x] Confirm the local Biography page text wraps within a 390px viewport.
+- [x] Confirm the local Contact page does not show a fixed-width form overflow at a 390px viewport.
+- [ ] Open the gallery modal at a narrow width and confirm its content, image, padding, and close control remain usable.
+- [ ] Confirm footer padding and menu offset at tablet widths between the mobile and desktop breakpoints.
+- [ ] Repeat the width check on generated `docs` pages after an approved production build and deployment.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
 
-- [ ] 主要ページを320px、390px、600px、768px、1024px、デスクトップ幅で確認する。
-- [x] ローカル390px幅でBiography本文が折り返されることを確認する。
-- [x] ローカル390px幅でContactフォームが固定幅で横溢れしないことを確認する。
-- [ ] ギャラリーモーダル、フッター、メニュー、matchingフォームを確認する。
-- [ ] 実機Safari/iOS/Androidとタッチ操作を確認する。
+## 2026-09-07 Sidebar JS/CSS and Width Check
+
+- [x] Confirm the local gallery renders the sidebar from `menu.js` without fetching `sidebar.html`.
+- [x] Confirm the local gallery renders category items, artwork, pagination, header, and footer.
+- [x] Confirm JavaScript syntax, local references, and focused whitespace checks pass.
+- [ ] Check gallery/sidebar/footer at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
+- [ ] Confirm category filtering, pagination, modal, language switching, and sidebar collapse behavior after a hard reload.
+- [ ] Rebuild and inspect generated `docs/` output after reviewing unrelated generated changes.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
 
 ## 2026-09-07 JavaScript Integration Check
 
 - [x] Confirm p5 is retained because the existing VANTA.TRUNK background depends on it.
-- [x] Confirm the six root pages use common cursor, loading, header, and footer behavior through `menu.js`.
+- [x] Confirm the six root pages load common cursor, loading, header, and footer behavior through `menu.js`.
 - [x] Confirm gallery sidebar loading and category setup work through `page-nation.js`.
-- [ ] Repeat the checks on the public pages after deployment and perform physical-device acceptance.
+- [ ] Hard-reload all six local pages and compare cursor, menu, footer, and page-specific effects at desktop and mobile widths.
+- [ ] Confirm that gallery filtering, pagination, modal open/close, and sidebar collapse remain unchanged.
+- [ ] If complete deletion is wanted, provide explicit approval before removing the retained compatibility files.
+- [ ] Repeat the checks on the generated `docs` pages after an approved rebuild and deployment.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.

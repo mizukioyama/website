@@ -1,34 +1,67 @@
-# 次のアクション
+# Next Actions
 
-1. GitHubへ反映後、公開URLで主要6ページを確認する。
-2. スマートフォン実機または実効390px幅で、Information・NFT・Contact・ヒアリングの縦幅と操作を確認する。
-3. Rippleを有効にしたい場合は、現行Webpackで扱える保守済み実装を選定し、表示比較を行ってから導入する。
-4. 画像圧縮は容量・品質・ブラウザ表示を比較できる別ブランチで検証する。
-5. 外部画像のNetwork/CSPエラーとGoogleフォームの送信結果を公開環境で確認する。
-6. 未実装のカテゴリ／年別ページを追加する場合は、リンク先のコンテンツ仕様を確定してから別変更として実装する。
-7. 公開後、ルート5ページで`menu.js`によるヘッダー／フッター表示と、`footer.js`未読込を確認する。
-8. `header-container`または`footer-container`を削除したい場合は、表示位置をJSで生成する別設計として事前に表示比較を行う。
-9. GitHub ActionsのPagesデプロイ完了後、公開6ページがローカル直下版と同じタイトル位置、背景、画像、カーソル1組になることを確認する。
-10. Macのロック解除後、公開URLとローカルURLを同じ幅で再読み込みし、カーソルのホバー拡大、メニュー、言語切替、ギャラリーのページ送りを確認する。
-11. 公開ファイル同期は確認済みのため、残る作業はMacのロック解除後の実画面・物理操作確認と、必要に応じたブラウザキャッシュ確認である。
+1. Open each root page in the normal local preview and check the header at desktop and mobile widths.
+2. Verify the footer on `artist-statement.html`, `biography.html`, `contact.html`, and `policy.html` after a hard reload.
+3. Confirm in the browser network panel that the root pages do not request `footer.js`, `footer.html`, or jQuery for footer rendering.
+4. If the webpack `src/` build is also a required deployment path, apply the same design to `src/js/all.js` and `src/js/side-foot.js` as a separate scoped change.
+5. Do not remove the compatibility shim unless its remaining references and rollback need have been reviewed and explicit deletion approval is given.
+6. Investigate the unrelated VANTA warning only if the affected page's background is not intentionally disabled.
 
-## 2026-09-06 Responsive Typography Push
+## 2026-09-06 Public Alignment Follow-up
 
-1. GitHub ActionsのPagesデプロイ完了後、主要6ページを強制再読み込みして確認する。
-2. 320px、390px、768px、1024px、デスクトップ幅で、見出し、本文、メニュー、フッター、モーダル、フォーム、表、タイムライン、キャプション、ページネーションを確認する。
-3. 日本語・英語の改行、切れ、横スクロール、ボタンや閉じる操作の可用性を確認する。
-4. 実機Safari/iOS/Androidと物理マウス・タッチの結果は、自動検証とは分けて記録する。
-5. 特定ページの例外が必要な場合は、ページ・セレクタ・幅・改行状態を記録してから別修正にする。
+1. Review the focused diff in `webpack.config.js` and `js/page-nation.js` without staging unrelated user changes.
+2. Confirm the target branch and deployment scope before any push. The local branch is behind `origin/main`, so do not force-push or overwrite remote history.
+3. After an approved push, wait for GitHub Actions and verify the public URL with a hard reload at desktop and mobile widths.
+4. Recheck cursor geometry, menu open/close, gallery pagination, modal open/close, and the contact form on the deployed site.
+5. Treat a real-device Safari/mobile check as a separate acceptance step; the current browser comparison is automated/configured local evidence only.
+6. Handle the broader `page-nation.js` refactor and the VANTA warning as separate changes so the visual alignment rollback remains narrow.
+
+## 2026-09-06 Verified Status
+
+1. Perform a physical Safari/iOS and Android check for final acceptance.
+2. Review the public cursor with physical mouse/touch input; the browser check confirmed both cursor elements are present.
+3. Keep the broader `page-nation.js` refactor, VANTA warning, and missing biography image separate from this alignment fix.
+
+## 2026-09-06 Cursor Follow-up
+
+1. After the cursor change is deployed, hard-reload the public pages and compare the dot, ring glow, hover enlargement, and pointer tracking with the local preview.
+2. Repeat the check at desktop and mobile widths; verify touch devices do not show an unintended native or custom pointer artifact.
+3. Keep any cache, browser-engine, or physical-device difference separate from the source CSS parity result.
+
+## 2026-09-06 Cursor Deployment Status
+
+1. Complete the remaining physical Safari/iOS/Android and touch-device acceptance check.
+2. If an older cursor is still visible, hard-reload once; the deployed static pages now use the cursor-only versioned asset URLs.
+
+## 2026-09-06 Responsive Typography
+
+1. Open the six root visual pages locally at 320px, 390px, 768px, 1024px, and desktop widths and compare line wrapping with the intended current design.
+2. Check menu, footer, modal, contact form, biography table, timeline, gallery captions, and pagination for clipping or unintended overflow.
+3. Repeat the same checks on the generated `docs` pages after an approved deployment; no deployment was requested in this turn.
+4. If a specific page needs a visual exception, record the selector and viewport before changing the shared clamp policy.
+5. Keep legacy/test typography cleanup separate from this display-preserving change.
 
 ## 2026-09-07 Responsive Width Hardening
 
-1. After Pages regeneration, compare the six root visual pages at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
-2. Check the gallery modal, footer padding, menu offset, biography table, contact form, and matching form for clipping or horizontal scrolling.
-3. Complete physical Safari/iOS/Android and touch-device acceptance separately from static validation.
+1. Review the focused width diff and confirm the intended visual baseline at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
+2. Restore or provide the missing FontAwesome webfont input before running the production build; do not alter dependencies solely for this review.
+3. Add or restore `scripts/check-generated.cjs` only as a separately reviewed tooling change, then rerun generated-output validation.
+4. After explicit push approval, rebuild `docs`, inspect the generated diff, and verify the public pages at mobile and desktop widths.
+5. Perform physical Safari/iOS/Android and touch acceptance before declaring the responsive width change complete.
 
 ## 2026-09-07 JavaScript Integration
 
-1. Review the focused integration commit and confirm cursor, loading, header, footer, and gallery behavior.
-2. If deletion is desired, explicitly approve removal of the retained compatibility files after a fresh reference scan and backup.
-3. Perform physical Safari/iOS/Android and touch acceptance separately from static validation.
-4. After push, confirm that GitHub Actions installs FontAwesome webfonts and completes the production build.
+1. Review the focused integration diff and confirm that the common cursor, loading, header, and footer behavior remains visually identical.
+2. Open gallery locally and verify sidebar injection, category filtering, pagination, modal open/close, and scroll collapse after a hard reload.
+3. If deletion is desired, explicitly approve removal of the now-unreferenced `js/cursor.js`, `js/loading.js`, and `js/side.js` files and their generated copies after a fresh reference scan and backup.
+4. Rebuild the actual `docs/` directory only after the mixed generated-output changes are reviewed; inspect the generated diff before any publication.
+5. Push and verify GitHub Actions only after explicit approval; public deployment is not part of this task.
+6. Perform physical Safari/iOS/Android and touch acceptance separately from the static and local-browser checks.
+
+## 2026-09-07 Sidebar JS/CSS and Width Follow-up
+
+1. Check the gallery at 320px, 390px, 600px, 768px, 1024px, and desktop widths, including sidebar visibility and footer content width.
+2. Verify category filtering, pagination, modal open/close, language switching, and sidebar scroll-toggle behavior after a hard reload.
+3. Rebuild the actual `docs/` directory only after the mixed generated-output changes are reviewed; inspect the generated diff before publication.
+4. Push and verify GitHub Pages only after explicit approval; public deployment is not part of this task.
+5. Perform physical Safari/iOS/Android and touch acceptance separately from static and local-browser verification.

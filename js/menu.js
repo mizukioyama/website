@@ -118,6 +118,28 @@ const FOOTER_MARKUP = `
 </footer>
 `;
 
+const SIDEBAR_MARKUP = `
+<p id="category-header" class="noise">・</p>
+<ul id="category-menu">
+  <p class="noise">Category</p>
+  <li data-category="all" class="active noise">All</li>
+  <li data-category="Digital" class="noise">Digital</li>
+  <li data-category="Paint" class="noise">Paint</li>
+  <!--<li data-category="Natureinspire" class="noise">Natureinspire</li>-->
+  <li data-category="Exhibition" class="noise">Exhibition</li>
+  <li data-category="Certified" class="noise">Certified</li>
+  <li data-category="Photo" class="noise">Photo</li>
+  <li data-category="Unreleased" class="noise">Unreleased</li>
+  <p class="noise">Year</p>
+  <li data-category="2025" class="noise">2025</li>
+  <li data-category="2024" class="noise">2024</li>
+  <li data-category="2023" class="noise">2023</li>
+  <li data-category="2022" class="noise">2022</li>
+  <li data-category="2021" class="noise">2021</li>
+  <li data-category="2010-2017" class="noise">2010~2017</li>
+</ul>
+`;
+
 /**
  * Render the existing header markup without requesting an HTML partial.
  * @returns {HTMLElement|null}
@@ -147,6 +169,21 @@ function buildFooter() {
   const year = container.querySelector("#year");
   if (year) year.textContent = String(new Date().getFullYear());
   return container.querySelector("footer");
+}
+
+/**
+ * Render the gallery sidebar without requesting an HTML partial.
+ * @returns {HTMLElement|null}
+ */
+function buildSidebar() {
+  const container = document.getElementById("sidebar-container");
+  if (!container || container.dataset.sidebarInitialized === "true") return null;
+
+  const template = document.createElement("template");
+  template.innerHTML = SIDEBAR_MARKUP;
+  container.replaceChildren(template.content.cloneNode(true));
+  container.dataset.sidebarInitialized = "true";
+  return container.querySelector("#category-menu");
 }
 
 function loadDeferredImages() {
@@ -420,6 +457,15 @@ function initializeFooter() {
   }
 }
 
+function initializeSidebar() {
+  try {
+    if (!buildSidebar()) return;
+    document.dispatchEvent(new CustomEvent("site:sidebar-ready"));
+  } catch (error) {
+    console.error("Error building sidebar:", error);
+  }
+}
+
 // h1/p text
 class TextScramble {
   constructor(el) {
@@ -480,6 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeCustomCursor();
   loadDeferredImages();
   initializeHeader();
+  initializeSidebar();
   initializeFooter();
   document.addEventListener("contextmenu", event => event.preventDefault());
 
