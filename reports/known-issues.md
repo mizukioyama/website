@@ -118,3 +118,15 @@
 - The local `node_modules` tree does not contain the optional Font Awesome package, so the build now skips that copy step locally; CI with the locked dependency can still copy it.
 - Legacy blog, Jekyll, partial, and test HTML files were not modified because they are outside the active Webpack deployment path. Their indexability should be decided separately before publishing them.
 - Physical Safari/iOS/Android, touch, social-card rendering, and post-deployment structured-data validation remain pending.
+
+## 2026-09-07 Index Heading Semantics
+
+- The home page now has one primary `h1`; the alternate slide title uses `h2.creator-title` with mirrored h1 styling.
+- Static checks pass, but screenshot-based and physical-device visual acceptance remains pending.
+- The change has not been pushed for public verification.
+
+## 2026-09-07 Gallery Sidebar Right Alignment
+
+- Desktop/tablet gallery positioning now uses a right-aligned grid with approximately 20% sidebar, 15% gap, and up to 55% artwork area.
+- Mobile widths below 600px retain the existing fixed sidebar behavior.
+- Exact screenshot comparison, physical-device testing, generated-output synchronization, and public deployment remain pending.

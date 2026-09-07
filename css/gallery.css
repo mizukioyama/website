@@ -614,6 +614,44 @@ main {
 
 }
 
+/* Keep the sidebar and artwork area together on the right side. */
+@media screen and (min-width: 600px) {
+    .art-page main.gallery {
+        --gallery-sidebar-width: clamp(10rem, 20%, 30rem);
+        --gallery-sidebar-gap: clamp(2rem, 15%, 24rem);
+        display: grid;
+        grid-template-columns:
+            minmax(0, var(--gallery-sidebar-width))
+            minmax(
+                0,
+                min(
+                    55%,
+                    calc(100% - var(--gallery-sidebar-width) - var(--gallery-sidebar-gap))
+                )
+            );
+        column-gap: var(--gallery-sidebar-gap);
+        justify-content: end;
+        align-items: start;
+    }
+
+    .art-page main.gallery > #sidebar-container {
+        grid-column: 1;
+        width: 100%;
+        min-width: 0;
+        margin: 20vmin 0 0;
+        position: relative;
+        top: 0;
+    }
+
+    .art-page main.gallery > .gallery-containt {
+        grid-column: 2;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        margin: 60vmin 0 0;
+    }
+}
+
 #policy h2 {
     margin-bottom: 2vmin;
 }

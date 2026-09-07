@@ -57,6 +57,18 @@
 - [ ] Repeat the width check on generated `docs` pages after an approved production build and deployment.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
 
+## 2026-09-07 Gallery Sidebar Right Alignment Check
+
+- [x] Keep gallery HTML and JavaScript unchanged.
+- [x] Place the sidebar in an approximately 20% responsive track.
+- [x] Place the artwork area to the right with an approximately 15% responsive gap.
+- [x] Keep the artwork area capped at approximately 55% on wider screens.
+- [x] Preserve the existing mobile fixed-sidebar behavior below 600px.
+- [x] Pass JavaScript, local-reference, and focused CSS checks.
+- [ ] Confirm exact rendered widths at 600px, 768px, 1024px, and desktop widths.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+
 ## 2026-09-07 Mobile Gallery 90% Check
 
 - [x] Confirm the mobile wrapper uses a 90% width basis.
@@ -152,3 +164,13 @@
 - [ ] Validate JSON-LD and social-card previews after deployment.
 - [ ] Push and verify the public site after explicit approval.
 - [ ] Perform physical Safari/iOS/Android and touch acceptance.
+
+## 2026-09-07 Index Heading Semantics Check
+
+- [x] Keep `Exhibition / Close` as the primary home-page h1.
+- [x] Change the alternate `AbstractArtist / MizukiOyama` title to `h2.creator-title`.
+- [x] Mirror the previous h1 visual rules for `.creator-title`.
+- [x] Pass JavaScript, generated-output, and local-reference checks.
+- [ ] Confirm the title visuals at desktop and mobile widths.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.

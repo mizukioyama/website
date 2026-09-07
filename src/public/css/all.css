@@ -431,7 +431,8 @@ hr {
   margin: 5vmin auto;
 }
 
-h1 {
+h1,
+.creator-title {
   width: 100%;
   font-family: "Jost", sans-serif !important;
   font-optical-sizing: auto;

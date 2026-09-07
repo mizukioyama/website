@@ -429,3 +429,46 @@ The browser showed an unrelated existing `require is not defined` error from `js
 - No push or public deployment was performed in this turn.
 - Existing generated-output changes and unrelated untracked files were preserved; `docs` was rebuilt and missing pre-existing generated files were restored from the pre-build backup.
 - Legacy blog, Jekyll template, partial, and test HTML files remain outside the active deployment path and were not made indexable by this change.
+
+## 2026-09-07 Index Heading Semantics Follow-up
+
+### Implemented
+
+- Kept `Exhibition / Close` as the single primary `h1` in `index.html` and `src/index.html`.
+- Changed the alternate `AbstractArtist / MizukiOyama` slide title from `h1` to `h2.creator-title`.
+- Mirrored the former h1 typography, width, font, weight, color, and mobile line-height rules on `.creator-title` so the visual presentation is unchanged.
+
+### Verification
+
+- Root and source index pages now contain one primary h1: PASS.
+- `npm run check:js`: PASS.
+- `npm run check:generated`: PASS.
+- `npm run check:links`: PASS.
+- Focused CSS/HTML whitespace check: PASS.
+
+### Boundary
+
+- Screenshot-based and physical-device visual acceptance remain pending.
+- Public deployment requires a separate explicit push.
+
+## 2026-09-07 Gallery Sidebar Right Alignment
+
+### Implemented
+
+- Added a desktop/tablet CSS grid for the gallery page without changing its HTML or JavaScript.
+- Positioned the sidebar in an approximately 20% track and the artwork area in an approximately 55% track.
+- Added an approximately 15% responsive gap between the sidebar and artwork area using `clamp()` and `calc()`.
+- Right-aligned the combined layout and preserved the existing fixed mobile sidebar below 600px.
+
+### Verification
+
+- Local gallery browser load: PASS.
+- Sidebar generation, 8 artwork items, and pagination controls: PASS.
+- `npm run check:js`: PASS.
+- `npm run check:links`: PASS.
+- Focused CSS whitespace check: PASS.
+
+### Boundary
+
+- Screenshot-based, physical-device, and public-deployment verification remain pending.
+- The generated `docs/` output was not edited directly because it contains unrelated existing changes.

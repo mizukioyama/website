@@ -117,3 +117,18 @@
 4. Check `robots.txt`, `sitemap.xml`, canonical URLs, OGP image loading, and social-card previews after an approved push.
 5. Decide whether the legacy blog, Jekyll template, partial, and test HTML files should be excluded, `noindex`, or separately optimized.
 6. Push and verify GitHub Actions only after explicit approval; no push was performed in this turn.
+
+## 2026-09-07 Index Heading Semantics Follow-up
+
+1. Compare the two home-page title slides at desktop and mobile widths to confirm the h2 replacement is visually identical.
+2. Confirm the scramble animation still targets the existing visible title elements after a hard reload.
+3. Push and verify GitHub Pages only after explicit approval.
+4. Perform physical Safari/iOS/Android and touch acceptance separately.
+
+## 2026-09-07 Gallery Sidebar Right Alignment Follow-up
+
+1. Compare the gallery at 600px, 768px, 1024px, and desktop widths and confirm the 20%/15%/55% relationship.
+2. Confirm the mobile layout below 600px keeps the fixed sidebar and does not introduce horizontal overflow.
+3. Rebuild and inspect generated `docs/` only after the unrelated generated changes are reviewed.
+4. Push and verify GitHub Pages only after explicit approval.
+5. Perform physical Safari/iOS/Android and touch acceptance separately.

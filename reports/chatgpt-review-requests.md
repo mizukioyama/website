@@ -1,5 +1,21 @@
 # Review Requests
 
+## 2026-09-07 Gallery Sidebar Right Alignment Review
+
+Please review only the gallery layout addition in `css/gallery.css`.
+
+### Required checks
+
+1. Confirm that desktop/tablet layout uses an approximately 20% sidebar track, 15% responsive gap, and up to 55% artwork track.
+2. Confirm that `clamp()` and `calc()` keep the two-column layout within the available width at 600px, 768px, 1024px, and desktop widths.
+3. Confirm that the combined sidebar/artwork group is right-aligned without changing the gallery HTML, artwork rendering, pagination, modal, or JavaScript behavior.
+4. Confirm that widths below 600px retain the existing fixed sidebar and mobile artwork behavior.
+5. Treat screenshot-based, physical-device, generated-output, and public-deployment checks as separate boundaries.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
 Please review the current working-tree changes in `js/menu.js`, the compatibility shim in `js/footer.js`, and the root page script references.
 
 ## Required checks
@@ -93,6 +109,22 @@ Please review only the width and breakpoint changes in the root visual CSS/HTML 
 5. Confirm that no HTML structure, class name, animation, or non-width behavior changed.
 6. Review the source/build boundary separately: the current `docs` directory contains unrelated pre-existing generated changes, so no generated-output cleanup or deletion should be proposed from this request.
 7. Treat the missing `scripts/check-generated.cjs`, pre-existing missing image assets, physical-device testing, and public deployment as separate pending items.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
+## 2026-09-07 Index Heading Semantics Review
+
+Please review only the home-page heading change in `index.html`, `src/index.html`, `css/all.css`, `css/index.css`, `src/style/home.css`, and the synchronized public CSS copies.
+
+### Required checks
+
+1. Confirm that `Exhibition / Close` remains the only primary h1 on the home page.
+2. Confirm that `AbstractArtist / MizukiOyama` is now an h2 with the `creator-title` class.
+3. Confirm that `.creator-title` preserves the previous h1 typography, width, color, line-height, and responsive behavior.
+4. Confirm that no JavaScript selector or existing slide behavior depends on the second title being an h1.
+5. Treat screenshot-based, physical-device, generated-output, and public-deployment checks as separate boundaries.
 
 ### Review boundary
 

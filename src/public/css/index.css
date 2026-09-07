@@ -56,7 +56,8 @@ canvas {
 
 /* ========== Common ========== */
 
-h1 {
+h1,
+.creator-title {
   font-size: var(--font-home-h1-size);
 }
 
@@ -720,7 +721,8 @@ footer,
         opacity: 0.35;
     }
 
-  h1 {
+  h1,
+  .creator-title {
     line-height: 1;
   }
   h2 {
