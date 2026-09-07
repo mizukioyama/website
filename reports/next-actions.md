@@ -19,3 +19,9 @@
 3. 日本語・英語の改行、切れ、横スクロール、ボタンや閉じる操作の可用性を確認する。
 4. 実機Safari/iOS/Androidと物理マウス・タッチの結果は、自動検証とは分けて記録する。
 5. 特定ページの例外が必要な場合は、ページ・セレクタ・幅・改行状態を記録してから別修正にする。
+
+## 2026-09-07 Responsive Width Hardening
+
+1. After Pages regeneration, compare the six root visual pages at 320px, 390px, 600px, 768px, 1024px, and desktop widths.
+2. Check the gallery modal, footer padding, menu offset, biography table, contact form, and matching form for clipping or horizontal scrolling.
+3. Complete physical Safari/iOS/Android and touch-device acceptance separately from static validation.

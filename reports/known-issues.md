@@ -20,3 +20,10 @@
 - フォント読込、ブラウザのズーム、フォールバックフォント、デバイスピクセル比により、改行位置や実寸が変わる可能性がある。
 - レガシー・テスト用ファイルは対象外として固定値を残している。変更する場合は別スコープで確認する。
 - GitHub PagesのActions完了後に、公開6ページの実画面とキャッシュ切替を確認する必要がある。
+
+## 2026-09-07 Responsive Width Hardening
+
+- `scripts/check-generated.cjs` is absent, so generated-output validation remains unavailable.
+- The working tree contains unrelated generated changes, deletions, and untracked files; they were excluded from this scoped commit.
+- Physical Safari/iOS/Android, touch input, and post-deployment public visual acceptance remain pending.
+- Legacy/test-only width files remain unchanged because they are outside the active page/build path.

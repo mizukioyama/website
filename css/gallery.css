@@ -57,7 +57,7 @@ body.dark-theme .modal-box {
 
 #vanta-bg,
 #vanta-bg-bio {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -380,17 +380,17 @@ main {
     container-type: inline-size;
     container-name: gallery;
     /*width: clamp(55%, 100%, 45%);*/
-    width: 75%;
-    width: 100%;
+    width: min(100%, calc(100vw - 4rem));
     max-width: 1400px;
     max-width: 1100px;
     height: 100%;
     margin: 60vmin auto 0;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
     position: relative;
+    min-width: 0;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 52vmin 52vmin;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: center;
     /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
@@ -411,18 +411,41 @@ main {
     margin: 4rem auto 0;
 }
 
+.state-box {
+    width: min(100%, calc(100vw - 4rem));
+    max-width: 100%;
+    min-width: 0;
+}
+
+.state-box > .content,
+.state-box .work,
+.state-box .work > p {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.state-box .work {
+    width: 100%;
+}
+
+.state-box .work > p {
+    width: 100%;
+    white-space: normal;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
 /*=======info page*/
 #state .content,
 #contact .content,
 #policy .content {
     box-shadow: none;
-    width: 50%;
+    width: min(50%, calc(100% - 2rem));
     max-width: 1000px;
 }
-
 #contact .content {
     display: block;
-    width: 35%;
+    width: min(35%, calc(100% - 2rem));
 }
 
 #state h2,
@@ -439,7 +462,7 @@ main {
 
 @media screen and (min-width: 1299px) {
     #state .state-box:nth-child(2) .content {
-        width: 40%;
+        width: min(40%, calc(100% - 2rem));
     }
 
     #state h2 {
@@ -529,7 +552,7 @@ main {
 }
 
 #state .work {
-    width: auto;
+    width: 100%;
 }
 
 #state .work ol p {
@@ -552,6 +575,7 @@ main {
 #gallery-container .work-img {
     position: relative;
     display: grid;
+    min-width: 0;
     max-width: 450px;
     /*gap: 1rem;
     filter: grayscale(40%);*/
@@ -613,5 +637,6 @@ main {
     .work-img {
         order: 1;
         max-width: 100%;
+        min-width: 0;
     }
 }

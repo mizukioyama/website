@@ -47,7 +47,7 @@ form input[type="checkbox"]::before {
 }
 .contact-form {
    display: grid;
-   width: 65%;
+   width: min(65%, calc(100% - 2rem));
    margin: 0 auto;
 }
 .col {
@@ -161,6 +161,7 @@ input:-webkit-autofill:focus {
 .radio-group {
    font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
    display: flex;
+   flex-wrap: wrap;
    gap: 1.2rem;
    margin-top: 1.5rem;
 }
@@ -188,7 +189,7 @@ input:-webkit-autofill:focus {
    height: fit-content;
    background: rgba(255, 255, 200, 0.25);
    transition: opacity 0.4s ease-in-out;
-   width: 90vw;
+   width: min(90vw, calc(100% - 1rem));
    height: 100%;
    top: 0;
    left: 10%;
@@ -206,7 +207,7 @@ input:-webkit-autofill:focus {
 /* モーダルコンテンツのアニメーション */
 #thanksModal .modal-content {
    position: absolute;
-   width: 75vw;
+   width: min(75vw, calc(100% - 2rem));
    height: 65vh;
    margin: 0 auto;
    top: 50%;
@@ -233,7 +234,9 @@ input:-webkit-autofill:focus {
    font-size: clamp(2rem, 1.333rem + 0.89vw, 2.4rem);
 }
 #thanksModal .modal-content p {
-   width: 70%;
+   width: min(70%, calc(100% - 2rem));
+   max-width: 100%;
+   overflow-wrap: anywhere;
    line-height: 2;
 }
 #thanksModal .close {
@@ -321,7 +324,7 @@ input:-webkit-autofill:focus {
 
 @media screen and (max-width: 600px) {
    .contact-form {
-      width: 80%;
+      width: min(80%, calc(100% - 2rem));
    }
    .form-row {
       display: block;
@@ -390,7 +393,7 @@ input:-webkit-autofill:focus {
    }
    /*===================== モーダルウィンドウ =====================*/
    #thanksModal {
-      width: 100vw;
+      width: 100%;
       top: 0%;
       left: 0%;
       padding: 10vmin 2.5em;
@@ -400,7 +403,7 @@ input:-webkit-autofill:focus {
       background: rgba(246, 246, 246, 0.2);
    }
    #thanksModal .modal-content {
-      width: 90vw;
+      width: min(90vw, calc(100% - 1rem));
       height: auto;
       padding: 3em 0;
       transform: translate(-50%, -50%);

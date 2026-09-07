@@ -18,7 +18,7 @@ body,
 }
 
 #vanta-bg {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -74,7 +74,7 @@ p {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   background-position: center;
   background-size: cover;
@@ -182,7 +182,7 @@ p {
 
 /* ========== Card Slide ========== */
 .card {
-  width: 93vmin;
+  width: min(93vmin, calc(100% - 1rem));
   height: 53%;
   position: absolute;
   top: 50%;
@@ -658,7 +658,7 @@ footer,
   width: var(--card-width);
   height: var(--card-height);
   cursor: pointer;
-  width: 100vmin;
+  width: min(100vmin, calc(100vw - 1rem));
   height: 50%;
   position: absolute;
   top: 50%;
@@ -726,12 +726,12 @@ footer,
     line-height: 1;
   }
   .card {
-    width: 98svw;
+    width: min(98svw, calc(100% - 1rem));
     height: 99svh;
   }
 
   .back__slide::before {
-    width: 100svw;
+    width: 100%;
     height: 100svh;
   }
 

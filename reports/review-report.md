@@ -94,3 +94,17 @@
 - `npm run check:links`: PASS。
 - `git diff --check`: PASS。
 - レビュー資料ZIP: PASS（`unzip -tq`）。
+
+## 2026-09-07 Responsive Width Hardening
+
+### 対象と実装
+
+- ルートのギャラリー、カード、フォーム、モーダル、フッター、メニュー、Biography/Artist Statementの画像・表、およびアクティブな`src/style`を対象にした。
+- 固定幅と過大なviewport幅を`min()`、`calc()`、既存ブレイクポイントへ置き換え、`min-width: 0`、`max-width: 100%`、長文折返しを追加した。
+- HTML構造、クラス名、アニメーション、既存のデスクトップ表示意図は変更していない。
+
+### 検証
+
+- 対象CSSとインラインCSSの構文解析、`check:js`、`check:links`、差分空白検査、レビュー資料ZIP検証を実施する。
+- 390px幅のBiographyとContactで、本文折返しと固定幅フォームによる横溢れがないことを確認する。
+- 生成`docs`の完全同期、実機Safari/iOS/Android、公開後の実画面は別途確認する。

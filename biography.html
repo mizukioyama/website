@@ -102,7 +102,8 @@
 
         .state-img {
             position: relative;
-            width: 35%;
+            width: min(35%, calc(100% - 6rem));
+            max-width: 100%;
             left: 6rem;
             top: 60vmin;
         }
@@ -165,6 +166,7 @@
             padding: 1rem 0;
             border-bottom: 1px solid var(--text);
             vertical-align: top;
+            overflow-wrap: anywhere;
         }
 
         th {
@@ -191,6 +193,7 @@
 
         td.tb-content span {
             font-size: clamp(0.65rem, calc(0.5rem + 0.4vw), 0.8rem);
+            overflow-wrap: anywhere;
         }
 
         @media (max-width: 768px) {

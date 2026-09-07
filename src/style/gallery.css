@@ -265,14 +265,14 @@ a:hover {
 }
 
 .exhibition .content li {
-    width: clamp(70%, 100%, 65%);
+    width: min(70%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 3rem)));
     margin: 0 0 3em 15%;
     padding: 2em 3em 3em;
     border-bottom: 1px solid rgba(200, 200, 200, 0.5);
 }
 
 .exhibition .content ol:last-child li {
-    width: clamp(65%, 100%, 50%);
+    width: min(65%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 3rem)));
     margin-bottom: 3%;
     padding: 0 0 0 10em;
 }
@@ -303,14 +303,14 @@ a:hover {
 
 /*==Statement page*/
 .statement .content {
-    width: clamp(50%, 100%, 35%);
+    width: min(50%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 3rem)));
     padding: 1em 0em 3em;
     margin-top: -40%;
     margin-left: calc(60vw - 5%);
 }
 
 .statement .content:nth-child(2) {
-    width: clamp(50%, 100%, 35%);
+    width: min(50%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 3rem)));
     margin-top: 0em;
     margin-left: calc(20vw - 5%);
 }
@@ -328,7 +328,7 @@ a:hover {
 }
 
 .statement .content li {
-    width: clamp(58%, 100%, 35%);
+    width: min(58%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 3rem)));
     margin-left: calc(10vw - 5%);
 }
 
@@ -345,7 +345,7 @@ a:hover {
 }
 
 .art-info .flex {
-    width: clamp(75%, 100%, 55%);
+    width: min(75%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 3rem)));
     margin: 5% 0 0 25%;
     background: rgba(0, 0, 0, 0);
 }
@@ -429,8 +429,8 @@ main {
 .gallery .content {
     container-type: inline-size;
     container-name: gallery;
-    width: clamp(55%, 100%, 45%);
-    max-width: 1000px;
+    width: min(55%, calc(100vw - clamp(2rem, calc(1rem + 4vw), 5rem)));
+    max-width: min(1000px, calc(100vw - 2rem));
     height: 100%;
     margin-top: 30vmin;
     margin-left: 55vmin;
@@ -438,6 +438,7 @@ main {
     box-shadow: inset 0 0 10px rgba(20, 20, 20, 0.7);
     background: rgba(46, 46, 46, 0.2);
     backdrop-filter: blur(20px);
+    min-width: 0;
 }
 
 .work {
@@ -445,6 +446,7 @@ main {
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
+    min-width: 0;
     min-height: 350px;
     margin: 0 auto 4rem;
     gap: 3rem;
@@ -544,6 +546,7 @@ main {
     display: grid;
     gap: 1rem;
     width: 40%;
+    min-width: 0;
     max-width: 350px;
     filter: grayscale(50%);
 }
@@ -678,7 +681,7 @@ main {
 
 /*---------------------*/
 .art-info .content img {
-    width: clamp(700px, 100%, 60%);
+    width: min(700px, 100%);
     height: 40vh;
     filter: grayscale(50%);
 }
@@ -689,7 +692,49 @@ main {
 }
 
 .art-info .content {
-    width: clamp(100%, 100%, 80%);
-    margin: 0 20%;
+    width: min(80%, calc(100vw - 2rem));
+    margin: 0 0 0 20%;
     background: rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 700px) {
+    .gallery .content,
+    .statement .content,
+    .statement .content:nth-child(2),
+    .art-info .flex,
+    .art-info .content {
+        width: min(100%, calc(100vw - 2rem));
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .gallery .content {
+        padding-inline: clamp(1rem, calc(0.5rem + 3vw), 2rem);
+    }
+
+    .statement .content,
+    .statement .content:nth-child(2),
+    .art-info .content {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width: 701px) and (max-width: 1199px) {
+    .gallery .content,
+    .statement .content,
+    .statement .content:nth-child(2),
+    .art-info .flex,
+    .art-info .content {
+        width: min(100%, calc(100vw - 2rem));
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .statement .content,
+    .statement .content:nth-child(2),
+    .art-info .content {
+        margin-top: 0;
+    }
 }

@@ -44,3 +44,12 @@ Please review only the responsive `font-size` changes included in the push candi
 ### Review boundary
 
 This request is for local/static review of the responsive typography push candidate. Unrelated deletions, untracked files, and the stale local branch state must remain excluded.
+
+## 2026-09-07 Responsive Width Hardening Review
+
+Please review only the `min()`/`calc()` and breakpoint width changes in the root visual CSS/HTML and active `src/style` CSS.
+
+1. Confirm that the gallery, modal, form, footer, menu, biography table, and matching form do not overflow at narrow and intermediate widths.
+2. Confirm that the existing two-column gallery behavior and desktop visual baseline remain unchanged.
+3. Confirm that the corrected source gallery declarations are valid CSS and do not reintroduce reversed `clamp()` behavior.
+4. Treat generated-output synchronization, physical-device acceptance, and public post-deployment visual checks as separate boundaries.

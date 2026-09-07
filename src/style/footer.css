@@ -1,7 +1,7 @@
     /*PC*/
     footer {
         position: relative;
-        width: 100vw;
+        width: 100%;
         min-height: 500px;
         padding: 4vmin;
         bottom: 0;
