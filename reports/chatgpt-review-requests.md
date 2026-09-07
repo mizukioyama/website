@@ -98,6 +98,22 @@ Please review only the width and breakpoint changes in the root visual CSS/HTML 
 
 This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
 
+## 2026-09-07 Footer Layout Restoration Review
+
+Please review the footer layout restoration in `css/footer.css`.
+
+### Required checks
+
+1. Confirm that desktop padding is restored to `4rem clamp(1.5rem, calc(7vw - 1rem), 6rem)`.
+2. Confirm that mobile padding is restored to `3rem 1.5rem 0`.
+3. Confirm that the added link-width rule and footer-only `box-sizing` override are removed.
+4. Confirm that `#footer-container` and the footer remain full device width without horizontal overflow.
+5. Treat public deployment and physical mobile/touch acceptance as separate pending checks.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
 ## 2026-09-07 Mobile Footer 90% Width Review
 
 Please review only the mobile footer container width change in `css/footer.css`.

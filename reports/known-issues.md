@@ -93,3 +93,11 @@
 - Explicit `min-width` and `max-width` protect it from the global `div { width: fit-content; }` reset.
 - Static checks are expected to pass after this change; public deployment and physical mobile/touch acceptance remain pending.
 - The pre-edit rollback copy is `/tmp/website-footer-device-width-backup-20260907/`.
+
+## 2026-09-07 Footer Layout Restoration
+
+- Desktop and mobile footer padding now match the pre-width-change values.
+- The internal footer link width and footer-only `box-sizing` additions were removed.
+- Full device-width container and footer constraints remain intentionally enabled.
+- Public deployment and physical mobile/touch acceptance remain pending.
+- The pre-edit rollback copy is `/tmp/website-footer-layout-restore-backup-20260907/`.

@@ -94,3 +94,10 @@
 2. Confirm the two-column artwork grid and pagination remain usable within the 90% wrapper.
 3. Repeat the check on a physical mobile device before final acceptance.
 4. Push and verify GitHub Pages only after explicit approval.
+
+## 2026-09-07 Footer Layout Restoration Follow-up
+
+1. Compare the local footer with the pre-width-change layout at desktop and mobile widths.
+2. Confirm the footer remains full device width without changing its internal spacing or link layout.
+3. Perform physical Safari/iOS/Android and touch acceptance separately.
+4. Push and verify GitHub Pages only after explicit approval.

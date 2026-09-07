@@ -116,3 +116,12 @@
 - [ ] If complete deletion is wanted, provide explicit approval before removing the retained compatibility files.
 - [ ] Repeat the checks on the generated `docs` pages after an approved rebuild and deployment.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+
+## 2026-09-07 Footer Layout Restoration Check
+
+- [x] Restore the desktop footer padding to the previous value.
+- [x] Restore the mobile footer padding to the previous value.
+- [x] Remove the added footer link-width and footer-only `box-sizing` rules.
+- [x] Keep the footer container and footer at full device width.
+- [ ] Compare local and public rendered layouts after an approved push.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.

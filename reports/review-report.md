@@ -354,3 +354,24 @@ The browser showed an unrelated existing `require is not defined` error from `js
 
 - Public GitHub Pages was not pushed for this correction.
 - Physical mobile-device and touch acceptance remain pending.
+
+## 2026-09-07 Footer Layout Restoration
+
+### Implemented
+
+- Restored the pre-width-change desktop footer padding: `4rem clamp(1.5rem, calc(7vw - 1rem), 6rem)`.
+- Restored the pre-width-change mobile footer padding: `3rem 1.5rem 0`.
+- Removed the added `footer a { width: 100%; }` rule and the footer-only `box-sizing` override so the internal layout follows the previous CSS.
+- Retained the full-width `#footer-container` and footer width constraints required for device-width rendering.
+- Created a pre-edit rollback copy at `/tmp/website-footer-layout-restore-backup-20260907/`.
+
+### Verification
+
+- `npm run check:js`: PASS (22 files).
+- `npm run check:links`: PASS.
+- Physical mobile-device and touch acceptance remain pending.
+
+### Boundary
+
+- This correction has not been pushed.
+- The public GitHub Pages instance still serves the previous pushed CSS until a later approved push.
