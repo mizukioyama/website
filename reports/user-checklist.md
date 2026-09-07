@@ -136,3 +136,19 @@
 - [ ] Approve or reject permanent deletion of the five archived CSS candidates.
 - [ ] Regenerate and inspect `docs/` after the source cleanup.
 - [ ] Verify rendered desktop/mobile parity after deployment.
+
+## 2026-09-07 SEO Head and Static H1 Check
+
+- [x] Confirm each primary page has a page-specific title and description.
+- [x] Confirm primary canonical and `og:url` values use the `/website/` path.
+- [x] Confirm unsupported `meta keywords` and placeholder author text are removed from active primary heads.
+- [x] Confirm the existing `img/shinju.jpg` asset is used for OGP and JSON-LD image URLs.
+- [x] Confirm static readable text exists inside the five animated content h1 elements.
+- [x] Confirm `menu.js` uses that static text as the existing scramble animation target.
+- [x] Confirm `sitemap.xml` is XML and `robots.txt` references the correct sitemap URL.
+- [x] Confirm generated output includes the SEO changes and internal matching/bot pages are `noindex, nofollow`.
+- [x] Confirm `npm run check` passes; note the existing asset-size warnings separately.
+- [ ] Compare the local six-page UI at 320px, 390px, tablet, and desktop widths.
+- [ ] Validate JSON-LD and social-card previews after deployment.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch acceptance.

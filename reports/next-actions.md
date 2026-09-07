@@ -108,3 +108,12 @@
 2. If approved, create a fresh backup, run a final reference scan, delete only the approved exact files, and verify the build.
 3. Regenerate and inspect `docs/` before any further public deployment.
 4. Verify rendered desktop/mobile parity after deployment.
+
+## 2026-09-07 SEO Head and Static H1 Follow-up
+
+1. Review the focused source diff and confirm the final Japanese title/description wording for each public page.
+2. Open the six public pages locally at 320px, 390px, tablet, and desktop widths and confirm that static h1 text transitions into the same scramble animation.
+3. Validate the home and biography JSON-LD with Google's Rich Results Test after the site is available at the final public URL.
+4. Check `robots.txt`, `sitemap.xml`, canonical URLs, OGP image loading, and social-card previews after an approved push.
+5. Decide whether the legacy blog, Jekyll template, partial, and test HTML files should be excluded, `noindex`, or separately optimized.
+6. Push and verify GitHub Actions only after explicit approval; no push was performed in this turn.

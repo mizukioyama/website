@@ -98,6 +98,27 @@ Please review only the width and breakpoint changes in the root visual CSS/HTML 
 
 This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
 
+## 2026-09-07 SEO Head and Static H1 Review
+
+Please review only the SEO/head and static-h1 changes in the root pages, active `src/` pages, `js/menu.js`, `webpack.config.js`, `scripts/check-generated.cjs`, `sitemap.xml`, and `robots.txt`.
+
+### Required checks
+
+1. Confirm that each primary page has a unique title and description, a canonical URL under `https://mizukioyama.github.io/website/`, and a matching `og:url`.
+2. Confirm that no active primary page retains the placeholder author, unsupported `meta keywords`, or the former broken OGP path.
+3. Confirm that `og:image` and JSON-LD image URLs resolve to the existing `img/shinju.jpg` asset.
+4. Confirm that the five animated content h1 elements contain readable HTML text before JavaScript runs.
+5. Confirm that `menu.js` derives the scramble target from the static h1 text and preserves the existing random-character animation.
+6. Confirm that `aria-label` remains stable while `TextScramble` updates only the visual HTML content.
+7. Validate the home `WebSite`/`Person` and biography `ProfilePage`/`Person` JSON-LD with a structured-data validator after deployment.
+8. Confirm that `sitemap.xml` is valid XML, contains only canonical public pages, and that `robots.txt` points to it on the correct host.
+9. Confirm that matching and bot pages remain `noindex, nofollow` and are not added to the sitemap.
+10. Confirm that generated `docs` output is derived by the build and that no unrelated working-tree changes are included in a future commit.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
 ## 2026-09-07 CSS Organization Audit Review
 
 Please review the CSS load cleanup and rollback archive.

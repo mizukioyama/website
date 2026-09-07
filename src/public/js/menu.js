@@ -178,9 +178,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const p = container.querySelector("p.subtext");
   if (!h1) return;
 
-  const title = container.dataset.title || "Art Index";
+  // Keep the SEO-readable HTML text as the animation target. If JavaScript is
+  // unavailable, the same text remains visible in the static h1.
+  const title = h1.textContent.trim() || container.dataset.title || "Art Index";
   const subtitle = container.dataset.subtitle || "Nature Inspire";
 
+  h1.setAttribute("aria-label", title);
   const fx = new TextScramble(h1);
   fx.setText(title); // h1にアニメーション
 

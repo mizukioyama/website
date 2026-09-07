@@ -63,7 +63,13 @@ for (const absolutePath of listHtmlFiles(outputDirectory)) {
          continue;
       }
 
-      if (/\btype\s*=\s*["']application\/ld\+json["']/i.test(attributes)) {
+      const isJsonLd = /\btype\s*=\s*(?:["']application\/ld\+json["']|application\/ld\+json)/i.test(attributes);
+      if (isJsonLd) {
+         try {
+            JSON.parse(source);
+         } catch (error) {
+            failures.push(`${relativePath} JSON-LD: ${error.message}`);
+         }
          continue;
       }
 

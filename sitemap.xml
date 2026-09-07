@@ -1,3 +1,24 @@
-User-agent: *
-Allow: /
-Sitemap: https://pdmizuki.github.io/website/sitemap.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mizukioyama.github.io/website/</loc>
+  </url>
+  <url>
+    <loc>https://mizukioyama.github.io/website/artist-statement.html</loc>
+  </url>
+  <url>
+    <loc>https://mizukioyama.github.io/website/biography.html</loc>
+  </url>
+  <url>
+    <loc>https://mizukioyama.github.io/website/gallery.html</loc>
+  </url>
+  <url>
+    <loc>https://mizukioyama.github.io/website/contact.html</loc>
+  </url>
+  <url>
+    <loc>https://mizukioyama.github.io/website/policy.html</loc>
+  </url>
+  <url>
+    <loc>https://mizukioyama.github.io/website/information.html</loc>
+  </url>
+</urlset>

@@ -109,3 +109,12 @@
 - Generated `docs/css/` was not edited directly; it requires a later build to synchronize with the source tree.
 - The pre-move file backup is `/tmp/website-css-delete-backup-20260907/`.
 - Permanent deletion and physical rendered-device acceptance remain pending.
+
+## 2026-09-07 SEO Head and Static H1 Improvement
+
+- Public GitHub Pages was not pushed or rechecked after this local change.
+- Chrome headless exited with status 134, so a screenshot-based mobile visual check is pending.
+- The production build emits existing asset-size warnings for large images, audio, and vendor JavaScript; the build still completes successfully.
+- The local `node_modules` tree does not contain the optional Font Awesome package, so the build now skips that copy step locally; CI with the locked dependency can still copy it.
+- Legacy blog, Jekyll, partial, and test HTML files were not modified because they are outside the active Webpack deployment path. Their indexability should be decided separately before publishing them.
+- Physical Safari/iOS/Android, touch, social-card rendering, and post-deployment structured-data validation remain pending.

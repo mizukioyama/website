@@ -250,10 +250,14 @@ module.exports = {
 
       new CopyWebpackPlugin({
          patterns: [
-            {
-               from: path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"),
-               to: path.resolve(__dirname, "docs/assets/fonts")
-            },
+            // Font Awesome is optional for the static visual pages. Avoid
+            // failing the complete build when the package is not installed.
+            ...(fs.existsSync(path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"))
+               ? [{
+                  from: path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"),
+                  to: path.resolve(__dirname, "docs/assets/fonts")
+               }]
+               : []),
             {
                from: path.resolve(__dirname, "img/web.ico"),
                to: path.resolve(__dirname, "docs/favicon.ico")
@@ -270,6 +274,16 @@ module.exports = {
             {
                from: path.resolve(__dirname, "sidebar.html"),
                to: path.resolve(__dirname, "docs/sidebar.html"),
+               force: true
+            },
+            {
+               from: path.resolve(__dirname, "robots.txt"),
+               to: path.resolve(__dirname, "docs/robots.txt"),
+               force: true
+            },
+            {
+               from: path.resolve(__dirname, "sitemap.xml"),
+               to: path.resolve(__dirname, "docs/sitemap.xml"),
                force: true
             },
             // Copy the same visual pages and assets used by the local
