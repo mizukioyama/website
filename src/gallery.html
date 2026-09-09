@@ -41,6 +41,29 @@
     content="小山瑞樹の作品一覧。デジタル、絵画、写真、展示作品など、自然と感覚をテーマにした抽象表現を紹介します。">
   <meta name="author" content="小山瑞樹 / Mizuki Oyama">
   <link rel="canonical" href="https://mizukioyama.github.io/website/gallery.html">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://mizukioyama.github.io/website/gallery.html#collection",
+    "url": "https://mizukioyama.github.io/website/gallery.html",
+    "name": "作品一覧｜小山瑞樹 - Nature inspire",
+    "description": "小山瑞樹の作品一覧。デジタル、絵画、写真、展示作品など、自然と感覚をテーマにした抽象表現を紹介します。",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://mizukioyama.github.io/website/#website",
+      "url": "https://mizukioyama.github.io/website/",
+      "name": "小山瑞樹｜Nature inspire"
+    },
+    "about": {
+      "@type": "Person",
+      "@id": "https://mizukioyama.github.io/website/#person",
+      "name": "小山瑞樹"
+    }
+  }
+  </script>
 
   <!-- OGP（SNSシェア用） -->
   <meta property="og:title" content="作品一覧｜小山瑞樹 - Nature inspire">
@@ -49,6 +72,9 @@
   <meta property="og:url" content="https://mizukioyama.github.io/website/gallery.html">
   <meta property="og:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
   <meta property="og:image:alt" content="小山瑞樹の抽象作品">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
   <meta property="og:site_name" content="小山瑞樹｜Nature inspire">
   <meta property="og:locale" content="ja_JP">
 
@@ -57,6 +83,7 @@
   <meta name="twitter:title" content="作品一覧｜小山瑞樹 - Nature inspire">
   <meta name="twitter:description" content="小山瑞樹の作品一覧。デジタル、絵画、写真、展示作品など、自然と感覚をテーマにした抽象表現を紹介します。">
   <meta name="twitter:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
+  <meta name="twitter:image:alt" content="小山瑞樹の抽象作品">
 
   <!-- Favicon -->
   <link rel="icon" href="img/web.ico">
@@ -99,10 +126,10 @@
     <div id="sidebar-container"></div>
 
     <div class="gallery-containt">
-      <div id="gallery-container" class="content"></div>
+      <div id="gallery-container" class="content" aria-live="polite"></div>
       <!-- ページネーション -->
       <div class="page-line" style="margin-top: 5rem;"></div>
-      <div id="pagination"></div>
+      <div id="pagination" role="navigation" aria-label="Pagination"></div>
       <div class="page-line"></div>
     </div>
   </main>

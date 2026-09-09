@@ -640,7 +640,8 @@ main {
         min-width: 0;
         margin: 20vmin 0 0;
         position: relative;
-        top: 0;
+        /* Preserve the backup layout's vertical offset below the heading. */
+        top: 20vh;
     }
 
     .art-page main.gallery > .gallery-containt {

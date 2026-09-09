@@ -282,3 +282,19 @@ Please review only the mobile full-width footer change in `css/footer.css`.
 ### Review boundary
 
 This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+
+## 2026-09-07 Gallery Sidebar Vertical Offset Restoration Review
+
+Please review the latest desktop sidebar offset correction in `css/gallery.css`.
+
+### Required checks
+
+1. Confirm that the desktop right-alignment rule preserves `#sidebar-container` at `top: 20vh`.
+2. Confirm that the sidebar no longer overlaps the `Art Index` heading or `作品一覧` subtitle.
+3. Confirm that the 20% sidebar track, 15% responsive gap, and 55% artwork limit remain unchanged.
+4. Confirm that the mobile breakpoint below 600px is unaffected.
+5. Treat generated `docs/`, public deployment, and physical-device acceptance as separate pending checks.
+
+### Review boundary
+
+This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.

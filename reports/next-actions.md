@@ -138,3 +138,10 @@
 3. Rebuild and inspect generated `docs/` only after the unrelated generated changes are reviewed.
 4. Push and verify GitHub Pages only after explicit approval.
 5. Perform physical Safari/iOS/Android and touch acceptance separately.
+
+## 2026-09-07 Gallery Sidebar Vertical Offset Follow-up
+
+1. Compare the public gallery after an approved push at desktop and mobile widths.
+2. Confirm the sidebar remains below the heading and does not overlap the subtitle.
+3. Rebuild and inspect generated `docs/` output before public deployment.
+4. Perform physical Safari/iOS/Android and touch acceptance separately.

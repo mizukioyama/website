@@ -499,3 +499,29 @@ The browser showed an unrelated existing `require is not defined` error from `js
 
 - Screenshot-based, physical-device, and public-deployment verification remain pending.
 - The generated `docs/` output was not edited directly because it contains unrelated existing changes.
+
+## 2026-09-07 Gallery Sidebar Vertical Offset Restoration
+
+### Root Cause
+
+- The pre-alignment backup preserved `#sidebar-container { top: 20vh; }`.
+- The desktop right-alignment override replaced that offset with `top: 0`, moving the sidebar upward into the gallery heading/subtitle area.
+
+### Implemented
+
+- Restored `top: 20vh` inside the desktop right-alignment rule.
+- Kept the right-aligned grid, responsive 20% sidebar track, 15% gap, 55% artwork limit, and mobile breakpoint unchanged.
+- Created the rollback copy at `backups/20260907_before_gallery_vertical_restore/gallery.css`.
+
+### Verification
+
+- Compared the current CSS with `backups/20260907_before_gallery_sidebar_right_align/gallery.css`: PASS.
+- Same-viewport local browser comparison shows the sidebar below the heading without overlap: PASS.
+- JavaScript syntax check: PASS.
+- Local HTML/CSS/JavaScript reference check: PASS.
+- Focused CSS whitespace check: PASS.
+
+### Boundary
+
+- This correction is local only; public deployment has not been performed.
+- Mobile CSS remains outside the changed desktop breakpoint; physical-device acceptance remains pending.

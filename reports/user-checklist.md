@@ -184,3 +184,13 @@
 - [ ] Confirm the title visuals at desktop and mobile widths.
 - [ ] Push and verify the public site after explicit approval.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+
+## 2026-09-07 Gallery Sidebar Vertical Offset Check
+
+- [x] Compare the current desktop rule with the pre-alignment backup.
+- [x] Restore the desktop sidebar `top: 20vh` offset.
+- [x] Confirm the local same-viewport screenshot no longer overlaps the heading/subtitle.
+- [x] Pass JavaScript, reference, and focused whitespace checks.
+- [ ] Confirm the generated `docs/` output after the next build.
+- [ ] Push and verify the public site after explicit approval.
+- [ ] Perform physical Safari/iOS/Android and touch-device acceptance.

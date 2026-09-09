@@ -255,64 +255,64 @@ module.exports = {
             ...(fs.existsSync(path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"))
                ? [{
                   from: path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"),
-                  to: path.resolve(__dirname, "docs/assets/fonts")
+                  to: "assets/fonts"
                }]
                : []),
             {
                from: path.resolve(__dirname, "img/web.ico"),
-               to: path.resolve(__dirname, "docs/favicon.ico")
+               to: "favicon.ico"
             },
             {
                from: path.resolve(__dirname, "img/web.ico"),
-               to: path.resolve(__dirname, "docs/assets/images/pd.ico")
+               to: "assets/images/pd.ico"
             },
             ...["header", "footer"].map(page => ({
                from: path.resolve(__dirname, `src/${page}.html`),
-               to: path.resolve(__dirname, `docs/${page}.html`),
+               to: `${page}.html`,
                force: true
             })),
             {
                from: path.resolve(__dirname, "sidebar.html"),
-               to: path.resolve(__dirname, "docs/sidebar.html"),
+               to: "sidebar.html",
                force: true
             },
             {
                from: path.resolve(__dirname, "robots.txt"),
-               to: path.resolve(__dirname, "docs/robots.txt"),
+               to: "robots.txt",
                force: true
             },
             {
                from: path.resolve(__dirname, "sitemap.xml"),
-               to: path.resolve(__dirname, "docs/sitemap.xml"),
+               to: "sitemap.xml",
                force: true
             },
             // Copy the same visual pages and assets used by the local
             // preview. This avoids reintroducing legacy public assets.
             ...rootVisualPages.map(page => ({
                from: path.resolve(__dirname, `${page}.html`),
-               to: path.resolve(__dirname, `docs/${page}.html`),
+               to: `${page}.html`,
                force: true
             })),
             {
                from: path.resolve(__dirname, "css"),
-               to: path.resolve(__dirname, "docs/css"),
+               to: "css",
                force: true
             },
             // Copy only scripts referenced by the root visual pages. This
             // excludes unused legacy files from the production asset graph.
             ...rootVisualScripts.map(file => ({
                from: path.resolve(__dirname, `js/${file}`),
-               to: path.resolve(__dirname, `docs/js/${file}`),
+               to: `js/${file}`,
                force: true
             })),
             {
                from: path.resolve(__dirname, "img"),
-               to: path.resolve(__dirname, "docs/img"),
+               to: "img",
                force: true
             },
             {
                from: path.resolve(__dirname, "src/assets/images"),
-               to: path.resolve(__dirname, "docs/assets/images")
+               to: "assets/images"
             }
          ]
       }),

@@ -692,6 +692,8 @@ function setupCategoryFilter() {
     function renderGallery() {
         const lang = getLang();
         const container = document.getElementById("gallery-container");
+        if (!container) return;
+
         container.classList.remove("show");
 
         filtered = filterArtworks();
@@ -737,6 +739,8 @@ function setupCategoryFilter() {
     }
 
 function showModal(item) {
+    if (!item) return;
+
     const lang = getLang();
     const firstLine = item.category[0] || "";
     const secondLine = item.category.slice(1).join(" ") || "";
@@ -744,6 +748,7 @@ function showModal(item) {
     const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
 
     const modalBox = document.getElementById("modalBox");
+    if (!modalBox) return;
 
     // 言語別メッセージ
     const inquiryMessage = lang === "ja"
@@ -773,21 +778,22 @@ function showModal(item) {
                 ` : ""}
                 <p>${inquiryMessage}</p>
                 <a href="contact.html" class="noise" style="font-size: 1.6rem; margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
-                <button id="modalCloseBtn">Close</button>
+                <button type="button" id="modalCloseBtn">Close</button>
             </div>
         </div>
     `;
 
         modalBox.className = `modal-box animate-bottom`;
-        document.getElementById("modalOverlay").style.display = "block";
+        const modalOverlay = document.getElementById("modalOverlay");
+        modalOverlay?.style.setProperty("display", "block");
         modalBox.style.display = "block";
 
-        document.getElementById("modalCloseBtn").onclick = closeModal;
-        document.getElementById("modalOverlay").onclick = closeModal;
+        document.getElementById("modalCloseBtn")?.addEventListener("click", closeModal, { once: true });
+        modalOverlay?.addEventListener("click", closeModal, { once: true });
 
         function closeModal() {
             modalBox.style.display = "none";
-            document.getElementById("modalOverlay").style.display = "none";
+            modalOverlay?.style.setProperty("display", "none");
             modalBox.className = "modal-box";
         }
     }
@@ -830,6 +836,8 @@ function showModal(item) {
 
     function renderPagination(totalItems) {
         const pagination = document.getElementById("pagination");
+        if (!pagination) return;
+
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         pagination.innerHTML = "";
 
@@ -838,8 +846,10 @@ function showModal(item) {
         // 「前へ」ボタン
         if (currentPage > 1) {
             const prevBtn = document.createElement("button");
+            prevBtn.type = "button";
             prevBtn.textContent = "Back";
             prevBtn.className = "prev-btn";
+            prevBtn.setAttribute("aria-label", "Previous page");
             prevBtn.addEventListener("click", () => {
                 currentPage--;
                 renderGallery();
@@ -870,6 +880,7 @@ function showModal(item) {
             const dots = document.createElement("span");
             dots.textContent = "...";
             dots.className = "dots";
+            dots.setAttribute("aria-hidden", "true");
             pagination.appendChild(dots);
         }
 
@@ -883,6 +894,7 @@ function showModal(item) {
             const dots = document.createElement("span");
             dots.textContent = "...";
             dots.className = "dots";
+            dots.setAttribute("aria-hidden", "true");
             pagination.appendChild(dots);
         }
 
@@ -894,8 +906,10 @@ function showModal(item) {
         // 「次へ」ボタン
         if (currentPage < totalPages) {
             const nextBtn = document.createElement("button");
+            nextBtn.type = "button";
             nextBtn.textContent = "Next";
             nextBtn.className = "next-btn";
+            nextBtn.setAttribute("aria-label", "Next page");
             nextBtn.addEventListener("click", () => {
                 currentPage++;
                 renderGallery();
@@ -907,8 +921,11 @@ function showModal(item) {
         // 共通：ページ番号ボタン作成関数
         function addPageButton(pageNumber) {
             const btn = document.createElement("button");
+            btn.type = "button";
             btn.textContent = pageNumber;
             btn.className = "page-btn" + (pageNumber === currentPage ? " active" : "");
+            btn.setAttribute("aria-label", `Page ${pageNumber}`);
+            if (pageNumber === currentPage) btn.setAttribute("aria-current", "page");
             btn.addEventListener("click", () => {
                 currentPage = pageNumber;
                 renderGallery();
@@ -949,7 +966,7 @@ function showModal(item) {
     const langJaRadio = document.getElementById("langJa");
     const langEnRadio = document.getElementById("langEn");
 
-    langJaRadio.addEventListener("change", () => {
+    langJaRadio?.addEventListener("change", () => {
         if (langJaRadio.checked) {
             currentLang = "ja";
             localStorage.setItem("lang", currentLang);
@@ -957,7 +974,7 @@ function showModal(item) {
         }
     });
 
-    langEnRadio.addEventListener("change", () => {
+    langEnRadio?.addEventListener("change", () => {
         if (langEnRadio.checked) {
             currentLang = "en";
             localStorage.setItem("lang", currentLang);
@@ -967,9 +984,9 @@ function showModal(item) {
 
     // ✅ 初期言語状態の反映
     if (currentLang === "ja") {
-        langJaRadio.checked = true;
+        if (langJaRadio) langJaRadio.checked = true;
     } else {
-        langEnRadio.checked = true;
+        if (langEnRadio) langEnRadio.checked = true;
     }
 
     renderGallery(); // 初期描画

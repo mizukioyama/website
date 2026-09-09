@@ -136,3 +136,9 @@
 - The duplicate `60vmin` outer margin was removed after comparing the current CSS with the pre-alignment backup.
 - Local desktop and mobile screenshots now show the artwork area at the intended vertical position.
 - Public deployment and physical-device acceptance remain pending.
+
+## 2026-09-07 Gallery Sidebar Vertical Offset Restoration
+
+- The desktop sidebar had been moved upward by an unintended `top: 0` override.
+- The override now preserves the backup `top: 20vh` offset while retaining the requested right-aligned grid.
+- Public deployment and physical-device acceptance remain pending.
