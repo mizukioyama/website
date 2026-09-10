@@ -181,7 +181,8 @@
     .art-page #category-menu {
         position: absolute;
         left: 0;
-        bottom: calc(100% + 0.35rem);
+        top: calc(100% + 0.35rem);
+        bottom: auto;
         z-index: 3001;
         width: max-content;
         min-width: 9.5rem;
@@ -201,7 +202,7 @@
         transition: max-height 0.4s ease, opacity 0.35s ease, gap 0.4s ease, padding 0.35s ease;
     }
 
-    /* Dedicated mobile state: open upward over the gallery layer. */
+    /* Dedicated mobile state: open downward over the gallery layer. */
     .art-page #category-menu.mobile-open {
         max-height: 60svh;
         padding: 0.65rem 0.75rem;
