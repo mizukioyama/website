@@ -43,31 +43,41 @@ function readCaptionMap(source) {
 }
 
 function embedCaptions(source, captionMap) {
-  const lines = source.split(/\r?\n/);
-  let currentTitle = null;
+  const titlePattern = /title\s*:\s*\{\s*ja\s*:\s*"((?:\\.|[^"\\])*)"\s*,\s*en\s*:\s*"((?:\\.|[^"\\])*)"\s*\}/g;
+  const placeholderPattern = /text\s*:\s*\{\s*ja\s*:\s*"準備中\.\.\."\s*,\s*en\s*:\s*"Preparing…"\s*\}/;
+  const matches = [...source.matchAll(titlePattern)];
+
+  let cursor = 0;
+  let output = '';
   let replaced = 0;
 
-  const titlePattern = /title:\s*\{\s*ja:\s*"((?:\\.|[^"\\])*)",\s*en:\s*"((?:\\.|[^"\\])*)"\s*\}/;
-  const placeholderPattern = /^(\s*)text:\s*\{\s*ja:\s*"準備中\.\.\.",\s*en:\s*"Preparing…"\s*\},?\s*$/;
+  for (let i = 0; i < matches.length; i += 1) {
+    const start = matches[i].index;
+    const end = i + 1 < matches.length ? matches[i + 1].index : source.length;
+    const before = source.slice(cursor, start);
+    let segment = source.slice(start, end);
 
-  for (let i = 0; i < lines.length; i += 1) {
-    const titleMatch = lines[i].match(titlePattern);
-    if (titleMatch) {
-      currentTitle = decodeJsString(titleMatch[1]);
+    const jaTitle = decodeJsString(matches[i][1]);
+    const enTitle = decodeJsString(matches[i][2]);
+    const caption = captionMap.get(jaTitle) || captionMap.get(enTitle);
+
+    if (caption && placeholderPattern.test(segment)) {
+      segment = segment.replace(
+        placeholderPattern,
+        `text: { ja: ${JSON.stringify(caption.ja)}, en: ${JSON.stringify(caption.en)} }`
+      );
+      replaced += 1;
     }
 
-    const placeholderMatch = lines[i].match(placeholderPattern);
-    if (!placeholderMatch || !currentTitle) continue;
-
-    const caption = captionMap.get(currentTitle);
-    if (!caption) continue;
-
-    const comma = lines[i].trimEnd().endsWith(',') ? ',' : '';
-    lines[i] = `${placeholderMatch[1]}text: { ja: ${JSON.stringify(caption.ja)}, en: ${JSON.stringify(caption.en)} }${comma}`;
-    replaced += 1;
+    output += before + segment;
+    cursor = end;
   }
 
-  return { content: lines.join('\n'), replaced };
+  if (cursor < source.length) {
+    output += source.slice(cursor);
+  }
+
+  return { content: output, replaced };
 }
 
 if (!fs.existsSync(captionSourcePath)) {
