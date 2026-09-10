@@ -39,7 +39,34 @@
     .art-page #sidebar-container { position: absolute; top: calc(80svh + 10vmin - 3.25rem - 10px); left: calc(5% + 5vmin); right: auto; z-index: 3000; display: block; width: auto; min-width: 0; padding: 0; border: 0; overflow: visible; pointer-events: auto; isolation: isolate; }
 
     .art-page #category-header { position: relative; top: auto; left: auto; width: max-content; min-width: 8.5rem; min-height: 3.25rem; margin: 0; padding: 0.7rem 1.2rem 0.6rem 10px !important; border: 0 !important; border-bottom: 1px solid currentColor !important; border-radius: 0 !important; line-height: 1.15; font-size: clamp(1rem, 4.6vw, 1.25rem) !important; display: flex; align-items: center; justify-content: flex-start !important; text-align: left !important; z-index: 2; pointer-events: auto; touch-action: manipulation; cursor: pointer; white-space: nowrap; user-select: none; -webkit-user-select: none; animation: none !important; background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; mask: none !important; -webkit-mask: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: initial !important; text-shadow: none !important; }
-    .art-page #category-header::before { content: "・Category" !important; display: inline-block !important; font-family: "Jost", sans-serif !important; font-weight: 100 !important; font-variation-settings: "wght" 100 !important; font-synthesis: none !important; font-synthesis-weight: none !important; -webkit-text-stroke: 0 transparent !important; text-shadow: none !important; opacity: 0.78 !important; letter-spacing: 0.01em !important; color: var(--inv) !important; -webkit-text-fill-color: currentColor !important; background: none !important; mask: none !important; -webkit-mask: none !important; }
+
+    body.art-page main.gallery #category-header::before {
+        content: "・Category" !important;
+        display: inline-block !important;
+        position: static !important;
+        font-family: "Jost", sans-serif !important;
+        font-weight: 100 !important;
+        font-variation-settings: "wght" 100 !important;
+        font-synthesis: none !important;
+        font-synthesis-weight: none !important;
+        font-size: clamp(1rem, 4.6vw, 1.25rem) !important;
+        line-height: 1.15 !important;
+        letter-spacing: 0.01em !important;
+        color: var(--inv) !important;
+        -webkit-text-fill-color: currentColor !important;
+        -webkit-text-stroke: 0 transparent !important;
+        text-shadow: none !important;
+        opacity: 0.82 !important;
+        background: none !important;
+        mask: repeating-radial-gradient(circle at center, #000, var(--lines), #000, 0, #0000, calc(var(--lines) * 2.2), #0000 0) !important;
+        -webkit-mask: repeating-radial-gradient(circle at center, #000, var(--lines), #000, 0, #0000, calc(var(--lines) * 2.2), #0000 0) !important;
+        animation: liner 2s linear infinite, categoryNoiseMove 0.65s steps(2, end) infinite !important;
+        visibility: visible !important;
+        transform: none;
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: left !important;
+    }
     .art-page #category-header::after { content: none !important; display: none !important; }
 
     .art-page #category-menu { position: absolute; left: 0; top: calc(100% + 0.35rem); bottom: auto; z-index: 1; width: max-content; min-width: 9.5rem; max-width: min(70vw, 15rem); max-height: 0; margin: 0; padding: 0; gap: 0; overflow: hidden; opacity: 0; visibility: hidden; pointer-events: none; background: rgba(14, 27, 28, 0.48); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 0 !important; backdrop-filter: blur(20px) saturate(120%); -webkit-backdrop-filter: blur(20px) saturate(120%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 38px rgba(0, 0, 0, 0.38); transition: max-height 0.4s ease, opacity 0.35s ease, gap 0.4s ease, padding 0.35s ease; }
@@ -70,6 +97,8 @@
     #pagination { margin: 5vmin auto; gap: clamp(0.75rem, calc(0.5rem + 2vw), 1.5rem); }
     #gallery-container .work > .cg-text { width: min(100%, calc(100% - 0.5rem)) !important; max-width: 100%; overflow-wrap: anywhere; }
     #state h3 { padding: 2.5rem 2rem; }
+    #state .content .work:nth-child(n+3) h3 { padding: 0.5rem 2rem; }
+    #state .work:nth-child(2) h3 { width: auto; margin-top: 20vmin; }
     #state .content .work:nth-child(n+3) h3 { padding: 0.5rem 2rem; }
     #state .work:nth-child(2) h3 { width: auto; margin-top: 20vmin; }
     #state .work h3::before { width: 20px; top: 50%; }
