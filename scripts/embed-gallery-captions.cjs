@@ -4,6 +4,7 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const captionSourcePath = path.join(root, 'js', 'gallery-captions-data.js');
 const generatedArtworkPath = path.join(root, 'docs', 'js', 'page-nation.js');
+const generatedShimPath = path.join(root, 'docs', 'js', 'gallery-captions.js');
 
 function decodeJsString(value) {
   try {
@@ -101,6 +102,14 @@ if (result.replaced === 0 && original.includes('準備中...')) {
 }
 
 fs.writeFileSync(generatedArtworkPath, result.content, 'utf8');
+
+// gallery.html still references this legacy helper. Captions are now embedded
+// directly into page-nation.js, so keep only a harmless compatibility shim.
+fs.writeFileSync(
+  generatedShimPath,
+  '/* Gallery captions are embedded directly into page-nation.js during build. */\n',
+  'utf8'
+);
 
 const remaining = (result.content.match(/準備中\.\.\./g) || []).length;
 console.log(`Embedded ${result.replaced} gallery captions into docs/js/page-nation.js.`);
