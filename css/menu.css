@@ -194,21 +194,30 @@ nav .noise {
 
 @media screen and (max-width: 599px) {
     nav .noise { display: block; background-image: linear-gradient(to right, #878787, #000); }
-    .toggle_btn { height: 35px; }
     nav { flex-direction: column; }
     .inner { width: 100%; min-height: 65svh; padding: 2.5rem 2.5rem 0; }
     .inner ul { gap: 0.5rem; }
     .inner ul li:nth-of-type(5) { margin-top: 10vmin; }
     .inner li a { font-size: clamp(1.6rem, calc(1.4rem + 0.8vw), 1.8rem); font-weight: 400; }
     .inner li:nth-of-type(n+5) a { font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem); }
-    .toggle_btn { height: 70px; right: 1.5rem; }
+
+    /* Thumb-friendly mobile placement: above browser controls and safe area. */
+    .toggle_btn {
+        top: auto;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 4rem);
+        right: 1.25rem;
+        width: 48px;
+        height: 70px;
+        touch-action: manipulation;
+    }
+
     nav ::-webkit-scrollbar { display: none; }
     .open nav { overflow-y: scroll; }
     .open #mask { width: 100%; height: auto; min-height: 85vh; padding: 0.5rem; }
     #mask p { margin-top: 3rem; }
     .open #mask ul { width: auto; height: 60svh; min-height: 350px; left: 0; }
     .open #mask li { font-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.85rem); }
-    .toggle_btn span { bottom: 30px; background: #c0c0c0; }
+    .toggle_btn span { bottom: 30px; background: #c0c0c0; right: 0; }
     .toggle_btn span:nth-child(2) { top: -10%; }
     .open .toggle_btn span:nth-child(2) { top: 52.5%; }
 }
