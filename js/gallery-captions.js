@@ -15,7 +15,13 @@
       justifyContent: 'flex-start',
       textAlign: 'left',
       paddingLeft: '10px',
-      paddingRight: '1.2rem'
+      paddingRight: '1.2rem',
+      background: 'transparent',
+      backdropFilter: 'none',
+      WebkitBackdropFilter: 'none',
+      boxShadow: 'none',
+      border: '0',
+      borderBottom: '1px solid currentColor'
     });
   }
 
@@ -70,12 +76,13 @@
     });
 
     Object.assign(categoryHeader.style, {
-      background: 'linear-gradient(135deg, rgba(220,235,235,0.16), rgba(30,55,58,0.30))',
-      backdropFilter: 'blur(18px) saturate(135%)',
-      WebkitBackdropFilter: 'blur(18px) saturate(135%)',
-      border: '1px solid rgba(255,255,255,0.16)',
+      background: 'transparent',
+      backdropFilter: 'none',
+      WebkitBackdropFilter: 'none',
+      border: '0',
+      borderBottom: '1px solid currentColor',
       borderRadius: '0',
-      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(0,0,0,0.26)',
+      boxShadow: 'none',
       paddingLeft: '10px',
       paddingRight: '1.2rem',
       justifyContent: 'flex-start',
@@ -99,9 +106,7 @@
       overlay.setAttribute('aria-hidden', String(!isOpen));
       if (galleryContent) galleryContent.style.pointerEvents = isOpen ? 'none' : '';
       gallery.classList.toggle('category-glass-open', isOpen);
-      categoryHeader.style.background = isOpen
-        ? 'linear-gradient(135deg, rgba(225,240,240,0.22), rgba(40,70,72,0.38))'
-        : 'linear-gradient(135deg, rgba(220,235,235,0.16), rgba(30,55,58,0.30))';
+      categoryHeader.style.background = 'transparent';
     };
 
     if (overlay.dataset.categoryOverlayBound !== 'true') {
