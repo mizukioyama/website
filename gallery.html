@@ -12,29 +12,21 @@
   <link rel="stylesheet" href="css/gallery.css?v=20260910-1325">
   <link rel="stylesheet" href="css/mobile.css?v=20260910-1325">
   <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/menu.css?v=20260910-1335">
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-
-  <!-- 背景用 JavaScript -->
-  <!--<script src="js/jquery.ripples-min.js"></script>
-  <script src="js/bg_wave.js"></script>-->
   <script src="js/three.r134.min.js"></script>
   <script src="js/vanta.fog.min.js"></script>
 
   <script src="js/page-nation.js?v=20260910-1325"></script>
   <script src="js/gallery-captions.js"></script>
   <script src="js/menu.js?v=20260910-1325"></script>
-  <!--<script src="js/bg.js" defer></script>-->
 
-  <!-- Font -->
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
-  <!-- ✅ SEO強化 -->
-  <meta name="description"
-    content="小山瑞樹の作品一覧。デジタル、絵画、写真、展示作品など、自然と感覚をテーマにした抽象表現を紹介します。">
+  <meta name="description" content="小山瑞樹の作品一覧。デジタル、絵画、写真、展示作品など、自然と感覚をテーマにした抽象表現を紹介します。">
   <meta name="author" content="小山瑞樹 / Mizuki Oyama">
   <link rel="canonical" href="https://mizukioyama.github.io/website/gallery.html">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -61,7 +53,6 @@
   }
   </script>
 
-  <!-- OGP（SNSシェア用） -->
   <meta property="og:title" content="作品一覧｜小山瑞樹 - Nature inspire">
   <meta property="og:description" content="小山瑞樹の作品一覧。デジタル、絵画、写真、展示作品など、自然と感覚をテーマにした抽象表現を紹介します。">
   <meta property="og:type" content="website">
@@ -74,27 +65,21 @@
   <meta property="og:site_name" content="小山瑞樹｜Nature inspire">
   <meta property="og:locale" content="ja_JP">
 
-  <!-- Twitterカード -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="作品一覧｜小山瑞樹 - Nature inspire">
   <meta name="twitter:description" content="小山瑞樹の作品一覧。デジタル、絵画、写真、展示作品など、自然と感覚をテーマにした抽象表現を紹介します。">
   <meta name="twitter:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
   <meta name="twitter:image:alt" content="小山瑞樹の抽象作品">
 
-  <!-- Favicon -->
   <link rel="icon" href="img/web.ico">
 
-  <!-- キャッシュ制御 -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-
-  <!-- セキュリティ -->
   <meta name="referrer" content="strict-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 
-  <!-- Content Security Policy -->
   <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
         script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
@@ -106,41 +91,9 @@
         ">
 
   <style>
-    .modal-overlay {
-      position: fixed !important;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 998;
-    }
-
-    .modal-box {
-      position: fixed !important;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: clamp(3rem, calc(1rem + 5vw), 5rem)
-        clamp(2rem, calc(52.65vw - 17.75rem), 25rem)
-        clamp(7rem, calc(29.75vw - 4.15rem), 20rem);
-      width: min(95vw, calc(100% - 1rem));
-      min-height: 90vh;
-      height: 95dvh;
-      overflow-y: auto;
-      box-shadow: 0 0px 20px #000;
-      z-index: 999;
-      backdrop-filter: blur(20px);
-      background: rgba(100, 100, 100, 0.1);
-    }
-
-    .modal-box .work-img .works {
-      display: grid;
-      align-content: space-between;
-      justify-items: end;
-      height: auto;
-      width: auto;
-    }
-
+    .modal-overlay { position: fixed !important; top: 0; left: 0; width: 100%; height: 100vh; z-index: 998; }
+    .modal-box { position: fixed !important; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: clamp(3rem, calc(1rem + 5vw), 5rem) clamp(2rem, calc(52.65vw - 17.75rem), 25rem) clamp(7rem, calc(29.75vw - 4.15rem), 20rem); width: min(95vw, calc(100% - 1rem)); min-height: 90vh; height: 95dvh; overflow-y: auto; box-shadow: 0 0px 20px #000; z-index: 999; backdrop-filter: blur(20px); background: rgba(100, 100, 100, 0.1); }
+    .modal-box .work-img .works { display: grid; align-content: space-between; justify-items: end; height: auto; width: auto; }
     .modal-box .work-img .works p { text-align: end; }
     .modal-box .work-img { width: min(100%, 820px); max-width: 820px; margin: 0 auto; }
     .modal-box .dli-external-link { top: 1%; }
@@ -152,14 +105,8 @@
     #modalCloseBtn { font-size: clamp(1rem, calc(0.75rem + 1vw), 1.8rem); position: absolute; bottom: -5rem; right: 0; cursor: pointer; }
     #modalCloseBtn:hover { mix-blend-mode: difference; }
     .modal-box a::before { display: none; }
-
-    @keyframes slideInBottom {
-      from { opacity: 0; transform: translate(-50%, -40%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
-    }
-
+    @keyframes slideInBottom { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
     .modal-box.animate-bottom { animation: slideInBottom 0.4s ease-out forwards; }
-
     @media screen and (max-width: 599px) {
       .modal-box { height: 98svh; min-height: 90svh; padding: 8rem 2rem 7rem; }
       .noise.cg-text { font-size: clamp(1rem, calc(0.85rem + 0.5vw), 1.2rem) !important; }
@@ -171,7 +118,6 @@
       #modalCloseBtn { font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem); bottom: -2.5rem; }
       .modal-box .work-img img { height: auto; clip-path: polygon(0% 5%, 100% 5%, 100% 100%, 100% 95%, 0% 95%, 0 100%, 0 0%); }
     }
-
     .dud { color: #757575; }
   </style>
 </head>
@@ -213,9 +159,7 @@
             entry.target.style.width = `0%`;
           }
         });
-      }, {
-        threshold: Array.from({ length: 101 }, (_, i) => i / 100)
-      });
+      }, { threshold: Array.from({ length: 101 }, (_, i) => i / 100) });
       lines.forEach(line => observer.observe(line));
     });
   </script>
@@ -245,12 +189,8 @@
 
     setInterval(() => {
       elapsed += interval;
-      if (elapsed >= switchRight && elapsed < switchLeft) {
-        directionX = -1;
-      } else if (elapsed >= switchLeft) {
-        directionX = 1;
-        elapsed = 0;
-      }
+      if (elapsed >= switchRight && elapsed < switchLeft) directionX = -1;
+      else if (elapsed >= switchLeft) { directionX = 1; elapsed = 0; }
       if (vantaEffect && vantaEffect.options) {
         const baseSpeed = 0.45;
         const baseZoom = 0.40;
