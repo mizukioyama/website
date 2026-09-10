@@ -460,6 +460,36 @@ function initializeFooter() {
 function initializeSidebar() {
   try {
     if (!buildSidebar()) return;
+
+    const categoryHeader = document.getElementById("category-header");
+    const categoryMenu = document.getElementById("category-menu");
+    const isMobile = window.matchMedia("(max-width: 599px)").matches;
+
+    if (isMobile && categoryHeader && categoryMenu && categoryHeader.dataset.mobileToggleBound !== "true") {
+      const setMobileOpen = isOpen => {
+        categoryMenu.classList.toggle("mobile-open", isOpen);
+        categoryHeader.setAttribute("aria-expanded", String(isOpen));
+      };
+
+      categoryHeader.setAttribute("role", "button");
+      categoryHeader.setAttribute("tabindex", "0");
+      categoryHeader.setAttribute("aria-controls", "category-menu");
+      setMobileOpen(false);
+
+      const toggleMobileCategory = event => {
+        if (event.type === "keydown" && event.key !== "Enter" && event.key !== " ") return;
+        if (event.type === "keydown") event.preventDefault();
+        setMobileOpen(!categoryMenu.classList.contains("mobile-open"));
+      };
+
+      categoryHeader.addEventListener("click", toggleMobileCategory);
+      categoryHeader.addEventListener("keydown", toggleMobileCategory);
+      categoryMenu.querySelectorAll("li[data-category]").forEach(item => {
+        item.addEventListener("click", () => setMobileOpen(false));
+      });
+      categoryHeader.dataset.mobileToggleBound = "true";
+    }
+
     document.dispatchEvent(new CustomEvent("site:sidebar-ready"));
   } catch (error) {
     console.error("Error building sidebar:", error);
