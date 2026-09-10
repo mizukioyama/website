@@ -148,7 +148,7 @@
         position: fixed;
         top: 20vh;
         right: 0;
-        z-index: 2000;
+        z-index: 3000;
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -165,14 +165,14 @@
         left: auto;
         order: 0;
         width: 100%;
-        min-height: 2.25rem;
+        min-height: 2.5rem;
         margin: 0 0 0.35rem;
         padding: 0.25rem 0.5rem;
         line-height: 1;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        z-index: 2002;
+        z-index: 3002;
         pointer-events: auto;
         touch-action: manipulation;
         cursor: pointer;
@@ -181,7 +181,7 @@
     .art-page #category-menu {
         order: 1;
         position: relative;
-        z-index: 2001;
+        z-index: 3001;
         max-height: 0;
         margin: 0;
         gap: 0;
@@ -195,8 +195,8 @@
         transition: max-height 0.4s ease, opacity 0.35s ease, gap 0.4s ease;
     }
 
-    /* Existing JS toggles .collapsed; on mobile that state means the list is opened. */
-    .art-page #category-menu.collapsed {
+    /* Dedicated mobile state. Existing desktop/scroll .collapsed state is ignored here. */
+    .art-page #category-menu.mobile-open {
         max-height: 60svh;
         gap: 5px;
         overflow-y: auto;
