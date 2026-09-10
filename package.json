@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack && node scripts/embed-gallery-captions.cjs",
     "check:js": "node scripts/check-js.cjs",
     "check:generated": "node scripts/check-generated.cjs",
     "check:seo": "node scripts/check-seo.cjs",
