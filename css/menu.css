@@ -257,6 +257,22 @@ nav .noise {
     }
 }
 
+/* Lock the page behind full-screen UI. The menu or modal can still scroll internally. */
+html:has(#navArea.open),
+body:has(#navArea.open),
+html:has(#modalBox[style*="display: block"]),
+body:has(#modalBox[style*="display: block"]) {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+    touch-action: none;
+}
+
+#navArea.open nav,
+#modalBox[style*="display: block"] {
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+}
+
 @media (prefers-reduced-motion: reduce) {
     #category-header { animation: none; }
 }
