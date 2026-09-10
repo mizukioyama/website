@@ -3,6 +3,35 @@
   const titleMap = new Map();
   let ready = false;
 
+  function ensureCategoryGlassOverlay() {
+    if (!window.matchMedia('(max-width: 599px)').matches) return;
+    const gallery = document.querySelector('main.gallery');
+    if (!gallery) return;
+
+    let overlay = document.getElementById('category-glass-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'category-glass-overlay';
+      overlay.setAttribute('aria-hidden', 'true');
+      gallery.appendChild(overlay);
+    }
+
+    if (overlay.dataset.categoryOverlayBound === 'true') return;
+    overlay.addEventListener('click', () => {
+      const categoryMenu = document.getElementById('category-menu');
+      const categoryHeader = document.getElementById('category-header');
+      categoryMenu?.classList.remove('mobile-open');
+      categoryHeader?.setAttribute('aria-expanded', 'false');
+    });
+    overlay.dataset.categoryOverlayBound = 'true';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    ensureCategoryGlassOverlay();
+    setTimeout(ensureCategoryGlassOverlay, 0);
+  });
+  document.addEventListener('site:sidebar-ready', ensureCategoryGlassOverlay);
+
   function decodeJsString(value) {
     try {
       return JSON.parse('"' + value.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"')
