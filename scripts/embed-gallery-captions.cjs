@@ -7,6 +7,7 @@ const runtimeHelperPath = path.join(root, 'js', 'gallery-captions.js');
 const generatedArtworkPath = path.join(root, 'docs', 'js', 'page-nation.js');
 const generatedRuntimeHelperPath = path.join(root, 'docs', 'js', 'gallery-captions.js');
 const generatedGalleryPath = path.join(root, 'docs', 'gallery.html');
+const generatedDocsPath = path.join(root, 'docs');
 const cacheToken = (process.env.GITHUB_SHA || String(Date.now())).slice(0, 12);
 
 function decodeJsString(value) {
@@ -95,7 +96,7 @@ if (result.replaced === 0 && original.includes('準備中...')) throw new Error(
 fs.writeFileSync(generatedArtworkPath, result.content, 'utf8');
 fs.copyFileSync(runtimeHelperPath, generatedRuntimeHelperPath);
 
-// Cache-bust all mobile gallery UI assets on every Pages build using the commit SHA.
+// Cache-bust gallery-specific assets on every Pages build using the commit SHA.
 if (fs.existsSync(generatedGalleryPath)) {
   let galleryHtml = fs.readFileSync(generatedGalleryPath, 'utf8');
   galleryHtml = galleryHtml.replace(
@@ -113,10 +114,26 @@ if (fs.existsSync(generatedGalleryPath)) {
   fs.writeFileSync(generatedGalleryPath, galleryHtml, 'utf8');
 }
 
+// menu.css is shared by the hamburger menu and modal scroll-lock behavior.
+// Version it on every generated HTML page so browsers cannot retain stale UI behavior.
+if (fs.existsSync(generatedDocsPath)) {
+  for (const fileName of fs.readdirSync(generatedDocsPath)) {
+    if (!fileName.endsWith('.html')) continue;
+    const htmlPath = path.join(generatedDocsPath, fileName);
+    let html = fs.readFileSync(htmlPath, 'utf8');
+    const updated = html.replace(
+      /css\/menu\.css(?:\?v=[^"']*)?/g,
+      `css/menu.css?v=${cacheToken}`
+    );
+    if (updated !== html) fs.writeFileSync(htmlPath, updated, 'utf8');
+  }
+}
+
 const remaining = (result.content.match(/準備中\.\.\./g) || []).length;
 console.log(`Embedded ${result.replaced} gallery captions into docs/js/page-nation.js.`);
 console.log('Copied js/gallery-captions.js into docs/js/gallery-captions.js.');
 console.log(`Updated gallery mobile asset cache versions in docs/gallery.html (${cacheToken}).`);
+console.log(`Updated shared menu.css cache versions across generated HTML (${cacheToken}).`);
 console.log(`Remaining placeholders: ${remaining}.`);
 
 if (remaining > 0) throw new Error(`Gallery still contains ${remaining} "準備中..." placeholders.`);
