@@ -6,7 +6,9 @@
   function ensureCategoryGlassOverlay() {
     if (!window.matchMedia('(max-width: 599px)').matches) return;
     const gallery = document.querySelector('main.gallery');
-    if (!gallery) return;
+    const categoryMenu = document.getElementById('category-menu');
+    const categoryHeader = document.getElementById('category-header');
+    if (!gallery || !categoryMenu || !categoryHeader) return;
 
     let overlay = document.getElementById('category-glass-overlay');
     if (!overlay) {
@@ -16,19 +18,57 @@
       gallery.appendChild(overlay);
     }
 
-    if (overlay.dataset.categoryOverlayBound === 'true') return;
-    overlay.addEventListener('click', () => {
-      const categoryMenu = document.getElementById('category-menu');
-      const categoryHeader = document.getElementById('category-header');
-      categoryMenu?.classList.remove('mobile-open');
-      categoryHeader?.setAttribute('aria-expanded', 'false');
+    Object.assign(overlay.style, {
+      position: 'fixed',
+      inset: '0',
+      zIndex: '2999',
+      opacity: '0',
+      visibility: 'hidden',
+      pointerEvents: 'none',
+      background: 'rgba(7, 16, 17, 0.34)',
+      backdropFilter: 'blur(12px) saturate(112%)',
+      WebkitBackdropFilter: 'blur(12px) saturate(112%)',
+      boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.035)',
+      transition: 'opacity 0.25s ease, visibility 0.25s ease'
     });
-    overlay.dataset.categoryOverlayBound = 'true';
+
+    const syncOverlay = () => {
+      const isOpen = categoryMenu.classList.contains('mobile-open');
+      overlay.style.opacity = isOpen ? '1' : '0';
+      overlay.style.visibility = isOpen ? 'visible' : 'hidden';
+      overlay.style.pointerEvents = isOpen ? 'auto' : 'none';
+      overlay.setAttribute('aria-hidden', String(!isOpen));
+
+      categoryHeader.style.background = isOpen
+        ? 'rgba(14, 27, 28, 0.42)'
+        : 'rgba(14, 27, 28, 0.24)';
+      categoryHeader.style.backdropFilter = 'blur(14px) saturate(118%)';
+      categoryHeader.style.webkitBackdropFilter = 'blur(14px) saturate(118%)';
+      categoryHeader.style.borderRadius = '0.45rem';
+      categoryHeader.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.07)';
+    };
+
+    if (overlay.dataset.categoryOverlayBound !== 'true') {
+      overlay.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        categoryMenu.classList.remove('mobile-open');
+        categoryHeader.setAttribute('aria-expanded', 'false');
+        syncOverlay();
+      });
+
+      const observer = new MutationObserver(syncOverlay);
+      observer.observe(categoryMenu, { attributes: true, attributeFilter: ['class'] });
+      overlay.dataset.categoryOverlayBound = 'true';
+    }
+
+    syncOverlay();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     ensureCategoryGlassOverlay();
     setTimeout(ensureCategoryGlassOverlay, 0);
+    setTimeout(ensureCategoryGlassOverlay, 250);
   });
   document.addEventListener('site:sidebar-ready', ensureCategoryGlassOverlay);
 
