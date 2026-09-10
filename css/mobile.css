@@ -73,6 +73,11 @@
         top: 52%;
     }
 
+    /* Gallery mobile title aligns with the category control top. */
+    body.art-page .h1-text {
+        top: 7.5vh;
+    }
+
     .scroll {
         left: 1.25rem;
         width: 1px;
