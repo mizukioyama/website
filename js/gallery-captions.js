@@ -13,6 +13,11 @@
     const sidebar = document.getElementById('sidebar-container');
     if (!gallery || !categoryMenu || !categoryHeader || !sidebar) return;
 
+    // Keep the visible toggle label in the real DOM so it cannot disappear
+    // when pseudo-element masks or browser-specific text clipping change.
+    categoryHeader.textContent = '・Category';
+    categoryHeader.setAttribute('aria-label', 'Category');
+
     let overlay = document.getElementById('category-glass-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
@@ -42,9 +47,9 @@
       backdropFilter: 'blur(18px) saturate(135%)',
       WebkitBackdropFilter: 'blur(18px) saturate(135%)',
       border: '1px solid rgba(255,255,255,0.16)',
-      borderRadius: '999px',
+      borderRadius: '0',
       boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(0,0,0,0.26)',
-      paddingLeft: '1rem',
+      paddingLeft: '0',
       paddingRight: '1.2rem'
     });
 
@@ -53,22 +58,17 @@
       backdropFilter: 'blur(24px) saturate(145%)',
       WebkitBackdropFilter: 'blur(24px) saturate(145%)',
       border: '1px solid rgba(255,255,255,0.15)',
-      borderRadius: '1rem',
+      borderRadius: '0',
       boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 42px rgba(0,0,0,0.42)'
     });
 
     const syncOverlay = () => {
       const isOpen = categoryMenu.classList.contains('mobile-open');
-
       overlay.style.opacity = isOpen ? '1' : '0';
       overlay.style.visibility = isOpen ? 'visible' : 'hidden';
       overlay.style.pointerEvents = isOpen ? 'auto' : 'none';
       overlay.setAttribute('aria-hidden', String(!isOpen));
-
-      if (galleryContent) {
-        galleryContent.style.pointerEvents = isOpen ? 'none' : '';
-      }
-
+      if (galleryContent) galleryContent.style.pointerEvents = isOpen ? 'none' : '';
       gallery.classList.toggle('category-glass-open', isOpen);
       categoryHeader.style.background = isOpen
         ? 'linear-gradient(135deg, rgba(225,240,240,0.22), rgba(40,70,72,0.38))'
@@ -83,12 +83,10 @@
         categoryHeader.setAttribute('aria-expanded', 'false');
         syncOverlay();
       });
-
       const observer = new MutationObserver(syncOverlay);
       observer.observe(categoryMenu, { attributes: true, attributeFilter: ['class'] });
       overlay.dataset.categoryOverlayBound = 'true';
     }
-
     syncOverlay();
   }
 
@@ -102,18 +100,11 @@
   function decodeJsString(value) {
     try {
       return JSON.parse('"' + value.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"')
-        .replace(/\\n/g, '\n')
-        .replace(/\\r/g, '\r')
-        .replace(/\\t/g, '\t')
-        .replace(/\\"/g, '"')
-        .replace(/\\\\/g, '\\');
+        .replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/\\t/g, '\t')
+        .replace(/\\"/g, '"').replace(/\\\\/g, '\\');
     } catch (_error) {
-      return value
-        .replace(/\\"/g, '"')
-        .replace(/\\n/g, '\n')
-        .replace(/\\r/g, '\r')
-        .replace(/\\t/g, '\t')
-        .replace(/\\\\/g, '\\');
+      return value.replace(/\\"/g, '"').replace(/\\n/g, '\n').replace(/\\r/g, '\r')
+        .replace(/\\t/g, '\t').replace(/\\\\/g, '\\');
     }
   }
 
@@ -121,12 +112,7 @@
     const pattern = /jaTitle:\s*"((?:\\.|[^"\\])*)",\s*enTitle:\s*"((?:\\.|[^"\\])*)",\s*ja:\s*"((?:\\.|[^"\\])*)",\s*en:\s*"((?:\\.|[^"\\])*)"/g;
     let match;
     while ((match = pattern.exec(source)) !== null) {
-      const item = {
-        jaTitle: decodeJsString(match[1]),
-        enTitle: decodeJsString(match[2]),
-        ja: decodeJsString(match[3]),
-        en: decodeJsString(match[4])
-      };
+      const item = { jaTitle: decodeJsString(match[1]), enTitle: decodeJsString(match[2]), ja: decodeJsString(match[3]), en: decodeJsString(match[4]) };
       titleMap.set(item.jaTitle, item);
       titleMap.set(item.enTitle, item);
     }
@@ -140,14 +126,11 @@
     const titleEl = modalBox.querySelector('.works h2');
     const captionEl = modalBox.querySelector('.modal-text p');
     if (!titleEl || !captionEl) return;
-
     const item = titleMap.get(titleEl.textContent.trim());
     if (!item) return;
     const lang = document.documentElement.lang === 'en' ? 'en' : 'ja';
     const nextCaption = item[lang];
-    if (nextCaption && captionEl.innerHTML !== nextCaption) {
-      captionEl.innerHTML = nextCaption;
-    }
+    if (nextCaption && captionEl.innerHTML !== nextCaption) captionEl.innerHTML = nextCaption;
   }
 
   function bindRuntimePatch() {
@@ -156,35 +139,21 @@
       const observer = new MutationObserver(() => queueMicrotask(applyCaption));
       observer.observe(modalBox, { childList: true, subtree: true, characterData: true });
     }
-
     document.addEventListener('click', event => {
       if (event.target && event.target.closest('.view-policy-button')) {
-        requestAnimationFrame(applyCaption);
-        setTimeout(applyCaption, 50);
-        setTimeout(applyCaption, 250);
+        requestAnimationFrame(applyCaption); setTimeout(applyCaption, 50); setTimeout(applyCaption, 250);
       }
     });
-
     document.addEventListener('change', event => {
       if (event.target && event.target.matches('input[name="lang"]')) {
-        requestAnimationFrame(applyCaption);
-        setTimeout(applyCaption, 50);
+        requestAnimationFrame(applyCaption); setTimeout(applyCaption, 50);
       }
     });
-
     applyCaption();
   }
 
   fetch(DATA_URL, { cache: 'no-store' })
-    .then(response => {
-      if (!response.ok) throw new Error(`Caption data request failed: ${response.status}`);
-      return response.text();
-    })
-    .then(source => {
-      parseCaptionSource(source);
-      bindRuntimePatch();
-    })
-    .catch(error => {
-      console.error('Gallery captions could not be loaded.', error);
-    });
+    .then(response => { if (!response.ok) throw new Error(`Caption data request failed: ${response.status}`); return response.text(); })
+    .then(source => { parseCaptionSource(source); bindRuntimePatch(); })
+    .catch(error => console.error('Gallery captions could not be loaded.', error));
 })();
