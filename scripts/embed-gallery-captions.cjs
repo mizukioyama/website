@@ -6,6 +6,7 @@ const captionSourcePath = path.join(root, 'js', 'gallery-captions-data.js');
 const runtimeHelperPath = path.join(root, 'js', 'gallery-captions.js');
 const generatedArtworkPath = path.join(root, 'docs', 'js', 'page-nation.js');
 const generatedRuntimeHelperPath = path.join(root, 'docs', 'js', 'gallery-captions.js');
+const generatedGalleryPath = path.join(root, 'docs', 'gallery.html');
 
 function decodeJsString(value) {
   try {
@@ -110,12 +111,23 @@ fs.writeFileSync(generatedArtworkPath, result.content, 'utf8');
 
 // Keep the runtime helper in the generated Pages output. Captions are embedded
 // into page-nation.js, while this helper also owns gallery runtime UI behavior
-// such as the mobile category glass overlay.
+// such as the mobile category liquid-glass overlay.
 fs.copyFileSync(runtimeHelperPath, generatedRuntimeHelperPath);
+
+// Force browsers to fetch the newest gallery runtime helper after deployment.
+if (fs.existsSync(generatedGalleryPath)) {
+  let galleryHtml = fs.readFileSync(generatedGalleryPath, 'utf8');
+  galleryHtml = galleryHtml.replace(
+    /js\/gallery-captions\.js(?:\?v=[^"']*)?/,
+    'js/gallery-captions.js?v=20260910-1555'
+  );
+  fs.writeFileSync(generatedGalleryPath, galleryHtml, 'utf8');
+}
 
 const remaining = (result.content.match(/準備中\.\.\./g) || []).length;
 console.log(`Embedded ${result.replaced} gallery captions into docs/js/page-nation.js.`);
 console.log('Copied js/gallery-captions.js into docs/js/gallery-captions.js.');
+console.log('Updated gallery runtime cache version in docs/gallery.html.');
 console.log(`Remaining placeholders: ${remaining}.`);
 
 if (remaining > 0) {
