@@ -7,6 +7,7 @@ const runtimeHelperPath = path.join(root, 'js', 'gallery-captions.js');
 const generatedArtworkPath = path.join(root, 'docs', 'js', 'page-nation.js');
 const generatedRuntimeHelperPath = path.join(root, 'docs', 'js', 'gallery-captions.js');
 const generatedGalleryPath = path.join(root, 'docs', 'gallery.html');
+const cacheToken = (process.env.GITHUB_SHA || String(Date.now())).slice(0, 12);
 
 function decodeJsString(value) {
   try {
@@ -76,50 +77,38 @@ function embedCaptions(source, captionMap) {
     cursor = end;
   }
 
-  if (cursor < source.length) {
-    output += source.slice(cursor);
-  }
-
+  if (cursor < source.length) output += source.slice(cursor);
   return { content: output, replaced };
 }
 
-if (!fs.existsSync(captionSourcePath)) {
-  throw new Error(`Caption data not found: ${captionSourcePath}`);
-}
-
-if (!fs.existsSync(runtimeHelperPath)) {
-  throw new Error(`Gallery runtime helper not found: ${runtimeHelperPath}`);
-}
-
-if (!fs.existsSync(generatedArtworkPath)) {
-  throw new Error(`Generated artwork data not found: ${generatedArtworkPath}`);
-}
+if (!fs.existsSync(captionSourcePath)) throw new Error(`Caption data not found: ${captionSourcePath}`);
+if (!fs.existsSync(runtimeHelperPath)) throw new Error(`Gallery runtime helper not found: ${runtimeHelperPath}`);
+if (!fs.existsSync(generatedArtworkPath)) throw new Error(`Generated artwork data not found: ${generatedArtworkPath}`);
 
 const captionMap = readCaptionMap(fs.readFileSync(captionSourcePath, 'utf8'));
-if (captionMap.size === 0) {
-  throw new Error('No gallery captions could be parsed.');
-}
+if (captionMap.size === 0) throw new Error('No gallery captions could be parsed.');
 
 const original = fs.readFileSync(generatedArtworkPath, 'utf8');
 const result = embedCaptions(original, captionMap);
-
-if (result.replaced === 0 && original.includes('準備中...')) {
-  throw new Error('Gallery caption embedding replaced 0 placeholders.');
-}
+if (result.replaced === 0 && original.includes('準備中...')) throw new Error('Gallery caption embedding replaced 0 placeholders.');
 
 fs.writeFileSync(generatedArtworkPath, result.content, 'utf8');
-
-// Keep the runtime helper in the generated Pages output. Captions are embedded
-// into page-nation.js, while this helper also owns gallery runtime UI behavior
-// such as the mobile category liquid-glass overlay.
 fs.copyFileSync(runtimeHelperPath, generatedRuntimeHelperPath);
 
-// Force browsers to fetch the newest gallery runtime helper after deployment.
+// Cache-bust all mobile gallery UI assets on every Pages build using the commit SHA.
 if (fs.existsSync(generatedGalleryPath)) {
   let galleryHtml = fs.readFileSync(generatedGalleryPath, 'utf8');
   galleryHtml = galleryHtml.replace(
+    /css\/mobile\.css(?:\?v=[^"']*)?/,
+    `css/mobile.css?v=${cacheToken}`
+  );
+  galleryHtml = galleryHtml.replace(
     /js\/gallery-captions\.js(?:\?v=[^"']*)?/,
-    'js/gallery-captions.js?v=20260910-1555'
+    `js/gallery-captions.js?v=${cacheToken}`
+  );
+  galleryHtml = galleryHtml.replace(
+    /js\/menu\.js(?:\?v=[^"']*)?/,
+    `js/menu.js?v=${cacheToken}`
   );
   fs.writeFileSync(generatedGalleryPath, galleryHtml, 'utf8');
 }
@@ -127,9 +116,7 @@ if (fs.existsSync(generatedGalleryPath)) {
 const remaining = (result.content.match(/準備中\.\.\./g) || []).length;
 console.log(`Embedded ${result.replaced} gallery captions into docs/js/page-nation.js.`);
 console.log('Copied js/gallery-captions.js into docs/js/gallery-captions.js.');
-console.log('Updated gallery runtime cache version in docs/gallery.html.');
+console.log(`Updated gallery mobile asset cache versions in docs/gallery.html (${cacheToken}).`);
 console.log(`Remaining placeholders: ${remaining}.`);
 
-if (remaining > 0) {
-  throw new Error(`Gallery still contains ${remaining} "準備中..." placeholders.`);
-}
+if (remaining > 0) throw new Error(`Gallery still contains ${remaining} "準備中..." placeholders.`);
