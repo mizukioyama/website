@@ -75,7 +75,7 @@
 
     /* Gallery mobile title aligns visually with the category control top. */
     body.art-page .h1-text {
-        top: 7.5vh;
+        top: 20vh;
     }
 
     body.art-page .h1-text h1 {
