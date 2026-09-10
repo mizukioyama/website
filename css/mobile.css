@@ -143,6 +143,45 @@
         padding: 10vmin 0 30vmin clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
     }
 
+    /* Mobile gallery category toggle: keep the blinking dot directly above Category / All. */
+    .art-page #sidebar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .art-page #category-header {
+        position: relative;
+        top: auto;
+        left: auto;
+        order: 0;
+        width: 100%;
+        margin: 0 0 0.35rem;
+        padding: 0.35rem 0;
+        line-height: 1;
+        justify-content: flex-start;
+    }
+
+    .art-page #category-menu {
+        order: 1;
+        max-height: 0;
+        margin: 0;
+        gap: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: max-height 0.4s ease, opacity 0.35s ease, gap 0.4s ease;
+    }
+
+    /* Existing JS toggles .collapsed; on mobile that state means the list is opened. */
+    .art-page #category-menu.collapsed {
+        max-height: 40vh;
+        gap: 5px;
+        overflow-y: auto;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     body p:nth-child(n+1) {
         margin-left: 0 !important;
     }
