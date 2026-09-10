@@ -1,0 +1,199 @@
+@charset "utf-8";
+
+/*
+ * Home page tablet policy:
+ * - portrait (600px–1199px): use the same layout treatment as mobile
+ * - landscape: no overrides, so the existing desktop layout remains active
+ */
+@media screen and (min-width: 600px) and (max-width: 1199px) and (orientation: portrait) {
+  /* all.css mobile-equivalent rules, scoped to the home page */
+  .home .sp {
+    display: block;
+  }
+
+  .home #pc {
+    display: none !important;
+  }
+
+  .home .typing-container {
+    width: 80%;
+  }
+
+  .home #langChenge {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  /* index.css mobile-equivalent rules */
+  .home #vanta-bg {
+    opacity: 0.35;
+  }
+
+  .home h1,
+  .home .creator-title {
+    line-height: 1;
+  }
+
+  .home .card {
+    width: min(98svw, calc(100% - 1rem));
+    height: 99svh;
+  }
+
+  .home .back__slide::before {
+    width: 100%;
+    height: 100svh;
+  }
+
+  .home .content__slide {
+    width: 80%;
+    gap: 1rem;
+  }
+
+  .home .creator {
+    top: 0.5%;
+    left: 4%;
+  }
+
+  .home .time {
+    right: 4%;
+    bottom: 0.5%;
+  }
+
+  .home .card__slide:first-child .number,
+  .home .card__slide:nth-child(even) .number {
+    left: 2rem;
+    right: auto;
+    top: 3rem;
+  }
+
+  .home .number::before {
+    height: 1px;
+    width: 3rem;
+    top: 0.75rem;
+    left: 0;
+    border-left: 0;
+    border-top: 1px solid;
+    transform: translateX(-130%);
+  }
+
+  .home .card__slide .number {
+    transform: translateX(-5rem);
+    transition: transform 1400ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1200ms 1600ms linear;
+  }
+
+  .home .card__slide.active .number {
+    transform: translateX(0);
+    transition: transform 800ms 1100ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 600ms 1200ms linear;
+  }
+
+  .home .date {
+    letter-spacing: 0.05rem;
+    bottom: calc(3% - 0.5rem);
+  }
+
+  .home .date::before {
+    width: 2rem;
+  }
+
+  .home .date__time {
+    display: block;
+    opacity: 0.5;
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+  }
+
+  .home .desc {
+    margin: 0 auto;
+  }
+
+  .home .button-wrap,
+  .home .button {
+    margin-top: 0;
+  }
+
+  .home .button {
+    padding: 1rem 0.5rem;
+  }
+
+  /* menu.css mobile-equivalent rules, scoped to home */
+  .home nav .noise {
+    display: block;
+    background-image: linear-gradient(to right, #878787, #000);
+  }
+
+  .home nav {
+    flex-direction: column;
+  }
+
+  .home .inner {
+    width: 100%;
+    min-height: 65svh;
+    padding: 2.5rem 2.5rem 0;
+  }
+
+  .home .inner ul {
+    gap: 0.5rem;
+  }
+
+  .home .inner ul li:nth-of-type(5) {
+    margin-top: 10vmin;
+  }
+
+  .home .inner li a {
+    font-size: clamp(1.6rem, calc(1.4rem + 0.8vw), 1.8rem);
+    font-weight: 400;
+  }
+
+  .home .inner li:nth-of-type(n+5) a {
+    font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem);
+  }
+
+  .home .toggle_btn {
+    height: 70px;
+    right: 1.5rem;
+  }
+
+  .home nav ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home .open nav {
+    overflow-y: scroll;
+  }
+
+  .home .open #mask {
+    width: 100%;
+    height: auto;
+    min-height: 85vh;
+    padding: 0.5rem;
+  }
+
+  .home #mask p {
+    margin-top: 3rem;
+  }
+
+  .home .open #mask ul {
+    width: auto;
+    height: 60svh;
+    min-height: 350px;
+    left: 0;
+  }
+
+  .home .open #mask li {
+    font-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.85rem);
+  }
+
+  .home .toggle_btn span {
+    bottom: 30px;
+    background: #c0c0c0;
+  }
+
+  .home .toggle_btn span:nth-child(2) {
+    top: -10%;
+  }
+
+  .home .open .toggle_btn span:nth-child(2) {
+    top: 52.5%;
+  }
+}
