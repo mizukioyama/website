@@ -47,6 +47,13 @@
         border-top: 1px solid #aaa;
     }
 
+    /* Gallery: keep a slightly generous but natural gap between pagination and footer on tablet/desktop. */
+    @media only screen and (min-width:600px) {
+        .art-page main.gallery {
+            padding-bottom: clamp(12rem, 16vw, 20rem);
+        }
+    }
+
     /*security logo*/
     .grecaptcha-badge {
         visibility: hidden;
