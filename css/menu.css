@@ -201,13 +201,19 @@ nav .noise {
     .inner li a { font-size: clamp(1.6rem, calc(1.4rem + 0.8vw), 1.8rem); font-weight: 400; }
     .inner li:nth-of-type(n+5) a { font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem); }
 
-    /* Thumb-friendly mobile placement: above browser controls and safe area. */
+    /* Thumb-friendly circular mobile menu button. */
     .toggle_btn {
         top: auto;
         bottom: calc(env(safe-area-inset-bottom, 0px) + 4rem);
         right: 1.25rem;
-        width: 48px;
-        height: 70px;
+        width: 56px;
+        height: 56px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 50%;
+        background: rgba(7, 16, 17, 0.28);
+        backdrop-filter: blur(12px) saturate(120%);
+        -webkit-backdrop-filter: blur(12px) saturate(120%);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(255,255,255,0.03);
         touch-action: manipulation;
     }
 
@@ -217,7 +223,7 @@ nav .noise {
     #mask p { margin-top: 3rem; }
     .open #mask ul { width: auto; height: 60svh; min-height: 350px; left: 0; }
     .open #mask li { font-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.85rem); }
-    .toggle_btn span { bottom: 30px; background: #c0c0c0; right: 0; }
+    .toggle_btn span { bottom: 27px; background: #c0c0c0; right: 8px; }
     .toggle_btn span:nth-child(2) { top: -10%; }
     .open .toggle_btn span:nth-child(2) { top: 52.5%; }
 }
