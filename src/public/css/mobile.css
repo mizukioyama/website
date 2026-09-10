@@ -82,6 +82,11 @@
         top: clamp(8rem, 20vh, 12rem);
     }
 
+    /* Align the gallery title with the top of the mobile category control. */
+    body.art-page .h1-text {
+        top: 7.5vh;
+    }
+
     /* Keep the statement and biography title position from the backup. */
     body#state .h1-text {
         top: 52%;
