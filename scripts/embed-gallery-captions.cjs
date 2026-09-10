@@ -3,8 +3,9 @@ const path = require('path');
 
 const root = path.resolve(__dirname, '..');
 const captionSourcePath = path.join(root, 'js', 'gallery-captions-data.js');
+const runtimeHelperPath = path.join(root, 'js', 'gallery-captions.js');
 const generatedArtworkPath = path.join(root, 'docs', 'js', 'page-nation.js');
-const generatedShimPath = path.join(root, 'docs', 'js', 'gallery-captions.js');
+const generatedRuntimeHelperPath = path.join(root, 'docs', 'js', 'gallery-captions.js');
 
 function decodeJsString(value) {
   try {
@@ -85,6 +86,10 @@ if (!fs.existsSync(captionSourcePath)) {
   throw new Error(`Caption data not found: ${captionSourcePath}`);
 }
 
+if (!fs.existsSync(runtimeHelperPath)) {
+  throw new Error(`Gallery runtime helper not found: ${runtimeHelperPath}`);
+}
+
 if (!fs.existsSync(generatedArtworkPath)) {
   throw new Error(`Generated artwork data not found: ${generatedArtworkPath}`);
 }
@@ -103,16 +108,14 @@ if (result.replaced === 0 && original.includes('準備中...')) {
 
 fs.writeFileSync(generatedArtworkPath, result.content, 'utf8');
 
-// gallery.html still references this legacy helper. Captions are now embedded
-// directly into page-nation.js, so keep only a harmless compatibility shim.
-fs.writeFileSync(
-  generatedShimPath,
-  '/* Gallery captions are embedded directly into page-nation.js during build. */\n',
-  'utf8'
-);
+// Keep the runtime helper in the generated Pages output. Captions are embedded
+// into page-nation.js, while this helper also owns gallery runtime UI behavior
+// such as the mobile category glass overlay.
+fs.copyFileSync(runtimeHelperPath, generatedRuntimeHelperPath);
 
 const remaining = (result.content.match(/準備中\.\.\./g) || []).length;
 console.log(`Embedded ${result.replaced} gallery captions into docs/js/page-nation.js.`);
+console.log('Copied js/gallery-captions.js into docs/js/gallery-captions.js.');
 console.log(`Remaining placeholders: ${remaining}.`);
 
 if (remaining > 0) {
