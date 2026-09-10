@@ -57,7 +57,7 @@ body.dark-theme .modal-box {
 
 #vanta-bg,
 #vanta-bg-bio {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -119,7 +119,7 @@ body.dark-theme .modal-box {
 }*/
 
 h1 {
-    font-size: clamp(2.4rem, calc(1.5rem + 4vw), 5.4rem);
+    font-size: var(--font-h1-size);
     font-weight: 300;
     width: fit-content;
     line-height: 1.2;
@@ -217,7 +217,7 @@ h1 {
 
 
 h2 {
-    font-size: clamp(1.2rem, calc(0.4rem + 2vw), 2.8rem);
+    font-size: var(--font-h2-size);
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -253,12 +253,13 @@ img:hover {
 }
 
 p {
-    font-size: clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem);
+    font-size: var(--font-body-size);
     letter-spacing: 0.05rem;
     line-height: 2.4;
 }
 
 main li {
+    font-size: var(--font-list-size);
     position: relative;
     color: var(--inv);
     margin-bottom: 2vmin;
@@ -321,133 +322,6 @@ main li {
     border-radius: 8px;
 }
 
-/*========gallery sidebar*/
-.work {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-#category-menu {
-    display: grid;
-    gap: 5px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-#category-menu p {
-    font-size: clamp(1.2rem, calc(0.4rem + 1vw), 2rem);
-    font-weight: 400;
-    line-height: 1.2;
-}
-
-#category-menu p:nth-of-type(2) {
-    margin-top: 1rem;
-}
-
-#category-menu li {
-    font-size: clamp(1rem, calc(0.75rem + 0.8vw), 1.6rem);
-    margin-left: 1rem;
-    padding: 0 0 0 0.5vmin;
-    width: 100%;
-    display: block;
-    cursor: pointer;
-    overflow: hidden;
-    transition-duration: 0.8s;
-    border-bottom: 1px solid var(--inv);
-    text-shadow: 0 0 0 var(--inv);
-    opacity: 0.4;
-}
-
-#sidebar-container {
-    top: 20vh;
-    z-index: 100;
-    padding: 0.75rem 0;
-}
-
-#sidebar-container .noise {
-    background-image: linear-gradient(to right, var(--inv));
-}
-
-#category-header {
-    cursor: pointer;
-    font-size: clamp(1.4rem, calc(1.1rem + 0.7vw), 1.8rem);
-    font-weight: 400;
-    width: 100%;
-    top: 0;
-    left: -10px;
-    position: absolute;
-    line-height: 0.5;
-    padding: 0.35rem 0;
-    justify-content: flex-start;
-}
-
-@media screen and (min-width: 1299px) {
-    #sidebar-container {
-        width: fit-content;
-        margin-top: 20vmin;
-        position: relative;
-    }
-}
-
-@media screen and (max-width: 599px) {
-    #sidebar-container {
-        position: fixed;
-        width: auto;
-        min-width: 20vmin;
-        top: 7.5%;
-        right: 0;
-        padding: 0.75rem 0.5rem;
-        border: 1px solid rgba(200, 200, 200, 0.25);
-        border-right: none;
-    }
-
-    #category-header {
-        font-size: clamp(1.4rem, calc(1.2rem + 0.5vw), 1.6rem);
-        font-weight: bold;
-        padding: 0.35rem 1vmin;
-        top: 2px;
-        left: 0;
-    }
-
-    #category-menu {
-        max-height: 40vh;
-        overflow-y: scroll;
-        transition: gap 0.4s ease, max-height 0.4s ease, opacity 0.4s ease;
-        opacity: 1;
-    }
-
-    #category-menu li {
-        margin: 0;
-        margin-bottom: 1vmin;
-        padding-left: 1vmin;
-        border-bottom: 0 solid var(--inv);
-    }
-
-    #category-menu p {
-        font-weight: 500;
-        line-height: 1.2;
-        width: 100%;
-        justify-content: flex-start;
-        border-bottom: 1px solid var(--inv);
-    }
-
-    #sidebar-container ul li {
-        font-size: clamp(0.9rem, calc(0.75rem + 0.4vw), 1rem);
-    }
-
-    .work .noise {
-        top: -5%;
-    }
-}
-
 
 #pagination {
     font-size: clamp(1rem, 0.582rem + 0.52vw, 1.2rem);
@@ -503,27 +377,21 @@ main {
 }*/
 
 /* コンテナ定義（.gallery .content をコンテナに） */
-.gallery-containt {
-    width: min(72%, calc(100vw - 2rem));
-    max-width: none;
-    min-width: 0;
-    margin-inline: auto;
-}
-
 .gallery .content {
     container-type: inline-size;
     container-name: gallery;
     /*width: clamp(55%, 100%, 45%);*/
+    width: 75%;
     width: 100%;
-    max-width: none;
+    max-width: 1400px;
+    max-width: 1100px;
     height: 100%;
     margin: 60vmin auto 0;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
     position: relative;
-    min-width: 0;
     overflow: hidden;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 52vmin 52vmin;
     justify-content: center;
     /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
@@ -544,41 +412,34 @@ main {
     margin: 4rem auto 0;
 }
 
-.state-box {
-    width: min(100%, calc(100vw - 4rem));
-    max-width: 100%;
-    min-width: 0;
-}
-
-.state-box > .content,
-.state-box .work,
-.state-box .work > p {
-    max-width: 100%;
-    min-width: 0;
-}
-
-.state-box .work {
-    width: 100%;
-}
-
-.state-box .work > p {
-    width: 100%;
-    white-space: normal;
-    word-break: break-all;
-    overflow-wrap: anywhere;
-}
-
 /*=======info page*/
 #state .content,
 #contact .content,
 #policy .content {
     box-shadow: none;
-    width: min(50%, calc(100% - 2rem));
+    width: 50%;
     max-width: 1000px;
 }
+
+/* Keep the biography history in the backup information-page width. */
+#state .state-box-history {
+    display: block;
+    width: 100%;
+}
+
+#state .state-box-history > .content {
+    display: block;
+    width: 50%;
+    max-width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
 #contact .content {
     display: block;
-    width: min(35%, calc(100% - 2rem));
+    width: 35%;
 }
 
 #state h2,
@@ -594,16 +455,12 @@ main {
 }
 
 @media screen and (min-width: 1299px) {
-    .gallery-containt {
-        width: min(55%, calc(100vw - 2rem));
-    }
-
-    #state .state-box:nth-child(2) .content {
-        width: min(40%, calc(100% - 2rem));
+    #state .state-box-secondary .content {
+        width: 40%;
     }
 
     #state h2 {
-        font-size: clamp(1.2rem, calc(0.8rem + 1vw), 2.4rem);
+        font-size: var(--font-h2-size);
         align-items: end;
         margin-bottom: 1vmin;
     }
@@ -612,46 +469,6 @@ main {
         margin-bottom: 5vmin;
     }
 
-}
-
-/* Keep the sidebar and artwork area together on the right side. */
-@media screen and (min-width: 600px) {
-    .art-page main.gallery {
-        --gallery-sidebar-width: clamp(10rem, 20%, 30rem);
-        --gallery-sidebar-gap: clamp(2rem, 15%, 24rem);
-        display: grid;
-        grid-template-columns:
-            minmax(0, var(--gallery-sidebar-width))
-            minmax(
-                0,
-                min(
-                    55%,
-                    calc(100% - var(--gallery-sidebar-width) - var(--gallery-sidebar-gap))
-                )
-            );
-        column-gap: var(--gallery-sidebar-gap);
-        justify-content: end;
-        align-items: start;
-    }
-
-    .art-page main.gallery > #sidebar-container {
-        grid-column: 1;
-        width: 100%;
-        min-width: 0;
-        margin: 20vmin 0 0;
-        position: relative;
-        /* Preserve the backup layout's vertical offset below the heading. */
-        top: 20vh;
-    }
-
-    .art-page main.gallery > .gallery-containt {
-        grid-column: 2;
-        width: 100%;
-        max-width: none;
-        min-width: 0;
-        /* Keep the existing 60vmin offset on .gallery .content only. */
-        margin: 0;
-    }
 }
 
 #policy h2 {
@@ -702,7 +519,7 @@ main {
 }
 
 #state .content li span {
-    font-size: clamp(0.65rem, calc(0.55rem + 0.4vw), 0.85rem);
+    font-size: var(--font-list-size);
 }
 
 /*#state .content li::before,
@@ -729,7 +546,7 @@ main {
 }
 
 #state .work {
-    width: 100%;
+    width: auto;
 }
 
 #state .work ol p {
@@ -752,7 +569,6 @@ main {
 #gallery-container .work-img {
     position: relative;
     display: grid;
-    min-width: 0;
     max-width: 450px;
     /*gap: 1rem;
     filter: grayscale(40%);*/
@@ -785,7 +601,7 @@ main {
 }
 
 .works p {
-    font-size: clamp(0.8rem, calc(0.7rem + 0.4vw), 1rem);
+    font-size: var(--font-body-size);
     letter-spacing: 0.1rem;
     line-height: 1.8;
 }
@@ -814,6 +630,5 @@ main {
     .work-img {
         order: 1;
         max-width: 100%;
-        min-width: 0;
     }
 }

@@ -37,7 +37,7 @@
 
     /*== bg water ==*/
     .ripples {
-        width: 100%;
+        width: 100svw;
         height: 100svh;
     }
 
@@ -58,7 +58,6 @@
         margin: 0 auto;
         padding-bottom: 10em;
         padding: 5rem 2.5rem 15rem;
-        padding-inline: min(2.5rem, calc((100vw - 1rem) / 2));
         backdrop-filter: blur(15px);
         z-index: 10;
         display: block;
@@ -68,9 +67,22 @@
         backdrop-filter: blur(10px);
     }
 
+    h1 {
+        font-size: var(--font-h1-size);
+    }
+
     .h1-text {
         left: 2.5rem;
+        top: clamp(8rem, 20vh, 12rem);
+    }
+
+    /* Keep the statement and biography title position from the backup. */
+    body#state .h1-text {
         top: 52%;
+    }
+
+    .h1-text p {
+        font-size: clamp(0.9rem, calc(0.75rem + 0.5vw), 1rem);
     }
 
     .scroll {
@@ -78,8 +90,36 @@
         width: 1px;
     }
 
+    h2 {
+        font-size: var(--font-h2-size);
+        font-weight: 500;
+    }
+
+    span.name {
+        font-size: clamp(0.8rem, calc(0.7rem + 0.35vw), 0.9rem);
+        font-weight: 300;
+    }
+
+    h3 {
+        font-size: clamp(0.9rem, calc(0.75rem + 0.4vw), 1rem);
+    }
+
+    h4 {
+        font-size: clamp(0.8rem, calc(0.65rem + 0.4vw), 0.9rem);
+    }
+
+    p {
+        font-size: var(--font-body-size);
+        letter-spacing: 0.05rem;
+    }
+
+    li {
+        font-size: var(--font-list-size);
+        line-height: 2;
+    }
+
     a {
-        font-size: clamp(1rem, calc(0.85rem + 0.4vw), 1.2rem);
+        font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
         transition-duration: 0.8s;
     }
 
@@ -130,7 +170,7 @@
 
     .art-page .gallery {
         background-color: rgba(0, 0, 0, 0.55);
-        padding: 10vmin 0 30vmin clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
+        padding: 10vmin 0 30vmin 2.5rem;
     }
 
     body p:nth-child(n+1) {
@@ -138,7 +178,7 @@
     }
 
     .art-page .gallery p:nth-child(n+1) {
-        font-size: clamp(0.75rem, calc(0.65rem + 0.35vw), 0.8rem) !important;
+        font-size: var(--font-body-size) !important;
         margin-left: 0 !important;
     }
 
@@ -159,6 +199,17 @@
     #state .content {
         margin: 0;
     }
+
+    /* Match the backup width while keeping the history content visible. */
+    #state .state-box-history > .content {
+        width: 100%;
+    }
+
+    /* Keep the statement body below the overlaid title and keyword list. */
+    #state.artist-statement-page .state-box-primary .content {
+        margin-top: clamp(9rem, 24vh, 14rem);
+    }
+
     #state .content li {
         padding: 0.5rem 0 0 1.2rem;
     }
@@ -168,21 +219,15 @@
     }
 
     .gallery .content {
-        width: 100%;
+        width: 90vw;
         padding: 0 5vmin;
         gap: 0;
         margin-top: 80svh;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .gallery-containt {
-        width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)));
-        max-width: 100%;
-        margin-inline: auto;
+        grid-template-columns: 50% 50%;
     }
 
     #policy .content li {
-        font-size: clamp(0.6rem, calc(0.5rem + 0.35vw), 0.65rem);
+        font-size: var(--font-list-size);
         padding-left: 1rem;
     }
 
@@ -233,7 +278,6 @@
 
     .gallery li {
         width: fit-content;
-        max-width: 100%;
     }
 
     .gallery li a:hover {
@@ -246,13 +290,7 @@
 
     #pagination {
         margin: 5vmin auto;
-        gap: clamp(0.75rem, calc(0.5rem + 2vw), 1.5rem);
-    }
-
-    #gallery-container .work > .cg-text {
-        width: min(100%, calc(100% - 0.5rem)) !important;
-        max-width: 100%;
-        overflow-wrap: anywhere;
+        gap: 1.5rem;
     }
 
     #state h3 {

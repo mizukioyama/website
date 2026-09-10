@@ -105,7 +105,7 @@
 
 @media screen and (min-width: 601px) and (max-width: 1299px) {
 .modal {
-   width: min(100%, calc(100% - 2rem));
+   width: 105%;
    transform: translate(-2.5%, -50%);
 }
    .show {
@@ -128,12 +128,12 @@
    }
 
    .modal-overlay {
-      width: 100%;
+      width: 100vw;
    }
 
    .modal {
       height: 60vh;
-      width: min(90vw, calc(100% - 1rem));
+      width: 90vw;
       bottom: 15%;
       left: 5vw;
       transform: translate(0%, -50%);

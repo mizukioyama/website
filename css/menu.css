@@ -35,7 +35,6 @@ nav {
 }
 
 .inner li a {
-    font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem);
     font-weight: 400;
     color: var(--inv);
     height: 100%;
@@ -81,7 +80,7 @@ nav .noise {
     display: block;
     position: fixed;
     top: 0;
-    right: clamp(1.5rem, calc(14.9vw - 4.1rem), 8rem);
+    right: 8rem;
     width: 40px;
     height: 80px;
     transition: all 1.3s;

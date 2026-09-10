@@ -62,7 +62,7 @@ form input[type="radio"]:checked::before {
    position: relative;
    /*width: 65%;
    margin: 60vmin auto 0;*/
-   width: min(50%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 2rem)));
+   width: 50%;
    margin-top: 60vmin;
 }
 
@@ -200,8 +200,7 @@ input:-webkit-autofill:focus {
 .radio-group {
    font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
    display: flex;
-   flex-wrap: wrap;
-   gap: clamp(0.5rem, calc(0.25rem + 2vw), 1.2rem);
+   gap: 1.2rem;
    /*margin-top: 10vmin;*/
 }
 
@@ -233,7 +232,7 @@ input:-webkit-autofill:focus {
    z-index: 10099;
    background: rgba(119, 119, 119, 0.25);
    transition: opacity 0.4s ease-in-out;
-   width: min(95vw, calc(100% - 1rem));
+   width: 95vw;
    /*height: 120svh;*/
    min-height: 100vh;
    /*top: 50%;*/
@@ -254,7 +253,8 @@ input:-webkit-autofill:focus {
 /* モーダルコンテンツのアニメーション */
 #thanksModal .modal-content {
    position: relative;
-   width: min(75vw, calc(100% - 2rem));
+   width: 75vw;
+   width: -webkit-fill-available;
    height: 70vh;
    margin: 0 auto;
    /*top: 50%;
@@ -277,9 +277,7 @@ input:-webkit-autofill:focus {
 
 #thanksModal .modal-content p {
    width: fit-content;
-   min-width: min(50%, calc(100% - 2rem));
-   max-width: 100%;
-   overflow-wrap: anywhere;
+   min-width: 50%;
    line-height: 2;
 }
 
@@ -470,7 +468,7 @@ input:-webkit-autofill:focus {
 
    /*===================== モーダルウィンドウ =====================*/
    #thanksModal {
-      width: 100%;
+      width: 100vw;
       height: 120vh;
       left: 0%;
       padding: 0;
@@ -479,7 +477,7 @@ input:-webkit-autofill:focus {
    }
 
    #thanksModal .modal-content {
-      width: min(96svw, calc(100% - 1rem));
+      width: 96svw;
       height: 95svh;
       /*top: 50%;*/
       top: -70vmin;

@@ -18,7 +18,7 @@ body,
 }
 
 #vanta-bg {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -56,17 +56,16 @@ canvas {
 
 /* ========== Common ========== */
 
-h1,
-.creator-title {
-  font-size: clamp(0.9rem, calc(0.85rem + 0.2vw), 1rem);
+h1 {
+  font-size: var(--font-home-h1-size);
 }
 
 h2 {
-  font-size: clamp(1.6rem, calc(1.35rem + 0.55vw), 1.8rem);
+  font-size: var(--font-home-h2-size);
 }
 
 p {
-  font-size: clamp(0.85rem, calc(0.75rem + 0.4vw), 1rem);
+  font-size: var(--font-body-size);
   letter-spacing: 0.1em;
 }
 
@@ -75,7 +74,7 @@ p {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   background-position: center;
   background-size: cover;
@@ -121,7 +120,7 @@ p {
 }
 
 .back__slide:nth-child(even)::before {
-  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/shinju.jpg");
+  background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/心樹.jpg");
 }
 
 /* フロント画像 */
@@ -183,7 +182,7 @@ p {
 
 /* ========== Card Slide ========== */
 .card {
-  width: min(93vmin, calc(100% - 1rem));
+  width: 93vmin;
   height: 53%;
   position: absolute;
   top: 50%;
@@ -659,7 +658,7 @@ footer,
   width: var(--card-width);
   height: var(--card-height);
   cursor: pointer;
-  width: min(100vmin, calc(100vw - 1rem));
+  width: 100vmin;
   height: 50%;
   position: absolute;
   top: 50%;
@@ -723,17 +722,20 @@ footer,
         opacity: 0.35;
     }
 
-  h1,
-  .creator-title {
+  h1 {
     line-height: 1;
   }
+  h2 {
+    font-size: var(--font-home-h2-size);
+  }
+
   .card {
-    width: min(98svw, calc(100% - 1rem));
+    width: 98svw;
     height: 99svh;
   }
 
   .back__slide::before {
-    width: 100%;
+    width: 100svw;
     height: 100svh;
   }
 
