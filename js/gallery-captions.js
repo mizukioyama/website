@@ -3,6 +3,36 @@
   const titleMap = new Map();
   let ready = false;
 
+  function forceCategoryLabel() {
+    if (!window.matchMedia('(max-width: 599px)').matches) return;
+    const categoryHeader = document.getElementById('category-header');
+    if (!categoryHeader) return;
+    if (categoryHeader.textContent !== '・Category') {
+      categoryHeader.textContent = '・Category';
+    }
+    categoryHeader.setAttribute('aria-label', 'Category');
+    Object.assign(categoryHeader.style, {
+      justifyContent: 'flex-start',
+      textAlign: 'left',
+      paddingLeft: '10px',
+      paddingRight: '1.2rem'
+    });
+  }
+
+  function bindCategoryLabelObserver() {
+    if (!window.matchMedia('(max-width: 599px)').matches) return;
+    const sidebar = document.getElementById('sidebar-container');
+    if (!sidebar || sidebar.dataset.categoryLabelObserverBound === 'true') return;
+
+    const observer = new MutationObserver(() => {
+      forceCategoryLabel();
+      ensureCategoryGlassOverlay();
+    });
+    observer.observe(sidebar, { childList: true, subtree: true });
+    sidebar.dataset.categoryLabelObserverBound = 'true';
+    forceCategoryLabel();
+  }
+
   function ensureCategoryGlassOverlay() {
     if (!window.matchMedia('(max-width: 599px)').matches) return;
 
@@ -13,10 +43,7 @@
     const sidebar = document.getElementById('sidebar-container');
     if (!gallery || !categoryMenu || !categoryHeader || !sidebar) return;
 
-    // Keep the visible toggle label in the real DOM so it cannot disappear
-    // when pseudo-element masks or browser-specific text clipping change.
-    categoryHeader.textContent = '・Category';
-    categoryHeader.setAttribute('aria-label', 'Category');
+    forceCategoryLabel();
 
     let overlay = document.getElementById('category-glass-overlay');
     if (!overlay) {
@@ -49,8 +76,10 @@
       border: '1px solid rgba(255,255,255,0.16)',
       borderRadius: '0',
       boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(0,0,0,0.26)',
-      paddingLeft: '0',
-      paddingRight: '1.2rem'
+      paddingLeft: '10px',
+      paddingRight: '1.2rem',
+      justifyContent: 'flex-start',
+      textAlign: 'left'
     });
 
     Object.assign(categoryMenu.style, {
@@ -91,11 +120,21 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    bindCategoryLabelObserver();
     ensureCategoryGlassOverlay();
-    setTimeout(ensureCategoryGlassOverlay, 0);
-    setTimeout(ensureCategoryGlassOverlay, 250);
+    setTimeout(() => {
+      bindCategoryLabelObserver();
+      ensureCategoryGlassOverlay();
+    }, 0);
+    setTimeout(() => {
+      bindCategoryLabelObserver();
+      ensureCategoryGlassOverlay();
+    }, 250);
   });
-  document.addEventListener('site:sidebar-ready', ensureCategoryGlassOverlay);
+  document.addEventListener('site:sidebar-ready', () => {
+    bindCategoryLabelObserver();
+    ensureCategoryGlassOverlay();
+  });
 
   function decodeJsString(value) {
     try {
