@@ -5,47 +5,74 @@
 
   function ensureCategoryGlassOverlay() {
     if (!window.matchMedia('(max-width: 599px)').matches) return;
+
     const gallery = document.querySelector('main.gallery');
+    const galleryContent = document.querySelector('.gallery-containt');
     const categoryMenu = document.getElementById('category-menu');
     const categoryHeader = document.getElementById('category-header');
-    if (!gallery || !categoryMenu || !categoryHeader) return;
+    const sidebar = document.getElementById('sidebar-container');
+    if (!gallery || !categoryMenu || !categoryHeader || !sidebar) return;
 
     let overlay = document.getElementById('category-glass-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
       overlay.id = 'category-glass-overlay';
       overlay.setAttribute('aria-hidden', 'true');
-      gallery.appendChild(overlay);
+      gallery.insertBefore(overlay, gallery.firstChild);
     }
 
     Object.assign(overlay.style, {
-      position: 'fixed',
+      position: 'absolute',
       inset: '0',
+      width: '100%',
+      height: '100%',
       zIndex: '2999',
       opacity: '0',
       visibility: 'hidden',
       pointerEvents: 'none',
-      background: 'rgba(7, 16, 17, 0.34)',
-      backdropFilter: 'blur(12px) saturate(112%)',
-      WebkitBackdropFilter: 'blur(12px) saturate(112%)',
-      boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.035)',
-      transition: 'opacity 0.25s ease, visibility 0.25s ease'
+      background: 'linear-gradient(135deg, rgba(190,220,220,0.16), rgba(18,38,40,0.30) 42%, rgba(4,12,14,0.42))',
+      backdropFilter: 'blur(18px) saturate(135%) contrast(104%)',
+      WebkitBackdropFilter: 'blur(18px) saturate(135%) contrast(104%)',
+      boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.06)',
+      transition: 'opacity 0.28s ease, visibility 0.28s ease'
+    });
+
+    Object.assign(categoryHeader.style, {
+      background: 'linear-gradient(135deg, rgba(220,235,235,0.16), rgba(30,55,58,0.30))',
+      backdropFilter: 'blur(18px) saturate(135%)',
+      WebkitBackdropFilter: 'blur(18px) saturate(135%)',
+      border: '1px solid rgba(255,255,255,0.16)',
+      borderRadius: '999px',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(0,0,0,0.26)',
+      paddingLeft: '1rem',
+      paddingRight: '1.2rem'
+    });
+
+    Object.assign(categoryMenu.style, {
+      background: 'linear-gradient(145deg, rgba(210,230,230,0.12), rgba(18,36,38,0.50) 48%, rgba(5,13,14,0.66))',
+      backdropFilter: 'blur(24px) saturate(145%)',
+      WebkitBackdropFilter: 'blur(24px) saturate(145%)',
+      border: '1px solid rgba(255,255,255,0.15)',
+      borderRadius: '1rem',
+      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 42px rgba(0,0,0,0.42)'
     });
 
     const syncOverlay = () => {
       const isOpen = categoryMenu.classList.contains('mobile-open');
+
       overlay.style.opacity = isOpen ? '1' : '0';
       overlay.style.visibility = isOpen ? 'visible' : 'hidden';
       overlay.style.pointerEvents = isOpen ? 'auto' : 'none';
       overlay.setAttribute('aria-hidden', String(!isOpen));
 
+      if (galleryContent) {
+        galleryContent.style.pointerEvents = isOpen ? 'none' : '';
+      }
+
+      gallery.classList.toggle('category-glass-open', isOpen);
       categoryHeader.style.background = isOpen
-        ? 'rgba(14, 27, 28, 0.42)'
-        : 'rgba(14, 27, 28, 0.24)';
-      categoryHeader.style.backdropFilter = 'blur(14px) saturate(118%)';
-      categoryHeader.style.webkitBackdropFilter = 'blur(14px) saturate(118%)';
-      categoryHeader.style.borderRadius = '0.45rem';
-      categoryHeader.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.07)';
+        ? 'linear-gradient(135deg, rgba(225,240,240,0.22), rgba(40,70,72,0.38))'
+        : 'linear-gradient(135deg, rgba(220,235,235,0.16), rgba(30,55,58,0.30))';
     };
 
     if (overlay.dataset.categoryOverlayBound !== 'true') {
