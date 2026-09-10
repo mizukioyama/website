@@ -201,7 +201,7 @@ nav .noise {
     .inner li a { font-size: clamp(1.6rem, calc(1.4rem + 0.8vw), 1.8rem); font-weight: 400; }
     .inner li:nth-of-type(n+5) a { font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem); }
 
-    /* Thumb-friendly circular mobile menu button. */
+    /* Closed: circle only. Open: the circle visually morphs into an X. */
     .toggle_btn {
         top: auto;
         bottom: calc(env(safe-area-inset-bottom, 0px) + 4rem);
@@ -215,6 +215,49 @@ nav .noise {
         -webkit-backdrop-filter: blur(12px) saturate(120%);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(255,255,255,0.03);
         touch-action: manipulation;
+        transition: border-color .35s ease, border-radius .35s ease, background .35s ease, box-shadow .35s ease, transform .35s ease;
+    }
+
+    /* Hide the hamburger lines completely on mobile while closed. */
+    .toggle_btn span,
+    .toggle_btn span:nth-child(1),
+    .toggle_btn span:nth-child(2),
+    .toggle_btn span:nth-child(3) {
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 30px !important;
+        height: 1.5px !important;
+        margin: 0 !important;
+        background: #c0c0c0 !important;
+        opacity: 0 !important;
+        transform: translate(-50%, -50%) scaleX(0) !important;
+        transition: opacity .22s ease, transform .38s ease !important;
+        overflow: visible;
+    }
+    .toggle_btn span::before { display: none !important; }
+
+    /* Menu open: remove the circle surface and reveal a clean X. */
+    .open .toggle_btn {
+        border-color: transparent;
+        border-radius: 0;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+    }
+    .open .toggle_btn span:nth-child(1) {
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) rotate(45deg) scaleX(1) !important;
+    }
+    .open .toggle_btn span:nth-child(2) {
+        opacity: 0 !important;
+        transform: translate(-50%, -50%) scaleX(0) !important;
+    }
+    .open .toggle_btn span:nth-child(3) {
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) rotate(-45deg) scaleX(1) !important;
     }
 
     nav ::-webkit-scrollbar { display: none; }
@@ -223,9 +266,6 @@ nav .noise {
     #mask p { margin-top: 3rem; }
     .open #mask ul { width: auto; height: 60svh; min-height: 350px; left: 0; }
     .open #mask li { font-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.85rem); }
-    .toggle_btn span { bottom: 27px; background: #c0c0c0; right: 8px; }
-    .toggle_btn span:nth-child(2) { top: -10%; }
-    .open .toggle_btn span:nth-child(2) { top: 52.5%; }
 }
 
 /* Gallery category toggle */
