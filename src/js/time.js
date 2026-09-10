@@ -69,10 +69,15 @@ waitForJQuery(function ($) {
             $('#tokyo-time').text(`${hours}:${minutes}:${seconds}`);
         }
 
-        // 定期更新 & 初回更新
-        setInterval(updateParisTime, 1000);
-        setInterval(updateTokyoTime, 1000);
-        updateParisTime();
-        updateTokyoTime();
+        // Update both clocks together once per minute.
+        const CLOCK_UPDATE_INTERVAL = 60 * 1000;
+        const updateClocks = () => {
+            updateParisTime();
+            updateTokyoTime();
+        };
+
+        // Keep the initial render immediate while reducing background work.
+        updateClocks();
+        setInterval(updateClocks, CLOCK_UPDATE_INTERVAL);
     });
 });
