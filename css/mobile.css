@@ -73,12 +73,12 @@
         top: 52%;
     }
 
-    /* Gallery mobile title aligns visually with the category control top. */
-    body.art-page .h1-text {
+    /* Keep the home page unchanged; align every other mobile page title. */
+    body:not(.home) .h1-text {
         top: 20vh;
     }
 
-    body.art-page .h1-text h1 {
+    body:not(.home) .h1-text h1 {
         margin-top: 0;
         margin-bottom: 0;
     }
