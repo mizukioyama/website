@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   modal.style.display = "none";
 
-  // Keep the existing Apps Script payload compatible while improving validation.
   if (subjectInput) subjectInput.maxLength = 120;
   if (nameInput) nameInput.maxLength = 100;
   if (emailInput) emailInput.maxLength = 254;
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     messageInput.required = true;
   }
 
-  // Request sub-category UI. This stays client-side so the current Apps Script does not need to change.
   const requestOptions = document.createElement("fieldset");
   requestOptions.className = "request-options";
   requestOptions.hidden = true;
@@ -63,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
   inquiryRadio?.addEventListener("change", () => setRequestMode(false));
   setRequestMode(Boolean(requestRadio?.checked));
 
-  // Lightweight honeypot. No paid anti-spam service is required.
   const honeypotWrap = document.createElement("div");
   honeypotWrap.className = "contact-honeypot";
   honeypotWrap.setAttribute("aria-hidden", "true");
@@ -77,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
   status.setAttribute("aria-live", "polite");
   submitButton?.insertAdjacentElement("beforebegin", status);
 
-  // Keep visual labels in sync with filled fields.
   const inputs = contactForm.querySelectorAll(".input-text");
   function toggleLabel(input) {
     input.classList.toggle("not-empty", input.value.trim() !== "");
@@ -87,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("input", () => toggleLabel(input));
   });
 
-  // Scoped styles for the conditional request UI and success modal.
   const style = document.createElement("style");
   style.textContent = `
     .request-options { border: 0; padding: 0; margin: 1.75rem 0 .5rem; color: var(--inv); }
@@ -178,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     if (honeypot?.value) return;
-
     if (!contactForm.reportValidity()) return;
 
     const selectedType = contactForm.querySelector('input[name="inquiryType"]:checked')?.value || "";
@@ -192,11 +186,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(contactForm);
 
-    // The current Apps Script saves a fixed set of fields. Put the selected
-    // request category into fields that it already stores so it is preserved
-    // in the spreadsheet without requiring a paid service or backend migration.
+    // Keep inquiryType exactly as the existing Apps Script expects: 依頼 / 問い合わせ.
+    // Preserve the selected request category in fields the current backend already stores.
     if (selectedType === "依頼" && selectedCategory) {
-      formData.set("inquiryType", `依頼｜${selectedCategory}`);
+      formData.set("inquiryType", "依頼");
 
       if (subjectInput) {
         formData.set("text", `[${selectedCategory}] ${subjectInput.value.trim()}`);
@@ -208,7 +201,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // requestCategory and honeypot are client-side helpers, not backend schema fields.
     formData.delete("requestCategory");
     formData.delete("website");
 
