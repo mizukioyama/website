@@ -128,10 +128,19 @@ input:-webkit-autofill:focus {
 }
 
 .contact-form #message {
-   height: 150pt;
+   height: calc(150pt + 80px);
    margin: 0 auto;
    padding-top: 1rem;
    box-shadow: inset hsla(0, 0%, 0%, 1) 0px 1px 4px 2px;
+}
+
+.contact-form .input-text::placeholder {
+   font-size: 14px !important;
+}
+
+/* プレースホルダーの代わりに表示するフローティングラベル */
+.contact-form .label {
+   font-size: 14px !important;
 }
 
 .contact-form .input-text:focus {
