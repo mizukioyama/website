@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("input", () => toggleLabel(input));
   });
 
-  // Scoped styles for the conditional request UI.
+  // Scoped styles for the conditional request UI and success modal.
   const style = document.createElement("style");
   style.textContent = `
     .request-options { border: 0; padding: 0; margin: 1.75rem 0 .5rem; color: var(--inv); }
@@ -122,10 +122,54 @@ document.addEventListener("DOMContentLoaded", function () {
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
     .form-status { min-height: 1.5em; margin: 1rem 0 0; font-size: clamp(.7rem, calc(.62rem + .3vw), .85rem); opacity: .7; }
     .submit-btn[disabled] { opacity: .4; cursor: wait; }
+
+    #thanksModal {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100svh !important;
+      min-height: 100svh !important;
+      padding: 1rem !important;
+      margin: 0 !important;
+      transform: none !important;
+      background: rgba(0, 0, 0, .62) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      backdrop-filter: blur(12px) !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+    #thanksModal.show { display: flex !important; opacity: 1 !important; transform: none !important; }
+    #thanksModal .modal-content {
+      position: relative !important;
+      inset: auto !important;
+      width: min(90vw, 680px) !important;
+      height: auto !important;
+      max-height: min(74svh, 680px) !important;
+      margin: 0 !important;
+      padding: clamp(1.75rem, 5vw, 3rem) !important;
+      transform: none !important;
+      overflow-y: auto !important;
+      background: rgba(0, 0, 0, .94) !important;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      box-sizing: border-box !important;
+    }
+    #thanksModal .modal-content p { width: 100% !important; min-width: 0 !important; margin-inline: 0 !important; }
+    #thanksModal .close {
+      position: static !important;
+      display: block !important;
+      margin: 2rem auto 0 !important;
+      float: none !important;
+      text-align: center !important;
+      width: fit-content !important;
+    }
+
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
       .request-option-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1rem; }
       .request-option-list label { padding: .3rem 0 .4rem; background: transparent; }
+      #thanksModal { padding: 1rem !important; }
+      #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 78svh !important; padding: 1.5rem !important; }
     }
   `;
   document.head.appendChild(style);
@@ -148,10 +192,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(contactForm);
 
-    // Existing Apps Script currently stores six fields. Preserve compatibility by
-    // prefixing the request category into the existing subject field.
-    if (selectedType === "依頼" && selectedCategory && subjectInput) {
-      formData.set("text", `[${selectedCategory}] ${subjectInput.value.trim()}`);
+    // The current Apps Script saves a fixed set of fields. Put the selected
+    // request category into fields that it already stores so it is preserved
+    // in the spreadsheet without requiring a paid service or backend migration.
+    if (selectedType === "依頼" && selectedCategory) {
+      formData.set("inquiryType", `依頼｜${selectedCategory}`);
+
+      if (subjectInput) {
+        formData.set("text", `[${selectedCategory}] ${subjectInput.value.trim()}`);
+      }
+
+      if (messageInput) {
+        const originalMessage = messageInput.value.trim();
+        formData.set("message", `依頼内容：${selectedCategory}\n${originalMessage}`);
+      }
     }
 
     // requestCategory and honeypot are client-side helpers, not backend schema fields.
@@ -172,8 +226,10 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error(result || `HTTP ${response.status}`);
       }
 
-      modal.style.display = "block";
+      modal.style.display = "flex";
       modal.classList.add("show");
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
       contactForm.reset();
       setRequestMode(false);
       inputs.forEach(input => input.classList.remove("not-empty"));
@@ -188,6 +244,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function closeThanksModal() {
     modal.classList.remove("show");
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
     setTimeout(() => (modal.style.display = "none"), 300);
   }
 
