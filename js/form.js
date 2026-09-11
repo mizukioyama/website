@@ -107,6 +107,9 @@ document.addEventListener("DOMContentLoaded", function () {
     #thanksModal.show { display: flex !important; opacity: 1 !important; transform: none !important; }
     #thanksModal .modal-content { position: relative !important; inset: auto !important; width: min(90vw, 680px) !important; height: auto !important; max-height: min(74dvh, 680px) !important; margin: 0 !important; padding: clamp(2.5rem, 6vw, 3.25rem) clamp(1.75rem, 5vw, 3rem) clamp(1.75rem, 5vw, 3rem) !important; transform: none !important; overflow-y: auto !important; background: rgba(0, 0, 0, .94) !important; border: 1px solid rgba(255,255,255,.14) !important; box-sizing: border-box !important; }
     #thanksModal .modal-content p { width: 100% !important; min-width: 0 !important; margin-inline: 0 !important; }
+    @media screen and (min-width: 601px) {
+      #thanksModal .modal-content p { font-size: .9rem !important; }
+    }
     #thanksModal .close { position: absolute !important; top: .8rem !important; right: .9rem !important; display: grid !important; place-items: center !important; margin: 0 !important; padding: 0 !important; float: none !important; width: 2.5rem !important; height: 2.5rem !important; line-height: 1 !important; font-family: Arial, sans-serif !important; font-size: 1.8rem !important; font-weight: 200 !important; color: var(--inv) !important; opacity: .72 !important; cursor: pointer !important; background: transparent !important; border: 0 !important; }
     #thanksModal .close:hover, #thanksModal .close:focus-visible { opacity: 1 !important; outline: 1px solid currentColor; outline-offset: 2px; }
     @media screen and (max-width: 600px) {
