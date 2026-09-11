@@ -31,7 +31,7 @@ body {
 @media screen and (min-width: 601px) {
     html,
     body {
-        font-size: clamp(11px, calc(10px + 0.4vw), 12px);
+        font-size: clamp(12px, calc(10px + 0.4vw), 13.5px);
     }
 }
 
@@ -269,7 +269,7 @@ p {
 /* 共通p定義より後ろでPC本文サイズを確実に適用 */
 @media screen and (min-width: 601px) {
     p {
-        font-size: clamp(11px, calc(10px + 0.4vw), 12px);
+        font-size: clamp(12px, calc(10px + 0.4vw), 13.5px);
     }
 }
 

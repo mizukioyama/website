@@ -1,10 +1,14 @@
 # Next Actions
 
-1. After Pages rebuilds, use a cache-busting URL and confirm computed PC paragraph size is 11px–12px on each non-index page.
-2. Confirm index.html remains on its separate stylesheet and text scale.
-3. Confirm mobile paragraph sizing is unchanged.
+1. After Pages rebuilds, hard-reload each non-index page and confirm visible PC body text is 12px–13.5px.
+2. Confirm index.html remains unchanged.
+3. Confirm mobile pages retain their existing text scale.
 
-4. After Pages rebuilds, hard-reload each non-index page and confirm visible PC body text changes to 11px–12px.
+4. After Pages rebuilds, use a cache-busting URL and confirm computed PC paragraph size is 12px–13.5px on each non-index page.
+5. Confirm index.html remains on its separate stylesheet and text scale.
+6. Confirm mobile paragraph sizing is unchanged.
+
+4. Superseded: the current target is 12px–13.5px; use the current checks above after the Pages rebuild.
 5. Confirm index.html remains unchanged.
 6. Confirm mobile pages retain their existing text scale.
 

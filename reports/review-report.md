@@ -1,5 +1,12 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Non-Index Body Text 12-13.5px
+
+- Changed the PC non-index base and paragraph clamp to `clamp(12px, calc(10px + 0.4vw), 13.5px)`.
+- Updated the stylesheet cache-busting query on artist-statement, biography, contact, gallery, and policy pages.
+- `index.html` and mobile rules remain excluded.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Non-Index Body Text Cascade Fix
 
 - The first 11px–12px rule only changed `html/body`; the later shared `p` rule still produced larger visible paragraphs.
