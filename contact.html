@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/all.css?v=20260906-cursor">
   <link rel="stylesheet" href="css/gallery.css">
   <link rel="stylesheet" href="css/mobile.css">
-  <link rel="stylesheet" href="css/form.css?v=20260911-policy-consent-gate">
+  <link rel="stylesheet" href="css/form.css?v=20260911-policy-auto-consent">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/menu.css">
 
@@ -421,10 +421,6 @@
       </p>
       </div>
 
-      <button type="button" id="policy-confirm-button" class="button" disabled>
-        SitePolicyを確認しました / I have read the Site Policy
-      </button>
-
       <label for="modal-toggle" class="button modal-close-label">
         Close
       </label>
@@ -505,22 +501,6 @@
       visibility: hidden;
       transition: opacity 0.3s ease, transform 0.3s ease;
       z-index: 20;
-    }
-
-    #policy-confirm-button {
-      display: block;
-      width: 100%;
-      margin: 1.5rem 0 0;
-      padding: .75rem 1rem;
-      color: var(--inv);
-      background: rgba(0, 0, 0, .6);
-      border: 1px solid rgba(255, 255, 255, .35);
-      cursor: pointer;
-    }
-
-    #policy-confirm-button:disabled {
-      opacity: .4;
-      cursor: not-allowed;
     }
 
     .modal-box h2 {

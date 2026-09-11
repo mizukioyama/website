@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const consentInput = contactForm.querySelector('#consent[name="consent"]');
   const policyToggle = document.getElementById('modal-toggle');
   const policyModalContent = document.getElementById('policy-modal-content');
-  const policyConfirmButton = document.getElementById('policy-confirm-button');
   let isSubmitting = false;
   let policyConfirmed = false;
+  let policyContentLoaded = false;
 
   modal.style.display = "none";
   if (modal.parentElement !== document.body) document.body.appendChild(modal);
@@ -41,8 +41,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function openPolicyModal() {
-    if (policyToggle) policyToggle.checked = true;
+    if (policyToggle) {
+      policyToggle.checked = true;
+      applyPolicyViewed();
+    }
   }
+
+  function applyPolicyViewed() {
+    if (!policyContentLoaded || !policyToggle?.checked || !consentInput) return;
+    policyConfirmed = true;
+    consentInput.disabled = false;
+    consentInput.checked = true;
+  }
+
+  policyToggle?.addEventListener("change", applyPolicyViewed);
 
   if (consentInput) {
     consentInput.checked = false;
@@ -61,7 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const policyContents = Array.from(policyDocument.querySelectorAll("#policy > .content"));
         if (!policyContents.length) throw new Error("Policy content not found");
         policyModalContent.innerHTML = policyContents.map(content => content.innerHTML).join("");
-        if (policyConfirmButton) policyConfirmButton.disabled = false;
+        policyContentLoaded = true;
+        applyPolicyViewed();
       })
       .catch(error => {
         policyModalContent.replaceChildren(Object.assign(document.createElement("p"), {
@@ -70,15 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Site policy loading error:", error);
       });
   }
-
-  policyConfirmButton?.addEventListener("click", () => {
-    policyConfirmed = true;
-    if (consentInput) {
-      consentInput.disabled = false;
-      consentInput.focus();
-    }
-    if (policyToggle) policyToggle.checked = false;
-  });
 
   const requestOptions = document.createElement("fieldset");
   requestOptions.className = "request-options";
