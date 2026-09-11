@@ -1,5 +1,6 @@
 # Known Issues
 
+- The policy clamp is applied to the PC Contact page base `html, body` size; selectors with explicit font sizes continue to use their existing values.
 - The left-alignment rule is intentionally scoped to viewport widths of 601px and above; mobile uses the existing `css/mobile.css` layout.
 - Browser acceptance should include both Contact and index because the two pages use different modal initialization paths.
 - The 40vw width change applies to the desktop Contact Site Policy modal; mobile sizing continues to use its existing media-query values.

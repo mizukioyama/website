@@ -1,5 +1,12 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Contact Base Text Scale
+
+- Updated the PC Contact `html, body` font-size to match the policy page: `clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem)`.
+- Kept the existing explicit form-label, placeholder, consent, and modal text sizes unchanged.
+- Updated the Contact `form.css` cache-busting query.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Contact Body Left Alignment
 
 - On PC widths, aligned `#contact .content` left edge to the Contact page H1's `left: 20vmin` position.

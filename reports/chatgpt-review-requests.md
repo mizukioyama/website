@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Contact Base Text Scale
+
+Please review the focused `css/form.css` and `contact.html` change.
+
+1. Confirm the PC Contact base text scale matches the policy page clamp value.
+2. Confirm explicit form and modal text sizes remain unchanged.
+3. Confirm mobile sizing and the left alignment change remain intact.
+
 ## 2026-09-11 Contact Body Left Alignment
 
 Please review the focused `css/form.css` and `contact.html` change.
