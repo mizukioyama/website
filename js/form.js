@@ -92,8 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .radio-group label { letter-spacing: 1px; }
     .request-options { border: 0; padding: 0; margin: 1.75rem 0 .5rem; color: var(--inv); }
     .request-options[hidden] { display: none !important; }
-    .request-options legend { margin-bottom: .85rem; font-size: clamp(.8rem, calc(.7rem + .35vw), 1rem); font-weight: 300; opacity: .65; }
-    .request-options legend span { margin-left: .45rem; }
+    .request-options legend { margin-bottom: .85rem; font-size: clamp(.8rem, calc(.7rem + .35vw), 1rem); font-weight: 300; letter-spacing: 1px; opacity: .65; }
+    .request-options legend span { margin-left: .45rem; letter-spacing: 1px; }
     .request-option-list { display: grid; grid-template-columns: repeat(3, max-content); grid-auto-rows: auto; column-gap: 24px; row-gap: 12px; justify-content: start; align-items: stretch; }
     .request-option-list input[type="radio"] { display: none; }
     .request-option-list label { display: flex; flex-direction: column; justify-content: center; width: max-content; max-width: 100%; min-width: 0; min-height: 0; margin: 0 !important; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; letter-spacing: 1px; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; box-sizing: border-box; }
