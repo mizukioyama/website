@@ -16,10 +16,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   modal.style.display = "none";
 
-  // Move the success modal out of the form/layout tree so position: fixed is
-  // always relative to the visible viewport on mobile browsers.
+  // Keep the success modal relative to the visible viewport on mobile browsers.
   if (modal.parentElement !== document.body) {
     document.body.appendChild(modal);
+  }
+
+  if (closeButton) {
+    closeButton.textContent = "×";
+    closeButton.setAttribute("role", "button");
+    closeButton.setAttribute("tabindex", "0");
+    closeButton.setAttribute("aria-label", "閉じる");
   }
 
   if (subjectInput) subjectInput.maxLength = 120;
@@ -97,82 +103,27 @@ document.addEventListener("DOMContentLoaded", function () {
     .request-options legend span { margin-left: .45rem; }
     .request-option-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1.25rem; }
     .request-option-list input[type="radio"] { display: none; }
-    .request-option-list label {
-      display: block;
-      min-width: 0;
-      padding: .35rem 0 .45rem;
-      border: 0;
-      border-bottom: 1px solid transparent;
-      background: transparent;
-      box-shadow: none;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem);
-      line-height: 1.45;
-      font-weight: 300;
-      opacity: .55;
-      cursor: pointer;
-      transition: opacity .25s ease, border-color .25s ease;
-    }
+    .request-option-list label { display: block; min-width: 0; padding: .35rem 0 .45rem; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; }
     .request-option-list label span { font-size: .88em; }
-    .request-option-list input[type="radio"]:checked + label {
-      opacity: 1;
-      background: transparent;
-      border-bottom-color: currentColor;
-    }
+    .request-option-list input[type="radio"]:checked + label { opacity: 1; background: transparent; border-bottom-color: currentColor; }
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
     .form-status { min-height: 1.5em; margin: 1rem 0 0; font-size: clamp(.7rem, calc(.62rem + .3vw), .85rem); opacity: .7; }
     .submit-btn[disabled] { opacity: .4; cursor: wait; }
 
-    #thanksModal {
-      position: fixed !important;
-      inset: 0 !important;
-      width: 100vw !important;
-      height: 100dvh !important;
-      min-height: 100dvh !important;
-      padding: 1rem !important;
-      margin: 0 !important;
-      transform: none !important;
-      background: rgba(0, 0, 0, .62) !important;
-      -webkit-backdrop-filter: blur(12px) !important;
-      backdrop-filter: blur(12px) !important;
-      align-items: center !important;
-      justify-content: center !important;
-      overflow: hidden !important;
-      box-sizing: border-box !important;
-      z-index: 2147483000 !important;
-    }
+    #thanksModal { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100dvh !important; min-height: 100dvh !important; padding: 1rem !important; margin: 0 !important; transform: none !important; background: rgba(0, 0, 0, .62) !important; -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important; align-items: center !important; justify-content: center !important; overflow: hidden !important; box-sizing: border-box !important; z-index: 2147483000 !important; }
     #thanksModal.show { display: flex !important; opacity: 1 !important; transform: none !important; }
-    #thanksModal .modal-content {
-      position: relative !important;
-      inset: auto !important;
-      width: min(90vw, 680px) !important;
-      height: auto !important;
-      max-height: min(74dvh, 680px) !important;
-      margin: 0 !important;
-      padding: clamp(1.75rem, 5vw, 3rem) !important;
-      transform: none !important;
-      overflow-y: auto !important;
-      background: rgba(0, 0, 0, .94) !important;
-      border: 1px solid rgba(255,255,255,.14) !important;
-      box-sizing: border-box !important;
-    }
+    #thanksModal .modal-content { position: relative !important; inset: auto !important; width: min(90vw, 680px) !important; height: auto !important; max-height: min(74dvh, 680px) !important; margin: 0 !important; padding: clamp(2.5rem, 6vw, 3.25rem) clamp(1.75rem, 5vw, 3rem) clamp(1.75rem, 5vw, 3rem) !important; transform: none !important; overflow-y: auto !important; background: rgba(0, 0, 0, .94) !important; border: 1px solid rgba(255,255,255,.14) !important; box-sizing: border-box !important; }
     #thanksModal .modal-content p { width: 100% !important; min-width: 0 !important; margin-inline: 0 !important; }
-    #thanksModal .close {
-      position: static !important;
-      display: block !important;
-      margin: 2rem auto 0 !important;
-      float: none !important;
-      text-align: center !important;
-      width: fit-content !important;
-    }
+    #thanksModal .close { position: absolute !important; top: .8rem !important; right: .9rem !important; display: grid !important; place-items: center !important; margin: 0 !important; padding: 0 !important; float: none !important; width: 2.5rem !important; height: 2.5rem !important; line-height: 1 !important; font-family: Arial, sans-serif !important; font-size: 1.8rem !important; font-weight: 200 !important; color: var(--inv) !important; opacity: .72 !important; cursor: pointer !important; background: transparent !important; border: 0 !important; }
+    #thanksModal .close:hover, #thanksModal .close:focus-visible { opacity: 1 !important; outline: 1px solid currentColor; outline-offset: 2px; }
 
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
       .request-option-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1rem; }
       .request-option-list label { padding: .3rem 0 .4rem; background: transparent; }
       #thanksModal { padding: 1rem !important; }
-      #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 1.5rem !important; }
+      #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 3rem 1.5rem 1.5rem !important; }
+      #thanksModal .close { top: .55rem !important; right: .6rem !important; }
     }
   `;
   document.head.appendChild(style);
@@ -196,11 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (selectedType === "依頼" && selectedCategory) {
       formData.set("inquiryType", "依頼");
-
-      if (subjectInput) {
-        formData.set("text", `[${selectedCategory}] ${subjectInput.value.trim()}`);
-      }
-
+      if (subjectInput) formData.set("text", `[${selectedCategory}] ${subjectInput.value.trim()}`);
       if (messageInput) {
         const originalMessage = messageInput.value.trim();
         formData.set("message", `依頼内容：${selectedCategory}\n${originalMessage}`);
@@ -214,15 +161,9 @@ document.addEventListener("DOMContentLoaded", function () {
     status.textContent = "Sending...";
 
     try {
-      const response = await fetch(contactForm.action, {
-        method: "POST",
-        body: formData
-      });
+      const response = await fetch(contactForm.action, { method: "POST", body: formData });
       const result = await response.text();
-
-      if (!response.ok || !result.includes("Successfully submitted")) {
-        throw new Error(result || `HTTP ${response.status}`);
-      }
+      if (!response.ok || !result.includes("Successfully submitted")) throw new Error(result || `HTTP ${response.status}`);
 
       modal.style.display = "flex";
       modal.classList.add("show");
@@ -248,6 +189,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   closeButton?.addEventListener("click", closeThanksModal);
+  closeButton?.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      closeThanksModal();
+    }
+  });
   window.addEventListener("click", event => {
     if (event.target === modal) closeThanksModal();
   });
@@ -266,9 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function closeModal(modalElement) {
     modalElement.classList.remove("show");
     const overlay = modalElement.previousElementSibling;
-    if (overlay && overlay.classList.contains("modal-overlay")) {
-      overlay.classList.remove("show");
-    }
+    if (overlay && overlay.classList.contains("modal-overlay")) overlay.classList.remove("show");
   }
 
   document.querySelectorAll(".button[data-modal]").forEach(button => {
@@ -281,10 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".modal").forEach(modal => {
     const overlay = modal.previousElementSibling;
     const closeBtn = modal.querySelector(".close");
-
-    if (overlay?.classList.contains("modal-overlay")) {
-      overlay.addEventListener("click", () => closeModal(modal));
-    }
+    if (overlay?.classList.contains("modal-overlay")) overlay.addEventListener("click", () => closeModal(modal));
     closeBtn?.addEventListener("click", () => closeModal(modal));
   });
 });
