@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   modal.style.display = "none";
 
-  // Keep the success modal relative to the visible viewport on mobile browsers.
   if (modal.parentElement !== document.body) {
     document.body.appendChild(modal);
   }
@@ -28,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     closeButton.setAttribute("aria-label", "閉じる");
   }
 
-  // The request category now acts as the subject, so remove the visible subject field.
   subjectInput?.closest(".form-field")?.remove();
 
   if (nameInput) nameInput.maxLength = 100;
@@ -108,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .request-options[hidden] { display: none !important; }
     .request-options legend { margin-bottom: .85rem; font-size: clamp(.8rem, calc(.7rem + .35vw), 1rem); font-weight: 300; opacity: .65; }
     .request-options legend span { margin-left: .45rem; }
-    .request-option-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1.25rem; }
+    .request-option-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .9rem 1.25rem; }
     .request-option-list input[type="radio"] { display: none; }
     .request-option-list label { display: block; min-width: 0; padding: .35rem 0 .45rem; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; }
     .request-option-list label span { font-size: .88em; }
@@ -126,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
-      .request-option-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1rem; }
+      .request-option-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem .7rem; }
       .request-option-list label { padding: .3rem 0 .4rem; background: transparent; }
       #thanksModal { padding: 1rem !important; }
       #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 3rem 1.5rem 1.5rem !important; }
@@ -152,7 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(contactForm);
 
-    // Keep the backend-compatible subject field internal even though it is no longer shown.
     if (selectedType === "依頼" && selectedCategory) {
       formData.set("inquiryType", "依頼");
       formData.set("text", selectedCategory);
