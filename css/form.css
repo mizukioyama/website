@@ -2,7 +2,8 @@
 
 /* ContactページのPC表示だけ、全体の文字基準を14px〜16pxで調整 */
 @media screen and (min-width: 601px) {
-   html {
+   html,
+   body {
       font-size: clamp(11px, calc(9px + 0.4vw), 13px);
    }
 }
