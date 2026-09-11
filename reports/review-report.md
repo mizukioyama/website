@@ -1,5 +1,13 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Non-Index Common Text Scale
+
+- Moved the Contact PC base text clamp into shared `css/gallery.css`, which is loaded by Contact, artist-statement, biography, gallery, and policy pages.
+- index.html remains excluded because it does not load `css/gallery.css`.
+- Removed the duplicate Contact-only base rule from `css/form.css`.
+- Updated the common stylesheet cache-busting query on all five non-index pages.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Contact Base Text Scale
 
 - Updated the PC Contact `html, body` font-size to match the policy page: `clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem)`.

@@ -1,5 +1,7 @@
 # User Checklist
 
+- [ ] Confirm the shared PC text scale applies to all non-index pages.
+- [ ] Confirm index.html is not changed by the shared rule.
 - [ ] Confirm PC Contact body text uses `clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem)`.
 - [ ] Confirm form and modal text remain readable and intentionally sized.
 - [ ] Confirm the Contact H1 and body text share the same left edge on PC.

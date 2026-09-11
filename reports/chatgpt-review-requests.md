@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Non-Index Common Text Scale
+
+Please review the focused `css/gallery.css`, `css/form.css`, and five non-index page link changes.
+
+1. Confirm the PC clamp `clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem)` applies to Contact, artist-statement, biography, gallery, and policy.
+2. Confirm index.html is excluded from the shared rule.
+3. Confirm mobile rules and page-specific explicit text sizes remain unchanged.
+
 ## 2026-09-11 Contact Base Text Scale
 
 Please review the focused `css/form.css` and `contact.html` change.

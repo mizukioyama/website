@@ -1,13 +1,5 @@
 @charset "utf-8";
 
-/* ContactページのPC表示も、policyページと同じ本文サイズ基準に統一 */
-@media screen and (min-width: 601px) {
-   html,
-   body {
-      font-size: clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem);
-   }
-}
-
 /* ベース設定: チェックボックス・ラジオ共通 */
 :where(input[type="checkbox"], input[type="radio"]) {
    font-size: inherit;

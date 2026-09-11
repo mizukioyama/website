@@ -1,8 +1,12 @@
 # Next Actions
 
-1. After Pages rebuilds, compare PC Contact body text with the policy page at the same viewport width.
-2. Confirm form labels, placeholders, consent text, and modal text retain their intended sizes.
-3. Confirm the mobile Contact page is unchanged.
+1. After Pages rebuilds, compare PC text scale on Contact, artist-statement, biography, gallery, and policy at the same viewport width.
+2. Confirm index.html retains its separate text scale.
+3. Confirm mobile pages remain unchanged.
+
+4. After Pages rebuilds, compare PC Contact body text with the policy page at the same viewport width.
+5. Confirm form labels, placeholders, consent text, and modal text retain their intended sizes.
+6. Confirm the mobile Contact page is unchanged.
 
 4. After Pages rebuilds, hard-reload Contact at a desktop width and compare the H1 and body left edges.
 5. Confirm the mobile Contact page retains its existing spacing.
