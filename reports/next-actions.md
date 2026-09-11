@@ -1,8 +1,12 @@
 # Next Actions
 
-1. Open the Contact page at desktop and mobile widths and confirm the Site Policy modal is centered like the submission-success modal.
-2. Hard-reload the deployed Contact page after GitHub Pages rebuilds.
+1. After GitHub Pages rebuilds, hard-reload Contact and confirm the Site Policy modal remains centered after scrolling.
+2. Confirm the checkbox and overlay remain functional after the modal elements are moved to `body`.
 3. Confirm the submission-success modal remains centered after a test submission in an approved test environment.
+
+4. Open the Contact page at desktop and mobile widths and confirm the Site Policy modal is centered like the submission-success modal.
+5. Hard-reload the deployed Contact page after GitHub Pages rebuilds.
+6. Confirm the submission-success modal remains centered after a test submission in an approved test environment.
 
 4. Open the index page, open Site Policy, and confirm that the displayed Japanese and English text matches `policy.html`.
 5. Hard-reload the deployed page after GitHub Pages rebuilds to clear any cached HTML.

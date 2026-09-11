@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Site Policy Modal Viewport Fix
+
+Please review the focused `js/form.js` and `contact.html` change.
+
+1. Confirm that the Site Policy modal is moved under `document.body` and remains a sibling of the checkbox and overlay.
+2. Confirm that it is centered in the viewport while the Contact page is scrolled.
+3. Confirm that the consent gate, policy loading, close behavior, and submission-success modal remain unchanged.
+
 ## 2026-09-11 Site Policy Modal Centering
 
 Please review the focused `contact.html` CSS change.

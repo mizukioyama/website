@@ -1,5 +1,14 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Site Policy Modal Viewport Fix
+
+- Root cause: `main#contact` uses `backdrop-filter`, which makes fixed descendants use the filtered main area as their containing block.
+- Moved the Site Policy checkbox, overlay, and modal box to `document.body` during Contact page initialization.
+- Kept the centered `translate(-50%, -50%)` positioning and preserved the policy content, consent gate, and close behavior.
+- Updated the `form.js` cache-busting query in `contact.html` so deployed browsers load the fix.
+- `node --check js/form.js`: PASS
+- `git diff --check`: PASS
+
 ## 2026-09-11 Site Policy Modal Centering
 
 - Target: `contact.html` Site Policy modal.

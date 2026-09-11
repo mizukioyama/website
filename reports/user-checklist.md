@@ -1,5 +1,8 @@
 # User Checklist
 
+- [ ] After the Pages rebuild, hard-reload Contact and open Site Policy after scrolling the page.
+- [ ] Confirm the Site Policy modal is centered in the viewport at desktop and mobile widths.
+- [ ] Confirm the consent checkbox and Close action still work.
 - [ ] Open the Contact page and confirm the Site Policy modal is centered at desktop width.
 - [ ] Repeat the Site Policy modal check at a mobile width.
 - [ ] Confirm the submission-success modal remains centered and unchanged.

@@ -16,9 +16,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const consentInput = contactForm.querySelector('#consent[name="consent"]');
   const policyToggle = document.getElementById('modal-toggle');
   const policyModalContent = document.getElementById('policy-modal-content');
+  const policyOverlay = policyToggle?.nextElementSibling;
+  const policyModal = policyOverlay?.nextElementSibling;
   let isSubmitting = false;
   let policyConfirmed = false;
   let policyContentLoaded = false;
+
+  // Keep the Site Policy modal fixed to the viewport, not to the filtered main content.
+  if (
+    policyToggle &&
+    policyOverlay?.classList.contains('modal-overlay') &&
+    policyModal?.classList.contains('modal-box')
+  ) {
+    document.body.append(policyToggle, policyOverlay, policyModal);
+  }
 
   modal.style.display = "none";
   if (modal.parentElement !== document.body) document.body.appendChild(modal);
