@@ -1,5 +1,9 @@
 # User Checklist
 
+- [ ] Confirm PC body paragraphs on all non-index pages use the 12px–14px clamp.
+- [ ] Confirm index.html is excluded.
+- [ ] Confirm computed PC paragraph size is 12px–14px on all non-index pages after a hard reload.
+- [ ] Confirm mobile text sizing and explicit form/modal sizes remain unchanged.
 - [ ] Confirm PC body paragraphs on all non-index pages use the 12px–13.5px clamp.
 - [ ] Confirm index.html is excluded.
 - [ ] Confirm computed PC paragraph size is 12px–13.5px on all non-index pages after a hard reload.

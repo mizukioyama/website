@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Non-Index Body Text 12-14px
+
+Please review the focused `css/gallery.css` and five non-index page cache-query changes.
+
+1. Confirm PC `html/body/p` use the requested 12px–14px clamp.
+2. Confirm index.html remains excluded.
+3. Confirm mobile sizing and explicit form/modal sizes remain unchanged.
+
 ## 2026-09-11 Non-Index Body Text 12-13.5px
 
 Please review the focused `css/gallery.css` and five non-index page cache-query changes.

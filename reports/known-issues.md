@@ -1,8 +1,9 @@
 # Known Issues
 
+- The current PC non-index clamp is `clamp(12px, calc(10px + 0.4vw), 14px)`; headings, form controls, and modal text with explicit sizes are intentionally unchanged.
 - The current PC non-index clamp is `clamp(12px, calc(10px + 0.4vw), 13.5px)`; headings, form controls, and modal text with explicit sizes are intentionally unchanged.
 - The PC `p` override is intentionally placed after the shared paragraph rule; page-specific selectors with explicit `font-size` values, such as modal and form controls, retain their own sizes.
-- The PC 12px–13.5px override targets `p` elements in the shared gallery stylesheet; headings, form controls, modal text, and other selectors with explicit font sizes retain their existing values.
+- The PC 12px–14px override targets `p` elements in the shared gallery stylesheet; headings, form controls, modal text, and other selectors with explicit font sizes retain their existing values.
 - The shared PC base clamp is intentionally limited to pages loading `css/gallery.css`; index.html remains on its separate index stylesheet.
 - The policy clamp is applied to the PC Contact page base `html, body` size; selectors with explicit font sizes continue to use their existing values.
 - The left-alignment rule is intentionally scoped to viewport widths of 601px and above; mobile uses the existing `css/mobile.css` layout.
