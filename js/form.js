@@ -13,7 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const messageInput = contactForm.querySelector('#message[name="message"]');
   const formStartedAt = contactForm.querySelector('input[name="formStartedAt"]');
   const submitButton = contactForm.querySelector('.submit-btn');
+  const consentInput = contactForm.querySelector('#consent[name="consent"]');
+  const policyToggle = document.getElementById('modal-toggle');
+  const policyModalContent = document.getElementById('policy-modal-content');
+  const policyConfirmButton = document.getElementById('policy-confirm-button');
   let isSubmitting = false;
+  let policyConfirmed = false;
 
   modal.style.display = "none";
   if (modal.parentElement !== document.body) document.body.appendChild(modal);
@@ -34,6 +39,46 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageLabel = contactForm.querySelector('label[for="message"]');
     if (messageLabel) messageLabel.textContent = "Message（お問い合わせ内容）";
   }
+
+  function openPolicyModal() {
+    if (policyToggle) policyToggle.checked = true;
+  }
+
+  if (consentInput) {
+    consentInput.checked = false;
+    consentInput.disabled = true;
+    consentInput.setAttribute("aria-describedby", "consent-text");
+  }
+
+  if (policyModalContent) {
+    fetch(new URL("policy.html", window.location.href), { cache: "no-store" })
+      .then(response => {
+        if (!response.ok) throw new Error(`Policy HTTP ${response.status}`);
+        return response.text();
+      })
+      .then(markup => {
+        const policyDocument = new DOMParser().parseFromString(markup, "text/html");
+        const policyContents = Array.from(policyDocument.querySelectorAll("#policy > .content"));
+        if (!policyContents.length) throw new Error("Policy content not found");
+        policyModalContent.innerHTML = policyContents.map(content => content.innerHTML).join("");
+        if (policyConfirmButton) policyConfirmButton.disabled = false;
+      })
+      .catch(error => {
+        policyModalContent.replaceChildren(Object.assign(document.createElement("p"), {
+          textContent: "SitePolicyを読み込めませんでした。ページを再読み込みしてください。"
+        }));
+        console.error("Site policy loading error:", error);
+      });
+  }
+
+  policyConfirmButton?.addEventListener("click", () => {
+    policyConfirmed = true;
+    if (consentInput) {
+      consentInput.disabled = false;
+      consentInput.focus();
+    }
+    if (policyToggle) policyToggle.checked = false;
+  });
 
   const requestOptions = document.createElement("fieldset");
   requestOptions.className = "request-options";
@@ -127,6 +172,11 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     if (isSubmitting) return;
     if (honeypot?.value) return;
+    if (!policyConfirmed) {
+      status.textContent = "SitePolicyをご確認ください。";
+      openPolicyModal();
+      return;
+    }
     if (!contactForm.reportValidity()) return;
     const selectedType = contactForm.querySelector('input[name="inquiryType"]:checked')?.value || "";
     const selectedCategory = contactForm.querySelector('input[name="requestCategory"]:checked')?.value || "";
