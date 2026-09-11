@@ -8,14 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const primaryGroup = contactForm.querySelector(".radio-group");
   const requestRadio = contactForm.querySelector('input[name="inquiryType"][value="依頼"]');
   const inquiryRadio = contactForm.querySelector('input[name="inquiryType"][value="問い合わせ"]');
-  const subjectInput = contactForm.querySelector('#text[name="text"]');
   const nameInput = contactForm.querySelector('#name[name="name"]');
   const emailInput = contactForm.querySelector('#email[name="email"]');
   const messageInput = contactForm.querySelector('#message[name="message"]');
+  const formStartedAt = contactForm.querySelector('input[name="formStartedAt"]');
   const submitButton = contactForm.querySelector('.submit-btn');
+  let isSubmitting = false;
 
   modal.style.display = "none";
   if (modal.parentElement !== document.body) document.body.appendChild(modal);
+  if (formStartedAt) formStartedAt.value = String(Date.now());
 
   if (closeButton) {
     closeButton.textContent = "×";
@@ -24,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
     closeButton.setAttribute("aria-label", "閉じる");
   }
 
-  subjectInput?.closest(".form-field")?.remove();
   if (nameInput) nameInput.maxLength = 100;
   if (emailInput) emailInput.maxLength = 254;
   if (messageInput) {
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   contactForm.addEventListener("submit", async function (e) {
     e.preventDefault();
+    if (isSubmitting) return;
     if (honeypot?.value) return;
     if (!contactForm.reportValidity()) return;
     const selectedType = contactForm.querySelector('input[name="inquiryType"]:checked')?.value || "";
@@ -130,7 +132,9 @@ document.addEventListener("DOMContentLoaded", function () {
       requestOptions.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+    if (formStartedAt && !formStartedAt.value) formStartedAt.value = String(Date.now());
     const formData = new FormData(contactForm);
+    formData.set("requestCategory", selectedCategory);
     if (selectedType === "依頼" && selectedCategory) {
       formData.set("inquiryType", "依頼");
       formData.set("text", selectedCategory);
@@ -138,8 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       formData.set("text", "問い合わせ");
     }
-    formData.delete("requestCategory");
-    formData.delete("website");
+    formData.set("formStartedAt", formStartedAt?.value || String(Date.now()));
+    isSubmitting = true;
     if (submitButton) submitButton.disabled = true;
     status.textContent = "Sending...";
     try {
@@ -158,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
       status.textContent = "送信できませんでした。時間をおいて再度お試しください。";
       console.error("Contact form submission error:", error);
     } finally {
+      isSubmitting = false;
       if (submitButton) submitButton.disabled = false;
     }
   });
