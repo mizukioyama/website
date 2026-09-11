@@ -1,5 +1,12 @@
 @charset "utf-8";
 
+/* ContactページのPC表示だけ、全体の文字基準を2px下げる */
+@media screen and (min-width: 601px) {
+   html {
+      font-size: calc(100% - 2px);
+   }
+}
+
 /* ベース設定: チェックボックス・ラジオ共通 */
 :where(input[type="checkbox"], input[type="radio"]) {
    font-size: inherit;
@@ -141,6 +148,13 @@ input:-webkit-autofill:focus {
 /* プレースホルダーの代わりに表示するフローティングラベル */
 .contact-form .label {
    font-size: 14px !important;
+}
+
+@media screen and (min-width: 601px) {
+   .contact-form .input-text::placeholder,
+   .contact-form .label {
+      font-size: 12px !important;
+   }
 }
 
 .contact-form .input-text:focus {
