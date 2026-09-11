@@ -28,12 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
     closeButton.setAttribute("aria-label", "閉じる");
   }
 
-  if (subjectInput) subjectInput.maxLength = 120;
+  // The request category now acts as the subject, so remove the visible subject field.
+  subjectInput?.closest(".form-field")?.remove();
+
   if (nameInput) nameInput.maxLength = 100;
   if (emailInput) emailInput.maxLength = 254;
   if (messageInput) {
     messageInput.maxLength = 3000;
     messageInput.required = true;
+    const messageLabel = contactForm.querySelector('label[for="message"]');
+    if (messageLabel) messageLabel.textContent = "Message（お問い合わせ内容）";
   }
 
   const requestOptions = document.createElement("fieldset");
@@ -54,6 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       <input type="radio" id="request-work" name="requestCategory" value="仕事・制作のご依頼">
       <label for="request-work">Work<br><span>仕事・制作のご依頼</span></label>
+
+      <input type="radio" id="request-other" name="requestCategory" value="その他">
+      <label for="request-other">Other<br><span>その他</span></label>
     </div>
   `;
 
@@ -145,13 +152,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(contactForm);
 
+    // Keep the backend-compatible subject field internal even though it is no longer shown.
     if (selectedType === "依頼" && selectedCategory) {
       formData.set("inquiryType", "依頼");
-      if (subjectInput) formData.set("text", `[${selectedCategory}] ${subjectInput.value.trim()}`);
+      formData.set("text", selectedCategory);
       if (messageInput) {
         const originalMessage = messageInput.value.trim();
         formData.set("message", `依頼内容：${selectedCategory}\n${originalMessage}`);
       }
+    } else {
+      formData.set("text", "問い合わせ");
     }
 
     formData.delete("requestCategory");
