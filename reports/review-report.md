@@ -1,5 +1,13 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Site Policy Modal Size 75%
+
+- Set the Contact Site Policy modal to `75vw` wide and `75vh` high on desktop.
+- Removed the previous `400px` maximum width and `30%` height restriction.
+- Added `max-height: 75vh` and `box-sizing: border-box` so the modal stays within the viewport and scrolls internally when needed.
+- Preserved the mobile-specific modal sizing and all modal behavior.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Site Policy Modal Viewport Fix
 
 - Root cause: `main#contact` uses `backdrop-filter`, which makes fixed descendants use the filtered main area as their containing block.

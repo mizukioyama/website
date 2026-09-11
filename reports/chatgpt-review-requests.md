@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Site Policy Modal Size 75%
+
+Please review the focused `contact.html` CSS change.
+
+1. Confirm that the desktop modal uses 75% of the viewport width and height.
+2. Confirm that long policy content scrolls inside the modal without moving the modal off-screen.
+3. Confirm that mobile sizing, centering, consent behavior, and close behavior remain intact.
+
 ## 2026-09-11 Site Policy Modal Viewport Fix
 
 Please review the focused `js/form.js` and `contact.html` change.

@@ -1,5 +1,8 @@
 # User Checklist
 
+- [ ] Confirm the Contact Site Policy modal is approximately 75% of the viewport width and height on desktop.
+- [ ] Scroll inside the modal and confirm the policy content remains readable.
+- [ ] Confirm mobile width and height remain usable without horizontal overflow.
 - [ ] After the Pages rebuild, hard-reload Contact and open Site Policy after scrolling the page.
 - [ ] Confirm the Site Policy modal is centered in the viewport at desktop and mobile widths.
 - [ ] Confirm the consent checkbox and Close action still work.
