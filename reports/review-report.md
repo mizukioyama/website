@@ -1,5 +1,13 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Non-Index Body Text Cascade Fix
+
+- The first 11px–12px rule only changed `html/body`; the later shared `p` rule still produced larger visible paragraphs.
+- Moved the PC `p` override after the shared paragraph definition so visible non-index body text now uses `clamp(11px, calc(10px + 0.4vw), 12px)`.
+- Bumped the stylesheet query on artist-statement, biography, contact, gallery, and policy pages.
+- `index.html` remains excluded.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Non-Index Body Text 11-12px Correction
 
 - Corrected the PC non-index rule so `html`, `body`, and visible page `p` elements use `clamp(11px, calc(10px + 0.4vw), 12px)`.

@@ -30,8 +30,7 @@ body {
 /* index.htmlを除く共通ページのPC本文サイズをContactページと統一 */
 @media screen and (min-width: 601px) {
     html,
-    body,
-    p {
+    body {
         font-size: clamp(11px, calc(10px + 0.4vw), 12px);
     }
 }
@@ -265,6 +264,13 @@ p {
     font-size: clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem);
     letter-spacing: 0.05rem;
     line-height: 2.4;
+}
+
+/* 共通p定義より後ろでPC本文サイズを確実に適用 */
+@media screen and (min-width: 601px) {
+    p {
+        font-size: clamp(11px, calc(10px + 0.4vw), 12px);
+    }
 }
 
 main li {

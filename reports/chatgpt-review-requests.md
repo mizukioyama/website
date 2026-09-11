@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Non-Index Body Text Cascade Fix
+
+Please review the focused `css/gallery.css` cascade correction.
+
+1. Confirm computed PC paragraph size is 11px–12px on all five non-index pages.
+2. Confirm the later shared `p` declaration no longer overrides the requested clamp.
+3. Confirm index.html remains excluded and mobile rules remain unchanged.
+
 ## 2026-09-11 Non-Index Body Text 11-12px Correction
 
 Please review the focused `css/gallery.css` and non-index page cache-query changes.
