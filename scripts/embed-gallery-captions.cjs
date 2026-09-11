@@ -114,8 +114,8 @@ if (fs.existsSync(generatedGalleryPath)) {
   fs.writeFileSync(generatedGalleryPath, galleryHtml, 'utf8');
 }
 
-// Version shared UI assets on every generated HTML page so browsers cannot
-// retain stale menu or contact-form behavior after a Pages deployment.
+// Version shared UI assets and normalize the official site name on every
+// generated HTML page. The public brand spelling is always "NatureInspire".
 if (fs.existsSync(generatedDocsPath)) {
   for (const fileName of fs.readdirSync(generatedDocsPath)) {
     if (!fileName.endsWith('.html')) continue;
@@ -133,6 +133,9 @@ if (fs.existsSync(generatedDocsPath)) {
       /js\/form\.js(?:\?v=[^"']*)?/g,
       `js/form.js?v=${cacheToken}`
     );
+    updated = updated
+      .replace(/Nature inspire/g, 'NatureInspire')
+      .replace(/Nature Inspire/g, 'NatureInspire');
     if (updated !== html) fs.writeFileSync(htmlPath, updated, 'utf8');
   }
 }
@@ -141,7 +144,7 @@ const remaining = (result.content.match(/準備中\.\.\./g) || []).length;
 console.log(`Embedded ${result.replaced} gallery captions into docs/js/page-nation.js.`);
 console.log('Copied js/gallery-captions.js into docs/js/gallery-captions.js.');
 console.log(`Updated gallery mobile asset cache versions in docs/gallery.html (${cacheToken}).`);
-console.log(`Updated shared menu.css and contact form asset cache versions across generated HTML (${cacheToken}).`);
+console.log(`Updated shared asset cache versions and standardized NatureInspire across generated HTML (${cacheToken}).`);
 console.log(`Remaining placeholders: ${remaining}.`);
 
 if (remaining > 0) throw new Error(`Gallery still contains ${remaining} "準備中..." placeholders.`);
