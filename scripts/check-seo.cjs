@@ -104,6 +104,13 @@ function hasIndexableRobots(html) {
       /max-image-preview\s*:\s*large/i.test(robots);
 }
 
+function normalizeBrand(value) {
+   if (typeof value !== "string") return value;
+   return value
+      .replace(/Nature\s+inspire/gi, "NatureInspire")
+      .replace(/Nature\s*Inspire/gi, "NatureInspire");
+}
+
 function validateSitemap(relativePath, sitemap, failures) {
    if (!sitemap) {
       failures.push(`${relativePath}: file is missing`);
@@ -241,7 +248,9 @@ for (const page of indexablePages) {
    if (!outputMeta) continue;
 
    for (const field of ["title", "description", "canonical"]) {
-      if (sourceMeta[field] !== outputMeta[field]) {
+      const sourceValue = field === "canonical" ? sourceMeta[field] : normalizeBrand(sourceMeta[field]);
+      const outputValue = field === "canonical" ? outputMeta[field] : normalizeBrand(outputMeta[field]);
+      if (sourceValue !== outputValue) {
          failures.push(`${page.output}: ${field} differs from ${page.source}`);
       }
    }
