@@ -1,5 +1,6 @@
 # Known Issues
 
+- The 40vw width change applies to the desktop Contact Site Policy modal; mobile sizing continues to use its existing media-query values.
 - The 75% sizing change is scoped to the Contact Site Policy modal; the index page modal keeps its existing sizing until separately requested.
 - The viewport fix requires the updated `form.js` cache-busting URL to be served by GitHub Pages before public browsers can show the change.
 - Browser and physical-device acceptance of the centered Site Policy modal has not been performed in this turn; static checks passed.

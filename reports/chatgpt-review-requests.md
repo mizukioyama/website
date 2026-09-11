@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Site Policy Modal Width 40vw
+
+Please review the focused `contact.html` CSS change.
+
+1. Confirm the desktop modal width is `40vw`.
+2. Confirm the height remains `75vh` and the modal remains centered.
+3. Confirm internal scrolling and mobile behavior remain intact.
+
 ## 2026-09-11 Site Policy Modal Size 75%
 
 Please review the focused `contact.html` CSS change.

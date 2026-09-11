@@ -1,5 +1,11 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Site Policy Modal Width 40vw
+
+- Changed the desktop Contact Site Policy modal width from `75vw` to `40vw`.
+- Preserved `75vh` height, viewport centering, internal scrolling, and mobile overrides.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Site Policy Modal Size 75%
 
 - Set the Contact Site Policy modal to `75vw` wide and `75vh` high on desktop.

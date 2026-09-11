@@ -1,5 +1,7 @@
 # User Checklist
 
+- [ ] Confirm the Contact Site Policy modal is 40vw wide on desktop.
+- [ ] Confirm the modal remains 75vh high and centered.
 - [ ] Confirm the Contact Site Policy modal is approximately 75% of the viewport width and height on desktop.
 - [ ] Scroll inside the modal and confirm the policy content remains readable.
 - [ ] Confirm mobile width and height remain usable without horizontal overflow.
