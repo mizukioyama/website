@@ -114,16 +114,24 @@ if (fs.existsSync(generatedGalleryPath)) {
   fs.writeFileSync(generatedGalleryPath, galleryHtml, 'utf8');
 }
 
-// menu.css is shared by the hamburger menu and modal scroll-lock behavior.
-// Version it on every generated HTML page so browsers cannot retain stale UI behavior.
+// Version shared UI assets on every generated HTML page so browsers cannot
+// retain stale menu or contact-form behavior after a Pages deployment.
 if (fs.existsSync(generatedDocsPath)) {
   for (const fileName of fs.readdirSync(generatedDocsPath)) {
     if (!fileName.endsWith('.html')) continue;
     const htmlPath = path.join(generatedDocsPath, fileName);
     let html = fs.readFileSync(htmlPath, 'utf8');
-    const updated = html.replace(
+    let updated = html.replace(
       /css\/menu\.css(?:\?v=[^"']*)?/g,
       `css/menu.css?v=${cacheToken}`
+    );
+    updated = updated.replace(
+      /css\/form\.css(?:\?v=[^"']*)?/g,
+      `css/form.css?v=${cacheToken}`
+    );
+    updated = updated.replace(
+      /js\/form\.js(?:\?v=[^"']*)?/g,
+      `js/form.js?v=${cacheToken}`
     );
     if (updated !== html) fs.writeFileSync(htmlPath, updated, 'utf8');
   }
@@ -133,7 +141,7 @@ const remaining = (result.content.match(/準備中\.\.\./g) || []).length;
 console.log(`Embedded ${result.replaced} gallery captions into docs/js/page-nation.js.`);
 console.log('Copied js/gallery-captions.js into docs/js/gallery-captions.js.');
 console.log(`Updated gallery mobile asset cache versions in docs/gallery.html (${cacheToken}).`);
-console.log(`Updated shared menu.css cache versions across generated HTML (${cacheToken}).`);
+console.log(`Updated shared menu.css and contact form asset cache versions across generated HTML (${cacheToken}).`);
 console.log(`Remaining placeholders: ${remaining}.`);
 
 if (remaining > 0) throw new Error(`Gallery still contains ${remaining} "準備中..." placeholders.`);
