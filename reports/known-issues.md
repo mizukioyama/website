@@ -1,5 +1,6 @@
 # Known Issues
 
+- Browser and physical-device acceptance of the centered Site Policy modal has not been performed in this turn; static checks passed.
 - The index Site Policy modal depends on a same-origin fetch of `policy.html` for current content. If the fetch fails, its preserved inline content is shown instead and may become stale until manually updated.
 - Browser and physical-device acceptance of the index modal has not been performed in this turn; static checks passed.
 

@@ -1,8 +1,12 @@
 # Next Actions
 
-1. Open the index page, open Site Policy, and confirm that the displayed Japanese and English text matches `policy.html`.
-2. Hard-reload the deployed page after GitHub Pages rebuilds to clear any cached HTML.
-3. Keep the existing inline fallback until successful public browser verification is complete.
+1. Open the Contact page at desktop and mobile widths and confirm the Site Policy modal is centered like the submission-success modal.
+2. Hard-reload the deployed Contact page after GitHub Pages rebuilds.
+3. Confirm the submission-success modal remains centered after a test submission in an approved test environment.
+
+4. Open the index page, open Site Policy, and confirm that the displayed Japanese and English text matches `policy.html`.
+5. Hard-reload the deployed page after GitHub Pages rebuilds to clear any cached HTML.
+6. Keep the existing inline fallback until successful public browser verification is complete.
 
 4. Open each root page in the normal local preview and check the header at desktop and mobile widths.
 5. Verify the footer on `artist-statement.html`, `biography.html`, `contact.html`, and `policy.html` after a hard reload.

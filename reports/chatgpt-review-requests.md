@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Site Policy Modal Centering
+
+Please review the focused `contact.html` CSS change.
+
+1. Confirm that the Site Policy modal is centered at desktop and mobile widths.
+2. Confirm that the submission-success modal remains unchanged and centered.
+3. Confirm that the existing modal content, overlay, close behavior, and policy loading remain unchanged.
+
 ## 2026-09-11 Site Policy Modal Unification
 
 Please review the focused `index.html` change.

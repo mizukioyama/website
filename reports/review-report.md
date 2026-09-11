@@ -1,5 +1,14 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Site Policy Modal Centering
+
+- Target: `contact.html` Site Policy modal.
+- Changed the hidden and visible transforms to `translate(-50%, -50%)` so the modal is centered in the viewport like the submission-success modal.
+- Applied the same centered transform in the mobile media query.
+- Preserved modal content, sizing, overlay, close behavior, and Site Policy loading logic.
+- `node --check js/form.js`: PASS
+- `git diff --check`: PASS
+
 ## Scope
 
 - Target: `js/menu.js` and the root page script references

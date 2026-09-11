@@ -1,5 +1,8 @@
 # User Checklist
 
+- [ ] Open the Contact page and confirm the Site Policy modal is centered at desktop width.
+- [ ] Repeat the Site Policy modal check at a mobile width.
+- [ ] Confirm the submission-success modal remains centered and unchanged.
 - [ ] Open `index.html`, open the Site Policy modal, and confirm the Japanese and English contents match `policy.html`.
 - [ ] Confirm the index modal still closes with `Close` and the `view` link still opens the gallery.
 - [ ] Hard-reload the deployed index page after the Pages rebuild.
