@@ -1,5 +1,8 @@
 # Known Issues
 
+- The index Site Policy modal depends on a same-origin fetch of `policy.html` for current content. If the fetch fails, its preserved inline content is shown instead and may become stale until manually updated.
+- Browser and physical-device acceptance of the index modal has not been performed in this turn; static checks passed.
+
 - The legacy `header.html` and `footer.html` files remain in the repository as source references and build inputs; they are no longer requested by the root runtime scripts.
 - `js/footer.js` remains as a compatibility shim and is intentionally not deleted without explicit approval; the five root pages now initialize the footer through `js/menu.js` only.
 - The webpack source path under `src/` still has separate HTML-partial loaders (`src/js/all.js` and `src/js/side-foot.js`). This change intentionally targets the root files named in the request and does not alter the separate build pipeline.

@@ -1,11 +1,15 @@
 # Next Actions
 
-1. Open each root page in the normal local preview and check the header at desktop and mobile widths.
-2. Verify the footer on `artist-statement.html`, `biography.html`, `contact.html`, and `policy.html` after a hard reload.
-3. Confirm in the browser network panel that the root pages do not request `footer.js`, `footer.html`, or jQuery for footer rendering.
-4. If the webpack `src/` build is also a required deployment path, apply the same design to `src/js/all.js` and `src/js/side-foot.js` as a separate scoped change.
-5. Do not remove the compatibility shim unless its remaining references and rollback need have been reviewed and explicit deletion approval is given.
-6. Investigate the unrelated VANTA warning only if the affected page's background is not intentionally disabled.
+1. Open the index page, open Site Policy, and confirm that the displayed Japanese and English text matches `policy.html`.
+2. Hard-reload the deployed page after GitHub Pages rebuilds to clear any cached HTML.
+3. Keep the existing inline fallback until successful public browser verification is complete.
+
+4. Open each root page in the normal local preview and check the header at desktop and mobile widths.
+5. Verify the footer on `artist-statement.html`, `biography.html`, `contact.html`, and `policy.html` after a hard reload.
+6. Confirm in the browser network panel that the root pages do not request `footer.js`, `footer.html`, or jQuery for footer rendering.
+7. If the webpack `src/` build is also a required deployment path, apply the same design to `src/js/all.js` and `src/js/side-foot.js` as a separate scoped change.
+8. Do not remove the compatibility shim unless its remaining references and rollback need have been reviewed and explicit deletion approval is given.
+9. Investigate the unrelated VANTA warning only if the affected page's background is not intentionally disabled.
 
 ## 2026-09-06 Public Alignment Follow-up
 

@@ -1,5 +1,14 @@
 # Review Requests
 
+## 2026-09-11 Site Policy Modal Unification
+
+Please review the focused `index.html` change.
+
+1. Confirm that opening the index Site Policy modal shows the current Japanese and English content from `policy.html`.
+2. Confirm that the existing modal open/close behavior, gallery link, and visual styling remain unchanged.
+3. Confirm that the inline policy remains available as a fallback if `policy.html` cannot be fetched.
+4. Treat GitHub Pages deployment/cache refresh and physical-device checks as separate acceptance steps.
+
 ## 2026-09-07 Gallery Sidebar Right Alignment Review
 
 Please review only the gallery layout addition in `css/gallery.css`.

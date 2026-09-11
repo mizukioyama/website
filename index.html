@@ -268,6 +268,7 @@
 
     <!-- モーダル本体 -->
     <div class="modal-box">
+        <div id="index-policy-modal-content">
         <h2>Site Policy</h2>
         <p lang="ja">
             当ページは小山瑞樹のPortfolioサイトのご利用についての禁止事項及び注意事項を記載しています。<br>
@@ -478,6 +479,7 @@
             <br>
             Go to the work page.
         </p>
+        </div>
         <a href="./gallery.html" class="button" style="margin-top: 3rem;" target="_blank" rel="noopener noreferrer">
             view
         </a>
@@ -575,6 +577,41 @@
             }
         }
     </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const policyModalContent = document.getElementById("index-policy-modal-content");
+
+            if (!policyModalContent) {
+                return;
+            }
+
+            fetch(new URL("policy.html", window.location.href), { cache: "no-store" })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`Policy HTTP ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then((markup) => {
+                    const policyDocument = new DOMParser().parseFromString(markup, "text/html");
+                    const policyContents = Array.from(
+                        policyDocument.querySelectorAll("#policy > .content")
+                    );
+
+                    if (!policyContents.length) {
+                        throw new Error("Policy content not found");
+                    }
+
+                    policyModalContent.innerHTML = policyContents
+                        .map((content) => content.innerHTML)
+                        .join("");
+                })
+                .catch((error) => {
+                    console.error("Index Site Policy loading error:", error);
+                });
+        });
+    </script>
 
     <script>
         VANTA.FOG({

@@ -26,6 +26,14 @@
 - `node --check js/menu.js`: PASS
 - `node --check js/footer.js`: PASS
 - `git diff --check`: PASS
+
+## 2026-09-11 Site Policy Modal Unification
+
+- Target: `index.html` Site Policy modal.
+- The modal now loads the Japanese and English policy sections from `policy.html` after page load.
+- The previous inline modal content remains as a fallback if the policy page cannot be fetched.
+- `index.html` already permits same-origin connections through its CSP, so no external origin was added.
+- `git diff --check`: PASS
 - No active root HTML page references `js/footer.js`: PASS
 - `js/menu.js` contains the only root footer implementation: PASS
 - Generated header markup compared with `header.html` after whitespace normalization: identical.

@@ -1,5 +1,9 @@
 # User Checklist
 
+- [ ] Open `index.html`, open the Site Policy modal, and confirm the Japanese and English contents match `policy.html`.
+- [ ] Confirm the index modal still closes with `Close` and the `view` link still opens the gallery.
+- [ ] Hard-reload the deployed index page after the Pages rebuild.
+
 - [ ] Open `index.html` and confirm the header appears without waiting for an HTML partial.
 - [ ] Open the menu and confirm the five links and exhibition information are unchanged.
 - [ ] Close the menu by clicking the mask.
