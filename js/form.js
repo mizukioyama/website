@@ -94,9 +94,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .request-options[hidden] { display: none !important; }
     .request-options legend { margin-bottom: .85rem; font-size: clamp(.8rem, calc(.7rem + .35vw), 1rem); font-weight: 300; opacity: .65; }
     .request-options legend span { margin-left: .45rem; }
-    .request-option-list { display: grid; grid-template-columns: repeat(3, max-content); grid-auto-rows: 1fr; column-gap: 24px; row-gap: 12px; justify-content: start; align-items: stretch; }
+    .request-option-list { display: grid; grid-template-columns: repeat(3, max-content); grid-auto-rows: auto; column-gap: 24px; row-gap: 12px; justify-content: start; align-items: stretch; }
     .request-option-list input[type="radio"] { display: none; }
-    .request-option-list label { display: flex; flex-direction: column; justify-content: center; width: max-content; max-width: 100%; min-width: 0; min-height: 3.5rem; margin: 0 !important; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; letter-spacing: 1px; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; box-sizing: border-box; }
+    .request-option-list label { display: flex; flex-direction: column; justify-content: center; width: max-content; max-width: 100%; min-width: 0; min-height: 0; margin: 0 !important; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; letter-spacing: 1px; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; box-sizing: border-box; }
     .request-option-list label span { font-size: .88em; }
     .request-option-list input[type="radio"]:checked + label { opacity: 1; background: transparent; border-bottom-color: currentColor; }
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
       .request-option-list { grid-template-columns: repeat(3, max-content); column-gap: 24px; row-gap: 12px; justify-content: start; }
-      .request-option-list label { min-height: 3.75rem; margin: 0 !important; padding: 2px 0; background: transparent; font-size: clamp(.68rem, 2.8vw, .82rem); }
+      .request-option-list label { min-height: 0; margin: 0 !important; padding: 2px 0; background: transparent; font-size: clamp(.68rem, 2.8vw, .82rem); }
       #thanksModal { padding: 1rem !important; }
       #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 3rem 1.5rem 1.5rem !important; }
       #thanksModal .close { top: .55rem !important; right: .6rem !important; }
