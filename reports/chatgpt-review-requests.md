@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Non-Index Body Text 11-12px Correction
+
+Please review the focused `css/gallery.css` and non-index page cache-query changes.
+
+1. Confirm visible PC body paragraphs on artist-statement, biography, contact, gallery, and policy use the 11px–12px clamp.
+2. Confirm `index.html` is excluded from this rule.
+3. Confirm mobile paragraph sizing remains controlled by the existing mobile rules.
+
 ## 2026-09-11 Non-Index Common Text Scale
 
 Please review the focused `css/gallery.css`, `css/form.css`, and five non-index page link changes.

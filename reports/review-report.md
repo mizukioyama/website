@@ -1,5 +1,13 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Non-Index Body Text 11-12px Correction
+
+- Corrected the PC non-index rule so `html`, `body`, and visible page `p` elements use `clamp(11px, calc(10px + 0.4vw), 12px)`.
+- This fixes the cascade issue where the global paragraph rule kept the displayed body text unchanged.
+- Updated the `gallery.css` cache-busting query on all five non-index pages.
+- `index.html` remains excluded.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Non-Index Common Text Scale
 
 - Moved the Contact PC base text clamp into shared `css/gallery.css`, which is loaded by Contact, artist-statement, biography, gallery, and policy pages.

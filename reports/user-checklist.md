@@ -1,5 +1,8 @@
 # User Checklist
 
+- [ ] Confirm PC body paragraphs on every non-index page use the 11px–12px clamp.
+- [ ] Confirm index.html is excluded.
+- [ ] Confirm mobile text sizing remains unchanged.
 - [ ] Confirm the shared PC text scale applies to all non-index pages.
 - [ ] Confirm index.html is not changed by the shared rule.
 - [ ] Confirm PC Contact body text uses `clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem)`.

@@ -1,8 +1,12 @@
 # Next Actions
 
-1. After Pages rebuilds, compare PC text scale on Contact, artist-statement, biography, gallery, and policy at the same viewport width.
-2. Confirm index.html retains its separate text scale.
-3. Confirm mobile pages remain unchanged.
+1. After Pages rebuilds, hard-reload each non-index page and confirm visible PC body text changes to 11px–12px.
+2. Confirm index.html remains unchanged.
+3. Confirm mobile pages retain their existing text scale.
+
+4. After Pages rebuilds, compare PC text scale on Contact, artist-statement, biography, gallery, and policy at the same viewport width.
+5. Confirm index.html retains its separate text scale.
+6. Confirm mobile pages remain unchanged.
 
 4. After Pages rebuilds, compare PC Contact body text with the policy page at the same viewport width.
 5. Confirm form labels, placeholders, consent text, and modal text retain their intended sizes.
