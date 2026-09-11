@@ -87,25 +87,45 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("input", () => toggleLabel(input));
   });
 
-  // Small scoped styles for the new conditional UI only.
+  // Scoped styles for the conditional request UI.
   const style = document.createElement("style");
   style.textContent = `
     .request-options { border: 0; padding: 0; margin: 1.75rem 0 .5rem; color: var(--inv); }
     .request-options[hidden] { display: none !important; }
     .request-options legend { margin-bottom: .85rem; font-size: clamp(.8rem, calc(.7rem + .35vw), 1rem); font-weight: 300; opacity: .65; }
     .request-options legend span { margin-left: .45rem; }
-    .request-option-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+    .request-option-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1.25rem; }
     .request-option-list input[type="radio"] { display: none; }
-    .request-option-list label { display: block; min-width: 0; padding: .8rem .9rem; border-bottom: 1px solid rgba(220,220,220,.32); background: rgba(0,0,0,.16); font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, background .25s ease, border-color .25s ease; }
+    .request-option-list label {
+      display: block;
+      min-width: 0;
+      padding: .35rem 0 .45rem;
+      border: 0;
+      border-bottom: 1px solid transparent;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem);
+      line-height: 1.45;
+      font-weight: 300;
+      opacity: .55;
+      cursor: pointer;
+      transition: opacity .25s ease, border-color .25s ease;
+    }
     .request-option-list label span { font-size: .88em; }
-    .request-option-list input[type="radio"]:checked + label { opacity: 1; background: rgba(0,0,0,.38); border-color: currentColor; }
+    .request-option-list input[type="radio"]:checked + label {
+      opacity: 1;
+      background: transparent;
+      border-bottom-color: currentColor;
+    }
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
     .form-status { min-height: 1.5em; margin: 1rem 0 0; font-size: clamp(.7rem, calc(.62rem + .3vw), .85rem); opacity: .7; }
     .submit-btn[disabled] { opacity: .4; cursor: wait; }
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
-      .request-option-list { grid-template-columns: 1fr; gap: .45rem; }
-      .request-option-list label { padding: .7rem .75rem; }
+      .request-option-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1rem; }
+      .request-option-list label { padding: .3rem 0 .4rem; background: transparent; }
     }
   `;
   document.head.appendChild(style);
