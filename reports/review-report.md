@@ -1,5 +1,12 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Contact Body Left Alignment
+
+- On PC widths, aligned `#contact .content` left edge to the Contact page H1's `left: 20vmin` position.
+- Kept the existing content width, top spacing, form layout, and mobile rules unchanged.
+- Updated the Contact `form.css` cache-busting query so the alignment is loaded after deployment.
+- `git diff --check`: PASS
+
 ## 2026-09-11 Site Policy Modal Scroll Lock
 
 - Added a shared `policy-modal-open` class to lock both `html` and `body` scrolling while the Site Policy modal is open.

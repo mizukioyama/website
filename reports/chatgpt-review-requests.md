@@ -1,5 +1,13 @@
 # Review Requests
 
+## 2026-09-11 Contact Body Left Alignment
+
+Please review the focused `css/form.css` and `contact.html` change.
+
+1. Confirm that the PC Contact body text starts on the same left edge as the Contact H1.
+2. Confirm that the existing two-column/content width and top spacing remain unchanged.
+3. Confirm that mobile layout remains unchanged.
+
 ## 2026-09-11 Site Policy Modal Scroll Lock
 
 Please review the focused `contact.html`, `index.html`, and `js/form.js` changes.

@@ -1,5 +1,7 @@
 # User Checklist
 
+- [ ] Confirm the Contact H1 and body text share the same left edge on PC.
+- [ ] Confirm the Contact mobile layout remains unchanged.
 - [ ] Confirm Contact page scroll is locked while Site Policy is open.
 - [ ] Confirm index page scroll is locked while Site Policy is open.
 - [ ] Confirm policy content can scroll inside each modal.

@@ -1,5 +1,6 @@
 # Known Issues
 
+- The left-alignment rule is intentionally scoped to viewport widths of 601px and above; mobile uses the existing `css/mobile.css` layout.
 - Browser acceptance should include both Contact and index because the two pages use different modal initialization paths.
 - The 40vw width change applies to the desktop Contact Site Policy modal; mobile sizing continues to use its existing media-query values.
 - The 75% sizing change is scoped to the Contact Site Policy modal; the index page modal keeps its existing sizing until separately requested.

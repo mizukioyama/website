@@ -1,8 +1,12 @@
 # Next Actions
 
-1. Open the Contact Site Policy modal and confirm page scrolling is locked while modal-internal scrolling still works.
-2. Repeat the scroll-lock check on index.html.
-3. Close each modal and confirm page scrolling is restored.
+1. After Pages rebuilds, hard-reload Contact at a desktop width and compare the H1 and body left edges.
+2. Confirm the mobile Contact page retains its existing spacing.
+3. Confirm the form and Site Policy modal are unaffected.
+
+4. Open the Contact Site Policy modal and confirm page scrolling is locked while modal-internal scrolling still works.
+5. Repeat the scroll-lock check on index.html.
+6. Close each modal and confirm page scrolling is restored.
 
 4. After Pages rebuilds, confirm the Contact Site Policy modal width is 40vw at desktop width.
 5. Confirm the 75vh height and internal scroll behavior remain usable.

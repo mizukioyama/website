@@ -74,6 +74,14 @@ form input[type="radio"]:checked::before {
    margin-top: 60vmin;
 }
 
+/* PCではContact本文の左端をページ見出し（h1）の左端に揃える */
+@media screen and (min-width: 601px) {
+   #contact .content {
+      margin-left: 20vmin;
+      margin-right: 0;
+   }
+}
+
 label {
    font-size: clamp(1rem, calc(0.9rem + 0.5vw), 1.2rem);
 }
