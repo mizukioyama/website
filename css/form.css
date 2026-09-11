@@ -151,6 +151,10 @@ input:-webkit-autofill:focus {
    font-size: 14px !important;
 }
 
+.contact-form .consent-text {
+   font-size: clamp(10px, calc(9px + 0.4vw), 11px);
+}
+
 @media screen and (min-width: 601px) {
    .contact-form .input-text::placeholder,
    .contact-form .label {
