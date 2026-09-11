@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   modal.style.display = "none";
 
+  // Move the success modal out of the form/layout tree so position: fixed is
+  // always relative to the visible viewport on mobile browsers.
+  if (modal.parentElement !== document.body) {
+    document.body.appendChild(modal);
+  }
+
   if (subjectInput) subjectInput.maxLength = 120;
   if (nameInput) nameInput.maxLength = 100;
   if (emailInput) emailInput.maxLength = 254;
@@ -122,8 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
       position: fixed !important;
       inset: 0 !important;
       width: 100vw !important;
-      height: 100svh !important;
-      min-height: 100svh !important;
+      height: 100dvh !important;
+      min-height: 100dvh !important;
       padding: 1rem !important;
       margin: 0 !important;
       transform: none !important;
@@ -133,6 +139,8 @@ document.addEventListener("DOMContentLoaded", function () {
       align-items: center !important;
       justify-content: center !important;
       overflow: hidden !important;
+      box-sizing: border-box !important;
+      z-index: 2147483000 !important;
     }
     #thanksModal.show { display: flex !important; opacity: 1 !important; transform: none !important; }
     #thanksModal .modal-content {
@@ -140,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
       inset: auto !important;
       width: min(90vw, 680px) !important;
       height: auto !important;
-      max-height: min(74svh, 680px) !important;
+      max-height: min(74dvh, 680px) !important;
       margin: 0 !important;
       padding: clamp(1.75rem, 5vw, 3rem) !important;
       transform: none !important;
@@ -164,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .request-option-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1rem; }
       .request-option-list label { padding: .3rem 0 .4rem; background: transparent; }
       #thanksModal { padding: 1rem !important; }
-      #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 78svh !important; padding: 1.5rem !important; }
+      #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 1.5rem !important; }
     }
   `;
   document.head.appendChild(style);
@@ -186,8 +194,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(contactForm);
 
-    // Keep inquiryType exactly as the existing Apps Script expects: 依頼 / 問い合わせ.
-    // Preserve the selected request category in fields the current backend already stores.
     if (selectedType === "依頼" && selectedCategory) {
       formData.set("inquiryType", "依頼");
 
@@ -247,7 +253,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Generic modal handling used elsewhere on the contact page.
 document.addEventListener("DOMContentLoaded", function () {
   function openModal(modalId) {
     const modal = document.getElementById(modalId);
