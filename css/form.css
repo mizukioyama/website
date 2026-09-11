@@ -1,9 +1,9 @@
 @charset "utf-8";
 
-/* ContactページのPC表示だけ、全体の文字基準を2px下げる */
+/* ContactページのPC表示だけ、全体の文字基準を14px〜16pxで調整 */
 @media screen and (min-width: 601px) {
    html {
-      font-size: calc(100% - 2px);
+      font-size: clamp(14px, calc(12px + 0.4vw), 16px);
    }
 }
 
@@ -153,7 +153,7 @@ input:-webkit-autofill:focus {
 @media screen and (min-width: 601px) {
    .contact-form .input-text::placeholder,
    .contact-form .label {
-      font-size: 12px !important;
+      font-size: clamp(14px, calc(12px + 0.4vw), 16px) !important;
    }
 }
 
