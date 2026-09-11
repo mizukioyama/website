@@ -106,9 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .request-options[hidden] { display: none !important; }
     .request-options legend { margin-bottom: .85rem; font-size: clamp(.8rem, calc(.7rem + .35vw), 1rem); font-weight: 300; opacity: .65; }
     .request-options legend span { margin-left: .45rem; }
-    .request-option-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .9rem 1.25rem; }
+    .request-option-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; column-gap: clamp(.75rem, 2vw, 1.25rem); row-gap: clamp(.75rem, 2vw, 1.25rem); align-items: stretch; }
     .request-option-list input[type="radio"] { display: none; }
-    .request-option-list label { display: block; min-width: 0; padding: .35rem 0 .45rem; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; }
+    .request-option-list label { display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: 3.5rem; padding: .35rem 0 .45rem; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; }
     .request-option-list label span { font-size: .88em; }
     .request-option-list input[type="radio"]:checked + label { opacity: 1; background: transparent; border-bottom-color: currentColor; }
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
@@ -124,8 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
-      .request-option-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem .7rem; }
-      .request-option-list label { padding: .3rem 0 .4rem; background: transparent; }
+      .request-option-list { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: .75rem; row-gap: .75rem; }
+      .request-option-list label { min-height: 3.75rem; padding: .3rem 0 .4rem; background: transparent; }
       #thanksModal { padding: 1rem !important; }
       #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 3rem 1.5rem 1.5rem !important; }
       #thanksModal .close { top: .55rem !important; right: .6rem !important; }
