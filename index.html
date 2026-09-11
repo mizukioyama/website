@@ -490,6 +490,11 @@
 
 
     <style>
+        html.policy-modal-open,
+        body.policy-modal-open {
+            overflow: hidden;
+        }
+
         /* チェックボックスは非表示 */
         #modal-toggle {
             display: none;
@@ -580,6 +585,16 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const policyToggle = document.getElementById("modal-toggle");
+            const updatePolicyScrollLock = () => {
+                const isPolicyOpen = Boolean(policyToggle?.checked);
+                document.documentElement.classList.toggle("policy-modal-open", isPolicyOpen);
+                document.body.classList.toggle("policy-modal-open", isPolicyOpen);
+            };
+
+            policyToggle?.addEventListener("change", updatePolicyScrollLock);
+            updatePolicyScrollLock();
+
             const policyModalContent = document.getElementById("index-policy-modal-content");
 
             if (!policyModalContent) {

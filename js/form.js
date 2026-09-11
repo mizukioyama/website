@@ -54,8 +54,15 @@ document.addEventListener("DOMContentLoaded", function () {
   function openPolicyModal() {
     if (policyToggle) {
       policyToggle.checked = true;
+      updatePolicyScrollLock();
       applyPolicyViewed();
     }
+  }
+
+  function updatePolicyScrollLock() {
+    const isPolicyOpen = Boolean(policyToggle?.checked);
+    document.documentElement.classList.toggle("policy-modal-open", isPolicyOpen);
+    document.body.classList.toggle("policy-modal-open", isPolicyOpen);
   }
 
   function applyPolicyViewed() {
@@ -65,7 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
     consentInput.checked = true;
   }
 
-  policyToggle?.addEventListener("change", applyPolicyViewed);
+  policyToggle?.addEventListener("change", () => {
+    updatePolicyScrollLock();
+    applyPolicyViewed();
+  });
+  updatePolicyScrollLock();
 
   if (consentInput) {
     consentInput.checked = false;

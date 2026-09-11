@@ -1,5 +1,6 @@
 # Known Issues
 
+- Browser acceptance should include both Contact and index because the two pages use different modal initialization paths.
 - The 40vw width change applies to the desktop Contact Site Policy modal; mobile sizing continues to use its existing media-query values.
 - The 75% sizing change is scoped to the Contact Site Policy modal; the index page modal keeps its existing sizing until separately requested.
 - The viewport fix requires the updated `form.js` cache-busting URL to be served by GitHub Pages before public browsers can show the change.

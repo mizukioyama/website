@@ -1,5 +1,14 @@
 # Review Requests
 
+## 2026-09-11 Site Policy Modal Scroll Lock
+
+Please review the focused `contact.html`, `index.html`, and `js/form.js` changes.
+
+1. Confirm page scrolling is disabled while each Site Policy modal is open.
+2. Confirm policy content can still scroll inside the modal.
+3. Confirm page scrolling is restored after closing each modal.
+4. Confirm the submission-success modal and consent behavior remain unchanged.
+
 ## 2026-09-11 Site Policy Modal Width 40vw
 
 Please review the focused `contact.html` CSS change.

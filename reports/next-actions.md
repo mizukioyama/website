@@ -1,8 +1,12 @@
 # Next Actions
 
-1. After Pages rebuilds, confirm the Contact Site Policy modal width is 40vw at desktop width.
-2. Confirm the 75vh height and internal scroll behavior remain usable.
-3. Confirm mobile sizing remains usable.
+1. Open the Contact Site Policy modal and confirm page scrolling is locked while modal-internal scrolling still works.
+2. Repeat the scroll-lock check on index.html.
+3. Close each modal and confirm page scrolling is restored.
+
+4. After Pages rebuilds, confirm the Contact Site Policy modal width is 40vw at desktop width.
+5. Confirm the 75vh height and internal scroll behavior remain usable.
+6. Confirm mobile sizing remains usable.
 
 4. After GitHub Pages rebuilds, confirm the Contact Site Policy modal occupies 40vw of the viewport at desktop width.
 5. Confirm the full policy can be read by scrolling within the modal.

@@ -1,5 +1,9 @@
 # User Checklist
 
+- [ ] Confirm Contact page scroll is locked while Site Policy is open.
+- [ ] Confirm index page scroll is locked while Site Policy is open.
+- [ ] Confirm policy content can scroll inside each modal.
+- [ ] Confirm page scroll is restored after closing each modal.
 - [ ] Confirm the Contact Site Policy modal is 40vw wide on desktop.
 - [ ] Confirm the modal remains 75vh high and centered.
 - [ ] Confirm the Contact Site Policy modal is approximately 75% of the viewport width and height on desktop.

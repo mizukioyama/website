@@ -1,5 +1,14 @@
 # Header / Footer Review Report
 
+## 2026-09-11 Site Policy Modal Scroll Lock
+
+- Added a shared `policy-modal-open` class to lock both `html` and `body` scrolling while the Site Policy modal is open.
+- Applied the lock to Contact through `js/form.js`, including the automatic policy modal opening path.
+- Applied the same lock to the checkbox-controlled Site Policy modal in `index.html`.
+- The existing modal inner scrolling remains available through `overflow-y: scroll`.
+- `node --check js/form.js`: PASS
+- `git diff --check`: PASS
+
 ## 2026-09-11 Site Policy Modal Width 40vw
 
 - Changed the desktop Contact Site Policy modal width from `75vw` to `40vw`.
