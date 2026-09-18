@@ -16,6 +16,7 @@ const HEADER_MARKUP = `
           <li><a href="artist-statement.html" class="noise">Artist Statement</a></li>
           <li><a href="biography.html" class="noise">Biography</a></li>
           <li><a href="contact.html" class="noise">Contact Us</a></li>
+          <li><a href="order.html" class="noise">Order</a></li>
           <li><a href="policy.html" class="noise">Site Policy</a>
           </li>
         </ul>
@@ -110,6 +111,7 @@ const FOOTER_MARKUP = `
    <a class="noise" href="artist-statement.html">Artist Statement</a>
    <a class="noise" href="biography.html">Biography</a>
    <a class="noise" href="contact.html">Contact Us</a>
+   <a class="noise" href="order.html">Order</a>
    <a class="noise" href="policy.html">Site Policy</a>
 
    <div class="foot">&copy; <span id="year"></span>

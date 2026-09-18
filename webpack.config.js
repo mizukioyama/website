@@ -147,6 +147,7 @@ const rootVisualPages = [
    "index",
    "artist-statement",
    "biography",
+   "order",
    "gallery",
    "contact",
    "policy"

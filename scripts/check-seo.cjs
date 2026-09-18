@@ -20,6 +20,11 @@ const indexablePages = [
       source: "biography.html",
       canonical: `${siteOrigin}/biography.html`
    },
+   {
+      output: "order.html",
+      source: "order.html",
+      canonical: `${siteOrigin}/order.html`
+   },
    { output: "gallery.html", source: "gallery.html", canonical: `${siteOrigin}/gallery.html` },
    { output: "contact.html", source: "contact.html", canonical: `${siteOrigin}/contact.html` },
    { output: "policy.html", source: "policy.html", canonical: `${siteOrigin}/policy.html` },

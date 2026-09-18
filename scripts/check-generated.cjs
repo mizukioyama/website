@@ -33,6 +33,7 @@ const generatedPageNames = new Set([
    "index.html",
    "artist-statement.html",
    "biography.html",
+   "order.html",
    "bot.html",
    "contact.html",
    "gallery.html",
