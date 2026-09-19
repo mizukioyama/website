@@ -74,7 +74,8 @@ const indexablePages = [
 
 const nonIndexablePages = [
    { output: "matching.html", source: "src/matching.html" },
-   { output: "bot.html", source: "src/bot.html" }
+   { output: "bot.html", source: "src/bot.html" },
+   { output: "404.html", source: "src/404.html" }
 ];
 
 const legacyRedirectPages = [
@@ -247,6 +248,11 @@ function validateSitemap(relativePath, sitemap, failures) {
       if (!locations.includes(expectedLocation)) {
          failures.push(`${relativePath}: sitemap is missing ${expectedLocation}`);
       }
+   }
+
+   const notFoundLocation = `${siteOrigin}/404.html`;
+   if (locations.includes(notFoundLocation)) {
+      failures.push(`${relativePath}: sitemap must not include the 404 page`);
    }
 
    for (const [index, entry] of entries.entries()) {
