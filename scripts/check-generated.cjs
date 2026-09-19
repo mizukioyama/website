@@ -180,6 +180,16 @@ for (const pair of directCopyPairs) {
       : output;
 
    if (comparableSource !== comparableOutput) {
+      let firstDifference = 0;
+      const maxComparableLength = Math.min(comparableSource.length, comparableOutput.length);
+      while (firstDifference < maxComparableLength && comparableSource[firstDifference] === comparableOutput[firstDifference]) {
+         firstDifference += 1;
+      }
+      const start = Math.max(0, firstDifference - 160);
+      const end = firstDifference + 360;
+      console.error(`DIFF ${pair.source} -> docs/${pair.output} at ${firstDifference}`);
+      console.error(`SOURCE: ${JSON.stringify(comparableSource.slice(start, end))}`);
+      console.error(`OUTPUT: ${JSON.stringify(comparableOutput.slice(start, end))}`);
       failures.push(
          `docs/${pair.output}: differs from direct-copy source ${pair.source} beyond known post-build transforms`
       );
