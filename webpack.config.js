@@ -280,6 +280,13 @@ module.exports = {
                force: true
             },
             {
+               // GitHub Pages looks for 404.html at the root of the deployed
+               // artifact when a requested path does not exist.
+               from: path.resolve(__dirname, "src/404.html"),
+               to: "404.html",
+               force: true
+            },
+            {
                // Keep the pre-directory Yurayura URL available as a static
                // migration page. The source is noindex + canonical + meta refresh.
                from: path.resolve(__dirname, "src/exhibition-yurayura-2026.html"),
