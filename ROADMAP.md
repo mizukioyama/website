@@ -49,6 +49,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-19: Added GitHub Pages custom 404 fallback at docs/404.html and strengthened pre-deploy internal link validation for /website/ project-root links.
 - 2026-09-19: Migrated exhibition archives to /exhibitions/{slug}/; Yurayura now uses /exhibitions/yurayura/ with legacy URL migration and automated exhibition SEO/build checks.
 - 2026-09-19: Added the Yurayura exhibition detail/archive page and linked it from Information.
 - 2026-09-19: Information visual shell aligned with the main portfolio pages, including shared background, header/footer and responsive styling.
