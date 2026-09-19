@@ -64,6 +64,7 @@ const generatedPageNames = new Set([
    "contact.html",
    "gallery.html",
    "information.html",
+   "404.html",
    "exhibition-yurayura-2026.html",
    "matching.html",
    "policy.html"
@@ -128,6 +129,7 @@ for (const absolutePath of listHtmlFiles(outputDirectory)) {
 
 const directCopyPairs = [
    { source: "src/information.html", output: "information.html" },
+   { source: "src/404.html", output: "404.html" },
    { source: "src/exhibition-yurayura-2026.html", output: "exhibition-yurayura-2026.html" },
    ...listExhibitionIndexSources()
 ];
