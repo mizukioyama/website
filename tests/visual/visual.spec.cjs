@@ -604,6 +604,116 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
+test("primary navigation and conversion paths", async ({ page }, testInfo) => {
+  test.skip(
+    !["desktop-1440", "mobile-390"].includes(testInfo.project.name),
+    "Primary conversion paths are verified on representative desktop and mobile viewports."
+  );
+
+  const entry = { key: "navigation-conversion" };
+  const runtime = createRuntimeMonitor(page, entry);
+  await prepareDeterministicNetwork(page);
+
+  const visitHome = async () => {
+    const response = await page.goto("", { waitUntil: "domcontentloaded" });
+    expect(response.status()).toBe(200);
+    await stabilize(page);
+    await expect(page.locator("#header-container header")).toBeAttached();
+  };
+
+  const openMenu = async () => {
+    const toggle = page.locator("#navArea .toggle_btn");
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await toggle.click();
+    await expect(page.locator("#navArea")).toHaveClass(/open/);
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  };
+
+  await visitHome();
+  await openMenu();
+
+  const expectedMenuPaths = {
+    "Art Index": "/website/gallery.html",
+    "Artist Statement": "/website/artist-statement.html",
+    "Biography": "/website/biography.html",
+    "Information": "/website/information.html",
+    "Contact Us": "/website/contact.html",
+    "Order": "/website/order.html",
+    "Site Policy": "/website/policy.html"
+  };
+
+  for (const [label, expectedPath] of Object.entries(expectedMenuPaths)) {
+    const link = page
+      .locator("#navArea nav")
+      .getByRole("link", { name: label, exact: true })
+      .first();
+    const href = await link.getAttribute("href");
+    expect(new URL(href).pathname).toBe(expectedPath);
+  }
+
+  const galleryLink = page
+    .locator("#navArea nav")
+    .getByRole("link", { name: "Art Index", exact: true })
+    .first();
+  await Promise.all([
+    page.waitForURL(/\/website\/gallery\.html$/),
+    galleryLink.click()
+  ]);
+  await expect(page.locator("#gallery-container")).toBeAttached();
+
+  await visitHome();
+  await openMenu();
+
+  const informationLink = page
+    .locator("#navArea nav")
+    .getByRole("link", { name: "Information", exact: true })
+    .first();
+  await Promise.all([
+    page.waitForURL(/\/website\/information\.html$/),
+    informationLink.click()
+  ]);
+  await expect(page.locator(".information-page")).toBeAttached();
+
+  const exhibitionDetail = page.getByRole("link", {
+    name: "展示詳細を見る",
+    exact: true
+  });
+  await expect(exhibitionDetail).toHaveAttribute("href", "exhibitions/yurayura/");
+  await Promise.all([
+    page.waitForURL(/\/website\/exhibitions\/yurayura\/$/),
+    exhibitionDetail.click()
+  ]);
+  await expect(page.locator(".exhibition-page")).toBeAttached();
+
+  const officialSite = page.getByRole("link", {
+    name: "ゆらゆら公式サイト",
+    exact: true
+  });
+  await expect(officialSite).toHaveAttribute(
+    "href",
+    "https://mizukioyama.github.io/yurayura/"
+  );
+  await expect(officialSite).toHaveAttribute("target", "_blank");
+  await expect(officialSite).toHaveAttribute("rel", /noopener/);
+  await expect(officialSite).toHaveAttribute("rel", /noreferrer/);
+
+  await visitHome();
+  await openMenu();
+
+  const policyLink = page
+    .locator("#navArea nav")
+    .getByRole("link", { name: "Site Policy", exact: true })
+    .first();
+  await Promise.all([
+    page.waitForURL(/\/website\/policy\.html$/),
+    policyLink.click()
+  ]);
+  await expect(page.locator("#policy .content").first()).toBeAttached();
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
+});
+
 for (const entry of [
   { key: "information-motion-runtime", path: "information.html" },
   { key: "yurayura-motion-runtime", path: "exhibitions/yurayura/" }
