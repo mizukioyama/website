@@ -20,6 +20,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Audit console/runtime errors
 - [ ] Audit responsive overflow/overlap/wrapping
 - [ ] Audit navigation and conversion paths
+- [x] Audit same-name person entity disambiguation (小山瑞樹 / Mizuki Oyama) and document SEO identity gaps before implementation
 
 ## Phase 2 - SEO and content
 - [ ] Audit title/meta/H1/canonical across indexable pages
