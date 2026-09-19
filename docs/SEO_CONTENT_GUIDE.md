@@ -30,3 +30,23 @@ Legacy static URLs that cannot issue HTTP redirects on GitHub Pages may remain a
 Keep robots.txt, sitemap.xml, canonical and public GitHub Pages paths coherent. Validate builds with npm run check:seo and npm run check:links. Structured data must match visible verified content.
 
 When suggesting copy, state the problem briefly, provide replacement and mark safe-to-apply versus artistic approval.
+
+
+## Person entity disambiguation
+The canonical artist entity is `https://mizukioyama.github.io/website/#person`.
+
+Use the same identity consistently across structured data:
+- name: `小山瑞樹`
+- alternateName: `Mizuki Oyama`
+- jobTitle: `Abstract Artist`
+- official URL: `https://mizukioyama.github.io/website/`
+- Biography and Artist Statement remain the canonical human-readable sources for biography and artistic intent.
+
+Use `disambiguatingDescription` to describe the artist positively and concretely. Do not add negative statements such as "not a lawyer" to visible copy or JSON-LD.
+
+Only confirmed identity profiles may appear in `sameAs`. Current confirmed URLs:
+- `https://camp-fire.jp/profile/OyamaMizuki`
+- `https://note.com/merry_ruff8755`
+- `https://www.instagram.com/1998_m.oyama/`
+
+Retired domains `oyama-artist-gallery.online` and `freelife-artist.com` must never be added to canonical, OGP, JSON-LD, sitemap or `sameAs`. They are retired permanently and should not receive new redirects or revival configuration.
