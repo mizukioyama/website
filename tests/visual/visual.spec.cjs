@@ -18,6 +18,7 @@ const pages = [
   { key: "information", path: "information.html", title: /Information|Mizuki|小山瑞樹/i },
   { key: "order", path: "order.html", title: /Order|Mizuki|小山瑞樹/i },
   { key: "contact", path: "contact.html", title: /Contact|Mizuki|小山瑞樹/i },
+  { key: "policy", path: "policy.html", title: /Policy|Mizuki|小山瑞樹/i, baseline: false },
   {
     key: "404",
     path: "__visual-missing__/deep/path/",
@@ -202,7 +203,7 @@ for (const entry of pages) {
     expect(relevantConsoleErrors, "same-origin console errors").toEqual([]);
     expect(localResourceFailures, "same-origin failed resources").toEqual([]);
 
-    if (visualBaselineProjects.has(testInfo.project.name)) {
+    if (entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
       await expect(page).toHaveScreenshot(entry.key + ".png", {
         fullPage: true,
         timeout: 15000
@@ -298,4 +299,34 @@ test("Yurayura nested navigation resolves to project root", async ({ page }) => 
 
   const pageBackLink = page.locator("a.back-link");
   await expect(pageBackLink).toHaveAttribute("href", "../../information.html");
+});
+
+test("all sitemap pages are registered for visual checks", async ({}, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "Visual coverage manifest is checked once per run."
+  );
+
+  const sitemap = fs.readFileSync(
+    path.resolve(__dirname, "../../docs/sitemap.xml"),
+    "utf8"
+  );
+
+  const sitemapPaths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)]
+    .map(match => new URL(match[1]).pathname)
+    .filter(pathname => pathname.startsWith("/website/"))
+    .map(pathname => pathname.slice("/website/".length))
+    .map(pathname => pathname || "");
+
+  const registeredPaths = new Set(
+    pages
+      .filter(entry => entry.status !== 404)
+      .map(entry => entry.path)
+  );
+
+  const missing = sitemapPaths.filter(pathname => !registeredPaths.has(pathname));
+  expect(
+    missing,
+    "Every sitemap page must be registered in Visual Regression or explicitly designed as non-indexable."
+  ).toEqual([]);
 });
