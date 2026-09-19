@@ -14,6 +14,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Add automated visual regression tooling if absent
 
 ## Phase 1 - Baseline audit
+- [ ] Verify deployed /exhibitions/yurayura/ route and legacy redirect after the current GitHub Pages build
 - [ ] Capture desktop/mobile visual baseline for core pages
 - [ ] Run full repository checks and resolve failures
 - [ ] Audit console/runtime errors
