@@ -364,13 +364,15 @@ test("shared menu biography records and language state", async ({ page }) => {
   await page.reload({ waitUntil: "domcontentloaded" });
   await stabilize(page);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator('#navArea nav [lang="en"]')).toBeVisible();
-  await expect(page.locator('#navArea nav [lang="ja"]')).toBeHidden();
 
   const toggle = page.locator("#navArea .toggle_btn");
   await toggle.focus();
   await page.keyboard.press("Enter");
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(toggle).toHaveAttribute("aria-label", "Close navigation menu");
+  await expect(page.locator('#navArea nav [lang="en"]')).toBeVisible();
+  await expect(page.locator('#navArea nav [lang="ja"]')).toBeHidden();
+
   await page.keyboard.press("Space");
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
