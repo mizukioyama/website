@@ -280,9 +280,19 @@ module.exports = {
                force: true
             },
             {
-               // Exhibition detail pages use the same static portfolio shell.
+               // Keep the pre-directory Yurayura URL available as a static
+               // migration page. The source is noindex + canonical + meta refresh.
                from: path.resolve(__dirname, "src/exhibition-yurayura-2026.html"),
                to: "exhibition-yurayura-2026.html",
+               force: true
+            },
+            {
+               // Exhibition archives are managed by directory. A source such as
+               // src/exhibitions/yurayura/index.html becomes
+               // docs/exhibitions/yurayura/index.html and is served at
+               // /website/exhibitions/yurayura/.
+               from: path.resolve(__dirname, "src/exhibitions"),
+               to: "exhibitions",
                force: true
             },
             {
