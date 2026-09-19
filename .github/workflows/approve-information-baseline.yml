@@ -43,6 +43,9 @@ jobs:
           --project=mobile-390
           --update-snapshots
 
+      - name: Restore generated deployment tree
+        run: git restore docs
+
       - name: Verify only approved baselines changed
         shell: bash
         run: |
