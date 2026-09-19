@@ -309,11 +309,6 @@ module.exports = {
                force: true
             },
             {
-               from: path.resolve(__dirname, "robots.txt"),
-               to: "robots.txt",
-               force: true
-            },
-            {
                from: path.resolve(__dirname, "sitemap.xml"),
                to: "sitemap.xml",
                force: true
