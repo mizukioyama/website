@@ -401,33 +401,13 @@ function validateSitemap(relativePath, sitemap, failures) {
    }
 }
 
-function validateRobots(relativePath, robots, failures) {
-   if (!robots) {
-      failures.push(`${relativePath}: file is missing`);
-      return;
-   }
-
-   if (!/^\s*User-agent:\s*\*\s*$/im.test(robots)) {
-      failures.push(`${relativePath}: User-agent * is missing`);
-   }
-   if (!/^\s*Allow:\s*\/\s*$/im.test(robots)) {
-      failures.push(`${relativePath}: Allow / is missing`);
-   }
-   if (!new RegExp(`^\\s*Sitemap:\\s*${siteOrigin.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/sitemap\\.xml\\s*$`, "im").test(robots)) {
-      failures.push(`${relativePath}: sitemap URL is missing or incorrect`);
-   }
-
-   if (/^\s*Disallow:\s*\S+/im.test(robots)) {
-      failures.push(`${relativePath}: current portfolio robots policy must not block indexable pages or rendering assets`);
-   }
-
-   if (/\bnoindex\b/i.test(robots)) {
-      failures.push(`${relativePath}: noindex must be controlled by page metadata, not robots.txt`);
-   }
-
-   const retiredReference = retiredDomains.find(domain => robots.includes(domain));
-   if (retiredReference) {
-      failures.push(`${relativePath}: retired domain must not appear in robots.txt (${retiredReference})`);
+function validateProjectSiteRobotsAbsence(relativePath, directory, failures) {
+   const absolutePath = path.join(directory, relativePath);
+   if (fs.existsSync(absolutePath)) {
+      failures.push(
+         `${path.relative(root, absolutePath) || relativePath}: do not publish /website/robots.txt; ` +
+         "a GitHub Pages Project Site robots.txt is not authoritative for mizukioyama.github.io"
+      );
    }
 }
 
@@ -635,13 +615,11 @@ for (const page of exhibitionPages) {
 
 const sourceSitemap = readFile("sitemap.xml");
 validateSitemap("sitemap.xml", sourceSitemap, failures);
-
-const sourceRobots = readFile("robots.txt");
-validateRobots("robots.txt", sourceRobots, failures);
+validateProjectSiteRobotsAbsence("robots.txt", root, failures);
 
 if (!sourceOnly) {
    validateSitemap("docs/sitemap.xml", readFile("sitemap.xml", outputDirectory), failures);
-   validateRobots("docs/robots.txt", readFile("robots.txt", outputDirectory), failures);
+   validateProjectSiteRobotsAbsence("robots.txt", outputDirectory, failures);
 }
 
 if (failures.length > 0) {
