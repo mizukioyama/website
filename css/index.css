@@ -537,6 +537,11 @@ p {
   transition: transform 800ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 200ms linear;
 }
 
+.top-page h1.title {
+  width: fit-content;
+  font-size: clamp(1.6rem, calc(1.35rem + 0.55vw), 1.8rem);
+}
+
 .top-page .title {
   position: relative;
   /*font-size: clamp(4rem, calc(4rem + 0.5vw), 5rem);*/
