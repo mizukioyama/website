@@ -38,5 +38,10 @@ Every indexable page needs a unique descriptive title, useful description, canon
 ## Design changes
 Preserve established brand character unless redesign is requested. Reuse existing spacing, typography, table and flow patterns where equivalent components exist.
 
+## Error recovery and broken-link defense
+Use two layers of protection. First, deployment checks must detect broken internal HTML/CSS/JavaScript references before release. Second, GitHub Pages must have a custom `404.html` fallback that clearly remains a 404 experience and offers Home, Gallery and Information recovery links.
+
+The 404 page is not indexable and must not appear in the sitemap. Do not auto-redirect unknown URLs to Home. Because this is a GitHub Project Pages site, 404-local assets and rescue links must resolve under the `/website/` base path even when the missing requested URL is deeply nested.
+
 ## Technical source policy
 The repository contains root source-like files and a docs/ deployment/build tree. Confirm build/deploy mapping before editing. Prefer source files and regenerate output through the established build. Do not hand-edit duplicated generated files as a shortcut.
