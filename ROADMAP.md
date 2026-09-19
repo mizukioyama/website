@@ -25,7 +25,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Biography / Artist Statement mobile reading comfort: page-specific typography/spacing refined and verified across 1440/1280/1024/768/430/390/375 px
 
 ## Phase 2 - SEO and content
-- [ ] Audit title/meta/H1/canonical across indexable pages
+- [x] Audit title/meta/H1/canonical across indexable pages
 - [ ] Audit sitemap/robots/internal links
 - [ ] Audit artwork alt text and metadata
 - [ ] Review copy clarity while preserving artist voice
@@ -65,6 +65,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-20: Completed indexable-page title/meta/H1/canonical audit; corrected Home heading semantics without changing approved visuals and extended SEO checks for indexable metadata uniqueness, generated H1/OG URL alignment and exact sitemap URL integrity.
 - 2026-09-20: Completed Phase 1 navigation/conversion audit by reusing existing Gallery, Order, Contact, 404 and Yurayura interaction coverage and adding only missing Home menu, Information -> Yurayura, external exhibition CTA destination/safety, and Policy-path checks on desktop/mobile.
 - 2026-09-19: Completed Biography / Artist Statement mobile reading comfort improvements without changing canonical body copy; verified full seven-viewport audit, English wrapping, Biography tables, Statement 1-5 flow, runtime/resources/overflow, and approved only the two mobile-390 baselines.
 - 2026-09-19: Retired-domain final audit completed. oyama-artist-gallery.online and freelife-artist.com are permanently retired, must not be revived or redirected, and no longer block Phase 1. Remaining CAMPFIRE cleanup is external/manual only.
