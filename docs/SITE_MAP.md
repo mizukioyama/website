@@ -36,10 +36,16 @@ Page-specific imports are selected from body[data-page].
 ### Information page
 Information keeps src/information.html as its authoritative source, but it is copied directly to docs/information.html by CopyWebpackPlugin instead of being processed by HtmlWebpackPlugin. This lets it use the same css/, js/menu.js, ripple layer and Vanta background shell as Biography, Statement, Order, Contact and Policy without mixing the separate src/style Webpack visual system into the public page.
 
-### Exhibition detail pages
-- src/exhibition-yurayura-2026.html -> docs/exhibition-yurayura-2026.html
+### Exhibition detail/archive pages
+Canonical exhibition sources live under `src/exhibitions/` and the whole directory is copied by CopyWebpackPlugin:
 
-Exhibition detail pages are copied directly by CopyWebpackPlugin and use the same root css/, js/menu.js, ripple layer and Vanta background shell as the public portfolio pages.
+- `src/exhibitions/yurayura/index.html` -> `docs/exhibitions/yurayura/index.html` -> `/website/exhibitions/yurayura/`
+- future: `src/exhibitions/{slug}/index.html` -> `docs/exhibitions/{slug}/index.html` -> `/website/exhibitions/{slug}/`
+- only when a recurring series actually needs yearly archives: `src/exhibitions/{slug}/{year}/index.html` -> `docs/exhibitions/{slug}/{year}/index.html`
+
+Exhibition detail pages use the same root css/, js/menu.js, ripple layer and Vanta background shell as the public portfolio pages. Because they are nested, their own CSS/JS/image references use the correct relative depth. `js/menu.js` resolves shared header/footer links from the URL of the loaded menu script, so navigation still points to the portfolio root from nested exhibition pages.
+
+The legacy source `src/exhibition-yurayura-2026.html` is retained only as a migration document and copies to `docs/exhibition-yurayura-2026.html`. It is `noindex,follow`, canonicalizes to `/website/exhibitions/yurayura/`, uses a zero-delay meta refresh and includes a normal link. GitHub Pages static deployment cannot emit an HTTP 301/308 from this file.
 
 ### Shared fragments for Webpack pages
 These fragments are copied by CopyWebpackPlugin:
@@ -85,7 +91,8 @@ Important: committed files already present under docs/ can be stale relative to 
 | Contact | contact.html | docs/contact.html | form/privacy |
 | Policy | policy.html | docs/policy.html | policy content |
 | Information | src/information.html | docs/information.html | root css/, js/menu.js, ripple/Vanta background, Information metadata/current activity |
-| Yurayura Exhibition | src/exhibition-yurayura-2026.html | docs/exhibition-yurayura-2026.html | exhibition detail/archive, root visual shell |
+| Yurayura Exhibition | src/exhibitions/yurayura/index.html | docs/exhibitions/yurayura/index.html | canonical archive at /website/exhibitions/yurayura/, root visual shell |
+| Yurayura Legacy URL | src/exhibition-yurayura-2026.html | docs/exhibition-yurayura-2026.html | noindex static migration page only |
 | Matching | src/matching.html | docs/matching.html | Webpack bundle; noindex |
 | Bot | src/bot.html | docs/bot.html | Webpack bundle; noindex |
 
@@ -96,6 +103,11 @@ Webpack pages: src/header.html, src/footer.html, sidebar.html plus src/js/all.js
 css/all.css is broad/shared and high-risk for root pages. src/style/all.css is broad/shared for Webpack pages. Search selector usage before changing either.
 css/animation.css contains root-page motion rules where referenced.
 Heavy dependencies such as Three.js, p5, Vanta and ripples should not be expanded without a clear page purpose and mobile/performance justification.
+
+### Adding a new exhibition
+Create `src/exhibitions/{slug}/index.html`; do not add an ad-hoc top-level detail file. Start from the existing visual shell only, then replace and verify all event-specific metadata/content: title, description, H1, canonical, OG URL, Event JSON-LD URL/@id/dates, internal links, official external links and sitemap. Confirm nested CSS/JS/image paths and Information navigation. Keep the detail page after the event and add exhibition views/works/reflection over time.
+
+The SEO check automatically discovers exhibition `index.html` sources and the generated-output check verifies their direct-copy parity and standards-mode document output.
 
 ## Change-target protocol
 Identify rendered page -> classify it as root-copy or Webpack-template -> trace shared navigation/styles/scripts -> search shared selector/function consumers -> define expected delta -> edit the narrowest authoritative source -> build -> verify generated parity -> verify affected pages/viewports.
