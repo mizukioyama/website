@@ -174,12 +174,64 @@
                 left: 0;
                 top: -10px;
             }
-            p.text{
-                margin-top: 0.5rem !important;
-                padding: 0.5rem 2rem 0 0 !important;
+            #bio #state .content {
+                padding-inline: clamp(0.5rem, 2vw, 0.75rem);
             }
-            p:nth-child(3),p:nth-child(5) {
-                margin-top: 25vmin !important;
+
+            #bio #state .content h2 {
+                font-size: clamp(1.15rem, 5vw, 1.35rem);
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+            }
+
+            #bio #state .content .work > p {
+                font-size: clamp(0.95rem, calc(0.9rem + 0.2vw), 1rem);
+                line-height: 2;
+                letter-spacing: 0.02rem;
+                word-break: normal;
+                overflow-wrap: break-word;
+            }
+
+            #bio #state .content .work > p.text {
+                margin-top: 0.75rem !important;
+                padding: 0.75rem 0 0 !important;
+                font-size: clamp(0.84rem, calc(0.8rem + 0.2vw), 0.9rem);
+                line-height: 1.9;
+            }
+
+            #bio #state .content .work > p.text + p:not(.text) {
+                margin-top: 3rem !important;
+            }
+
+            #bio #state .content[lang="en"] .work > p + p {
+                margin-top: 2.5rem !important;
+            }
+
+            #bio table + table {
+                margin-top: 3rem;
+            }
+
+            #bio th {
+                font-size: 0.78rem;
+                line-height: 1.45;
+            }
+
+            #bio td.year {
+                width: 28%;
+                padding-right: 0.75rem;
+                font-size: 0.82rem;
+                line-height: 1.6;
+            }
+
+            #bio td.tb-content {
+                width: 72%;
+                font-size: 0.82rem;
+                line-height: 1.65;
+            }
+
+            #bio td.tb-content span {
+                font-size: 0.74rem;
+                line-height: 1.6;
             }
         }
         
