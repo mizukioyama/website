@@ -34,9 +34,9 @@ function listExhibitionIndexSources(directory = path.join(root, "src", "exhibiti
 
 async function normalizeKnownPostBuildHtml(content) {
    const knownTransformsNormalized = content
-      .replace(/css\/menu\.css(?:\?v=[^"']*)?/g, "css/menu.css")
-      .replace(/css\/form\.css(?:\?v=[^"']*)?/g, "css/form.css")
-      .replace(/js\/form\.js(?:\?v=[^"']*)?/g, "js/form.js")
+      .replace(/css\/menu\.css(?:\?v=[^"'\s>]*)?/g, "css/menu.css")
+      .replace(/css\/form\.css(?:\?v=[^"'\s>]*)?/g, "css/form.css")
+      .replace(/js\/form\.js(?:\?v=[^"'\s>]*)?/g, "js/form.js")
       .replace(/Nature inspire/g, "NatureInspire")
       .replace(/Nature Inspire/g, "NatureInspire");
 
