@@ -466,6 +466,31 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
+for (const entry of [
+  { key: "information-motion-runtime", path: "information.html" },
+  { key: "yurayura-motion-runtime", path: "exhibitions/yurayura/" }
+]) {
+  test(entry.key + " initializes without runtime errors", async ({ page }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== "desktop-1440",
+      "Motion initialization is audited once per normal run."
+    );
+
+    const runtime = createRuntimeMonitor(page, entry);
+    await prepareDeterministicNetwork(page);
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+
+    const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
+    expect(response.status()).toBe(200);
+    await page.waitForLoadState("load");
+
+    await expect(page.locator("#vanta-bg-bio canvas").first()).toBeAttached();
+
+    assertRuntimeClean(runtime, entry);
+    await attachRuntimeObservations(testInfo, entry, runtime);
+  });
+}
+
 test("all sitemap pages are registered for visual checks", async ({}, testInfo) => {
   test.skip(
     testInfo.project.name !== "desktop-1440",
