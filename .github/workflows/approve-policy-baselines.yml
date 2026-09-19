@@ -37,7 +37,9 @@ jobs:
           --update-snapshots
 
       - name: Restore generated deployment tree
-        run: git restore docs
+        run: |
+          git restore docs
+          git clean -fd docs
 
       - name: Verify only Policy baselines changed
         shell: bash
