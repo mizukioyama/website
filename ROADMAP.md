@@ -22,6 +22,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Audit responsive overflow/overlap/wrapping
 - [ ] Audit navigation and conversion paths
 - [x] Audit same-name person entity disambiguation (小山瑞樹 / Mizuki Oyama) and document SEO identity gaps before implementation
+- [x] Biography / Artist Statement mobile reading comfort: page-specific typography/spacing refined and verified across 1440/1280/1024/768/430/390/375 px
 
 ## Phase 2 - SEO and content
 - [ ] Audit title/meta/H1/canonical across indexable pages
@@ -51,6 +52,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-19: Completed Biography / Artist Statement mobile reading comfort improvements without changing canonical body copy; verified full seven-viewport audit, English wrapping, Biography tables, Statement 1-5 flow, runtime/resources/overflow, and approved only the two mobile-390 baselines.
 - 2026-09-19: Retired-domain final audit completed. oyama-artist-gallery.online and freelife-artist.com are permanently retired, must not be revived or redirected, and no longer block Phase 1. Remaining CAMPFIRE cleanup is external/manual only.
 - 2026-09-19: Strengthened the canonical 小山瑞樹 / Mizuki Oyama Person entity as Abstract Artist with verified sameAs profiles and automated retired-domain/identity checks.
 - 2026-09-19: Visual Regression environment completed with Playwright/Chromium, approved 1440/390 baselines, representative 1440/768/390 CI, runtime/overflow/resource checks, and optional seven-viewport detailed audit.
