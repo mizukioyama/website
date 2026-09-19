@@ -42,6 +42,8 @@ async function normalizeKnownPostBuildHtml(content) {
 
    return minifyHtml(knownTransformsNormalized, {
       collapseWhitespace: true,
+      minifyCSS: true,
+      minifyJS: true,
       keepClosingSlash: true,
       removeAttributeQuotes: true,
       removeComments: true,
