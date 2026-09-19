@@ -38,6 +38,7 @@ const generatedPageNames = new Set([
    "contact.html",
    "gallery.html",
    "information.html",
+   "exhibition-yurayura-2026.html",
    "matching.html",
    "policy.html"
 ]);
