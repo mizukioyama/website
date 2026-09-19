@@ -48,6 +48,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-19: Migrated exhibition archives to /exhibitions/{slug}/; Yurayura now uses /exhibitions/yurayura/ with legacy URL migration and automated exhibition SEO/build checks.
 - 2026-09-19: Added the Yurayura exhibition detail/archive page and linked it from Information.
 - 2026-09-19: Information visual shell aligned with the main portfolio pages, including shared background, header/footer and responsive styling.
 - 2026-09-19: Information page source completed and shared header/footer navigation aligned; static source verification passed 13/13.
