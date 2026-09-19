@@ -58,7 +58,13 @@ src/js/all.js fetches header.html for pages containing #header-container.
 src/js/side-foot.js fetches footer.html and sidebar.html when their target containers exist.
 CSP hashes for the copied footer fragment must be calculated from src/footer.html.
 
+### 404 error page
+`src/404.html` is the authoritative custom error page and CopyWebpackPlugin emits it as `docs/404.html`, at the root of the GitHub Pages artifact. GitHub Pages uses this root-level file for missing routes.
+
+The page uses explicit `/website/` Project Pages paths for its CSS, JavaScript, favicon and rescue links so it remains functional when a missing URL is nested several directories deep. It is `noindex,follow`, has no automatic Home redirect, and must not be listed in sitemap.xml.
+
 ### Static deployment files and assets
+- src/404.html -> docs/404.html
 - robots.txt -> docs/robots.txt
 - sitemap.xml -> docs/sitemap.xml
 - img/ -> docs/img/
@@ -90,6 +96,7 @@ Important: committed files already present under docs/ can be stale relative to 
 | Order | order.html | docs/order.html | commission flow, CTA |
 | Contact | contact.html | docs/contact.html | form/privacy |
 | Policy | policy.html | docs/policy.html | policy content |
+| 404 | src/404.html | docs/404.html | GitHub Pages fallback; /website/ base-path links; noindex |
 | Information | src/information.html | docs/information.html | root css/, js/menu.js, ripple/Vanta background, Information metadata/current activity |
 | Yurayura Exhibition | src/exhibitions/yurayura/index.html | docs/exhibitions/yurayura/index.html | canonical archive at /website/exhibitions/yurayura/, root visual shell |
 | Yurayura Legacy URL | src/exhibition-yurayura-2026.html | docs/exhibition-yurayura-2026.html | noindex static migration page only |
