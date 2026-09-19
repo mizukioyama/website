@@ -40,6 +40,149 @@ function isLocal(url) {
   }
 }
 
+function createRuntimeMonitor(page, entry = {}) {
+  const runtime = {
+    pageErrors: [],
+    consoleErrors: [],
+    consoleWarnings: [],
+    localResourceFailures: [],
+    externalResourceFailures: []
+  };
+
+  page.on("pageerror", error => runtime.pageErrors.push(error.message));
+  page.on("console", message => {
+    const source = message.location()?.url || "";
+    if (message.type() === "error" && (!source || isLocal(source))) {
+      runtime.consoleErrors.push(message.text());
+      return;
+    }
+    if (message.type() === "warning") {
+      runtime.consoleWarnings.push({
+        source: source || "(no source)",
+        text: message.text()
+      });
+    }
+  });
+  page.on("response", response => {
+    const status = response.status();
+    if (status < 400) return;
+
+    const target = isLocal(response.url())
+      ? runtime.localResourceFailures
+      : runtime.externalResourceFailures;
+    const expectedDocument404 =
+      entry.status === 404 &&
+      isLocal(response.url()) &&
+      response.request().resourceType() === "document";
+
+    if (!expectedDocument404) {
+      target.push(status + " " + response.url());
+    }
+  });
+  page.on("requestfailed", request => {
+    const target = isLocal(request.url())
+      ? runtime.localResourceFailures
+      : runtime.externalResourceFailures;
+    target.push(
+      "FAILED " + request.url() + " " + (request.failure()?.errorText || "")
+    );
+  });
+
+  return runtime;
+}
+
+function relevantConsoleErrors(runtime, entry = {}) {
+  return entry.status === 404
+    ? runtime.consoleErrors.filter(message =>
+        !message.includes("Failed to load resource: the server responded with a status of 404")
+      )
+    : runtime.consoleErrors;
+}
+
+function assertRuntimeClean(runtime, entry = {}) {
+  expect(runtime.pageErrors, "runtime page errors / uncaught exceptions").toEqual([]);
+  expect(relevantConsoleErrors(runtime, entry), "same-origin console errors").toEqual([]);
+  expect(runtime.localResourceFailures, "same-origin failed resources").toEqual([]);
+}
+
+async function attachRuntimeObservations(testInfo, entry, runtime) {
+  const observations = {
+    consoleWarnings: [...new Map(
+      runtime.consoleWarnings.map(item => [
+        item.source + "\n" + item.text,
+        item
+      ])
+    ).values()],
+    externalResourceFailures: [...new Set(runtime.externalResourceFailures)]
+  };
+
+  if (!observations.consoleWarnings.length && !observations.externalResourceFailures.length) {
+    return;
+  }
+
+  console.log(
+    "[runtime-observation:" + entry.key + "] " + JSON.stringify(observations)
+  );
+  await testInfo.attach("runtime-observations-" + entry.key + ".json", {
+    body: Buffer.from(JSON.stringify(observations, null, 2)),
+    contentType: "application/json"
+  });
+}
+
+async function exerciseSharedRuntimeInteractions(page) {
+  const toggle = page.locator("#navArea .toggle_btn");
+  await toggle.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#navArea")).toHaveClass(/open/);
+  await page.keyboard.press("Space");
+  await expect(page.locator("#navArea")).not.toHaveClass(/open/);
+
+  const englishLabel = page.locator('#langChenge label[for="langEn"]');
+  if (await englishLabel.isVisible()) {
+    await englishLabel.click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await page.locator('#langChenge label[for="langJa"]').click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  }
+}
+
+async function exerciseGalleryRuntime(page, projectName) {
+  const categoryHeader = page.locator("#category-header");
+  if (projectName.startsWith("mobile-") && await categoryHeader.isVisible()) {
+    await categoryHeader.click();
+    await expect(categoryHeader).toHaveAttribute("aria-expanded", "true");
+  }
+
+  const paintCategory = page.locator('#category-menu li[data-category="Paint"]');
+  await paintCategory.click();
+  await expect(page.locator("#gallery-container .work").first()).toBeVisible();
+
+  await page.locator(".view-policy-button").first().click();
+  await expect(page.locator("#modalBox")).toBeVisible();
+  await expect(page.locator("#modalCloseBtn")).toBeVisible();
+  await page.locator("#modalCloseBtn").click();
+  await expect(page.locator("#modalBox")).toBeHidden();
+}
+
+async function exerciseContactRuntime(page) {
+  await page.locator('label[for="radio1"]').click();
+  await expect(page.locator(".request-options")).toBeVisible();
+  await page.locator('label[for="radio2"]').click();
+  await expect(page.locator(".request-options")).toBeHidden();
+}
+
+async function exerciseOrderRuntime(page) {
+  await page.waitForLoadState("load");
+  const contactLink = page
+    .getByRole("link", { name: /Contact Us｜お問い合わせ/i })
+    .first();
+  await expect(contactLink).toBeVisible();
+  await contactLink.click();
+  await page.waitForURL(/\/website\/contact\.html$/);
+  await page.waitForLoadState("domcontentloaded");
+  await expect(page.locator("#contactForm")).toBeAttached();
+}
+
 async function prepareDeterministicNetwork(page) {
   await page.route("https://code.jquery.com/jquery-3.7.1.min.js", route => {
     route.fulfill({
@@ -127,9 +270,7 @@ async function layoutDiagnostics(page) {
 
 for (const entry of pages) {
   test(entry.key + " visual and layout regression", async ({ page }, testInfo) => {
-    const pageErrors = [];
-    const consoleErrors = [];
-    const localResourceFailures = [];
+    const runtime = createRuntimeMonitor(page, entry);
 
     await page.addInitScript(() => {
       const RealDate = Date;
@@ -147,31 +288,6 @@ for (const entry of pages) {
 
       window.Date = FixedDate;
       Math.random = () => 0.42;
-    });
-
-    page.on("pageerror", error => pageErrors.push(error.message));
-    page.on("console", message => {
-      if (message.type() !== "error") return;
-      const source = message.location()?.url || "";
-      if (!source || isLocal(source)) {
-        consoleErrors.push(message.text());
-      }
-    });
-    page.on("response", response => {
-      const status = response.status();
-      if (status < 400 || !isLocal(response.url())) return;
-      const expectedDocument404 =
-        entry.status === 404 && response.request().resourceType() === "document";
-      if (!expectedDocument404) {
-        localResourceFailures.push(status + " " + response.url());
-      }
-    });
-    page.on("requestfailed", request => {
-      if (isLocal(request.url())) {
-        localResourceFailures.push(
-          "FAILED " + request.url() + " " + (request.failure()?.errorText || "")
-        );
-      }
     });
 
     await prepareDeterministicNetwork(page);
@@ -206,15 +322,6 @@ for (const entry of pages) {
     expect(diagnostics.clippedText, "visible main text is clipped inside its box").toEqual([]);
     expect(diagnostics.brokenVisibleImages, "visible image failed to load").toEqual([]);
 
-    expect(pageErrors, "runtime page errors").toEqual([]);
-    const relevantConsoleErrors = entry.status === 404
-      ? consoleErrors.filter(message =>
-          !message.includes("Failed to load resource: the server responded with a status of 404")
-        )
-      : consoleErrors;
-    expect(relevantConsoleErrors, "same-origin console errors").toEqual([]);
-    expect(localResourceFailures, "same-origin failed resources").toEqual([]);
-
     if (entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
       await expect(page).toHaveScreenshot(entry.key + ".png", {
         fullPage: true,
@@ -228,10 +335,28 @@ for (const entry of pages) {
         caret: "hide"
       });
     }
+
+    if (!["biography", "404", "yurayura"].includes(entry.key)) {
+      await exerciseSharedRuntimeInteractions(page);
+    }
+    if (entry.key === "gallery") {
+      await exerciseGalleryRuntime(page, testInfo.project.name);
+    }
+    if (entry.key === "contact") {
+      await exerciseContactRuntime(page);
+    }
+    if (entry.key === "order") {
+      await exerciseOrderRuntime(page);
+    }
+
+    assertRuntimeClean(runtime, entry);
+    await attachRuntimeObservations(testInfo, entry, runtime);
   });
 }
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
+  const entry = { key: "404-interaction", status: 404 };
+  const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
   const response = await page.goto("__visual-missing__/focus/check/", { waitUntil: "domcontentloaded" });
   expect(response.status()).toBe(404);
@@ -266,6 +391,13 @@ test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   expect(focusStyle.outlineStyle).not.toBe("none");
   expect(focusStyle.outlineWidth).not.toBe("0px");
 
+  await focused.click();
+  await page.waitForURL(/\/website\/$/);
+  await expect(page.locator("#header-container header")).toBeAttached();
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
+
   if (fullAudit) {
     await page.screenshot({
       path: testInfo.outputPath("404-focus.png"),
@@ -274,7 +406,9 @@ test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   }
 });
 
-test("Yurayura nested navigation resolves to project root", async ({ page }) => {
+test("Yurayura nested navigation resolves to project root", async ({ page }, testInfo) => {
+  const entry = { key: "yurayura-interaction" };
+  const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
   const response = await page.goto("exhibitions/yurayura/", { waitUntil: "domcontentloaded" });
   expect(response.status()).toBe(200);
@@ -318,6 +452,16 @@ test("Yurayura nested navigation resolves to project root", async ({ page }) => 
 
   const pageBackLink = page.locator("a.back-link");
   await expect(pageBackLink).toHaveAttribute("href", "../../information.html");
+
+  await page.keyboard.press("Space");
+  await expect(page.locator("#navArea")).not.toHaveClass(/open/);
+
+  await pageBackLink.click();
+  await page.waitForURL(/\/website\/information\.html$/);
+  await expect(page.locator(".information-page")).toBeAttached();
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
 test("all sitemap pages are registered for visual checks", async ({}, testInfo) => {
@@ -351,7 +495,9 @@ test("all sitemap pages are registered for visual checks", async ({}, testInfo) 
 });
 
 
-test("shared menu biography records and language state", async ({ page }) => {
+test("shared menu biography records and language state", async ({ page }, testInfo) => {
+  const entry = { key: "biography-interaction" };
+  const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
   await stabilize(page);
@@ -388,6 +534,9 @@ test("shared menu biography records and language state", async ({ page }) => {
   await page.keyboard.press("Space");
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
 
