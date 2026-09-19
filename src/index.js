@@ -23,10 +23,6 @@ switch (page) {
       import("./js/form.js");
       break;
 
-   case "info":
-      import("./style/gallery.css");
-      break;
-
    case "matching":
       import("./style/matching.css");
       import("./js/hearing.js");
