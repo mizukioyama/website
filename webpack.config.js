@@ -173,7 +173,6 @@ const rootVisualScripts = [
 
 // Pages that still use the current src-based Webpack application bundle.
 const htmlPages = [
-   "information",
    "matching",
    "bot"
 ];
@@ -272,6 +271,14 @@ module.exports = {
                to: `${page}.html`,
                force: true
             })),
+            {
+               // Information intentionally uses the same static visual shell
+               // as the portfolio's root pages, while keeping src/information.html
+               // as its authoritative source.
+               from: path.resolve(__dirname, "src/information.html"),
+               to: "information.html",
+               force: true
+            },
             {
                from: path.resolve(__dirname, "sidebar.html"),
                to: "sidebar.html",
