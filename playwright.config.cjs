@@ -23,7 +23,7 @@ module.exports = defineConfig({
   outputDir: "test-results/visual",
   timeout: 30000,
   expect: {
-    timeout: 7500,
+    timeout: 5000,
     toHaveScreenshot: {
       animations: "disabled",
       caret: "hide",
@@ -33,7 +33,7 @@ module.exports = defineConfig({
   },
   fullyParallel: false,
   workers: process.env.CI ? 2 : 1,
-  retries: process.env.CI ? 1 : 0,
+  retries: 0,
   reporter: [
     ["line"],
     ["html", { outputFolder: "playwright-report", open: "never" }]
