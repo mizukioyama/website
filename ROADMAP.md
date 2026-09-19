@@ -10,7 +10,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Design/motion policy
 - [x] SEO/content policy
 - [x] QA/regression policy
-- [ ] Verify all source -> build -> docs mappings and update SITE_MAP
+- [x] Verify all source -> build -> docs mappings and update SITE_MAP
 - [ ] Add automated visual regression tooling if absent
 
 ## Phase 1 - Baseline audit
@@ -48,4 +48,5 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-19: Verified source -> build -> docs mapping; corrected Information/shared-navigation build inputs.
 - 2026-09-19: Portfolio-specific AI governance/specification framework established.
