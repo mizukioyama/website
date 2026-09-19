@@ -362,6 +362,8 @@ test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   expect(response.status()).toBe(404);
   await stabilize(page);
 
+  await exerciseSharedRuntimeInteractions(page);
+
   const links = page.locator(".not-found-links a");
   await expect(links).toHaveCount(3);
   await expect(links.nth(0)).toHaveAttribute("href", "/website/");
@@ -521,6 +523,11 @@ test("shared menu biography records and language state", async ({ page }, testIn
   });
   await page.reload({ waitUntil: "domcontentloaded" });
   await stabilize(page);
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+
+  await page.locator('#langChenge label[for="langJa"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await page.locator('#langChenge label[for="langEn"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 
   const toggle = page.locator("#navArea .toggle_btn");
