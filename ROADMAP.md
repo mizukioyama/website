@@ -14,6 +14,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Add automated visual regression tooling if absent
 
 ## Phase 1 - Baseline audit
+- [ ] Replace retired-domain links in the ended 2022 CAMPFIRE project (external/manual support request if direct editing is unavailable)
 - [ ] Verify deployed /exhibitions/yurayura/ route and legacy redirect after the current GitHub Pages build
 - [ ] Capture desktop/mobile visual baseline for core pages
 - [ ] Run full repository checks and resolve failures
@@ -50,6 +51,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-19: Strengthened the canonical 小山瑞樹 / Mizuki Oyama Person entity as Abstract Artist with verified sameAs profiles and automated retired-domain/identity checks.
 - 2026-09-19: Visual Regression environment completed with Playwright/Chromium, approved 1440/390 baselines, representative 1440/768/390 CI, runtime/overflow/resource checks, and optional seven-viewport detailed audit.
 - 2026-09-19: Added GitHub Pages custom 404 fallback at docs/404.html and strengthened pre-deploy internal link validation for /website/ project-root links.
 - 2026-09-19: Migrated exhibition archives to /exhibitions/{slug}/; Yurayura now uses /exhibitions/yurayura/ with legacy URL migration and automated exhibition SEO/build checks.
