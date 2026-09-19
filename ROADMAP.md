@@ -16,7 +16,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 ## Phase 1 - Baseline audit
 - [ ] External/manual only: replace the three retired-domain links in the ended 2022 CAMPFIRE project with the current official portfolio URL. This does not block Phase 1.
 - [x] Verify deployed /exhibitions/yurayura/ route and legacy redirect after the current GitHub Pages build
-- [ ] Capture desktop/mobile visual baseline for core pages
+- [x] Capture desktop/mobile visual baseline for core pages
 - [ ] Run full repository checks and resolve failures
 - [ ] Audit console/runtime errors
 - [ ] Audit responsive overflow/overlap/wrapping
