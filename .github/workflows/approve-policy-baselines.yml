@@ -42,7 +42,7 @@ jobs:
       - name: Verify only Policy baselines changed
         shell: bash
         run: |
-          mapfile -t changed < <(git diff --name-only)
+          mapfile -t changed < <(git status --porcelain | sed -E 's/^.. //')
           expected=(
             "tests/visual/visual.spec.cjs-snapshots/policy-desktop-1440-linux.png"
             "tests/visual/visual.spec.cjs-snapshots/policy-mobile-390-linux.png"
