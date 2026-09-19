@@ -278,9 +278,16 @@ test("Yurayura nested navigation resolves to project root", async ({ page }) => 
   };
 
   const toggle = page.locator("#navArea .toggle_btn");
+  await expect(toggle).toHaveAttribute("role", "button");
+  await expect(toggle).toHaveAttribute("tabindex", "0");
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
+
   await toggle.focus();
   await page.keyboard.press("Enter");
   await expect(page.locator("#navArea")).toHaveClass(/open/);
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(toggle).toHaveAttribute("aria-label", "Close navigation menu");
 
   for (const [label, expectedPath] of Object.entries(expected)) {
     const link = page
@@ -329,4 +336,42 @@ test("all sitemap pages are registered for visual checks", async ({}, testInfo) 
     missing,
     "Every sitemap page must be registered in Visual Regression or explicitly designed as non-indexable."
   ).toEqual([]);
+});
+
+
+test("shared menu biography records and language state", async ({ page }) => {
+  await prepareDeterministicNetwork(page);
+  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page);
+
+  const jaHistory = page.locator('#navArea nav [lang="ja"]');
+  const enHistory = page.locator('#navArea nav [lang="en"]');
+
+  await expect(jaHistory).toContainText("2025.03 | 日台の絆展（会場 / 台湾）");
+  await expect(jaHistory).toContainText("2021.04 | チャリティアート展（会場 / 東京）");
+  await expect(jaHistory).toContainText("2025 | 日仏友好貢献親善大賞");
+  await expect(jaHistory).toContainText("2022 | 徳川家康作家之賞");
+
+  await expect(enHistory).toContainText("2025.03 | Japan-Taiwan Bond Exhibition (Venue / Taiwan)");
+  await expect(enHistory).toContainText("2021.04 | Charity Art Exhibition (Venue / Tokyo)");
+  await expect(enHistory).toContainText("2025 | Japan-France Friendship Contribution Goodwill Award");
+  await expect(enHistory).toContainText("2022 | Tokugawa Ieyasu Writers' Award");
+
+  await page.evaluate(() => {
+    localStorage.setItem("selectedLang", "en");
+    localStorage.setItem("lang", "en");
+  });
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await stabilize(page);
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#navArea nav [lang="en"]')).toBeVisible();
+  await expect(page.locator('#navArea nav [lang="ja"]')).toBeHidden();
+
+  const toggle = page.locator("#navArea .toggle_btn");
+  await toggle.focus();
+  await page.keyboard.press("Enter");
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await page.keyboard.press("Space");
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
 });
