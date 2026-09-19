@@ -1,6 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
+const { minify: minifyHtml } = require("html-minifier-terser");
 
 const root = path.resolve(__dirname, "..");
 const outputDirectory = path.join(root, "docs");
@@ -31,13 +32,24 @@ function listExhibitionIndexSources(directory = path.join(root, "src", "exhibiti
    });
 }
 
-function normalizeKnownPostBuildHtml(content) {
-   return content
+async function normalizeKnownPostBuildHtml(content) {
+   const knownTransformsNormalized = content
       .replace(/css\/menu\.css(?:\?v=[^"']*)?/g, "css/menu.css")
       .replace(/css\/form\.css(?:\?v=[^"']*)?/g, "css/form.css")
       .replace(/js\/form\.js(?:\?v=[^"']*)?/g, "js/form.js")
       .replace(/Nature inspire/g, "NatureInspire")
       .replace(/Nature Inspire/g, "NatureInspire");
+
+   return minifyHtml(knownTransformsNormalized, {
+      collapseWhitespace: true,
+      keepClosingSlash: true,
+      removeAttributeQuotes: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
+   });
 }
 
 function listHtmlFiles(directory) {
@@ -56,6 +68,7 @@ function listHtmlFiles(directory) {
    });
 }
 
+async function main() {
 if (!fs.existsSync(outputDirectory)) {
    console.error("Generated output directory is missing: docs/");
    process.exitCode = 1;
@@ -160,26 +173,13 @@ for (const pair of directCopyPairs) {
    const source = fs.readFileSync(sourcePath, "utf8");
    const output = fs.readFileSync(outputPath, "utf8");
    const comparableSource = /\.html?$/i.test(pair.source)
-      ? normalizeKnownPostBuildHtml(source)
+      ? await normalizeKnownPostBuildHtml(source)
       : source;
    const comparableOutput = /\.html?$/i.test(pair.output)
-      ? normalizeKnownPostBuildHtml(output)
+      ? await normalizeKnownPostBuildHtml(output)
       : output;
 
    if (comparableSource !== comparableOutput) {
-      let firstDifference = 0;
-      const maxComparableLength = Math.min(comparableSource.length, comparableOutput.length);
-      while (
-         firstDifference < maxComparableLength &&
-         comparableSource[firstDifference] === comparableOutput[firstDifference]
-      ) {
-         firstDifference += 1;
-      }
-      const start = Math.max(0, firstDifference - 120);
-      const end = firstDifference + 240;
-      console.error(`DIFF ${pair.source} -> docs/${pair.output} at ${firstDifference}`);
-      console.error(`SOURCE: ${JSON.stringify(comparableSource.slice(start, end))}`);
-      console.error(`OUTPUT: ${JSON.stringify(comparableOutput.slice(start, end))}`);
       failures.push(
          `docs/${pair.output}: differs from direct-copy source ${pair.source} beyond known post-build transforms`
       );
@@ -193,3 +193,9 @@ if (failures.length > 0) {
 } else {
    console.log(`Generated site consistency check passed (${scriptCount} scripts).`);
 }
+}
+
+main().catch(error => {
+   console.error(error);
+   process.exitCode = 1;
+});
