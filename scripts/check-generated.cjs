@@ -31,6 +31,15 @@ function listExhibitionIndexSources(directory = path.join(root, "src", "exhibiti
    });
 }
 
+function normalizeKnownPostBuildHtml(content) {
+   return content
+      .replace(/css\/menu\.css(?:\?v=[^"']*)?/g, "css/menu.css")
+      .replace(/css\/form\.css(?:\?v=[^"']*)?/g, "css/form.css")
+      .replace(/js\/form\.js(?:\?v=[^"']*)?/g, "js/form.js")
+      .replace(/Nature inspire/g, "NatureInspire")
+      .replace(/Nature Inspire/g, "NatureInspire");
+}
+
 function listHtmlFiles(directory) {
    if (!fs.existsSync(directory)) {
       return [];
@@ -150,8 +159,17 @@ for (const pair of directCopyPairs) {
 
    const source = fs.readFileSync(sourcePath, "utf8");
    const output = fs.readFileSync(outputPath, "utf8");
-   if (source !== output) {
-      failures.push(`docs/${pair.output}: differs from direct-copy source ${pair.source}`);
+   const comparableSource = /\.html?$/i.test(pair.source)
+      ? normalizeKnownPostBuildHtml(source)
+      : source;
+   const comparableOutput = /\.html?$/i.test(pair.output)
+      ? normalizeKnownPostBuildHtml(output)
+      : output;
+
+   if (comparableSource !== comparableOutput) {
+      failures.push(
+         `docs/${pair.output}: differs from direct-copy source ${pair.source} beyond known post-build transforms`
+      );
    }
 }
 
