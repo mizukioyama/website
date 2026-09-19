@@ -17,6 +17,15 @@ APPROVAL: new biography facts, new artistic interpretations, unestablished award
 ## Artist SEO
 Use the artist name consistently where useful without stuffing. Expose artwork title and factual metadata where available. Alt text describes useful image content/context rather than repeating keywords. Link artwork, artist context, commissions and current information naturally.
 
+## Exhibition/event SEO
+Information is the listing/entry page; each exhibition or event must have a dedicated indexable archive URL under `/exhibitions/{slug}/`. Use a year child path only when one exhibition series actually has multiple annual detail pages.
+
+For every new exhibition page verify all of the following before release: source path and generated path; unique title and description; exactly one H1; canonical ending in the intended directory URL; matching `og:url`; Event JSON-LD `url` and `@id`; verified dates and organizer facts; crawlable Information link; sitemap inclusion; working CSS/JS/image paths from the nested directory; and a persistent post-event archive plan.
+
+The automated SEO check discovers `src/exhibitions/**/index.html`, derives the expected canonical from the source path, validates canonical/OG/Event JSON-LD alignment and rejects duplicate exhibition titles/descriptions. A copied exhibition page must therefore be fully re-authored for its new event metadata before checks pass.
+
+Legacy static URLs that cannot issue HTTP redirects on GitHub Pages may remain as minimal migration pages using `noindex,follow`, canonical to the new URL, a zero-delay meta refresh and a normal crawlable link. Do not use JavaScript-only redirects.
+
 ## Technical
 Keep robots.txt, sitemap.xml, canonical and public GitHub Pages paths coherent. Validate builds with npm run check:seo and npm run check:links. Structured data must match visible verified content.
 
