@@ -43,6 +43,7 @@ const HEADER_MARKUP = `
           <li>2022.04 | 日アセアン友好文化交流展（会場 / 東京アセアンセンター）</li>
           <li>2021.11 | サロン・ド・アール・ジャポネ（会場 / フランス）</li>
           <li>2021.08 | OASISU2021（会場 / 大阪あべのハルカス）</li>
+          <li>2021.04 | チャリティアート展（会場 / 東京）</li>
           <hr>
           <li>
             認定 / 賞
@@ -61,20 +62,21 @@ const HEADER_MARKUP = `
           <li>
             Exhibition
             <br>
-            2025.03 | Japan-France Friendship Contribution and Goodwill Award
+            2025.03 | Japan-Taiwan Bond Exhibition (Venue / Taiwan)
           </li>
           <li>2023.06 | 2nd Japan-France Friendship Original Stamp Exhibition (Venue / France)</li>
-          <li>2022.11 | Art Tiger Exhibition (Venue / Nikko Toshogu Museum)</li>
-          <li>2022.04 | Japan-ASEAN Friendship Cultural Exchange Exhibition (Venue / Tokyo ASEAN Centre)</li>
+          <li>2022.11 | Tigers of Art Exhibition (Venue / Nikko Toshogu Museum)</li>
+          <li>2022.04 | Japan-ASEAN Friendship and Cultural Exchange Exhibition (Venue / Tokyo ASEAN Centre)</li>
           <li>2021.11 | Salon d'Art Japonais (Venue / France)</li>
-          <li>2021.08 | OASISU2021 (Venue / Osaka Abeno Harukas)</li>
+          <li>2021.08 | OASISU 2021 (Venue / Abeno Harukas, Osaka)</li>
+          <li>2021.04 | Charity Art Exhibition (Venue / Tokyo)</li>
           <hr>
           <li>
             Certifications / Awards
             <br>
-            2025 | Tokugawa Ieyasu Writers Award
+            2025 | Japan-France Friendship Contribution Goodwill Award
           </li>
-          <li>2022 | Tokugawa Ieyasu Writers Award</li>
+          <li>2022 | Tokugawa Ieyasu Writers' Award</li>
           <li>2022 | Certified as part of the 50th anniversary of the establishment of diplomatic relations between
             Japan and Mongolia</li>
           <li>2021 | Certified as Artista del post luminescenza e sole bianco. [Artist of afterglow and daylight]</li>
@@ -422,12 +424,13 @@ function initializeMenu() {
   const setOpen = isOpen => {
     nav.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
   };
 
   btn.setAttribute('role', 'button');
   btn.setAttribute('tabindex', '0');
   btn.setAttribute('aria-controls', 'navArea');
-  btn.setAttribute('aria-expanded', 'false');
+  setOpen(false);
   btn.addEventListener('click', () => {
     setOpen(!nav.classList.contains('open'));
   });
