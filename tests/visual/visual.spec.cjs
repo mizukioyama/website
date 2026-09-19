@@ -129,6 +129,112 @@ async function attachRuntimeObservations(testInfo, entry, runtime) {
   });
 }
 
+async function expectHorizontalFit(locator, label) {
+  const count = await locator.count();
+  const viewportWidth = locator.page().viewportSize()?.width || 0;
+
+  for (let index = 0; index < count; index += 1) {
+    const item = locator.nth(index);
+    if (!await item.isVisible()) continue;
+
+    const box = await item.boundingBox();
+    expect(box, label + " should have a layout box").not.toBeNull();
+    expect(box.x, label + " extends past the left viewport edge").toBeGreaterThanOrEqual(-2);
+    expect(
+      box.x + box.width,
+      label + " extends past the right viewport edge"
+    ).toBeLessThanOrEqual(viewportWidth + 2);
+
+    const widthMetrics = await item.evaluate(element => ({
+      clientWidth: element.clientWidth,
+      scrollWidth: element.scrollWidth,
+      overflowX: getComputedStyle(element).overflowX
+    }));
+    if (!["auto", "scroll"].includes(widthMetrics.overflowX)) {
+      expect(
+        widthMetrics.scrollWidth - widthMetrics.clientWidth,
+        label + " has internal horizontal overflow"
+      ).toBeLessThanOrEqual(2);
+    }
+  }
+}
+
+async function expectViewportModalFit(locator, label) {
+  await expect(locator).toBeVisible();
+  const box = await locator.boundingBox();
+  const viewport = locator.page().viewportSize();
+
+  expect(box, label + " should have a layout box").not.toBeNull();
+  expect(viewport, label + " requires a viewport").not.toBeNull();
+  expect(box.x, label + " extends past the left edge").toBeGreaterThanOrEqual(-2);
+  expect(box.y, label + " extends past the top edge").toBeGreaterThanOrEqual(-2);
+  expect(box.x + box.width, label + " extends past the right edge").toBeLessThanOrEqual(viewport.width + 2);
+  expect(box.y + box.height, label + " extends past the bottom edge").toBeLessThanOrEqual(viewport.height + 2);
+}
+
+async function assertResponsivePageGeometry(page, entry) {
+  if (entry.key === "home") {
+    await expectHorizontalFit(
+      page.locator("#mainContent .content__slide.active"),
+      "Home active content"
+    );
+    await expectHorizontalFit(
+      page.locator("#mainContent .content__slide.active .button-wrap"),
+      "Home CTA group"
+    );
+  }
+
+  if (entry.key === "gallery") {
+    await expectHorizontalFit(page.locator("#gallery-container"), "Gallery grid");
+    await expectHorizontalFit(
+      page.locator("#gallery-container .work-img img"),
+      "Gallery artwork image"
+    );
+    await expectHorizontalFit(page.locator("#pagination"), "Gallery pagination");
+    await expectHorizontalFit(page.locator("#category-header"), "Gallery category control");
+  }
+
+  if (entry.key === "information") {
+    await expectHorizontalFit(page.locator(".information-page .content"), "Information content");
+    await expectHorizontalFit(page.locator(".information-page .history-table"), "Information table");
+    await expectHorizontalFit(page.locator(".information-page .info-link"), "Information links");
+  }
+
+  if (entry.key === "order") {
+    await expectHorizontalFit(page.locator(".order-page .content"), "Order content");
+    await expectHorizontalFit(page.locator(".order-page .history-table"), "Order table");
+    await expectHorizontalFit(page.locator(".order-page .timeline"), "Order process");
+    await expectHorizontalFit(page.locator(".order-page .order-cta"), "Order CTA");
+  }
+
+  if (entry.key === "contact") {
+    await expectHorizontalFit(page.locator("#contactForm"), "Contact form");
+    await expectHorizontalFit(
+      page.locator("#contactForm input:not([type='hidden']), #contactForm textarea, #contactForm .submit-btn"),
+      "Contact form control"
+    );
+    await expectHorizontalFit(
+      page.locator('#contactForm label[for="modal-toggle"]'),
+      "Contact SitePolicy control"
+    );
+  }
+
+  if (entry.key === "policy") {
+    await expectHorizontalFit(page.locator("#policy .content"), "Policy content");
+  }
+
+  if (entry.key === "404") {
+    await expectHorizontalFit(page.locator(".not-found-content"), "404 recovery content");
+    await expectHorizontalFit(page.locator(".not-found-links a"), "404 recovery links");
+  }
+
+  if (entry.key === "yurayura") {
+    await expectHorizontalFit(page.locator(".exhibition-page .content"), "Yurayura content");
+    await expectHorizontalFit(page.locator(".exhibition-page .history-table"), "Yurayura details table");
+    await expectHorizontalFit(page.locator(".exhibition-page .link-row a"), "Yurayura related links");
+  }
+}
+
 async function exerciseSharedRuntimeInteractions(page) {
   const toggle = page.locator("#navArea .toggle_btn");
   await toggle.focus();
@@ -146,7 +252,7 @@ async function exerciseSharedRuntimeInteractions(page) {
   }
 }
 
-async function exerciseGalleryRuntime(page, projectName) {
+async function exerciseGalleryRuntime(page, projectName, testInfo) {
   const categoryHeader = page.locator("#category-header");
   if (projectName.startsWith("mobile-") && await categoryHeader.isVisible()) {
     await categoryHeader.click();
@@ -158,17 +264,45 @@ async function exerciseGalleryRuntime(page, projectName) {
   await expect(page.locator("#gallery-container .work").first()).toBeVisible();
 
   await page.locator(".view-policy-button").first().click();
-  await expect(page.locator("#modalBox")).toBeVisible();
+  await expectViewportModalFit(page.locator("#modalBox"), "Gallery artwork modal");
   await expect(page.locator("#modalCloseBtn")).toBeVisible();
+
+  if (fullAudit) {
+    await page.screenshot({
+      path: testInfo.outputPath("gallery-modal.png"),
+      fullPage: false,
+      animations: "disabled",
+      caret: "hide"
+    });
+  }
+
   await page.locator("#modalCloseBtn").click();
   await expect(page.locator("#modalBox")).toBeHidden();
 }
 
-async function exerciseContactRuntime(page) {
+async function exerciseContactRuntime(page, testInfo) {
   await page.locator('label[for="radio1"]').click();
   await expect(page.locator(".request-options")).toBeVisible();
+  await expectHorizontalFit(page.locator(".request-options"), "Contact request options");
+
   await page.locator('label[for="radio2"]').click();
   await expect(page.locator(".request-options")).toBeHidden();
+
+  await page.locator('label[for="modal-toggle"].modal-open-label').click();
+  await expect(page.locator("#modal-toggle")).toBeChecked();
+  await expectViewportModalFit(page.locator("body > .modal-box"), "Contact SitePolicy modal");
+
+  if (fullAudit) {
+    await page.screenshot({
+      path: testInfo.outputPath("contact-policy-modal.png"),
+      fullPage: false,
+      animations: "disabled",
+      caret: "hide"
+    });
+  }
+
+  await page.locator("body > .modal-box .modal-close-label").click();
+  await expect(page.locator("#modal-toggle")).not.toBeChecked();
 }
 
 async function exerciseOrderRuntime(page) {
@@ -322,6 +456,8 @@ for (const entry of pages) {
     expect(diagnostics.clippedText, "visible main text is clipped inside its box").toEqual([]);
     expect(diagnostics.brokenVisibleImages, "visible image failed to load").toEqual([]);
 
+    await assertResponsivePageGeometry(page, entry);
+
     if (entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
       await expect(page).toHaveScreenshot(entry.key + ".png", {
         fullPage: true,
@@ -340,10 +476,10 @@ for (const entry of pages) {
       await exerciseSharedRuntimeInteractions(page);
     }
     if (entry.key === "gallery") {
-      await exerciseGalleryRuntime(page, testInfo.project.name);
+      await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
     }
     if (entry.key === "contact") {
-      await exerciseContactRuntime(page);
+      await exerciseContactRuntime(page, testInfo);
     }
     if (entry.key === "order") {
       await exerciseOrderRuntime(page);
