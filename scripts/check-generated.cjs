@@ -154,9 +154,9 @@ for (const pair of directCopyPairs) {
 }
 
 if (failures.length > 0) {
-   console.error("Generated inline JavaScript check failed:");
+   console.error("Generated site consistency check failed:");
    failures.forEach(failure => console.error(`- ${failure}`));
    process.exitCode = 1;
 } else {
-   console.log(`Generated inline JavaScript check passed (${scriptCount} scripts).`);
+   console.log(`Generated site consistency check passed (${scriptCount} scripts).`);
 }
