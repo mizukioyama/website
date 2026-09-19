@@ -3,7 +3,8 @@ const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 
 const root = path.resolve(__dirname, "..");
-// Root js/ contains active production scripts copied directly by Webpack, so it must be syntax-checked too.\nconst sourceDirectories = ["js", "src", "scripts"];
+// Root js/ contains active production scripts copied directly by Webpack, so it must be syntax-checked too.
+const sourceDirectories = ["js", "src", "scripts"];
 const files = ["webpack.config.js", "babel.config.cjs"];
 const htmlFiles = [];
 
