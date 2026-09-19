@@ -18,7 +18,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: visual-regression-${{ github.event.pull_request.number || github.event.workflow_run.head_sha || github.ref }}
+  group: visual-regression-${{ github.event.pull_request.number || github.event.workflow_run.head_branch || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
