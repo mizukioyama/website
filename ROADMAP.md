@@ -18,7 +18,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Verify deployed /exhibitions/yurayura/ route and legacy redirect after the current GitHub Pages build
 - [x] Capture desktop/mobile visual baseline for core pages
 - [x] Run full repository checks and resolve failures
-- [ ] Audit console/runtime errors
+- [x] Audit console/runtime errors
 - [ ] Audit responsive overflow/overlap/wrapping
 - [ ] Audit navigation and conversion paths
 - [x] Audit same-name person entity disambiguation (小山瑞樹 / Mizuki Oyama) and document SEO identity gaps before implementation
