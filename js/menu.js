@@ -1,7 +1,14 @@
+const SITE_ROOT_URL = (() => {
+  const scriptUrl = document.currentScript?.src;
+  return scriptUrl ? new URL("../", scriptUrl) : new URL("./", document.baseURI);
+})();
+
+const siteHref = path => new URL(path, SITE_ROOT_URL).href;
+
 const HEADER_MARKUP = `
 <header>
   <div class="head">
-    <a class="noise" href="index.html">
+    <a class="noise" href="${siteHref("index.html")}">
       <!--<span>O.</span>MIZUKI-->
       Mizuki Oyama
     </a>
@@ -12,13 +19,13 @@ const HEADER_MARKUP = `
     <nav>
       <div class="inner">
         <ul>
-          <li><a href="gallery.html" class="noise">Art Index</a></li>
-          <li><a href="artist-statement.html" class="noise">Artist Statement</a></li>
-          <li><a href="biography.html" class="noise">Biography</a></li>
-          <li><a href="information.html" class="noise">Information</a></li>
-          <li><a href="contact.html" class="noise">Contact Us</a></li>
-          <li><a href="order.html" class="noise">Order</a></li>
-          <li><a href="policy.html" class="noise">Site Policy</a>
+          <li><a href="${siteHref("gallery.html")}" class="noise">Art Index</a></li>
+          <li><a href="${siteHref("artist-statement.html")}" class="noise">Artist Statement</a></li>
+          <li><a href="${siteHref("biography.html")}" class="noise">Biography</a></li>
+          <li><a href="${siteHref("information.html")}" class="noise">Information</a></li>
+          <li><a href="${siteHref("contact.html")}" class="noise">Contact Us</a></li>
+          <li><a href="${siteHref("order.html")}" class="noise">Order</a></li>
+          <li><a href="${siteHref("policy.html")}" class="noise">Site Policy</a>
           </li>
         </ul>
       </div>
@@ -108,13 +115,13 @@ const HEADER_MARKUP = `
 
 const FOOTER_MARKUP = `
 <footer>
-   <a class="noise" href="gallery.html">Art Index</a>
-   <a class="noise" href="artist-statement.html">Artist Statement</a>
-   <a class="noise" href="biography.html">Biography</a>
-   <a class="noise" href="information.html">Information</a>
-   <a class="noise" href="contact.html">Contact Us</a>
-   <a class="noise" href="order.html">Order</a>
-   <a class="noise" href="policy.html">Site Policy</a>
+   <a class="noise" href="${siteHref("gallery.html")}">Art Index</a>
+   <a class="noise" href="${siteHref("artist-statement.html")}">Artist Statement</a>
+   <a class="noise" href="${siteHref("biography.html")}">Biography</a>
+   <a class="noise" href="${siteHref("information.html")}">Information</a>
+   <a class="noise" href="${siteHref("contact.html")}">Contact Us</a>
+   <a class="noise" href="${siteHref("order.html")}">Order</a>
+   <a class="noise" href="${siteHref("policy.html")}">Site Policy</a>
 
    <div class="foot">&copy; <span id="year"></span>
       Mizuki Oyama
