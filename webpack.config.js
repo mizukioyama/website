@@ -280,6 +280,12 @@ module.exports = {
                force: true
             },
             {
+               // Exhibition detail pages use the same static portfolio shell.
+               from: path.resolve(__dirname, "src/exhibition-yurayura-2026.html"),
+               to: "exhibition-yurayura-2026.html",
+               force: true
+            },
+            {
                from: path.resolve(__dirname, "sidebar.html"),
                to: "sidebar.html",
                force: true
