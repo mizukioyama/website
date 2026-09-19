@@ -14,6 +14,11 @@ Check unintended horizontal overflow, overlap, clipping, unintended wrapping, gr
 ## Functional
 Check navigation, category/filter controls, gallery interactions, forms/CTAs, links, keyboard interaction, console errors and relevant back/forward behavior.
 
+## Broken-link defense and 404
+First defense: `npm run check:links` must reject missing relative references and internal Project Pages references under `/website/`, including same-origin absolute URLs that point into the project. Directory links must resolve to an existing `index.html`.
+
+Second defense: verify the generated artifact contains root-level `docs/404.html`. The page must remain `noindex,follow`, stay out of sitemap.xml, avoid automatic redirecting, and provide keyboard-focusable Home, Gallery and Information links. Check a shallow and deeply nested missing URL when production access is available, plus desktop/mobile layout, header/footer/menu, console errors and failed resources.
+
 ## SEO
 Check unique title/description, canonical, H1/headings, alt, internal links, sitemap/robots and structured data where present.
 
