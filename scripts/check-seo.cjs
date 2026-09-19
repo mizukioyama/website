@@ -320,9 +320,17 @@ function hasNoindex(html) {
 
 function hasIndexableRobots(html) {
    const robots = getMeta(html, "name", "robots") || "";
-   return /\bindex\b/i.test(robots) &&
-      /\bfollow\b/i.test(robots) &&
-      /max-image-preview\s*:\s*large/i.test(robots);
+   const directives = robots
+      .split(",")
+      .map(value => value.trim().toLowerCase())
+      .filter(Boolean);
+
+   return directives.includes("index") &&
+      directives.includes("follow") &&
+      directives.includes("noimageindex") &&
+      directives.includes("max-image-preview:large") &&
+      !directives.includes("noindex") &&
+      !directives.includes("nofollow");
 }
 
 function normalizeBrand(value) {
@@ -370,7 +378,26 @@ function validateSitemap(relativePath, sitemap, failures) {
       const lastmod = entry.match(/<lastmod>\s*(\d{4}-\d{2}-\d{2})\s*<\/lastmod>/i)?.[1];
       if (!lastmod) {
          failures.push(`${relativePath}: lastmod is missing for ${location}`);
+         continue;
       }
+
+      const parsedLastmod = new Date(`${lastmod}T00:00:00Z`);
+      if (Number.isNaN(parsedLastmod.getTime())) {
+         failures.push(`${relativePath}: lastmod is invalid for ${location} (${lastmod})`);
+         continue;
+      }
+
+      const tomorrow = new Date();
+      tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+      tomorrow.setUTCHours(0, 0, 0, 0);
+      if (parsedLastmod >= tomorrow) {
+         failures.push(`${relativePath}: lastmod is unexpectedly in the future for ${location} (${lastmod})`);
+      }
+   }
+
+   const retiredReference = retiredDomains.find(domain => sitemap.includes(domain));
+   if (retiredReference) {
+      failures.push(`${relativePath}: retired domain must not appear in sitemap (${retiredReference})`);
    }
 }
 
@@ -388,6 +415,19 @@ function validateRobots(relativePath, robots, failures) {
    }
    if (!new RegExp(`^\\s*Sitemap:\\s*${siteOrigin.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/sitemap\\.xml\\s*$`, "im").test(robots)) {
       failures.push(`${relativePath}: sitemap URL is missing or incorrect`);
+   }
+
+   if (/^\s*Disallow:\s*\S+/im.test(robots)) {
+      failures.push(`${relativePath}: current portfolio robots policy must not block indexable pages or rendering assets`);
+   }
+
+   if (/\bnoindex\b/i.test(robots)) {
+      failures.push(`${relativePath}: noindex must be controlled by page metadata, not robots.txt`);
+   }
+
+   const retiredReference = retiredDomains.find(domain => robots.includes(domain));
+   if (retiredReference) {
+      failures.push(`${relativePath}: retired domain must not appear in robots.txt (${retiredReference})`);
    }
 }
 
