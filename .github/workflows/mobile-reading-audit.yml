@@ -5,6 +5,9 @@ on:
     branches: ["main"]
     paths:
       - ".github/workflows/mobile-reading-audit.yml"
+      - "biography.html"
+      - "artist-statement.html"
+      - "tests/visual/visual.spec.cjs"
 
 permissions:
   contents: read
@@ -30,7 +33,7 @@ jobs:
         run: >
           npx playwright test
           --config=playwright.config.cjs
-          --grep "biography visual and layout regression|artist-statement visual and layout regression"
+          --grep "biography visual and layout regression|artist-statement visual and layout regression|mobile English reading comfort|Biography mobile table reading comfort"
       - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
