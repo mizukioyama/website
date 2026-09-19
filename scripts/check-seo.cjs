@@ -32,6 +32,11 @@ const indexablePages = [
       output: "information.html",
       source: "src/information.html",
       canonical: `${siteOrigin}/information.html`
+   },
+   {
+      output: "exhibition-yurayura-2026.html",
+      source: "src/exhibition-yurayura-2026.html",
+      canonical: `${siteOrigin}/exhibition-yurayura-2026.html`
    }
 ];
 
