@@ -389,3 +389,112 @@ test("shared menu biography records and language state", async ({ page }) => {
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
 });
+
+
+for (const entry of [
+  { key: "biography", path: "biography.html" },
+  { key: "artist-statement", path: "artist-statement.html" }
+]) {
+  test(entry.key + " mobile English reading comfort", async ({ page }, testInfo) => {
+    test.skip(
+      !testInfo.project.name.startsWith("mobile-"),
+      "Mobile reading metrics are checked only on mobile viewport projects."
+    );
+
+    await page.addInitScript(() => {
+      localStorage.setItem("selectedLang", "en");
+      localStorage.setItem("lang", "en");
+    });
+    await prepareDeterministicNetwork(page);
+
+    const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
+    expect(response.status()).toBe(200);
+    await stabilize(page);
+
+    const englishContent = page.locator('#state .content[lang="en"]').first();
+    await expect(englishContent).toBeVisible();
+
+    const metrics = await englishContent.evaluate((content, key) => {
+      const paragraph = content.querySelector(".work > p");
+      const paragraphStyle = paragraph ? getComputedStyle(paragraph) : null;
+      const rootOverflow = Math.max(
+        document.documentElement.scrollWidth,
+        document.body?.scrollWidth || 0
+      ) - document.documentElement.clientWidth;
+
+      const result = {
+        rootOverflow,
+        paragraphFontSize: paragraphStyle ? parseFloat(paragraphStyle.fontSize) : 0,
+        paragraphLineHeight: paragraphStyle ? parseFloat(paragraphStyle.lineHeight) : 0,
+        paragraphWordBreak: paragraphStyle?.wordBreak || "",
+        paragraphOverflowWrap: paragraphStyle?.overflowWrap || ""
+      };
+
+      if (key === "artist-statement") {
+        const flow = content.querySelector(".timeline li");
+        const flowStyle = flow ? getComputedStyle(flow) : null;
+        result.flowFontSize = flowStyle ? parseFloat(flowStyle.fontSize) : 0;
+        result.flowLineHeight = flowStyle ? parseFloat(flowStyle.lineHeight) : 0;
+        result.flowWordBreak = flowStyle?.wordBreak || "";
+      }
+
+      return result;
+    }, entry.key);
+
+    expect(metrics.rootOverflow, "English mobile page has horizontal overflow").toBeLessThanOrEqual(2);
+    expect(metrics.paragraphFontSize, "English paragraph font is too small").toBeGreaterThanOrEqual(14);
+    expect(
+      metrics.paragraphLineHeight / metrics.paragraphFontSize,
+      "English paragraph line-height is too tight"
+    ).toBeGreaterThanOrEqual(1.75);
+    expect(metrics.paragraphWordBreak, "English paragraphs must not use break-all").not.toBe("break-all");
+
+    if (entry.key === "artist-statement") {
+      expect(metrics.flowFontSize, "Statement flow text is too small").toBeGreaterThanOrEqual(14);
+      expect(
+        metrics.flowLineHeight / metrics.flowFontSize,
+        "Statement flow line-height is too tight"
+      ).toBeGreaterThanOrEqual(1.75);
+      expect(metrics.flowWordBreak, "Statement flow must not use break-all").not.toBe("break-all");
+    }
+  });
+}
+
+test("Biography mobile table reading comfort", async ({ page }, testInfo) => {
+  test.skip(
+    !testInfo.project.name.startsWith("mobile-"),
+    "Biography table metrics are checked only on mobile viewport projects."
+  );
+
+  await prepareDeterministicNetwork(page);
+  const response = await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  expect(response.status()).toBe(200);
+  await stabilize(page);
+
+  const metrics = await page.locator("#state table").first().evaluate(table => {
+    const year = table.querySelector("td.year");
+    const content = table.querySelector("td.tb-content");
+    const translation = table.querySelector("td.tb-content span");
+    const yearStyle = year ? getComputedStyle(year) : null;
+    const contentStyle = content ? getComputedStyle(content) : null;
+    const translationStyle = translation ? getComputedStyle(translation) : null;
+
+    return {
+      yearFontSize: yearStyle ? parseFloat(yearStyle.fontSize) : 0,
+      contentFontSize: contentStyle ? parseFloat(contentStyle.fontSize) : 0,
+      contentLineHeight: contentStyle ? parseFloat(contentStyle.lineHeight) : 0,
+      translationFontSize: translationStyle ? parseFloat(translationStyle.fontSize) : 0,
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth
+    };
+  });
+
+  expect(metrics.scrollWidth - metrics.clientWidth, "Biography table causes horizontal overflow").toBeLessThanOrEqual(2);
+  expect(metrics.yearFontSize, "Biography year column is too small").toBeGreaterThanOrEqual(12.5);
+  expect(metrics.contentFontSize, "Biography table text is too small").toBeGreaterThanOrEqual(12.5);
+  expect(metrics.translationFontSize, "Biography table translation is too small").toBeGreaterThanOrEqual(11.5);
+  expect(
+    metrics.contentLineHeight / metrics.contentFontSize,
+    "Biography table line-height is too tight"
+  ).toBeGreaterThanOrEqual(1.5);
+});
