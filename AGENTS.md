@@ -33,6 +33,13 @@ APPROVAL: major layout/navigation redesign; deletion; artist identity/artwork in
 ## Anti-regression
 Never change a shared selector without checking consumers. Never solve one viewport by breaking another. Never hide overflow to conceal a defect. Never remove content/features just to pass a test. Do not modify healthy areas without a concrete UX, SEO, accessibility, performance, maintainability or user-request reason. Stop blind patching when root cause is uncertain.
 
+## Visual Regression standard
+Treat Playwright Visual Regression as a standard Verify step for changes that can affect UI, CSS, layout, shared components, header/footer/menu, images, responsive behavior or page structure. The normal CI matrix is 1440, 768 and 390 px; committed screenshot baselines are compared at 1440 and 390 px. Use the full 1440/1280/1024/768/430/390/375 matrix for detailed audits or breakpoint-sensitive work.
+
+Before changing a baseline, classify the difference as: real UI regression; test implementation defect; nondeterministic animation/font/time/random effect; or intentional approved design change. Never update screenshots only to make a failing test pass. Stabilization belongs in tests and must not alter production design solely for Visual Regression.
+
+New indexable pages must be registered in tests/visual/visual.spec.cjs. The Visual Regression suite compares registered routes against sitemap.xml so an unregistered sitemap page fails CI. Non-indexable special pages such as 404 must remain explicitly registered when they are part of recovery or critical UX.
+
 ## Priority
 Broken functionality -> layout/responsive -> usability -> accessibility -> SEO -> performance -> content/conversion -> visual polish -> animation. Page-purpose-critical issues can override this.
 
