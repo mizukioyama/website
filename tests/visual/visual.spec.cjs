@@ -674,25 +674,22 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   ]);
   await expect(page.locator(".information-page")).toBeAttached();
 
-  const exhibitionDetail = page.getByRole("link", {
-    name: "展示詳細を見る",
-    exact: true
-  });
-  await expect(exhibitionDetail).toHaveAttribute("href", "exhibitions/yurayura/");
+  const exhibitionDetail = page.locator(
+    'a.info-link[href="exhibitions/yurayura/"]'
+  );
+  await expect(exhibitionDetail).toHaveCount(1);
+  await expect(exhibitionDetail).toContainText("展示詳細を見る");
   await Promise.all([
     page.waitForURL(/\/website\/exhibitions\/yurayura\/$/),
     exhibitionDetail.click()
   ]);
   await expect(page.locator(".exhibition-page")).toBeAttached();
 
-  const officialSite = page.getByRole("link", {
-    name: "ゆらゆら公式サイト",
-    exact: true
-  });
-  await expect(officialSite).toHaveAttribute(
-    "href",
-    "https://mizukioyama.github.io/yurayura/"
+  const officialSite = page.locator(
+    'a.detail-link[href="https://mizukioyama.github.io/yurayura/"]'
   );
+  await expect(officialSite).toHaveCount(1);
+  await expect(officialSite).toContainText("ゆらゆら公式サイト");
   await expect(officialSite).toHaveAttribute("target", "_blank");
   await expect(officialSite).toHaveAttribute("rel", /noopener/);
   await expect(officialSite).toHaveAttribute("rel", /noreferrer/);
