@@ -71,6 +71,19 @@ The page uses explicit `/website/` Project Pages paths for its CSS, JavaScript, 
 - src/assets/images/ -> docs/assets/images/
 - img/web.ico -> docs/favicon.ico and docs/assets/images/pd.ico
 
+## Visual Regression architecture
+Visual Regression is intentionally separate from the Pages deployment workflow.
+
+- `.github/workflows/visual-regression.yml`: runs on pull requests, after a successful Pages deploy on main, and by manual dispatch.
+- `playwright.config.cjs`: representative 1440/768/390 projects; full seven-viewport matrix when `VISUAL_FULL=1`.
+- `scripts/visual-server.cjs`: serves generated `docs/` under the real Project Pages base path `/website/` and returns `docs/404.html` with HTTP 404 for missing routes.
+- `tests/visual/visual.spec.cjs`: page/runtime/layout/navigation checks and screenshot assertions.
+- `tests/visual/stabilize.css`: test-only animation/cursor/canvas stabilization.
+- `tests/visual/visual.spec.cjs-snapshots/`: approved Linux/Chromium screenshot baselines for 1440 and 390.
+- `playwright-report/` and `test-results/`: local/generated evidence only and are ignored by Git.
+
+The suite also compares sitemap.xml routes against its registered indexable routes. Adding an indexable page without adding a Visual Regression target therefore fails the suite instead of silently reducing coverage.
+
 ## Build and deployment
 package.json defines the canonical validation path:
 
