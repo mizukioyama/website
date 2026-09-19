@@ -8,6 +8,28 @@ const siteOrigin = "https://mizukioyama.github.io";
 const referencePattern = /\b(?:src|href)\s*=\s*["']([^"']+)["']/gi;
 const cssUrlPattern = /url\(\s*["']?([^"')]+)["']?\s*\)/gi;
 const fetchPattern = /\bfetch\(\s*["']([^"']+)["']/gi;
+const anchorPattern = /<a\b([^>]*)\bhref\s*=\s*(["'])([^"']+)\2([^>]*)>([\s\S]*?)<\/a\s*>/gi;
+const indexableOutputs = [
+   "index.html",
+   "gallery.html",
+   "artist-statement.html",
+   "biography.html",
+   "information.html",
+   "contact.html",
+   "order.html",
+   "policy.html",
+   "exhibitions/yurayura/index.html"
+];
+const expectedStaticPrimaryPaths = [
+   "/website/",
+   "/website/gallery.html",
+   "/website/artist-statement.html",
+   "/website/biography.html",
+   "/website/information.html",
+   "/website/contact.html",
+   "/website/order.html",
+   "/website/policy.html"
+];
 
 function listFiles(directory, extensionPattern) {
    if (!fs.existsSync(directory)) {
@@ -105,6 +127,20 @@ function resolveIndexTarget(target) {
    return target;
 }
 
+function getAttribute(attributes, name) {
+   const expression = "\\b" + name + "\\s*=\\s*([\"'])(([\\s\\S])*?)\\1";
+   const match = attributes.match(new RegExp(expression, "i"));
+   return match ? match[2].trim() : null;
+}
+
+function stripHtml(value) {
+   return value
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+}
+
 function checkReference(sourceFile, reference, label, missing) {
    const target = resolveIndexTarget(resolveReference(sourceFile, reference));
 
@@ -123,6 +159,65 @@ function checkReference(sourceFile, reference, label, missing) {
 }
 
 const missing = [];
+const crawlFailures = [];
+const inboundIndexableLinks = new Map(indexableOutputs.map(output => [output, new Set()]));
+
+for (const output of indexableOutputs) {
+   const htmlFile = path.join(outputDirectory, output);
+   if (!fs.existsSync(htmlFile)) {
+      crawlFailures.push("docs/" + output + ": indexable page is missing");
+      continue;
+   }
+
+   const contents = fs.readFileSync(htmlFile, "utf8").replace(/<!--[\s\S]*?-->/g, "");
+   const staticNavMatch = contents.match(
+      /<nav\b[^>]*data-static-primary-navigation[^>]*>([\s\S]*?)<\/nav\s*>/i
+   );
+
+   if (!staticNavMatch) {
+      crawlFailures.push("docs/" + output + ": static primary navigation fallback is missing");
+   } else {
+      const navHtml = staticNavMatch[1];
+      for (const expectedPath of expectedStaticPrimaryPaths) {
+         const doubleQuoted = 'href="' + expectedPath + '"';
+         const singleQuoted = "href='" + expectedPath + "'";
+         if (!navHtml.includes(doubleQuoted) && !navHtml.includes(singleQuoted)) {
+            crawlFailures.push(
+               "docs/" + output + ": static primary navigation is missing " + expectedPath
+            );
+         }
+      }
+   }
+
+   for (const match of contents.matchAll(anchorPattern)) {
+      const attributes = match[1] + " " + match[4];
+      const href = match[3].trim();
+      const label = getAttribute(attributes, "aria-label") || stripHtml(match[5]);
+
+      if (!label) {
+         crawlFailures.push("docs/" + output + ": anchor " + href + " has no accessible name");
+      }
+      if (/^(?:こちら|here|click here)$/i.test(label)) {
+         crawlFailures.push(
+            "docs/" + output + ": anchor " + href + ' uses ambiguous text "' + label + '"'
+         );
+      }
+
+      const target = resolveIndexTarget(resolveReference(htmlFile, href));
+      if (!target || !isInsideOutput(target)) continue;
+
+      const targetOutput = path.relative(outputDirectory, target).split(path.sep).join("/");
+      if (inboundIndexableLinks.has(targetOutput) && targetOutput !== output) {
+         inboundIndexableLinks.get(targetOutput).add(output);
+      }
+   }
+}
+
+for (const [output, sources] of inboundIndexableLinks) {
+   if (sources.size === 0) {
+      crawlFailures.push("docs/" + output + ": indexable page is orphaned from static HTML links");
+   }
+}
 
 for (const htmlFile of listFiles(outputDirectory, /\.html$/i)) {
    // Ignore examples kept in HTML comments (for example path/to/image.jpg).
@@ -160,14 +255,16 @@ for (const jsFile of listFiles(outputDirectory, /\.js$/i)) {
    }
 }
 
-if (missing.length > 0) {
-   console.error("Missing local build references:");
-   for (const reference of missing) {
-      console.error(`- ${reference}`);
+const failures = [...missing, ...crawlFailures];
+
+if (failures.length > 0) {
+   console.error("Local link/crawlability check failed:");
+   for (const failure of failures) {
+      console.error("- " + failure);
    }
    process.exitCode = 1;
 } else {
    console.log(
-      "Local HTML/CSS/JavaScript references check passed, including /website/ project-root links."
+      "Local HTML/CSS/JavaScript references and static indexable-page crawl paths passed, including /website/ project-root links."
    );
 }
