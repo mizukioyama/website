@@ -26,7 +26,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 
 ## Phase 2 - SEO and content
 - [x] Audit title/meta/H1/canonical across indexable pages
-- [ ] Audit sitemap/robots/internal links — final closure blocked: `/website/robots.txt` is below the `mizukioyama.github.io` host root, so it is not an authoritative robots.txt file for crawlers.
+- [ ] Audit sitemap/robots/internal links — implementation complete; final check/Pages/Visual Regression verification pending.
 - [ ] Audit artwork alt text and metadata
 - [ ] Review copy clarity while preserving artist voice
 - [ ] Review structured-data opportunities using verifiable visible facts
@@ -46,6 +46,9 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Implement reduced-motion/offscreen safeguards where missing
 
 ## Maintenance - post-Phase 1 (non-blocking)
+
+### SEO/social image separation
+- [ ] Consider a dedicated non-artwork portfolio OGP/Person image so social/entity metadata no longer reuses `img/shinju.jpg`; keep current artwork-image suppression until that separation is intentionally designed and verified.
 
 ### Build pipeline / Webpack audit
 - [ ] Decide whether the current Webpack pipeline remains the simplest, safest and most maintainable fully free build for this portfolio. This task does not block Phase 1 and must not remove or broadly restructure Webpack during Phase 1.
