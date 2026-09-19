@@ -5,8 +5,17 @@ A task is complete only when intended behavior is verified and no material regre
 ## Automated baseline
 Run npm run check unless the task genuinely cannot affect the build/site.
 
+## Automated Visual Regression
+The normal GitHub Actions Visual Regression run checks 1440x900, 768x1024 and 390x844. Core screenshot baselines are committed for 1440 and 390; 768 is a structural/runtime breakpoint check. Tests cover horizontal overflow, clipped text, visible image failures, page errors, same-origin console/resource failures, shared header/menu/footer behavior, 404 focus/recovery links and nested exhibition navigation.
+
+Do not regenerate baselines to silence a failure. First classify the delta as a real regression, a test defect, nondeterministic rendering, or an intentional approved design change. Only the last case, or an explicitly verified safe UI correction, may update the committed baseline.
+
+Indexable routes in sitemap.xml must be represented in tests/visual/visual.spec.cjs. The suite fails when a sitemap route is not registered. 404 is explicitly covered despite being noindex.
+
+For a detailed responsive audit, manually dispatch the "Visual regression" workflow with `full_audit=true`. This runs 1440 / 1280 / 1024 / 768 / 430 / 390 / 375 px. Keep the representative 3-viewport matrix as normal CI to control runtime.
+
 ## Visual viewport matrix
-For layout/UI changes verify at minimum: 1440, 1280, 1024, 768, 430, 390 and 375 px widths. Use fewer only when proven viewport-independent.
+For layout/UI changes use the automated representative matrix for normal verification and the complete 1440, 1280, 1024, 768, 430, 390 and 375 px matrix for detailed audits, breakpoint-sensitive changes, or when the representative run exposes a responsive defect.
 
 ## Visual scan
 Check unintended horizontal overflow, overlap, clipping, unintended wrapping, grid/alignment, margins/padding, stretched/cropped artwork, header/menu/footer, overlays/z-index, focus visibility, touch targets and layout shifts during loading.
