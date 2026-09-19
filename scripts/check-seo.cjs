@@ -298,8 +298,19 @@ function getLanguage(html) {
    return htmlTag ? getAttribute(htmlTag, "lang") : null;
 }
 
+function getHeadings(html, level) {
+   const pattern = new RegExp(`<h${level}\\b[^>]*>([\\s\\S]*?)<\\/h${level}\\s*>`, "gi");
+   return [...html.matchAll(pattern)].map(match =>
+      match[1]
+         .replace(/<[^>]+>/g, " ")
+         .replace(/&nbsp;/gi, " ")
+         .replace(/\\s+/g, " ")
+         .trim()
+   );
+}
+
 function countHeadings(html, level) {
-   return (html.match(new RegExp(`<h${level}\\b`, "gi")) || []).length;
+   return getHeadings(html, level).length;
 }
 
 function hasNoindex(html) {
@@ -334,6 +345,18 @@ function validateSitemap(relativePath, sitemap, failures) {
    for (const expectedLocation of expectedLocations) {
       if (!locations.includes(expectedLocation)) {
          failures.push(`${relativePath}: sitemap is missing ${expectedLocation}`);
+      }
+   }
+
+   const seenLocations = new Set();
+   for (const location of locations.filter(Boolean)) {
+      if (seenLocations.has(location)) {
+         failures.push(`${relativePath}: sitemap contains duplicate URL ${location}`);
+      }
+      seenLocations.add(location);
+
+      if (!expectedLocations.includes(location)) {
+         failures.push(`${relativePath}: sitemap contains unexpected indexable URL ${location}`);
       }
    }
 
@@ -396,7 +419,9 @@ function validatePage(relativePath, html, expectedCanonical, failures, options =
    const title = getTitle(html);
    const description = getMeta(html, "name", "description");
    const canonical = getCanonical(html);
+   const ogUrl = getMeta(html, "property", "og:url");
    const language = getLanguage(html);
+   const h1s = getHeadings(html, 1);
 
    if (options.requireTitle !== false && !title) failures.push(`${relativePath}: title is missing`);
    if (options.requireDescription !== false && !description) {
@@ -410,8 +435,14 @@ function validatePage(relativePath, html, expectedCanonical, failures, options =
    }
    if (language !== "ja") failures.push(`${relativePath}: html lang must be ja`);
 
-   if (options.requireH1 && countHeadings(html, 1) !== 1) {
+   if (options.requireH1 && h1s.length !== 1) {
       failures.push(`${relativePath}: expected exactly one h1`);
+   }
+   if (options.requireH1 && h1s.length === 1 && !h1s[0]) {
+      failures.push(`${relativePath}: h1 must not be empty`);
+   }
+   if (options.requireOpenGraphUrl && expectedCanonical && ogUrl !== expectedCanonical) {
+      failures.push(`${relativePath}: og:url must match canonical ${expectedCanonical}`);
    }
 
    if (options.requireNoindex && !hasNoindex(html)) {
@@ -433,7 +464,7 @@ function validatePage(relativePath, html, expectedCanonical, failures, options =
 
    validateJsonLd(relativePath, html, failures);
 
-   return { title, description, canonical };
+   return { title, description, canonical, ogUrl, h1: h1s[0] || null };
 }
 
 if (!sourceOnly && !fs.existsSync(outputDirectory)) {
@@ -443,14 +474,42 @@ if (!sourceOnly && !fs.existsSync(outputDirectory)) {
 }
 
 const failures = [];
+const indexableMetadataRegistries = {
+   title: new Map(),
+   description: new Map(),
+   canonical: new Map(),
+   h1: new Map()
+};
+
+function registerUniqueIndexableMetadata(page, metadata) {
+   for (const field of ["title", "description", "canonical", "h1"]) {
+      const value = metadata?.[field];
+      if (!value) continue;
+
+      const normalizedValue = field === "title" || field === "description"
+         ? normalizeBrand(value)
+         : value;
+      const registry = indexableMetadataRegistries[field];
+      if (registry.has(normalizedValue)) {
+         failures.push(
+            `${page.source}: duplicate indexable ${field} also used by ${registry.get(normalizedValue)}`
+         );
+      } else {
+         registry.set(normalizedValue, page.source);
+      }
+   }
+}
 
 for (const page of indexablePages) {
    const sourceHtml = readFile(page.source);
    const sourceMeta = validatePage(page.source, sourceHtml, page.canonical, failures, {
       requireH1: true,
       requireIndexableRobots: true,
+      requireOpenGraphUrl: true,
       requireOpenGraphImageMetadata: true
    });
+
+   registerUniqueIndexableMetadata(page, sourceMeta);
 
    if (sourceHtml) {
       validatePersonIdentity(page.source, sourceHtml, failures);
@@ -464,7 +523,9 @@ for (const page of indexablePages) {
 
    const outputHtml = readFile(page.output, outputDirectory);
    const outputMeta = validatePage(page.output, outputHtml, page.canonical, failures, {
+      requireH1: true,
       requireIndexableRobots: true,
+      requireOpenGraphUrl: true,
       requireOpenGraphImageMetadata: true
    });
 
@@ -478,7 +539,7 @@ for (const page of indexablePages) {
 
    if (!outputMeta) continue;
 
-   for (const field of ["title", "description", "canonical"]) {
+   for (const field of ["title", "description", "canonical", "ogUrl", "h1"]) {
       const sourceValue = field === "canonical" ? sourceMeta[field] : normalizeBrand(sourceMeta[field]);
       const outputValue = field === "canonical" ? outputMeta[field] : normalizeBrand(outputMeta[field]);
       if (sourceValue !== outputValue) {
