@@ -97,7 +97,7 @@ jobs:
           retention-days: 14
 
       - name: Upload bootstrap baselines
-        if: always() && steps.baseline.outputs.exists == 'false'
+        if: success() && steps.baseline.outputs.exists == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: visual-baselines-${{ github.event.workflow_run.head_sha || github.sha }}
