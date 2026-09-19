@@ -1,0 +1,43 @@
+name: Mobile reading audit
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/mobile-reading-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_VERSION: "1.63.0"
+      VISUAL_FULL: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm install --no-save --package-lock=false @playwright/test@${PLAYWRIGHT_VERSION}
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Run Biography and Statement full viewport audit
+        run: >
+          npx playwright test
+          --config=playwright.config.cjs
+          --grep "^(biography|artist-statement) visual and layout regression$"
+      - name: Upload audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-reading-audit-${{ github.sha }}
+          path: |
+            playwright-report
+            test-results/visual
+          if-no-files-found: ignore
+          retention-days: 7
