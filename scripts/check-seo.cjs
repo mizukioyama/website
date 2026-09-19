@@ -7,6 +7,42 @@ const outputDirectory = path.resolve(
 );
 const sourceOnly = process.argv.includes("--source-only");
 const siteOrigin = "https://mizukioyama.github.io/website";
+const exhibitionsSourceDirectory = path.join(root, "src", "exhibitions");
+
+function toPosixPath(value) {
+   return value.split(path.sep).join("/");
+}
+
+function listExhibitionPages(directory = exhibitionsSourceDirectory) {
+   if (!fs.existsSync(directory)) {
+      return [];
+   }
+
+   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+      const absolutePath = path.join(directory, entry.name);
+
+      if (entry.isDirectory()) {
+         return listExhibitionPages(absolutePath);
+      }
+
+      if (entry.name.toLowerCase() !== "index.html") {
+         return [];
+      }
+
+      const source = toPosixPath(path.relative(root, absolutePath));
+      const output = toPosixPath(path.relative(path.join(root, "src"), absolutePath));
+      const canonicalPath = output.replace(/index\.html$/i, "");
+
+      return [{
+         output,
+         source,
+         canonical: `${siteOrigin}/${canonicalPath}`,
+         kind: "exhibition"
+      }];
+   });
+}
+
+const exhibitionPages = listExhibitionPages();
 
 const indexablePages = [
    { output: "index.html", source: "index.html", canonical: `${siteOrigin}/` },
@@ -33,16 +69,21 @@ const indexablePages = [
       source: "src/information.html",
       canonical: `${siteOrigin}/information.html`
    },
-   {
-      output: "exhibition-yurayura-2026.html",
-      source: "src/exhibition-yurayura-2026.html",
-      canonical: `${siteOrigin}/exhibition-yurayura-2026.html`
-   }
+   ...exhibitionPages
 ];
 
 const nonIndexablePages = [
    { output: "matching.html", source: "src/matching.html" },
    { output: "bot.html", source: "src/bot.html" }
+];
+
+const legacyRedirectPages = [
+   {
+      output: "exhibition-yurayura-2026.html",
+      source: "src/exhibition-yurayura-2026.html",
+      canonical: `${siteOrigin}/exhibitions/yurayura/`,
+      destination: "./exhibitions/yurayura/"
+   }
 ];
 
 function readFile(relativePath, directory = root) {
@@ -247,6 +288,10 @@ for (const page of indexablePages) {
       requireOpenGraphImageMetadata: true
    });
 
+   if (page.kind === "exhibition" && sourceHtml) {
+      validateExhibitionSeo(page.source, sourceHtml, page.canonical, failures);
+   }
+
    if (sourceOnly || !sourceMeta) continue;
 
    const outputHtml = readFile(page.output, outputDirectory);
@@ -254,6 +299,10 @@ for (const page of indexablePages) {
       requireIndexableRobots: true,
       requireOpenGraphImageMetadata: true
    });
+
+   if (page.kind === "exhibition" && outputHtml) {
+      validateExhibitionSeo(page.output, outputHtml, page.canonical, failures);
+   }
 
    if (!outputMeta) continue;
 
@@ -279,6 +328,36 @@ for (const page of nonIndexablePages) {
 
    const outputHtml = readFile(page.output, outputDirectory);
    validatePage(page.output, outputHtml, "", failures, options);
+}
+
+for (const page of legacyRedirectPages) {
+   const sourceHtml = readFile(page.source);
+   validateLegacyRedirect(page.source, sourceHtml, page.canonical, page.destination, failures);
+
+   if (sourceOnly) continue;
+
+   const outputHtml = readFile(page.output, outputDirectory);
+   validateLegacyRedirect(page.output, outputHtml, page.canonical, page.destination, failures);
+}
+
+const exhibitionTitles = new Map();
+const exhibitionDescriptions = new Map();
+
+for (const page of exhibitionPages) {
+   const html = readFile(page.source);
+   if (!html) continue;
+
+   for (const [label, value, registry] of [
+      ["title", getTitle(html), exhibitionTitles],
+      ["description", getMeta(html, "name", "description"), exhibitionDescriptions]
+   ]) {
+      if (!value) continue;
+      if (registry.has(value)) {
+         failures.push(`${page.source}: duplicate exhibition ${label} also used by ${registry.get(value)}`);
+      } else {
+         registry.set(value, page.source);
+      }
+   }
 }
 
 const sourceSitemap = readFile("sitemap.xml");
