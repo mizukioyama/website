@@ -1,0 +1,24 @@
+/* Test-only stabilization for deterministic visual comparisons. */
+*,
+*::before,
+*::after {
+  animation-delay: 0s !important;
+  animation-duration: 0s !important;
+  caret-color: transparent !important;
+  scroll-behavior: auto !important;
+  transition-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+#cursor,
+#stalker,
+#loading-bg,
+.ripples canvas,
+#vanta-bg canvas,
+#vanta-bg-bio canvas {
+  display: none !important;
+}
+
+.page-line {
+  width: 50% !important;
+}
