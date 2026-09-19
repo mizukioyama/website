@@ -1,141 +1,401 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>活動・展示情報｜小山瑞樹 - Information</title>
-  <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動・展示情報｜小山瑞樹 - Information</title>
 
-  <meta name="description" content="抽象画家・小山瑞樹（Mizuki Oyama）の活動・展示情報。企画・主催するグループ展「ゆらゆら」をはじめ、最新の展示やアーティスト活動をご案内します。">
-  <meta name="author" content="小山瑞樹 / Mizuki Oyama">
-  <link rel="canonical" href="https://mizukioyama.github.io/website/information.html">
-  <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="stylesheet" href="css/noise.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menu.css">
 
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"CollectionPage",
-    "@id":"https://mizukioyama.github.io/website/information.html#information",
-    "url":"https://mizukioyama.github.io/website/information.html",
-    "name":"活動・展示情報｜小山瑞樹 - Information",
-    "description":"抽象画家・小山瑞樹の活動・展示情報。展示、企画、主催活動などの最新情報を紹介します。",
-    "about":{"@type":"Person","@id":"https://mizukioyama.github.io/website/#person","name":"小山瑞樹","alternateName":"Mizuki Oyama"}
-  }
-  </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <script src="js/jquery.ripples-min.js"></script>
+    <script src="js/bg_wave.js"></script>
+    <script src="js/p5.min.js"></script>
+    <script src="js/vanta.trunk.min.js"></script>
+    <script src="js/menu.js"></script>
 
-  <meta property="og:title" content="活動・展示情報｜小山瑞樹 - Information">
-  <meta property="og:description" content="小山瑞樹の活動・展示情報。企画・主催するグループ展「ゆらゆら」をはじめ、最新のアーティスト活動をご案内します。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mizukioyama.github.io/website/information.html">
-  <meta property="og:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
-  <meta property="og:image:alt" content="小山瑞樹の抽象作品">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1920">
-  <meta property="og:image:height" content="1080">
-  <meta property="og:site_name" content="小山瑞樹｜Nature inspire">
-  <meta property="og:locale" content="ja_JP">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="活動・展示情報｜小山瑞樹 - Information">
-  <meta name="twitter:description" content="小山瑞樹の活動・展示情報。展示、企画、主催活動などの最新情報を紹介します。">
-  <meta name="twitter:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
-  <meta name="twitter:image:alt" content="小山瑞樹の抽象作品">
-  <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    .information-intro{max-width:760px;margin:0 0 8rem}
-    .page-line{height:1px;background-color:var(--text);width:100%;margin:0 0 2rem;opacity:.45}
-    .information-intro p{font-size:clamp(.75rem,calc(.6rem + .5vw),.95rem);font-weight:300;line-height:2;letter-spacing:.08em}
-    .info-section{margin-top:8rem}
-    .info-section h2{margin-bottom:2rem}
-    .info-table{width:100%;border-collapse:collapse;table-layout:auto}
-    .info-table th,.info-table td{padding:1rem 0;border-bottom:1px solid var(--text);vertical-align:top;overflow-wrap:anywhere}
-    .info-table th{text-align:left;font-size:clamp(.85rem,calc(.75rem + .3vw),1rem);color:#999;text-transform:uppercase;letter-spacing:.05em;font-weight:normal}
-    .info-table .year{width:20%;white-space:nowrap;font-size:clamp(.8rem,calc(.7rem + .4vw),.9rem);font-weight:400}
-    .info-table .tb-content{width:80%;font-size:clamp(.75rem,calc(.6rem + .5vw),.9rem);font-weight:300;line-height:1.9}
-    .info-table .tb-content span{display:block;margin-top:.35rem;font-size:clamp(.65rem,calc(.5rem + .4vw),.8rem);opacity:.72}
-    .info-table a{display:inline-block;margin-top:.75rem;color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
-    .status{display:inline-block;margin-bottom:.45rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65}
-    @media(max-width:768px){.information-intro{margin-bottom:5rem}.info-section{margin-top:5rem}.info-table .year{width:30%}.info-table .tb-content{width:70%}}
-  </style>
+    <meta name="description" content="抽象画家・小山瑞樹（Mizuki Oyama）の活動・展示情報。企画・主催するグループ展「ゆらゆら」をはじめ、最新の展示やアーティスト活動をご案内します。">
+    <meta name="author" content="小山瑞樹 / Mizuki Oyama">
+    <link rel="canonical" href="https://mizukioyama.github.io/website/information.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://mizukioyama.github.io/website/information.html#information",
+      "url": "https://mizukioyama.github.io/website/information.html",
+      "name": "活動・展示情報｜小山瑞樹 - Information",
+      "description": "抽象画家・小山瑞樹の活動・展示情報。展示、企画、主催活動などの最新情報を紹介します。",
+      "about": {
+        "@type": "Person",
+        "@id": "https://mizukioyama.github.io/website/#person",
+        "name": "小山瑞樹",
+        "alternateName": "Mizuki Oyama"
+      }
+    }
+    </script>
+
+    <meta property="og:title" content="活動・展示情報｜小山瑞樹 - Information">
+    <meta property="og:description" content="小山瑞樹の活動・展示情報。企画・主催するグループ展「ゆらゆら」をはじめ、最新のアーティスト活動をご案内します。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mizukioyama.github.io/website/information.html">
+    <meta property="og:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
+    <meta property="og:image:alt" content="小山瑞樹の抽象作品">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:site_name" content="小山瑞樹｜Nature inspire">
+    <meta property="og:locale" content="ja_JP">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="活動・展示情報｜小山瑞樹 - Information">
+    <meta name="twitter:description" content="小山瑞樹の活動・展示情報。展示、企画、主催活動などの最新情報を紹介します。">
+    <meta name="twitter:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
+    <meta name="twitter:image:alt" content="小山瑞樹の抽象作品">
+
+    <link rel="icon" href="img/web.ico">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="referrer" content="strict-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://use.typekit.net https://fonts.googleapis.com;
+        font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        object-src 'none';
+    ">
+
+    <style>
+        #langChenge {
+            display: none;
+        }
+
+        .information-page,
+        .information-page .information-box {
+            display: block;
+        }
+
+        .information-page .content {
+            box-shadow: none;
+            display: block;
+            width: min(72%, calc(100% - 2rem));
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .information-page .content > h2 {
+            justify-content: flex-start;
+            line-height: normal;
+        }
+
+        .information-page .information-intro {
+            width: min(760px, 100%);
+            margin-top: 4rem;
+        }
+
+        .information-page .information-intro p {
+            line-height: 2.2;
+        }
+
+        .information-page .info-section {
+            margin-top: 8rem;
+        }
+
+        .information-page .page-line {
+            height: 1px;
+            background-color: var(--text);
+            width: 0%;
+            left: 50%;
+            margin: 0 0 4rem;
+            transform: translateX(-50%);
+            position: relative;
+            transition: width 1s ease;
+            border-radius: 8px;
+        }
+
+        .information-page .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-top: 2rem;
+        }
+
+        .information-page .history-table col.history-year-column {
+            width: 20%;
+        }
+
+        .information-page .history-table col.history-content-column {
+            width: 80%;
+        }
+
+        .information-page .history-table th,
+        .information-page .history-table td {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--text);
+            vertical-align: top;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .information-page .history-table th {
+            font-size: var(--font-list-size);
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: normal;
+        }
+
+        .information-page .history-table td.year {
+            white-space: nowrap;
+            font-size: var(--font-list-size);
+            font-weight: 400;
+            padding-right: 1rem;
+        }
+
+        .information-page .history-table td.tb-content {
+            min-width: 0;
+            font-size: var(--font-list-size);
+            font-weight: 300;
+            overflow-wrap: anywhere;
+        }
+
+        .information-page .history-table td.tb-content span {
+            display: block;
+            margin-top: 0.35rem;
+            font-size: var(--font-list-size);
+            line-height: 1.8;
+            opacity: 0.72;
+        }
+
+        .information-page .status {
+            margin-top: 0 !important;
+            margin-bottom: 0.45rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.65 !important;
+        }
+
+        .information-page .info-link {
+            display: inline-block;
+            width: fit-content;
+            margin-top: 0.85rem;
+            border-bottom: 1px solid currentColor;
+            font-size: var(--font-list-size);
+        }
+
+        @media (max-width: 768px) {
+            .information-page .history-table col.history-year-column {
+                width: 30%;
+            }
+
+            .information-page .history-table col.history-content-column {
+                width: 70%;
+            }
+
+            .information-page .history-table th,
+            .information-page .history-table td {
+                padding: 0.75rem 0;
+            }
+
+            .information-page .history-table td.year {
+                padding-right: 0.5rem;
+            }
+        }
+
+        @media screen and (max-width: 599px) {
+            .information-page .content {
+                width: 100%;
+                margin: 0;
+                padding: 0 3vmin;
+            }
+
+            .information-page .information-intro {
+                margin-top: 2rem;
+            }
+
+            .information-page .info-section {
+                margin-top: 6rem;
+            }
+
+            .information-page .page-line {
+                margin-bottom: 3rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .information-page .page-line {
+                width: 50%;
+                transition: none;
+            }
+
+            #vanta-bg-bio {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
-<body data-page="info">
-  <div class="noise" style="content:'';width:100%;height:100%;position:absolute;background:rgba(200,200,200,.2);top:0;z-index:-1"></div>
-  <div id="header-container"></div>
-  <div class="ripples-2"></div>
+<body id="information">
+    <div id="header-container"></div>
+    <div class="ripples"></div>
+    <div id="vanta-bg-bio"></div>
 
-  <main id="info" class="gallery">
-    <div class="h1-text" data-title="Information">
-      <h1 class="noise text" aria-label="Information">Information</h1>
-    </div>
-    <div class="scroll"></div>
-    <div class="content">
-      <section class="information-intro" aria-labelledby="information-about">
-        <h2 id="information-about" class="noise">活動・展示情報</h2>
-        <p>
-          小山瑞樹の展示、企画・主催活動など、現在とこれからの活動情報を掲載しています。
-          終了した活動も記録として残し、Artistとしての歩みを更新していきます。
-        </p>
-      </section>
+    <main class="gallery information-page">
+        <div class="h1-text" data-title="Information">
+            <h1 class="noise text" aria-label="Information">Information</h1>
+        </div>
+        <div class="scroll"></div>
 
-      <section class="info-section" aria-labelledby="upcoming-title">
-        <div class="page-line"></div>
-        <h2 id="upcoming-title" class="noise">Upcoming</h2>
-        <table class="info-table">
-          <thead>
-            <tr>
-              <th>Year</th>
-              <th>活動・展示｜Information</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="year">2026.10</td>
-              <td class="tb-content">
-                <span class="status">Upcoming</span>
-                グループ展「ゆらゆら」｜企画・主催<br>
-                2026年10月6日 — 10月12日
-                <span>Group Exhibition “Yurayura”｜Planning / Organizer<br>October 6 — 12, 2026</span>
-                <a href="https://oy-mizuki.github.io/yurayura/" target="_blank" rel="noopener noreferrer">展示詳細を見る</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+        <div class="state-box information-box">
+            <div class="content">
+                <h2 class="noise">活動・展示情報</h2>
 
-      <section class="info-section" aria-labelledby="past-title">
-        <div class="page-line"></div>
-        <h2 id="past-title" class="noise">Past</h2>
-        <table class="info-table">
-          <thead>
-            <tr>
-              <th>Year</th>
-              <th>活動・展示｜Archive</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="year">2025.03</td>
-              <td class="tb-content">日台の絆展｜台湾<span>Japan-Taiwan Bond Exhibition｜Taiwan</span></td>
-            </tr>
-            <tr>
-              <td class="year">2023.06</td>
-              <td class="tb-content">第2回日仏友好オリジナル切手展｜フランス<span>2nd Japan-France Friendship Original Stamp Exhibition｜France</span></td>
-            </tr>
-            <tr>
-              <td class="year">2022</td>
-              <td class="tb-content">芸術の虎展｜日光東照宮美術館<br>日アセアン友好文化交流展｜東京アセアンセンター</td>
-            </tr>
-            <tr>
-              <td class="year">2021</td>
-              <td class="tb-content">サロン・ド・アール・ジャポネ｜フランス<br>OASISU2021｜大阪あべのハルカス<br>チャリティアート展｜東京</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    </div>
-  </main>
+                <div class="information-intro">
+                    <p>
+                        小山瑞樹の展示、企画・主催活動など、現在とこれからの活動情報を掲載しています。
+                        終了した活動も記録として残し、Artistとしての歩みを更新していきます。
+                    </p>
+                </div>
 
-  <div id="footer-container"></div>
+                <section class="info-section" aria-labelledby="upcoming-title">
+                    <div class="page-line"></div>
+                    <h2 id="upcoming-title" class="noise">Upcoming</h2>
+
+                    <table class="history-table">
+                        <colgroup>
+                            <col class="history-year-column">
+                            <col class="history-content-column">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">Year</th>
+                                <th scope="col">活動・展示｜Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="year">2026.10</td>
+                                <td class="tb-content">
+                                    <span class="status">Upcoming</span>
+                                    グループ展「ゆらゆら」｜企画・主催<br>
+                                    2026年10月6日 — 10月12日
+                                    <span>Group Exhibition “Yurayura”｜Planning / Organizer<br>October 6 — 12, 2026</span>
+                                    <a class="noise info-link" href="https://oy-mizuki.github.io/yurayura/" target="_blank" rel="noopener noreferrer">展示詳細を見る</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="info-section" aria-labelledby="past-title">
+                    <div class="page-line"></div>
+                    <h2 id="past-title" class="noise">Past</h2>
+
+                    <table class="history-table">
+                        <colgroup>
+                            <col class="history-year-column">
+                            <col class="history-content-column">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">Year</th>
+                                <th scope="col">活動・展示｜Archive</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="year">2025.03</td>
+                                <td class="tb-content">
+                                    日台の絆展｜台湾
+                                    <span>Japan-Taiwan Bond Exhibition｜Taiwan</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="year">2023.06</td>
+                                <td class="tb-content">
+                                    第2回日仏友好オリジナル切手展｜フランス
+                                    <span>2nd Japan-France Friendship Original Stamp Exhibition｜France</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="year">2022</td>
+                                <td class="tb-content">
+                                    芸術の虎展｜日光東照宮美術館<br>
+                                    日アセアン友好文化交流展｜東京アセアンセンター
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="year">2021</td>
+                                <td class="tb-content">
+                                    サロン・ド・アール・ジャポネ｜フランス<br>
+                                    OASISU2021｜大阪あべのハルカス<br>
+                                    チャリティアート展｜東京
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const lines = document.querySelectorAll(".page-line");
+
+            if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        entry.target.style.width = entry.isIntersecting ? "50%" : "0%";
+                    });
+                }, {
+                    threshold: Array.from({ length: 101 }, (_, i) => i / 100)
+                });
+
+                lines.forEach(line => observer.observe(line));
+            }
+        });
+    </script>
+
+    <script>
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+            window.VANTA &&
+            typeof window.VANTA.TRUNK === "function") {
+            const background = document.querySelector("#vanta-bg-bio");
+            if (background) {
+                window.VANTA.TRUNK({
+                    el: background,
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    scale: 1.00,
+                    scaleMobile: 0.70,
+                    color: 0xffffff,
+                    chaos: 2.50
+                });
+            }
+        }
+    </script>
 </body>
+
 </html>
