@@ -1,5 +1,11 @@
+const fs = require("node:fs");
 const path = require("node:path");
 const { test, expect } = require("@playwright/test");
+
+const localJquery = fs.readFileSync(
+  path.resolve(__dirname, "../../docs/js/jquery-3.7.1.min.js"),
+  "utf8"
+);
 
 const visualBaselineProjects = new Set(["desktop-1440", "mobile-390"]);
 const fullAudit = process.env.VISUAL_FULL === "1";
@@ -33,6 +39,32 @@ function isLocal(url) {
   }
 }
 
+async function prepareDeterministicNetwork(page) {
+  await page.route("https://code.jquery.com/jquery-3.7.1.min.js", route => {
+    route.fulfill({
+      status: 200,
+      contentType: "text/javascript; charset=utf-8",
+      body: localJquery
+    });
+  });
+
+  for (const pattern of [
+    "https://fonts.googleapis.com/**",
+    "https://fonts.gstatic.com/**",
+    "https://use.typekit.net/**",
+    "https://p.typekit.net/**"
+  ]) {
+    await page.route(pattern, route => {
+      const isStylesheet = route.request().resourceType() === "stylesheet";
+      route.fulfill({
+        status: 200,
+        contentType: isStylesheet ? "text/css; charset=utf-8" : "application/octet-stream",
+        body: ""
+      });
+    });
+  }
+}
+
 async function stabilize(page) {
   await page.addStyleTag({ path: path.resolve(__dirname, "stabilize.css") });
 
@@ -43,10 +75,7 @@ async function stabilize(page) {
     return !target || title.innerText.trim() === target.trim();
   }, null, { timeout: 3500 }).catch(() => {});
 
-  await page.evaluate(async () => {
-    if (document.fonts?.ready) {
-      await document.fonts.ready.catch(() => {});
-    }
+  await page.evaluate(() => {
     const year = document.querySelector("#year");
     if (year) year.textContent = "2026";
   });
@@ -145,7 +174,8 @@ for (const entry of pages) {
       }
     });
 
-    const response = await page.goto(entry.path, { waitUntil: "load" });
+    await prepareDeterministicNetwork(page);
+    const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
 
@@ -178,7 +208,8 @@ for (const entry of pages) {
 }
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
-  const response = await page.goto("__visual-missing__/focus/check/", { waitUntil: "load" });
+  await prepareDeterministicNetwork(page);
+  const response = await page.goto("__visual-missing__/focus/check/", { waitUntil: "domcontentloaded" });
   expect(response.status()).toBe(404);
   await stabilize(page);
 
@@ -220,7 +251,8 @@ test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
 });
 
 test("Yurayura nested navigation resolves to project root", async ({ page }) => {
-  const response = await page.goto("exhibitions/yurayura/", { waitUntil: "load" });
+  await prepareDeterministicNetwork(page);
+  const response = await page.goto("exhibitions/yurayura/", { waitUntil: "domcontentloaded" });
   expect(response.status()).toBe(200);
   await stabilize(page);
 
