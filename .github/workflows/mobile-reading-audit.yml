@@ -30,7 +30,7 @@ jobs:
         run: >
           npx playwright test
           --config=playwright.config.cjs
-          --grep "^(biography|artist-statement) visual and layout regression$"
+          --grep "biography visual and layout regression|artist-statement visual and layout regression"
       - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
