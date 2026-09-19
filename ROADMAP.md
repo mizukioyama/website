@@ -26,7 +26,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 
 ## Phase 2 - SEO and content
 - [x] Audit title/meta/H1/canonical across indexable pages
-- [ ] Audit sitemap/robots/internal links
+- [x] Audit sitemap/robots/internal links
 - [ ] Audit artwork alt text and metadata
 - [ ] Review copy clarity while preserving artist voice
 - [ ] Review structured-data opportunities using verifiable visible facts
@@ -65,6 +65,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-20: Completed sitemap/robots/internal-link audit; added static crawlable primary-navigation fallbacks, kept all 9 public pages index/follow while adding noimageindex, and extended sitemap/robots/orphan/link safeguards without changing approved visuals.
 - 2026-09-20: Completed indexable-page title/meta/H1/canonical audit; corrected Home heading semantics without changing approved visuals and extended SEO checks for indexable metadata uniqueness, generated H1/OG URL alignment and exact sitemap URL integrity.
 - 2026-09-20: Completed Phase 1 navigation/conversion audit by reusing existing Gallery, Order, Contact, 404 and Yurayura interaction coverage and adding only missing Home menu, Information -> Yurayura, external exhibition CTA destination/safety, and Policy-path checks on desktop/mobile.
 - 2026-09-19: Completed Biography / Artist Statement mobile reading comfort improvements without changing canonical body copy; verified full seven-viewport audit, English wrapping, Biography tables, Statement 1-5 flow, runtime/resources/overflow, and approved only the two mobile-390 baselines.
