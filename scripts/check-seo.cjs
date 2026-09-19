@@ -7,6 +7,19 @@ const outputDirectory = path.resolve(
 );
 const sourceOnly = process.argv.includes("--source-only");
 const siteOrigin = "https://mizukioyama.github.io/website";
+const canonicalPersonId = "https://mizukioyama.github.io/website/#person";
+const canonicalPersonName = "小山瑞樹";
+const canonicalPersonAlternateName = "Mizuki Oyama";
+const canonicalPersonJobTitle = "Abstract Artist";
+const confirmedPersonSameAs = [
+   "https://camp-fire.jp/profile/OyamaMizuki",
+   "https://note.com/merry_ruff8755",
+   "https://www.instagram.com/1998_m.oyama/"
+];
+const retiredDomains = [
+   "oyama-artist-gallery.online",
+   "freelife-artist.com"
+];
 const exhibitionsSourceDirectory = path.join(root, "src", "exhibitions");
 
 function toPosixPath(value) {
@@ -146,6 +159,23 @@ function getRefreshDestination(html) {
    return match[1].trim().replace(/^["']|["']$/g, "");
 }
 
+function collectObjects(value, collected = []) {
+   if (!value || typeof value !== "object") {
+      return collected;
+   }
+
+   if (Array.isArray(value)) {
+      for (const item of value) collectObjects(item, collected);
+      return collected;
+   }
+
+   collected.push(value);
+   for (const child of Object.values(value)) {
+      collectObjects(child, collected);
+   }
+   return collected;
+}
+
 function getJsonLdObjects(html) {
    const pattern = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
    const objects = [];
@@ -163,6 +193,63 @@ function getJsonLdObjects(html) {
    }
 
    return objects;
+}
+
+function validatePersonIdentity(relativePath, html, failures) {
+   const retiredReference = retiredDomains.find(domain => html.includes(domain));
+   if (retiredReference) {
+      failures.push(`${relativePath}: retired domain reference must be removed (${retiredReference})`);
+   }
+
+   const objects = getJsonLdObjects(html).flatMap(item => collectObjects(item, []));
+   const personNodes = objects.filter(item =>
+      item && item["@type"] === "Person" && item["@id"] === canonicalPersonId
+   );
+
+   for (const person of personNodes) {
+      if (person.name && person.name !== canonicalPersonName) {
+         failures.push(`${relativePath}: canonical Person name must be ${canonicalPersonName}`);
+      }
+      if (person.alternateName && person.alternateName !== canonicalPersonAlternateName) {
+         failures.push(`${relativePath}: canonical Person alternateName must be ${canonicalPersonAlternateName}`);
+      }
+      if (person.jobTitle && person.jobTitle !== canonicalPersonJobTitle) {
+         failures.push(`${relativePath}: canonical Person jobTitle must be ${canonicalPersonJobTitle}`);
+      }
+   }
+
+   if (relativePath === "index.html" || relativePath === "biography.html") {
+      const person = personNodes[0];
+      if (!person) {
+         failures.push(`${relativePath}: canonical Person JSON-LD is missing`);
+         return;
+      }
+
+      if (person.name !== canonicalPersonName) {
+         failures.push(`${relativePath}: canonical Person name is missing or incorrect`);
+      }
+      if (person.alternateName !== canonicalPersonAlternateName) {
+         failures.push(`${relativePath}: canonical Person alternateName is missing or incorrect`);
+      }
+      if (person.jobTitle !== canonicalPersonJobTitle) {
+         failures.push(`${relativePath}: canonical Person jobTitle is missing or incorrect`);
+      }
+      if (person.url !== `${siteOrigin}/`) {
+         failures.push(`${relativePath}: canonical Person url must be ${siteOrigin}/`);
+      }
+      if (!person.disambiguatingDescription) {
+         failures.push(`${relativePath}: canonical Person disambiguatingDescription is missing`);
+      }
+      if (!person.description) {
+         failures.push(`${relativePath}: canonical Person description is missing`);
+      }
+
+      const sameAs = Array.isArray(person.sameAs) ? [...person.sameAs].sort() : [];
+      const expectedSameAs = [...confirmedPersonSameAs].sort();
+      if (JSON.stringify(sameAs) !== JSON.stringify(expectedSameAs)) {
+         failures.push(`${relativePath}: canonical Person sameAs must contain only confirmed identity URLs`);
+      }
+   }
 }
 
 function validateExhibitionSeo(relativePath, html, expectedCanonical, failures) {
@@ -365,6 +452,10 @@ for (const page of indexablePages) {
       requireOpenGraphImageMetadata: true
    });
 
+   if (sourceHtml) {
+      validatePersonIdentity(page.source, sourceHtml, failures);
+   }
+
    if (page.kind === "exhibition" && sourceHtml) {
       validateExhibitionSeo(page.source, sourceHtml, page.canonical, failures);
    }
@@ -376,6 +467,10 @@ for (const page of indexablePages) {
       requireIndexableRobots: true,
       requireOpenGraphImageMetadata: true
    });
+
+   if (outputHtml) {
+      validatePersonIdentity(page.output, outputHtml, failures);
+   }
 
    if (page.kind === "exhibition" && outputHtml) {
       validateExhibitionSeo(page.output, outputHtml, page.canonical, failures);
