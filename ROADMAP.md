@@ -48,5 +48,6 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-19: Information page source completed and shared header/footer navigation aligned; static source verification passed 13/13.
 - 2026-09-19: Verified source -> build -> docs mapping; corrected Information/shared-navigation build inputs.
 - 2026-09-19: Portfolio-specific AI governance/specification framework established.
