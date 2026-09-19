@@ -18,7 +18,7 @@ const pages = [
   { key: "information", path: "information.html", title: /Information|Mizuki|小山瑞樹/i },
   { key: "order", path: "order.html", title: /Order|Mizuki|小山瑞樹/i },
   { key: "contact", path: "contact.html", title: /Contact|Mizuki|小山瑞樹/i },
-  { key: "policy", path: "policy.html", title: /Policy|Mizuki|小山瑞樹/i, baseline: false },
+  { key: "policy", path: "policy.html", title: /Policy|Mizuki|小山瑞樹/i },
   {
     key: "404",
     path: "__visual-missing__/deep/path/",
