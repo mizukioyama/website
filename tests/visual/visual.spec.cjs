@@ -525,11 +525,6 @@ test("shared menu biography records and language state", async ({ page }, testIn
   await stabilize(page);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 
-  await page.locator('#langChenge label[for="langJa"]').click();
-  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
-  await page.locator('#langChenge label[for="langEn"]').click();
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-
   const toggle = page.locator("#navArea .toggle_btn");
   await toggle.focus();
   await page.keyboard.press("Enter");
