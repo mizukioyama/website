@@ -40,7 +40,7 @@ async function normalizeKnownPostBuildHtml(content) {
       .replace(/Nature inspire/g, "NatureInspire")
       .replace(/Nature Inspire/g, "NatureInspire");
 
-   return minifyHtml(knownTransformsNormalized, {
+   const minified = await minifyHtml(knownTransformsNormalized, {
       collapseWhitespace: true,
       minifyCSS: true,
       minifyJS: true,
@@ -52,6 +52,20 @@ async function normalizeKnownPostBuildHtml(content) {
       removeStyleLinkTypeAttributes: true,
       useShortDoctype: true
    });
+
+   return minified
+      .replace(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script\\s*>/gi, (full, attributes, source) => {
+         if (!/\\btype\\s*=\\s*(?:["']application\\/ld\\+json["']|application\\/ld\\+json)/i.test(attributes)) {
+            return full;
+         }
+         return `<script${attributes}>${JSON.stringify(JSON.parse(source))}</script>`;
+      })
+      .replace(/(<style\\b[^>]*>)([\\s\\S]*?)(<\\/style\\s*>)/gi, (full, open, css, close) => {
+         const normalizedCss = css
+            .replace(/\\s*,\\s*/g, ",")
+            .replace(/currentColor/gi, "currentcolor");
+         return open + normalizedCss + close;
+      });
 }
 
 function listHtmlFiles(directory) {
