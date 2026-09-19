@@ -27,7 +27,11 @@ The automated SEO check discovers `src/exhibitions/**/index.html`, derives the e
 Legacy static URLs that cannot issue HTTP redirects on GitHub Pages may remain as minimal migration pages using `noindex,follow`, canonical to the new URL, a zero-delay meta refresh and a normal crawlable link. Do not use JavaScript-only redirects.
 
 ## Technical
-Keep robots.txt, sitemap.xml, canonical and public GitHub Pages paths coherent. Validate builds with npm run check:seo and npm run check:links. Structured data must match visible verified content.
+Keep sitemap.xml, canonical and public GitHub Pages paths coherent. Validate builds with npm run check:seo and npm run check:links. Structured data must match visible verified content.
+
+This portfolio is a GitHub Pages Project Site served under `https://mizukioyama.github.io/website/`. A file at `/website/robots.txt` is not the authoritative robots.txt for the `mizukioyama.github.io` host, so the project must not publish or validate it as though it controlled crawler policy. The host-root `https://mizukioyama.github.io/robots.txt` is intentionally not created or managed from this repository because the same host may serve other Project Sites. With no authoritative robots.txt restriction, crawling is allowed by default. Page indexing is controlled with page-level robots metadata, and sitemap.xml remains available at `/website/sitemap.xml` for Search Console and normal discovery paths.
+
+All indexable portfolio pages must remain `index, follow`. Artwork-image suppression currently uses `noimageindex` plus `max-image-preview:none`. Keep that protection wherever artwork is referenced directly or through metadata. The shared `img/shinju.jpg` is both an artwork and the current OGP/Person image, so image-search suppression must remain conservative until a separate non-artwork brand/social image exists.
 
 When suggesting copy, state the problem briefly, provide replacement and mark safe-to-apply versus artistic approval.
 
