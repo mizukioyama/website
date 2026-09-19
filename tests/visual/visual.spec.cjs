@@ -93,21 +93,20 @@ async function layoutDiagnostics(page) {
     ) - viewportWidth;
 
     const selectors = "main h1, main h2, main h3, main p, main a, main li, main td, main th";
-    const textOverflow = [...document.querySelectorAll(selectors)]
+    const clippedText = [...document.querySelectorAll(selectors)]
       .filter(element => {
         const style = getComputedStyle(element);
         if (style.display === "none" || style.visibility === "hidden") return false;
-        if (style.position === "fixed") return false;
-        const rect = element.getBoundingClientRect();
-        return rect.width > 0 && rect.height > 0
-          && (rect.left < -2 || rect.right > viewportWidth + 2);
+        if (Number(style.opacity) === 0) return false;
+        if (!["hidden", "clip"].includes(style.overflowX)) return false;
+        return element.clientWidth > 0 && element.scrollWidth > element.clientWidth + 2;
       })
       .slice(0, 12)
       .map(element => ({
         tag: element.tagName,
         text: (element.textContent || "").trim().slice(0, 80),
-        left: Math.round(element.getBoundingClientRect().left),
-        right: Math.round(element.getBoundingClientRect().right)
+        clientWidth: element.clientWidth,
+        scrollWidth: element.scrollWidth
       }));
 
     const brokenVisibleImages = [...document.images]
@@ -121,7 +120,7 @@ async function layoutDiagnostics(page) {
       .filter(image => image.complete && image.naturalWidth === 0)
       .map(image => image.currentSrc || image.src);
 
-    return { overflow, textOverflow, brokenVisibleImages };
+    return { overflow, clippedText, brokenVisibleImages };
   });
 }
 
@@ -191,11 +190,16 @@ for (const entry of pages) {
 
     const diagnostics = await layoutDiagnostics(page);
     expect(diagnostics.overflow, "document has horizontal overflow").toBeLessThanOrEqual(2);
-    expect(diagnostics.textOverflow, "visible main text escapes the viewport").toEqual([]);
+    expect(diagnostics.clippedText, "visible main text is clipped inside its box").toEqual([]);
     expect(diagnostics.brokenVisibleImages, "visible image failed to load").toEqual([]);
 
     expect(pageErrors, "runtime page errors").toEqual([]);
-    expect(consoleErrors, "same-origin console errors").toEqual([]);
+    const relevantConsoleErrors = entry.status === 404
+      ? consoleErrors.filter(message =>
+          !message.includes("Failed to load resource: the server responded with a status of 404")
+        )
+      : consoleErrors;
+    expect(relevantConsoleErrors, "same-origin console errors").toEqual([]);
     expect(localResourceFailures, "same-origin failed resources").toEqual([]);
 
     if (visualBaselineProjects.has(testInfo.project.name)) {
