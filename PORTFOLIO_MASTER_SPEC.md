@@ -15,7 +15,16 @@ Home establishes artist identity/worldview and leads into work. Gallery makes ar
 ## Journeys
 Primary: Home -> Gallery -> deeper artist understanding.
 Commission: Gallery/Statement/Biography -> Order -> Contact.
-Information: Home/navigation -> Information -> relevant detail/action.
+Information: Home/navigation -> Information -> exhibition/event detail -> relevant external action.
+
+## Exhibition and event archives
+Information is the index and entry point for exhibitions/events. Each exhibition or event must have its own crawlable, persistent detail URL; do not make a modal the only detail surface.
+
+Canonical exhibition URLs use `/exhibitions/{slug}/`. Source pages use `src/exhibitions/{slug}/index.html` and build to `docs/exhibitions/{slug}/index.html`. If the same named exhibition later needs separate annual archives, extend only when required to `/exhibitions/{slug}/{year}/`; do not create empty year layers in advance.
+
+Exhibition detail pages are long-lived activity records. Keep them after the event ends and grow them with verified exhibition views, exhibited works, reflections, outcomes and later context rather than deleting or replacing the URL.
+
+New exhibition pages must receive their own title, description, canonical, OG URL, Event JSON-LD URL/@id, sitemap entry and internal Information link. Never copy an existing exhibition page and change only the visible body or URL.
 
 ## Responsive and accessibility
 No unintended horizontal scroll, overlap, clipped text, inaccessible controls or unreadably narrow text. Use semantic structure, meaningful alt text, visible focus, usable touch targets, adequate contrast, logical headings and reduced-motion support.
