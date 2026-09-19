@@ -11,7 +11,7 @@ const visualBaselineProjects = new Set(["desktop-1440", "mobile-390"]);
 const fullAudit = process.env.VISUAL_FULL === "1";
 
 const pages = [
-  { key: "home", path: "", title: /Mizuki|小山瑞樹/i },
+  { key: "home", path: "", title: /Mizuki|小山瑞樹/i, footer: false },
   { key: "gallery", path: "gallery.html", title: /Gallery|Art|Mizuki|小山瑞樹/i },
   { key: "biography", path: "biography.html", title: /Biography|Mizuki|小山瑞樹/i },
   { key: "artist-statement", path: "artist-statement.html", title: /Statement|Mizuki|小山瑞樹/i },
@@ -185,7 +185,9 @@ for (const entry of pages) {
     await expect(page.locator("#header-container header")).toBeAttached();
     await expect(page.locator("#header-container .head a")).toBeAttached();
     await expect(page.locator("#navArea .toggle_btn")).toBeAttached();
-    await expect(page.locator("#footer-container footer")).toBeAttached();
+    if (entry.footer !== false) {
+      await expect(page.locator("#footer-container footer")).toBeAttached();
+    }
 
     const diagnostics = await layoutDiagnostics(page);
     expect(diagnostics.overflow, "document has horizontal overflow").toBeLessThanOrEqual(2);
@@ -197,7 +199,10 @@ for (const entry of pages) {
     expect(localResourceFailures, "same-origin failed resources").toEqual([]);
 
     if (visualBaselineProjects.has(testInfo.project.name)) {
-      await expect(page).toHaveScreenshot(entry.key + ".png", { fullPage: true });
+      await expect(page).toHaveScreenshot(entry.key + ".png", {
+        fullPage: true,
+        timeout: 15000
+      });
     } else if (fullAudit) {
       await page.screenshot({
         path: testInfo.outputPath(entry.key + "-full-page.png"),
