@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 | Page not found - Mizuki Oyama</title>
+  <meta name="description" content="お探しのページは見つかりませんでした。Mizuki Oyamaのポートフォリオ主要ページへ移動できます。">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="stylesheet" href="/website/css/noise.css">
+  <link rel="stylesheet" href="/website/css/all.css">
+  <link rel="stylesheet" href="/website/css/gallery.css">
+  <link rel="stylesheet" href="/website/css/mobile.css">
+  <link rel="stylesheet" href="/website/css/footer.css">
+  <link rel="stylesheet" href="/website/css/menu.css">
+  <link rel="icon" href="/website/img/web.ico">
+
+  <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self' 'unsafe-inline' https://use.typekit.net https://fonts.googleapis.com;
+    font-src 'self' https://use.typekit.net https://p.typekit.net https://fonts.gstatic.com;
+    img-src 'self' data:;
+    object-src 'none';
+    base-uri 'self';
+  ">
+
+  <style>
+    #langChenge {
+      display: none;
+    }
+
+    .not-found-page {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 100svh;
+      margin: 0;
+      padding: clamp(9rem, 16vh, 13rem) clamp(2rem, 9vw, 10rem) clamp(7rem, 12vh, 10rem);
+      backdrop-filter: blur(10px);
+    }
+
+    .not-found-content {
+      display: block;
+      width: min(100%, 760px);
+    }
+
+    .not-found-code {
+      margin: 0 0 1.25rem;
+      font-family: "Jost", sans-serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      font-weight: 100;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--inv, #e6e6e6);
+    }
+
+    .not-found-title {
+      margin: 0;
+      font-size: clamp(1.5rem, calc(1.15rem + 1.3vw), 2.4rem);
+      font-weight: 300;
+      line-height: 1.35;
+      color: var(--inv, #e6e6e6);
+      background: none;
+      -webkit-text-fill-color: currentColor;
+    }
+
+    .not-found-message {
+      width: min(100%, 36rem);
+      margin-top: 2rem;
+      line-height: 2;
+      color: var(--inv, #e6e6e6);
+    }
+
+    .not-found-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+      width: 100%;
+      margin-top: 3.5rem;
+    }
+
+    .not-found-links a {
+      display: inline-block;
+      width: fit-content;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid currentColor;
+      font-family: "Jost", sans-serif;
+      font-size: clamp(1rem, calc(0.9rem + 0.25vw), 1.15rem);
+      line-height: 1.5;
+    }
+
+    .not-found-links a:first-child {
+      font-weight: 500;
+    }
+
+    .not-found-links a:focus-visible {
+      outline: 1px solid currentColor;
+      outline-offset: 0.4rem;
+    }
+
+    @media screen and (max-width: 599px) {
+      .not-found-page {
+        min-height: 100svh;
+        padding: 8rem 2.5rem 8rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .not-found-code {
+        font-size: clamp(4rem, 25vw, 7rem);
+      }
+
+      .not-found-message {
+        line-height: 1.9;
+      }
+
+      .not-found-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-top: 3rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .not-found-page *,
+      .not-found-page *::before,
+      .not-found-page *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body id="not-found">
+  <div id="header-container"></div>
+
+  <main class="not-found-page">
+    <section class="not-found-content" aria-labelledby="not-found-title">
+      <p class="not-found-code" aria-hidden="true">404</p>
+      <h1 id="not-found-title" class="not-found-title">Page not found</h1>
+      <p class="not-found-message">
+        お探しのページは、移動または削除された可能性があります。
+      </p>
+
+      <nav class="not-found-links" aria-label="主要ページ">
+        <a href="/website/">Home</a>
+        <a href="/website/gallery.html">Gallery</a>
+        <a href="/website/information.html">Information</a>
+      </nav>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="/website/js/menu.js"></script>
+</body>
+</html>
