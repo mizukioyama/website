@@ -31,7 +31,7 @@ function getFragmentHashes(filePath, tagName) {
 }
 
 const fragmentScriptHashes = getFragmentHashes(
-   path.resolve(__dirname, "src/public/footer.html"),
+   path.resolve(__dirname, "src/footer.html"),
    "script"
 );
 const fragmentStyleHashes = getFragmentHashes(
