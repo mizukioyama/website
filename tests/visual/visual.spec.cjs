@@ -131,7 +131,7 @@ async function attachRuntimeObservations(testInfo, entry, runtime) {
 
 async function expectHorizontalFit(locator, label) {
   const count = await locator.count();
-  const viewportWidth = locator.page().viewportSize()?.width || 0;
+  const viewportWidth = await locator.first().evaluate(() => document.documentElement.clientWidth);
 
   for (let index = 0; index < count; index += 1) {
     const item = locator.nth(index);
@@ -162,10 +162,12 @@ async function expectHorizontalFit(locator, label) {
 async function expectViewportModalFit(locator, label) {
   await expect(locator).toBeVisible();
   const box = await locator.boundingBox();
-  const viewport = locator.page().viewportSize();
+  const viewport = await locator.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    height: window.innerHeight
+  }));
 
   expect(box, label + " should have a layout box").not.toBeNull();
-  expect(viewport, label + " requires a viewport").not.toBeNull();
   expect(box.x, label + " extends past the left edge").toBeGreaterThanOrEqual(-2);
   expect(box.y, label + " extends past the top edge").toBeGreaterThanOrEqual(-2);
   expect(box.x + box.width, label + " extends past the right edge").toBeLessThanOrEqual(viewport.width + 2);
