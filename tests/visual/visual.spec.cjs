@@ -189,6 +189,18 @@ for (const entry of pages) {
       await expect(page.locator("#footer-container footer")).toBeAttached();
     }
 
+    if (entry.key === "information") {
+      const titleBox = await page.locator(".information-page > .h1-text h1").boundingBox();
+      const sectionTitleBox = await page.locator(".information-page .content > h2").boundingBox();
+
+      expect(titleBox, "Information H1 should have a layout box").not.toBeNull();
+      expect(sectionTitleBox, "Information section heading should have a layout box").not.toBeNull();
+      expect(
+        titleBox.y + titleBox.height,
+        "Information noise H1 must not overlap the section heading/content"
+      ).toBeLessThan(sectionTitleBox.y);
+    }
+
     const diagnostics = await layoutDiagnostics(page);
     expect(diagnostics.overflow, "document has horizontal overflow").toBeLessThanOrEqual(2);
     expect(diagnostics.clippedText, "visible main text is clipped inside its box").toEqual([]);
