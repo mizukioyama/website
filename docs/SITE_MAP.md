@@ -65,11 +65,13 @@ The page uses explicit `/website/` Project Pages paths for its CSS, JavaScript, 
 
 ### Static deployment files and assets
 - src/404.html -> docs/404.html
-- robots.txt -> docs/robots.txt
 - sitemap.xml -> docs/sitemap.xml
 - img/ -> docs/img/
 - src/assets/images/ -> docs/assets/images/
 - img/web.ico -> docs/favicon.ico and docs/assets/images/pd.ico
+
+### Robots policy for the Project Site
+This repository intentionally does not publish `robots.txt`. The deployed site lives at `/website/`, so `/website/robots.txt` would not be authoritative for the `mizukioyama.github.io` host and could be mistaken for crawler policy that it cannot actually enforce. No host-root robots.txt is created from this repository because that scope may affect sibling Project Sites on the same host. Crawling therefore follows the host's effective default policy, while page indexing is controlled by each page's robots meta directives. `scripts/check-seo.cjs` rejects accidental reintroduction of a source or generated Project Site robots.txt.
 
 ## Visual Regression architecture
 Visual Regression is intentionally separate from the Pages deployment workflow.
