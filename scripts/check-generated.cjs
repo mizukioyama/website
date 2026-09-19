@@ -5,6 +5,32 @@ const { spawnSync } = require("node:child_process");
 const root = path.resolve(__dirname, "..");
 const outputDirectory = path.join(root, "docs");
 
+function toPosixPath(value) {
+   return value.split(path.sep).join("/");
+}
+
+function listExhibitionIndexSources(directory = path.join(root, "src", "exhibitions")) {
+   if (!fs.existsSync(directory)) {
+      return [];
+   }
+
+   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+      const absolutePath = path.join(directory, entry.name);
+
+      if (entry.isDirectory()) {
+         return listExhibitionIndexSources(absolutePath);
+      }
+
+      if (entry.name.toLowerCase() !== "index.html") {
+         return [];
+      }
+
+      const source = toPosixPath(path.relative(root, absolutePath));
+      const output = toPosixPath(path.relative(path.join(root, "src"), absolutePath));
+      return [{ source, output }];
+   });
+}
+
 function listHtmlFiles(directory) {
    if (!fs.existsSync(directory)) {
       return [];
@@ -42,12 +68,16 @@ const generatedPageNames = new Set([
    "matching.html",
    "policy.html"
 ]);
+const exhibitionIndexPattern = /^exhibitions\/(?:[^/]+\/)+index\.html$/;
 
 for (const absolutePath of listHtmlFiles(outputDirectory)) {
    const relativePath = path.relative(root, absolutePath);
+   const outputRelativePath = toPosixPath(path.relative(outputDirectory, absolutePath));
    const html = fs.readFileSync(absolutePath, "utf8");
-   const isGeneratedPage = path.dirname(absolutePath) === outputDirectory
-      && generatedPageNames.has(path.basename(absolutePath));
+   const isGeneratedPage = (
+      path.dirname(absolutePath) === outputDirectory
+      && generatedPageNames.has(path.basename(absolutePath))
+   ) || exhibitionIndexPattern.test(outputRelativePath);
 
    if (isGeneratedPage && !/^\s*<!doctype\s+html\s*>/i.test(html)) {
       failures.push(`${relativePath}: missing a standards-mode <!DOCTYPE html>`);
@@ -93,6 +123,33 @@ for (const absolutePath of listHtmlFiles(outputDirectory)) {
             `${relativePath} inline script ${scriptIndex}: ${(result.stderr || result.stdout).trim()}`
          );
       }
+   }
+}
+
+const directCopyPairs = [
+   { source: "src/information.html", output: "information.html" },
+   { source: "src/exhibition-yurayura-2026.html", output: "exhibition-yurayura-2026.html" },
+   ...listExhibitionIndexSources()
+];
+
+for (const pair of directCopyPairs) {
+   const sourcePath = path.join(root, pair.source);
+   const outputPath = path.join(outputDirectory, pair.output);
+
+   if (!fs.existsSync(sourcePath)) {
+      failures.push(`${pair.source}: direct-copy source is missing`);
+      continue;
+   }
+
+   if (!fs.existsSync(outputPath)) {
+      failures.push(`docs/${pair.output}: direct-copy output is missing`);
+      continue;
+   }
+
+   const source = fs.readFileSync(sourcePath, "utf8");
+   const output = fs.readFileSync(outputPath, "utf8");
+   if (source !== output) {
+      failures.push(`docs/${pair.output}: differs from direct-copy source ${pair.source}`);
    }
 }
 
