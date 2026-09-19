@@ -15,7 +15,7 @@ on:
         type: boolean
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: visual-regression-${{ github.event.pull_request.number || github.event.workflow_run.head_branch || github.ref_name }}
@@ -105,12 +105,3 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Commit clean bootstrap baselines
-        if: success() && steps.baseline.outputs.exists == 'false' && github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main'
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/visual/visual.spec.cjs-snapshots
-          git commit -m "Add approved visual regression baselines"
-          git push origin HEAD:main
