@@ -134,6 +134,77 @@ function getCanonical(html) {
    return tag ? getAttribute(tag, "href") : null;
 }
 
+function getRefreshDestination(html) {
+   const refresh = getMeta(html, "http-equiv", "refresh") || "";
+   const match = refresh.match(/(?:^|;)\s*url\s*=\s*(.+)$/i);
+
+   if (!match) {
+      return null;
+   }
+
+   return match[1].trim().replace(/^["']|["']$/g, "");
+}
+
+function getJsonLdObjects(html) {
+   const pattern = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
+   const objects = [];
+
+   for (const match of html.matchAll(pattern)) {
+      if (getAttribute(match[1], "type")?.toLowerCase() !== "application/ld+json") {
+         continue;
+      }
+
+      try {
+         objects.push(JSON.parse(match[2]));
+      } catch {
+         // validateJsonLd reports the parse failure with source context.
+      }
+   }
+
+   return objects;
+}
+
+function validateExhibitionSeo(relativePath, html, expectedCanonical, failures) {
+   const ogUrl = getMeta(html, "property", "og:url");
+   if (ogUrl !== expectedCanonical) {
+      failures.push(`${relativePath}: og:url must be ${expectedCanonical}`);
+   }
+
+   const event = getJsonLdObjects(html).find(item =>
+      item && typeof item === "object" && item["@type"] === "Event"
+   );
+
+   if (!event) {
+      failures.push(`${relativePath}: Event JSON-LD is missing`);
+      return;
+   }
+
+   if (event.url !== expectedCanonical) {
+      failures.push(`${relativePath}: Event JSON-LD url must be ${expectedCanonical}`);
+   }
+
+   if (event["@id"] !== `${expectedCanonical}#event`) {
+      failures.push(`${relativePath}: Event JSON-LD @id must be ${expectedCanonical}#event`);
+   }
+}
+
+function validateLegacyRedirect(relativePath, html, expectedCanonical, expectedDestination, failures) {
+   const metadata = validatePage(relativePath, html, expectedCanonical, failures, {
+      requireNoindex: true,
+      requireH1: false,
+      requireOpenGraphImageMetadata: false
+   });
+
+   if (!metadata) {
+      return;
+   }
+
+   const destination = getRefreshDestination(html);
+   if (destination !== expectedDestination) {
+      failures.push(`${relativePath}: meta refresh must point to ${expectedDestination}`);
+   }
+}
+
 function getLanguage(html) {
    const htmlTag = html.match(/<html\b[^>]*>/i)?.[0];
    return htmlTag ? getAttribute(htmlTag, "lang") : null;
