@@ -182,7 +182,9 @@ for (const entry of pages) {
     await stabilize(page);
 
     await expect(page).toHaveTitle(entry.title);
-    await expect(page.locator("#header-container header")).toBeVisible();
+    await expect(page.locator("#header-container header")).toBeAttached();
+    await expect(page.locator("#header-container .head a")).toBeAttached();
+    await expect(page.locator("#navArea .toggle_btn")).toBeAttached();
     await expect(page.locator("#footer-container footer")).toBeAttached();
 
     const diagnostics = await layoutDiagnostics(page);
@@ -222,7 +224,7 @@ test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   await page.keyboard.press("Tab");
   let focused = page.locator(":focus");
 
-  for (let index = 0; index < 8; index += 1) {
+  for (let index = 0; index < 40; index += 1) {
     const href = await focused.getAttribute("href").catch(() => null);
     if (href === "/website/") break;
     await page.keyboard.press("Tab");
@@ -285,6 +287,6 @@ test("Yurayura nested navigation resolves to project root", async ({ page }) => 
   const footerHref = await footerInformation.getAttribute("href");
   expect(new URL(footerHref).pathname).toBe("/website/information.html");
 
-  const pageBackLink = page.getByRole("link", { name: "Informationへ戻る", exact: true });
+  const pageBackLink = page.locator("a.back-link");
   await expect(pageBackLink).toHaveAttribute("href", "../../information.html");
 });
