@@ -19,7 +19,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Capture desktop/mobile visual baseline for core pages
 - [x] Run full repository checks and resolve failures
 - [x] Audit console/runtime errors
-- [ ] Audit responsive overflow/overlap/wrapping
+- [x] Audit responsive overflow/overlap/wrapping
 - [ ] Audit navigation and conversion paths
 - [x] Audit same-name person entity disambiguation (小山瑞樹 / Mizuki Oyama) and document SEO identity gaps before implementation
 - [x] Biography / Artist Statement mobile reading comfort: page-specific typography/spacing refined and verified across 1440/1280/1024/768/430/390/375 px
@@ -44,6 +44,19 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Audit heavy JS/Three.js/p5/Vanta/ripples by page
 - [ ] Propose page-appropriate motion improvements
 - [ ] Implement reduced-motion/offscreen safeguards where missing
+
+## Maintenance - post-Phase 1 (non-blocking)
+
+### Build pipeline / Webpack audit
+- [ ] Decide whether the current Webpack pipeline remains the simplest, safest and most maintainable fully free build for this portfolio. This task does not block Phase 1 and must not remove or broadly restructure Webpack during Phase 1.
+  - Map source -> build -> `docs/` for Home, Gallery, Biography, Artist Statement, Information, Order, Contact, Policy, 404 and `/exhibitions/yurayura/`, classifying root HTML, `src/` HTML, Webpack generation, copy processing, custom Node scripts and direct `docs/` output.
+  - Inventory Webpack responsibilities: JavaScript bundling, HTML generation/copy, CSS processing, image/font/audio copy, Gallery captions, shared fragments, production assets and any other build-only behavior.
+  - Identify every behavior that currently requires Webpack before proposing removal.
+  - Evaluate a parallel `static HTML/CSS/JS + small Node build scripts + GitHub Pages` output without replacing the working pipeline first.
+  - Audit dependency candidates such as `file-loader`, `html-webpack-inline-source-plugin` and other packages not referenced by the active build; do not remove anything before proving it is unused.
+  - Relate npm vulnerabilities and deprecated dependencies to the active build surface.
+  - Compare Webpack-retain vs Webpack-removal options for build simplicity, maintainability, dependency count, security surface, Actions runtime, GitHub Pages fit, Visual Regression compatibility, Gallery-caption automation, future page additions and rollback.
+  - Migration gate: Discover -> confirm build mapping -> identify Webpack dependencies -> design alternative -> generate in parallel -> compare generated/SEO/links/Visual Regression -> confirm identical or approved differences -> make the final migration decision.
 
 ## Phase 5 - Continuous improvement
 - [ ] Use before/after visual comparison for UI changes
