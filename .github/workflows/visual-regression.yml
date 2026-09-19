@@ -1,0 +1,106 @@
+name: Visual regression
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_run:
+    workflows: ["Deploy static site to GitHub Pages"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      full_audit:
+        description: "Run the complete 1440/1280/1024/768/430/390/375 viewport matrix"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: visual-regression-${{ github.event.pull_request.number || github.event.workflow_run.head_sha || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_VERSION: "1.63.0"
+      VISUAL_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full_audit && '1' || '0' }}
+
+    steps:
+      - name: Checkout tested revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install site dependencies
+        run: npm ci
+
+      - name: Install pinned Playwright test runner
+        run: npm install --no-save --package-lock=false @playwright/test@${PLAYWRIGHT_VERSION}
+
+      - name: Cache Playwright Chromium
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium-${{ env.PLAYWRIGHT_VERSION }}
+
+      - name: Install Chromium and system dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Chromium system dependencies on cache hit
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Build site
+        run: npm run build
+
+      - name: Detect visual baseline
+        id: baseline
+        shell: bash
+        run: |
+          if find tests/visual/visual.spec.cjs-snapshots -type f -name '*.png' -print -quit 2>/dev/null | grep -q .; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run visual regression
+        shell: bash
+        run: |
+          if [ "${{ steps.baseline.outputs.exists }}" = "false" ]; then
+            echo "No committed baseline exists yet; generating bootstrap snapshots."
+            npx playwright test --config=playwright.config.cjs --update-snapshots
+          else
+            npx playwright test --config=playwright.config.cjs
+          fi
+
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-${{ github.event.workflow_run.head_sha || github.sha }}
+          path: |
+            playwright-report
+            test-results/visual
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload bootstrap baselines
+        if: steps.baseline.outputs.exists == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines-${{ github.event.workflow_run.head_sha || github.sha }}
+          path: tests/visual/visual.spec.cjs-snapshots
+          if-no-files-found: error
+          retention-days: 7
