@@ -328,7 +328,7 @@ function hasIndexableRobots(html) {
    return directives.includes("index") &&
       directives.includes("follow") &&
       directives.includes("noimageindex") &&
-      directives.includes("max-image-preview:large") &&
+      directives.includes("max-image-preview:none") &&
       !directives.includes("noindex") &&
       !directives.includes("nofollow");
 }
