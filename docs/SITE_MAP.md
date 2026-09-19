@@ -36,6 +36,11 @@ Page-specific imports are selected from body[data-page].
 ### Information page
 Information keeps src/information.html as its authoritative source, but it is copied directly to docs/information.html by CopyWebpackPlugin instead of being processed by HtmlWebpackPlugin. This lets it use the same css/, js/menu.js, ripple layer and Vanta background shell as Biography, Statement, Order, Contact and Policy without mixing the separate src/style Webpack visual system into the public page.
 
+### Exhibition detail pages
+- src/exhibition-yurayura-2026.html -> docs/exhibition-yurayura-2026.html
+
+Exhibition detail pages are copied directly by CopyWebpackPlugin and use the same root css/, js/menu.js, ripple layer and Vanta background shell as the public portfolio pages.
+
 ### Shared fragments for Webpack pages
 These fragments are copied by CopyWebpackPlugin:
 
@@ -80,6 +85,7 @@ Important: committed files already present under docs/ can be stale relative to 
 | Contact | contact.html | docs/contact.html | form/privacy |
 | Policy | policy.html | docs/policy.html | policy content |
 | Information | src/information.html | docs/information.html | root css/, js/menu.js, ripple/Vanta background, Information metadata/current activity |
+| Yurayura Exhibition | src/exhibition-yurayura-2026.html | docs/exhibition-yurayura-2026.html | exhibition detail/archive, root visual shell |
 | Matching | src/matching.html | docs/matching.html | Webpack bundle; noindex |
 | Bot | src/bot.html | docs/bot.html | Webpack bundle; noindex |
 
