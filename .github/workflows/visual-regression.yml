@@ -27,7 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PLAYWRIGHT_VERSION: "1.63.0"
-      VISUAL_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full_audit && '1' || '0' }}
+      # Temporary PR verification override for the px visual-unit migration.
+      # Revert after the seven-viewport audit completes.
+      VISUAL_FULL: "1"
 
     steps:
       - name: Checkout tested revision
