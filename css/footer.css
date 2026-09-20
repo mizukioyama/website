@@ -62,7 +62,7 @@
 
     @media only screen and (min-width:1299px) {
         footer a {
-            font-size: clamp(1.1rem, calc(0.95rem + 0.6vw), 1.5rem);
+            font-size: clamp(17.6px, calc(15.2px + 0.6vw), 24px);
         }
     }
 
@@ -83,7 +83,7 @@
         }
 
         footer a {
-            font-size: clamp(1.1rem, calc(0.95rem + 0.7vw), 1.3rem);
+            font-size: clamp(17.6px, calc(15.2px + 0.7vw), 20.8px);
         }
 
         footer a:nth-of-type(n+5) {
