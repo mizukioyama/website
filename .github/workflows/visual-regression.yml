@@ -27,8 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PLAYWRIGHT_VERSION: "1.63.0"
-      # Temporary final verification: run all seven documented viewports.
-      VISUAL_FULL: "1"
+      VISUAL_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full_audit && '1' || '0' }}
 
     steps:
       - name: Checkout tested revision
