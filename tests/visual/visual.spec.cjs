@@ -199,16 +199,8 @@ async function assertBilingualPage(page, label) {
           nextMarginTop: nextStyle ? parseFloat(nextStyle.marginTop) || 0 : null
         };
       });
-    const timelineItems = [...document.querySelectorAll("main .timeline > li")].map(item => {
-      const english = item.querySelector(':scope > p.text[lang="en"]');
-      const style = english ? getComputedStyle(english) : null;
-      return {
-        japanese: item.querySelectorAll(':scope > p[lang="ja"]').length,
-        english: item.querySelectorAll(':scope > p.text[lang="en"]').length,
-        englishBorderTopWidth: style ? parseFloat(style.borderTopWidth) || 0 : 0,
-        englishBorderTopStyle: style?.borderTopStyle || ""
-      };
-    });
+    const statementQuestionLanguages = [...document.querySelectorAll("main .statement-questions > p[lang]")]
+      .map(element => element.getAttribute("lang"));
     return {
       japaneseRegions: [...document.querySelectorAll('[lang="ja"]')].filter(visible).length,
       englishRegions: [...document.querySelectorAll('[lang="en"]')].filter(visible).length,
@@ -216,7 +208,7 @@ async function assertBilingualPage(page, label) {
       standaloneEnglishContent: document.querySelectorAll('main .state-box > .content[lang="en"]').length,
       proseLanguages,
       englishPairVisuals,
-      timelineItems
+      statementQuestionLanguages
     };
   });
 
@@ -239,12 +231,10 @@ async function assertBilingualPage(page, label) {
     }
   }
   if (label === "artist-statement") {
-    expect(state.timelineItems).toHaveLength(5);
-    for (const item of state.timelineItems) {
-      expect(item.japanese, "Artist Statement timeline item should contain Japanese title/body").toBeGreaterThanOrEqual(2);
-      expect(item.english, "Artist Statement timeline item should contain one English translation").toBe(1);
-      expect(item.englishBorderTopWidth, "Artist Statement timeline English should have a divider").toBeGreaterThanOrEqual(1);
-      expect(item.englishBorderTopStyle, "Artist Statement timeline divider should be visible").not.toBe("none");
+    expect(state.statementQuestionLanguages).toHaveLength(10);
+    for (let index = 0; index < state.statementQuestionLanguages.length; index += 2) {
+      expect(state.statementQuestionLanguages[index], "Artist Statement question pair should start in Japanese").toBe("ja");
+      expect(state.statementQuestionLanguages[index + 1], "Artist Statement question pair should place English directly after Japanese").toBe("en");
     }
   }
 }
@@ -1012,7 +1002,7 @@ for (const entry of [
       };
 
       if (key === "artist-statement") {
-        const flow = document.querySelector('main .timeline > li p.text[lang="en"]');
+        const flow = document.querySelector('main .statement-questions > p.text[lang="en"]');
         const flowStyle = flow ? getComputedStyle(flow) : null;
         result.flowFontSize = flowStyle ? parseFloat(flowStyle.fontSize) : 0;
         result.flowLineHeight = flowStyle ? parseFloat(flowStyle.lineHeight) : 0;
