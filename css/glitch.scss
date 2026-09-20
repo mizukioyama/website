@@ -13,9 +13,9 @@ body {
 
     .inner {
         span {
-            font-size: 5rem;
+            font-size: var(--legacy-px-5);
             color: #212121;
-            letter-spacing: .1rem;
+            letter-spacing: var(--legacy-px-0_1);
         }
         img {
             opacity: .5;
