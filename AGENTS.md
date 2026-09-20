@@ -33,6 +33,9 @@ APPROVAL: major layout/navigation redesign; deletion; artist identity/artwork in
 ## Anti-regression
 Never change a shared selector without checking consumers. Never solve one viewport by breaking another. Never hide overflow to conceal a defect. Never remove content/features just to pass a test. Do not modify healthy areas without a concrete UX, SEO, accessibility, performance, maintainability or user-request reason. Stop blind patching when root cause is uncertain.
 
+## Visual units
+Use px for values whose visual shape should remain stable across the site: font-size, letter-spacing, and text-shadow/box-shadow offsets, blur and spread. Responsive typography may still use viewport units inside clamp(), but keep the fixed/min/max terms in px, e.g. `clamp(18px, calc(15.2px + 0.6vw), 19px)`. Do not convert responsive layout dimensions or spacing to px unless a fixed shape is intentional.
+
 ## Visual Regression standard
 Treat Playwright Visual Regression as a standard Verify step for changes that can affect UI, CSS, layout, shared components, header/footer/menu, images, responsive behavior or page structure. The normal CI matrix is 1440, 768 and 390 px; committed screenshot baselines are compared at 1440 and 390 px. Use the full 1440/1280/1024/768/430/390/375 matrix for detailed audits or breakpoint-sensitive work.
 
