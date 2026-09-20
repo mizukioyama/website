@@ -225,7 +225,7 @@ async function assertBilingualPage(page, label) {
     const pair = state.englishPairVisuals[index];
     expect(pair.borderTopWidth, label + " English translation should have a divider").toBeGreaterThanOrEqual(1);
     expect(pair.borderTopStyle, label + " English divider should be visible").not.toBe("none");
-    if (index < state.englishPairVisuals.length - 1) {
+    if (pair.nextLanguage !== null) {
       expect(pair.nextLanguage, label + " next bilingual pair should restart in Japanese").toBe("ja");
       expect(pair.nextMarginTop, label + " bilingual pairs should keep a readable gap").toBeGreaterThan(0);
     }
