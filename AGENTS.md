@@ -4,7 +4,7 @@
 This repository is the official portfolio website for Mizuki Oyama. AI/Codex must improve it safely and efficiently while preserving the artist's intent and existing visual identity.
 
 ## Source of truth
-Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > docs/DESIGN_SYSTEM.md and docs/SEO_CONTENT_GUIDE.md > docs/SITE_MAP.md and docs/QA_CHECKLIST.md > ROADMAP.md > existing implementation.
+Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > DESIGN_SYSTEM.md > QA_CHECKLIST.md > ROADMAP.md > existing implementation. Files under reports/ are historical records and must not override current specifications.
 Biography and Artist Statement are authoritative for career facts and artistic philosophy. Never invent or materially reinterpret them.
 
 ## Loop Engineering
@@ -34,7 +34,7 @@ APPROVAL: major layout/navigation redesign; deletion; artist identity/artwork in
 Never change a shared selector without checking consumers. Never solve one viewport by breaking another. Never hide overflow to conceal a defect. Never remove content/features just to pass a test. Do not modify healthy areas without a concrete UX, SEO, accessibility, performance, maintainability or user-request reason. Stop blind patching when root cause is uncertain.
 
 ## Visual units
-Use px for values whose visual shape should remain stable across the site: font-size, letter-spacing, and text-shadow/box-shadow offsets, blur and spread. Responsive typography may still use viewport units inside clamp(), but keep the fixed/min/max terms in px, e.g. `clamp(18px, calc(15.2px + 0.6vw), 19px)`. Do not convert responsive layout dimensions or spacing to px unless a fixed shape is intentional.
+Use px for values whose visual shape should remain stable across the site: font-size fixed/min/max terms, letter-spacing, border/hairline thickness, icon/stroke thickness where relevant, and text-shadow/box-shadow offsets, blur and spread. Responsive typography may still use viewport units inside clamp(), but keep all fixed/min/max terms in px, e.g. `clamp(18px, calc(15.2px + 0.6vw), 19px)`. Prefer unitless line-height. Do not convert responsive layout dimensions or spacing to px unless a fixed shape is intentional. Follow DESIGN_SYSTEM.md for the complete unit policy.
 
 ## Visual Regression standard
 Treat Playwright Visual Regression as a standard Verify step for changes that can affect UI, CSS, layout, shared components, header/footer/menu, images, responsive behavior or page structure. The normal CI matrix is 1440, 768 and 390 px; committed screenshot baselines are compared at 1440 and 390 px. Use the full 1440/1280/1024/768/430/390/375 matrix for detailed audits or breakpoint-sensitive work.
