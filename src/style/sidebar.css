@@ -12,7 +12,7 @@
 }
 
 .category p {
-    font-size: clamp(19.2px, calc(19.2px + 0.5vw), 23.2px);
+    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.45rem);
     font-weight: 400;
     text-shadow: 0 0 1px var(--inv);
 }
@@ -28,12 +28,12 @@
 }
 
 .gallery .category a {
-    font-size: clamp(19.2px, calc(19.2px + 0.5vw), 22.4px);
+    font-size: clamp(1.2rem, calc(1.2rem + 0.5vw), 1.4rem);
     text-shadow: 0 0 2px var(--inv);
 }
 
 .category ol:last-child li a {
-    font-size: clamp(16px, calc(16px + 0.5vw), 19.2px);
+    font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
 }
 
 .category-link.disabled {
