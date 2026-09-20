@@ -499,6 +499,7 @@ for (const entry of pages) {
     if (entry.footer !== false) {
       await expect(page.locator("#footer-container footer")).toBeAttached();
     }
+    await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false);
 
     if (entry.key === "information") {
       const titleBox = await page.locator(".information-page > .h1-text h1").boundingBox();
@@ -553,6 +554,42 @@ for (const entry of pages) {
     assertRuntimeClean(runtime, entry);
     await attachRuntimeObservations(testInfo, entry, runtime);
   });
+}
+
+function expectedHeaderFooterSize(projectName) {
+  const expectedByProject = {
+    "desktop-1440": 25.6,
+    "desktop-1280": 24.6,
+    "tablet-1024": 22.6,
+    "tablet-768": 20.5,
+    "mobile-430": 18,
+    "mobile-390": 18,
+    "mobile-375": 18
+  };
+  return expectedByProject[projectName];
+}
+
+async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true) {
+  const expected = expectedHeaderFooterSize(testInfo.project.name);
+  expect(expected, "viewport should have a documented Header/Footer target").toBeDefined();
+
+  const sizes = await page.evaluate(hasFooterValue => ({
+    header: parseFloat(getComputedStyle(document.querySelector("#header-container .head a")).fontSize),
+    footer: hasFooterValue
+      ? [...document.querySelectorAll("#footer-container footer a")]
+          .map(link => parseFloat(getComputedStyle(link).fontSize))
+      : []
+  }), hasFooter);
+  const roundToTenth = value => Math.round(value * 10) / 10;
+
+  expect(roundToTenth(sizes.header), "Header brand font-size").toBe(expected);
+  if (hasFooter) {
+    expect(sizes.footer.length, "Footer navigation should exist").toBeGreaterThan(0);
+    for (const size of sizes.footer) {
+      expect(roundToTenth(size), "Footer navigation font-size").toBe(expected);
+      expect(Math.abs(size - sizes.header), "Header/Footer font-size should match").toBeLessThanOrEqual(0.05);
+    }
+  }
 }
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {

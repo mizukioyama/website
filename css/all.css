@@ -624,3 +624,8 @@ img {
     --font-header-footer-size: clamp(24.8px, calc(14.4px + 0.8vw), 25.6px);
   }
 }
+
+/* Shared visible site header brand. Keep it aligned with Footer navigation. */
+.head a {
+  font-size: var(--font-header-footer-size);
+}
