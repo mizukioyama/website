@@ -679,6 +679,40 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
   }
 }
 
+function expectedH2Sizes(projectName) {
+  const expectedByProject = {
+    "desktop-1440": { home: 26.8, biography: 25.2 },
+    "desktop-1280": { home: 26.6, biography: 30.0 },
+    "tablet-1024": { home: 25.2, biography: 24.9 },
+    "tablet-768": { home: 23.8, biography: 19.8 },
+    "mobile-430": { home: 23.6, biography: 19.5 },
+    "mobile-390": { home: 23.6, biography: 17.5 },
+    "mobile-375": { home: 23.6, biography: 16.8 }
+  };
+  return expectedByProject[projectName];
+}
+
+test("h2 typography is exactly 2px below the previous responsive scale", async ({ page }, testInfo) => {
+  const expected = expectedH2Sizes(testInfo.project.name);
+  expect(expected, "viewport should have documented h2 targets").toBeDefined();
+  const roundToTenth = value => Math.round(value * 10) / 10;
+
+  await prepareDeterministicNetwork(page);
+  await page.goto("", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "home-h2-type" });
+  const homeSize = await page.locator("h2").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(homeSize), "Home h2 font-size").toBe(expected.home);
+
+  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "biography-h2-type" });
+  const biographySize = await page.locator("#bio #state .content h2").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(biographySize), "Biography h2 font-size").toBe(expected.biography);
+});
+
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   const entry = { key: "404-interaction", status: 404 };
   const runtime = createRuntimeMonitor(page, entry);
