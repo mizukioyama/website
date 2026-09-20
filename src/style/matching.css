@@ -22,7 +22,7 @@
       }
 
       li::marker {
-        font-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
+        font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem);
         font-weight: 600;
       }
 
@@ -54,13 +54,13 @@
       }
 
       #advice-content {
-        font-size: clamp(16px, calc(14.4px + 0.5vw), 19.2px);
+        font-size: clamp(1rem, calc(0.9rem + 0.5vw), 1.2rem);
         font-weight: 500;
       }
 
       /* 質問のテキスト */
       .container h2 {
-          font-size: clamp(19.2px, calc(16px + 0.5vw), 22.4px);
+          font-size: clamp(1.2rem, calc(1rem + 0.5vw), 1.4rem);
           color: #4a90e2;
           margin-bottom: 15px;
           text-align: center;
@@ -68,13 +68,13 @@
 
       /* コンテンツ部分 */
       .container p {
-          font-size: clamp(14.4px, calc(12px + 0.5vw), 16px);
+          font-size: clamp(0.9rem, calc(0.75rem + 0.5vw), 1rem);
           color: #333;
           margin-bottom: 20px;
       }
 
       .container span {
-        font-size: clamp(14.4px, calc(12.8px + 0.4vw), 16px);
+        font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem);
         font-weight: 400;
       }
 
@@ -94,7 +94,7 @@
           border: none;
           border-radius: 25px;
           padding: 10px 20px;
-          font-size: clamp(14.4px, calc(12.8px + 0.4vw), 16px);
+          font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem);
           cursor: pointer;
           transition: all 0.3s ease;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -118,7 +118,7 @@
       input {
         border: none;
         border-bottom: 1px solid;
-        font-size: clamp(14.4px, calc(12.8px + 0.4vw), 16px);
+        font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem);
         margin: 1vmin auto;
         padding: 0.5vmin;
       }
@@ -140,13 +140,13 @@
             min-height: 100vh;
           }
           .container h2 {
-            font-size: clamp(17.6px, calc(15.2px + 0.4vw), 19.2px);
+            font-size: clamp(1.1rem, calc(0.95rem + 0.4vw), 1.2rem);
           }
           #question-container {
             font-weight: 400;
           }
           button {
-              font-size: clamp(13.6px, calc(12px + 0.3vw), 14.4px);
+              font-size: clamp(0.85rem, calc(0.75rem + 0.3vw), 0.9rem);
               padding: 8px 15px;
           }
       }
