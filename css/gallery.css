@@ -38,27 +38,6 @@ body {
     }
 }
 
-/* Preserve the previous rendered Header/Footer size on non-Home pages.
-   The historical rem token resolved against the reduced root size here,
-   so the px migration must use the rendered value rather than a 16px rem conversion. */
-@media screen and (min-width: 601px) and (max-width: 899px) {
-    :root {
-        --font-header-footer-size: calc(9.36px + 1.16vw);
-    }
-}
-
-@media screen and (min-width: 900px) and (max-width: 1298px) {
-    :root {
-        --font-header-footer-size: clamp(16.8px, calc(12.6px + 0.8vw), 21.525px);
-    }
-}
-
-@media screen and (min-width: 1299px) {
-    :root {
-        --font-header-footer-size: 22.4px;
-    }
-}
-
 /* Preserve the previous non-Home rendered typography in px.
    The old rem tokens inherited the reduced root size on these pages. */
 @media screen and (min-width: 600px) and (max-width: 899px) {
