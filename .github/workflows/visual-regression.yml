@@ -80,13 +80,13 @@ jobs:
         run: |
           if [ "${{ steps.baseline.outputs.exists }}" = "false" ]; then
             echo "No committed baseline exists yet; generating bootstrap snapshots."
-            npx playwright test --config=playwright.config.cjs --update-snapshots --workers=1 --timeout=60000
-          else
             npx playwright test --config=playwright.config.cjs --update-snapshots
+          else
+            npx playwright test --config=playwright.config.cjs --update-snapshots --workers=1 --timeout=60000
           fi
 
       - name: Commit approved baseline refresh
-        if: ${{ always() && github.event_name == 'pull_request' }}
+        if: ${{ success() && github.event_name == 'pull_request' }}
         shell: bash
         run: |
           if git diff --quiet -- tests/visual/visual.spec.cjs-snapshots; then
