@@ -32,7 +32,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Review structured-data opportunities using verifiable visible facts
 
 ## Phase 3 - UX
-- [ ] Verify shared spacing/typography/component consistency
+- [x] Verify shared spacing/typography/component consistency — typography scale finalized with clamp() across 1440/1280/1024/768/430/390/375 px; main CI, Pages deploy, public checks, and Visual Regression verified.
 - [ ] Optimize mobile gallery/artwork viewing
 - [ ] Verify Biography/Statement reading comfort
 - [ ] Verify Order flow and Contact path
