@@ -382,7 +382,7 @@ h1 {
 
 
 h2 {
-    font-size: clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_4) + 2vw), var(--legacy-px-2_8));
+    font-size: calc(clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_4) + 2vw), var(--legacy-px-2_8)) - 2px);
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -395,7 +395,7 @@ span.name {
 }
 
 .gallery-containt h2 {
-    font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_7) + 0.7vw), var(--legacy-px-1_4));
+    font-size: calc(clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_7) + 0.7vw), var(--legacy-px-1_4)) - 2px);
     font-weight: 300;
 }
 
@@ -776,7 +776,7 @@ main {
     }
 
     #state h2 {
-        font-size: clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_8) + 1vw), var(--legacy-px-2_4));
+        font-size: calc(clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_8) + 1vw), var(--legacy-px-2_4)) - 2px);
         align-items: end;
         margin-bottom: 1vmin;
     }
