@@ -361,7 +361,7 @@ async function prepareDeterministicNetwork(page) {
   }
 }
 
-async function stabilize(page) {
+async function stabilize(page, entry = {}) {
   await page.addStyleTag({ path: path.resolve(__dirname, "stabilize.css") });
 
   await page.waitForFunction(() => {
@@ -377,6 +377,20 @@ async function stabilize(page) {
   });
 
   await page.waitForTimeout(150);
+
+  if (entry.key === "home") {
+    await page.evaluate(() => {
+      for (const selector of [".back__slide", ".card__slide", ".content__slide"]) {
+        const first = document.querySelector(`${selector}:first-child`);
+        if (!first) continue;
+        first.classList.add("active");
+        for (const sibling of first.parentElement.children) {
+          if (sibling !== first) sibling.classList.remove("active", "exit");
+        }
+      }
+    });
+  }
+
   await page.mouse.move(0, 0);
 }
 
@@ -447,7 +461,7 @@ for (const entry of pages) {
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
 
-    await stabilize(page);
+    await stabilize(page, entry);
 
     await expect(page).toHaveTitle(entry.title);
     await expect(page.locator("#header-container header")).toBeAttached();
@@ -514,7 +528,7 @@ test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   await prepareDeterministicNetwork(page);
   const response = await page.goto("__visual-missing__/focus/check/", { waitUntil: "domcontentloaded" });
   expect(response.status()).toBe(404);
-  await stabilize(page);
+  await stabilize(page, entry);
 
   await exerciseSharedRuntimeInteractions(page);
 
