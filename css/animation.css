@@ -9,7 +9,7 @@
     }
 /*== Text ==*/
     .typing {
-        letter-spacing: .5rem;
+        letter-spacing: 8px;
         word-break: break-all;
         display: inline-block;
         position: absolute;
@@ -40,7 +40,7 @@
     }
 
     .text_typing {
-        letter-spacing: .5rem;
+        letter-spacing: 8px;
         word-break: break-all;
         display: inline-block;
     }
