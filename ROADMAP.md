@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-20: Merged PR #6 at `09f5f7b0e791420c6c6b70613b840b50dff68212`; GitHub Pages deploy run `35499140808` and post-deploy Visual Regression run `35499183314` passed, followed by public checks across the 10 required routes.
 - 2026-09-20: Completed artwork alt-text and metadata audit; verified 69 Gallery records, #1501–#1504 detail fallbacks, generated output, public Gallery interactions, Pages deployment, and post-deploy Visual Regression without changing image-index suppression.
 - 2026-09-20: Sitemap/internal-link/image-index controls were implemented and audited; final closure remains open because the GitHub Pages project-site `/website/robots.txt` is not a host-root robots.txt file.
 - 2026-09-20: Completed indexable-page title/meta/H1/canonical audit; corrected Home heading semantics without changing approved visuals and extended SEO checks for indexable metadata uniqueness, generated H1/OG URL alignment and exact sitemap URL integrity.
