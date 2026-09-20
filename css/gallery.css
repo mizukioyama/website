@@ -31,7 +31,7 @@ body {
 @media screen and (min-width: 601px) {
     html,
     body {
-        font-size: clamp(12px, calc(10px + 0.4vw), 14px);
+        font-size: clamp(12px, calc(10px + 0.4vw), 13px);
     }
 }
 
@@ -269,7 +269,7 @@ p {
 /* 共通p定義より後ろでPC本文サイズを確実に適用 */
 @media screen and (min-width: 601px) {
     p {
-        font-size: clamp(12px, calc(10px + 0.4vw), 14px);
+        font-size: clamp(12px, calc(10px + 0.4vw), 13px);
     }
 }
 
@@ -368,7 +368,7 @@ main li {
 }
 
 #category-menu li {
-    font-size: clamp(1rem, calc(0.75rem + 0.8vw), 1.6rem);
+    font-size: clamp(0.9375rem, calc(0.7rem + 0.8vw), 1.5rem);
     margin-left: 1rem;
     padding: 0 0 0 0.5vmin;
     width: 100%;
@@ -465,7 +465,7 @@ main li {
 
 
 #pagination {
-    font-size: clamp(1rem, 0.582rem + 0.52vw, 1.2rem);
+    font-size: clamp(0.9375rem, 0.55rem + 0.52vw, 1.1rem);
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -800,7 +800,7 @@ main {
 }
 
 .works p {
-    font-size: clamp(0.8rem, calc(0.7rem + 0.4vw), 1rem);
+    font-size: var(--font-caption-size);
     letter-spacing: 0.1rem;
     line-height: 1.8;
 }
