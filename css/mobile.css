@@ -51,7 +51,7 @@
         font-synthesis-weight: none !important;
         font-size: var(--font-category-size) !important;
         line-height: 1.15 !important;
-        letter-spacing: 0.01em !important;
+        letter-spacing: var(--tracking-category-001) !important;
         color: var(--inv) !important;
         -webkit-text-fill-color: currentColor !important;
         -webkit-text-stroke: 0 transparent !important;
