@@ -530,8 +530,9 @@ img {
   }
 }
 :root {
-  /* Shared site chrome typography: header brand and footer navigation. */
-  --font-header-footer-size: clamp(1.125rem, calc(0.9rem + 0.8vw), 1.6rem);
-  --font-nav-size: clamp(0.875rem, calc(0.8rem + 0.3vw), 1.05rem);
+  /* Shared site chrome typography: header navigation and footer navigation.
+     This is ~2px larger on mobile and up to ~4px larger on desktop than the previous nav scale. */
+  --font-header-footer-size: clamp(1rem, calc(0.85rem + 0.5vw), 1.3rem);
+  --font-nav-size: var(--font-header-footer-size);
   --font-footer-size: var(--font-header-footer-size);
 }
