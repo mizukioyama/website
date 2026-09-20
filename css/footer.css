@@ -103,6 +103,6 @@
             padding: 0.25rem 0.5rem;
         }
     }
-/* Phase 3 typography: footer text stays subordinate at every viewport. */
-footer a { font-size: var(--font-footer-size); }
-footer a:nth-of-type(n+5) { font-size: var(--font-footer-size) !important; }
+/* Keep footer navigation aligned with the header brand at every viewport. */
+footer a { font-size: var(--font-header-footer-size); }
+footer a:nth-of-type(n+5) { font-size: var(--font-header-footer-size) !important; }
