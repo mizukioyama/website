@@ -15,7 +15,7 @@ on:
         type: boolean
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: visual-regression-${{ github.event.pull_request.number || github.event.workflow_run.head_branch || github.ref_name }}
@@ -33,7 +33,7 @@ jobs:
       - name: Checkout tested revision
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -82,22 +82,8 @@ jobs:
             echo "No committed baseline exists yet; generating bootstrap snapshots."
             npx playwright test --config=playwright.config.cjs --update-snapshots
           else
-            npx playwright test --config=playwright.config.cjs --update-snapshots
+            npx playwright test --config=playwright.config.cjs
           fi
-
-      - name: Commit approved baseline refresh
-        if: ${{ success() && github.event_name == 'pull_request' }}
-        shell: bash
-        run: |
-          if git diff --quiet -- tests/visual/visual.spec.cjs-snapshots; then
-            echo "No baseline changes to commit."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/visual/visual.spec.cjs-snapshots
-          git commit -m "Update Header Footer visual baseline"
-          git push origin HEAD:${{ github.head_ref }}
 
       - name: Upload visual evidence
         if: always()
