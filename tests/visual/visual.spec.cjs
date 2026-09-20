@@ -499,6 +499,7 @@ for (const entry of pages) {
     if (entry.footer !== false) {
       await expect(page.locator("#footer-container footer")).toBeAttached();
     }
+    await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false);
 
     if (entry.key === "information") {
       const titleBox = await page.locator(".information-page > .h1-text h1").boundingBox();
@@ -555,7 +556,7 @@ for (const entry of pages) {
   });
 }
 
-test("shared Header/Footer typography matches breakpoint target", async ({ page }, testInfo) => {
+function expectedHeaderFooterSize(projectName) {
   const expectedByProject = {
     "desktop-1440": 25.6,
     "desktop-1280": 24.6,
@@ -565,27 +566,31 @@ test("shared Header/Footer typography matches breakpoint target", async ({ page 
     "mobile-390": 18,
     "mobile-375": 18
   };
-  const expected = expectedByProject[testInfo.project.name];
+  return expectedByProject[projectName];
+}
+
+async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true) {
+  const expected = expectedHeaderFooterSize(testInfo.project.name);
   expect(expected, "viewport should have a documented Header/Footer target").toBeDefined();
 
-  await prepareDeterministicNetwork(page);
-  await page.goto("gallery.html", { waitUntil: "domcontentloaded" });
-  await stabilize(page, { key: "shared-header-footer-type" });
-
-  const sizes = await page.evaluate(() => ({
+  const sizes = await page.evaluate(hasFooterValue => ({
     header: parseFloat(getComputedStyle(document.querySelector("#header-container .head a")).fontSize),
-    footer: [...document.querySelectorAll("#footer-container footer a")]
-      .map(link => parseFloat(getComputedStyle(link).fontSize))
-  }));
+    footer: hasFooterValue
+      ? [...document.querySelectorAll("#footer-container footer a")]
+          .map(link => parseFloat(getComputedStyle(link).fontSize))
+      : []
+  }), hasFooter);
   const roundToTenth = value => Math.round(value * 10) / 10;
 
   expect(roundToTenth(sizes.header), "Header brand font-size").toBe(expected);
-  expect(sizes.footer.length, "Footer navigation should exist").toBeGreaterThan(0);
-  for (const size of sizes.footer) {
-    expect(roundToTenth(size), "Footer navigation font-size").toBe(expected);
-    expect(Math.abs(size - sizes.header), "Header/Footer font-size should match").toBeLessThanOrEqual(0.05);
+  if (hasFooter) {
+    expect(sizes.footer.length, "Footer navigation should exist").toBeGreaterThan(0);
+    for (const size of sizes.footer) {
+      expect(roundToTenth(size), "Footer navigation font-size").toBe(expected);
+      expect(Math.abs(size - sizes.header), "Header/Footer font-size should match").toBeLessThanOrEqual(0.05);
+    }
   }
-});
+}
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   const entry = { key: "404-interaction", status: 404 };
