@@ -28,7 +28,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Audit title/meta/H1/canonical across indexable pages
 - [x] Audit sitemap/robots/internal links — sitemap exact match, 9 indexable pages, robots policy, internal links, Pages and Visual Regression verified.
 - [x] Audit artwork alt text and metadata — 69 Gallery records, accessible alt text, thumbnail/detail fallback, language/category/modal regression checks, Pages and Visual Regression verified.
-- [ ] Review copy clarity while preserving artist voice
+- [x] Review copy clarity while preserving artist voice — clarified Home, Information and Contact functional copy; retained Order/Policy/Yurayura where already clear; reviewed Biography/Artist Statement without changing substantive artistic meaning.
 - [ ] Review structured-data opportunities using verifiable visible facts
 
 ## Phase 3 - UX
@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-20: Completed copy-clarity review across current core/indexable content. Applied only meaning-preserving functional copy fixes to Home, Information and Contact; retained clear Order/Policy/Yurayura copy; Biography and Artist Statement were reviewed but substantive consolidation/rewording was intentionally deferred because it requires artist approval.
 - 2026-09-20: Established the current visual-unit governance: px for stable typography/tracking/shadow geometry, responsive `clamp(px, calc(px + vw), px)` typography, breakpoint-specific shared Header/Footer sizing, and authoritative `DESIGN_SYSTEM.md`, `QA_CHECKLIST.md`, and `SITE_MAP.md` documentation.
 - 2026-09-20: Merged PR #6 at `09f5f7b0e791420c6c6b70613b840b50dff68212`; GitHub Pages deploy run `35499140808` and post-deploy Visual Regression run `35499183314` passed, followed by public checks across the 10 required routes.
 - 2026-09-20: Completed artwork alt-text and metadata audit; verified 69 Gallery records, #1501–#1504 detail fallbacks, generated output, public Gallery interactions, Pages deployment, and post-deploy Visual Regression without changing image-index suppression.
