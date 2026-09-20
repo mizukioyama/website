@@ -76,7 +76,7 @@ input:-webkit-autofill:focus {
    position: relative;
 }
 .contact-form .input-text {
-   font-size: clamp(1.4rem, 0.733rem + 0.89vw, 1.8rem);
+   font-size: clamp(22.4px, 11.728px + 0.89vw, 28.8px);
    font-family: sans-serif;
    font-weight: 400;
    color: var(--text);
@@ -100,12 +100,12 @@ input:-webkit-autofill:focus {
 .contact-form .input-text:focus+.label,
 .contact-form .input-text:focus+.label span,
 .contact-form .input-text.not-empty+.label {
-   font-size: clamp(1.4rem, 1.067rem + 0.44vw, 1.6rem);
+   font-size: clamp(22.4px, 17.072px + 0.44vw, 25.6px);
    transform: translateY(-1.85rem);
 }
 .contact-form .label,
 .contact-form .submit-btn {
-   font-size: clamp(1.6rem, 1.267rem + 0.44vw, 1.8rem);
+   font-size: clamp(25.6px, 20.272px + 0.44vw, 28.8px);
 }
 .contact-form .label {
    font-family: "Zen Maru Gothic", serif;
@@ -118,7 +118,7 @@ input:-webkit-autofill:focus {
 }
 
 .contact-form .label span {
-   font-size: clamp(1rem, calc(0.9rem + 0.5vw), 1.2rem);
+   font-size: clamp(16px, calc(14.4px + 0.5vw), 19.2px);
    color: var(--hover);
    transition: all 0.3s ease;
 }
@@ -135,7 +135,7 @@ input:-webkit-autofill:focus {
    color: var(--bg);
    background-color: var(--text);
    text-transform: uppercase;
-   letter-spacing: 0.2rem;
+   letter-spacing: 3.2px;
    line-height: 1.5rem;
    padding: 0.5rem 0;
    margin: 1.5rem auto;
@@ -159,7 +159,7 @@ input:-webkit-autofill:focus {
    z-index: 1;
 }
 .radio-group {
-   font-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
+   font-size: clamp(28.8px, 23.472px + 0.44vw, 32px);
    display: flex;
    flex-wrap: wrap;
    gap: 1.2rem;
@@ -231,7 +231,7 @@ input:-webkit-autofill:focus {
 .align-center h3,
 #thanksModal .modal-content p,
 #thanksModal .close {
-   font-size: clamp(2rem, 1.333rem + 0.89vw, 2.4rem);
+   font-size: clamp(32px, 21.328px + 0.89vw, 38.4px);
 }
 #thanksModal .modal-content p {
    width: min(70%, calc(100% - 2rem));
@@ -269,10 +269,10 @@ input:-webkit-autofill:focus {
    .contact-form #message,
    .contact-form .submit-btn,
    .contact-form .label {
-      font-size: clamp(1.6rem, 1.256rem + 0.92vw, 2rem);
+      font-size: clamp(25.6px, 20.096px + 0.92vw, 32px);
    }
    .contact-form .input-text {
-      font-size: clamp(1.8rem, 1.628rem + 0.46vw, 2rem);
+      font-size: clamp(28.8px, 26.048px + 0.46vw, 32px);
       height: 40pt;
       padding-left: 1rem;
    }
@@ -345,22 +345,22 @@ input:-webkit-autofill:focus {
 
    .contact-form .submit-btn,
    .align-center h3 {
-      font-size: clamp(1.8rem, 1.571rem + 1.14vw, 2rem);
+      font-size: clamp(28.8px, 25.136px + 1.14vw, 32px);
    }
    .contact-form .input-text {
-      font-size: clamp(1.4rem, calc(1.2rem + 0.8vw), 1.6rem);
+      font-size: clamp(22.4px, calc(19.2px + 0.8vw), 25.6px);
       height: 40pt;
       padding-left: 1rem;
       background: var(--sub);
    }
    .contact-form #message {
       line-height: 1.4;
-      letter-spacing: 0.01rem;
+      letter-spacing: 0.16px;
    }
    .contact-form .label,
    .align-center p,
    .radio-group {
-      font-size: clamp(1.4rem, 1.171rem + 1.14vw, 1.6rem);
+      font-size: clamp(22.4px, 18.736px + 1.14vw, 25.6px);
    }
    .contact-form .label {
       left: 2.75%;
@@ -418,7 +418,7 @@ input:-webkit-autofill:focus {
 
    #thanksModal .modal-content p,
    #thanksModal .close {
-      font-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
+      font-size: clamp(25.6px, 21.936px + 1.14vw, 28.8px);
    }
    #thanksModal .modal-content p {
       margin: 0 auto;
