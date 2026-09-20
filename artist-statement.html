@@ -179,16 +179,99 @@
                 margin-top: 3rem !important;
             }
 
-            #state .content .statement-title {
+            #state .content .timeline {
+                margin-top: 5rem;
+                padding: 0;
+            }
+
+            #state .content .timeline-item {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            #state .content .timeline-title {
+                margin: 0 0 0.75rem;
                 font-size: var(--font-list-size);
                 line-height: 1.6;
                 letter-spacing: var(--legacy-px-0_02);
             }
+
+            #state .content .timeline-copy {
+                width: 100%;
+                max-width: 100%;
+                margin-left: 0.35rem;
+                padding: 0.5rem 0 2.75rem 1rem;
+                border-left: 1px solid var(--text);
+            }
+
+            #state .content .timeline-copy > p {
+                margin: 0;
+                font-size: var(--font-body-size);
+                line-height: 1.9;
+                letter-spacing: var(--legacy-px-0_02);
+                word-break: normal;
+                overflow-wrap: break-word;
+            }
+
+            #state .content .timeline-copy > p.text {
+                margin-top: 0.75rem;
+                padding-top: 0.75rem;
+                border-top: 1px solid #333;
+                font-size: max(12px, var(--font-caption-size));
+                line-height: 1.9;
+            }
+
+            #state .content .timeline-copy .timeline-title-en {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-size: var(--font-list-size);
+                line-height: 1.6;
+            }
         }
 
-        .statement-title {
+        .timeline {
+            position: relative;
+            margin: 20vmin auto 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .timeline-item {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .timeline-title {
+            margin: 0 0 0.25rem;
+            font-size: var(--font-list-size);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .timeline-copy {
+            margin: 0 0 0 0.5rem;
+            padding: 0.5rem 0 5.5rem 1rem;
+            border-left: 1px solid var(--text);
+        }
+
+        .timeline-copy > p {
+            margin: 0;
+            font-size: var(--font-body-size);
+            line-height: 1.9;
+        }
+
+        .timeline-copy > p.text {
+            margin-top: 0.75rem;
+            padding: 0.75rem 4.5rem 0 0;
+            border-top: 1px solid #333;
+            font-size: clamp(var(--legacy-px-0_65), calc(var(--legacy-px-0_5) + 0.5vw), var(--legacy-px-1));
+            line-height: 1.8;
+        }
+
+        .timeline-title-en {
             display: block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             font-size: var(--font-list-size);
             font-weight: 400;
             line-height: 1.6;
@@ -306,57 +389,73 @@
 
                 <div class="page-line"></div>
 
-                <div class="work statement-questions">
-                    <p lang="ja">
-                        <span class="statement-title">01 なぜ作るのか</span>
-                        なぜ作りたいのかは明確には言えない。ただ、気づきやゆとりを与えてくれるような何かを表現したい気持ちがある。
-                        自分の考え、人、命から浮かぶイメージ──変化するもの、見る人によって異なる見え方をするもの──に惹かれ、それを大切にしている。
-                    </p>
-                    <p lang="en" class="text">
-                        <span class="statement-title">01 Why make it</span>
-                        I can't say exactly why I want to make things. But I have a desire to express something that gives people awareness and space. I am attracted to and value images that arise from my own thoughts, people, and life - things that change, things that look different to the viewer.
-                    </p>
-
-                    <p lang="ja">
-                        <span class="statement-title">02 何に向き合っているのか</span>
-                        生きることに向き合い、人への思いやりや共感を大切にしたい。
-                        変化する感覚や思考、日常の中での体験や五感を通じて得られるものと、作品を通してつながっていきたい。
-                    </p>
-                    <p lang="en" class="text">
-                        <span class="statement-title">02 What are we facing</span>
-                        I want to face life and value compassion and empathy for others. I want to connect through my work with changing sensations and thoughts, experiences in everyday life, and things that we obtain through our five senses.
-                    </p>
-
-                    <p lang="ja">
-                        <span class="statement-title">03 表現したいものの根源</span>
-                        一人として同じ人間がいないように、作品も一つとして同じものではない。
-                        個人の内面と深く結びついているが、感情を直接表すのではなく、見る人に問いを投げかけるような存在を目指している。
-                    </p>
-                    <p lang="en" class="text">
-                        <span class="statement-title">03 The origin of what I want to express</span>
-                        Just as there is no one person who is the same, no two works are the same. Although my work is deeply connected to the inner world of individuals, I aim to create something that poses questions to the viewer, rather than directly expressing emotions.
-                    </p>
-
-                    <p lang="ja">
-                        <span class="statement-title">04「生命」とは</span>
-                        生命を感じる瞬間は限られている。だからこそ、その瞬間に感じたものだけを作品として表現している。
-                        全てを生命に見立てるわけではなく、生命と同じように限られた瞬間、感覚によって表れるものを掬い取っている。
-                    </p>
-                    <p lang="en" class="text">
-                        <span class="statement-title">04 What is "Life"</span>
-                        There are only a limited number of moments when you feel life. That is why I express only what I feel at that moment in my work. I do not liken everything to life, but rather, just like life, I capture what appears in a limited moment, through my senses.
-                    </p>
-
-                    <p lang="ja">
-                        <span class="statement-title">05「記憶」や「無意識」について</span>
-                        作者自身、そして鑑賞者の記憶や無意識の層にも触れるような作品でありたい。
-                        視点や角度によって見え方が変わることも含めて、固定されないものを表現したい。
-                    </p>
-                    <p lang="en" class="text">
-                        <span class="statement-title">05 About "memory" and "unconsciousness"</span>
-                        I want my work to touch upon the memory and unconsciousness of both the artist and the viewer. I want to express something that is not fixed, including how it looks different depending on the viewpoint or angle.
-                    </p>
-                </div>
+                <ul class="timeline">
+                    <li class="timeline-item">
+                        <p lang="ja" class="timeline-title">01 なぜ作るのか</p>
+                        <div class="timeline-copy">
+                            <p lang="ja">
+                                なぜ作りたいのかは明確には言えない。ただ、気づきやゆとりを与えてくれるような何かを表現したい気持ちがある。
+                                自分の考え、人、命から浮かぶイメージ──変化するもの、見る人によって異なる見え方をするもの──に惹かれ、それを大切にしている。
+                            </p>
+                            <p lang="en" class="text">
+                                <span class="timeline-title-en">01 Why make it</span>
+                                I can't say exactly why I want to make things. But I have a desire to express something that gives people awareness and space. I am attracted to and value images that arise from my own thoughts, people, and life - things that change, things that look different to the viewer.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <p lang="ja" class="timeline-title">02 何に向き合っているのか</p>
+                        <div class="timeline-copy">
+                            <p lang="ja">
+                                生きることに向き合い、人への思いやりや共感を大切にしたい。
+                                変化する感覚や思考、日常の中での体験や五感を通じて得られるものと、作品を通してつながっていきたい。
+                            </p>
+                            <p lang="en" class="text">
+                                <span class="timeline-title-en">02 What are we facing</span>
+                                I want to face life and value compassion and empathy for others. I want to connect through my work with changing sensations and thoughts, experiences in everyday life, and things that we obtain through our five senses.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <p lang="ja" class="timeline-title">03 表現したいものの根源</p>
+                        <div class="timeline-copy">
+                            <p lang="ja">
+                                一人として同じ人間がいないように、作品も一つとして同じものではない。
+                                個人の内面と深く結びついているが、感情を直接表すのではなく、見る人に問いを投げかけるような存在を目指している。
+                            </p>
+                            <p lang="en" class="text">
+                                <span class="timeline-title-en">03 The origin of what I want to express</span>
+                                Just as there is no one person who is the same, no two works are the same. Although my work is deeply connected to the inner world of individuals, I aim to create something that poses questions to the viewer, rather than directly expressing emotions.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <p lang="ja" class="timeline-title">04「生命」とは</p>
+                        <div class="timeline-copy">
+                            <p lang="ja">
+                                生命を感じる瞬間は限られている。だからこそ、その瞬間に感じたものだけを作品として表現している。
+                                全てを生命に見立てるわけではなく、生命と同じように限られた瞬間、感覚によって表れるものを掬い取っている。
+                            </p>
+                            <p lang="en" class="text">
+                                <span class="timeline-title-en">04 What is "Life"</span>
+                                There are only a limited number of moments when you feel life. That is why I express only what I feel at that moment in my work. I do not liken everything to life, but rather, just like life, I capture what appears in a limited moment, through my senses.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <p lang="ja" class="timeline-title">05「記憶」や「無意識」について</p>
+                        <div class="timeline-copy">
+                            <p lang="ja">
+                                作者自身、そして鑑賞者の記憶や無意識の層にも触れるような作品でありたい。
+                                視点や角度によって見え方が変わることも含めて、固定されないものを表現したい。
+                            </p>
+                            <p lang="en" class="text">
+                                <span class="timeline-title-en">05 About "memory" and "unconsciousness"</span>
+                                I want my work to touch upon the memory and unconsciousness of both the artist and the viewer. I want to express something that is not fixed, including how it looks different depending on the viewpoint or angle.
+                            </p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
 
