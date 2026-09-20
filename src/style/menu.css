@@ -43,7 +43,7 @@ nav {
     font-family: "jost", sans-serif;
     display: block;
     position: relative;
-    font-size: clamp(1.4rem, calc(1.2rem + 0.8vw), 2rem);
+    font-size: clamp(22.4px, calc(19.2px + 0.8vw), 32px);
     font-weight: 600;
     color: var(--bg);
     height: 100%;
@@ -218,7 +218,7 @@ nav {
 
 #mask p {
     font-weight: 500;
-    font-size: clamp(1.2rem, calc(1rem + 0.6vw), 1.4rem);
+    font-size: clamp(19.2px, calc(16px + 0.6vw), 22.4px);
     position: absolute;
     left: 5%;
     text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.5);
@@ -246,7 +246,7 @@ header .noise {
     margin-top: 3em;
     padding: 0.25rem;
     border-bottom: 1px solid;
-    letter-spacing: 0.07rem;
+    letter-spacing: 1.12px;
     mix-blend-mode: hard-light;
 }
 
