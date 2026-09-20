@@ -82,8 +82,7 @@ jobs:
             echo "No committed baseline exists yet; generating bootstrap snapshots."
             npx playwright test --config=playwright.config.cjs --update-snapshots
           else
-            # Temporary baseline refresh for the approved Header/Footer typography change.
-            npx playwright test --config=playwright.config.cjs --update-snapshots
+            npx playwright test --config=playwright.config.cjs
           fi
 
       - name: Upload visual evidence
@@ -94,7 +93,6 @@ jobs:
           path: |
             playwright-report
             test-results/visual
-            tests/visual/visual.spec.cjs-snapshots
           if-no-files-found: ignore
           retention-days: 14
 
