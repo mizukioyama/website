@@ -961,12 +961,11 @@ for (const entry of [
     expect(response.status()).toBe(200);
     await stabilize(page);
 
-    const englishContent = page.locator('#state .content[lang="en"]').first();
-    await expect(englishContent).toBeVisible();
+    const englishParagraph = page.locator('main .work > p.text[lang="en"]').first();
+    await expect(englishParagraph).toBeVisible();
 
-    const metrics = await englishContent.evaluate((content, key) => {
-      const paragraph = content.querySelector(".work > p");
-      const paragraphStyle = paragraph ? getComputedStyle(paragraph) : null;
+    const metrics = await englishParagraph.evaluate((paragraph, key) => {
+      const paragraphStyle = getComputedStyle(paragraph);
       const rootOverflow = Math.max(
         document.documentElement.scrollWidth,
         document.body?.scrollWidth || 0
@@ -974,14 +973,14 @@ for (const entry of [
 
       const result = {
         rootOverflow,
-        paragraphFontSize: paragraphStyle ? parseFloat(paragraphStyle.fontSize) : 0,
-        paragraphLineHeight: paragraphStyle ? parseFloat(paragraphStyle.lineHeight) : 0,
-        paragraphWordBreak: paragraphStyle?.wordBreak || "",
-        paragraphOverflowWrap: paragraphStyle?.overflowWrap || ""
+        paragraphFontSize: parseFloat(paragraphStyle.fontSize),
+        paragraphLineHeight: parseFloat(paragraphStyle.lineHeight),
+        paragraphWordBreak: paragraphStyle.wordBreak || "",
+        paragraphOverflowWrap: paragraphStyle.overflowWrap || ""
       };
 
       if (key === "artist-statement") {
-        const flow = content.querySelector(".timeline li");
+        const flow = document.querySelector('main .timeline > li p.text[lang="en"]');
         const flowStyle = flow ? getComputedStyle(flow) : null;
         result.flowFontSize = flowStyle ? parseFloat(flowStyle.fontSize) : 0;
         result.flowLineHeight = flowStyle ? parseFloat(flowStyle.lineHeight) : 0;
