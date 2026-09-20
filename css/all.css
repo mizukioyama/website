@@ -129,7 +129,7 @@ html {
 }
 
 body {
-  font-size: clamp(0.875rem, calc(0.75rem + 0.4vw), 1rem);
+  font-size: var(--font-body-size);
 }
 
 
@@ -277,7 +277,7 @@ body {
 }
 
 .typing-container p {
-  font-size: clamp(0.8rem, calc(0.7rem + 0.4vw), 1rem);
+  font-size: var(--font-body-size);
 }
 
 /*=========== lang */
@@ -387,6 +387,11 @@ body {
   --inv: #f9fafb;
   --text: #2e2e2e;
   --bg: #cedde6;
+  /* Shared typography scale for the public root-page sources. Keep the
+     minimum readable on mobile while trimming body/UI text by about 1px. */
+  --font-body-size: clamp(0.8125rem, calc(0.6875rem + 0.4vw), 0.9375rem);
+  --font-ui-size: clamp(0.9375rem, calc(0.9375rem + 0.45vw), 1.1rem);
+  --font-caption-size: clamp(0.75rem, calc(0.65rem + 0.3vw), 0.875rem);
   color-scheme: light dark;
 }
 
@@ -417,7 +422,7 @@ p {
 
 a {
   /*font-family: Arial, Helvetica, sans-serif;*/
-  font-size: clamp(1rem, calc(1rem + 0.5vw), 1.2rem);
+  font-size: var(--font-ui-size);
   color: var(--inv);
   display: block;
   height: fit-content;
