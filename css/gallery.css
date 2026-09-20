@@ -28,10 +28,38 @@ body {
 }
 
 /* index.htmlを除く共通ページのPC本文サイズをContactページと統一 */
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 600px) {
     html,
     body {
-        font-size: var(--font-body-size);
+        font-size: var(--root-font-size);
+    }
+}
+
+/* Preserve the previous non-Home rendered typography in px.
+   The old rem tokens inherited the reduced root size on these pages. */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+    :root {
+        --font-body-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.66vw), calc(9.1px + 0.35vw));
+        --font-list-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
+        --font-ui-size: clamp(calc(9.1px + 0.35vw), calc(7.8px + 0.7vw), calc(10.4px + 0.4vw));
+        --font-caption-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.45px + 0.325vw));
+        --font-table-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
+        --font-metadata-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
+        --font-category-size: clamp(calc(9.1px + 0.35vw), calc(8.32px + 0.72vw), calc(11.44px + 0.44vw));
+        --font-pagination-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
+    }
+}
+
+@media screen and (min-width: 900px) {
+    :root {
+        --font-body-size: clamp(10.5px, calc(9.1px + 0.4vw), 12.25px);
+        --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
+        --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);
+        --font-table-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
+        --font-metadata-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-category-size: clamp(12.25px, calc(11.2px + 0.4vw), 15.4px);
+        --font-pagination-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
     }
 }
 
