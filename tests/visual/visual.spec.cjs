@@ -185,16 +185,37 @@ async function assertBilingualPage(page, label) {
     const languageControl = document.querySelector("#langChenge");
     const proseLanguages = [...document.querySelectorAll("main .work > p[lang]")]
       .map(element => element.getAttribute("lang"));
-    const timelineItems = [...document.querySelectorAll("main .timeline > li")].map(item => ({
-      japanese: item.querySelectorAll(':scope > p[lang="ja"]').length,
-      english: item.querySelectorAll(':scope > p.text[lang="en"]').length
-    }));
+    const proseElements = [...document.querySelectorAll("main .work > p[lang]")];
+    const englishPairVisuals = proseElements
+      .filter(element => element.getAttribute("lang") === "en")
+      .map(element => {
+        const style = getComputedStyle(element);
+        const next = element.nextElementSibling;
+        const nextStyle = next ? getComputedStyle(next) : null;
+        return {
+          borderTopWidth: parseFloat(style.borderTopWidth) || 0,
+          borderTopStyle: style.borderTopStyle,
+          nextLanguage: next?.getAttribute("lang") || null,
+          nextMarginTop: nextStyle ? parseFloat(nextStyle.marginTop) || 0 : null
+        };
+      });
+    const timelineItems = [...document.querySelectorAll("main .timeline > li")].map(item => {
+      const english = item.querySelector(':scope > p.text[lang="en"]');
+      const style = english ? getComputedStyle(english) : null;
+      return {
+        japanese: item.querySelectorAll(':scope > p[lang="ja"]').length,
+        english: item.querySelectorAll(':scope > p.text[lang="en"]').length,
+        englishBorderTopWidth: style ? parseFloat(style.borderTopWidth) || 0 : 0,
+        englishBorderTopStyle: style?.borderTopStyle || ""
+      };
+    });
     return {
       japaneseRegions: [...document.querySelectorAll('[lang="ja"]')].filter(visible).length,
       englishRegions: [...document.querySelectorAll('[lang="en"]')].filter(visible).length,
       languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden),
       standaloneEnglishContent: document.querySelectorAll('main .state-box > .content[lang="en"]').length,
       proseLanguages,
+      englishPairVisuals,
       timelineItems
     };
   });
@@ -208,11 +229,22 @@ async function assertBilingualPage(page, label) {
     expect(state.proseLanguages[index], label + " prose pair should start in Japanese").toBe("ja");
     expect(state.proseLanguages[index + 1], label + " prose pair should place English directly after Japanese").toBe("en");
   }
+  for (let index = 0; index < state.englishPairVisuals.length; index += 1) {
+    const pair = state.englishPairVisuals[index];
+    expect(pair.borderTopWidth, label + " English translation should have a divider").toBeGreaterThanOrEqual(1);
+    expect(pair.borderTopStyle, label + " English divider should be visible").not.toBe("none");
+    if (index < state.englishPairVisuals.length - 1) {
+      expect(pair.nextLanguage, label + " next bilingual pair should restart in Japanese").toBe("ja");
+      expect(pair.nextMarginTop, label + " bilingual pairs should keep a readable gap").toBeGreaterThan(0);
+    }
+  }
   if (label === "artist-statement") {
     expect(state.timelineItems).toHaveLength(5);
     for (const item of state.timelineItems) {
       expect(item.japanese, "Artist Statement timeline item should contain Japanese title/body").toBeGreaterThanOrEqual(2);
       expect(item.english, "Artist Statement timeline item should contain one English translation").toBe(1);
+      expect(item.englishBorderTopWidth, "Artist Statement timeline English should have a divider").toBeGreaterThanOrEqual(1);
+      expect(item.englishBorderTopStyle, "Artist Statement timeline divider should be visible").not.toBe("none");
     }
   }
 }
