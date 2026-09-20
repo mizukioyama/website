@@ -27,7 +27,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 ## Phase 2 - SEO and content
 - [x] Audit title/meta/H1/canonical across indexable pages
 - [x] Audit sitemap/robots/internal links — sitemap exact match, 9 indexable pages, robots policy, internal links, Pages and Visual Regression verified.
-- [ ] Audit artwork alt text and metadata
+- [x] Audit artwork alt text and metadata — 69 Gallery records, accessible alt text, thumbnail/detail fallback, language/category/modal regression checks, Pages and Visual Regression verified.
 - [ ] Review copy clarity while preserving artist voice
 - [ ] Review structured-data opportunities using verifiable visible facts
 
@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-20: Completed artwork alt-text and metadata audit; verified 69 Gallery records, #1501–#1504 detail fallbacks, generated output, public Gallery interactions, Pages deployment, and post-deploy Visual Regression without changing image-index suppression.
 - 2026-09-20: Sitemap/internal-link/image-index controls were implemented and audited; final closure remains open because the GitHub Pages project-site `/website/robots.txt` is not a host-root robots.txt file.
 - 2026-09-20: Completed indexable-page title/meta/H1/canonical audit; corrected Home heading semantics without changing approved visuals and extended SEO checks for indexable metadata uniqueness, generated H1/OG URL alignment and exact sitemap URL integrity.
 - 2026-09-20: Completed Phase 1 navigation/conversion audit by reusing existing Gallery, Order, Contact, 404 and Yurayura interaction coverage and adding only missing Home menu, Information -> Yurayura, external exhibition CTA destination/safety, and Policy-path checks on desktop/mobile.
