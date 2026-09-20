@@ -183,16 +183,38 @@ async function assertBilingualPage(page, label) {
       return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
     };
     const languageControl = document.querySelector("#langChenge");
+    const proseLanguages = [...document.querySelectorAll("main .work > p[lang]")]
+      .map(element => element.getAttribute("lang"));
+    const timelineItems = [...document.querySelectorAll("main .timeline > li")].map(item => ({
+      japanese: item.querySelectorAll(':scope > p[lang="ja"]').length,
+      english: item.querySelectorAll(':scope > p.text[lang="en"]').length
+    }));
     return {
       japaneseRegions: [...document.querySelectorAll('[lang="ja"]')].filter(visible).length,
       englishRegions: [...document.querySelectorAll('[lang="en"]')].filter(visible).length,
-      languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden)
+      languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden),
+      standaloneEnglishContent: document.querySelectorAll('main .state-box > .content[lang="en"]').length,
+      proseLanguages,
+      timelineItems
     };
   });
 
   expect(state.japaneseRegions, label + " should show Japanese regions").toBeGreaterThan(0);
   expect(state.englishRegions, label + " should show English regions").toBeGreaterThan(0);
   expect(state.languageControlVisible, label + " should hide the language switch UI").toBe(false);
+  expect(state.standaloneEnglishContent, label + " should not keep a separate English content block").toBe(0);
+  expect(state.proseLanguages.length % 2, label + " prose should contain Japanese/English pairs").toBe(0);
+  for (let index = 0; index < state.proseLanguages.length; index += 2) {
+    expect(state.proseLanguages[index], label + " prose pair should start in Japanese").toBe("ja");
+    expect(state.proseLanguages[index + 1], label + " prose pair should place English directly after Japanese").toBe("en");
+  }
+  if (label === "artist-statement") {
+    expect(state.timelineItems).toHaveLength(5);
+    for (const item of state.timelineItems) {
+      expect(item.japanese, "Artist Statement timeline item should contain Japanese title/body").toBeGreaterThanOrEqual(2);
+      expect(item.english, "Artist Statement timeline item should contain one English translation").toBe(1);
+    }
+  }
 }
 
 async function assertResponsivePageGeometry(page, entry) {
