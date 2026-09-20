@@ -26,7 +26,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 
 ## Phase 2 - SEO and content
 - [x] Audit title/meta/H1/canonical across indexable pages
-- [ ] Audit sitemap/robots/internal links — implementation complete; final check/Pages/Visual Regression verification pending.
+- [x] Audit sitemap/robots/internal links — sitemap exact match, 9 indexable pages, robots policy, internal links, Pages and Visual Regression verified.
 - [ ] Audit artwork alt text and metadata
 - [ ] Review copy clarity while preserving artist voice
 - [ ] Review structured-data opportunities using verifiable visible facts
