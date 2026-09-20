@@ -80,7 +80,7 @@ jobs:
         run: |
           if [ "${{ steps.baseline.outputs.exists }}" = "false" ]; then
             echo "No committed baseline exists yet; generating bootstrap snapshots."
-            npx playwright test --config=playwright.config.cjs --update-snapshots
+            npx playwright test --config=playwright.config.cjs --update-snapshots --workers=1 --timeout=60000
           else
             npx playwright test --config=playwright.config.cjs --update-snapshots
           fi
