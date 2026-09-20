@@ -1,6 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
+const { minify: minifyHtml } = require("html-minifier-terser");
 
 const root = path.resolve(__dirname, "..");
 const outputDirectory = path.join(root, "docs");
@@ -31,13 +32,34 @@ function listExhibitionIndexSources(directory = path.join(root, "src", "exhibiti
    });
 }
 
-function normalizeKnownPostBuildHtml(content) {
-   return content
-      .replace(/css\/menu\.css(?:\?v=[^"']*)?/g, "css/menu.css")
+async function normalizeKnownPostBuildHtml(content) {
+   const knownTransformsNormalized = content
+      .replace(/css\/menu\.css(?:\?v=[^"'\s>]*)?/g, "css/menu.css")
       .replace(/css\/form\.css(?:\?v=[^"']*)?/g, "css/form.css")
-      .replace(/js\/form\.js(?:\?v=[^"']*)?/g, "js/form.js")
+      .replace(/js\/form\.js(?:\?v=[^"'\s>]*)?/g, "js/form.js")
       .replace(/Nature inspire/g, "NatureInspire")
       .replace(/Nature Inspire/g, "NatureInspire");
+
+   const minified = await minifyHtml(knownTransformsNormalized, {
+      collapseWhitespace: true,
+      minifyCSS: true,
+      minifyJS: true,
+      keepClosingSlash: true,
+      removeAttributeQuotes: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
+   });
+
+   return minified
+      .replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi, (full, open, source, close) => {
+         if (!/\btype\s*=\s*(?:["']application\/ld\+json["']|application\/ld\+json)/i.test(open)) {
+            return full;
+         }
+         return open + JSON.stringify(JSON.parse(source)) + close;
+      });
 }
 
 function listHtmlFiles(directory) {
@@ -56,6 +78,7 @@ function listHtmlFiles(directory) {
    });
 }
 
+async function main() {
 if (!fs.existsSync(outputDirectory)) {
    console.error("Generated output directory is missing: docs/");
    process.exitCode = 1;
@@ -160,10 +183,10 @@ for (const pair of directCopyPairs) {
    const source = fs.readFileSync(sourcePath, "utf8");
    const output = fs.readFileSync(outputPath, "utf8");
    const comparableSource = /\.html?$/i.test(pair.source)
-      ? normalizeKnownPostBuildHtml(source)
+      ? await normalizeKnownPostBuildHtml(source)
       : source;
    const comparableOutput = /\.html?$/i.test(pair.output)
-      ? normalizeKnownPostBuildHtml(output)
+      ? await normalizeKnownPostBuildHtml(output)
       : output;
 
    if (comparableSource !== comparableOutput) {
@@ -180,3 +203,9 @@ if (failures.length > 0) {
 } else {
    console.log(`Generated site consistency check passed (${scriptCount} scripts).`);
 }
+}
+
+main().catch(error => {
+   console.error(error);
+   process.exitCode = 1;
+});

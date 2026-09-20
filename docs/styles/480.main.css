@@ -28,7 +28,8 @@
 
       /* 質問コンテナ */
       .container {
-          width: 850px;
+          width: min(850px, calc(100% - clamp(2rem, calc(1rem + 4vw), 4rem)));
+          max-width: 100%;
           background: #fff;
           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
           border-radius: 8px;
@@ -59,7 +60,7 @@
 
       /* 質問のテキスト */
       .container h2 {
-          font-size: clamp(1.1rem, calc(0.9rem + 0.5vw), 1.4rem);
+          font-size: clamp(1.2rem, calc(1rem + 0.5vw), 1.4rem);
           color: #4a90e2;
           margin-bottom: 15px;
           text-align: center;
@@ -67,13 +68,13 @@
 
       /* コンテンツ部分 */
       .container p {
-          font-size: clamp(0.85rem, calc(0.75rem + 0.4vw), 1rem);
+          font-size: clamp(0.9rem, calc(0.75rem + 0.5vw), 1rem);
           color: #333;
           margin-bottom: 20px;
       }
 
       .container span {
-        font-size: clamp(0.85rem, calc(0.75rem + 0.4vw), 1rem);
+        font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem);
         font-weight: 400;
       }
 
@@ -93,7 +94,7 @@
           border: none;
           border-radius: 25px;
           padding: 10px 20px;
-          font-size: clamp(0.85rem, calc(0.75rem + 0.4vw), 1rem);
+          font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem);
           cursor: pointer;
           transition: all 0.3s ease;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -117,14 +118,15 @@
       input {
         border: none;
         border-bottom: 1px solid;
-        font-size: clamp(0.85rem, calc(0.75rem + 0.4vw), 1rem);
+        font-size: clamp(0.9rem, calc(0.8rem + 0.4vw), 1rem);
         margin: 1vmin auto;
         padding: 0.5vmin;
       }
 
       #name,
       #address {
-        width: 40%;
+        width: min(40%, calc(100% - 2rem));
+        max-width: 100%;
       }
 
       input:focus {
@@ -134,19 +136,29 @@
       /* レスポンシブデザイン */
       @media screen and (max-width: 768px) {
           .container {
-            width: 90%;
+            width: min(90%, calc(100% - 2rem));
             min-height: 100vh;
           }
           .container h2 {
-            font-size: clamp(1rem, calc(0.9rem + 0.4vw), 1.2rem);
+            font-size: clamp(1.1rem, calc(0.95rem + 0.4vw), 1.2rem);
           }
           #question-container {
             font-weight: 400;
           }
           button {
-              font-size: clamp(0.8rem, calc(0.7rem + 0.3vw), 0.9rem);
+              font-size: clamp(0.85rem, calc(0.75rem + 0.3vw), 0.9rem);
               padding: 8px 15px;
           }
+      }
+
+      #contact-info {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #consultation {
+        width: min(100%, calc(100vw - 2rem));
+        max-width: 100%;
       }
 
 

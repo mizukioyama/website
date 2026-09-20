@@ -616,6 +616,7 @@ for (const page of exhibitionPages) {
 const sourceSitemap = readFile("sitemap.xml");
 validateSitemap("sitemap.xml", sourceSitemap, failures);
 validateProjectSiteRobotsAbsence("robots.txt", root, failures);
+validateProjectSiteRobotsAbsence("src/public/robots.txt", root, failures);
 
 if (!sourceOnly) {
    validateSitemap("docs/sitemap.xml", readFile("sitemap.xml", outputDirectory), failures);
