@@ -455,6 +455,19 @@ body {
   --legacy-px-8: 128px;
   --legacy-px-9: 144px;
   --legacy-px-10: 160px;
+  --legacy-px-0_5984: 9.5744px;
+  /* Fixed px tracking derived from the corresponding visual text tokens. */
+  --tracking-body-010: clamp(1.2px, calc(1.04px + 0.04vw), 1.4px);
+  --tracking-body-008: clamp(0.96px, calc(0.832px + 0.032vw), 1.12px);
+  --tracking-body-002: clamp(0.24px, calc(0.208px + 0.008vw), 0.28px);
+  --tracking-list-005: clamp(0.55px, calc(0.48px + 0.015vw), 0.64px);
+  --tracking-list-012: clamp(1.32px, calc(1.152px + 0.036vw), 1.536px);
+  --tracking-table-005: clamp(0.6px, calc(0.52px + 0.015vw), 0.7px);
+  --tracking-category-001: clamp(0.14px, calc(0.128px + 0.004vw), 0.176px);
+  --tracking-ui-015: clamp(2.1px, calc(1.8px + 0.06vw), 2.4px);
+  --legacy-px-0_66: 10.56px;
+  --legacy-px-0_7216: 11.5456px;
+  --legacy-px-0_836: 13.376px;
   color-scheme: light dark;
 }
 
