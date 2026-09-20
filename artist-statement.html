@@ -153,7 +153,7 @@
             }
 
             #state .content .work > p {
-                font-size: clamp(0.95rem, calc(0.9rem + 0.2vw), 1rem);
+                font-size: var(--font-body-size);
                 line-height: 2;
                 letter-spacing: 0.02rem;
                 word-break: normal;
@@ -172,7 +172,7 @@
                 width: 100%;
                 max-width: 100%;
                 margin-top: 0;
-                font-size: 0.84rem;
+                font-size: var(--font-list-size);
                 line-height: 1.6;
                 letter-spacing: 0.02rem;
             }
@@ -184,7 +184,7 @@
                 padding-left: 1rem;
                 padding-bottom: 2.75rem;
                 border-left: 1px solid var(--text);
-                font-size: 0.9rem;
+                font-size: var(--font-body-size);
                 line-height: 1.9;
                 letter-spacing: 0.02rem;
                 word-break: normal;
@@ -198,12 +198,12 @@
         }
 
         .timeline ul {
-            font-size: clamp(0.65rem, calc(0.55rem + 0.4vw), 0.7rem);
+            font-size: var(--font-list-size);
             font-weight: 400;
             margin-top: 1vmin;
         }
         .timeline li {
-            font-size: clamp(0.7rem, calc(0.6rem + 0.4vw), 0.85rem);
+            font-size: var(--font-body-size);
             margin-left: 0.5rem;
             border-left: 1px solid var(--text);
         }
@@ -217,7 +217,7 @@
     </style>
 </head>
 
-<body id="state">
+<body id="state" data-language-mode="bilingual">
     <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
         <a href="/website/">Home</a>

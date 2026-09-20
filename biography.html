@@ -185,7 +185,7 @@
             }
 
             #bio #state .content .work > p {
-                font-size: clamp(0.95rem, calc(0.9rem + 0.2vw), 1rem);
+                font-size: var(--font-body-size);
                 line-height: 2;
                 letter-spacing: 0.02rem;
                 word-break: normal;
@@ -195,7 +195,7 @@
             #bio #state .content .work > p.text {
                 margin-top: 0.75rem !important;
                 padding: 0.75rem 0 0 !important;
-                font-size: clamp(0.84rem, calc(0.8rem + 0.2vw), 0.9rem);
+                font-size: var(--font-caption-size);
                 line-height: 1.9;
             }
 
@@ -212,25 +212,25 @@
             }
 
             #bio th {
-                font-size: 0.78rem;
+                font-size: var(--font-table-size);
                 line-height: 1.45;
             }
 
             #bio td.year {
                 width: 28%;
                 padding-right: 0.75rem;
-                font-size: 0.82rem;
+                font-size: var(--font-table-size);
                 line-height: 1.6;
             }
 
             #bio td.tb-content {
                 width: 72%;
-                font-size: 0.82rem;
+                font-size: var(--font-table-size);
                 line-height: 1.65;
             }
 
             #bio td.tb-content span {
-                font-size: 0.74rem;
+                font-size: var(--font-metadata-size);
                 line-height: 1.6;
             }
         }
@@ -252,7 +252,7 @@
 
         th {
             text-align: left;
-            font-size: clamp(0.85rem, calc(0.75rem + 0.3vw), 1rem);
+            font-size: var(--font-table-size);
             color: #999;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -262,18 +262,18 @@
         td.year {
             width: 20%;
             white-space: nowrap;
-            font-size: clamp(0.8rem, calc(0.7rem + 0.4vw), 0.9rem);
+            font-size: var(--font-table-size);
             font-weight: 400;
         }
 
         td.tb-content {
             width: 80%;
-            font-size: clamp(0.75rem, calc(0.6rem + 0.5vw), 0.9rem);
+            font-size: var(--font-table-size);
             font-weight: 300;
         }
 
         td.tb-content span {
-            font-size: clamp(0.65rem, calc(0.5rem + 0.4vw), 0.8rem);
+            font-size: var(--font-metadata-size);
             overflow-wrap: anywhere;
         }
 
@@ -293,7 +293,7 @@
     </style>
 </head>
 
-<body id="bio">
+<body id="bio" data-language-mode="bilingual">
     <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
         <a href="/website/">Home</a>

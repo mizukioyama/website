@@ -38,7 +38,7 @@
 
     .art-page #sidebar-container { position: absolute; top: calc(80svh + 10vmin - 3.25rem - 10px); left: calc(5% + 5vmin); right: auto; z-index: 3000; display: block; width: auto; min-width: 0; padding: 0; border: 0; overflow: visible; pointer-events: auto; isolation: isolate; }
 
-    .art-page #category-header { position: relative; top: auto; left: auto; width: max-content; min-width: 8.5rem; min-height: 3.25rem; margin: 0; padding: 0.7rem 1.2rem 0.6rem 10px !important; border: 0 !important; border-bottom: 1px solid currentColor !important; border-radius: 0 !important; line-height: 1.15; font-size: clamp(1rem, 4.6vw, 1.25rem) !important; display: flex; align-items: center; justify-content: flex-start !important; text-align: left !important; z-index: 2; pointer-events: auto; touch-action: manipulation; cursor: pointer; white-space: nowrap; user-select: none; -webkit-user-select: none; animation: none !important; background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; mask: none !important; -webkit-mask: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: initial !important; text-shadow: none !important; }
+    .art-page #category-header { position: relative; top: auto; left: auto; width: max-content; min-width: 8.5rem; min-height: 3.25rem; margin: 0; padding: 0.7rem 1.2rem 0.6rem 10px !important; border: 0 !important; border-bottom: 1px solid currentColor !important; border-radius: 0 !important; line-height: 1.15; font-size: var(--font-category-size) !important; display: flex; align-items: center; justify-content: flex-start !important; text-align: left !important; z-index: 2; pointer-events: auto; touch-action: manipulation; cursor: pointer; white-space: nowrap; user-select: none; -webkit-user-select: none; animation: none !important; background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; mask: none !important; -webkit-mask: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: initial !important; text-shadow: none !important; }
 
     body.art-page main.gallery #category-header::before {
         content: "・Category" !important;
@@ -49,7 +49,7 @@
         font-variation-settings: "wght" 100 !important;
         font-synthesis: none !important;
         font-synthesis-weight: none !important;
-        font-size: clamp(1rem, 4.6vw, 1.25rem) !important;
+        font-size: var(--font-category-size) !important;
         line-height: 1.15 !important;
         letter-spacing: 0.01em !important;
         color: var(--inv) !important;
@@ -73,7 +73,7 @@
     .art-page #category-menu.mobile-open { max-height: 60svh; padding: 0.75rem 0.85rem; gap: 5px; overflow-y: auto; opacity: 1; visibility: visible; pointer-events: auto; }
 
     body p:nth-child(n+1) { margin-left: 0 !important; }
-    .art-page .gallery p:nth-child(n+1) { font-size: clamp(0.75rem, calc(0.65rem + 0.35vw), 0.8rem) !important; margin-left: 0 !important; }
+    .art-page .gallery p:nth-child(n+1) { font-size: var(--font-caption-size) !important; margin-left: 0 !important; }
 
     .gallery .content, #state .content, #contact .content, #policy .content { margin: 0 auto; width: 100%; height: 100%; margin: 115vmin auto 0; margin: 80svh auto 0; padding: 0 3vmin; backdrop-filter: none; gap: 3vmin; }
     #state .content { margin: 0; }
@@ -81,7 +81,7 @@
     #state .content li::before, #policy .content li::before { top: 50%; }
     .gallery .content { width: 100%; padding: 0 5vmin; gap: 0; margin-top: 80svh; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .gallery-containt { width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem))); max-width: 100%; margin-inline: auto; }
-    #policy .content li { font-size: clamp(0.6rem, calc(0.5rem + 0.35vw), 0.65rem); padding-left: 1rem; }
+    #policy .content li { font-size: var(--font-list-size); padding-left: 1rem; }
     .works { padding: 0; }
     .work { justify-content: flex-start; }
     .art-page .work { min-height: 350px; justify-content: flex-start; }

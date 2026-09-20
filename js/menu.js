@@ -348,6 +348,10 @@ function getStoredLanguage() {
   }
 }
 
+function isBilingualPage() {
+  return document.body?.dataset.languageMode === "bilingual";
+}
+
 function storeLanguage(language) {
   try {
     localStorage.setItem("selectedLang", language);
@@ -374,7 +378,9 @@ multi_language.prototype.get_lang_lists = function () {
 multi_language.prototype.set_current_lang = function () {
   const storedLang = getStoredLanguage();
   currentLang = storedLang;
-  document.documentElement?.setAttribute('lang', storedLang);
+  if (!isBilingualPage()) {
+    document.documentElement?.setAttribute('lang', storedLang);
+  }
   this.checked_lang_list(storedLang);
   this.update_active_class(storedLang);
 };
@@ -390,6 +396,7 @@ multi_language.prototype.checked_lang_list = function (language) {
 };
 
 multi_language.prototype.click_lang = function (e) {
+  if (isBilingualPage()) return;
   const lang = normalizeLanguage(e?.target?.value);
   currentLang = lang;
   storeLanguage(lang);
@@ -399,6 +406,16 @@ multi_language.prototype.click_lang = function (e) {
 };
 
 multi_language.prototype.update_active_class = function (lang) {
+  if (isBilingualPage()) {
+    const languageControl = document.querySelector('#langChenge');
+    languageControl?.setAttribute('hidden', 'hidden');
+    languageControl?.setAttribute('aria-hidden', 'true');
+    document.querySelectorAll('[lang="ja"],[lang="en"]').forEach(element => {
+      element.style.display = 'block';
+    });
+    return;
+  }
+
   // ボタンのactive切り替え
   const jaDiv = document.querySelector('#langChenge .ja');
   const enDiv = document.querySelector('#langChenge .en');

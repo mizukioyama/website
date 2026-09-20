@@ -1,5 +1,13 @@
 # Header / Footer Review Report
 
+## 2026-09-20 Phase 3 bilingual and typography audit
+
+- Base verified against `ad577fcae63180a1dfca1a41c6c08a8c5320a3a3` on branch `phase3-bilingual-mobile-typography-audit`.
+- Biography and Artist Statement now keep both `lang="ja"` and `lang="en"` regions visible while hiding only the language-switch UI; stored language preference remains available to Gallery.
+- Root typography tokens were consolidated for body, list, UI, caption, table, metadata, category, and pagination text. Heading hierarchy and page structures were not redesigned.
+- `npm run build`, `check:js`, `check:generated`, `check:seo`, `check:links`, and the combined `npm run check` completed successfully locally.
+- Playwright package execution is not available in this local checkout; browser smoke checks were performed against generated `docs/` with the persistent browser. Full seven-viewport CI and Pages verification remain pending.
+
 ## 2026-09-11 Non-Index Body Text 12-14px
 
 - Changed the PC non-index base and paragraph clamp to `clamp(12px, calc(10px + 0.4vw), 14px)`.

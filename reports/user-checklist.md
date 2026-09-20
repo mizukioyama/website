@@ -1,5 +1,15 @@
 # User Checklist
 
+## 2026-09-20 Phase 3 review gates
+
+- [ ] Review the source-of-truth mapping and retained legacy/reference classifications.
+- [ ] Confirm Biography and Artist Statement show Japanese and English simultaneously.
+- [ ] Confirm the language switch UI is hidden only on those bilingual pages.
+- [ ] Confirm an English Gallery preference is preserved after returning from either bilingual page.
+- [ ] Review Typography at 1440, 1280, 1024, 768, 430, 390, and 375px.
+- [ ] Confirm no unintended wrapping, overflow, table, form, Gallery, Yurayura, or 404 regression.
+- [ ] Confirm CI Visual Regression and Pages checks before any merge or ROADMAP close.
+
 - [ ] Confirm PC body paragraphs on all non-index pages use the 12px–14px clamp.
 - [ ] Confirm index.html is excluded.
 - [ ] Confirm computed PC paragraph size is 12px–14px on all non-index pages after a hard reload.

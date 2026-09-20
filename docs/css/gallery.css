@@ -31,7 +31,7 @@ body {
 @media screen and (min-width: 601px) {
     html,
     body {
-        font-size: clamp(12px, calc(10px + 0.4vw), 13px);
+        font-size: var(--font-body-size);
     }
 }
 
@@ -261,7 +261,7 @@ img:hover {
 }
 
 p {
-    font-size: clamp(0.75rem, calc(0.4rem + 0.8vw), 1.25rem);
+    font-size: var(--font-body-size);
     letter-spacing: 0.05rem;
     line-height: 2.4;
 }
@@ -269,11 +269,12 @@ p {
 /* 共通p定義より後ろでPC本文サイズを確実に適用 */
 @media screen and (min-width: 601px) {
     p {
-        font-size: clamp(12px, calc(10px + 0.4vw), 13px);
+        font-size: var(--font-body-size);
     }
 }
 
 main li {
+    font-size: var(--font-list-size);
     position: relative;
     color: var(--inv);
     margin-bottom: 2vmin;
@@ -358,7 +359,7 @@ main li {
 }
 
 #category-menu p {
-    font-size: clamp(1.2rem, calc(0.4rem + 1vw), 2rem);
+    font-size: var(--font-category-size);
     font-weight: 400;
     line-height: 1.2;
 }
@@ -368,7 +369,7 @@ main li {
 }
 
 #category-menu li {
-    font-size: clamp(0.9375rem, calc(0.7rem + 0.8vw), 1.5rem);
+    font-size: var(--font-category-size);
     margin-left: 1rem;
     padding: 0 0 0 0.5vmin;
     width: 100%;
@@ -393,7 +394,7 @@ main li {
 
 #category-header {
     cursor: pointer;
-    font-size: clamp(1.4rem, calc(1.1rem + 0.7vw), 1.8rem);
+    font-size: var(--font-category-size);
     font-weight: 400;
     width: 100%;
     top: 0;
@@ -425,7 +426,7 @@ main li {
     }
 
     #category-header {
-        font-size: clamp(1.4rem, calc(1.2rem + 0.5vw), 1.6rem);
+        font-size: var(--font-category-size);
         font-weight: bold;
         padding: 0.35rem 1vmin;
         top: 2px;
@@ -455,7 +456,7 @@ main li {
     }
 
     #sidebar-container ul li {
-        font-size: clamp(0.9rem, calc(0.75rem + 0.4vw), 1rem);
+        font-size: var(--font-category-size);
     }
 
     .work .noise {
@@ -465,7 +466,7 @@ main li {
 
 
 #pagination {
-    font-size: clamp(0.9375rem, 0.55rem + 0.52vw, 1.1rem);
+    font-size: var(--font-pagination-size);
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -717,7 +718,7 @@ main {
 }
 
 #state .content li span {
-    font-size: clamp(0.65rem, calc(0.55rem + 0.4vw), 0.85rem);
+    font-size: var(--font-metadata-size);
 }
 
 /*#state .content li::before,
