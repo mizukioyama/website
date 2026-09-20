@@ -6,10 +6,10 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering
 - [x] Master specification
-- [x] Site/change map
-- [x] Design/motion policy
+- [x] Site/change map (`SITE_MAP.md`)
+- [x] Design/motion/unit policy (`DESIGN_SYSTEM.md`)
 - [x] SEO/content policy
-- [x] QA/regression policy
+- [x] QA/regression policy (`QA_CHECKLIST.md`)
 - [x] Verify all source -> build -> docs mappings and update SITE_MAP
 - [x] Add automated visual regression tooling if absent
 
@@ -32,7 +32,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Review structured-data opportunities using verifiable visible facts
 
 ## Phase 3 - UX
-- [x] Verify shared spacing/typography/component consistency — typography scale finalized with clamp() across 1440/1280/1024/768/430/390/375 px; main CI, Pages deploy, public checks, and Visual Regression verified.
+- [x] Verify shared spacing/typography/component consistency — typography uses px-based fixed/min/max terms with responsive clamp() interpolation; Header/Footer share breakpoint-specific type tokens across 1440/1280/1024/768/430/390/375 px; CI, Pages deploy, public checks, and Visual Regression verified.
 - [ ] Optimize mobile gallery/artwork viewing
 - [ ] Verify Biography/Statement reading comfort
 - [ ] Verify Order flow and Contact path
@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-20: Established the current visual-unit governance: px for stable typography/tracking/shadow geometry, responsive `clamp(px, calc(px + vw), px)` typography, breakpoint-specific shared Header/Footer sizing, and authoritative `DESIGN_SYSTEM.md`, `QA_CHECKLIST.md`, and `SITE_MAP.md` documentation.
 - 2026-09-20: Merged PR #6 at `09f5f7b0e791420c6c6b70613b840b50dff68212`; GitHub Pages deploy run `35499140808` and post-deploy Visual Regression run `35499183314` passed, followed by public checks across the 10 required routes.
 - 2026-09-20: Completed artwork alt-text and metadata audit; verified 69 Gallery records, #1501–#1504 detail fallbacks, generated output, public Gallery interactions, Pages deployment, and post-deploy Visual Regression without changing image-index suppression.
 - 2026-09-20: Sitemap/internal-link/image-index controls were implemented and audited; final closure remains open because the GitHub Pages project-site `/website/robots.txt` is not a host-root robots.txt file.

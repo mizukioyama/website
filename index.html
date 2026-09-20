@@ -545,7 +545,7 @@
             max-width: 400px;
             height: 60%;
             line-height: 2;
-            letter-spacing: 0.08em;
+            letter-spacing: var(--tracking-body-008);
             overflow: hidden;
             overflow-y: scroll;
             border: 1px solid rgba(255, 255, 255, 0.35);
@@ -559,12 +559,12 @@
         }
 
         .modal-box h2 {
-            font-size: clamp(1.4rem, calc(1.1rem + 0.8vw), 1.8rem);
+            font-size: clamp(var(--legacy-px-1_4), calc(var(--legacy-px-1_1) + 0.8vw), var(--legacy-px-1_8));
             font-weight: 300;
         }
 
         .modal-box h3 {
-            font-size: clamp(1rem, calc(0.85rem + 0.4vw), 1.2rem);
+            font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_85) + 0.4vw), var(--legacy-px-1_2));
             margin-top: 6rem;
             margin-bottom: 1vmin;
             border-bottom: 1px solid;
@@ -572,7 +572,7 @@
         }
 
         .modal-box p {
-            font-size: clamp(0.8rem, calc(0.65rem + 0.5vw), 0.9rem);
+            font-size: clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_65) + 0.5vw), var(--legacy-px-0_9));
             font-weight: 300;
         }
 
@@ -596,7 +596,7 @@
             }
 
             .modal-box p {
-                letter-spacing: 0.05rem;
+                letter-spacing: var(--legacy-px-0_05);
             }
         }
     </style>

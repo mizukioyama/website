@@ -164,29 +164,30 @@ document.addEventListener("DOMContentLoaded", function () {
     .radio-group label { letter-spacing: 1px; }
     .request-options { border: 0; padding: 0; margin: 1.75rem 0 .5rem; color: var(--inv); }
     .request-options[hidden] { display: none !important; }
-    .request-options legend { margin-bottom: .85rem; font-size: clamp(.8rem, calc(.7rem + .35vw), 1rem); font-weight: 300; letter-spacing: 1px; opacity: .65; }
+    .request-options legend { margin-bottom: .85rem; font-size: clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_7) + .35vw), var(--legacy-px-1)); font-weight: 300; letter-spacing: 1px; opacity: .65; }
     .request-options legend span { margin-left: .45rem; letter-spacing: 1px; }
     .request-option-list { display: grid; grid-template-columns: repeat(3, max-content); grid-auto-rows: auto; column-gap: 24px; row-gap: 12px; justify-content: start; align-items: stretch; }
     .request-option-list input[type="radio"] { display: none; }
-    .request-option-list label { display: flex; flex-direction: column; justify-content: center; width: max-content; max-width: 100%; min-width: 0; min-height: 0; margin: 0 !important; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(.75rem, calc(.68rem + .3vw), .95rem); line-height: 1.45; letter-spacing: 1px; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; box-sizing: border-box; }
-    .request-option-list label span { font-size: .88em; }
+    .request-option-list label { display: flex; flex-direction: column; justify-content: center; width: max-content; max-width: 100%; min-width: 0; min-height: 0; margin: 0 !important; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(var(--legacy-px-0_75), calc(var(--legacy-px-0_68) + .3vw), var(--legacy-px-0_95)); line-height: 1.45; letter-spacing: 1px; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; box-sizing: border-box; }
+    .request-option-list label span { font-size: clamp(var(--legacy-px-0_66), calc(var(--legacy-px-0_5984) + .264vw), var(--legacy-px-0_836)); }
     .request-option-list input[type="radio"]:checked + label { opacity: 1; background: transparent; border-bottom-color: currentColor; }
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
-    .form-status { min-height: 1.5em; margin: 1rem 0 0; font-size: clamp(.7rem, calc(.62rem + .3vw), .85rem); opacity: .7; }
+    .form-status { min-height: 1.5em; margin: 1rem 0 0; font-size: clamp(var(--legacy-px-0_7), calc(var(--legacy-px-0_62) + .3vw), var(--legacy-px-0_85)); opacity: .7; }
     .submit-btn[disabled] { opacity: .4; cursor: wait; }
     #thanksModal { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100dvh !important; min-height: 100dvh !important; padding: 1rem !important; margin: 0 !important; transform: none !important; background: rgba(0, 0, 0, .62) !important; -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important; align-items: center !important; justify-content: center !important; overflow: hidden !important; box-sizing: border-box !important; z-index: 2147483000 !important; }
     #thanksModal.show { display: flex !important; opacity: 1 !important; transform: none !important; }
     #thanksModal .modal-content { position: relative !important; inset: auto !important; width: min(90vw, 680px) !important; height: auto !important; max-height: min(74dvh, 680px) !important; margin: 0 !important; padding: clamp(2.5rem, 6vw, 3.25rem) clamp(1.75rem, 5vw, 3rem) clamp(1.75rem, 5vw, 3rem) !important; transform: none !important; overflow-y: auto !important; background: rgba(0, 0, 0, .94) !important; border: 1px solid rgba(255,255,255,.14) !important; box-sizing: border-box !important; }
     #thanksModal .modal-content p { width: 100% !important; min-width: 0 !important; margin-inline: 0 !important; }
     @media screen and (min-width: 601px) {
-      #thanksModal .modal-content p { font-size: .9rem !important; }
+      #thanksModal .modal-content p { font-size: var(--legacy-px-0_9) !important; }
     }
-    #thanksModal .close { position: absolute !important; top: .8rem !important; right: .9rem !important; display: grid !important; place-items: center !important; margin: 0 !important; padding: 0 !important; float: none !important; width: 2.5rem !important; height: 2.5rem !important; line-height: 1 !important; font-family: Arial, sans-serif !important; font-size: 1.8rem !important; font-weight: 200 !important; color: var(--inv) !important; opacity: .72 !important; cursor: pointer !important; background: transparent !important; border: 0 !important; }
+    #thanksModal .close { position: absolute !important; top: .8rem !important; right: .9rem !important; display: grid !important; place-items: center !important; margin: 0 !important; padding: 0 !important; float: none !important; width: 2.5rem !important; height: 2.5rem !important; line-height: 1 !important; font-family: Arial, sans-serif !important; font-size: var(--legacy-px-1_8) !important; font-weight: 200 !important; color: var(--inv) !important; opacity: .72 !important; cursor: pointer !important; background: transparent !important; border: 0 !important; }
     #thanksModal .close:hover, #thanksModal .close:focus-visible { opacity: 1 !important; outline: 1px solid currentColor; outline-offset: 2px; }
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
       .request-option-list { grid-template-columns: repeat(3, max-content); column-gap: 24px; row-gap: 12px; justify-content: start; }
-      .request-option-list label { min-height: 0; margin: 0 !important; padding: 2px 0; background: transparent; font-size: clamp(.68rem, 2.8vw, .82rem); }
+      .request-option-list label { min-height: 0; margin: 0 !important; padding: 2px 0; background: transparent; font-size: clamp(var(--legacy-px-0_68), 2.8vw, var(--legacy-px-0_82)); }
+      .request-option-list label span { font-size: clamp(var(--legacy-px-0_5984), 2.464vw, var(--legacy-px-0_7216)); }
       #thanksModal { padding: 1rem !important; }
       #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 3rem 1.5rem 1.5rem !important; }
       #thanksModal .close { top: .55rem !important; right: .6rem !important; }
