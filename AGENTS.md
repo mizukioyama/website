@@ -4,14 +4,14 @@
 This repository is the official portfolio website for Mizuki Oyama. AI/Codex must improve it safely and efficiently while preserving the artist's intent and existing visual identity.
 
 ## Source of truth
-Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > DESIGN_SYSTEM.md > QA_CHECKLIST.md > ROADMAP.md > existing implementation. Files under reports/ are historical records and must not override current specifications.
+Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > DESIGN_SYSTEM.md > QA_CHECKLIST.md > SITE_MAP.md > ROADMAP.md > existing implementation. Files under reports/ are historical records and must not override current specifications.
 Biography and Artist Statement are authoritative for career facts and artistic philosophy. Never invent or materially reinterpret them.
 
 ## Loop Engineering
 Every task follows Discover -> Plan -> Execute -> Verify -> Iterate.
 
 ### Discover
-Identify the exact page/component and outcome. Read docs/SITE_MAP.md and inspect actual imports, selectors and dependencies. Search for duplicate source/deployed files. Never assume docs/ is source. Establish a before-state for visual changes.
+Identify the exact page/component and outcome. Read SITE_MAP.md and inspect actual imports, selectors, build mappings and dependencies. Search for duplicate source/deployed files. Never assume docs/ is source. Establish a before-state for visual changes.
 
 ### Plan
 Name target files and affected shared dependencies. Prefer the smallest sufficient change. Predict impact on desktop/mobile, SEO, accessibility, performance and other pages.
