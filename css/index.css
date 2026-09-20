@@ -150,7 +150,7 @@ p {
 
 /* ========== Header / Creator / Time ========== */
 /*.head a {
-  font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
+  font-size: clamp(19.2px, calc(19.2px + 0.5vw), 22.4px);
   color: var(--def);
   position: absolute;
   top: 9.25%;
