@@ -210,8 +210,8 @@ body.dark-theme .modal-box {
 }
 
 /*h1 {
-    font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
-    font-size: 6rem;
+    font-size: clamp(var(--legacy-px-8), calc(var(--legacy-px-8) + 0.5vw), var(--legacy-px-10));
+    font-size: var(--legacy-px-6);
     font-weight: 200;
     width: fit-content;
     margin-left: 25vmin;
@@ -259,7 +259,7 @@ body.dark-theme .modal-box {
 }*/
 
 h1 {
-    font-size: clamp(2.4rem, calc(1.5rem + 4vw), 5.4rem);
+    font-size: clamp(var(--legacy-px-2_4), calc(var(--legacy-px-1_5) + 4vw), var(--legacy-px-5_4));
     font-weight: 300;
     width: fit-content;
     line-height: 1.2;
@@ -301,7 +301,7 @@ h1 {
 }
 
 .h1-text p {
-    font-size: clamp(1rem, calc(0.6rem + 1.2vw), 2rem);
+    font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_6) + 1.2vw), var(--legacy-px-2));
 }
 
 
@@ -357,7 +357,7 @@ h1 {
 
 
 h2 {
-    font-size: clamp(1.2rem, calc(0.4rem + 2vw), 2.8rem);
+    font-size: clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_4) + 2vw), var(--legacy-px-2_8));
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -365,24 +365,24 @@ h2 {
 }
 
 span.name {
-    font-size: clamp(0.9rem, calc(0.7rem + 0.7vw), 1.6rem);
+    font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_7) + 0.7vw), var(--legacy-px-1_6));
     line-height: 1;
 }
 
 .gallery-containt h2 {
-    font-size: clamp(0.9rem, calc(0.7rem + 0.7vw), 1.4rem);
+    font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_7) + 0.7vw), var(--legacy-px-1_4));
     font-weight: 300;
 }
 
 h3 {
-    font-size: clamp(1rem, calc(0.4rem + 1vw), 2rem);
+    font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_4) + 1vw), var(--legacy-px-2));
     font-weight: 300;
     line-height: 2;
     text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.95);
 }
 
 h4 {
-    font-size: clamp(0.9rem, calc(0.55rem + 0.5vw), 1.2rem);
+    font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_55) + 0.5vw), var(--legacy-px-1_2));
     color: var(--def);
 }
 
@@ -394,7 +394,7 @@ img:hover {
 
 p {
     font-size: var(--font-body-size);
-    letter-spacing: 0.05rem;
+    letter-spacing: var(--legacy-px-0_05);
     line-height: 2.4;
 }
 
@@ -417,9 +417,9 @@ main li {
 .head a {
     position: fixed;
     justify-content: flex-start;
-    font-size: clamp(1rem, calc(0.75rem + 0.8vw), 1.4rem);
+    font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_75) + 0.8vw), var(--legacy-px-1_4));
     font-weight: 400;
-    letter-spacing: 0.01rem;
+    letter-spacing: var(--legacy-px-0_01);
     padding: 0;
     padding-right: 0.5rem;
     top: 3rem;
@@ -645,7 +645,7 @@ main {
 }
 
 /*.art-page main p:nth-child(1) {
-    font-size: 1.4rem;
+    font-size: var(--legacy-px-1_4);
     padding-top: 8rem;
     margin-left: 25vmin;
 }*/
@@ -751,7 +751,7 @@ main {
     }
 
     #state h2 {
-        font-size: clamp(1.2rem, calc(0.8rem + 1vw), 2.4rem);
+        font-size: clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_8) + 1vw), var(--legacy-px-2_4));
         align-items: end;
         margin-bottom: 1vmin;
     }
@@ -934,7 +934,7 @@ main {
 
 .works p {
     font-size: var(--font-caption-size);
-    letter-spacing: 0.1rem;
+    letter-spacing: var(--legacy-px-0_1);
     line-height: 1.8;
 }
 
