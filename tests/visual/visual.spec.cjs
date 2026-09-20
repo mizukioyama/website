@@ -409,14 +409,34 @@ async function stabilize(page, entry = {}) {
 
   if (entry.key === "home") {
     await page.evaluate(() => {
-      for (const selector of [".back__slide", ".card__slide", ".content__slide"]) {
+      const selectors = [".back__slide", ".card__slide", ".content__slide"];
+      const forceFirstSlide = () => {
+        for (const selector of selectors) {
+          const first = document.querySelector(`${selector}:first-child`);
+          if (!first) continue;
+          first.classList.add("active");
+          first.classList.remove("exit");
+          for (const sibling of first.parentElement.children) {
+            if (sibling !== first) sibling.classList.remove("active", "exit");
+          }
+        }
+      };
+
+      window.__visualHomeSlideObserver?.disconnect?.();
+      forceFirstSlide();
+
+      const observer = new MutationObserver(forceFirstSlide);
+      for (const selector of selectors) {
         const first = document.querySelector(`${selector}:first-child`);
-        if (!first) continue;
-        first.classList.add("active");
-        for (const sibling of first.parentElement.children) {
-          if (sibling !== first) sibling.classList.remove("active", "exit");
+        if (first?.parentElement) {
+          observer.observe(first.parentElement, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ["class"]
+          });
         }
       }
+      window.__visualHomeSlideObserver = observer;
     });
   }
 
