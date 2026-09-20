@@ -78,8 +78,8 @@ body.dark-theme .modal-box {
 }
 
 /*h1 {
-    font-size: clamp(128px, calc(128px + 0.5vw), 160px);
-    font-size: 96px;
+    font-size: clamp(8rem, calc(8rem + 0.5vw), 10rem);
+    font-size: 6rem;
     font-weight: 200;
     width: fit-content;
     margin-left: 25vmin;
@@ -127,7 +127,7 @@ body.dark-theme .modal-box {
 }*/
 
 h1 {
-    font-size: clamp(38.4px, calc(24px + 4vw), 86.4px);
+    font-size: clamp(2.4rem, calc(1.5rem + 4vw), 5.4rem);
     font-weight: 300;
     width: fit-content;
     line-height: 1.2;
@@ -169,7 +169,7 @@ h1 {
 }
 
 .h1-text p {
-    font-size: clamp(16px, calc(9.6px + 1.2vw), 32px);
+    font-size: clamp(1rem, calc(0.6rem + 1.2vw), 2rem);
 }
 
 
@@ -225,7 +225,7 @@ h1 {
 
 
 h2 {
-    font-size: clamp(19.2px, calc(6.4px + 2vw), 44.8px);
+    font-size: clamp(1.2rem, calc(0.4rem + 2vw), 2.8rem);
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -233,24 +233,24 @@ h2 {
 }
 
 span.name {
-    font-size: clamp(14.4px, calc(11.2px + 0.7vw), 25.6px);
+    font-size: clamp(0.9rem, calc(0.7rem + 0.7vw), 1.6rem);
     line-height: 1;
 }
 
 .gallery-containt h2 {
-    font-size: clamp(14.4px, calc(11.2px + 0.7vw), 22.4px);
+    font-size: clamp(0.9rem, calc(0.7rem + 0.7vw), 1.4rem);
     font-weight: 300;
 }
 
 h3 {
-    font-size: clamp(16px, calc(6.4px + 1vw), 32px);
+    font-size: clamp(1rem, calc(0.4rem + 1vw), 2rem);
     font-weight: 300;
     line-height: 2;
     text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.95);
 }
 
 h4 {
-    font-size: clamp(14.4px, calc(8.8px + 0.5vw), 19.2px);
+    font-size: clamp(0.9rem, calc(0.55rem + 0.5vw), 1.2rem);
     color: var(--def);
 }
 
@@ -262,7 +262,7 @@ img:hover {
 
 p {
     font-size: var(--font-body-size);
-    letter-spacing: 0.8px;
+    letter-spacing: 0.05rem;
     line-height: 2.4;
 }
 
@@ -285,9 +285,9 @@ main li {
 .head a {
     position: fixed;
     justify-content: flex-start;
-    font-size: clamp(16px, calc(12px + 0.8vw), 22.4px);
+    font-size: clamp(1rem, calc(0.75rem + 0.8vw), 1.4rem);
     font-weight: 400;
-    letter-spacing: 0.16px;
+    letter-spacing: 0.01rem;
     padding: 0;
     padding-right: 0.5rem;
     top: 3rem;
@@ -513,7 +513,7 @@ main {
 }
 
 /*.art-page main p:nth-child(1) {
-    font-size: 22.4px;
+    font-size: 1.4rem;
     padding-top: 8rem;
     margin-left: 25vmin;
 }*/
@@ -619,7 +619,7 @@ main {
     }
 
     #state h2 {
-        font-size: clamp(19.2px, calc(12.8px + 1vw), 38.4px);
+        font-size: clamp(1.2rem, calc(0.8rem + 1vw), 2.4rem);
         align-items: end;
         margin-bottom: 1vmin;
     }
@@ -802,7 +802,7 @@ main {
 
 .works p {
     font-size: var(--font-caption-size);
-    letter-spacing: 1.6px;
+    letter-spacing: 0.1rem;
     line-height: 1.8;
 }
 
