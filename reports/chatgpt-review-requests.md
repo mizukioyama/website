@@ -1,5 +1,14 @@
 # Review Requests
 
+## 2026-09-20 Phase 3 bilingual and typography audit
+
+Please review the focused diff on `phase3-bilingual-mobile-typography-audit`.
+
+1. Confirm Biography and Artist Statement show both language regions and hide only the switch UI.
+2. Confirm `selectedLang` / `lang` remain unchanged there and restore English on Gallery.
+3. Confirm the shared `clamp()` tokens reduce supporting text without shrinking body text below the intended mobile minimum or changing page structure.
+4. Run the seven-viewport visual matrix and inspect wrapping, overflow, tables, forms, Gallery, and Yurayura.
+
 ## 2026-09-11 Non-Index Body Text 12-14px
 
 Please review the focused `css/gallery.css` and five non-index page cache-query changes.

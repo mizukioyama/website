@@ -389,9 +389,14 @@ body {
   --bg: #cedde6;
   /* Shared typography scale for the public root-page sources. Keep the
      minimum readable on mobile while trimming body/UI text by about 1px. */
-  --font-body-size: clamp(0.8125rem, calc(0.6875rem + 0.4vw), 0.9375rem);
-  --font-ui-size: clamp(0.9375rem, calc(0.9375rem + 0.45vw), 1.1rem);
-  --font-caption-size: clamp(0.75rem, calc(0.65rem + 0.3vw), 0.875rem);
+  --font-body-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.875rem);
+  --font-list-size: clamp(0.6875rem, calc(0.6rem + 0.3vw), 0.8rem);
+  --font-ui-size: clamp(0.875rem, calc(0.75rem + 0.4vw), 1rem);
+  --font-caption-size: clamp(0.6875rem, calc(0.6rem + 0.3vw), 0.8125rem);
+  --font-table-size: clamp(0.75rem, calc(0.65rem + 0.3vw), 0.875rem);
+  --font-metadata-size: clamp(0.6875rem, calc(0.6rem + 0.3vw), 0.8rem);
+  --font-category-size: clamp(0.875rem, calc(0.8rem + 0.4vw), 1.1rem);
+  --font-pagination-size: clamp(0.75rem, calc(0.65rem + 0.3vw), 0.875rem);
   color-scheme: light dark;
 }
 
@@ -523,4 +528,8 @@ img {
     top: 1rem;
     left: 1rem;
   }
+}
+:root {
+  --font-nav-size: clamp(0.875rem, calc(0.8rem + 0.3vw), 1.05rem);
+  --font-footer-size: clamp(0.6875rem, calc(0.6rem + 0.2vw), 0.8125rem);
 }

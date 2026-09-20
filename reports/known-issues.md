@@ -1,5 +1,12 @@
 # Known Issues
 
+## 2026-09-20 Phase 3 pending gates
+
+- The local repository does not have the Playwright test package available, so the full seven-viewport Visual Regression matrix is pending CI.
+- Generated build output is authoritative for deployment, but the existing embed/cache-version step rewrites timestamp-only query strings on unchanged pages. Those unrelated generated changes must stay out of the focused commit.
+- Public Pages deployment, public browser verification, and physical-device acceptance have not been performed for this branch.
+- The duplicate `src/` page files and unusual root artifacts are documented in `reports/source-of-truth-audit.md`; no deletion or move is proposed.
+
 - The current PC non-index clamp is `clamp(12px, calc(10px + 0.4vw), 14px)`; headings, form controls, and modal text with explicit sizes are intentionally unchanged.
 - The current PC non-index clamp is `clamp(12px, calc(10px + 0.4vw), 13.5px)`; headings, form controls, and modal text with explicit sizes are intentionally unchanged.
 - The PC `p` override is intentionally placed after the shared paragraph rule; page-specific selectors with explicit `font-size` values, such as modal and form controls, retain their own sizes.

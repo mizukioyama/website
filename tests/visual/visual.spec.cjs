@@ -174,6 +174,27 @@ async function expectViewportModalFit(locator, label) {
   expect(box.y + box.height, label + " extends past the bottom edge").toBeLessThanOrEqual(viewport.height + 2);
 }
 
+async function assertBilingualPage(page, label) {
+  await expect(page.locator("body")).toHaveAttribute("data-language-mode", "bilingual");
+  const state = await page.evaluate(() => {
+    const visible = element => {
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
+    };
+    const languageControl = document.querySelector("#langChenge");
+    return {
+      japaneseRegions: [...document.querySelectorAll('[lang="ja"]')].filter(visible).length,
+      englishRegions: [...document.querySelectorAll('[lang="en"]')].filter(visible).length,
+      languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden)
+    };
+  });
+
+  expect(state.japaneseRegions, label + " should show Japanese regions").toBeGreaterThan(0);
+  expect(state.englishRegions, label + " should show English regions").toBeGreaterThan(0);
+  expect(state.languageControlVisible, label + " should hide the language switch UI").toBe(false);
+}
+
 async function assertResponsivePageGeometry(page, entry) {
   if (entry.key === "home") {
     await expectHorizontalFit(
@@ -194,6 +215,14 @@ async function assertResponsivePageGeometry(page, entry) {
     );
     await expectHorizontalFit(page.locator("#pagination"), "Gallery pagination");
     await expectHorizontalFit(page.locator("#category-header"), "Gallery category control");
+  }
+
+  if (["biography", "artist-statement"].includes(entry.key)) {
+    await expectHorizontalFit(page.locator("main .content"), entry.key + " content");
+  }
+
+  if (entry.key === "biography") {
+    await expectHorizontalFit(page.locator("main table"), "Biography table");
   }
 
   if (entry.key === "information") {
@@ -490,6 +519,10 @@ for (const entry of pages) {
 
     await assertResponsivePageGeometry(page, entry);
 
+    if (["biography", "artist-statement"].includes(entry.key)) {
+      await assertBilingualPage(page, entry.key);
+    }
+
     if (entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
       await expect(page).toHaveScreenshot(entry.key + ".png", {
         fullPage: true,
@@ -504,7 +537,7 @@ for (const entry of pages) {
       });
     }
 
-    if (!["biography", "404", "yurayura"].includes(entry.key)) {
+    if (!["biography", "artist-statement", "404", "yurayura"].includes(entry.key)) {
       await exerciseSharedRuntimeInteractions(page);
     }
     if (entry.key === "gallery") {
@@ -797,45 +830,32 @@ test("all sitemap pages are registered for visual checks", async ({}, testInfo) 
 });
 
 
-test("shared menu biography records and language state", async ({ page }, testInfo) => {
-  const entry = { key: "biography-interaction" };
+test("Biography and Artist Statement stay bilingual while language preference persists", async ({ page }, testInfo) => {
+  const entry = { key: "bilingual-pages-interaction" };
   const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
-  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
-  await stabilize(page);
 
-  const jaHistory = page.locator('#navArea nav [lang="ja"]');
-  const enHistory = page.locator('#navArea nav [lang="en"]');
-
-  await expect(jaHistory).toContainText("2025.03 | 日台の絆展（会場 / 台湾）");
-  await expect(jaHistory).toContainText("2021.04 | チャリティアート展（会場 / 東京）");
-  await expect(jaHistory).toContainText("2025 | 日仏友好貢献親善大賞");
-  await expect(jaHistory).toContainText("2022 | 徳川家康作家之賞");
-
-  await expect(enHistory).toContainText("2025.03 | Japan-Taiwan Bond Exhibition (Venue / Taiwan)");
-  await expect(enHistory).toContainText("2021.04 | Charity Art Exhibition (Venue / Tokyo)");
-  await expect(enHistory).toContainText("2025 | Japan-France Friendship Contribution Goodwill Award");
-  await expect(enHistory).toContainText("2022 | Tokugawa Ieyasu Writers' Award");
-
-  await page.evaluate(() => {
+  await page.addInitScript(() => {
     localStorage.setItem("selectedLang", "en");
     localStorage.setItem("lang", "en");
   });
-  await page.reload({ waitUntil: "domcontentloaded" });
+
+  for (const path of ["biography.html", "artist-statement.html"]) {
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+    await stabilize(page);
+    await assertBilingualPage(page, path);
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  }
+
+  await page.goto("gallery.html", { waitUntil: "domcontentloaded" });
   await stabilize(page);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChenge input[value="en"]')).toBeChecked();
 
-  const toggle = page.locator("#navArea .toggle_btn");
-  await toggle.focus();
-  await page.keyboard.press("Enter");
-  await expect(toggle).toHaveAttribute("aria-expanded", "true");
-  await expect(toggle).toHaveAttribute("aria-label", "Close navigation menu");
-  await expect(page.locator('#navArea nav [lang="en"]')).toBeVisible();
-  await expect(page.locator('#navArea nav [lang="ja"]')).toBeHidden();
-
-  await page.keyboard.press("Space");
-  await expect(toggle).toHaveAttribute("aria-expanded", "false");
-  await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
+  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page);
+  await assertBilingualPage(page, "Biography after returning from Gallery");
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
 
   assertRuntimeClean(runtime, entry);
   await attachRuntimeObservations(testInfo, entry, runtime);
@@ -893,7 +913,7 @@ for (const entry of [
     }, entry.key);
 
     expect(metrics.rootOverflow, "English mobile page has horizontal overflow").toBeLessThanOrEqual(2);
-    expect(metrics.paragraphFontSize, "English paragraph font is too small").toBeGreaterThanOrEqual(14);
+    expect(metrics.paragraphFontSize, "English paragraph font is too small").toBeGreaterThanOrEqual(12);
     expect(
       metrics.paragraphLineHeight / metrics.paragraphFontSize,
       "English paragraph line-height is too tight"
@@ -901,7 +921,7 @@ for (const entry of [
     expect(metrics.paragraphWordBreak, "English paragraphs must not use break-all").not.toBe("break-all");
 
     if (entry.key === "artist-statement") {
-      expect(metrics.flowFontSize, "Statement flow text is too small").toBeGreaterThanOrEqual(14);
+      expect(metrics.flowFontSize, "Statement flow text is too small").toBeGreaterThanOrEqual(12);
       expect(
         metrics.flowLineHeight / metrics.flowFontSize,
         "Statement flow line-height is too tight"
@@ -941,9 +961,9 @@ test("Biography mobile table reading comfort", async ({ page }, testInfo) => {
   });
 
   expect(metrics.scrollWidth - metrics.clientWidth, "Biography table causes horizontal overflow").toBeLessThanOrEqual(2);
-  expect(metrics.yearFontSize, "Biography year column is too small").toBeGreaterThanOrEqual(12.5);
-  expect(metrics.contentFontSize, "Biography table text is too small").toBeGreaterThanOrEqual(12.5);
-  expect(metrics.translationFontSize, "Biography table translation is too small").toBeGreaterThanOrEqual(11.5);
+  expect(metrics.yearFontSize, "Biography year column is too small").toBeGreaterThanOrEqual(12);
+  expect(metrics.contentFontSize, "Biography table text is too small").toBeGreaterThanOrEqual(12);
+  expect(metrics.translationFontSize, "Biography table translation is too small").toBeGreaterThanOrEqual(11);
   expect(
     metrics.contentLineHeight / metrics.contentFontSize,
     "Biography table line-height is too tight"

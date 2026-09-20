@@ -1,5 +1,12 @@
 # Next Actions
 
+## 2026-09-20 Phase 3
+
+1. Review the focused source/generated diff and exclude timestamp-only generated noise from unchanged pages.
+2. Run the existing seven-viewport Playwright matrix in CI, including Biography, Artist Statement, Gallery, Yurayura, 404, forms, tables, wrapping, and overflow.
+3. Investigate any intentional typography screenshot differences before considering a baseline update; do not update baselines merely to make tests pass.
+4. Create a review PR only after the CI matrix is green. Do not merge or close the ROADMAP item before user review.
+
 1. After Pages rebuilds, hard-reload each non-index page and confirm visible PC body text is 12px–14px.
 2. Confirm index.html remains unchanged.
 3. Confirm mobile pages retain their existing text scale.
