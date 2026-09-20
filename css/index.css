@@ -41,7 +41,7 @@ canvas {
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: clamp(0.75rem, calc(0.65rem + 0.35vw), 0.875rem);
+  font-size: clamp(12px, calc(10.4px + 0.35vw), 14px);
   z-index: 99;
   pointer-events: none;
   user-select: none;
@@ -58,16 +58,16 @@ canvas {
 
 h1,
 .creator-title {
-  font-size: clamp(0.9rem, calc(0.85rem + 0.2vw), 1rem);
+  font-size: clamp(14.4px, calc(13.6px + 0.2vw), 16px);
 }
 
 h2 {
-  font-size: clamp(1.6rem, calc(1.35rem + 0.55vw), 1.8rem);
+  font-size: clamp(25.6px, calc(21.6px + 0.55vw), 28.8px);
 }
 
 p {
   font-size: var(--font-body-size);
-  letter-spacing: 0.1em;
+  letter-spacing: 1.6px;
 }
 
 /* ========== Background Slides ========== */
@@ -285,7 +285,7 @@ p {
 /*== number ==*/
 .number {
   /*font-family: "Roboto Mono", monospace;*/
-  letter-spacing: 0.02em;
+  letter-spacing: 0.32px;
   position: absolute;
   top: 0;
   opacity: 0.7;
@@ -340,18 +340,18 @@ p {
   width: 100%;
   left: 3%;
   bottom: calc(5% - 0.5rem);
-  letter-spacing: 0.15em;
+  letter-spacing: 2.4px;
   transform-origin: 0 50%;
   transform: rotate(0deg);
   font-weight: 400;
-  font-size: clamp(0.85rem, calc(0.75rem + 0.3vw), 1rem);
+  font-size: clamp(13.6px, calc(12px + 0.3vw), 16px);
   z-index: -1;
 }
 
 .date__time {
   opacity: 0.75;
-  font-size: clamp(0.6rem, calc(0.52rem + 0.3vw), 0.7rem);
-  letter-spacing: 0.05rem;
+  font-size: clamp(9.6px, calc(8.32px + 0.3vw), 11.2px);
+  letter-spacing: 0.8px;
 }
 
 .date:before {
@@ -539,18 +539,18 @@ p {
 
 .top-page h1.title {
   width: fit-content;
-  font-size: clamp(1.6rem, calc(1.35rem + 0.55vw), 1.8rem);
+  font-size: clamp(25.6px, calc(21.6px + 0.55vw), 28.8px);
 }
 
 .top-page .title {
   position: relative;
-  /*font-size: clamp(4rem, calc(4rem + 0.5vw), 5rem);*/
+  /*font-size: clamp(64px, calc(64px + 0.5vw), 80px);*/
   font-weight: 400;
   justify-content: flex-start;
   color: #f9fafbb3;
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
   line-height: 1.2;
-  letter-spacing: 0.1em;
+  letter-spacing: 1.6px;
 }
 
 .content__slide:nth-child(even) .title {
@@ -609,7 +609,7 @@ p {
   text-align: center;
   color: var(--inv);
   line-height: 1;
-  letter-spacing: 0.15em;
+  letter-spacing: 2.4px;
   padding: 1.4rem 0.5em;
   margin: 1rem auto 0;
   position: relative;
@@ -783,7 +783,7 @@ footer,
 }
 
   .date {
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.8px;
     bottom: calc(3% - 0.5rem);
   }
 
@@ -814,7 +814,7 @@ footer,
 
 @media screen and (min-width: 600px) and (max-width: 1199px) {
   .typing00 {
-    font-size: clamp(1.4rem, calc(1.2rem + 0.8vw), 1.8rem);
+    font-size: clamp(22.4px, calc(19.2px + 0.8vw), 28.8px);
   }
 }
 
