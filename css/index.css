@@ -67,7 +67,7 @@ h2 {
 
 p {
   font-size: var(--font-body-size);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-body-010);
 }
 
 /* ========== Background Slides ========== */
@@ -285,7 +285,7 @@ p {
 /*== number ==*/
 .number {
   /*font-family: "Roboto Mono", monospace;*/
-  letter-spacing: 0.02em;
+  letter-spacing: var(--tracking-body-002);
   position: absolute;
   top: 0;
   opacity: 0.7;
@@ -340,7 +340,7 @@ p {
   width: 100%;
   left: 3%;
   bottom: calc(5% - 0.5rem);
-  letter-spacing: 0.15em;
+  letter-spacing: clamp(2.04px, calc(1.8px + 0.045vw), 2.4px);
   transform-origin: 0 50%;
   transform: rotate(0deg);
   font-weight: 400;
@@ -550,7 +550,7 @@ p {
   color: #f9fafbb3;
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
   line-height: 1.2;
-  letter-spacing: 0.1em;
+  letter-spacing: clamp(2.56px, calc(2.16px + 0.055vw), 2.88px);
 }
 
 .content__slide:nth-child(even) .title {
@@ -609,7 +609,7 @@ p {
   text-align: center;
   color: var(--inv);
   line-height: 1;
-  letter-spacing: 0.15em;
+  letter-spacing: var(--tracking-ui-015);
   padding: 1.4rem 0.5em;
   margin: 1rem auto 0;
   position: relative;
