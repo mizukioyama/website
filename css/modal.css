@@ -87,7 +87,7 @@
    }
 
    .profile li {
-      font-size: clamp(22.4px, 8.976px + 1.03vw, 28.8px);
+      font-size: clamp(1.4rem, 0.561rem + 1.03vw, 1.8rem);
    }
 }
 
@@ -145,7 +145,7 @@
    }
 
    .modal h3 {
-      font-size: clamp(25.6px, 21.936px + 1.14vw, 28.8px);
+      font-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
    }
 
    .modal p .br {
