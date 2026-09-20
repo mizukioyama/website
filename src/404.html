@@ -56,7 +56,7 @@
       font-size: clamp(var(--legacy-px-4), 12vw, var(--legacy-px-9));
       font-weight: 100;
       line-height: 0.9;
-      letter-spacing: -0.04em;
+      letter-spacing: clamp(-5.04px, -0.48vw, -2.24px);
       color: var(--inv, #e6e6e6);
     }
 
@@ -104,6 +104,12 @@
       outline-offset: 0.4rem;
     }
 
+    @media screen and (min-width: 600px) and (max-width: 899px) {
+      .not-found-code {
+        letter-spacing: clamp(calc(-3.744px - 0.144vw), -0.48vw, calc(-1.664px - 0.064vw));
+      }
+    }
+
     @media screen and (max-width: 599px) {
       .not-found-page {
         min-height: 100svh;
@@ -113,6 +119,7 @@
 
       .not-found-code {
         font-size: clamp(var(--legacy-px-4), 25vw, var(--legacy-px-7));
+        letter-spacing: clamp(-4.48px, -1vw, -2.56px);
       }
 
       .not-found-message {
