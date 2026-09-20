@@ -183,16 +183,60 @@ async function assertBilingualPage(page, label) {
       return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
     };
     const languageControl = document.querySelector("#langChenge");
+    const proseLanguages = [...document.querySelectorAll("main .work > p[lang]")]
+      .map(element => element.getAttribute("lang"));
+    const proseElements = [...document.querySelectorAll("main .work > p[lang]")];
+    const englishPairVisuals = proseElements
+      .filter(element => element.getAttribute("lang") === "en")
+      .map(element => {
+        const style = getComputedStyle(element);
+        const next = element.nextElementSibling;
+        const nextStyle = next ? getComputedStyle(next) : null;
+        return {
+          borderTopWidth: parseFloat(style.borderTopWidth) || 0,
+          borderTopStyle: style.borderTopStyle,
+          nextLanguage: next?.getAttribute("lang") || null,
+          nextMarginTop: nextStyle ? parseFloat(nextStyle.marginTop) || 0 : null
+        };
+      });
+    const statementQuestionLanguages = [...document.querySelectorAll("main .statement-questions > p[lang]")]
+      .map(element => element.getAttribute("lang"));
     return {
       japaneseRegions: [...document.querySelectorAll('[lang="ja"]')].filter(visible).length,
       englishRegions: [...document.querySelectorAll('[lang="en"]')].filter(visible).length,
-      languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden)
+      languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden),
+      standaloneEnglishContent: document.querySelectorAll('main .state-box > .content[lang="en"]').length,
+      proseLanguages,
+      englishPairVisuals,
+      statementQuestionLanguages
     };
   });
 
   expect(state.japaneseRegions, label + " should show Japanese regions").toBeGreaterThan(0);
   expect(state.englishRegions, label + " should show English regions").toBeGreaterThan(0);
   expect(state.languageControlVisible, label + " should hide the language switch UI").toBe(false);
+  expect(state.standaloneEnglishContent, label + " should not keep a separate English content block").toBe(0);
+  expect(state.proseLanguages.length % 2, label + " prose should contain Japanese/English pairs").toBe(0);
+  for (let index = 0; index < state.proseLanguages.length; index += 2) {
+    expect(state.proseLanguages[index], label + " prose pair should start in Japanese").toBe("ja");
+    expect(state.proseLanguages[index + 1], label + " prose pair should place English directly after Japanese").toBe("en");
+  }
+  for (let index = 0; index < state.englishPairVisuals.length; index += 1) {
+    const pair = state.englishPairVisuals[index];
+    expect(pair.borderTopWidth, label + " English translation should have a divider").toBeGreaterThanOrEqual(1);
+    expect(pair.borderTopStyle, label + " English divider should be visible").not.toBe("none");
+    if (pair.nextLanguage !== null) {
+      expect(pair.nextLanguage, label + " next bilingual pair should restart in Japanese").toBe("ja");
+      expect(pair.nextMarginTop, label + " bilingual pairs should keep a readable gap").toBeGreaterThan(0);
+    }
+  }
+  if (label === "artist-statement") {
+    expect(state.statementQuestionLanguages).toHaveLength(10);
+    for (let index = 0; index < state.statementQuestionLanguages.length; index += 2) {
+      expect(state.statementQuestionLanguages[index], "Artist Statement question pair should start in Japanese").toBe("ja");
+      expect(state.statementQuestionLanguages[index + 1], "Artist Statement question pair should place English directly after Japanese").toBe("en");
+    }
+  }
 }
 
 async function assertResponsivePageGeometry(page, entry) {
@@ -276,9 +320,11 @@ async function exerciseSharedRuntimeInteractions(page) {
 
   const englishLabel = page.locator('#langChenge label[for="langEn"]');
   if (await englishLabel.isVisible()) {
-    await englishLabel.click();
+    // The Home background is continuously animated, so bypass Playwright's
+    // stability wait while still exercising the real label -> radio path.
+    await englishLabel.click({ force: true });
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await page.locator('#langChenge label[for="langJa"]').click();
+    await page.locator('#langChenge label[for="langJa"]').click({ force: true });
     await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   }
 }
@@ -409,14 +455,34 @@ async function stabilize(page, entry = {}) {
 
   if (entry.key === "home") {
     await page.evaluate(() => {
-      for (const selector of [".back__slide", ".card__slide", ".content__slide"]) {
+      const selectors = [".back__slide", ".card__slide", ".content__slide"];
+      const forceFirstSlide = () => {
+        for (const selector of selectors) {
+          const first = document.querySelector(`${selector}:first-child`);
+          if (!first) continue;
+          first.classList.add("active");
+          first.classList.remove("exit");
+          for (const sibling of first.parentElement.children) {
+            if (sibling !== first) sibling.classList.remove("active", "exit");
+          }
+        }
+      };
+
+      window.__visualHomeSlideObserver?.disconnect?.();
+      forceFirstSlide();
+
+      const observer = new MutationObserver(forceFirstSlide);
+      for (const selector of selectors) {
         const first = document.querySelector(`${selector}:first-child`);
-        if (!first) continue;
-        first.classList.add("active");
-        for (const sibling of first.parentElement.children) {
-          if (sibling !== first) sibling.classList.remove("active", "exit");
+        if (first?.parentElement) {
+          observer.observe(first.parentElement, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ["class"]
+          });
         }
       }
+      window.__visualHomeSlideObserver = observer;
     });
   }
 
@@ -919,12 +985,11 @@ for (const entry of [
     expect(response.status()).toBe(200);
     await stabilize(page);
 
-    const englishContent = page.locator('#state .content[lang="en"]').first();
-    await expect(englishContent).toBeVisible();
+    const englishParagraph = page.locator('main .work > p.text[lang="en"]').first();
+    await expect(englishParagraph).toBeVisible();
 
-    const metrics = await englishContent.evaluate((content, key) => {
-      const paragraph = content.querySelector(".work > p");
-      const paragraphStyle = paragraph ? getComputedStyle(paragraph) : null;
+    const metrics = await englishParagraph.evaluate((paragraph, key) => {
+      const paragraphStyle = getComputedStyle(paragraph);
       const rootOverflow = Math.max(
         document.documentElement.scrollWidth,
         document.body?.scrollWidth || 0
@@ -932,14 +997,14 @@ for (const entry of [
 
       const result = {
         rootOverflow,
-        paragraphFontSize: paragraphStyle ? parseFloat(paragraphStyle.fontSize) : 0,
-        paragraphLineHeight: paragraphStyle ? parseFloat(paragraphStyle.lineHeight) : 0,
-        paragraphWordBreak: paragraphStyle?.wordBreak || "",
-        paragraphOverflowWrap: paragraphStyle?.overflowWrap || ""
+        paragraphFontSize: parseFloat(paragraphStyle.fontSize),
+        paragraphLineHeight: parseFloat(paragraphStyle.lineHeight),
+        paragraphWordBreak: paragraphStyle.wordBreak || "",
+        paragraphOverflowWrap: paragraphStyle.overflowWrap || ""
       };
 
       if (key === "artist-statement") {
-        const flow = content.querySelector(".timeline li");
+        const flow = document.querySelector('main .statement-questions > p.text[lang="en"]');
         const flowStyle = flow ? getComputedStyle(flow) : null;
         result.flowFontSize = flowStyle ? parseFloat(flowStyle.fontSize) : 0;
         result.flowLineHeight = flowStyle ? parseFloat(flowStyle.lineHeight) : 0;

@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch(error => {
         policyModalContent.replaceChildren(Object.assign(document.createElement("p"), {
-          textContent: "SitePolicyを読み込めませんでした。ページを再読み込みしてください。"
+          textContent: "Site Policyを読み込めませんでした。ページを再読み込みしてください。"
         }));
         console.error("Site policy loading error:", error);
       });
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isSubmitting) return;
     if (honeypot?.value) return;
     if (!policyConfirmed) {
-      status.textContent = "SitePolicyをご確認ください。";
+      status.textContent = "Site Policyをご確認ください。";
       openPolicyModal();
       return;
     }
