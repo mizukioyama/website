@@ -530,9 +530,26 @@ img {
   }
 }
 :root {
-  /* Shared site chrome typography: header navigation and footer navigation.
-     This is ~2px larger on mobile and up to ~4px larger on desktop than the previous nav scale. */
-  --font-header-footer-size: clamp(1rem, calc(0.85rem + 0.5vw), 1.3rem);
+  /* Shared site chrome typography.
+     Header navigation and footer navigation always share the same size.
+     Mobile: <= 599px */
+  --font-header-footer-size: clamp(1.125rem, calc(0.95rem + 0.6vw), 1.1875rem);
   --font-nav-size: var(--font-header-footer-size);
   --font-footer-size: var(--font-header-footer-size);
+}
+
+/* Tablet: 600px - 1298px
+   Targets: ~20.5px @ 768, ~22.6px @ 1024, ~24.6px @ 1280. */
+@media screen and (min-width: 600px) and (max-width: 1298px) {
+  :root {
+    --font-header-footer-size: clamp(1.2rem, calc(0.9rem + 0.8vw), 1.5375rem);
+  }
+}
+
+/* PC: >= 1299px
+   Targets: ~24.8px near the breakpoint and 25.6px from ~1400px upward. */
+@media screen and (min-width: 1299px) {
+  :root {
+    --font-header-footer-size: clamp(1.55rem, calc(0.9rem + 0.8vw), 1.6rem);
+  }
 }
