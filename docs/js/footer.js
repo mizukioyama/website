@@ -1,1 +1,0 @@
-$(document).ready((function(){fetch("footer.html").then((e=>{if(!e.ok)throw new Error(`Footer request failed: ${e.status}`);return e.text()})).then((e=>{const t=document.getElementById("footer-container");if(!t)return;t.innerHTML=e;const r=t.querySelector("#year");r&&(r.textContent=String((new Date).getFullYear()))})).catch((e=>{console.error("Error loading footer:",e)}))}));

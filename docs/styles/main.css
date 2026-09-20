@@ -1,8 +1,7 @@
-@import url(https://unpkg.com/open-props/durations.min.css);
     /*PC*/
     footer {
         position: relative;
-        width: 100vw;
+        width: 100%;
         min-height: 500px;
         padding: 4vmin;
         bottom: 0;
@@ -57,6 +56,7 @@
             padding: 0.25em 1em;
         }
     }
+
       /* Define custom property --lines for animation */
       @property --lines {
          syntax: "<length>";
@@ -242,6 +242,15 @@ body {
    font-family: 'jost', sans-serif;
    font-weight: 400;
    font-style: normal;
+   width: 100%;
+   min-width: 0;
+}
+
+html {
+   font-size: 100%;
+}
+
+body {
    font-size: clamp(0.875rem, calc(0.75rem + 0.4vw), 1rem);
 }
 
@@ -476,6 +485,7 @@ hr {
       left: 7%;
    }
 }
+
 /*== NAV ==*/
 nav {
     display: flex;
@@ -521,7 +531,7 @@ nav {
     font-family: "jost", sans-serif;
     display: block;
     position: relative;
-    font-size: clamp(1.8rem, calc(1.8rem + 0.5vw), 2rem);
+    font-size: clamp(1.4rem, calc(1.2rem + 0.8vw), 2rem);
     font-weight: 600;
     color: var(--bg);
     height: 100%;
@@ -695,8 +705,8 @@ nav {
 }
 
 #mask p {
-   font-weight: 500;
-   font-size: clamp(1.2rem, calc(1rem + 0.6vw), 1.4rem);
+    font-weight: 500;
+    font-size: clamp(1.2rem, calc(1rem + 0.6vw), 1.4rem);
     position: absolute;
     left: 5%;
     text-shadow: 0px 0px 1px rgba(246, 246, 246, 0.5);

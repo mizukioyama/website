@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-@import "https://unpkg.com/open-props/durations.min.css";
-
       /* Define custom property --lines for animation */
       @property --lines {
         syntax: "<length>";

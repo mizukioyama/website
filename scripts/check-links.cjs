@@ -5,10 +5,10 @@ const root = path.resolve(__dirname, "..");
 const outputDirectory = path.join(root, "docs");
 const projectBasePath = "/website/";
 const siteOrigin = "https://mizukioyama.github.io";
-const referencePattern = /\b(?:src|href)\s*=\s*["']([^"']+)["']/gi;
+const referencePattern = /\b(?:src|href)\s*=\s*(?:["']([^"']+)["']|([^\s>]+))/gi;
 const cssUrlPattern = /url\(\s*["']?([^"')]+)["']?\s*\)/gi;
 const fetchPattern = /\bfetch\(\s*["']([^"']+)["']/gi;
-const anchorPattern = /<a\b([^>]*)\bhref\s*=\s*(["'])([^"']+)\2([^>]*)>([\s\S]*?)<\/a\s*>/gi;
+const anchorPattern = /<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi;
 const indexableOutputs = [
    "index.html",
    "gallery.html",
@@ -128,9 +128,15 @@ function resolveIndexTarget(target) {
 }
 
 function getAttribute(attributes, name) {
-   const expression = "\\b" + name + "\\s*=\\s*([\"'])(([\\s\\S])*?)\\1";
-   const match = attributes.match(new RegExp(expression, "i"));
-   return match ? match[2].trim() : null;
+   const quoted = attributes.match(
+      new RegExp("\\b" + name + "\\s*=\\s*([\"'])([\\s\\S]*?)\\1", "i")
+   );
+   if (quoted) return quoted[2].trim();
+
+   const unquoted = attributes.match(
+      new RegExp("\\b" + name + "\\s*=\\s*([^\\s>]+)", "i")
+   );
+   return unquoted ? unquoted[1].trim() : null;
 }
 
 function stripHtml(value) {
@@ -179,9 +185,12 @@ for (const output of indexableOutputs) {
    } else {
       const navHtml = staticNavMatch[1];
       for (const expectedPath of expectedStaticPrimaryPaths) {
-         const doubleQuoted = 'href="' + expectedPath + '"';
-         const singleQuoted = "href='" + expectedPath + "'";
-         if (!navHtml.includes(doubleQuoted) && !navHtml.includes(singleQuoted)) {
+         const escapedPath = expectedPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+         const pathPattern = new RegExp(
+            "\\bhref\\s*=\\s*(?:[\"']" + escapedPath + "[\"']|" + escapedPath + ")(?=\\s|>)",
+            "i"
+         );
+         if (!pathPattern.test(navHtml)) {
             crawlFailures.push(
                "docs/" + output + ": static primary navigation is missing " + expectedPath
             );
@@ -190,9 +199,10 @@ for (const output of indexableOutputs) {
    }
 
    for (const match of contents.matchAll(anchorPattern)) {
-      const attributes = match[1] + " " + match[4];
-      const href = match[3].trim();
-      const label = getAttribute(attributes, "aria-label") || stripHtml(match[5]);
+      const attributes = match[1];
+      const href = getAttribute(attributes, "href");
+      if (!href) continue;
+      const label = getAttribute(attributes, "aria-label") || stripHtml(match[2]);
 
       if (!label) {
          crawlFailures.push("docs/" + output + ": anchor " + href + " has no accessible name");
@@ -225,7 +235,7 @@ for (const htmlFile of listFiles(outputDirectory, /\.html$/i)) {
    const label = path.relative(root, htmlFile);
 
    for (const match of contents.matchAll(referencePattern)) {
-      checkReference(htmlFile, match[1].trim(), label, missing);
+      checkReference(htmlFile, (match[1] || match[2]).trim(), label, missing);
    }
 }
 
