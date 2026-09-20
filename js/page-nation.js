@@ -558,7 +558,7 @@ function setupCategoryFilter() {
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2010-2017", "Paint"],
             img: "img/201504-web.jpg",
-            ImageData: "img/201504.jpg"
+            ImageData: "img/201504-web.jpg"
         },
         {
             title: { ja: "#1503", en: "#1503" },
@@ -567,7 +567,7 @@ function setupCategoryFilter() {
             text: { ja: "準備中...", en: "Preparing…" },
             category: ["2010-2017", "Paint"],
             img: "img/201503-web.jpg",
-            ImageData: "img/201503.jpg"
+            ImageData: "img/201503-web.jpg"
         },
         {
             title: { ja: "#1502", en: "#1502" },
@@ -576,7 +576,7 @@ function setupCategoryFilter() {
             text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
             img: "img/201502-web.jpg",
-            ImageData: "img/201502.jpg"
+            ImageData: "img/201502-web.jpg"
         },
         {
             title: { ja: "#1501", en: "#1501" },
@@ -585,7 +585,7 @@ function setupCategoryFilter() {
             text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
             category: ["2010-2017", "Paint"],
             img: "img/201501-web.jpg",
-            ImageData: "img/201501.jpg"
+            ImageData: "img/201501-web.jpg"
         },//#2014
         {
             title: { ja: "#1402", en: "#1402" },

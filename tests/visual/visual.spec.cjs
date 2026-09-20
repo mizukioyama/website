@@ -265,9 +265,25 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await paintCategory.click();
   await expect(page.locator("#gallery-container .work").first()).toBeVisible();
 
+  const firstWork = page.locator("#gallery-container .work").first();
+  const firstThumbnail = firstWork.locator(".work-img > img");
+  const firstTitle = firstWork.locator(".view-policy-button h2");
+  await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
+
+  await page.locator('#langChenge label[for="langEn"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
+  await page.locator('#langChenge label[for="langJa"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
+
   await page.locator(".view-policy-button").first().click();
   await expectViewportModalFit(page.locator("#modalBox"), "Gallery artwork modal");
   await expect(page.locator("#modalCloseBtn")).toBeVisible();
+  await expect(page.locator("#modalBox img").first()).toHaveAttribute(
+    "alt",
+    await page.locator("#modalBox h2").first().textContent()
+  );
 
   if (fullAudit) {
     await page.screenshot({
