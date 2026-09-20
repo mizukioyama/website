@@ -86,9 +86,9 @@
     .work { justify-content: flex-start; }
     .art-page .work { min-height: 350px; justify-content: flex-start; }
     .gallery-containt .work-img a { height: 80px; }
-    .work h2 { font-size: clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_7) + 0.35vw), var(--legacy-px-0_9)); }
+    .work h2 { font-size: calc(clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_7) + 0.35vw), var(--legacy-px-0_9)) - 2px); }
     #gallery-container .work p { width: 100%; line-height: 1.6; letter-spacing: 0; }
-    #gallery-container .work:nth-child(1) .noise { font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_8) + 0.35vw), var(--legacy-px-1)) !important; top: -10vmin !important; }
+    #gallery-container .work:nth-child(1) .noise { font-size: calc(clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_8) + 0.35vw), var(--legacy-px-1)) - 2px) !important; top: -10vmin !important; }
     #gallery-container a::before { display: none; }
     .gallery ol p { font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_85) + 0.5vw), var(--legacy-px-1_2)); font-weight: 300; width: fit-content; margin-top: 5vmin !important; line-height: 1; padding-left: 0; }
     .gallery li { width: fit-content; max-width: 100%; }
