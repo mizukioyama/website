@@ -430,6 +430,111 @@ function validateJsonLd(relativePath, html, failures) {
    }
 }
 
+function stripHtmlComments(html) {
+   return html.replace(/<!--[\s\S]*?-->/g, "");
+}
+
+function getImageTags(html) {
+   return stripHtmlComments(html).match(/<img\b[^>]*>/gi) || [];
+}
+
+function looksLikeFilename(value) {
+   return /^(?:[^/\\]+\/)*[^/\\]+\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(value);
+}
+
+function isDecorativeImage(tag) {
+   return getAttribute(tag, "aria-hidden")?.toLowerCase() === "true" ||
+      getAttribute(tag, "role")?.toLowerCase() === "presentation" ||
+      getAttribute(tag, "data-decorative") !== null;
+}
+
+function validateMeaningfulImageAlternatives(relativePath, html, failures) {
+   for (const tag of getImageTags(html)) {
+      const alt = getAttribute(tag, "alt");
+      const source = getAttribute(tag, "src") || getAttribute(tag, "data-src") || "unknown image";
+
+      if (alt === null) {
+         failures.push(`${relativePath}: meaningful image is missing alt (${source})`);
+         continue;
+      }
+
+      if (!alt && isDecorativeImage(tag)) {
+         continue;
+      }
+
+      if (!alt) {
+         failures.push(`${relativePath}: meaningful image must not use empty alt (${source})`);
+         continue;
+      }
+
+      if (looksLikeFilename(alt) || /^(?:image|photo|art|picture)$/i.test(alt.trim())) {
+         failures.push(`${relativePath}: image alt is not descriptive (${alt})`);
+      }
+   }
+}
+
+function parseGalleryArtworks(source) {
+   const match = source.match(/const artworks\s*=\s*(\[[\s\S]*?\n    \]);/);
+   if (!match) return null;
+
+   try {
+      return Function(`return ${match[1]}`)();
+   } catch {
+      return null;
+   }
+}
+
+function validateGalleryArtworkMetadata(failures) {
+   const galleryScript = readFile("js/page-nation.js");
+   if (!galleryScript) {
+      failures.push("js/page-nation.js: Gallery artwork data source is missing");
+      return;
+   }
+
+   if (!/<img\s+src=\"\$\{item\.img\}\"\s+alt=\"\$\{item\.title\[lang\]\}\"/i.test(galleryScript)) {
+      failures.push("js/page-nation.js: Gallery thumbnail alt must use the current-language artwork title");
+   }
+
+   if (!/<img\s+src=\"\$\{item\.ImageData \|\| item\.img\}\"\s+alt=\"\$\{item\.title\[lang\]\}\"/i.test(galleryScript)) {
+      failures.push("js/page-nation.js: Gallery detail alt must use the current-language artwork title");
+   }
+
+   const artworks = parseGalleryArtworks(galleryScript);
+   if (!Array.isArray(artworks) || artworks.length === 0) {
+      failures.push("js/page-nation.js: Gallery artwork data could not be parsed");
+      return;
+   }
+
+   const seenTitles = { ja: new Set(), en: new Set() };
+   for (const [index, artwork] of artworks.entries()) {
+      const label = `js/page-nation.js artwork ${index + 1}`;
+      const titles = { ja: artwork?.title?.ja, en: artwork?.title?.en };
+      if (Object.values(titles).some(title => typeof title !== "string" || !title.trim())) {
+         failures.push(`${label}: Japanese and English artwork titles are required for alt text`);
+      }
+
+      for (const [language, title] of Object.entries(titles)) {
+         if (!title) continue;
+         if (seenTitles[language].has(title)) failures.push(`${label}: duplicate ${language} artwork title ${title}`);
+         seenTitles[language].add(title);
+      }
+
+      for (const field of ["caption", "text", "category", "textContent", "img", "ImageData"]) {
+         const value = artwork?.[field];
+         const missing = Array.isArray(value) ? value.length === 0 : !value;
+         if (missing) failures.push(`${label}: ${field} is missing`);
+      }
+
+      for (const relativeImage of [artwork?.img, artwork?.ImageData]) {
+         if (!relativeImage) continue;
+         const imagePath = path.join(root, relativeImage);
+         if (!fs.existsSync(imagePath)) {
+            failures.push(`${label}: image path is missing (${relativeImage})`);
+         }
+      }
+   }
+}
+
 function validatePage(relativePath, html, expectedCanonical, failures, options = {}) {
    if (!html) {
       failures.push(`${relativePath}: file is missing`);
@@ -529,6 +634,8 @@ for (const page of indexablePages) {
       requireOpenGraphImageMetadata: true
    });
 
+   if (sourceHtml) validateMeaningfulImageAlternatives(page.source, sourceHtml, failures);
+
    registerUniqueIndexableMetadata(page, sourceMeta);
 
    if (sourceHtml) {
@@ -550,6 +657,7 @@ for (const page of indexablePages) {
    });
 
    if (outputHtml) {
+      validateMeaningfulImageAlternatives(page.output, outputHtml, failures);
       validatePersonIdentity(page.output, outputHtml, failures);
    }
 
@@ -567,6 +675,8 @@ for (const page of indexablePages) {
       }
    }
 }
+
+validateGalleryArtworkMetadata(failures);
 
 for (const page of nonIndexablePages) {
    const sourceHtml = readFile(page.source);
