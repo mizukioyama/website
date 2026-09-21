@@ -58,8 +58,11 @@ Do not assume similarly named files under `src/` are authoritative for the root 
 The public root-page visual system primarily uses:
 - `css/` for shared/root visual CSS
 - selected `js/` files for public root-page behavior and injected styles
+- `src/components/header.html` and `src/components/footer.html` as the single editable source of truth for the portfolio Header/Footer markup; `npm run sync:components` embeds them into `js/menu.js` so public pages do not need runtime HTML-fragment fetches
 - root visual HTML for Home, Artist Statement, Biography, Order, Gallery, Contact and Policy
 - specific `src/` HTML sources for Information, 404 and exhibition archives
+
+The separate legacy Webpack application used by `matching` / `bot` still has its own `src/header.html` and `src/footer.html` fragments. Those are not the Header/Footer source for the canonical portfolio pages.
 
 `src/style/` is still active for the separate Webpack application bundle and must follow the same current design-unit rules even though it is not the primary styling source for the nine canonical portfolio pages.
 
