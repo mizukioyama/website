@@ -62,8 +62,8 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
-      - name: Build site
-        run: npm run build
+      - name: Run repository checks and build
+        run: npm run check
 
       - name: Detect visual baseline
         id: baseline

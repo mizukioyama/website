@@ -20,6 +20,7 @@ Use this checklist after portfolio changes that can affect layout, typography, s
 
 ## Shared typography
 - [ ] Common body text uses the intended shared token.
+- [ ] Japanese and English normal body-copy pairs use the same `--font-body-size`; translations are not accidentally using caption sizing.
 - [ ] Common links/UI text use the intended shared token.
 - [ ] Header navigation and footer navigation use the same type token inside each breakpoint.
 - [ ] Page-specific overrides are justified and do not duplicate an existing shared role.

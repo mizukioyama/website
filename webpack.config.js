@@ -142,7 +142,10 @@ function processCsp(builtPolicy, htmlPluginData, $) {
 
 // The root HTML files are the visual source of truth for the public site.
 // Keep these pages static so page-specific CSS and scripts are not rewritten
-// by HtmlWebpackPlugin or its CSP post-processing.
+// by HtmlWebpackPlugin, CSP post-processing, or production asset minimizers.
+// Copy patterns below mark source-of-truth HTML as already minimized so
+// Webpack preserves the authored markup/CSS byte-for-byte before known
+// post-build cache/version transforms.
 const rootVisualPages = [
    "index",
    "artist-statement",
@@ -278,21 +281,24 @@ module.exports = {
                // as its authoritative source.
                from: path.resolve(__dirname, "src/information.html"),
                to: "information.html",
-               force: true
+               force: true,
+               info: { minimized: true }
             },
             {
                // GitHub Pages looks for 404.html at the root of the deployed
                // artifact when a requested path does not exist.
                from: path.resolve(__dirname, "src/404.html"),
                to: "404.html",
-               force: true
+               force: true,
+               info: { minimized: true }
             },
             {
                // Keep the pre-directory Yurayura URL available as a static
                // migration page. The source is noindex + canonical + meta refresh.
                from: path.resolve(__dirname, "src/exhibition-yurayura-2026.html"),
                to: "exhibition-yurayura-2026.html",
-               force: true
+               force: true,
+               info: { minimized: true }
             },
             {
                // Exhibition archives are managed by directory. A source such as
@@ -301,7 +307,8 @@ module.exports = {
                // /website/exhibitions/yurayura/.
                from: path.resolve(__dirname, "src/exhibitions"),
                to: "exhibitions",
-               force: true
+               force: true,
+               info: { minimized: true }
             },
             {
                from: path.resolve(__dirname, "sidebar.html"),
@@ -318,7 +325,8 @@ module.exports = {
             ...rootVisualPages.map(page => ({
                from: path.resolve(__dirname, `${page}.html`),
                to: `${page}.html`,
-               force: true
+               force: true,
+               info: { minimized: true }
             })),
             {
                from: path.resolve(__dirname, "css"),

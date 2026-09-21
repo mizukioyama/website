@@ -34,7 +34,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 ## Phase 3 - UX
 - [x] Verify shared spacing/typography/component consistency — typography uses px-based fixed/min/max terms with responsive clamp() interpolation; Header/Footer share breakpoint-specific type tokens across 1440/1280/1024/768/430/390/375 px; CI, Pages deploy, public checks, and Visual Regression verified.
 - [ ] Optimize mobile gallery/artwork viewing
-- [ ] Verify Biography/Statement reading comfort
+- [x] Verify Biography/Statement reading comfort
 - [ ] Verify Order flow and Contact path
 - [ ] Review Information hierarchy/current-event usability
 
@@ -68,7 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
-- 2026-09-20: Completed copy-clarity review across current core/indexable content. Applied only meaning-preserving functional copy fixes to Home, Information and Contact; retained clear Order/Policy/Yurayura copy; Biography and Artist Statement were reviewed but substantive consolidation/rewording was intentionally deferred because it requires artist approval.
+- 2026-09-21: Re-verified Biography / Artist Statement reading comfort after the ZIP audit; normal Japanese/English body copy now shares the documented body token, source and computed-size regression checks cover all seven breakpoints, static source-of-truth HTML is preserved through the build, and the full 1440/1280/1024/768/430/390/375 px Visual Regression audit passed (119 passed, 35 intentionally skipped).\n- 2026-09-20: Completed copy-clarity review across current core/indexable content. Applied only meaning-preserving functional copy fixes to Home, Information and Contact; retained clear Order/Policy/Yurayura copy; Biography and Artist Statement were reviewed but substantive consolidation/rewording was intentionally deferred because it requires artist approval.
 - 2026-09-20: Established the current visual-unit governance: px for stable typography/tracking/shadow geometry, responsive `clamp(px, calc(px + vw), px)` typography, breakpoint-specific shared Header/Footer sizing, and authoritative `DESIGN_SYSTEM.md`, `QA_CHECKLIST.md`, and `SITE_MAP.md` documentation.
 - 2026-09-20: Merged PR #6 at `09f5f7b0e791420c6c6b70613b840b50dff68212`; GitHub Pages deploy run `35499140808` and post-deploy Visual Regression run `35499183314` passed, followed by public checks across the 10 required routes.
 - 2026-09-20: Completed artwork alt-text and metadata audit; verified 69 Gallery records, #1501–#1504 detail fallbacks, generated output, public Gallery interactions, Pages deployment, and post-deploy Visual Regression without changing image-index suppression.
