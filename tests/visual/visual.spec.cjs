@@ -452,16 +452,44 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
 }
 
 async function exerciseContactRuntime(page, testInfo) {
+  const form = page.locator("#contactForm");
+  await expect(form).toHaveAttribute("method", /post/i);
+  await expect(form).toHaveAttribute("action", /^https:\/\/script\.google\.com\/macros\/s\//);
+
+  const requestRadio = page.locator("#radio1");
+  const inquiryRadio = page.locator("#radio2");
+  const consent = page.locator("#consent");
+
+  await expect(requestRadio).toHaveAttribute("required", "");
+  await expect(page.locator("#name")).toHaveAttribute("required", "");
+  await expect(page.locator("#email")).toHaveAttribute("required", "");
+  await expect(page.locator("#message")).toHaveAttribute("required", "");
+  await expect(consent).toBeDisabled();
+  await expect(consent).not.toBeChecked();
+
   await page.locator('label[for="radio1"]').click();
   await expect(page.locator(".request-options")).toBeVisible();
   await expectHorizontalFit(page.locator(".request-options"), "Contact request options");
+  await expect(page.locator('input[name="requestCategory"]')).toHaveCount(5);
+  for (const input of await page.locator('input[name="requestCategory"]').all()) {
+    await expect(input).toHaveAttribute("required", "");
+  }
+  await page.locator('label[for="request-order"]').click();
+  await expect(page.locator("#request-order")).toBeChecked();
 
   await page.locator('label[for="radio2"]').click();
+  await expect(inquiryRadio).toBeChecked();
   await expect(page.locator(".request-options")).toBeHidden();
+  await expect(page.locator('input[name="requestCategory"]:checked')).toHaveCount(0);
+
+  await page.locator('label[for="radio1"]').click();
+  await page.locator('label[for="request-order"]').click();
 
   await page.locator('label[for="modal-toggle"].modal-open-label').click();
   await expect(page.locator("#modal-toggle")).toBeChecked();
   await expectViewportModalFit(page.locator("body > .modal-box"), "Contact SitePolicy modal");
+  await expect(consent).toBeEnabled();
+  await expect(consent).toBeChecked();
 
   if (fullAudit) {
     await page.screenshot({
@@ -474,6 +502,28 @@ async function exerciseContactRuntime(page, testInfo) {
 
   await page.locator("body > .modal-box .modal-close-label").click();
   await expect(page.locator("#modal-toggle")).not.toBeChecked();
+
+  await page.route("https://script.google.com/macros/s/**", async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: "text/plain; charset=utf-8",
+      body: "Successfully submitted"
+    });
+  });
+
+  await page.locator("#name").fill("Visual Regression Test");
+  await page.locator("#email").fill("visual@example.com");
+  await page.locator("#message").fill("Order and Contact flow verification.");
+  await page.locator(".submit-btn").click();
+
+  await expect(page.locator("#thanksModal")).toHaveClass(/show/);
+  await expect(page.locator(".form-status")).toHaveText("送信しました。");
+  await expect(page.locator("#contactForm")).toBeVisible();
+  await expect(requestRadio).not.toBeChecked();
+  await expect(page.locator(".request-options")).toBeHidden();
+
+  await page.locator("#thanksModal .close").click();
+  await expect(page.locator("#thanksModal")).not.toHaveClass(/show/);
 }
 
 async function exerciseOrderRuntime(page) {
@@ -482,10 +532,20 @@ async function exerciseOrderRuntime(page) {
     .getByRole("link", { name: /Contact Us｜お問い合わせ/i })
     .first();
   await expect(contactLink).toBeVisible();
+  await expect(contactLink).toHaveAttribute("href", "contact.html");
   await contactLink.click();
   await page.waitForURL(/\/website\/contact\.html$/);
   await page.waitForLoadState("domcontentloaded");
-  await expect(page.locator("#contactForm")).toBeAttached();
+
+  const form = page.locator("#contactForm");
+  await expect(form).toBeAttached();
+  await expect(form).toHaveAttribute("method", /post/i);
+  await expect(form).toHaveAttribute("action", /^https:\/\/script\.google\.com\/macros\/s\//);
+  await expect(page.locator("#radio1")).toBeAttached();
+  await expect(page.locator("#radio2")).toBeAttached();
+  await expect(page.locator("#name")).toBeAttached();
+  await expect(page.locator("#email")).toBeAttached();
+  await expect(page.locator("#message")).toBeAttached();
 }
 
 async function prepareDeterministicNetwork(page) {
