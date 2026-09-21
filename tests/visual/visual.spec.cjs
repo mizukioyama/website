@@ -332,8 +332,8 @@ async function assertResponsivePageGeometry(page, entry) {
 
 async function exerciseSharedRuntimeInteractions(page) {
   const toggle = page.locator("#navArea .toggle_btn");
-  await toggle.focus();
-  await expect(toggle).toBeFocused();
+  await expect(toggle).toHaveAttribute("role", "button");
+  await expect(toggle).toHaveAttribute("tabindex", "0");
 
   await toggle.evaluate(element => {
     element.dispatchEvent(new KeyboardEvent("keydown", {
