@@ -1,0 +1,56 @@
+name: One-time Order Yurayura layout verification
+
+on:
+  push:
+    branches:
+      - fix/order-yurayura-layout
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-sync:
+    if: ${{ !contains(github.event.head_commit.message, '[layout-sync]') }}
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_VERSION: "1.63.0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/order-yurayura-layout
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build deterministic docs
+        run: npm run build
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@${PLAYWRIGHT_VERSION}
+          npx playwright install --with-deps chromium
+
+      - name: Update approved Order and Yurayura baselines
+        run: npx playwright test --config=playwright.config.cjs --project=desktop-1440 --project=mobile-390 --grep "(order|yurayura) visual and layout regression" --update-snapshots
+
+      - name: Run Order and Yurayura seven-viewport audit
+        run: VISUAL_FULL=1 npx playwright test --config=playwright.config.cjs --grep "(order|yurayura) visual and layout regression"
+
+      - name: Commit generated docs and approved baselines
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs tests/visual/visual.spec.cjs-snapshots/order-desktop-1440-linux.png tests/visual/visual.spec.cjs-snapshots/order-mobile-390-linux.png tests/visual/visual.spec.cjs-snapshots/yurayura-desktop-1440-linux.png tests/visual/visual.spec.cjs-snapshots/yurayura-mobile-390-linux.png
+          if git diff --cached --quiet; then
+            echo "No generated layout changes."
+            exit 0
+          fi
+          git commit -m "Sync Order and Yurayura layout output [layout-sync]"
+          git push origin HEAD:fix/order-yurayura-layout
