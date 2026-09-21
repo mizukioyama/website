@@ -55,9 +55,11 @@ async function normalizeKnownPostBuildHtml(content) {
 
    // html-minifier-terser / clean-css is not fully idempotent for some inline
    // CSS (for example translateX() -> translate() or omitted default easing).
-   // Normalize both source and generated HTML to the same fixed point so the
-   // direct-copy check measures content drift, not minification pass count.
-   for (let pass = 0; pass < 4; pass += 1) {
+   // Normalize both source and generated HTML toward the same fixed point so the
+   // direct-copy check measures content drift, not minification pass count. A
+   // generous cap is intentional because clean-css can apply optimizations in
+   // successive passes (color/currentColor/media-query canonicalization).
+   for (let pass = 0; pass < 12; pass += 1) {
       const minified = await minifyHtml(normalized, minifyOptions);
       if (minified === normalized) {
          break;
