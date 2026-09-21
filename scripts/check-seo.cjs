@@ -86,8 +86,6 @@ const indexablePages = [
 ];
 
 const nonIndexablePages = [
-   { output: "matching.html", source: "src/matching.html" },
-   { output: "bot.html", source: "src/bot.html" },
    { output: "404.html", source: "src/404.html" }
 ];
 
