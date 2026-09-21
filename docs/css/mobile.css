@@ -51,7 +51,7 @@
         font-synthesis-weight: none !important;
         font-size: var(--font-category-size) !important;
         line-height: 1.15 !important;
-        letter-spacing: 0.01em !important;
+        letter-spacing: var(--tracking-category-001) !important;
         color: var(--inv) !important;
         -webkit-text-fill-color: currentColor !important;
         -webkit-text-stroke: 0 transparent !important;
@@ -86,14 +86,14 @@
     .work { justify-content: flex-start; }
     .art-page .work { min-height: 350px; justify-content: flex-start; }
     .gallery-containt .work-img a { height: 80px; }
-    .work h2 { font-size: clamp(0.8rem, calc(0.7rem + 0.35vw), 0.9rem); }
+    .work h2 { font-size: calc(clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_7) + 0.35vw), var(--legacy-px-0_9)) - 2px); }
     #gallery-container .work p { width: 100%; line-height: 1.6; letter-spacing: 0; }
-    #gallery-container .work:nth-child(1) .noise { font-size: clamp(0.9rem, calc(0.8rem + 0.35vw), 1rem) !important; top: -10vmin !important; }
+    #gallery-container .work:nth-child(1) .noise { font-size: calc(clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_8) + 0.35vw), var(--legacy-px-1)) - 2px) !important; top: -10vmin !important; }
     #gallery-container a::before { display: none; }
-    .gallery ol p { font-size: clamp(1rem, calc(0.85rem + 0.5vw), 1.2rem); font-weight: 300; width: fit-content; margin-top: 5vmin !important; line-height: 1; padding-left: 0; }
+    .gallery ol p { font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_85) + 0.5vw), var(--legacy-px-1_2)); font-weight: 300; width: fit-content; margin-top: 5vmin !important; line-height: 1; padding-left: 0; }
     .gallery li { width: fit-content; max-width: 100%; }
     .gallery li a:hover { background: var(--inv); }
-    .work .noise { letter-spacing: 0.075rem; }
+    .work .noise { letter-spacing: var(--legacy-px-0_075); }
     #pagination { margin: 5vmin auto; gap: clamp(0.75rem, calc(0.5rem + 2vw), 1.5rem); }
     #gallery-container .work > .cg-text { width: min(100%, calc(100% - 0.5rem)) !important; max-width: 100%; overflow-wrap: anywhere; }
     #state h3 { padding: 2.5rem 2rem; }
@@ -102,5 +102,5 @@
     #state .content .work:nth-child(n+3) h3 { padding: 0.5rem 2rem; }
     #state .work:nth-child(2) h3 { width: auto; margin-top: 20vmin; }
     #state .work h3::before { width: 20px; top: 50%; }
-    #state .work:nth-child(n+3) ol p { font-size: clamp(0.9rem, calc(0.8rem + 0.35vw), 1rem); }
+    #state .work:nth-child(n+3) ol p { font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_8) + 0.35vw), var(--legacy-px-1)); }
 }
