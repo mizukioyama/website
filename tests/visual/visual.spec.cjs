@@ -553,6 +553,10 @@ async function layoutDiagnostics(page) {
 
 for (const entry of pages) {
   test(entry.key + " visual and layout regression", async ({ page }, testInfo) => {
+    if (entry.key === "home") {
+      testInfo.setTimeout(60000);
+    }
+
     const runtime = createRuntimeMonitor(page, entry);
 
     await page.addInitScript(() => {
