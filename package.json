@@ -8,12 +8,12 @@
     "check:generated": "node scripts/check-generated.cjs",
     "check:seo": "node scripts/check-seo.cjs",
     "check:links": "node scripts/check-links.cjs",
-    "check": "npm run check:components && npm run check:js && npm run check:typography && npm run build && npm run check:docs-css-sync && npm run check:generated && npm run check:seo && npm run check:links",
+    "check": "npm run check:components && npm run check:js && npm run check:typography && npm run build && npm run check:docs-sync && npm run check:generated && npm run check:seo && npm run check:links",
     "deploy": "gh-pages -d docs",
     "check:typography": "node scripts/check-typography.cjs",
     "sync:components": "node scripts/sync-shared-components.cjs",
     "check:components": "node scripts/sync-shared-components.cjs --check",
-    "check:docs-css-sync": "node scripts/check-docs-css-sync.cjs"
+    "check:docs-sync": "node scripts/check-docs-sync.cjs"
   },
   "keywords": [],
   "author": "",
