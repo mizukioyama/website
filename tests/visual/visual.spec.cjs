@@ -743,6 +743,29 @@ test("shared body typography matches the documented responsive scale", async ({ 
     parseFloat(getComputedStyle(element).fontSize)
   );
   expect(roundToTenth(biographySize), "Biography body font-size").toBe(expected);
+
+  const biographyEnglishSize = await page.locator("#bio #state .content .work > p.text[lang='en']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(biographyEnglishSize), "Biography English body font-size").toBe(expected);
+
+  await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "statement-body-type" });
+
+  const statementJapaneseSize = await page.locator("#state .content .work > p[lang='ja']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(statementJapaneseSize), "Statement Japanese body font-size").toBe(expected);
+
+  const statementEnglishSize = await page.locator("#state .content .work > p.text[lang='en']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(statementEnglishSize), "Statement English body font-size").toBe(expected);
+
+  const statementTimelineEnglishSize = await page.locator("#state .timeline-copy > p.text[lang='en']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(statementTimelineEnglishSize), "Statement timeline English body font-size").toBe(expected);
 });
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
