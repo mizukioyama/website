@@ -43,14 +43,13 @@ The canonical URL list is also represented by `sitemap.xml`. Any page-count disc
 - Canonical destination is `/website/exhibitions/yurayura/`.
 
 ## Build responsibilities
-`webpack.config.js` currently:
+`webpack.config.js` is now limited to deterministic static deployment assembly for the portfolio:
 - copies the seven root visual pages directly into `docs/`
 - copies `src/information.html` to `docs/information.html`
 - copies `src/404.html` to `docs/404.html`
 - copies `src/exhibition-yurayura-2026.html` as the legacy migration page
 - copies `src/exhibitions/` into `docs/exhibitions/`
 - copies root `css/`, selected root `js/`, `img/` and source image assets into the deployment tree
-- still builds the separate `matching` and `bot` pages through HtmlWebpackPlugin
 
 Do not assume similarly named files under `src/` are authoritative for the root visual pages. Confirm the mapping in `webpack.config.js` before editing.
 
@@ -61,10 +60,6 @@ The public root-page visual system primarily uses:
 - `src/components/header.html` and `src/components/footer.html` as the single editable source of truth for the portfolio Header/Footer markup; `npm run sync:components` embeds them into `js/menu.js` so public pages do not need runtime HTML-fragment fetches
 - root visual HTML for Home, Artist Statement, Biography, Order, Gallery, Contact and Policy
 - specific `src/` HTML sources for Information, 404 and exhibition archives
-
-The separate legacy Webpack application used by `matching` / `bot` still has its own `src/header.html` and `src/footer.html` fragments. Those are not the Header/Footer source for the canonical portfolio pages.
-
-`src/style/` is still active for the separate Webpack application bundle and must follow the same current design-unit rules even though it is not the primary styling source for the nine canonical portfolio pages.
 
 ## Generated output policy
 `docs/` is deployment/generated output.

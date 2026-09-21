@@ -186,13 +186,11 @@ const generatedPageNames = new Set([
    "artist-statement.html",
    "biography.html",
    "order.html",
-   "bot.html",
    "contact.html",
    "gallery.html",
    "information.html",
    "404.html",
    "exhibition-yurayura-2026.html",
-   "matching.html",
    "policy.html"
 ]);
 const exhibitionIndexPattern = /^exhibitions\/(?:[^/]+\/)+index\.html$/;
