@@ -44,6 +44,9 @@ jobs:
       - name: Install site dependencies
         run: npm ci
 
+      - name: Run repository checks and build
+        run: npm run check
+
       - name: Install pinned Playwright test runner
         run: npm install --no-save --package-lock=false @playwright/test@${PLAYWRIGHT_VERSION}
 
@@ -61,9 +64,6 @@ jobs:
       - name: Install Chromium system dependencies on cache hit
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
-
-      - name: Run repository checks and build
-        run: npm run check
 
       - name: Detect visual baseline
         id: baseline
