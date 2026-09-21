@@ -376,27 +376,35 @@ async function exerciseSharedRuntimeInteractions(page) {
   await expect(toggle).toHaveAttribute("role", "button");
   await expect(toggle).toHaveAttribute("tabindex", "0");
 
-  await toggle.evaluate(element => {
+  const openState = await toggle.evaluate(element => {
     element.dispatchEvent(new KeyboardEvent("keydown", {
       key: "Enter",
       code: "Enter",
       bubbles: true,
       cancelable: true
     }));
+    const nav = element.closest("#navArea");
+    return {
+      open: Boolean(nav?.classList.contains("open")),
+      expanded: element.getAttribute("aria-expanded")
+    };
   });
-  await expect(page.locator("#navArea")).toHaveClass(/open/);
-  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  expect(openState).toEqual({ open: true, expanded: "true" });
 
-  await toggle.evaluate(element => {
+  const closedState = await toggle.evaluate(element => {
     element.dispatchEvent(new KeyboardEvent("keydown", {
       key: " ",
       code: "Space",
       bubbles: true,
       cancelable: true
     }));
+    const nav = element.closest("#navArea");
+    return {
+      open: Boolean(nav?.classList.contains("open")),
+      expanded: element.getAttribute("aria-expanded")
+    };
   });
-  await expect(page.locator("#navArea")).not.toHaveClass(/open/);
-  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  expect(closedState).toEqual({ open: false, expanded: "false" });
 }
 
 async function exerciseGalleryRuntime(page, projectName, testInfo) {
