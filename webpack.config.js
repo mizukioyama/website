@@ -168,7 +168,6 @@ const rootVisualScripts = [
    "mobile.js",
    "p5.min.js",
    "page-nation.js",
-   "side.js",
    "three.r134.min.js",
    "time.js",
    "vanta.fog.min.js",

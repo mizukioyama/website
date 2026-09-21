@@ -133,8 +133,8 @@ The root visual pages, active source pages under `src/`, shared CSS and active J
 
 Do not hand-edit generated `docs/` files to implement design changes. Update the authoritative source and rebuild.
 
-## Historical documents
-Files under `reports/` record past audits and may describe superseded typography rules such as rem-based clamps. They are historical evidence, not current design authority.
+## Design authority
+Historical audit material is preserved in Git history rather than kept as active repository guidance.
 
 Current design authority is:
 1. latest explicit user instruction
