@@ -8,8 +8,9 @@
     "check:generated": "node scripts/check-generated.cjs",
     "check:seo": "node scripts/check-seo.cjs",
     "check:links": "node scripts/check-links.cjs",
-    "check": "npm run check:js && npm run build && npm run check:generated && npm run check:seo && npm run check:links",
-    "deploy": "gh-pages -d docs"
+    "check": "npm run check:js && npm run check:typography && npm run build && npm run check:generated && npm run check:seo && npm run check:links",
+    "deploy": "gh-pages -d docs",
+    "check:typography": "node scripts/check-typography.cjs"
   },
   "keywords": [],
   "author": "",
