@@ -25,8 +25,9 @@ Base: `ad577fcae63180a1dfca1a41c6c08a8c5320a3a3`
 
 - Active runtime: root page HTML, root `css/`, root `js/`, `src/information.html`, `src/404.html`, `src/exhibitions/yurayura/`, and the Webpack configuration.
 - Generated/deployed: `docs/`.
-- Reference/alternate or legacy candidates, retained unchanged: `src/` duplicates not selected by the current root visual mapping, `_layoutsdefault.html`, `sidebar.html`, `js/footer.js`, `test.html`, `memo.md`, `tatus`, `webpack`, `website`, `website@1.0.0`, `npm list webpack.yaml`, and `path/to/project/public/assets/`.
-- No file was deleted or moved during this audit.
+- Reference/alternate or legacy candidates still retained for later environment cleanup: `src/` duplicates not selected by the current root visual mapping, `_layoutsdefault.html`, `sidebar.html`, `js/footer.js`, `test.html`, `memo.md`, and other explicit test/reference pages. These are not treated as production source without confirming the build mapping.
+- 2026-09-21 ZIP audit removed verified unused backup/command-output artifacts: `archive/css-delete-candidates-20260907/`, `reports/chatgpt-review-package.zip`, `path/to/project/public/assets/`, `npm list webpack.yaml`, `tatus`, empty `webpack` / `website@1.0.0` artifacts, obsolete `website` gitlink, and `src/matchingミス.html`.
+- The cleanup was limited to files with no active build/runtime/reference dependency; test/reference candidates with uncertain future value were intentionally retained.
 
 ## Phase 3 changes
 
