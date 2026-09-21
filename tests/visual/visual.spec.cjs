@@ -340,9 +340,10 @@ async function exerciseSharedRuntimeInteractions(page) {
 
   const englishLabel = page.locator('#langChenge label[for="langEn"]');
   if (await englishLabel.isVisible()) {
-    // The Home background is continuously animated. Dispatch the native label
-    // click directly so the real label -> radio -> language path is exercised
-    // without Playwright waiting for visual stability.
+    // Header markup can become visible just before multi_language() finishes
+    // binding its radio listeners. Wait for its synchronous initialization
+    // marker before exercising the real label -> radio -> language path.
+    await expect(page.locator("html")).toHaveAttribute("lang", /^(ja|en)$/, { timeout: 10000 });
     await englishLabel.evaluate(label => label.click());
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
     await page.locator('#langChenge label[for="langJa"]').evaluate(label => label.click());
