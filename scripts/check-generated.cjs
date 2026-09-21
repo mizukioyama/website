@@ -33,14 +33,14 @@ function listExhibitionIndexSources(directory = path.join(root, "src", "exhibiti
 }
 
 async function normalizeKnownPostBuildHtml(content) {
-   const knownTransformsNormalized = content
+   let normalized = content
       .replace(/css\/menu\.css(?:\?v=[^"'\s>]*)?/g, "css/menu.css")
       .replace(/css\/form\.css(?:\?v=[^"']*)?/g, "css/form.css")
       .replace(/js\/form\.js(?:\?v=[^"'\s>]*)?/g, "js/form.js")
       .replace(/Nature inspire/g, "NatureInspire")
       .replace(/Nature Inspire/g, "NatureInspire");
 
-   const minified = await minifyHtml(knownTransformsNormalized, {
+   const minifyOptions = {
       collapseWhitespace: true,
       minifyCSS: true,
       minifyJS: true,
@@ -51,9 +51,21 @@ async function normalizeKnownPostBuildHtml(content) {
       removeScriptTypeAttributes: true,
       removeStyleLinkTypeAttributes: true,
       useShortDoctype: true
-   });
+   };
 
-   return minified
+   // html-minifier-terser / clean-css is not fully idempotent for some inline
+   // CSS (for example translateX() -> translate() or omitted default easing).
+   // Normalize to a fixed point so direct-copy checks compare semantics rather
+   // than how many minification passes an asset happened to receive.
+   for (let pass = 0; pass < 4; pass += 1) {
+      const minified = await minifyHtml(normalized, minifyOptions);
+      if (minified === normalized) {
+         break;
+      }
+      normalized = minified;
+   }
+
+   return normalized
       .replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi, (full, open, source, close) => {
          if (!/\btype\s*=\s*(?:["']application\/ld\+json["']|application\/ld\+json)/i.test(open)) {
             return full;
