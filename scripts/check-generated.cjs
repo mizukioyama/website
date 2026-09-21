@@ -62,6 +62,21 @@ async function normalizeKnownPostBuildHtml(content) {
       });
 }
 
+function describeFirstDifference(left, right) {
+   const max = Math.min(left.length, right.length);
+   let index = 0;
+   while (index < max && left[index] === right[index]) {
+      index += 1;
+   }
+   const start = Math.max(0, index - 80);
+   const end = index + 120;
+   return {
+      index,
+      source: left.slice(start, end),
+      output: right.slice(start, end)
+   };
+}
+
 function listHtmlFiles(directory) {
    if (!fs.existsSync(directory)) {
       return [];
@@ -190,8 +205,9 @@ for (const pair of directCopyPairs) {
       : output;
 
    if (comparableSource !== comparableOutput) {
+      const difference = describeFirstDifference(comparableSource, comparableOutput);
       failures.push(
-         `docs/${pair.output}: differs from direct-copy source ${pair.source} beyond known post-build transforms`
+         `docs/${pair.output}: differs from direct-copy source ${pair.source} beyond known post-build transforms at index ${difference.index}; source=${JSON.stringify(difference.source)}; output=${JSON.stringify(difference.output)}`
       );
    }
 }
