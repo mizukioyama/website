@@ -65,13 +65,80 @@ async function normalizeKnownPostBuildHtml(content) {
       normalized = minified;
    }
 
-   return normalized
-      .replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi, (full, open, source, close) => {
+   normalized = normalized.replace(
+      /(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi,
+      (full, open, source, close) => {
          if (!/\btype\s*=\s*(?:["']application\/ld\+json["']|application\/ld\+json)/i.test(open)) {
             return full;
          }
          return open + JSON.stringify(JSON.parse(source)) + close;
-      });
+      }
+   );
+
+   return normalizeInlineCss(normalized);
+}
+
+function normalizeCssForComparison(css) {
+   // clean-css can produce semantically equivalent CSS across repeated passes.
+   // Canonicalize only inline <style> CSS used by the direct-copy comparison.
+   let normalized = css.replace(/translateX\(([^()]*)\)/g, "translate($1)");
+
+   normalized = normalized.replace(
+      /(transition(?:-[a-z-]+)?):([^;}]+)/gi,
+      (full, property, value) => {
+         const canonicalValue = value
+            .replace(/\bease(?=\s*(?:,|$))/g, "")
+            .replace(/\s+,/g, ",")
+            .trim();
+         return `${property}:${canonicalValue}`;
+      }
+   );
+
+   let result = "";
+   let quote = null;
+   let escaped = false;
+
+   for (let index = 0; index < normalized.length; index += 1) {
+      const char = normalized[index];
+
+      if (quote) {
+         result += char;
+         if (escaped) {
+            escaped = false;
+         } else if (char === "\\") {
+            escaped = true;
+         } else if (char === quote) {
+            quote = null;
+         }
+         continue;
+      }
+
+      if (char === "\"" || char === "'") {
+         quote = char;
+         result += char;
+         continue;
+      }
+
+      if (char === ",") {
+         result = result.replace(/\s+$/, "");
+         result += ",";
+         while (/\s/.test(normalized[index + 1] || "")) {
+            index += 1;
+         }
+         continue;
+      }
+
+      result += char;
+   }
+
+   return result;
+}
+
+function normalizeInlineCss(html) {
+   return html.replace(
+      /(<style\b[^>]*>)([\s\S]*?)(<\/style\s*>)/gi,
+      (full, open, css, close) => open + normalizeCssForComparison(css) + close
+   );
 }
 
 function describeFirstDifference(left, right) {
