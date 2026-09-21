@@ -49,7 +49,8 @@ The canonical URL list is also represented by `sitemap.xml`. Any page-count disc
 - copies `src/404.html` to `docs/404.html`
 - copies `src/exhibition-yurayura-2026.html` as the legacy migration page
 - copies `src/exhibitions/` into `docs/exhibitions/`
-- copies root `css/`, selected root `js/`, `img/` and source image assets into the deployment tree
+- copies root `css/`, selected root `js/` and `img/` into the deployment tree
+- copies the Google Search Console verification file to the deployment root
 
 Do not assume similarly named files under `src/` are authoritative for the root visual pages. Confirm the mapping in `webpack.config.js` before editing.
 
