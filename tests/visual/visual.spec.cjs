@@ -526,6 +526,23 @@ async function exerciseContactRuntime(page, testInfo) {
   await expect(page.locator("#thanksModal")).not.toHaveClass(/show/);
 }
 
+async function exerciseInformationRuntime(page) {
+  const sections = page.locator(".information-page .info-section");
+  await expect(sections).toHaveCount(2);
+
+  const headings = await sections.locator("h2").allTextContents();
+  expect(headings.map(text => text.trim())).toEqual(["Upcoming", "Past"]);
+
+  const upcoming = page.locator('section[aria-labelledby="upcoming-title"]');
+  await expect(upcoming).toContainText("2026.10");
+  await expect(upcoming).toContainText("グループ展「ゆらゆら」");
+  await expect(upcoming).toContainText("2026年10月6日 — 10月12日");
+
+  const detailLink = page.getByRole("link", { name: "展示詳細を見る" });
+  await expect(detailLink).toBeVisible();
+  await expect(detailLink).toHaveAttribute("href", "exhibitions/yurayura/");
+}
+
 async function exerciseOrderRuntime(page) {
   await page.waitForLoadState("load");
   const contactLink = page
@@ -751,6 +768,9 @@ for (const entry of pages) {
     }
     if (entry.key === "gallery") {
       await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
+    }
+    if (entry.key === "information") {
+      await exerciseInformationRuntime(page);
     }
     if (entry.key === "contact") {
       await exerciseContactRuntime(page, testInfo);
