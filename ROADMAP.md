@@ -33,7 +33,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 
 ## Phase 3 - UX
 - [x] Verify shared spacing/typography/component consistency — typography uses px-based fixed/min/max terms with responsive clamp() interpolation; Header/Footer share breakpoint-specific type tokens across 1440/1280/1024/768/430/390/375 px; CI, Pages deploy, public checks, and Visual Regression verified.
-- [ ] Optimize mobile gallery/artwork viewing
+- [x] Optimize mobile gallery/artwork viewing — mobile Gallery now uses a single artwork column with 44px side insets, full available artwork width, compact card flow without the legacy 350px minimum, and a minimum 48px artwork action target; verified at 1440/1280/1024/768/430/390/375 px with a refreshed Gallery-only 390px visual baseline.
 - [x] Verify Biography/Statement reading comfort
 - [ ] Verify Order flow and Contact path
 - [ ] Review Information hierarchy/current-event usability
@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-21: Completed Phase 3 mobile Gallery/artwork viewing optimization. Mobile Gallery changed from two columns to one, normalized 44px side insets, removed the legacy fixed card/action heights, expanded artwork to available width, preserved Category/modal interactions, added geometry/touch-target assertions, and passed the Gallery audit at 1440/1280/1024/768/430/390/375 px.
 - 2026-09-21: Completed structured-data opportunity audit against current Google Search guidance. Retained the existing WebSite/Person/ProfilePage and page-type graph, avoided speculative markup with no measurable benefit, and documented Yurayura Event location as the only current rich-result blocker pending verified visible venue details.
 - 2026-09-21: Restored deterministic deployment of the existing Google Search Console HTML verification file by copying it to the `docs/` deployment root and checking source/output parity.
 - 2026-09-21: Removed the unlinked/noindex legacy `matching` / `bot` Webpack application and its private source JS/CSS/assets. Simplified Webpack to deterministic static portfolio assembly and removed bundle-only Babel/CSS/HTML/CSP/jQuery dependencies while preserving the nine canonical pages and deployment checks.
