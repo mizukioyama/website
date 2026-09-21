@@ -341,6 +341,23 @@ async function assertResponsivePageGeometry(page, entry) {
     await expectHorizontalFit(page.locator(".order-page .history-table"), "Order table");
     await expectHorizontalFit(page.locator(".order-page .timeline"), "Order process");
     await expectHorizontalFit(page.locator(".order-page .order-cta"), "Order CTA");
+
+    const layout = await page.evaluate(() => {
+      const content = document.querySelector(".order-page .content");
+      const title = document.querySelector(".order-page > .h1-text h1");
+      const sectionTitle = content?.querySelector(":scope > h2");
+      if (!content || !title || !sectionTitle) return null;
+      const contentStyle = getComputedStyle(content);
+      return {
+        marginTop: parseFloat(contentStyle.marginTop) || 0,
+        expectedMarginTop: Math.min(window.innerWidth, window.innerHeight) * 0.6,
+        titleBottom: title.getBoundingClientRect().bottom,
+        sectionTop: sectionTitle.getBoundingClientRect().top
+      };
+    });
+    expect(layout, "Order layout geometry should be measurable").not.toBeNull();
+    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Order should use the shared 60vmin content offset").toBeLessThanOrEqual(1.5);
+    expect(layout.titleBottom, "Order H1 must remain above page content").toBeLessThan(layout.sectionTop);
   }
 
   if (entry.key === "contact") {
@@ -368,6 +385,23 @@ async function assertResponsivePageGeometry(page, entry) {
     await expectHorizontalFit(page.locator(".exhibition-page .content"), "Yurayura content");
     await expectHorizontalFit(page.locator(".exhibition-page .history-table"), "Yurayura details table");
     await expectHorizontalFit(page.locator(".exhibition-page .link-row a"), "Yurayura related links");
+
+    const layout = await page.evaluate(() => {
+      const content = document.querySelector(".exhibition-page .content");
+      const title = document.querySelector(".exhibition-page > .h1-text h1");
+      const sectionTitle = content?.querySelector(":scope > h2");
+      if (!content || !title || !sectionTitle) return null;
+      const contentStyle = getComputedStyle(content);
+      return {
+        marginTop: parseFloat(contentStyle.marginTop) || 0,
+        expectedMarginTop: Math.min(window.innerWidth, window.innerHeight) * 0.6,
+        titleBottom: title.getBoundingClientRect().bottom,
+        sectionTop: sectionTitle.getBoundingClientRect().top
+      };
+    });
+    expect(layout, "Yurayura layout geometry should be measurable").not.toBeNull();
+    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Yurayura should use the shared 60vmin content offset").toBeLessThanOrEqual(1.5);
+    expect(layout.titleBottom, "Yurayura H1 must remain above page content").toBeLessThan(layout.sectionTop);
   }
 }
 
