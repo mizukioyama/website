@@ -7,7 +7,6 @@ const captionSourcePath = path.join(root, 'js', 'gallery-captions-data.js');
 const runtimeHelperPath = path.join(root, 'js', 'gallery-captions.js');
 const generatedArtworkPath = path.join(root, 'docs', 'js', 'page-nation.js');
 const generatedRuntimeHelperPath = path.join(root, 'docs', 'js', 'gallery-captions.js');
-const generatedGalleryPath = path.join(root, 'docs', 'gallery.html');
 const generatedDocsPath = path.join(root, 'docs');
 
 function decodeJsString(value) {

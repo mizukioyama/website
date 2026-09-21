@@ -71,7 +71,7 @@ The separate legacy Webpack application used by `matching` / `bot` still has its
 
 Do not implement a fix by hand-editing `docs/` when an authoritative source exists. Update the source, run the build, and verify generated parity.
 
-The committed `docs/css/` directory must match the CSS produced by the current build. `npm run check` rebuilds the site and fails when `docs/css/` remains different from the committed state, preventing a stale local `docs/` CSS mirror from reaching `main`.
+The committed `docs/` tree must match the deterministic output produced by the current build. Generated local CSS/JS references use content-derived `?v=` hashes rather than commit/time tokens, so unchanged sources produce identical output across local and CI builds. `npm run check` rebuilds the site and fails when any file under `docs/` differs from the committed state, preventing a stale local deployment mirror from reaching `main`.
 
 ## Navigation expectations
 Primary portfolio paths:
