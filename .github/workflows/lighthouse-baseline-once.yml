@@ -23,6 +23,9 @@ jobs:
         run: |
           google-chrome --version || chromium --version || chromium-browser --version
 
+      - name: Install Lighthouse
+        run: npm install --global lighthouse@13.5.0
+
       - name: Measure public portfolio
         shell: bash
         run: |
@@ -43,14 +46,16 @@ jobs:
           for slug in "${!PAGES[@]}"; do
             url="${PAGES[$slug]}"
             echo "Mobile: $slug $url"
-            npx -y lighthouse@13.5.0 "$url" \
+            lighthouse "$url" \
               --only-categories=performance \
               --output=json \
               --output-path="lighthouse-results/${slug}-mobile.json" \
               --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+              --max-wait-for-load=20000 \
+              --disable-full-page-screenshot \
               --quiet
             echo "Desktop: $slug $url"
-            npx -y lighthouse@13.5.0 "$url" \
+            lighthouse "$url" \
               --preset=desktop \
               --only-categories=performance \
               --output=json \
