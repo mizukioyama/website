@@ -1,0 +1,106 @@
+name: One-time Lighthouse baseline
+
+on:
+  push:
+    branches:
+      - perf/lighthouse-baseline
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check Chrome
+        run: |
+          google-chrome --version || chromium --version || chromium-browser --version
+
+      - name: Measure public portfolio
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p lighthouse-results
+          BASE='https://mizukioyama.github.io/website'
+          declare -A PAGES=(
+            [home]="$BASE/"
+            [gallery]="$BASE/gallery.html"
+            [biography]="$BASE/biography.html"
+            [artist-statement]="$BASE/artist-statement.html"
+            [information]="$BASE/information.html"
+            [order]="$BASE/order.html"
+            [contact]="$BASE/contact.html"
+            [policy]="$BASE/policy.html"
+            [yurayura]="$BASE/exhibitions/yurayura/"
+          )
+          for slug in "${!PAGES[@]}"; do
+            url="${PAGES[$slug]}"
+            echo "Mobile: $slug $url"
+            npx -y lighthouse@13.5.0 "$url" \
+              --only-categories=performance \
+              --output=json \
+              --output-path="lighthouse-results/${slug}-mobile.json" \
+              --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+              --quiet
+            echo "Desktop: $slug $url"
+            npx -y lighthouse@13.5.0 "$url" \
+              --preset=desktop \
+              --only-categories=performance \
+              --output=json \
+              --output-path="lighthouse-results/${slug}-desktop.json" \
+              --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+              --quiet
+          done
+
+      - name: Build summary
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const dir = 'lighthouse-results';
+          const files = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort();
+          const rows = [];
+          for (const file of files) {
+            const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
+            const name = file.replace('.json','');
+            const idx = name.lastIndexOf('-');
+            const page = name.slice(0, idx);
+            const mode = name.slice(idx + 1);
+            const a = data.audits;
+            rows.push({
+              page, mode,
+              score: Math.round((data.categories.performance.score || 0) * 100),
+              fcp: a['first-contentful-paint']?.numericValue || 0,
+              lcp: a['largest-contentful-paint']?.numericValue || 0,
+              cls: a['cumulative-layout-shift']?.numericValue || 0,
+              tbt: a['total-blocking-time']?.numericValue || 0,
+              si: a['speed-index']?.numericValue || 0,
+              bytes: a['total-byte-weight']?.numericValue || 0
+            });
+          }
+          const ms = v => Math.round(v);
+          let md = '# Lighthouse performance baseline\n\n';
+          md += 'Public GitHub Pages measurement. Lighthouse 13.5.0. Lab data, not CrUX field data.\n\n';
+          md += '| Page | Mode | Score | FCP ms | LCP ms | CLS | TBT ms | Speed Index ms | Transfer KB |\n';
+          md += '|---|---:|---:|---:|---:|---:|---:|---:|---:|\n';
+          for (const r of rows) {
+            md += `| ${r.page} | ${r.mode} | ${r.score} | ${ms(r.fcp)} | ${ms(r.lcp)} | ${r.cls.toFixed(3)} | ${ms(r.tbt)} | ${ms(r.si)} | ${Math.round(r.bytes/1024)} |\n`;
+          }
+          fs.writeFileSync(path.join(dir, 'summary.md'), md);
+          console.log(md);
+          NODE
+
+      - name: Upload Lighthouse baseline
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-baseline
+          path: lighthouse-results
+          retention-days: 14
