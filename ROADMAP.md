@@ -29,7 +29,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Audit sitemap/robots/internal links — sitemap exact match, 9 indexable pages, robots policy, internal links, Pages and Visual Regression verified.
 - [x] Audit artwork alt text and metadata — 69 Gallery records, accessible alt text, thumbnail/detail fallback, language/category/modal regression checks, Pages and Visual Regression verified.
 - [x] Review copy clarity while preserving artist voice — clarified Home, Information and Contact functional copy; retained Order/Policy/Yurayura where already clear; reviewed Biography/Artist Statement without changing substantive artistic meaning.
-- [ ] Review structured-data opportunities using verifiable visible facts
+- [x] Review structured-data opportunities using verifiable visible facts — current Person/WebSite/ProfilePage/page-type markup is retained; Yurayura Event rich-result eligibility is intentionally deferred until a verified venue name/address is visible on the page, because Google requires event location and structured data must not introduce non-visible facts.
 
 ## Phase 3 - UX
 - [x] Verify shared spacing/typography/component consistency — typography uses px-based fixed/min/max terms with responsive clamp() interpolation; Header/Footer share breakpoint-specific type tokens across 1440/1280/1024/768/430/390/375 px; CI, Pages deploy, public checks, and Visual Regression verified.
@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-21: Completed structured-data opportunity audit against current Google Search guidance. Retained the existing WebSite/Person/ProfilePage and page-type graph, avoided speculative markup with no measurable benefit, and documented Yurayura Event location as the only current rich-result blocker pending verified visible venue details.
 - 2026-09-21: Restored deterministic deployment of the existing Google Search Console HTML verification file by copying it to the `docs/` deployment root and checking source/output parity.
 - 2026-09-21: Removed the unlinked/noindex legacy `matching` / `bot` Webpack application and its private source JS/CSS/assets. Simplified Webpack to deterministic static portfolio assembly and removed bundle-only Babel/CSS/HTML/CSP/jQuery dependencies while preserving the nine canonical pages and deployment checks.
 - 2026-09-21: Removed six superseded `reports/` audit files from the active repository (history remains in Git), removed the unreferenced root `js/side.js` compatibility asset after confirming Gallery sidebar behavior is integrated into the current runtime, and deleted four zero-reference legacy source files (`src/assets/js/structured-data.js`, `src/js/gallery.js`, `src/js/matching.js`, `src/js/rollup.config-min.js`).
