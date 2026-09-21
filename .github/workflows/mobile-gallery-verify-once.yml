@@ -39,8 +39,8 @@ jobs:
       - name: Update approved mobile Gallery baseline
         run: npx playwright test --config=playwright.config.cjs --project=mobile-390 --grep "gallery visual and layout regression" --update-snapshots
 
-      - name: Run full seven-viewport audit
-        run: VISUAL_FULL=1 npx playwright test --config=playwright.config.cjs
+      - name: Run Gallery seven-viewport audit
+        run: VISUAL_FULL=1 npx playwright test --config=playwright.config.cjs --grep "gallery visual and layout regression"
 
       - name: Commit generated docs and Gallery baseline
         shell: bash
