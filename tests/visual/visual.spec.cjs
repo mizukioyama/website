@@ -718,6 +718,40 @@ test("h2 typography is exactly 2px below the previous responsive scale", async (
   expect(roundToTenth(biographySize), "Biography h2 font-size").toBe(expected.biography);
 });
 
+function expectedBodySizes(projectName) {
+  const expectedByProject = {
+    "desktop-1440": 14,
+    "desktop-1280": 14,
+    "tablet-1024": 14,
+    "tablet-768": 13.5,
+    "mobile-430": 12.1,
+    "mobile-390": 12,
+    "mobile-375": 12
+  };
+  return expectedByProject[projectName];
+}
+
+test("shared body typography matches the documented responsive scale", async ({ page }, testInfo) => {
+  const expected = expectedBodySizes(testInfo.project.name);
+  expect(expected, "viewport should have a documented body target").toBeDefined();
+  const roundToTenth = value => Math.round(value * 10) / 10;
+
+  await prepareDeterministicNetwork(page);
+  await page.goto("", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "home-body-type" });
+  const homeSize = await page.locator("main p").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(homeSize), "Home body font-size").toBe(expected);
+
+  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "biography-body-type" });
+  const biographySize = await page.locator("#bio #state .content .work > p[lang='ja']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(biographySize), "Biography body font-size").toBe(expected);
+});
+
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   const entry = { key: "404-interaction", status: 404 };
   const runtime = createRuntimeMonitor(page, entry);
