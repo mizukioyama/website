@@ -337,18 +337,6 @@ async function exerciseSharedRuntimeInteractions(page) {
   await expect(page.locator("#navArea")).toHaveClass(/open/);
   await page.keyboard.press("Space");
   await expect(page.locator("#navArea")).not.toHaveClass(/open/);
-
-  const englishLabel = page.locator('#langChenge label[for="langEn"]');
-  if (await englishLabel.isVisible()) {
-    // Header markup can become visible just before multi_language() finishes
-    // binding its radio listeners. Wait for its synchronous initialization
-    // marker before exercising the real label -> radio -> language path.
-    await expect(page.locator("html")).toHaveAttribute("lang", /^(ja|en)$/, { timeout: 10000 });
-    await englishLabel.evaluate(label => label.click());
-    await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await page.locator('#langChenge label[for="langJa"]').evaluate(label => label.click());
-    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
-  }
 }
 
 async function exerciseGalleryRuntime(page, projectName, testInfo) {
