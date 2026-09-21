@@ -36,7 +36,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Optimize mobile gallery/artwork viewing — mobile Gallery now uses a single artwork column with 44px side insets, full available artwork width, compact card flow without the legacy 350px minimum, and a minimum 48px artwork action target; verified at 1440/1280/1024/768/430/390/375 px with a refreshed Gallery-only 390px visual baseline.
 - [x] Verify Biography/Statement reading comfort
 - [x] Verify Order flow and Contact path — Order CTA reaches the usable Contact form; request/inquiry mode, request-category requirement, core required fields, Policy-gated consent, mocked Apps Script submission success, thanks modal and reset behavior are covered without sending external data.
-- [ ] Review Information hierarchy/current-event usability
+- [x] Review Information hierarchy/current-event usability — Upcoming remains before Past, and the current Yurayura event stays the first actionable record with visible date and detail link.
 
 ## Phase 4 - Performance and motion
 - [ ] Measure Core Web Vitals/PageSpeed baseline
@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-22: Completed Information hierarchy/current-event usability review. The existing Upcoming→Past structure was retained and regression coverage now protects the Yurayura event title/date/detail CTA.
 - 2026-09-21: Completed Phase 3 Order/Contact flow verification. Reused existing Order→Contact, request-mode and Policy-modal coverage, then added missing required-field/consent checks and a fully mocked Google Apps Script submission path so success/reset behavior is verified without external writes.
 - 2026-09-21: Completed Phase 3 mobile Gallery/artwork viewing optimization. Mobile Gallery changed from two columns to one, normalized 44px side insets, removed the legacy fixed card/action heights, expanded artwork to available width, preserved Category/modal interactions, added geometry/touch-target assertions, and passed the Gallery audit at 1440/1280/1024/768/430/390/375 px.
 - 2026-09-21: Completed structured-data opportunity audit against current Google Search guidance. Retained the existing WebSite/Person/ProfilePage and page-type graph, avoided speculative markup with no measurable benefit, and documented Yurayura Event location as the only current rich-result blocker pending verified visible venue details.
