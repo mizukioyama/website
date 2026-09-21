@@ -62,7 +62,7 @@
 
     @media only screen and (min-width:1299px) {
         footer a {
-            font-size: clamp(1.1rem, calc(0.95rem + 0.6vw), 1.5rem);
+            font-size: clamp(var(--legacy-px-1_1), calc(var(--legacy-px-0_95) + 0.6vw), var(--legacy-px-1_5));
         }
     }
 
@@ -83,7 +83,7 @@
         }
 
         footer a {
-            font-size: clamp(1.1rem, calc(0.95rem + 0.7vw), 1.3rem);
+            font-size: clamp(var(--legacy-px-1_1), calc(var(--legacy-px-0_95) + 0.7vw), var(--legacy-px-1_3));
         }
 
         footer a:nth-of-type(n+5) {
@@ -103,6 +103,6 @@
             padding: 0.25rem 0.5rem;
         }
     }
-/* Phase 3 typography: footer text stays subordinate at every viewport. */
-footer a { font-size: var(--font-footer-size); }
-footer a:nth-of-type(n+5) { font-size: var(--font-footer-size) !important; }
+/* Keep footer navigation aligned with the header brand at every viewport. */
+footer a { font-size: var(--font-header-footer-size); }
+footer a:nth-of-type(n+5) { font-size: var(--font-header-footer-size) !important; }
