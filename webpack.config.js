@@ -193,12 +193,6 @@ module.exports = {
       clean: true,
       publicPath: "auto"
    },
-   //resolve: {
-   //   alias: {
-   //      '@fortawesome': path.resolve(__dirname, 'node_modules/@fortawesome'),
-   //      "@assets": path.resolve(__dirname, "src/assets")
-   //   },
-   //},
    module: {
       rules: [
          {
@@ -226,13 +220,6 @@ module.exports = {
                filename: "assets/images/[name][ext]"
             }
          },
-         {
-            test: /\.mp3$/i,
-            type: 'asset/resource',
-            generator: {
-               filename: 'assets/audio/[name][ext]'
-            }
-         }
       ]
    },
    plugins: [
@@ -254,14 +241,6 @@ module.exports = {
 
       new CopyWebpackPlugin({
          patterns: [
-            // Font Awesome is optional for the static visual pages. Avoid
-            // failing the complete build when the package is not installed.
-            ...(fs.existsSync(path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"))
-               ? [{
-                  from: path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts"),
-                  to: "assets/fonts"
-               }]
-               : []),
             {
                from: path.resolve(__dirname, "img/web.ico"),
                to: "favicon.ico"
