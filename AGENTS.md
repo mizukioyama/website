@@ -4,7 +4,7 @@
 This repository is the official portfolio website for Mizuki Oyama. AI/Codex must improve it safely and efficiently while preserving the artist's intent and existing visual identity.
 
 ## Source of truth
-Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > DESIGN_SYSTEM.md > QA_CHECKLIST.md > SITE_MAP.md > ROADMAP.md > existing implementation. Files under reports/ are historical records and must not override current specifications.
+Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > DESIGN_SYSTEM.md > QA_CHECKLIST.md > SITE_MAP.md > ROADMAP.md > existing implementation.
 Biography and Artist Statement are authoritative for career facts and artistic philosophy. Never invent or materially reinterpret them.
 
 ## Loop Engineering
