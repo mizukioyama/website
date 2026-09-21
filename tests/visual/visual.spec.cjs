@@ -332,10 +332,9 @@ async function assertResponsivePageGeometry(page, entry) {
 
 async function exerciseSharedRuntimeInteractions(page) {
   const toggle = page.locator("#navArea .toggle_btn");
-  await toggle.focus();
-  await page.keyboard.press("Enter");
+  await toggle.press("Enter");
   await expect(page.locator("#navArea")).toHaveClass(/open/);
-  await page.keyboard.press("Space");
+  await toggle.press("Space");
   await expect(page.locator("#navArea")).not.toHaveClass(/open/);
 }
 
