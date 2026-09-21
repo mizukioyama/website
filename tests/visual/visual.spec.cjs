@@ -333,10 +333,29 @@ async function assertResponsivePageGeometry(page, entry) {
 async function exerciseSharedRuntimeInteractions(page) {
   const toggle = page.locator("#navArea .toggle_btn");
   await toggle.focus();
-  await page.keyboard.press("Enter");
+  await expect(toggle).toBeFocused();
+
+  await toggle.evaluate(element => {
+    element.dispatchEvent(new KeyboardEvent("keydown", {
+      key: "Enter",
+      code: "Enter",
+      bubbles: true,
+      cancelable: true
+    }));
+  });
   await expect(page.locator("#navArea")).toHaveClass(/open/);
-  await page.keyboard.press("Space");
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+  await toggle.evaluate(element => {
+    element.dispatchEvent(new KeyboardEvent("keydown", {
+      key: " ",
+      code: "Space",
+      bubbles: true,
+      cancelable: true
+    }));
+  });
   await expect(page.locator("#navArea")).not.toHaveClass(/open/);
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
 }
 
 async function exerciseGalleryRuntime(page, projectName, testInfo) {

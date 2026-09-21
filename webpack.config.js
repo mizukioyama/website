@@ -72,6 +72,11 @@ module.exports = {
           to: "sitemap.xml",
           force: true
         },
+        {
+          from: path.resolve(__dirname, "googlee46325beaf44a5bb.html"),
+          to: "googlee46325beaf44a5bb.html",
+          force: true
+        },
         ...rootVisualPages.map(page => ({
           from: path.resolve(__dirname, `${page}.html`),
           to: `${page}.html`,

@@ -252,6 +252,7 @@ for (const absolutePath of listHtmlFiles(outputDirectory)) {
 }
 
 const directCopyPairs = [
+   { source: "googlee46325beaf44a5bb.html", output: "googlee46325beaf44a5bb.html" },
    { source: "src/information.html", output: "information.html" },
    { source: "src/404.html", output: "404.html" },
    { source: "src/exhibition-yurayura-2026.html", output: "exhibition-yurayura-2026.html" },
