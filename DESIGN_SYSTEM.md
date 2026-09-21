@@ -74,6 +74,16 @@ Current shared roles include:
 - pagination
 - header/footer navigation
 
+Shared body-text target scale:
+- 1440px: 14px
+- 1280px: 14px
+- 1024px: 14px
+- 768px: approximately 13.5px
+- 430px: approximately 12.1px
+- 390px / 375px: 12px
+
+Non-Home pages must not override `--font-body-size` with the historical reduced-root compatibility values. They should inherit the same shared body token as Home unless a verified page-specific readability issue requires an exception.
+
 When changing a shared token, inspect all consumers before merging.
 
 ## Header and footer

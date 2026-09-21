@@ -56,13 +56,16 @@ canvas {
 
 /* ========== Common ========== */
 
-h1,
-.creator-title {
+h1 {
   font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_85) + 0.2vw), var(--legacy-px-1));
 }
 
+.creator-title {
+  font-size: calc(clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_85) + 0.2vw), var(--legacy-px-1)) - 2px);
+}
+
 h2 {
-  font-size: clamp(var(--legacy-px-1_6), calc(var(--legacy-px-1_35) + 0.55vw), var(--legacy-px-1_8));
+  font-size: calc(clamp(var(--legacy-px-1_6), calc(var(--legacy-px-1_35) + 0.55vw), var(--legacy-px-1_8)) - 2px);
 }
 
 p {
