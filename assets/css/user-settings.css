@@ -24,8 +24,8 @@
   --type-category-size: clamp(14px, calc(12.7324px + 0.3380vw), 17.6px);
   /* ページネーション：375px → 1440px = 12px → 14px */
   --type-pagination-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
-  /* Header/Footer：375px → 1440px = 18px → 25.6px */
-  --type-header-footer-size: clamp(18px, calc(15.3239px + 0.7136vw), 25.6px);
+  /* Header / Footer: mobile target 18px → 19px */
+  --type-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
 
   /* 共通ページ見出し：375px → 1440px */
   --type-gallery-h1-size: clamp(39px, calc(24px + 4vw), 81.6px);
@@ -94,6 +94,20 @@
 @media screen and (max-width: 600px) {
   :root {
     --type-form-field-size: 14px;
+  }
+}
+
+/* Header / Footer: tablet target 19.2px → 24.6px */
+@media screen and (min-width: 600px) and (max-width: 1298px) {
+  :root {
+    --type-header-footer-size: clamp(19.2px, calc(14.4px + 0.8vw), 24.6px);
+  }
+}
+
+/* Header / Footer: desktop target 24.8px → 25.6px */
+@media screen and (min-width: 1299px) {
+  :root {
+    --type-header-footer-size: clamp(24.8px, calc(14.4px + 0.8vw), 25.6px);
   }
 }
 
