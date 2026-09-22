@@ -73,6 +73,11 @@ p {
   letter-spacing: var(--tracking-body-010);
 }
 
+/* Home keeps its established root body scale; shared page tokens remain fluid. */
+body.home {
+  font-size: var(--font-home-body-size);
+}
+
 /* ========== Background Slides ========== */
 .back__slide {
   position: absolute;
