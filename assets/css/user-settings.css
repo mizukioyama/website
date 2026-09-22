@@ -26,22 +26,22 @@
   --type-state-h2-size: clamp(17.2px, calc(14.3831px + 0.7512vw), 25.2px);
 
   /* TOP：375px → 1440px */
-  --type-home-h1-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
-  --type-home-creator-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
-  --type-home-h2-size: clamp(23.6px, calc(22.4732px + 0.3005vw), 26.8px);
-  --type-home-title-size: clamp(25.6px, calc(24.4732px + 0.3005vw), 28.8px);
-  --type-home-typing-size: clamp(22.4px, calc(21.2732px + 0.6009vw), 28.8px);
-  --type-home-modal-h2-size: clamp(22.4px, calc(20.1465px + 0.6009vw), 28.8px);
-  --type-home-modal-h3-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
-  --type-home-modal-body-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
-  --type-statement-subtext-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
+  --type-home-h1-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+  --type-home-creator-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+  --type-home-h2-size: clamp(1.6rem, 1.35rem + 0.55vw, 1.8rem);
+  --type-home-title-size: clamp(1.6rem, 1.35rem + 0.55vw, 1.8rem);
+  --type-home-typing-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem);
+  --type-home-modal-h2-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem);
+  --type-home-modal-h3-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+  --type-home-modal-body-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
+  --type-statement-subtext-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
   /* Biography mobile H2: preserve the established responsive scale. */
   /* Biography mobile H2: 16.75px → 19.6px */
   --type-biography-h2-size: clamp(16.75px, calc(15.7465px + 0.2676vw), 19.6px);
-  --type-contact-modal-en-title-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
-  --type-contact-modal-en-body-size: clamp(10.4px, calc(9.5549px + 0.2254vw), 12.8px);
-  --type-home-date-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
-  --type-home-time-size: clamp(9.6px, calc(9.0366px + 0.1502vw), 11.2px);
+  --type-contact-modal-en-title-size: clamp(1.4rem, 0.561rem + 1.03vw, 1.8rem);
+  --type-contact-modal-en-body-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
+  --type-home-date-size: clamp(0.85rem, 0.75rem + 0.3vw, 1rem);
+  --type-home-time-size: clamp(0.6rem, 0.52rem + 0.3vw, 0.7rem);
 
   /* Menu：既存のモバイル / タブレット / デスクトップ3段階を維持 */
   --type-menu-primary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
@@ -54,15 +54,15 @@
   --type-gallery-ol-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
 
   /* Form/Modal：375px → 1440px */
-  --type-form-radio-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
-  --type-form-radio-group-size: clamp(28.8px, calc(28.4451px + 0.0946vw), 29.808px);
+  --type-form-radio-size: clamp(0.9rem, 0.8rem + 0.4vw, 1rem);
+  --type-form-radio-group-size: clamp(1.8rem, 1.467rem + 0.44vw, 2rem);
   --type-form-consent-size: clamp(10px, 9px + 0.4vw, 11px);
-  --type-form-button-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
-  --type-modal-title-size: clamp(32px, calc(29.7465px + 0.6009vw), 38.4px);
-  --type-modal-close-size: clamp(22.4px, calc(20.4831px + 0.5108vw), 27.84px);
-  --type-modal-profile-size: clamp(22.4px, calc(21.9070px + 0.1315vw), 23.8px);
-  --type-modal-mobile-h3-size: clamp(26.2px, calc(25.2845px + 0.2441vw), 28.8px);
-  --type-modal-mobile-close-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
+  --type-form-button-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+  --type-modal-title-size: clamp(2rem, 1.333rem + 0.89vw, 2.4rem);
+  --type-modal-close-size: clamp(1.4rem, 1.2rem + 0.6vw, 2rem);
+  --type-modal-profile-size: clamp(1.4rem, 0.561rem + 1.03vw, 1.8rem);
+  --type-modal-mobile-h3-size: clamp(1.6rem, 1.371rem + 1.14vw, 1.8rem);
+  --type-modal-mobile-close-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
 
 }
 
