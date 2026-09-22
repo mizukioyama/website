@@ -717,7 +717,7 @@ for (const entry of pages) {
     if (entry.footer !== false) {
       await expect(page.locator("#footer-container footer")).toBeAttached();
     }
-    await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false);
+    await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false, entry.key);
 
     if (entry.key === "information") {
       const titleBox = await page.locator(".information-page > .h1-text h1").boundingBox();
@@ -790,8 +790,23 @@ function expectedHeaderFooterSize(projectName) {
   return expectedByProject[projectName];
 }
 
-async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true) {
-  const expected = expectedHeaderFooterSize(testInfo.project.name);
+function expectedHomeHeaderFooterSize(projectName) {
+  const expectedByProject = {
+    "desktop-1440": { header: 16.0, footer: 12.5 },
+    "desktop-1280": { header: 16.0, footer: 12.2 },
+    "tablet-1024": { header: 16.0, footer: 11.6 },
+    "tablet-768": { header: 15.1, footer: 11.1 },
+    "mobile-430": { header: 14.0, footer: 11.0 },
+    "mobile-390": { header: 14.0, footer: 11.0 },
+    "mobile-375": { header: 14.0, footer: 11.0 }
+  };
+  return expectedByProject[projectName];
+}
+
+async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true, pageKey = "") {
+  const expected = pageKey === "home"
+    ? expectedHomeHeaderFooterSize(testInfo.project.name)
+    : expectedHeaderFooterSize(testInfo.project.name);
   expect(expected, "viewport should have documented Header/Footer targets").toBeDefined();
 
   const sizes = await page.evaluate(hasFooterValue => ({
