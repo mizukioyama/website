@@ -381,23 +381,23 @@ body {
   --bg: #cedde6;
   /* Fluid viewport range: 375px → 1440px. */
   /* Body: 12px → 14px */
-  --font-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);
+  --font-body-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
   /* List: 11px → 12.8px */
-  --font-list-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
+  --font-list-size: clamp(11px, calc(10.3662px + 0.1690vw), 12.8px);
   /* UI: 14px → 16px */
-  --font-ui-size: clamp(14px, calc(12px + 0.4vw), 16px);
+  --font-ui-size: clamp(14px, calc(13.2958px + 0.1878vw), 16px);
   /* Caption: 11px → 13px */
-  --font-caption-size: clamp(11px, calc(9.6px + 0.3vw), 13px);
+  --font-caption-size: clamp(11px, calc(10.2958px + 0.1878vw), 13px);
   /* Table: 12px → 14px */
-  --font-table-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
+  --font-table-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
   /* Metadata: 11px → 12.8px */
-  --font-metadata-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
+  --font-metadata-size: clamp(11px, calc(10.3662px + 0.1690vw), 12.8px);
   /* Category: 14px → 17.6px */
-  --font-category-size: clamp(14px, calc(12.8px + 0.4vw), 17.6px);
+  --font-category-size: clamp(14px, calc(12.7324px + 0.3380vw), 17.6px);
   /* Pagination: 12px → 14px */
-  --font-pagination-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
-  /* Header / footer: 18px → 19px */
-  --type-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
+  --font-pagination-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
+  /* Header / footer: 18px → 25.6px */
+  --type-header-footer-size: clamp(18px, calc(15.3239px + 0.7136vw), 25.6px);
   /* H1 / H2: page-specific heading tokens are defined in
      assets/css/user-settings.css (--type-gallery-h1-size and --type-gallery-h2-size).
      Header / navigation / footer use the site-chrome token below. */

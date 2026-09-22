@@ -816,10 +816,10 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
 function expectedH2Sizes(projectName) {
   const expectedByProject = {
     "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 25.2 },
-    "desktop-1280": { homeCreator: 14.0, homeContent: 26.6, biography: 30.8 },
-    "tablet-1024": { homeCreator: 13.6, homeContent: 25.2, biography: 26.9 },
-    "tablet-768": { homeCreator: 13.1, homeContent: 23.8, biography: 23.1 },
-    "mobile-430": { homeCreator: 12.5, homeContent: 23.6, biography: 16.9 },
+    "desktop-1280": { homeCreator: 13.8, homeContent: 26.3, biography: 30.8 },
+    "tablet-1024": { homeCreator: 13.4, homeContent: 25.5, biography: 26.9 },
+    "tablet-768": { homeCreator: 13.0, homeContent: 24.8, biography: 23.1 },
+    "mobile-430": { homeCreator: 12.5, homeContent: 23.8, biography: 16.9 },
     "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 },
     "mobile-375": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 }
   };
