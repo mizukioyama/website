@@ -398,11 +398,6 @@ body {
   --font-pagination-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
   /* Header / footer: 18px → 19px on the mobile base scope. */
   --type-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
-  /* Footer primary links: 17.6px → 24px on the wide footer scope. */
-  --type-footer-primary-size: clamp(17.6px, calc(15.2px + 0.6vw), 24px);
-  /* Footer secondary links: 17.6px → 20.8px on the mobile footer scope. */
-  --type-footer-secondary-size: clamp(17.6px, calc(15.2px + 0.7vw), 20.8px);
-
   /* H1 / H2: page-specific heading tokens are defined in
      assets/css/user-settings.css (--type-gallery-h1-size and --type-gallery-h2-size).
      Header / navigation / footer use the site-chrome token below. */
