@@ -41,7 +41,7 @@ canvas {
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: clamp(0.75rem, calc(0.65rem + 0.35vw), 0.875rem);
+  font-size: clamp(0.75rem, 0.65rem + 0.35vw, 0.875rem);
   z-index: 99;
   pointer-events: none;
   user-select: none;
@@ -58,11 +58,11 @@ canvas {
 
 h1,
 .creator-title {
-  font-size: clamp(0.9rem, calc(0.85rem + 0.2vw), 1rem);
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
 }
 
 h2 {
-  font-size: clamp(1.6rem, calc(1.35rem + 0.55vw), 1.8rem);
+  font-size: clamp(1.6rem, 1.35rem + 0.55vw, 1.8rem);
 }
 
 p {
@@ -150,7 +150,7 @@ p {
 
 /* ========== Header / Creator / Time ========== */
 /*.head a {
-  font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
+  font-size: clamp(1.2em, 1.2em + 0.5vw, 1.4em);
   color: var(--def);
   position: absolute;
   top: 9.25%;
@@ -344,13 +344,13 @@ p {
   transform-origin: 0 50%;
   transform: rotate(0deg);
   font-weight: 400;
-  font-size: clamp(0.85rem, calc(0.75rem + 0.3vw), 1rem);
+  font-size: clamp(0.85rem, 0.75rem + 0.3vw, 1rem);
   z-index: -1;
 }
 
 .date__time {
   opacity: 0.75;
-  font-size: clamp(0.6rem, calc(0.52rem + 0.3vw), 0.7rem);
+  font-size: clamp(0.6rem, 0.52rem + 0.3vw, 0.7rem);
   letter-spacing: 0.05rem;
 }
 
@@ -539,12 +539,12 @@ p {
 
 .top-page h1.title {
   width: fit-content;
-  font-size: clamp(1.6rem, calc(1.35rem + 0.55vw), 1.8rem);
+  font-size: clamp(1.6rem, 1.35rem + 0.55vw, 1.8rem);
 }
 
 .top-page .title {
   position: relative;
-  /*font-size: clamp(4rem, calc(4rem + 0.5vw), 5rem);*/
+  /*font-size: clamp(4rem, 4rem + 0.5vw, 5rem);*/
   font-weight: 400;
   justify-content: flex-start;
   color: #f9fafbb3;
@@ -814,7 +814,7 @@ footer,
 
 @media screen and (min-width: 600px) and (max-width: 1199px) {
   .typing00 {
-    font-size: clamp(1.4rem, calc(1.2rem + 0.8vw), 1.8rem);
+  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem);
   }
 }
 

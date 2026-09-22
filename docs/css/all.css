@@ -369,34 +369,48 @@ body {
 }
 
 
-/* ========== Root Variables ========== */
+/* ========== Global Design Tokens ========== */
 :root {
-  /*sub  rgba(75, 75, 75)*/
+  /* ==============================
+     Typography
+     Fluid range: 320px -> 1200px
+     Values use the 9elements Min-Max Calculator form:
+     clamp(MIN, FLUID, MAX)
+     ============================== */
+
+  /* Body: 12px -> 14px */
+  --font-body-size: clamp(0.75rem, 0.65rem + 0.4vw, 0.875rem);
+  /* List: 11px -> 12.8px */
+  --font-list-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8rem);
+  /* UI: 14px -> 16px */
+  --font-ui-size: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);
+  /* Caption: 11px -> 13px */
+  --font-caption-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8125rem);
+  /* Table: 12px -> 14px */
+  --font-table-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem);
+  /* Metadata: 11px -> 12.8px */
+  --font-metadata-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8rem);
+  /* Category: 14px -> 17.6px */
+  --font-category-size: clamp(0.875rem, 0.8rem + 0.4vw, 1.1rem);
+  /* Pagination: 12px -> 14px */
+  --font-pagination-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem);
+  /* Navigation: 14px -> 16.8px */
+  --font-nav-size: clamp(0.875rem, 0.8rem + 0.3vw, 1.05rem);
+  /* Footer: 11px -> 13px */
+  --font-footer-size: clamp(0.6875rem, 0.6rem + 0.2vw, 0.8125rem);
+
+  /* ==============================
+     Colors
+     ============================== */
+
   --hover: #4b4b4b;
-  /*bg base (199, 199, 199)*/
-  --bg: #c7c7c7;
-  /*link accent (160, 113, 113)*/
+  --bg: #cedde6;
   --accent: #A07171;
-  /*cadet blue rgba(95, 158, 160)*/
-  --ac-blue: #5F9EA0;
-  /*bt (117, 117, 117)*/
-  --bt: #757575;
-  /*border */
   --border: rgba(199, 199, 199, 0.5);
   --def: rgba(0, 0, 0, 0.75);
   --inv: #f9fafb;
   --text: #2e2e2e;
-  --bg: #cedde6;
-  /* Shared typography scale for the public root-page sources. Keep the
-     minimum readable on mobile while trimming body/UI text by about 1px. */
-  --font-body-size: clamp(0.75rem, calc(0.65rem + 0.4vw), 0.875rem);
-  --font-list-size: clamp(0.6875rem, calc(0.6rem + 0.3vw), 0.8rem);
-  --font-ui-size: clamp(0.875rem, calc(0.75rem + 0.4vw), 1rem);
-  --font-caption-size: clamp(0.6875rem, calc(0.6rem + 0.3vw), 0.8125rem);
-  --font-table-size: clamp(0.75rem, calc(0.65rem + 0.3vw), 0.875rem);
-  --font-metadata-size: clamp(0.6875rem, calc(0.6rem + 0.3vw), 0.8rem);
-  --font-category-size: clamp(0.875rem, calc(0.8rem + 0.4vw), 1.1rem);
-  --font-pagination-size: clamp(0.75rem, calc(0.65rem + 0.3vw), 0.875rem);
+
   color-scheme: light dark;
 }
 
@@ -528,8 +542,4 @@ img {
     top: 1rem;
     left: 1rem;
   }
-}
-:root {
-  --font-nav-size: clamp(0.875rem, calc(0.8rem + 0.3vw), 1.05rem);
-  --font-footer-size: clamp(0.6875rem, calc(0.6rem + 0.2vw), 0.8125rem);
 }
