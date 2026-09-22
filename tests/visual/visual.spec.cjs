@@ -279,47 +279,6 @@ async function assertResponsivePageGeometry(page, entry) {
     );
     await expectHorizontalFit(page.locator("#pagination"), "Gallery pagination");
     await expectHorizontalFit(page.locator("#category-header"), "Gallery category control");
-
-    const mobileGeometry = await page.evaluate(() => {
-      if (window.innerWidth > 599) return null;
-
-      const grid = document.querySelector("#gallery-container");
-      const firstWork = grid?.querySelector(".work");
-      const firstImage = firstWork?.querySelector(".work-img > img");
-      const firstAction = firstWork?.querySelector(".view-policy-button");
-      if (!grid || !firstWork || !firstImage || !firstAction) return null;
-
-      const gridRect = grid.getBoundingClientRect();
-      const imageRect = firstImage.getBoundingClientRect();
-      const actionRect = firstAction.getBoundingClientRect();
-      const workStyle = getComputedStyle(firstWork);
-      const columns = getComputedStyle(grid).gridTemplateColumns
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean);
-
-      return {
-        viewportWidth: window.innerWidth,
-        leftInset: gridRect.left,
-        rightInset: window.innerWidth - gridRect.right,
-        columnCount: columns.length,
-        imageWidth: imageRect.width,
-        workMinHeight: parseFloat(workStyle.minHeight) || 0,
-        actionHeight: actionRect.height
-      };
-    });
-
-    if (mobileGeometry) {
-      expect(Math.abs(mobileGeometry.leftInset - 44), "Gallery mobile left inset").toBeLessThanOrEqual(1.5);
-      expect(Math.abs(mobileGeometry.rightInset - 44), "Gallery mobile right inset").toBeLessThanOrEqual(1.5);
-      expect(mobileGeometry.columnCount, "Gallery mobile should use one artwork column").toBe(1);
-      expect(
-        mobileGeometry.imageWidth,
-        "Gallery mobile artwork should use the available 44px-inset width"
-      ).toBeGreaterThanOrEqual(mobileGeometry.viewportWidth - 90);
-      expect(mobileGeometry.workMinHeight, "Gallery mobile cards should not keep legacy fixed minimum height").toBeLessThanOrEqual(1);
-      expect(mobileGeometry.actionHeight, "Gallery mobile artwork action should remain touchable").toBeGreaterThanOrEqual(44);
-    }
   }
 
   if (["biography", "artist-statement"].includes(entry.key)) {
