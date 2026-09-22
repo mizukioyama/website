@@ -55,6 +55,14 @@ body {
         --tracking-list-012: clamp(calc(0.858px + 0.033vw), calc(0.7488px + 0.0648vw), calc(0.9984px + 0.0384vw));
         --tracking-table-005: clamp(calc(0.39px + 0.015vw), calc(0.338px + 0.028vw), calc(0.455px + 0.0175vw));
         --tracking-category-001: clamp(calc(0.091px + 0.0035vw), calc(0.0832px + 0.0072vw), calc(0.1144px + 0.0044vw));
+        --tracking-gallery-body: calc(0.52px + 0.02vw);
+        --tracking-gallery-heading: calc(0.104px + 0.004vw);
+        --tracking-work-caption: calc(1.04px + 0.04vw);
+        --tracking-form-submit: calc(2.08px + 0.08vw);
+        --tracking-form-copy: calc(0.156px + 0.006vw);
+        --tracking-form-message: calc(0.104px + 0.004vw);
+        --tracking-inline-copy: calc(0.208px + 0.008vw);
+        --tracking-noise-label: calc(0.78px + 0.03vw);
     }
 }
 
@@ -74,6 +82,14 @@ body {
         --tracking-list-012: clamp(1.155px, calc(1.008px + 0.036vw), 1.344px);
         --tracking-table-005: clamp(0.525px, calc(0.455px + 0.015vw), 0.6125px);
         --tracking-category-001: clamp(0.1225px, calc(0.112px + 0.004vw), 0.154px);
+        --tracking-gallery-body: 0.7px;
+        --tracking-gallery-heading: 0.14px;
+        --tracking-work-caption: 1.4px;
+        --tracking-form-submit: 2.8px;
+        --tracking-form-copy: 0.21px;
+        --tracking-form-message: 0.14px;
+        --tracking-inline-copy: 0.28px;
+        --tracking-noise-label: 1.05px;
     }
 }
 

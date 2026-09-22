@@ -329,7 +329,7 @@ input:-webkit-autofill:focus {
 }
 
 /*===================== モーダルウィンドウ =====================*/
-@media screen and (min-width: 601px) and (max-width: 899px) {
+@media screen and (min-width: 601px) and (max-width: 1299px) {
 
    .col.x-50,
    .col.x-100 {
@@ -533,65 +533,14 @@ input:-webkit-autofill:focus {
 }
 
 @media screen and (min-width: 900px) and (max-width: 1299px) {
-
-   .col.x-50,
-   .col.x-100 {
-      width: 100%;
-      padding: 0;
-      margin: 1.5rem auto;
-   }
-
-   .contact-form .input-text:focus+.label,
-   .contact-form .input-text.not-empty+.label {
-      transform: translateY(-2.5rem);
-   }
-
    .contact-form #message,
    .contact-form .submit-btn,
    .contact-form .label {
-      /* Tablet form controls: preserve the established 900px–1299px scale. */
-      font-size: clamp(22.4px, 17.584px + 0.92vw, 28px);
+      /* Preserve the established 900px–1299px scale. */
+      font-size: clamp(25.6px, calc(20.096px + 0.92vw), 32px);
    }
 
    .contact-form .input-text {
-      /* Tablet form fields: preserve the established 900px–1299px scale. */
-      font-size: clamp(25.2px, 22.792px + 0.46vw, 28px);
-      height: 40pt;
-      padding-left: 1rem;
-   }
-
-   .contact-form .label {
-      left: 2.75%;
-      top: 13.75%;
-      line-height: 2;
-   }
-
-   .contact-form .label-text {
-      top: 6.5%;
-   }
-
-   .contact-form .submit-btn {
-      height: 28pt;
-      padding: 0;
-      margin: 0;
-      margin-bottom: 0.5rem;
-      margin-top: 1rem;
-      box-shadow: inset hsla(0, 0%, 0%, 1) 0px 0px 25px 20px;
-   }
-
-   .align-center:last-child {
-      margin: 0;
-   }
-
-   .align-center p {
-      text-align: left;
-   }
-
-   /*===================== モーダルウィンドウ =====================*/
-   #thanksModal {
-      width: 100%;
-      top: 0%;
-      left: 0%;
-      transform: translate(0%, 0%);
+      font-size: clamp(28.8px, calc(26.048px + 0.46vw), 32px);
    }
 }
