@@ -402,8 +402,8 @@ body {
   --font-navigation-size: clamp(0.875rem, 0.8rem + 0.3vw, 1.05rem);
   /* Header: 18px → 25.6px */
   --font-header-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
-  /* Footer navigation: 18px → 25.6px */
-  --font-footer-size: var(--font-header-size);
+  /* Footer navigation: 18px → 19px */
+  --font-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
   /* Dynamic Gallery / form UI: preserve the established optical scale. */
   --type-gallery-category-label-size: 22.4px;
   --type-gallery-modal-link-size: 25.6px;
@@ -443,12 +443,14 @@ body {
 @media screen and (min-width: 600px) and (max-width: 1298px) {
   :root {
     --font-header-size: clamp(19.2px, calc(14.4px + 0.8vw), 24.6px);
+    --font-footer-size: clamp(19.2px, calc(14.4px + 0.8vw), 24.6px);
   }
 }
 
 @media screen and (min-width: 1299px) {
   :root {
     --font-header-size: clamp(24.8px, calc(14.4px + 0.8vw), 25.6px);
+    --font-footer-size: clamp(24.8px, calc(14.4px + 0.8vw), 25.6px);
   }
 }
 
