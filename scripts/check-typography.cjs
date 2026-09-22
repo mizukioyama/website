@@ -18,7 +18,7 @@ function forbidText(file, fragment, label) {
 }
 
 requireText("css/all.css", "--font-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);", "shared body scale");
-requireText("assets/css/user-settings.css", "--type-body-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);", "user settings body scale");
+requireText("assets/css/user-settings.css", "--type-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);", "user settings body scale");
 for (const page of ["index.html", "gallery.html", "biography.html", "artist-statement.html", "contact.html", "order.html", "policy.html"]) {
   requireText(page, "assets/css/user-settings.css?v=20260922-typography", "user settings stylesheet link");
 }
