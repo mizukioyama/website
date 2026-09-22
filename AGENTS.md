@@ -4,14 +4,14 @@
 This repository is the official portfolio website for Mizuki Oyama. AI/Codex must improve it safely and efficiently while preserving the artist's intent and existing visual identity.
 
 ## Source of truth
-Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > docs/DESIGN_SYSTEM.md and docs/SEO_CONTENT_GUIDE.md > docs/SITE_MAP.md and docs/QA_CHECKLIST.md > ROADMAP.md > existing implementation.
+Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > DESIGN_SYSTEM.md > QA_CHECKLIST.md > SITE_MAP.md > ROADMAP.md > existing implementation.
 Biography and Artist Statement are authoritative for career facts and artistic philosophy. Never invent or materially reinterpret them.
 
 ## Loop Engineering
 Every task follows Discover -> Plan -> Execute -> Verify -> Iterate.
 
 ### Discover
-Identify the exact page/component and outcome. Read docs/SITE_MAP.md and inspect actual imports, selectors and dependencies. Search for duplicate source/deployed files. Never assume docs/ is source. Establish a before-state for visual changes.
+Identify the exact page/component and outcome. Read SITE_MAP.md and inspect actual imports, selectors, build mappings and dependencies. Search for duplicate source/deployed files. Never assume docs/ is source. Establish a before-state for visual changes.
 
 ### Plan
 Name target files and affected shared dependencies. Prefer the smallest sufficient change. Predict impact on desktop/mobile, SEO, accessibility, performance and other pages.
@@ -32,6 +32,9 @@ APPROVAL: major layout/navigation redesign; deletion; artist identity/artwork in
 
 ## Anti-regression
 Never change a shared selector without checking consumers. Never solve one viewport by breaking another. Never hide overflow to conceal a defect. Never remove content/features just to pass a test. Do not modify healthy areas without a concrete UX, SEO, accessibility, performance, maintainability or user-request reason. Stop blind patching when root cause is uncertain.
+
+## Visual units
+Use px for values whose visual shape should remain stable across the site: font-size fixed/min/max terms, letter-spacing, border/hairline thickness, icon/stroke thickness where relevant, and text-shadow/box-shadow offsets, blur and spread. Responsive typography may still use viewport units inside clamp(), but keep all fixed/min/max terms in px, e.g. `clamp(18px, calc(15.2px + 0.6vw), 19px)`. Prefer unitless line-height. Do not convert responsive layout dimensions or spacing to px unless a fixed shape is intentional. Follow DESIGN_SYSTEM.md for the complete unit policy.
 
 ## Visual Regression standard
 Treat Playwright Visual Regression as a standard Verify step for changes that can affect UI, CSS, layout, shared components, header/footer/menu, images, responsive behavior or page structure. The normal CI matrix is 1440, 768 and 390 px; committed screenshot baselines are compared at 1440 and 390 px. Use the full 1440/1280/1024/768/430/390/375 matrix for detailed audits or breakpoint-sensitive work.

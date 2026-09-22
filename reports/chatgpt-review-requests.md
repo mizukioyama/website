@@ -413,3 +413,15 @@ Please review the latest desktop sidebar offset correction in `css/gallery.css`.
 ### Review boundary
 
 This request is for local code review only. Do not publish, deploy, push, send, delete, or modify external services.
+## 2026-09-22 Min-Max Calculator typography settings review
+
+Please review only the focused typography settings and stylesheet-order changes.
+
+1. Confirm `assets/css/user-settings.css` is the single user-facing entry point for 375px → 1440px typography adjustment.
+2. Confirm every compatibility alias in `--font-*` still resolves to the new semantic role without changing the shared bilingual body-copy rule.
+3. Confirm root pages load the settings after local page CSS and only once.
+4. Confirm TOP, Gallery, Header/Footer, Menu, Form and Modal values remain visually close to the prior implementation at 1440/1280/1024/768/430/390/375px.
+5. Confirm Gallery filter/category, modal, pagination and body scroll lock remain unchanged.
+6. Treat generated `docs/`, public deployment, and physical-device acceptance as pending until dependencies are installed in an approved environment and a build is run.
+
+Review boundary: local code review only. Do not publish, deploy, push, send, delete, or change external services.

@@ -1,5 +1,14 @@
 # Known Issues
 
+## 2026-09-22 Min-Max Calculator typography settings
+
+- `npm run build` is pending: this checkout has no `node_modules`, so `webpack` is unavailable.
+- `npm run check:generated` is pending: `html-minifier-terser` is unavailable.
+- `docs/` was intentionally not hand-edited and is not declared regenerated for this change.
+- Generated Concept output, GitHub Pages delivery, cache-busting/public verification, and physical Safari/iOS/Android acceptance are pending.
+- Local browser verification was performed at 1280×720; the seven-viewport values are calculated from the new Calculator formulas, not seven rendered screenshots in this checkout.
+- Existing special form breakpoint font sizes are preserved through a dedicated compatibility role to avoid an abrupt visual change.
+
 ## 2026-09-20 Phase 3 pending gates
 
 - The local repository does not have the Playwright test package available, so the full seven-viewport Visual Regression matrix is pending CI.

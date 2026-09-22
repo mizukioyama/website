@@ -29,6 +29,15 @@ New exhibition pages must receive their own title, description, canonical, OG UR
 ## Responsive and accessibility
 No unintended horizontal scroll, overlap, clipped text, inaccessible controls or unreadably narrow text. Use semantic structure, meaningful alt text, visible focus, usable touch targets, adequate contrast, logical headings and reduced-motion support.
 
+Responsive behavior must preserve visual consistency rather than scaling every dimension indiscriminately. Use the shared breakpoint model unless a component has a documented reason to differ:
+- Mobile: up to 599px
+- Tablet: 600px to 1298px
+- Desktop: 1299px and above
+
+Typography may remain fluid within each breakpoint, but fixed visual geometry must not depend on the browser root font size. Use px for font-size bounds/fixed terms, letter-spacing, border thickness, icon/stroke thickness where shape consistency matters, and text/box-shadow offset/blur/spread. Responsive type may use `clamp(px, calc(px + vw), px)`. Keep line-height unitless unless a fixed optical treatment explicitly requires otherwise.
+
+Do not convert layout behavior such as page width, percentage positioning, viewport-relative composition, or intentionally flexible spacing to px merely for consistency. Choose units by visual responsibility: px for stable shape, relative/viewport units for responsive layout.
+
 ## Performance
 Balance perceived speed and artwork quality. Optimize dimensions/formats/loading and unnecessary JS/render blocking. Animation libraries must justify their cost. Target good Core Web Vitals without degrading artwork solely for synthetic scores.
 
@@ -37,6 +46,8 @@ Every indexable page needs a unique descriptive title, useful description, canon
 
 ## Design changes
 Preserve established brand character unless redesign is requested. Reuse existing spacing, typography, table and flow patterns where equivalent components exist.
+
+Typography, spacing and effects must follow `DESIGN_SYSTEM.md`. Header and footer navigation share the same responsive type token within each breakpoint. Do not introduce page-specific font-size overrides when an existing shared token can express the same intent.
 
 ## Error recovery and broken-link defense
 Use two layers of protection. First, deployment checks must detect broken internal HTML/CSS/JavaScript references before release. Second, GitHub Pages must have a custom `404.html` fallback that clearly remains a 404 experience and offers Home, Gallery and Information recovery links.

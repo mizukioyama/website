@@ -240,3 +240,13 @@
 - [ ] Confirm the generated `docs/` output after the next build.
 - [ ] Push and verify the public site after explicit approval.
 - [ ] Perform physical Safari/iOS/Android and touch-device acceptance.
+## 2026-09-22 User typography settings acceptance
+
+- [ ] Open `assets/css/user-settings.css` and confirm the intended 375px and 1440px values.
+- [ ] Check TOP, Concept and Gallery at 375 / 390 / 430 / 768 / 1024 / 1280 / 1440px.
+- [ ] Confirm Japanese/English wrapping has not changed unexpectedly.
+- [ ] Confirm Header/Footer and Menu remain balanced and usable.
+- [ ] Confirm buttons, FAQ/form labels, Gallery category/filter, pagination and modal remain usable.
+- [ ] Confirm no horizontal overflow or clipped text.
+- [ ] After an approved build, confirm generated `docs/assets/css/user-settings.css` is present.
+- [ ] Public deployment and real-device acceptance are separate final gates.

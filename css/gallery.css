@@ -29,9 +29,164 @@ body {
 
 /* index.htmlを除く共通ページのPC本文サイズをContactページと統一 */
 @media screen and (min-width: 601px) {
-    html,
+    html {
+        font-size: var(--root-font-size);
+    }
+
     body {
         font-size: var(--font-body-size);
+    }
+}
+
+/* Preserve legacy non-Home optical tokens in px.
+   Body text intentionally inherits the shared --font-body-size from all.css. */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+    :root {
+        --legacy-px-0_01: calc(0.104px + 0.004vw);
+        --legacy-px-0_015: calc(0.156px + 0.006vw);
+        --legacy-px-0_02: calc(0.208px + 0.008vw);
+        --legacy-px-0_05: calc(0.52px + 0.02vw);
+        --legacy-px-0_075: calc(0.78px + 0.03vw);
+        --legacy-px-0_1: calc(1.04px + 0.04vw);
+        --legacy-px-0_2: calc(2.08px + 0.08vw);
+        --legacy-px-0_4: calc(4.16px + 0.16vw);
+        --legacy-px-0_5: calc(5.2px + 0.2vw);
+        --legacy-px-0_52: calc(5.408px + 0.208vw);
+        --legacy-px-0_55: calc(5.72px + 0.22vw);
+        --legacy-px-0_561: calc(5.8344px + 0.2244vw);
+        --legacy-px-0_6: calc(6.24px + 0.24vw);
+        --legacy-px-0_62: calc(6.448px + 0.248vw);
+        --legacy-px-0_65: calc(6.76px + 0.26vw);
+        --legacy-px-0_68: calc(7.072px + 0.272vw);
+        --legacy-px-0_7: calc(7.28px + 0.28vw);
+        --legacy-px-0_75: calc(7.8px + 0.3vw);
+        --legacy-px-0_8: calc(8.32px + 0.32vw);
+        --legacy-px-0_82: calc(8.528px + 0.328vw);
+        --legacy-px-0_85: calc(8.84px + 0.34vw);
+        --legacy-px-0_875: calc(9.1px + 0.35vw);
+        --legacy-px-0_9: calc(9.36px + 0.36vw);
+        --legacy-px-0_95: calc(9.88px + 0.38vw);
+        --legacy-px-1: calc(10.4px + 0.4vw);
+        --legacy-px-1_1: calc(11.44px + 0.44vw);
+        --legacy-px-1_15: calc(11.96px + 0.46vw);
+        --legacy-px-1_171: calc(12.1784px + 0.4684vw);
+        --legacy-px-1_2: calc(12.48px + 0.48vw);
+        --legacy-px-1_256: calc(13.0624px + 0.5024vw);
+        --legacy-px-1_3: calc(13.52px + 0.52vw);
+        --legacy-px-1_333: calc(13.8632px + 0.5332vw);
+        --legacy-px-1_35: calc(14.04px + 0.54vw);
+        --legacy-px-1_371: calc(14.2584px + 0.5484vw);
+        --legacy-px-1_4: calc(14.56px + 0.56vw);
+        --legacy-px-1_467: calc(15.2568px + 0.5868vw);
+        --legacy-px-1_5: calc(15.6px + 0.6vw);
+        --legacy-px-1_571: calc(16.3384px + 0.6284vw);
+        --legacy-px-1_6: calc(16.64px + 0.64vw);
+        --legacy-px-1_628: calc(16.9312px + 0.6512vw);
+        --legacy-px-1_8: calc(18.72px + 0.72vw);
+        --legacy-px-2: calc(20.8px + 0.8vw);
+        --legacy-px-2_4: calc(24.96px + 0.96vw);
+        --legacy-px-2_8: calc(29.12px + 1.12vw);
+        --legacy-px-4: calc(41.6px + 1.6vw);
+        --legacy-px-5: calc(52px + 2vw);
+        --legacy-px-5_4: calc(56.16px + 2.16vw);
+        --legacy-px-6: calc(62.4px + 2.4vw);
+        --legacy-px-7: calc(72.8px + 2.8vw);
+        --legacy-px-8: calc(83.2px + 3.2vw);
+        --legacy-px-9: calc(93.6px + 3.6vw);
+        --legacy-px-10: calc(104px + 4vw);
+        --legacy-px-0_5984: calc(6.22336px + 0.23936vw);
+        --legacy-px-0_66: calc(6.864px + 0.264vw);
+        --legacy-px-0_7216: calc(7.50464px + 0.28864vw);
+        --legacy-px-0_836: calc(8.6944px + 0.3344vw);
+        --font-list-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
+        --font-ui-size: clamp(calc(9.1px + 0.35vw), calc(7.8px + 0.7vw), calc(10.4px + 0.4vw));
+        --font-caption-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.45px + 0.325vw));
+        --font-table-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
+        --font-metadata-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
+        --font-category-size: clamp(calc(9.1px + 0.35vw), calc(8.32px + 0.72vw), calc(11.44px + 0.44vw));
+        --font-pagination-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
+        --tracking-body-010: clamp(calc(0.78px + 0.03vw), calc(0.676px + 0.066vw), calc(0.91px + 0.035vw));
+        --tracking-body-008: clamp(calc(0.624px + 0.024vw), calc(0.5408px + 0.0528vw), calc(0.728px + 0.028vw));
+        --tracking-body-002: clamp(calc(0.156px + 0.006vw), calc(0.1352px + 0.0132vw), calc(0.182px + 0.007vw));
+        --tracking-list-005: clamp(calc(0.3575px + 0.01375vw), calc(0.312px + 0.027vw), calc(0.416px + 0.016vw));
+        --tracking-list-012: clamp(calc(0.858px + 0.033vw), calc(0.7488px + 0.0648vw), calc(0.9984px + 0.0384vw));
+        --tracking-table-005: clamp(calc(0.39px + 0.015vw), calc(0.338px + 0.028vw), calc(0.455px + 0.0175vw));
+        --tracking-category-001: clamp(calc(0.091px + 0.0035vw), calc(0.0832px + 0.0072vw), calc(0.1144px + 0.0044vw));
+    }
+}
+
+@media screen and (min-width: 900px) {
+    :root {
+        --legacy-px-0_01: 0.14px;
+        --legacy-px-0_015: 0.21px;
+        --legacy-px-0_02: 0.28px;
+        --legacy-px-0_05: 0.7px;
+        --legacy-px-0_075: 1.05px;
+        --legacy-px-0_1: 1.4px;
+        --legacy-px-0_2: 2.8px;
+        --legacy-px-0_4: 5.6px;
+        --legacy-px-0_5: 7px;
+        --legacy-px-0_52: 7.28px;
+        --legacy-px-0_55: 7.7px;
+        --legacy-px-0_561: 7.854px;
+        --legacy-px-0_6: 8.4px;
+        --legacy-px-0_62: 8.68px;
+        --legacy-px-0_65: 9.1px;
+        --legacy-px-0_68: 9.52px;
+        --legacy-px-0_7: 9.8px;
+        --legacy-px-0_75: 10.5px;
+        --legacy-px-0_8: 11.2px;
+        --legacy-px-0_82: 11.48px;
+        --legacy-px-0_85: 11.9px;
+        --legacy-px-0_875: 12.25px;
+        --legacy-px-0_9: 12.6px;
+        --legacy-px-0_95: 13.3px;
+        --legacy-px-1: 14px;
+        --legacy-px-1_1: 15.4px;
+        --legacy-px-1_15: 16.1px;
+        --legacy-px-1_171: 16.394px;
+        --legacy-px-1_2: 16.8px;
+        --legacy-px-1_256: 17.584px;
+        --legacy-px-1_3: 18.2px;
+        --legacy-px-1_333: 18.662px;
+        --legacy-px-1_35: 18.9px;
+        --legacy-px-1_371: 19.194px;
+        --legacy-px-1_4: 19.6px;
+        --legacy-px-1_467: 20.538px;
+        --legacy-px-1_5: 21px;
+        --legacy-px-1_571: 21.994px;
+        --legacy-px-1_6: 22.4px;
+        --legacy-px-1_628: 22.792px;
+        --legacy-px-1_8: 25.2px;
+        --legacy-px-2: 28px;
+        --legacy-px-2_4: 33.6px;
+        --legacy-px-2_8: 39.2px;
+        --legacy-px-4: 56px;
+        --legacy-px-5: 70px;
+        --legacy-px-5_4: 75.6px;
+        --legacy-px-6: 84px;
+        --legacy-px-7: 98px;
+        --legacy-px-8: 112px;
+        --legacy-px-9: 126px;
+        --legacy-px-10: 140px;
+        --legacy-px-0_5984: 8.3776px;
+        --legacy-px-0_66: 9.24px;
+        --legacy-px-0_7216: 10.1024px;
+        --legacy-px-0_836: 11.704px;
+        --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
+        --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);
+        --font-table-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
+        --font-metadata-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-category-size: clamp(12.25px, calc(11.2px + 0.4vw), 15.4px);
+        --font-pagination-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
+        --tracking-body-010: clamp(1.05px, calc(0.91px + 0.04vw), 1.225px);
+        --tracking-body-008: clamp(0.84px, calc(0.728px + 0.032vw), 0.98px);
+        --tracking-body-002: clamp(0.21px, calc(0.182px + 0.008vw), 0.245px);
+        --tracking-list-005: clamp(0.48125px, calc(0.42px + 0.015vw), 0.56px);
+        --tracking-list-012: clamp(1.155px, calc(1.008px + 0.036vw), 1.344px);
+        --tracking-table-005: clamp(0.525px, calc(0.455px + 0.015vw), 0.6125px);
+        --tracking-category-001: clamp(0.1225px, calc(0.112px + 0.004vw), 0.154px);
     }
 }
 
@@ -78,8 +233,8 @@ body.dark-theme .modal-box {
 }
 
 /*h1 {
-    font-size: clamp(8rem, 8rem + 0.5vw, 10rem);
-    font-size: 6rem;
+    font-size: clamp(var(--legacy-px-8), calc(var(--legacy-px-8) + 0.5vw), var(--legacy-px-10));
+    font-size: var(--legacy-px-6);
     font-weight: 200;
     width: fit-content;
     margin-left: 25vmin;
@@ -127,7 +282,7 @@ body.dark-theme .modal-box {
 }*/
 
 h1 {
-    font-size: clamp(2.4rem, 1.5rem + 4vw, 5.4rem);
+    font-size: var(--type-gallery-h1-size);
     font-weight: 300;
     width: fit-content;
     line-height: 1.2;
@@ -169,7 +324,7 @@ h1 {
 }
 
 .h1-text p {
-    font-size: clamp(1rem, 0.6rem + 1.2vw, 2rem);
+    font-size: var(--type-gallery-lead-size);
 }
 
 
@@ -225,7 +380,7 @@ h1 {
 
 
 h2 {
-    font-size: clamp(1.2rem, 0.4rem + 2vw, 2.8rem);
+    font-size: var(--type-gallery-h2-size);
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -233,24 +388,24 @@ h2 {
 }
 
 span.name {
-    font-size: clamp(0.9rem, 0.7rem + 0.7vw, 1.6rem);
+    font-size: var(--type-gallery-name-size);
     line-height: 1;
 }
 
 .gallery-containt h2 {
-    font-size: clamp(0.9rem, 0.7rem + 0.7vw, 1.4rem);
+    font-size: var(--type-gallery-card-h2-size);
     font-weight: 300;
 }
 
 h3 {
-    font-size: clamp(1rem, 0.4rem + 1vw, 2rem);
+    font-size: var(--type-gallery-h3-size);
     font-weight: 300;
     line-height: 2;
     text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.95);
 }
 
 h4 {
-    font-size: clamp(0.9rem, 0.55rem + 0.5vw, 1.2rem);
+    font-size: var(--type-gallery-h4-size);
     color: var(--def);
 }
 
@@ -262,7 +417,7 @@ img:hover {
 
 p {
     font-size: var(--font-body-size);
-    letter-spacing: 0.05rem;
+    letter-spacing: var(--legacy-px-0_05);
     line-height: 2.4;
 }
 
@@ -285,9 +440,9 @@ main li {
 .head a {
     position: fixed;
     justify-content: flex-start;
-    font-size: clamp(1rem, 0.75rem + 0.8vw, 1.4rem);
+    font-size: var(--font-header-footer-size);
     font-weight: 400;
-    letter-spacing: 0.01rem;
+    letter-spacing: var(--legacy-px-0_01);
     padding: 0;
     padding-right: 0.5rem;
     top: 3rem;
@@ -513,7 +668,7 @@ main {
 }
 
 /*.art-page main p:nth-child(1) {
-    font-size: 1.4rem;
+    font-size: var(--legacy-px-1_4);
     padding-top: 8rem;
     margin-left: 25vmin;
 }*/
@@ -619,7 +774,7 @@ main {
     }
 
     #state h2 {
-        font-size: clamp(1.2rem, 0.8rem + 1vw, 2.4rem);
+        font-size: var(--type-state-h2-size);
         align-items: end;
         margin-bottom: 1vmin;
     }
@@ -802,7 +957,7 @@ main {
 
 .works p {
     font-size: var(--font-caption-size);
-    letter-spacing: 0.1rem;
+    letter-spacing: var(--legacy-px-0_1);
     line-height: 1.8;
 }
 

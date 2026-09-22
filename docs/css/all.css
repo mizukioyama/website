@@ -369,48 +369,105 @@ body {
 }
 
 
-/* ========== Global Design Tokens ========== */
+/* ========== Root Variables ========== */
 :root {
-  /* ==============================
-     Typography
-     Fluid range: 320px -> 1200px
-     Values use the 9elements Min-Max Calculator form:
-     clamp(MIN, FLUID, MAX)
-     ============================== */
-
-  /* Body: 12px -> 14px */
-  --font-body-size: clamp(0.75rem, 0.65rem + 0.4vw, 0.875rem);
-  /* List: 11px -> 12.8px */
-  --font-list-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8rem);
-  /* UI: 14px -> 16px */
-  --font-ui-size: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);
-  /* Caption: 11px -> 13px */
-  --font-caption-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8125rem);
-  /* Table: 12px -> 14px */
-  --font-table-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem);
-  /* Metadata: 11px -> 12.8px */
-  --font-metadata-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8rem);
-  /* Category: 14px -> 17.6px */
-  --font-category-size: clamp(0.875rem, 0.8rem + 0.4vw, 1.1rem);
-  /* Pagination: 12px -> 14px */
-  --font-pagination-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem);
-  /* Navigation: 14px -> 16.8px */
-  --font-nav-size: clamp(0.875rem, 0.8rem + 0.3vw, 1.05rem);
-  /* Footer: 11px -> 13px */
-  --font-footer-size: clamp(0.6875rem, 0.6rem + 0.2vw, 0.8125rem);
-
-  /* ==============================
-     Colors
-     ============================== */
-
+  /*sub  rgba(75, 75, 75)*/
   --hover: #4b4b4b;
-  --bg: #cedde6;
+  /*bg base (199, 199, 199)*/
+  --bg: #c7c7c7;
+  /*link accent (160, 113, 113)*/
   --accent: #A07171;
+  /*cadet blue rgba(95, 158, 160)*/
+  --ac-blue: #5F9EA0;
+  /*bt (117, 117, 117)*/
+  --bt: #757575;
+  /*border */
   --border: rgba(199, 199, 199, 0.5);
   --def: rgba(0, 0, 0, 0.75);
   --inv: #f9fafb;
   --text: #2e2e2e;
+  --bg: #cedde6;
+  /* Stable px typography for the 16px-root context (Home and mobile).
+     Non-Home tablet/desktop pages override these in gallery.css to preserve
+     their previous rendered size without relying on rem. */
+  --root-font-size: clamp(12px, calc(10.4px + 0.4vw), 14px);
+  --font-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);
+  --font-list-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
+  --font-ui-size: clamp(14px, calc(12px + 0.4vw), 16px);
+  --font-caption-size: clamp(11px, calc(9.6px + 0.3vw), 13px);
+  --font-table-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
+  --font-metadata-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
+  --font-category-size: clamp(14px, calc(12.8px + 0.4vw), 17.6px);
+  --font-pagination-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
 
+  /* Transitional px equivalents for historical rem-based optical values.
+     Use semantic tokens for new UI; these exist only to preserve legacy
+     rendering while removing rem from font-size/tracking declarations. */
+  --legacy-px-0_01: 0.16px;
+  --legacy-px-0_015: 0.24px;
+  --legacy-px-0_02: 0.32px;
+  --legacy-px-0_05: 0.8px;
+  --legacy-px-0_075: 1.2px;
+  --legacy-px-0_1: 1.6px;
+  --legacy-px-0_2: 3.2px;
+  --legacy-px-0_4: 6.4px;
+  --legacy-px-0_5: 8px;
+  --legacy-px-0_52: 8.32px;
+  --legacy-px-0_55: 8.8px;
+  --legacy-px-0_561: 8.976px;
+  --legacy-px-0_6: 9.6px;
+  --legacy-px-0_62: 9.92px;
+  --legacy-px-0_65: 10.4px;
+  --legacy-px-0_68: 10.88px;
+  --legacy-px-0_7: 11.2px;
+  --legacy-px-0_75: 12px;
+  --legacy-px-0_8: 12.8px;
+  --legacy-px-0_82: 13.12px;
+  --legacy-px-0_85: 13.6px;
+  --legacy-px-0_875: 14px;
+  --legacy-px-0_9: 14.4px;
+  --legacy-px-0_95: 15.2px;
+  --legacy-px-1: 16px;
+  --legacy-px-1_1: 17.6px;
+  --legacy-px-1_15: 18.4px;
+  --legacy-px-1_171: 18.736px;
+  --legacy-px-1_2: 19.2px;
+  --legacy-px-1_256: 20.096px;
+  --legacy-px-1_3: 20.8px;
+  --legacy-px-1_333: 21.328px;
+  --legacy-px-1_35: 21.6px;
+  --legacy-px-1_371: 21.936px;
+  --legacy-px-1_4: 22.4px;
+  --legacy-px-1_467: 23.472px;
+  --legacy-px-1_5: 24px;
+  --legacy-px-1_571: 25.136px;
+  --legacy-px-1_6: 25.6px;
+  --legacy-px-1_628: 26.048px;
+  --legacy-px-1_8: 28.8px;
+  --legacy-px-2: 32px;
+  --legacy-px-2_4: 38.4px;
+  --legacy-px-2_8: 44.8px;
+  --legacy-px-4: 64px;
+  --legacy-px-5: 80px;
+  --legacy-px-5_4: 86.4px;
+  --legacy-px-6: 96px;
+  --legacy-px-7: 112px;
+  --legacy-px-8: 128px;
+  --legacy-px-9: 144px;
+  --legacy-px-10: 160px;
+  --legacy-px-0_5984: 9.5744px;
+  /* Fixed px tracking derived from the corresponding visual text tokens. */
+  --tracking-body-010: clamp(1.2px, calc(1.04px + 0.04vw), 1.4px);
+  --tracking-body-008: clamp(0.96px, calc(0.832px + 0.032vw), 1.12px);
+  --tracking-body-002: clamp(0.24px, calc(0.208px + 0.008vw), 0.28px);
+  --tracking-list-005: clamp(0.55px, calc(0.48px + 0.015vw), 0.64px);
+  --tracking-list-012: clamp(1.32px, calc(1.152px + 0.036vw), 1.536px);
+  --tracking-table-005: clamp(0.6px, calc(0.52px + 0.015vw), 0.7px);
+  --tracking-category-001: clamp(0.14px, calc(0.128px + 0.004vw), 0.176px);
+  --tracking-ui-015: clamp(2.1px, calc(1.8px + 0.06vw), 2.4px);
+  --legacy-px-0_66: 10.56px;
+  --legacy-px-0_7216: 11.5456px;
+  --legacy-px-0_836: 13.376px;
   color-scheme: light dark;
 }
 
@@ -542,4 +599,33 @@ img {
     top: 1rem;
     left: 1rem;
   }
+}
+:root {
+  /* Shared site chrome typography.
+     Header navigation and footer navigation always share the same size.
+     Mobile: <= 599px */
+  --font-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
+  --font-nav-size: var(--font-header-footer-size);
+  --font-footer-size: var(--font-header-footer-size);
+}
+
+/* Tablet: 600px - 1298px
+   Targets: ~20.5px @ 768, ~22.6px @ 1024, ~24.6px @ 1280. */
+@media screen and (min-width: 600px) and (max-width: 1298px) {
+  :root {
+    --font-header-footer-size: clamp(19.2px, calc(14.4px + 0.8vw), 24.6px);
+  }
+}
+
+/* PC: >= 1299px
+   Targets: ~24.8px near the breakpoint and 25.6px from ~1400px upward. */
+@media screen and (min-width: 1299px) {
+  :root {
+    --font-header-footer-size: clamp(24.8px, calc(14.4px + 0.8vw), 25.6px);
+  }
+}
+
+/* Shared visible site header brand. Keep it aligned with Footer navigation. */
+.head a {
+  font-size: var(--font-header-footer-size);
 }

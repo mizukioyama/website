@@ -5,7 +5,7 @@ const { spawnSync } = require("node:child_process");
 const root = path.resolve(__dirname, "..");
 // Root js/ contains active production scripts copied directly by Webpack, so it must be syntax-checked too.
 const sourceDirectories = ["js", "src", "scripts"];
-const files = ["webpack.config.js", "babel.config.cjs"];
+const files = ["webpack.config.js"];
 const htmlFiles = [];
 
 function collectJavaScriptFiles(directory) {

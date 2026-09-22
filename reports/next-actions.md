@@ -208,3 +208,10 @@
 2. Confirm the sidebar remains below the heading and does not overlap the subtitle.
 3. Rebuild and inspect generated `docs/` output before public deployment.
 4. Perform physical Safari/iOS/Android and touch acceptance separately.
+## 2026-09-22 Min-Max Calculator typography settings
+
+1. In an approved environment with the repository dependencies available, run `npm install` only after explicit approval, then run `npm run build` and `npm run check`.
+2. Run the full 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px visual/runtime matrix for TOP, Concept and Gallery.
+3. Compare wrapping, overflow, Header/Footer, buttons, Gallery category/filter/modal, FAQ/form and reduced-motion behavior against the pre-change baseline.
+4. Verify `docs/assets/css/user-settings.css` and all generated page links before any public deployment decision.
+5. Keep GitHub Pages push/public verification and physical-device acceptance as separate approval-gated steps.

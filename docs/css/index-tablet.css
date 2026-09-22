@@ -87,7 +87,7 @@
   }
 
   .home .date {
-    letter-spacing: 0.05rem;
+    letter-spacing: var(--legacy-px-0_05);
     bottom: calc(3% - 0.5rem);
   }
 
@@ -141,12 +141,12 @@
   }
 
   .home .inner li a {
-    font-size: clamp(1.6rem, 1.4rem + 0.8vw, 1.8rem);
+    font-size: var(--type-menu-primary-size);
     font-weight: 400;
   }
 
   .home .inner li:nth-of-type(n+5) a {
-    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+    font-size: var(--type-menu-secondary-size);
   }
 
   .home .toggle_btn {
@@ -181,7 +181,7 @@
   }
 
   .home .open #mask li {
-    font-size: clamp(0.75rem, 0.65rem + 0.4vw, 0.85rem);
+    font-size: var(--type-menu-mask-item-size);
   }
 
   .home .toggle_btn span {

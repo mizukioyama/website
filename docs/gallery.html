@@ -7,20 +7,21 @@
   <title>作品一覧｜小山瑞樹 - NatureInspire</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/noise.css">
-  <link rel="stylesheet" href="css/all.css?v=20260906-cursor">
-  <link rel="stylesheet" href="css/gallery.css?v=20260911-common-body-font-scale-12-14">
-  <link rel="stylesheet" href="css/mobile.css?v=179005588444">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/menu.css?v=179005588444">
+  <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
+  <link rel="stylesheet" href="css/all.css?v=b9ec91656338">
+  <link rel="stylesheet" href="css/gallery.css?v=a097de2060f8">
+  <link rel="stylesheet" href="css/mobile.css?v=5c4ccd70a129">
+  <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
+  <link rel="stylesheet" href="css/menu.css?v=ede7161c6bd6">
+  <link rel="stylesheet" href="assets/css/user-settings.css?v=9faf808b2d9e">
 
   <!-- JS -->
-  <script src="js/three.r134.min.js"></script>
-  <script src="js/vanta.fog.min.js"></script>
+  <script src="js/three.r134.min.js?v=2d137d69ae99"></script>
+  <script src="js/vanta.fog.min.js?v=902b0ec9cd38"></script>
 
-  <script src="js/page-nation.js?v=20260910-1325"></script>
-  <script src="js/gallery-captions.js?v=179005588444"></script>
-  <script src="js/menu.js?v=179005588444"></script>
+  <script src="js/page-nation.js?v=78b4c21d28c8"></script>
+  <script src="js/gallery-captions.js?v=4c87d8038db2"></script>
+  <script src="js/menu.js?v=2f517bd52d00"></script>
 
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
@@ -102,21 +103,21 @@
     .modal-text { position: relative; }
     .modal-text p { margin-top: 8vmin; text-shadow: 0 2px 2px var(--text); line-height: 2.4; margin-bottom: 2vmin; }
     .modal-text p:nth-child(1) { margin: 0; margin-top: 5vmin; }
-    .text-content { font-size: clamp(0.65rem, 0.5rem + 0.5vw, 0.9rem); }
-    #modalCloseBtn { font-size: clamp(1rem, 0.75rem + 1vw, 1.8rem); position: absolute; bottom: -5rem; right: 0; cursor: pointer; }
+    .text-content { font-size: var(--type-caption-size); }
+    #modalCloseBtn { font-size: var(--type-modal-close-size); position: absolute; bottom: -5rem; right: 0; cursor: pointer; }
     #modalCloseBtn:hover { mix-blend-mode: difference; }
     .modal-box a::before { display: none; }
     @keyframes slideInBottom { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
     .modal-box.animate-bottom { animation: slideInBottom 0.4s ease-out forwards; }
     @media screen and (max-width: 599px) {
       .modal-box { height: 98svh; min-height: 90svh; padding: 8rem 2rem 7rem; }
-      .noise.cg-text { font-size: clamp(1rem, 0.85rem + 0.5vw, 1.2rem) !important; }
-      .modal-box p { font-size: clamp(0.75rem, 0.65rem + 0.4vw, 0.85rem); letter-spacing: 0.05rem; }
+      .noise.cg-text { font-size: var(--type-gallery-ol-size) !important; }
+      .modal-box p { font-size: var(--type-caption-size); letter-spacing: var(--legacy-px-0_05); }
       .modal-text p { margin-top: 15vmin; }
       .modal-text a { margin-top: 5vmin !important; }
-      .modal-box .text-content { font-size: clamp(0.6rem, 0.5rem + 0.4vw, 0.65rem); }
+      .modal-box .text-content { font-size: var(--type-caption-size); }
       .modal-box .work-img { width: 100%; }
-      #modalCloseBtn { font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1rem); bottom: -2.5rem; }
+      #modalCloseBtn { font-size: var(--type-modal-mobile-close-size); bottom: -2.5rem; }
       .modal-box .work-img img { height: auto; clip-path: polygon(0% 5%, 100% 5%, 100% 100%, 100% 95%, 0% 95%, 0% 100%, 0 0%); }
 
       /* Mobile category toggle: render a guaranteed visible label independent of JS timing. */

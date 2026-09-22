@@ -6,10 +6,10 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering
 - [x] Master specification
-- [x] Site/change map
-- [x] Design/motion policy
+- [x] Site/change map (`SITE_MAP.md`)
+- [x] Design/motion/unit policy (`DESIGN_SYSTEM.md`)
 - [x] SEO/content policy
-- [x] QA/regression policy
+- [x] QA/regression policy (`QA_CHECKLIST.md`)
 - [x] Verify all source -> build -> docs mappings and update SITE_MAP
 - [x] Add automated visual regression tooling if absent
 
@@ -28,15 +28,15 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [x] Audit title/meta/H1/canonical across indexable pages
 - [x] Audit sitemap/robots/internal links — sitemap exact match, 9 indexable pages, robots policy, internal links, Pages and Visual Regression verified.
 - [x] Audit artwork alt text and metadata — 69 Gallery records, accessible alt text, thumbnail/detail fallback, language/category/modal regression checks, Pages and Visual Regression verified.
-- [ ] Review copy clarity while preserving artist voice
-- [ ] Review structured-data opportunities using verifiable visible facts
+- [x] Review copy clarity while preserving artist voice — clarified Home, Information and Contact functional copy; retained Order/Policy/Yurayura where already clear; reviewed Biography/Artist Statement without changing substantive artistic meaning.
+- [x] Review structured-data opportunities using verifiable visible facts — current Person/WebSite/ProfilePage/page-type markup is retained; Yurayura Event rich-result eligibility is intentionally deferred until a verified venue name/address is visible on the page, because Google requires event location and structured data must not introduce non-visible facts.
 
 ## Phase 3 - UX
-- [x] Verify shared spacing/typography/component consistency — typography scale finalized with clamp() across 1440/1280/1024/768/430/390/375 px; main CI, Pages deploy, public checks, and Visual Regression verified.
-- [ ] Optimize mobile gallery/artwork viewing
-- [ ] Verify Biography/Statement reading comfort
-- [ ] Verify Order flow and Contact path
-- [ ] Review Information hierarchy/current-event usability
+- [x] Verify shared spacing/typography/component consistency — typography uses px-based fixed/min/max terms with responsive clamp() interpolation; Header/Footer share breakpoint-specific type tokens across 1440/1280/1024/768/430/390/375 px; CI, Pages deploy, public checks, and Visual Regression verified.
+- [x] Optimize mobile gallery/artwork viewing — mobile Gallery now uses a single artwork column with 44px side insets, full available artwork width, compact card flow without the legacy 350px minimum, and a minimum 48px artwork action target; verified at 1440/1280/1024/768/430/390/375 px with a refreshed Gallery-only 390px visual baseline.
+- [x] Verify Biography/Statement reading comfort
+- [x] Verify Order flow and Contact path — Order CTA reaches the usable Contact form; request/inquiry mode, request-category requirement, core required fields, Policy-gated consent, mocked Apps Script submission success, thanks modal and reset behavior are covered without sending external data.
+- [x] Review Information hierarchy/current-event usability — Upcoming remains before Past, and the current Yurayura event stays the first actionable record with visible date and detail link.
 
 ## Phase 4 - Performance and motion
 - [ ] Measure Core Web Vitals/PageSpeed baseline
@@ -68,6 +68,20 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-22: Added `assets/css/user-settings.css` as the user-facing typography source of truth. Shared/root-page typography now uses Calculator-style px `clamp()` roles with 375px → 1440px comments and legacy aliases preserved; source checks pass and generated output will be rebuilt from the current main baseline.
+- 2026-09-22: Restored Order and Yurayura detail-page vertical layout to the shared portfolio rhythm by removing their page-specific zero-margin override and matching Information's 60vmin content start on desktop/mobile; added geometry regression coverage and seven-viewport verification.
+- 2026-09-22: Completed Information hierarchy/current-event usability review. The existing Upcoming→Past structure was retained and regression coverage now protects the Yurayura event title/date/detail CTA.
+- 2026-09-21: Completed Phase 3 Order/Contact flow verification. Reused existing Order→Contact, request-mode and Policy-modal coverage, then added missing required-field/consent checks and a fully mocked Google Apps Script submission path so success/reset behavior is verified without external writes.
+- 2026-09-21: Completed Phase 3 mobile Gallery/artwork viewing optimization. Mobile Gallery changed from two columns to one, normalized 44px side insets, removed the legacy fixed card/action heights, expanded artwork to available width, preserved Category/modal interactions, added geometry/touch-target assertions, and passed the Gallery audit at 1440/1280/1024/768/430/390/375 px.
+- 2026-09-21: Completed structured-data opportunity audit against current Google Search guidance. Retained the existing WebSite/Person/ProfilePage and page-type graph, avoided speculative markup with no measurable benefit, and documented Yurayura Event location as the only current rich-result blocker pending verified visible venue details.
+- 2026-09-21: Restored deterministic deployment of the existing Google Search Console HTML verification file by copying it to the `docs/` deployment root and checking source/output parity.
+- 2026-09-21: Removed the unlinked/noindex legacy `matching` / `bot` Webpack application and its private source JS/CSS/assets. Simplified Webpack to deterministic static portfolio assembly and removed bundle-only Babel/CSS/HTML/CSP/jQuery dependencies while preserving the nine canonical pages and deployment checks.
+- 2026-09-21: Removed six superseded `reports/` audit files from the active repository (history remains in Git), removed the unreferenced root `js/side.js` compatibility asset after confirming Gallery sidebar behavior is integrated into the current runtime, and deleted four zero-reference legacy source files (`src/assets/js/structured-data.js`, `src/js/gallery.js`, `src/js/matching.js`, `src/js/rollup.config-min.js`).
+- 2026-09-21: Removed verified-unused repository/archive assets after successful quarantine and dependency audit: deleted the 227-file delete-candidate archive, unused blog prototypes, unused backup audio, unused local font sources, and unused npm packages (`file-loader`, `gh-pages`, `html-webpack-inline-source-plugin`, `@fortawesome/fontawesome-free`). Generated `docs/` and the lockfile are rebuilt from the remaining active source graph.
+- 2026-09-21: Audited the full committed `docs/` tree against a clean GitHub Pages build, replaced commit/time cache tokens with deterministic content hashes, synchronized stale generated HTML/JS/assets, upgraded the post-build parity check from `docs/css/` to the entire `docs/` deployment tree, and moved the Visual Regression build before its temporary Playwright package install so CI uses the same clean `npm ci` build environment as Pages.
+- 2026-09-21: Confirmed that committed `docs/css/` had drifted behind the CSS actually generated and deployed by GitHub Actions; synchronized the committed CSS mirror with the current build output and added a post-build Git working-tree check so stale `docs/css/` cannot pass the normal repository check again.
+- 2026-09-21: Re-verified Biography / Artist Statement reading comfort after the ZIP audit; normal Japanese/English body copy now shares the documented body token, source and computed-size regression checks cover all seven breakpoints, static source-of-truth HTML is preserved through the build, and the full 1440/1280/1024/768/430/390/375 px Visual Regression audit passed (119 passed, 35 intentionally skipped).\n- 2026-09-20: Completed copy-clarity review across current core/indexable content. Applied only meaning-preserving functional copy fixes to Home, Information and Contact; retained clear Order/Policy/Yurayura copy; Biography and Artist Statement were reviewed but substantive consolidation/rewording was intentionally deferred because it requires artist approval.
+- 2026-09-20: Established the current visual-unit governance: px for stable typography/tracking/shadow geometry, responsive `clamp(px, calc(px + vw), px)` typography, breakpoint-specific shared Header/Footer sizing, and authoritative `DESIGN_SYSTEM.md`, `QA_CHECKLIST.md`, and `SITE_MAP.md` documentation.
 - 2026-09-20: Merged PR #6 at `09f5f7b0e791420c6c6b70613b840b50dff68212`; GitHub Pages deploy run `35499140808` and post-deploy Visual Regression run `35499183314` passed, followed by public checks across the 10 required routes.
 - 2026-09-20: Completed artwork alt-text and metadata audit; verified 69 Gallery records, #1501–#1504 detail fallbacks, generated output, public Gallery interactions, Pages deployment, and post-deploy Visual Regression without changing image-index suppression.
 - 2026-09-20: Sitemap/internal-link/image-index controls were implemented and audited; final closure remains open because the GitHub Pages project-site `/website/robots.txt` is not a host-root robots.txt file.

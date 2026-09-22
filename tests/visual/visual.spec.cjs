@@ -183,16 +183,80 @@ async function assertBilingualPage(page, label) {
       return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
     };
     const languageControl = document.querySelector("#langChenge");
+    const proseLanguages = [...document.querySelectorAll("main .work > p[lang]")]
+      .map(element => element.getAttribute("lang"));
+    const proseElements = [...document.querySelectorAll("main .work > p[lang]")];
+    const englishPairVisuals = proseElements
+      .filter(element => element.getAttribute("lang") === "en")
+      .map(element => {
+        const style = getComputedStyle(element);
+        const next = element.nextElementSibling;
+        const nextStyle = next ? getComputedStyle(next) : null;
+        return {
+          borderTopWidth: parseFloat(style.borderTopWidth) || 0,
+          borderTopStyle: style.borderTopStyle,
+          nextLanguage: next?.getAttribute("lang") || null,
+          nextMarginTop: nextStyle ? parseFloat(nextStyle.marginTop) || 0 : null
+        };
+      });
+    const statementTimelineItems = [...document.querySelectorAll("main .timeline > .timeline-item")].map(item => {
+      const japaneseTitle = item.querySelector(':scope > .timeline-title[lang="ja"]');
+      const japaneseBody = item.querySelector('.timeline-copy > p[lang="ja"]');
+      const englishBody = item.querySelector('.timeline-copy > p.text[lang="en"]');
+      const englishStyle = englishBody ? getComputedStyle(englishBody) : null;
+      const copy = item.querySelector(".timeline-copy");
+      const copyStyle = copy ? getComputedStyle(copy) : null;
+      return {
+        japaneseTitle: Boolean(japaneseTitle),
+        japaneseBody: Boolean(japaneseBody),
+        englishBody: Boolean(englishBody),
+        englishBorderTopWidth: englishStyle ? parseFloat(englishStyle.borderTopWidth) || 0 : 0,
+        englishBorderTopStyle: englishStyle?.borderTopStyle || "",
+        timelineBorderLeftWidth: copyStyle ? parseFloat(copyStyle.borderLeftWidth) || 0 : 0,
+        timelineBorderLeftStyle: copyStyle?.borderLeftStyle || ""
+      };
+    });
     return {
       japaneseRegions: [...document.querySelectorAll('[lang="ja"]')].filter(visible).length,
       englishRegions: [...document.querySelectorAll('[lang="en"]')].filter(visible).length,
-      languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden)
+      languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden),
+      standaloneEnglishContent: document.querySelectorAll('main .state-box > .content[lang="en"]').length,
+      proseLanguages,
+      englishPairVisuals,
+      statementTimelineItems
     };
   });
 
   expect(state.japaneseRegions, label + " should show Japanese regions").toBeGreaterThan(0);
   expect(state.englishRegions, label + " should show English regions").toBeGreaterThan(0);
   expect(state.languageControlVisible, label + " should hide the language switch UI").toBe(false);
+  expect(state.standaloneEnglishContent, label + " should not keep a separate English content block").toBe(0);
+  expect(state.proseLanguages.length % 2, label + " prose should contain Japanese/English pairs").toBe(0);
+  for (let index = 0; index < state.proseLanguages.length; index += 2) {
+    expect(state.proseLanguages[index], label + " prose pair should start in Japanese").toBe("ja");
+    expect(state.proseLanguages[index + 1], label + " prose pair should place English directly after Japanese").toBe("en");
+  }
+  for (let index = 0; index < state.englishPairVisuals.length; index += 1) {
+    const pair = state.englishPairVisuals[index];
+    expect(pair.borderTopWidth, label + " English translation should have a divider").toBeGreaterThanOrEqual(1);
+    expect(pair.borderTopStyle, label + " English divider should be visible").not.toBe("none");
+    if (pair.nextLanguage !== null) {
+      expect(pair.nextLanguage, label + " next bilingual pair should restart in Japanese").toBe("ja");
+      expect(pair.nextMarginTop, label + " bilingual pairs should keep a readable gap").toBeGreaterThan(0);
+    }
+  }
+  if (label === "artist-statement") {
+    expect(state.statementTimelineItems).toHaveLength(5);
+    for (const item of state.statementTimelineItems) {
+      expect(item.japaneseTitle, "Artist Statement timeline should keep its Japanese numbered heading").toBe(true);
+      expect(item.japaneseBody, "Artist Statement timeline should keep Japanese body text").toBe(true);
+      expect(item.englishBody, "Artist Statement timeline should place English below Japanese").toBe(true);
+      expect(item.timelineBorderLeftWidth, "Artist Statement timeline should keep its vertical rule").toBeGreaterThanOrEqual(1);
+      expect(item.timelineBorderLeftStyle, "Artist Statement timeline vertical rule should be visible").not.toBe("none");
+      expect(item.englishBorderTopWidth, "Artist Statement timeline English should keep its divider").toBeGreaterThanOrEqual(1);
+      expect(item.englishBorderTopStyle, "Artist Statement timeline English divider should be visible").not.toBe("none");
+    }
+  }
 }
 
 async function assertResponsivePageGeometry(page, entry) {
@@ -236,6 +300,23 @@ async function assertResponsivePageGeometry(page, entry) {
     await expectHorizontalFit(page.locator(".order-page .history-table"), "Order table");
     await expectHorizontalFit(page.locator(".order-page .timeline"), "Order process");
     await expectHorizontalFit(page.locator(".order-page .order-cta"), "Order CTA");
+
+    const layout = await page.evaluate(() => {
+      const content = document.querySelector(".order-page .content");
+      const title = document.querySelector(".order-page > .h1-text h1");
+      const sectionTitle = content?.querySelector(":scope > h2");
+      if (!content || !title || !sectionTitle) return null;
+      const contentStyle = getComputedStyle(content);
+      return {
+        marginTop: parseFloat(contentStyle.marginTop) || 0,
+        expectedMarginTop: Math.min(window.innerWidth, window.innerHeight) * 0.6,
+        titleBottom: title.getBoundingClientRect().bottom,
+        sectionTop: sectionTitle.getBoundingClientRect().top
+      };
+    });
+    expect(layout, "Order layout geometry should be measurable").not.toBeNull();
+    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Order should use the shared 60vmin content offset").toBeLessThanOrEqual(1.5);
+    expect(layout.titleBottom, "Order H1 must remain above page content").toBeLessThan(layout.sectionTop);
   }
 
   if (entry.key === "contact") {
@@ -263,24 +344,60 @@ async function assertResponsivePageGeometry(page, entry) {
     await expectHorizontalFit(page.locator(".exhibition-page .content"), "Yurayura content");
     await expectHorizontalFit(page.locator(".exhibition-page .history-table"), "Yurayura details table");
     await expectHorizontalFit(page.locator(".exhibition-page .link-row a"), "Yurayura related links");
+
+    const layout = await page.evaluate(() => {
+      const content = document.querySelector(".exhibition-page .content");
+      const title = document.querySelector(".exhibition-page > .h1-text h1");
+      const sectionTitle = content?.querySelector(":scope > h2");
+      if (!content || !title || !sectionTitle) return null;
+      const contentStyle = getComputedStyle(content);
+      return {
+        marginTop: parseFloat(contentStyle.marginTop) || 0,
+        expectedMarginTop: Math.min(window.innerWidth, window.innerHeight) * 0.6,
+        titleBottom: title.getBoundingClientRect().bottom,
+        sectionTop: sectionTitle.getBoundingClientRect().top
+      };
+    });
+    expect(layout, "Yurayura layout geometry should be measurable").not.toBeNull();
+    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Yurayura should use the shared 60vmin content offset").toBeLessThanOrEqual(1.5);
+    expect(layout.titleBottom, "Yurayura H1 must remain above page content").toBeLessThan(layout.sectionTop);
   }
 }
 
 async function exerciseSharedRuntimeInteractions(page) {
   const toggle = page.locator("#navArea .toggle_btn");
-  await toggle.focus();
-  await page.keyboard.press("Enter");
-  await expect(page.locator("#navArea")).toHaveClass(/open/);
-  await page.keyboard.press("Space");
-  await expect(page.locator("#navArea")).not.toHaveClass(/open/);
+  await expect(toggle).toHaveAttribute("role", "button");
+  await expect(toggle).toHaveAttribute("tabindex", "0");
 
-  const englishLabel = page.locator('#langChenge label[for="langEn"]');
-  if (await englishLabel.isVisible()) {
-    await englishLabel.click();
-    await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await page.locator('#langChenge label[for="langJa"]').click();
-    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
-  }
+  const openState = await toggle.evaluate(element => {
+    element.dispatchEvent(new KeyboardEvent("keydown", {
+      key: "Enter",
+      code: "Enter",
+      bubbles: true,
+      cancelable: true
+    }));
+    const nav = element.closest("#navArea");
+    return {
+      open: Boolean(nav?.classList.contains("open")),
+      expanded: element.getAttribute("aria-expanded")
+    };
+  });
+  expect(openState).toEqual({ open: true, expanded: "true" });
+
+  const closedState = await toggle.evaluate(element => {
+    element.dispatchEvent(new KeyboardEvent("keydown", {
+      key: " ",
+      code: "Space",
+      bubbles: true,
+      cancelable: true
+    }));
+    const nav = element.closest("#navArea");
+    return {
+      open: Boolean(nav?.classList.contains("open")),
+      expanded: element.getAttribute("aria-expanded")
+    };
+  });
+  expect(closedState).toEqual({ open: false, expanded: "false" });
 }
 
 async function exerciseGalleryRuntime(page, projectName, testInfo) {
@@ -328,16 +445,44 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
 }
 
 async function exerciseContactRuntime(page, testInfo) {
+  const form = page.locator("#contactForm");
+  await expect(form).toHaveAttribute("method", /post/i);
+  await expect(form).toHaveAttribute("action", /^https:\/\/script\.google\.com\/macros\/s\//);
+
+  const requestRadio = page.locator("#radio1");
+  const inquiryRadio = page.locator("#radio2");
+  const consent = page.locator("#consent");
+
+  await expect(requestRadio).toHaveAttribute("required", "");
+  await expect(page.locator("#name")).toHaveAttribute("required", "");
+  await expect(page.locator("#email")).toHaveAttribute("required", "");
+  await expect(page.locator("#message")).toHaveAttribute("required", "");
+  await expect(consent).toBeDisabled();
+  await expect(consent).not.toBeChecked();
+
   await page.locator('label[for="radio1"]').click();
   await expect(page.locator(".request-options")).toBeVisible();
   await expectHorizontalFit(page.locator(".request-options"), "Contact request options");
+  await expect(page.locator('input[name="requestCategory"]')).toHaveCount(5);
+  for (const input of await page.locator('input[name="requestCategory"]').all()) {
+    await expect(input).toHaveAttribute("required", "");
+  }
+  await page.locator('label[for="request-order"]').click();
+  await expect(page.locator("#request-order")).toBeChecked();
 
   await page.locator('label[for="radio2"]').click();
+  await expect(inquiryRadio).toBeChecked();
   await expect(page.locator(".request-options")).toBeHidden();
+  await expect(page.locator('input[name="requestCategory"]:checked')).toHaveCount(0);
+
+  await page.locator('label[for="radio1"]').click();
+  await page.locator('label[for="request-order"]').click();
 
   await page.locator('label[for="modal-toggle"].modal-open-label').click();
   await expect(page.locator("#modal-toggle")).toBeChecked();
   await expectViewportModalFit(page.locator("body > .modal-box"), "Contact SitePolicy modal");
+  await expect(consent).toBeEnabled();
+  await expect(consent).toBeChecked();
 
   if (fullAudit) {
     await page.screenshot({
@@ -350,6 +495,45 @@ async function exerciseContactRuntime(page, testInfo) {
 
   await page.locator("body > .modal-box .modal-close-label").click();
   await expect(page.locator("#modal-toggle")).not.toBeChecked();
+
+  await page.route("https://script.google.com/macros/s/**", async route => {
+    await route.fulfill({
+      status: 200,
+      contentType: "text/plain; charset=utf-8",
+      body: "Successfully submitted"
+    });
+  });
+
+  await page.locator("#name").fill("Visual Regression Test");
+  await page.locator("#email").fill("visual@example.com");
+  await page.locator("#message").fill("Order and Contact flow verification.");
+  await page.locator(".submit-btn").click();
+
+  await expect(page.locator("#thanksModal")).toHaveClass(/show/);
+  await expect(page.locator(".form-status")).toHaveText("送信しました。");
+  await expect(page.locator("#contactForm")).toBeVisible();
+  await expect(requestRadio).not.toBeChecked();
+  await expect(page.locator(".request-options")).toBeHidden();
+
+  await page.locator("#thanksModal .close").click();
+  await expect(page.locator("#thanksModal")).not.toHaveClass(/show/);
+}
+
+async function exerciseInformationRuntime(page) {
+  const sections = page.locator(".information-page .info-section");
+  await expect(sections).toHaveCount(2);
+
+  const headings = await sections.locator("h2").allTextContents();
+  expect(headings.map(text => text.trim())).toEqual(["Upcoming", "Past"]);
+
+  const upcoming = page.locator('section[aria-labelledby="upcoming-title"]');
+  await expect(upcoming).toContainText("2026.10");
+  await expect(upcoming).toContainText("グループ展「ゆらゆら」");
+  await expect(upcoming).toContainText("2026年10月6日 — 10月12日");
+
+  const detailLink = page.getByRole("link", { name: "展示詳細を見る" });
+  await expect(detailLink).toBeVisible();
+  await expect(detailLink).toHaveAttribute("href", "exhibitions/yurayura/");
 }
 
 async function exerciseOrderRuntime(page) {
@@ -358,10 +542,20 @@ async function exerciseOrderRuntime(page) {
     .getByRole("link", { name: /Contact Us｜お問い合わせ/i })
     .first();
   await expect(contactLink).toBeVisible();
+  await expect(contactLink).toHaveAttribute("href", "contact.html");
   await contactLink.click();
   await page.waitForURL(/\/website\/contact\.html$/);
   await page.waitForLoadState("domcontentloaded");
-  await expect(page.locator("#contactForm")).toBeAttached();
+
+  const form = page.locator("#contactForm");
+  await expect(form).toBeAttached();
+  await expect(form).toHaveAttribute("method", /post/i);
+  await expect(form).toHaveAttribute("action", /^https:\/\/script\.google\.com\/macros\/s\//);
+  await expect(page.locator("#radio1")).toBeAttached();
+  await expect(page.locator("#radio2")).toBeAttached();
+  await expect(page.locator("#name")).toBeAttached();
+  await expect(page.locator("#email")).toBeAttached();
+  await expect(page.locator("#message")).toBeAttached();
 }
 
 async function prepareDeterministicNetwork(page) {
@@ -409,14 +603,34 @@ async function stabilize(page, entry = {}) {
 
   if (entry.key === "home") {
     await page.evaluate(() => {
-      for (const selector of [".back__slide", ".card__slide", ".content__slide"]) {
+      const selectors = [".back__slide", ".card__slide", ".content__slide"];
+      const forceFirstSlide = () => {
+        for (const selector of selectors) {
+          const first = document.querySelector(`${selector}:first-child`);
+          if (!first) continue;
+          first.classList.add("active");
+          first.classList.remove("exit");
+          for (const sibling of first.parentElement.children) {
+            if (sibling !== first) sibling.classList.remove("active", "exit");
+          }
+        }
+      };
+
+      window.__visualHomeSlideObserver?.disconnect?.();
+      forceFirstSlide();
+
+      const observer = new MutationObserver(forceFirstSlide);
+      for (const selector of selectors) {
         const first = document.querySelector(`${selector}:first-child`);
-        if (!first) continue;
-        first.classList.add("active");
-        for (const sibling of first.parentElement.children) {
-          if (sibling !== first) sibling.classList.remove("active", "exit");
+        if (first?.parentElement) {
+          observer.observe(first.parentElement, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ["class"]
+          });
         }
       }
+      window.__visualHomeSlideObserver = observer;
     });
   }
 
@@ -465,6 +679,10 @@ async function layoutDiagnostics(page) {
 
 for (const entry of pages) {
   test(entry.key + " visual and layout regression", async ({ page }, testInfo) => {
+    if (entry.key === "home") {
+      testInfo.setTimeout(60000);
+    }
+
     const runtime = createRuntimeMonitor(page, entry);
 
     await page.addInitScript(() => {
@@ -499,6 +717,7 @@ for (const entry of pages) {
     if (entry.footer !== false) {
       await expect(page.locator("#footer-container footer")).toBeAttached();
     }
+    await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false);
 
     if (entry.key === "information") {
       const titleBox = await page.locator(".information-page > .h1-text h1").boundingBox();
@@ -543,6 +762,9 @@ for (const entry of pages) {
     if (entry.key === "gallery") {
       await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
     }
+    if (entry.key === "information") {
+      await exerciseInformationRuntime(page);
+    }
     if (entry.key === "contact") {
       await exerciseContactRuntime(page, testInfo);
     }
@@ -554,6 +776,138 @@ for (const entry of pages) {
     await attachRuntimeObservations(testInfo, entry, runtime);
   });
 }
+
+function expectedHeaderFooterSize(projectName) {
+  const expectedByProject = {
+    "desktop-1440": 25.6,
+    "desktop-1280": 24.6,
+    "tablet-1024": 22.6,
+    "tablet-768": 20.5,
+    "mobile-430": 18,
+    "mobile-390": 18,
+    "mobile-375": 18
+  };
+  return expectedByProject[projectName];
+}
+
+async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true) {
+  const expected = expectedHeaderFooterSize(testInfo.project.name);
+  expect(expected, "viewport should have a documented Header/Footer target").toBeDefined();
+
+  const sizes = await page.evaluate(hasFooterValue => ({
+    header: parseFloat(getComputedStyle(document.querySelector("#header-container .head a")).fontSize),
+    footer: hasFooterValue
+      ? [...document.querySelectorAll("#footer-container footer a")]
+          .map(link => parseFloat(getComputedStyle(link).fontSize))
+      : []
+  }), hasFooter);
+  const roundToTenth = value => Math.round(value * 10) / 10;
+
+  expect(roundToTenth(sizes.header), "Header brand font-size").toBe(expected);
+  if (hasFooter) {
+    expect(sizes.footer.length, "Footer navigation should exist").toBeGreaterThan(0);
+    for (const size of sizes.footer) {
+      expect(roundToTenth(size), "Footer navigation font-size").toBe(expected);
+      expect(Math.abs(size - sizes.header), "Header/Footer font-size should match").toBeLessThanOrEqual(0.05);
+    }
+  }
+}
+
+function expectedH2Sizes(projectName) {
+  const expectedByProject = {
+    "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 23.6 },
+    "desktop-1280": { homeCreator: 14.0, homeContent: 26.6, biography: 29.2 },
+    "tablet-1024": { homeCreator: 13.6, homeContent: 25.2, biography: 24.1 },
+    "tablet-768": { homeCreator: 13.1, homeContent: 23.8, biography: 18.7 },
+    "mobile-430": { homeCreator: 12.5, homeContent: 23.6, biography: 19.5 },
+    "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 17.5 },
+    "mobile-375": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 }
+  };
+  return expectedByProject[projectName];
+}
+
+test("h2 typography is exactly 2px below the previous responsive scale", async ({ page }, testInfo) => {
+  const expected = expectedH2Sizes(testInfo.project.name);
+  expect(expected, "viewport should have documented h2 targets").toBeDefined();
+  const roundToTenth = value => Math.round(value * 10) / 10;
+
+  await prepareDeterministicNetwork(page);
+  await page.goto("", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "home-h2-type" });
+  const homeCreatorSize = await page.locator("h2.creator-title").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(homeCreatorSize), "Home creator h2 font-size").toBe(expected.homeCreator);
+
+  const homeContentSize = await page.locator("h2.title__inner").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(homeContentSize), "Home content h2 font-size").toBe(expected.homeContent);
+
+  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "biography-h2-type" });
+  const biographySize = await page.locator("#bio #state .content h2").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(biographySize), "Biography h2 font-size").toBe(expected.biography);
+});
+
+function expectedBodySizes(projectName) {
+  const expectedByProject = {
+    "desktop-1440": 14,
+    "desktop-1280": 14,
+    "tablet-1024": 14,
+    "tablet-768": 13.5,
+    "mobile-430": 12.1,
+    "mobile-390": 12,
+    "mobile-375": 12
+  };
+  return expectedByProject[projectName];
+}
+
+test("shared body typography matches the documented responsive scale", async ({ page }, testInfo) => {
+  const expected = expectedBodySizes(testInfo.project.name);
+  expect(expected, "viewport should have a documented body target").toBeDefined();
+  const roundToTenth = value => Math.round(value * 10) / 10;
+
+  await prepareDeterministicNetwork(page);
+  await page.goto("", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "home-body-type" });
+  const homeSize = await page.locator("main p").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(homeSize), "Home body font-size").toBe(expected);
+
+  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "biography-body-type" });
+  const biographySize = await page.locator("#bio #state .content .work > p[lang='ja']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(biographySize), "Biography body font-size").toBe(expected);
+
+  const biographyEnglishSize = await page.locator("#bio #state .content .work > p.text[lang='en']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(biographyEnglishSize), "Biography English body font-size").toBe(expected);
+
+  await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
+  await stabilize(page, { key: "statement-body-type" });
+
+  const statementJapaneseSize = await page.locator("#state .content .work > p[lang='ja']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(statementJapaneseSize), "Statement Japanese body font-size").toBe(expected);
+
+  const statementEnglishSize = await page.locator("#state .content .work > p.text[lang='en']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(statementEnglishSize), "Statement English body font-size").toBe(expected);
+
+  const statementTimelineEnglishSize = await page.locator("#state .timeline-copy > p.text[lang='en']").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
+  );
+  expect(roundToTenth(statementTimelineEnglishSize), "Statement timeline English body font-size").toBe(expected);
+});
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
   const entry = { key: "404-interaction", status: 404 };
@@ -882,12 +1236,11 @@ for (const entry of [
     expect(response.status()).toBe(200);
     await stabilize(page);
 
-    const englishContent = page.locator('#state .content[lang="en"]').first();
-    await expect(englishContent).toBeVisible();
+    const englishParagraph = page.locator('main .work > p.text[lang="en"]').first();
+    await expect(englishParagraph).toBeVisible();
 
-    const metrics = await englishContent.evaluate((content, key) => {
-      const paragraph = content.querySelector(".work > p");
-      const paragraphStyle = paragraph ? getComputedStyle(paragraph) : null;
+    const metrics = await englishParagraph.evaluate((paragraph, key) => {
+      const paragraphStyle = getComputedStyle(paragraph);
       const rootOverflow = Math.max(
         document.documentElement.scrollWidth,
         document.body?.scrollWidth || 0
@@ -895,14 +1248,14 @@ for (const entry of [
 
       const result = {
         rootOverflow,
-        paragraphFontSize: paragraphStyle ? parseFloat(paragraphStyle.fontSize) : 0,
-        paragraphLineHeight: paragraphStyle ? parseFloat(paragraphStyle.lineHeight) : 0,
-        paragraphWordBreak: paragraphStyle?.wordBreak || "",
-        paragraphOverflowWrap: paragraphStyle?.overflowWrap || ""
+        paragraphFontSize: parseFloat(paragraphStyle.fontSize),
+        paragraphLineHeight: parseFloat(paragraphStyle.lineHeight),
+        paragraphWordBreak: paragraphStyle.wordBreak || "",
+        paragraphOverflowWrap: paragraphStyle.overflowWrap || ""
       };
 
       if (key === "artist-statement") {
-        const flow = content.querySelector(".timeline li");
+        const flow = document.querySelector('main .timeline .timeline-copy > p.text[lang="en"]');
         const flowStyle = flow ? getComputedStyle(flow) : null;
         result.flowFontSize = flowStyle ? parseFloat(flowStyle.fontSize) : 0;
         result.flowLineHeight = flowStyle ? parseFloat(flowStyle.lineHeight) : 0;

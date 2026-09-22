@@ -1,5 +1,17 @@
 # Header / Footer Review Report
 
+## 2026-09-22 Min-Max Calculator typography settings
+
+- Added `assets/css/user-settings.css` as the user-facing semantic typography settings file.
+- Root visual pages load it after their page CSS; existing `--font-*` names remain compatibility aliases.
+- Major shared roles and root-page heading/menu/form/modal declarations now reference the new settings.
+- The settings use px bounds and Calculator-style `clamp(px, calc(px + vw), px)` interpolation from 375px to 1440px.
+- Backup created at `backups/20260922_before_user_settings_typography/`.
+- PASS: typography, JavaScript, component, SEO, link, webpack syntax and diff checks.
+- PASS: local browser source check at 1280×720; seven root pages loaded the setting once and had no horizontal overflow.
+- PASS: Gallery category structure, 8 works, pagination, modal open/close and scroll locking.
+- PENDING: generated docs rebuild and public verification because `node_modules` is absent and `webpack` / `html-minifier-terser` are unavailable.
+
 ## 2026-09-20 Phase 3 bilingual and typography audit
 
 - Base verified against `ad577fcae63180a1dfca1a41c6c08a8c5320a3a3` on branch `phase3-bilingual-mobile-typography-audit`.

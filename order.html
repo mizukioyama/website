@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="assets/css/user-settings.css?v=20260922-typography">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="js/jquery.ripples-min.js"></script>
@@ -104,7 +105,7 @@
             display: block;
             width: min(72%, calc(100% - 2rem));
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 60vmin auto 0;
         }
 
         .order-page .content > h2 {
@@ -163,7 +164,7 @@
             font-size: var(--font-list-size);
             color: #999;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: var(--tracking-list-005);
             font-weight: normal;
         }
 
@@ -249,7 +250,7 @@
         @media screen and (max-width: 599px) {
             .order-page .content {
                 width: 100%;
-                margin: 0;
+                margin: 60vmin 0 0;
                 padding: 0 3vmin;
             }
 

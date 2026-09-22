@@ -5,6 +5,7 @@ const SITE_ROOT_URL = (() => {
 
 const siteHref = path => new URL(path, SITE_ROOT_URL).href;
 
+// BEGIN GENERATED HEADER_MARKUP — source: src/components/header.html
 const HEADER_MARKUP = `
 <header>
   <div class="head">
@@ -114,7 +115,9 @@ const HEADER_MARKUP = `
 
 </header>
 `;
+// END GENERATED HEADER_MARKUP
 
+// BEGIN GENERATED FOOTER_MARKUP — source: src/components/footer.html
 const FOOTER_MARKUP = `
 <footer>
    <a class="noise" href="${siteHref("gallery.html")}">Art Index</a>
@@ -130,6 +133,7 @@ const FOOTER_MARKUP = `
    </div>
 </footer>
 `;
+// END GENERATED FOOTER_MARKUP
 
 const SIDEBAR_MARKUP = `
 <p id="category-header" class="noise">・</p>

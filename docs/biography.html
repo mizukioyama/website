@@ -7,24 +7,25 @@
     <title>プロフィール｜小山瑞樹 - 抽象アーティスト</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/noise.css">
-    <link rel="stylesheet" href="css/all.css?v=20260906-cursor">
-    <link rel="stylesheet" href="css/gallery.css?v=20260911-common-body-font-scale-12-14">
-    <link rel="stylesheet" href="css/mobile.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/menu.css?v=179005588444">
+    <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
+    <link rel="stylesheet" href="css/all.css?v=b9ec91656338">
+    <link rel="stylesheet" href="css/gallery.css?v=a097de2060f8">
+    <link rel="stylesheet" href="css/mobile.css?v=5c4ccd70a129">
+    <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
+    <link rel="stylesheet" href="css/menu.css?v=ede7161c6bd6">
+    <link rel="stylesheet" href="assets/css/user-settings.css?v=9faf808b2d9e">
 
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 
     <!-- 背景用 JavaScript -->
-    <script src="js/jquery.ripples-min.js"></script>
-    <script src="js/bg_wave.js"></script>
-    <script src="js/p5.min.js"></script>
-    <script src="js/vanta.trunk.min.js"></script>
+    <script src="js/jquery.ripples-min.js?v=4b26cfc3a058"></script>
+    <script src="js/bg_wave.js?v=1d7ca5581ed7"></script>
+    <script src="js/p5.min.js?v=e6397ff8a293"></script>
+    <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
 
-    <script src="js/mobile.js"></script>
-    <script src="js/menu.js"></script>
+    <script src="js/mobile.js?v=4e0bb840c839"></script>
+    <script src="js/menu.js?v=2f517bd52d00"></script>
 
     <!-- Font -->
     <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
@@ -153,7 +154,7 @@
             #0000 0);
         }
         p.text{
-            font-size: clamp(0.65rem, 0.5rem + 0.5vw, 1rem);
+            font-size: var(--font-body-size);
             line-height: 1.8;
             border-top: 1px solid #333;
             padding: 0.5rem 4.5rem 0 0 !important;
@@ -179,7 +180,7 @@
             }
 
             #bio #state .content h2 {
-                font-size: clamp(1.15rem, 5vw, 1.35rem);
+                font-size: var(--type-biography-h2-size);
                 line-height: 1.5;
                 margin-bottom: 1.5rem;
             }
@@ -187,7 +188,7 @@
             #bio #state .content .work > p {
                 font-size: var(--font-body-size);
                 line-height: 2;
-                letter-spacing: 0.02rem;
+                letter-spacing: var(--legacy-px-0_02);
                 word-break: normal;
                 overflow-wrap: break-word;
             }
@@ -195,16 +196,12 @@
             #bio #state .content .work > p.text {
                 margin-top: 0.75rem !important;
                 padding: 0.75rem 0 0 !important;
-                font-size: var(--font-caption-size);
+                font-size: var(--font-body-size);
                 line-height: 1.9;
             }
 
             #bio #state .content .work > p.text + p:not(.text) {
                 margin-top: 3rem !important;
-            }
-
-            #bio #state .content[lang="en"] .work > p + p {
-                margin-top: 2.5rem !important;
             }
 
             #bio table + table {
@@ -255,7 +252,7 @@
             font-size: var(--font-table-size);
             color: #999;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: var(--tracking-table-005);
             font-weight: normal;
         }
 
@@ -320,21 +317,21 @@
             <div lang="ja" class="state-img">
                 <img src="img/心樹-web.jpg" alt="小山瑞樹の作品『心樹』">
             </div>
-            <div lang="ja" class="content">
+            <div class="content">
                 <h2 class="noise">小山瑞樹｜Mizuki Oyama<!--<span class="noise name">Mizuki Oyama</span>--></h2>
                 <div class="work">
-                    <p>
+                    <p lang="ja">
                         宮城県仙台市出身、1998年生まれの抽象画家。
                         幼少期からASD、ADHDの特性を持ち、大多数の評価や一般的な考えや常識よりも自分の中に湧く感覚や衝動を大切にしてきた。
                         授業中もノートに絵を描き続け、言葉にならない内側と向き合う時間を手放さなかった。
                     </p>
-                    <p class="text">
+                    <p lang="en" class="text">
                         An abstract painter born in 1998 in Sendai, Miyagi Prefecture.
                         Having had symptoms of ASD and ADHD since childhood, he has always valued the feelings and impulses that arise within him over the opinions of the majority, common beliefs, and common sense.
                         Even during class, he continued to draw in his sketchbook, never giving up the time to face his inner self, which he could not put into words.
                     </p>
 
-                    <p style="margin-top: 10vmin;">
+                    <p lang="ja" style="margin-top: 10vmin;">
                         高校で美術部に入部し、初めて抽象画に取り組む。
                         3年時の作品「無題」で優秀賞を受賞。構成や意味を考えず、ただ感覚のままに描いた作品が評価された経験が、自分にとって大きな転機となった。
                         <br>
@@ -343,7 +340,7 @@
                         多様な職種を経験し息苦しさや衝突を感じながらも、人間関係を改善し、環境を変える試みを繰り返すことで、自分自身の視野と柔軟性を広げた。
                         こうした経験が、現在の作品や表現への向き合い方を支えている。
                     </p>
-                    <p class="text">
+                    <p lang="en" class="text">
                         I joined the art club in high school and tackled abstract painting for the first time.
                         I won a special award for my junior year piece "Untitled.
                         <br>
@@ -354,7 +351,7 @@
                         Having experienced various professions and feeling stifled and faced with conflicts, I repeatedly attempted to improve my relationships and change my environment, which broadened my own perspective and flexibility.
                         These experiences support my current approach to my work and expressions.
                     </p>
-                    <p style="margin-top: 10vmin;">
+                    <p lang="ja" style="margin-top: 10vmin;">
                         活動当初は地元や東北の展示会で出展を断られ、思考を変え、全国展開を決意。
                         麗人社主催の全国公募展、藝文協会主催のグループ展など、各地での公募展やグループ展に継続して出展を重ねる。
                         <br>
@@ -362,63 +359,13 @@
                         Web制作や情報発信も独学で学び、オンラインで作品を届ける場を広げている。
                         経験と感覚を信じ、内側から湧きあがるものをそのまま形にすることで、人の心に寄り添う作品を生み出し続ける。
                     </p>
-                    <p class="text">
+                    <p lang="en" class="text">
                         At the beginning of the activities, they were repeatedly refused to exhibit at local and Tohoku exhibitions, so they changed their mindset and decided to expand nationwide.
                         They have continued to exhibit at various public exhibitions and group exhibitions, such as the national open call exhibition hosted by Reijinsha and group exhibitions hosted by the Geibun Association.
                         <br>
                         Currently, they continue their production activities and regularly participate in exhibitions.
                         They also self-study web production and information dissemination, expanding their platform to deliver works online.
                         By trusting their experiences and intuition, and by shaping what arises from within, they continue to create works that resonate with people's hearts.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- ja  -->
-
-        <!-- en  -->
-        <div class="state-box">
-            <div lang="en" class="state-img">
-                <img src="img/202343-2.jpg" alt="An abstract artwork by Mizuki Oyama with a blue-green glowing sphere on a dark background">
-            </div>
-            <div lang="en" class="content">
-                <h2 class="noise">Abstract painter Mizuki Oyama</h2>
-                <div class="work">
-                    <p>
-                        Born in Sendai City, Miyagi Prefecture, in 1998, this abstract painter has exhibited works at
-                        the Sendai Museum of Art and the Sendai Art Museum.
-                        From a young age, he has exhibited characteristics of ASD and ADHD, prioritizing the sensations
-                        and impulses that arise within him over external explanations or societal norms. Even during
-                        classes, he continued to draw in his notebook, never relinquishing the time spent confronting
-                        his inner world that defies verbal expression.
-                    </p>
-                    <p style="margin-top: 5vmin;">
-                        In high school, he joined the art club and began working on abstract paintings for the first
-                        time. His third-year work, “Untitled,” won an excellence award. The experience of having his
-                        work—created without considering composition or meaning, but simply following his
-                        instincts—recognized as outstanding became a major turning point for him.
-                    </p>
-                    <p style="margin-top: 5vmin;">
-                        After graduating from high school, he studied design at a vocational school but felt uneasy
-                        about expressions that sought to evoke human desires and distanced himself from it. He realized
-                        that what he sought was “expressions that purify the human heart” and stepped away from design.
-                        <br>
-                        Despite feeling suffocated and experiencing conflicts while working in various occupations, he
-                        repeatedly attempted to improve human relationships and change his environment, thereby
-                        broadening his perspective and flexibility. These experiences support his current approach to
-                        his works and expressions.
-                    </p>
-                    <p style="margin-top: 5vmin;">
-                        In the early days of his career, he was rejected from exhibitions in his hometown and Tohoku. He
-                        changed his mindset and decided to expand nationwide.
-                        He has continued to exhibit his work in various public exhibitions and group exhibitions,
-                        including the national public exhibition hosted by Reijin-sha and the group exhibition hosted by
-                        the Geibun Association.
-                        <br>
-                        He continues to create artworks while regularly exhibiting his work.
-                        He has also self-taught web design and information dissemination, expanding the online platforms
-                        through which he shares his artworks.
-                        By trusting his experience and intuition, and shaping the emotions that arise from within, he
-                        continues to create artworks that resonate with people's hearts.
                     </p>
                 </div>
             </div>

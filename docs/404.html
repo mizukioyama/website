@@ -7,12 +7,13 @@
   <meta name="description" content="お探しのページは見つかりませんでした。Mizuki Oyamaのポートフォリオ主要ページへ移動できます。">
   <meta name="robots" content="noindex, follow">
 
-  <link rel="stylesheet" href="/website/css/noise.css">
-  <link rel="stylesheet" href="/website/css/all.css">
-  <link rel="stylesheet" href="/website/css/gallery.css">
-  <link rel="stylesheet" href="/website/css/mobile.css">
-  <link rel="stylesheet" href="/website/css/footer.css">
-  <link rel="stylesheet" href="/website/css/menu.css?v=179005588444">
+  <link rel="stylesheet" href="/website/css/noise.css?v=b8f783b14583">
+  <link rel="stylesheet" href="/website/css/all.css?v=b9ec91656338">
+  <link rel="stylesheet" href="/website/css/gallery.css?v=a097de2060f8">
+  <link rel="stylesheet" href="/website/css/mobile.css?v=5c4ccd70a129">
+  <link rel="stylesheet" href="/website/css/footer.css?v=abf94f79239e">
+  <link rel="stylesheet" href="/website/css/menu.css?v=ede7161c6bd6">
+  <link rel="stylesheet" href="/website/assets/css/user-settings.css?v=9faf808b2d9e">
   <link rel="icon" href="/website/img/web.ico">
 
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
@@ -53,16 +54,16 @@
     .not-found-code {
       margin: 0 0 1.25rem;
       font-family: "Jost", sans-serif;
-      font-size: clamp(4rem, 12vw, 9rem);
+      font-size: clamp(var(--legacy-px-4), 12vw, var(--legacy-px-9));
       font-weight: 100;
       line-height: 0.9;
-      letter-spacing: -0.04em;
+      letter-spacing: clamp(-5.04px, -0.48vw, -2.24px);
       color: var(--inv, #e6e6e6);
     }
 
     .not-found-title {
       margin: 0;
-      font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.4rem);
+      font-size: clamp(var(--legacy-px-1_5), calc(var(--legacy-px-1_15) + 1.3vw), var(--legacy-px-2_4));
       font-weight: 300;
       line-height: 1.35;
       color: var(--inv, #e6e6e6);
@@ -91,7 +92,7 @@
       padding: 0.4rem 0;
       border-bottom: 1px solid currentColor;
       font-family: "Jost", sans-serif;
-      font-size: clamp(1rem, 0.9rem + 0.25vw, 1.15rem);
+      font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_9) + 0.25vw), var(--legacy-px-1_15));
       line-height: 1.5;
     }
 
@@ -104,6 +105,12 @@
       outline-offset: 0.4rem;
     }
 
+    @media screen and (min-width: 600px) and (max-width: 899px) {
+      .not-found-code {
+        letter-spacing: clamp(calc(-3.744px - 0.144vw), -0.48vw, calc(-1.664px - 0.064vw));
+      }
+    }
+
     @media screen and (max-width: 599px) {
       .not-found-page {
         min-height: 100svh;
@@ -112,7 +119,8 @@
       }
 
       .not-found-code {
-        font-size: clamp(4rem, 25vw, 7rem);
+        font-size: clamp(var(--legacy-px-4), 25vw, var(--legacy-px-7));
+        letter-spacing: clamp(-4.48px, -1vw, -2.56px);
       }
 
       .not-found-message {
@@ -159,6 +167,6 @@
 
   <div id="footer-container"></div>
 
-  <script src="/website/js/menu.js"></script>
+  <script src="/website/js/menu.js?v=2f517bd52d00"></script>
 </body>
 </html>
