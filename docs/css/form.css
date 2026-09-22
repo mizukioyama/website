@@ -346,13 +346,13 @@ input:-webkit-autofill:focus {
    .contact-form #message,
    .contact-form .submit-btn,
    .contact-form .label {
-      /* Tablet form controls: 21.12px → 26.4px */
-      font-size: clamp(calc(16.64px + 0.64vw), calc(13.0624px + 1.4224vw), calc(20.8px + 0.8vw));
+      /* Tablet form controls: 25.6px → 32px */
+      font-size: clamp(25.6px, 20.096px + 0.92vw, 32px);
    }
 
    .contact-form .input-text {
-      /* Tablet form fields: 19.44px → 26.4px */
-      font-size: clamp(calc(18.72px + 0.72vw), calc(16.9312px + 1.1112vw), calc(20.8px + 0.8vw));
+      /* Tablet form fields: 28.8px → 32px */
+      font-size: clamp(28.8px, 26.048px + 0.46vw, 32px);
       height: 40pt;
       padding-left: 1rem;
    }
