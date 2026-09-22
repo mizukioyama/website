@@ -371,38 +371,37 @@ body {
 
 /* ========== Root Variables ========== */
 :root {
-  /*sub  rgba(75, 75, 75)*/
+  /* hover/subtle UI color: rgba(75, 75, 75) */
   --hover: #4b4b4b;
   /*link accent (160, 113, 113)*/
   --accent: #A07171;
-  /*border */
-  --border: rgba(199, 199, 199, 0.5);
   --def: rgba(0, 0, 0, 0.75);
   --inv: #f9fafb;
   --text: #2e2e2e;
   --bg: #cedde6;
-  /* Typography roles: MIN → MAX at the calculator endpoints. */
+  /* Fluid viewport range: 375px → 1440px. */
   /* Body: 12px → 14px */
-  --root-font-size: clamp(12px, calc(10.4px + 0.4vw), 14px);
-  --font-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);
+  --font-body-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
   /* List: 11px → 12.8px */
-  --font-list-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
-  /* Header / navigation UI: 14px → 16px */
-  --font-ui-size: clamp(14px, calc(12px + 0.4vw), 16px);
+  --font-list-size: clamp(11px, calc(10.3662px + 0.1690vw), 12.8px);
+  /* UI: 14px → 16px */
+  --font-ui-size: clamp(14px, calc(13.2958px + 0.1878vw), 16px);
   /* Caption: 11px → 13px */
-  --font-caption-size: clamp(11px, calc(9.6px + 0.3vw), 13px);
+  --font-caption-size: clamp(11px, calc(10.2958px + 0.1878vw), 13px);
   /* Table: 12px → 14px */
-  --font-table-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
+  --font-table-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
   /* Metadata: 11px → 12.8px */
-  --font-metadata-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
+  --font-metadata-size: clamp(11px, calc(10.3662px + 0.1690vw), 12.8px);
   /* Category: 14px → 17.6px */
-  --font-category-size: clamp(14px, calc(12.8px + 0.4vw), 17.6px);
+  --font-category-size: clamp(14px, calc(12.7324px + 0.3380vw), 17.6px);
   /* Pagination: 12px → 14px */
-  --font-pagination-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
+  --font-pagination-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
+  /* Header / footer: 18px → 19px on the mobile base scope. */
+  --type-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
 
   /* H1 / H2: page-specific heading tokens are defined in
      assets/css/user-settings.css (--type-gallery-h1-size and --type-gallery-h2-size).
-     Header / navigation / footer are grouped in the site-chrome block below. */
+     Header / navigation / footer use the site-chrome token below. */
 
   /* Semantic tracking: preserve the existing optical values without aliases. */
   --tracking-gallery-body: clamp(0.8px, calc(0.64px + 0.04vw), 0.8px);
@@ -555,13 +554,6 @@ img {
     left: 1rem;
   }
 }
-:root {
-  /* Shared site chrome typography.
-     Header navigation and footer navigation always share the same size.
-     Mobile: <= 599px */
-  --type-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
-}
-
 /* Tablet: 600px - 1298px
    Targets: ~20.5px @ 768, ~22.6px @ 1024, ~24.6px @ 1280. */
 @media screen and (min-width: 600px) and (max-width: 1298px) {
