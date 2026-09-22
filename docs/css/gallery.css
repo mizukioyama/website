@@ -57,6 +57,14 @@ body {
         --tracking-list-012: clamp(calc(0.858px + 0.033vw), calc(0.7488px + 0.0648vw), calc(0.9984px + 0.0384vw));
         --tracking-table-005: clamp(calc(0.39px + 0.015vw), calc(0.338px + 0.028vw), calc(0.455px + 0.0175vw));
         --tracking-category-001: clamp(calc(0.091px + 0.0035vw), calc(0.0832px + 0.0072vw), calc(0.1144px + 0.0044vw));
+        --type-gallery-category-label-size: calc(14.56px + 0.56vw);
+        --type-gallery-modal-link-size: calc(16.64px + 0.64vw);
+        --type-form-option-legend-size: clamp(calc(8.32px + 0.32vw), calc(7.28px + 0.63vw), calc(10.4px + 0.4vw));
+        --type-form-option-size: clamp(calc(7.8px + 0.3vw), calc(7.072px + 0.572vw), calc(9.88px + 0.38vw));
+        --type-form-option-detail-size: clamp(calc(6.864px + 0.264vw), calc(6.22336px + 0.50336vw), calc(8.6944px + 0.3344vw));
+        --type-form-status-size: clamp(calc(7.28px + 0.28vw), calc(6.448px + 0.548vw), calc(8.84px + 0.34vw));
+        --type-form-modal-body-size: calc(9.36px + 0.36vw);
+        --type-form-modal-close-size: calc(18.72px + 0.72vw);
     }
 }
 
@@ -78,6 +86,14 @@ body {
         --tracking-list-012: clamp(1.155px, calc(1.008px + 0.036vw), 1.344px);
         --tracking-table-005: clamp(0.525px, calc(0.455px + 0.015vw), 0.6125px);
         --tracking-category-001: clamp(0.1225px, calc(0.112px + 0.004vw), 0.154px);
+        --type-gallery-category-label-size: 19.6px;
+        --type-gallery-modal-link-size: 22.4px;
+        --type-form-option-legend-size: clamp(11.2px, calc(9.8px + 0.35vw), 14px);
+        --type-form-option-size: clamp(10.5px, calc(9.52px + 0.3vw), 13.3px);
+        --type-form-option-detail-size: clamp(9.24px, calc(8.3776px + 0.264vw), 11.704px);
+        --type-form-status-size: clamp(9.8px, calc(8.68px + 0.3vw), 11.9px);
+        --type-form-modal-body-size: 12.6px;
+        --type-form-modal-close-size: 25.2px;
     }
 }
 
