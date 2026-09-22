@@ -41,6 +41,7 @@ body {
 /* Tablet typography overrides: preserve the existing rendered scale. */
 @media screen and (min-width: 600px) and (max-width: 899px) {
     :root {
+        /* Shared font-size tokens stay in css/all.css; this block only preserves gallery-era tracking. */
         --tracking-gallery-body: calc(0.52px + 0.02vw);
         --tracking-gallery-heading: calc(0.104px + 0.004vw);
         --tracking-work-caption: calc(1.04px + 0.04vw);
@@ -49,13 +50,6 @@ body {
         --tracking-form-message: calc(0.104px + 0.004vw);
         --tracking-inline-copy: calc(0.208px + 0.008vw);
         --tracking-noise-label: calc(0.78px + 0.03vw);
-        --font-list-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
-        --font-ui-size: clamp(calc(9.1px + 0.35vw), calc(7.8px + 0.7vw), calc(10.4px + 0.4vw));
-        --font-caption-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.45px + 0.325vw));
-        --font-table-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
-        --font-metadata-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
-        --font-category-size: clamp(calc(9.1px + 0.35vw), calc(8.32px + 0.72vw), calc(11.44px + 0.44vw));
-        --font-pagination-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
         --tracking-body-010: clamp(calc(0.78px + 0.03vw), calc(0.676px + 0.066vw), calc(0.91px + 0.035vw));
         --tracking-body-008: clamp(calc(0.624px + 0.024vw), calc(0.5408px + 0.0528vw), calc(0.728px + 0.028vw));
         --tracking-body-002: clamp(calc(0.156px + 0.006vw), calc(0.1352px + 0.0132vw), calc(0.182px + 0.007vw));
@@ -68,6 +62,7 @@ body {
 
 @media screen and (min-width: 900px) {
     :root {
+        /* Shared font-size tokens stay in css/all.css; this block only preserves gallery-era tracking. */
         --tracking-gallery-body: 0.7px;
         --tracking-gallery-heading: 0.14px;
         --tracking-work-caption: 1.4px;
@@ -76,13 +71,6 @@ body {
         --tracking-form-message: 0.14px;
         --tracking-inline-copy: 0.28px;
         --tracking-noise-label: 1.05px;
-        --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
-        --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
-        --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);
-        --font-table-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
-        --font-metadata-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
-        --font-category-size: clamp(12.25px, calc(11.2px + 0.4vw), 15.4px);
-        --font-pagination-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
         --tracking-body-010: clamp(1.05px, calc(0.91px + 0.04vw), 1.225px);
         --tracking-body-008: clamp(0.84px, calc(0.728px + 0.032vw), 0.98px);
         --tracking-body-002: clamp(0.21px, calc(0.182px + 0.008vw), 0.245px);

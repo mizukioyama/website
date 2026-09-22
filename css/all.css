@@ -431,6 +431,12 @@ body {
   }
 }
 
+@media screen and (max-width: 599px) {
+  :root {
+    --type-header-footer-size: 18px;
+  }
+}
+
 @media screen and (min-width: 1299px) {
   :root {
     --type-header-footer-size: clamp(24.8px, calc(14.4px + 0.8vw), 25.6px);
