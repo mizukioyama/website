@@ -14,11 +14,11 @@
   --type-gallery-lead-size: clamp(16px, calc(9.6px + 1.2vw), 32px);
   /* Shared H2: preserve the established 375px → 1440px scale. */
   /* H2: 17.2px → 33.2px */
-  --type-gallery-h2-size: clamp(17.2px, calc(11.5662px + 1.5023vw), 33.2px);
+  --type-gallery-h2-size: clamp(17.2px, calc(4.4px + 2vw), 42.8px);
   --type-gallery-name-size: clamp(14.4px, calc(11.2px + 0.7vw), 25.6px);
   --type-gallery-card-h2-size: clamp(12.4px, calc(9.2px + 0.7vw), 20.8px);
-  --type-gallery-mobile-work-h2-size: clamp(10.8px, calc(10.2366px + 0.1502vw), 12.4px);
-  --type-gallery-mobile-noise-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
+  --type-gallery-mobile-work-h2-size: clamp(10.8px, calc(9.2px + 0.35vw), 12.4px);
+  --type-gallery-mobile-noise-size: clamp(12.4px, calc(10.8px + 0.35vw), 14px);
   --type-gallery-h3-size: clamp(16px, calc(5.6px + 1vw), 32px);
   --type-gallery-h4-size: clamp(14.4px, calc(8.8px + 0.5vw), 19.2px);
   /* Biography desktop H2: preserve the established responsive scale. */
@@ -56,15 +56,15 @@
   --type-gallery-ol-size: clamp(16px, calc(13.6px + 0.5vw), 19.2px);
 
   /* Form/Modal：375px → 1440px */
-  --type-form-radio-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
-  --type-form-radio-group-size: clamp(28.8px, calc(28.4451px + 0.0946vw), 29.808px);
-  --type-form-consent-size: clamp(10px, calc(9.6479px + 0.0939vw), 11px);
-  --type-form-button-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
-  --type-modal-title-size: clamp(32px, calc(29.7465px + 0.6009vw), 38.4px);
-  --type-modal-close-size: clamp(22.4px, calc(20.4831px + 0.5108vw), 27.84px);
-  --type-modal-profile-size: clamp(22.4px, calc(21.9070px + 0.1315vw), 23.8px);
-  --type-modal-mobile-h3-size: clamp(26.2px, calc(25.2845px + 0.2441vw), 28.8px);
-  --type-modal-mobile-close-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
+  --type-form-radio-size: clamp(14.4px, calc(12.8px + 0.4vw), 16px);
+  --type-form-radio-group-size: clamp(28.8px, calc(23.472px + 0.44vw), 32px);
+  --type-form-consent-size: clamp(10px, calc(9px + 0.4vw), 11px);
+  --type-form-button-size: clamp(16px, calc(14.4px + 0.5vw), 19.2px);
+  --type-modal-title-size: clamp(32px, calc(21.328px + 0.89vw), 38.4px);
+  --type-modal-close-size: clamp(22.4px, calc(19.2px + 0.6vw), 32px);
+  --type-modal-profile-size: clamp(22.4px, calc(17.6px + 1.03vw), 28.8px);
+  --type-modal-mobile-h3-size: clamp(25.6px, calc(21.936px + 1.14vw), 28.8px);
+  --type-modal-mobile-close-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
 
 }
 
@@ -130,6 +130,22 @@
     --type-gallery-card-h2-size: clamp(10.6px, calc(7.8px + 0.7vw), 17.6px);
     --type-gallery-h3-size: clamp(14px, calc(5.6px + 1vw), 28px);
     --type-gallery-h4-size: clamp(12.6px, calc(7.7px + 0.5vw), 16.8px);
+    --type-form-radio-size: clamp(12.6px, calc(11.2px + 0.4vw), 14px);
+    --type-form-radio-group-size: clamp(25.2px, calc(20.538px + 0.44vw), 28px);
+    --type-form-button-size: clamp(14px, calc(12.6px + 0.5vw), 16.8px);
+    --type-modal-title-size: clamp(28px, calc(18.662px + 0.89vw), 33.6px);
+    --type-modal-close-size: clamp(19.6px, calc(16.8px + 0.6vw), 28px);
+    --type-modal-profile-size: clamp(19.6px, calc(7.854px + 1.03vw), 25.2px);
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  :root {
+    --type-form-radio-size: clamp(calc(9.36px + 0.36vw), calc(8.32px + 0.72vw), calc(10.4px + 0.4vw));
+    --type-form-radio-group-size: clamp(calc(18.72px + 0.72vw), calc(15.2568px + 1.0268vw), calc(20.8px + 0.8vw));
+    --type-form-button-size: clamp(calc(10.4px + 0.4vw), calc(9.36px + 0.9vw), calc(12.48px + 0.48vw));
+    --type-modal-title-size: clamp(calc(20.8px + 0.8vw), calc(13.8632px + 1.4232vw), calc(24.96px + 0.96vw));
+    --type-modal-close-size: clamp(calc(14.56px + 0.56vw), calc(12.48px + 1.08vw), calc(20.8px + 0.8vw));
   }
 }
 
