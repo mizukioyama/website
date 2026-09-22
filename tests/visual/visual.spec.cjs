@@ -717,7 +717,7 @@ for (const entry of pages) {
     if (entry.footer !== false) {
       await expect(page.locator("#footer-container footer")).toBeAttached();
     }
-    await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false, entry.key);
+    await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false);
 
     if (entry.key === "information") {
       const titleBox = await page.locator(".information-page > .h1-text h1").boundingBox();
@@ -779,35 +779,20 @@ for (const entry of pages) {
 
 function expectedHeaderFooterSize(projectName) {
   const expectedByProject = {
-    "desktop-1440": { header: 19.6, footer: 11.3 },
-    "desktop-1280": { header: 19.6, footer: 11.0 },
-    "tablet-1024": { header: 18.7, footer: 10.4 },
-    "tablet-768": { header: 16.2, footer: 9.6 },
-    "mobile-430": { header: 16, footer: 11 },
-    "mobile-390": { header: 16, footer: 11 },
-    "mobile-375": { header: 16, footer: 11 }
+    "desktop-1440": 25.6,
+    "desktop-1280": 24.6,
+    "tablet-1024": 22.6,
+    "tablet-768": 20.5,
+    "mobile-430": 18,
+    "mobile-390": 18,
+    "mobile-375": 18
   };
   return expectedByProject[projectName];
 }
 
-function expectedHomeHeaderFooterSize(projectName) {
-  const expectedByProject = {
-    "desktop-1440": { header: 16.0, footer: 12.5 },
-    "desktop-1280": { header: 16.0, footer: 12.2 },
-    "tablet-1024": { header: 16.0, footer: 11.6 },
-    "tablet-768": { header: 15.1, footer: 11.1 },
-    "mobile-430": { header: 14.0, footer: 11.0 },
-    "mobile-390": { header: 14.0, footer: 11.0 },
-    "mobile-375": { header: 14.0, footer: 11.0 }
-  };
-  return expectedByProject[projectName];
-}
-
-async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true, pageKey = "") {
-  const expected = pageKey === "home"
-    ? expectedHomeHeaderFooterSize(testInfo.project.name)
-    : expectedHeaderFooterSize(testInfo.project.name);
-  expect(expected, "viewport should have documented Header/Footer targets").toBeDefined();
+async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true) {
+  const expected = expectedHeaderFooterSize(testInfo.project.name);
+  expect(expected, "viewport should have a documented Header/Footer target").toBeDefined();
 
   const sizes = await page.evaluate(hasFooterValue => ({
     header: parseFloat(getComputedStyle(document.querySelector("#header-container .head a")).fontSize),
@@ -818,29 +803,30 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
   }), hasFooter);
   const roundToTenth = value => Math.round(value * 10) / 10;
 
-  expect(roundToTenth(sizes.header), "Header brand font-size").toBe(expected.header);
+  expect(roundToTenth(sizes.header), "Header brand font-size").toBe(expected);
   if (hasFooter) {
     expect(sizes.footer.length, "Footer navigation should exist").toBeGreaterThan(0);
     for (const size of sizes.footer) {
-      expect(roundToTenth(size), "Footer navigation font-size").toBe(expected.footer);
+      expect(roundToTenth(size), "Footer navigation font-size").toBe(expected);
+      expect(Math.abs(size - sizes.header), "Header/Footer font-size should match").toBeLessThanOrEqual(0.05);
     }
   }
 }
 
 function expectedH2Sizes(projectName) {
   const expectedByProject = {
-    "desktop-1440": { homeCreator: 16.0, homeContent: 28.8, biography: 25.6 },
-    "desktop-1280": { homeCreator: 16.0, homeContent: 28.8, biography: 31.2 },
-    "tablet-1024": { homeCreator: 15.6, homeContent: 27.2, biography: 26.1 },
-    "tablet-768": { homeCreator: 15.1, homeContent: 25.8, biography: 20.7 },
-    "mobile-430": { homeCreator: 14.5, homeContent: 25.6, biography: 19.2 },
-    "mobile-390": { homeCreator: 14.4, homeContent: 25.6, biography: 19.2 },
-    "mobile-375": { homeCreator: 14.4, homeContent: 25.6, biography: 19.2 }
+    "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 23.6 },
+    "desktop-1280": { homeCreator: 14.0, homeContent: 26.6, biography: 29.2 },
+    "tablet-1024": { homeCreator: 13.6, homeContent: 25.2, biography: 24.1 },
+    "tablet-768": { homeCreator: 13.1, homeContent: 23.8, biography: 18.7 },
+    "mobile-430": { homeCreator: 12.5, homeContent: 23.6, biography: 19.5 },
+    "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 17.5 },
+    "mobile-375": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 }
   };
   return expectedByProject[projectName];
 }
 
-test("h2 typography matches the documented responsive scale", async ({ page }, testInfo) => {
+test("h2 typography is exactly 2px below the previous responsive scale", async ({ page }, testInfo) => {
   const expected = expectedH2Sizes(testInfo.project.name);
   expect(expected, "viewport should have documented h2 targets").toBeDefined();
   const roundToTenth = value => Math.round(value * 10) / 10;

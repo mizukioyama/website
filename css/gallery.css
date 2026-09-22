@@ -38,6 +38,45 @@ body {
     }
 }
 
+/* Keep the established non-Home interpolation without migration-only tokens. */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+    :root {
+        --font-list-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
+        --font-ui-size: clamp(calc(9.1px + 0.35vw), calc(7.8px + 0.7vw), calc(10.4px + 0.4vw));
+        --font-caption-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.45px + 0.325vw));
+        --font-table-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
+        --font-metadata-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
+        --font-category-size: clamp(calc(9.1px + 0.35vw), calc(8.32px + 0.72vw), calc(11.44px + 0.44vw));
+        --font-pagination-size: clamp(calc(7.8px + 0.3vw), calc(6.76px + 0.56vw), calc(9.1px + 0.35vw));
+        --tracking-body-010: clamp(calc(0.78px + 0.03vw), calc(0.676px + 0.066vw), calc(0.91px + 0.035vw));
+        --tracking-body-008: clamp(calc(0.624px + 0.024vw), calc(0.5408px + 0.0528vw), calc(0.728px + 0.028vw));
+        --tracking-body-002: clamp(calc(0.156px + 0.006vw), calc(0.1352px + 0.0132vw), calc(0.182px + 0.007vw));
+        --tracking-list-005: clamp(calc(0.3575px + 0.01375vw), calc(0.312px + 0.027vw), calc(0.416px + 0.016vw));
+        --tracking-list-012: clamp(calc(0.858px + 0.033vw), calc(0.7488px + 0.0648vw), calc(0.9984px + 0.0384vw));
+        --tracking-table-005: clamp(calc(0.39px + 0.015vw), calc(0.338px + 0.028vw), calc(0.455px + 0.0175vw));
+        --tracking-category-001: clamp(calc(0.091px + 0.0035vw), calc(0.0832px + 0.0072vw), calc(0.1144px + 0.0044vw));
+    }
+}
+
+@media screen and (min-width: 900px) {
+    :root {
+        --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
+        --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);
+        --font-table-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
+        --font-metadata-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-category-size: clamp(12.25px, calc(11.2px + 0.4vw), 15.4px);
+        --font-pagination-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
+        --tracking-body-010: clamp(1.05px, calc(0.91px + 0.04vw), 1.225px);
+        --tracking-body-008: clamp(0.84px, calc(0.728px + 0.032vw), 0.98px);
+        --tracking-body-002: clamp(0.21px, calc(0.182px + 0.008vw), 0.245px);
+        --tracking-list-005: clamp(0.48125px, calc(0.42px + 0.015vw), 0.56px);
+        --tracking-list-012: clamp(1.155px, calc(1.008px + 0.036vw), 1.344px);
+        --tracking-table-005: clamp(0.525px, calc(0.455px + 0.015vw), 0.6125px);
+        --tracking-category-001: clamp(0.1225px, calc(0.112px + 0.004vw), 0.154px);
+    }
+}
+
 /* 黒系 js
 body.dark-theme,
 body.dark-theme .modal-box {
