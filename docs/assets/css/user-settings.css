@@ -46,8 +46,8 @@
   /* Menu：既存のモバイル / タブレット / デスクトップ3段階を維持 */
   --type-menu-primary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
   --type-menu-secondary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
-  --type-menu-mask-size: clamp(19.2px, calc(16px + 0.6vw), 22.4px);
-  --type-menu-mask-item-size: clamp(12px, calc(10.4px + 0.4vw), 13.6px);
+  --type-menu-mask-size: clamp(19.2px, calc(18.0732px + 0.3005vw), 22.4px);
+  --type-menu-mask-item-size: clamp(12px, calc(11.4366px + 0.1502vw), 13.6px);
 
   /* Gallery本文・状態見出し：375px → 1440px */
   --type-gallery-ol-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);

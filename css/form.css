@@ -347,11 +347,11 @@ input:-webkit-autofill:focus {
    .contact-form .submit-btn,
    .contact-form .label {
       /* Preserve the original responsive rem-derived scale without a legacy token. */
-      font-size: clamp(calc(16.64px + 0.64vw), calc(13.0624px + 1.4224vw), calc(20.8px + 0.8vw));
+      font-size: clamp(25.6px, calc(20.096px + 0.92vw), 32px);
    }
 
    .contact-form .input-text {
-      font-size: clamp(calc(18.72px + 0.72vw), calc(16.9312px + 1.1112vw), calc(20.8px + 0.8vw));
+      font-size: clamp(28.8px, calc(26.048px + 0.46vw), 32px);
       height: 40pt;
       padding-left: 1rem;
    }
@@ -447,7 +447,6 @@ input:-webkit-autofill:focus {
       font-size: var(--font-caption-size);
       height: 40pt;
       padding-left: 1rem;
-      background: var(--hover);
    }
 
    .contact-form #message {

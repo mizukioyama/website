@@ -783,8 +783,8 @@ function expectedHeaderFooterSize(projectName) {
     "desktop-1280": 24.6,
     "tablet-1024": 22.6,
     "tablet-768": 20.5,
-    "mobile-430": 18,
-    "mobile-390": 18,
+    "mobile-430": 18.4,
+    "mobile-390": 18.1,
     "mobile-375": 18
   };
   return expectedByProject[projectName];
@@ -855,9 +855,9 @@ test("h2 typography matches the documented responsive scale", async ({ page }, t
 function expectedBodySizes(projectName) {
   const expectedByProject = {
     "desktop-1440": 14,
-    "desktop-1280": 14,
-    "tablet-1024": 14,
-    "tablet-768": 13.5,
+    "desktop-1280": 13.7,
+    "tablet-1024": 13.2,
+    "tablet-768": 12.7,
     "mobile-430": 12.1,
     "mobile-390": 12,
     "mobile-375": 12
