@@ -347,7 +347,7 @@ main li {
 .head a {
     position: fixed;
     justify-content: flex-start;
-    font-size: var(--type-header-footer-size);
+    font-size: var(--font-header-size);
     font-weight: 400;
     letter-spacing: var(--tracking-gallery-heading);
     padding: 0;

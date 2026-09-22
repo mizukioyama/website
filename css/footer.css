@@ -62,7 +62,7 @@
 
     @media only screen and (min-width:1299px) {
         footer a {
-            font-size: var(--type-header-footer-size);
+            font-size: var(--font-footer-size);
         }
     }
 
@@ -83,7 +83,7 @@
         }
 
         footer a {
-            font-size: var(--type-header-footer-size);
+            font-size: var(--font-footer-size);
         }
 
         footer a:nth-of-type(n+5) {
@@ -106,9 +106,9 @@
 
 /* Header and footer navigation share the established viewport scale. */
 footer a {
-    font-size: var(--type-header-footer-size);
+    font-size: var(--font-footer-size);
 }
 
 footer a:nth-of-type(n+5) {
-    font-size: var(--type-header-footer-size) !important;
+    font-size: var(--font-footer-size) !important;
 }

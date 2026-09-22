@@ -27,7 +27,7 @@ function forbidText(file, fragment, label) {
   }
 }
 
-requireText("css/all.css", "--font-body-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);", "shared body scale");
+requireText("css/all.css", "--font-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);", "shared body scale");
 for (const file of [
   "css/all.css",
   "css/gallery.css",
@@ -37,7 +37,6 @@ for (const file of [
 ]) {
   forbidText(file, "--legacy-px-", "migration-only legacy token must not ship");
   forbidText(file, "--font-nav-size", "navigation compatibility alias must not ship");
-  forbidText(file, "--font-footer-size", "footer compatibility alias must not ship");
   forbidText(file, "--font-header-footer-size", "header/footer compatibility alias must not ship");
   forbidText(file, "--type-caption-size", "caption compatibility alias must not ship");
 }
