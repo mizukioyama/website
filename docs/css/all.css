@@ -400,10 +400,10 @@ body {
   --font-pagination-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
   /* Navigation: 14px → 16.8px */
   --font-navigation-size: clamp(0.875rem, 0.8rem + 0.3vw, 1.05rem);
-  /* Header: 16px → 22.4px */
-  --font-header-size: clamp(1rem, 0.75rem + 0.8vw, 1.4rem);
-  /* Footer: 11px → 13px */
-  --font-footer-size: clamp(0.6875rem, 0.6rem + 0.2vw, 0.8125rem);
+  /* Header: 18px → 25.6px */
+  --font-header-size: clamp(18px, calc(15.3239px + 0.7136vw), 25.6px);
+  /* Footer navigation: 18px → 25.6px */
+  --font-footer-size: clamp(18px, calc(15.3239px + 0.7136vw), 25.6px);
   /* Dynamic Gallery / form UI: preserve the established optical scale. */
   --type-gallery-category-label-size: 22.4px;
   --type-gallery-modal-link-size: 25.6px;
