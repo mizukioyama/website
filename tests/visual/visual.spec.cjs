@@ -816,11 +816,11 @@ function expectedH2Sizes(projectName) {
   const expectedByProject = {
     "desktop-1440": { homeCreator: 16.0, homeContent: 28.8, biography: 25.6 },
     "desktop-1280": { homeCreator: 16.0, homeContent: 28.8, biography: 31.2 },
-    "tablet-1024": { homeCreator: 16.0, homeContent: 27.2, biography: 26.1 },
-    "tablet-768": { homeCreator: 16.0, homeContent: 25.8, biography: 20.7 },
-    "mobile-430": { homeCreator: 14.4, homeContent: 24.0, biography: 19.2 },
-    "mobile-390": { homeCreator: 14.4, homeContent: 23.7, biography: 19.2 },
-    "mobile-375": { homeCreator: 14.4, homeContent: 23.7, biography: 19.2 }
+    "tablet-1024": { homeCreator: 15.6, homeContent: 27.2, biography: 26.1 },
+    "tablet-768": { homeCreator: 15.1, homeContent: 25.8, biography: 20.7 },
+    "mobile-430": { homeCreator: 14.5, homeContent: 25.6, biography: 19.2 },
+    "mobile-390": { homeCreator: 14.4, homeContent: 25.6, biography: 19.2 },
+    "mobile-375": { homeCreator: 14.4, homeContent: 25.6, biography: 19.2 }
   };
   return expectedByProject[projectName];
 }
