@@ -1,0 +1,53 @@
+name: One-time restored Gallery verification
+
+on:
+  push:
+    branches:
+      - fix/restore-mobile-gallery-layout
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-sync:
+    if: ${{ !contains(github.event.head_commit.message, '[gallery-restore-sync]') }}
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_VERSION: "1.63.0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/restore-mobile-gallery-layout
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build deterministic docs
+        run: npm run build
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@${PLAYWRIGHT_VERSION}
+          npx playwright install --with-deps chromium
+
+      - name: Verify restored Gallery seven viewports
+        run: VISUAL_FULL=1 npx playwright test --config=playwright.config.cjs --grep "gallery visual and layout regression"
+
+      - name: Commit generated docs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs
+          if git diff --cached --quiet; then
+            echo "No generated docs changes."
+            exit 0
+          fi
+          git commit -m "Sync restored Gallery output [gallery-restore-sync]"
+          git push origin HEAD:fix/restore-mobile-gallery-layout
