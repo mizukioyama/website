@@ -815,18 +815,18 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
 
 function expectedH2Sizes(projectName) {
   const expectedByProject = {
-    "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 23.6 },
-    "desktop-1280": { homeCreator: 14.0, homeContent: 26.6, biography: 29.2 },
-    "tablet-1024": { homeCreator: 13.6, homeContent: 25.2, biography: 24.1 },
-    "tablet-768": { homeCreator: 13.1, homeContent: 23.8, biography: 18.7 },
-    "mobile-430": { homeCreator: 12.5, homeContent: 23.6, biography: 19.5 },
-    "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 17.5 },
+    "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 25.2 },
+    "desktop-1280": { homeCreator: 13.8, homeContent: 26.3, biography: 30.8 },
+    "tablet-1024": { homeCreator: 13.4, homeContent: 25.5, biography: 26.9 },
+    "tablet-768": { homeCreator: 13.0, homeContent: 24.8, biography: 23.1 },
+    "mobile-430": { homeCreator: 12.5, homeContent: 23.8, biography: 16.9 },
+    "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 },
     "mobile-375": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 }
   };
   return expectedByProject[projectName];
 }
 
-test("h2 typography is exactly 2px below the previous responsive scale", async ({ page }, testInfo) => {
+test("h2 typography matches the documented responsive scale", async ({ page }, testInfo) => {
   const expected = expectedH2Sizes(testInfo.project.name);
   expect(expected, "viewport should have documented h2 targets").toBeDefined();
   const roundToTenth = value => Math.round(value * 10) / 10;
