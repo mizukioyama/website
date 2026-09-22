@@ -93,7 +93,7 @@
     .gallery ol p { font-size: var(--type-gallery-ol-size); font-weight: 300; width: fit-content; margin-top: 5vmin !important; line-height: 1; padding-left: 0; }
     .gallery li { width: fit-content; max-width: 100%; }
     .gallery li a:hover { background: var(--inv); }
-    .work .noise { letter-spacing: var(--legacy-px-0_075); }
+    .work .noise { letter-spacing: var(--tracking-noise-label); }
     #pagination { margin: 5vmin auto; gap: clamp(0.75rem, calc(0.5rem + 2vw), 1.5rem); }
     #gallery-container .work > .cg-text { width: min(100%, calc(100% - 0.5rem)) !important; max-width: 100%; overflow-wrap: anywhere; }
     #state h3 { padding: 2.5rem 2rem; }

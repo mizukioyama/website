@@ -200,7 +200,7 @@ input:-webkit-autofill:focus {
    background: rgba(0, 0, 0, 1);
    backdrop-filter: blur(10px);
    text-transform: uppercase;
-   letter-spacing: var(--legacy-px-0_2);
+   letter-spacing: var(--tracking-form-submit);
    line-height: 1.5rem;
    padding: 0.5rem 0;
    margin-top: 2rem;
@@ -249,7 +249,7 @@ input:-webkit-autofill:focus {
    align-items: center;
    margin: 0;
    line-height: 1.6;
-   letter-spacing: var(--legacy-px-0_015);
+   letter-spacing: var(--tracking-form-copy);
 }
 
 /*===================== モーダルウィンドウ =====================*/
@@ -346,11 +346,11 @@ input:-webkit-autofill:focus {
    .contact-form #message,
    .contact-form .submit-btn,
    .contact-form .label {
-      font-size: clamp(var(--legacy-px-1_6), var(--legacy-px-1_256) + 0.92vw, var(--legacy-px-2));
+      font-size: clamp(25.6px, 20.096px + 0.92vw, 32px);
    }
 
    .contact-form .input-text {
-      font-size: clamp(var(--legacy-px-1_8), var(--legacy-px-1_628) + 0.46vw, var(--legacy-px-2));
+      font-size: clamp(28.8px, 26.048px + 0.46vw, 32px);
       height: 40pt;
       padding-left: 1rem;
    }
@@ -440,7 +440,7 @@ input:-webkit-autofill:focus {
 
    /*   .contact-form .submit-btn,
    .align-center h3 {
-      font-size: clamp(var(--legacy-px-1_8), var(--legacy-px-1_571) + 1.14vw, var(--legacy-px-2));
+      font-size: clamp(28.8px, 25.136px + 1.14vw, 32px);
    }*/
    .contact-form .input-text {
       font-size: var(--font-caption-size);
@@ -451,7 +451,7 @@ input:-webkit-autofill:focus {
 
    .contact-form #message {
       line-height: 1.4;
-      letter-spacing: var(--legacy-px-0_01);
+      letter-spacing: var(--tracking-form-message);
    }
 
 .contact-form .label span {
@@ -461,7 +461,7 @@ input:-webkit-autofill:focus {
    /*.contact-form .label,
    .align-center p,
    .radio-group {
-      font-size: clamp(var(--legacy-px-1_4), var(--legacy-px-1_171) + 1.14vw, var(--legacy-px-1_6));
+      font-size: clamp(22.4px, 18.736px + 1.14vw, 25.6px);
    }*/
    .contact-form .label {
       font-size: var(--font-caption-size);
