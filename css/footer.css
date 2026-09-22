@@ -36,7 +36,7 @@
         margin-top: 10vmin;
     }
 
-    .foot {
+        .foot {
         font-size: var(--font-caption-size);
         text-align: right;
         position: absolute;
@@ -99,7 +99,16 @@
             opacity: 0.95;
         }
 
-        .foot {
+    .foot {
             padding: 0.25rem 0.5rem;
         }
     }
+
+/* Header and footer navigation share the established viewport scale. */
+footer a {
+    font-size: var(--type-header-footer-size);
+}
+
+footer a:nth-of-type(n+5) {
+    font-size: var(--type-header-footer-size) !important;
+}
