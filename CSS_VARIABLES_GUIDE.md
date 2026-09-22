@@ -1,0 +1,59 @@
+# CSS Variables Guide
+
+## ユーザー調整の入口
+
+表示サイズを調整するときは、まず [`assets/css/user-settings.css`](assets/css/user-settings.css) の `--type-*` 変数を変更します。各変数は、9elements Min-Max Calculatorと同じ考え方で、次の2つだけを入力値として管理します。
+
+- 375px時の最小側の表示サイズ
+- 1440px時の最大側の表示サイズ
+
+ページのHTMLでは、共通CSSの後に `user-settings.css` を読み込みます。既存の `--font-*` 変数は互換aliasとして残しているため、既存のCSSやページ内スタイルをいきなり置き換えずに調整できます。
+
+## CalculatorからCSSへ
+
+9elements Min-Max Calculatorには、次の順で入力します。
+
+1. Min：375px時に表示したいpx
+2. Max：1440px時に表示したいpx
+3. Viewport Min：375px
+4. Viewport Max：1440px
+
+Calculatorが返す値を、`--type-*` 変数の `clamp()` に反映します。プロジェクトでは固定値・最小値・最大値をpxで記載します。
+
+本文を `14px → 16px` にする例：
+
+```css
+/* 375px → 1440px = 14px → 16px */
+--type-body-size: clamp(14px, calc(13.2958px + 0.1878vw), 16px);
+```
+
+H2を `24px → 32px` にする例：
+
+```css
+/* 375px → 1440px = 24px → 32px */
+--type-gallery-h2-size: clamp(24px, calc(21.1831px + 0.7512vw), 32px);
+```
+
+数値を変更した後は、375 / 390 / 430 / 768 / 1024 / 1280 / 1440pxで、改行・overflow・header/footer・ボタン・Galleryモーダルを確認します。
+
+## 現在のsemantic role
+
+| Role | 375px | 1440px | 主な対象 |
+| --- | ---: | ---: | --- |
+| `--type-body-size` | 12px | 14px | 本文・日英通常文 |
+| `--type-list-size` | 11px | 12.8px | リスト・履歴 |
+| `--type-ui-size` | 14px | 16px | リンク・UI・button |
+| `--type-caption-size` | 11px | 13px | caption・補助文 |
+| `--type-category-size` | 14px | 17.6px | Gallery category |
+| `--type-header-footer-size` | 18px | 25.6px | header/footer |
+| `--type-gallery-h1-size` | 39px | 81.6px | Gallery/共通ページH1 |
+| `--type-gallery-h2-size` | 17.2px | 33.2px | 共通ページH2 |
+| `--type-home-title-size` | 25.6px | 28.8px | TOP title |
+| `--type-form-button-size` | 16px | 19.2px | Form button/required |
+| `--type-modal-title-size` | 32px | 38.4px | Form modal heading |
+
+## 対象外・互換維持
+
+border、hairline、icon/stroke、装飾線、`z-index`、`font-size: 0` による表示制御、resetの `inherit` / `100%` はユーザー調整用のfluid typography対象外です。Formのplaceholder・floating labelは既存のデスクトップ縮小表示を維持するため、専用の互換roleを使います。
+
+Menu主要項目だけは、既存表示を維持するため `<=599px` / `600–1298px` / `>=1299px` の3段階を同じファイル内で管理しています。`docs/` は生成物です。デザイン変更はroot HTML / `css/` / `assets/css/`を編集し、依存関係が揃った環境でbuildしてから生成物を更新します。

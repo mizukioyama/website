@@ -68,6 +68,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-22: Added `assets/css/user-settings.css` as the user-facing typography source of truth. Shared/root-page typography now uses Calculator-style px `clamp()` roles with 375px → 1440px comments and legacy aliases preserved; source checks pass and generated output will be rebuilt from the current main baseline.
 - 2026-09-22: Restored Order and Yurayura detail-page vertical layout to the shared portfolio rhythm by removing their page-specific zero-margin override and matching Information's 60vmin content start on desktop/mobile; added geometry regression coverage and seven-viewport verification.
 - 2026-09-22: Completed Information hierarchy/current-event usability review. The existing Upcoming→Past structure was retained and regression coverage now protects the Yurayura event title/date/detail CTA.
 - 2026-09-21: Completed Phase 3 Order/Contact flow verification. Reused existing Order→Contact, request-mode and Policy-modal coverage, then added missing required-field/consent checks and a fully mocked Google Apps Script submission path so success/reset behavior is verified without external writes.

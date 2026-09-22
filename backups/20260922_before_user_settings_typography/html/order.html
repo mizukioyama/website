@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order｜小山瑞樹 - 作品・制作のご依頼</title>
+
+    <link rel="stylesheet" href="css/noise.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menu.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+    <script src="js/jquery.ripples-min.js"></script>
+    <script src="js/bg_wave.js"></script>
+    <script src="js/p5.min.js"></script>
+    <script src="js/three.r134.min.js"></script>
+    <script src="js/vanta.trunk.min.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/loading.js"></script>
+    <script src="js/menu.js"></script>
+
+    <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
+    <meta name="description"
+        content="小山瑞樹の作品・制作のご依頼ページ。ご相談から制作、納品までの流れと、依頼前に確認したい内容をご案内します。">
+    <meta name="author" content="小山瑞樹 / Mizuki Oyama">
+    <link rel="canonical" href="https://mizukioyama.github.io/website/order.html">
+    <meta name="robots" content="index, follow, noimageindex, max-image-preview:none">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://mizukioyama.github.io/website/order.html#order",
+      "url": "https://mizukioyama.github.io/website/order.html",
+      "name": "Order｜小山瑞樹 - 作品・制作のご依頼",
+      "description": "小山瑞樹の作品・制作のご依頼ページ。ご相談から制作、納品までの流れと、依頼前に確認したい内容をご案内します。",
+      "about": {
+        "@type": "Person",
+        "@id": "https://mizukioyama.github.io/website/#person",
+        "name": "小山瑞樹",
+        "alternateName": "Mizuki Oyama",
+        "jobTitle": "Abstract Artist"
+      }
+    }
+    </script>
+
+    <meta property="og:title" content="Order｜小山瑞樹 - 作品・制作のご依頼">
+    <meta property="og:description" content="小山瑞樹の作品・制作のご依頼ページ。ご相談から制作、納品までの流れをご案内します。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mizukioyama.github.io/website/order.html">
+    <meta property="og:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
+    <meta property="og:image:alt" content="小山瑞樹の抽象作品">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta property="og:site_name" content="小山瑞樹｜Nature inspire">
+    <meta property="og:locale" content="ja_JP">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Order｜小山瑞樹 - 作品・制作のご依頼">
+    <meta name="twitter:description" content="小山瑞樹の作品・制作のご依頼ページ。ご相談から制作、納品までの流れをご案内します。">
+    <meta name="twitter:image" content="https://mizukioyama.github.io/website/img/shinju.jpg">
+    <meta name="twitter:image:alt" content="小山瑞樹の抽象作品">
+
+    <link rel="icon" href="img/web.ico">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="referrer" content="strict-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://use.typekit.net;
+        font-src 'self' https://use.typekit.net https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        object-src 'none';
+    ">
+
+    <style>
+        #langChenge {
+            display: none;
+        }
+
+        .order-page .order-box {
+            display: block;
+        }
+
+        .order-page {
+            display: block;
+        }
+
+        .order-page .content {
+            box-shadow: none;
+            display: block;
+            width: min(72%, calc(100% - 2rem));
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .order-page .content > h2 {
+            justify-content: flex-start;
+            line-height: normal;
+        }
+
+        .order-page .work {
+            width: 100%;
+            margin-top: 4rem;
+        }
+
+        .order-page .order-lead {
+            border-top: 1px solid var(--text);
+            padding-top: 0.75rem;
+        }
+
+        .order-page .page-line {
+            height: 1px;
+            background-color: var(--text);
+            width: 0%;
+            left: 50%;
+            margin: 15vmin 0;
+            transform: translateX(-50%);
+            position: relative;
+            transition: width 1s ease;
+            border-radius: 8px;
+        }
+
+        /* Biography の history-table をそのまま基準にした依頼内容表 */
+        .order-page .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-top: 2rem;
+        }
+
+        .order-page .history-table col.history-year-column {
+            width: 20%;
+        }
+
+        .order-page .history-table col.history-content-column {
+            width: 80%;
+        }
+
+        .order-page .history-table th,
+        .order-page .history-table td {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--text);
+            vertical-align: top !important;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .order-page .history-table th {
+            font-size: var(--font-list-size);
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-list-005);
+            font-weight: normal;
+        }
+
+        .order-page .history-table td.year {
+            white-space: nowrap;
+            font-size: var(--font-list-size);
+            font-weight: 400;
+            padding-right: 1rem;
+        }
+
+        .order-page .history-table td.tb-content {
+            min-width: 0;
+            font-size: var(--font-list-size);
+            font-weight: 300;
+            overflow-wrap: anywhere;
+        }
+
+        .order-page .history-table td.tb-content span {
+            display: block;
+            margin-top: 0.35rem;
+            font-size: var(--font-list-size);
+            line-height: 1.8;
+        }
+
+        /* Statement の 01〜05 フローを再利用 */
+        .order-page .timeline {
+            position: relative;
+            margin: 20vmin auto 0;
+        }
+
+        .order-page .timeline ul {
+            font-size: var(--font-list-size);
+            font-weight: 400;
+            margin-top: 1vmin;
+        }
+
+        .order-page .timeline li {
+            font-size: var(--font-list-size);
+            margin-left: 0.5rem;
+            border-left: 1px solid var(--text);
+            padding-top: 0.5rem;
+            padding-bottom: 5.5rem;
+            padding-left: 0.75rem;
+        }
+
+        .order-page .order-note {
+            margin-top: 1rem;
+            font-size: var(--font-list-size);
+            line-height: 1.8;
+        }
+
+        .order-page .order-cta {
+            display: inline-block;
+            margin-top: 3rem;
+            border-bottom: 1px solid currentColor;
+            font-size: var(--font-list-size);
+        }
+
+        @media (max-width: 768px) {
+            .order-page .history-table col.history-year-column {
+                width: 30%;
+            }
+
+            .order-page .history-table col.history-content-column {
+                width: 70%;
+            }
+
+            .order-page .history-table th,
+            .order-page .history-table td {
+                padding: 0.75rem 0;
+            }
+
+            .order-page .history-table td.year {
+                padding-right: 0.5rem;
+            }
+
+            .order-page .history-table td.tb-content,
+            .order-page .history-table td.tb-content span {
+                font-size: var(--font-list-size);
+            }
+        }
+
+        @media screen and (max-width: 599px) {
+            .order-page .content {
+                width: 100%;
+                margin: 0;
+                padding: 0 3vmin;
+            }
+
+            .order-page .work {
+                margin-top: 2rem;
+            }
+
+            .order-page .timeline {
+                margin-top: 20vmin;
+            }
+
+            .order-page .timeline li {
+                margin-left: 0.25rem;
+                padding-left: 0.75rem;
+                padding-bottom: 4rem;
+            }
+        }
+    </style>
+</head>
+
+<body id="order">
+    <div id="header-container">
+    <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
+        <a href="/website/">Home</a>
+        <a href="/website/gallery.html">Art Index</a>
+        <a href="/website/artist-statement.html">Artist Statement</a>
+        <a href="/website/biography.html">Biography</a>
+        <a href="/website/information.html">Information</a>
+        <a href="/website/contact.html">Contact Us</a>
+        <a href="/website/order.html">Order</a>
+        <a href="/website/policy.html">Site Policy</a>
+    </nav>
+    </div>
+    <div class="ripples"></div>
+    <div id="vanta-bg-bio"></div>
+
+    <main class="gallery order-page">
+        <div class="h1-text" data-title="Order" data-subtitle="作品・制作のご依頼">
+            <h1 class="noise text" aria-label="Order">Order</h1>
+            <p class="subtext"></p>
+        </div>
+        <div class="scroll"></div>
+
+        <div class="state-box order-box">
+            <div lang="ja" class="content">
+                <h2 class="noise">作品・制作のご依頼</h2>
+                <div class="work">
+                    <p class="order-lead">
+                        絵画作品の購入、展示・空間に合わせた制作、作品に関するご相談を受け付けています。
+                        既存作品の在庫、制作内容、サイズ、納期、配送方法などは内容によって異なるため、まずはご希望をお聞かせください。
+                    </p>
+
+                    <table class="history-table">
+                        <colgroup>
+                            <col class="history-year-column">
+                            <col class="history-content-column">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">Type</th>
+                                <th scope="col">ご相談いただける内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="year">01</td>
+                                <td class="tb-content">作品の購入<span>展示中・公開中の作品について、在庫や購入方法を確認します。</span></td>
+                            </tr>
+                            <tr>
+                                <td class="year">02</td>
+                                <td class="tb-content">制作のご依頼<span>飾る場所、サイズ、雰囲気などを伺い、制作内容を相談します。</span></td>
+                            </tr>
+                            <tr>
+                                <td class="year">03</td>
+                                <td class="tb-content">展示・空間のご相談<span>展示や空間に合わせた作品選び、見せ方について相談します。</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="page-line"></div>
+
+                    <h2 class="noise">ご依頼の流れ</h2>
+                    <div class="timeline" aria-label="ご依頼の流れ">
+                        <ul>
+                            01 ご相談
+                            <li>Contactページから、ご希望の内容、用途、サイズ、予算感、希望時期など、決まっている範囲でお知らせください。</li>
+                        </ul>
+                        <ul>
+                            02 ヒアリング
+                            <li>いただいた内容をもとに、作品の方向性や条件を確認します。必要に応じて追加で質問します。</li>
+                        </ul>
+                        <ul>
+                            03 ご提案・お見積り
+                            <li>制作内容、価格、納期、配送などの条件を整理し、内容をご確認いただきます。</li>
+                        </ul>
+                        <ul>
+                            04 制作・確認
+                            <li>合意した内容に沿って制作を進めます。確認が必要な場合は、その時点でご連絡します。</li>
+                        </ul>
+                        <ul>
+                            05 納品
+                            <li>完成した作品を、事前に確認した方法でお届けします。詳細はご依頼内容に合わせてご案内します。</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-line"></div>
+                    <p class="order-note">
+                        ※ ご相談の段階で費用が発生することはありません。制作の可否、価格、納期、配送方法は、内容を確認したうえで個別にご案内します。
+                    </p>
+                    <a class="noise order-cta" href="contact.html">Contact Us｜お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="state-box order-box">
+            <div lang="en" class="content">
+                <h2 class="noise">Works &amp; Commissions</h2>
+                <div class="work">
+                    <p class="order-lead">
+                        I accept inquiries about purchasing artworks, creating a work for a space, and exhibition-related consultations.
+                        Availability, size, schedule, and delivery details vary by request, so please share what you have in mind first.
+                    </p>
+
+                    <table class="history-table">
+                        <colgroup>
+                            <col class="history-year-column">
+                            <col class="history-content-column">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">Type</th>
+                                <th scope="col">What we can discuss</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="year">01</td>
+                                <td class="tb-content">Artwork purchase<span>We confirm availability and the next steps for an exhibited or published work.</span></td>
+                            </tr>
+                            <tr>
+                                <td class="year">02</td>
+                                <td class="tb-content">Commission<span>We discuss the space, size, atmosphere, and other conditions for a new work.</span></td>
+                            </tr>
+                            <tr>
+                                <td class="year">03</td>
+                                <td class="tb-content">Exhibition &amp; space<span>We discuss artwork selection and presentation for an exhibition or space.</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="page-line"></div>
+
+                    <h2 class="noise">The Process</h2>
+                    <div class="timeline" aria-label="The process">
+                        <ul>
+                            01 Inquiry
+                            <li>Tell us what you know so far, such as the request, purpose, size, budget range, and preferred timing.</li>
+                        </ul>
+                        <ul>
+                            02 Conversation
+                            <li>We review the details and confirm the direction and conditions. Additional questions may follow.</li>
+                        </ul>
+                        <ul>
+                            03 Proposal &amp; estimate
+                            <li>We organize the production details, price, schedule, and delivery terms for your review.</li>
+                        </ul>
+                        <ul>
+                            04 Creation &amp; review
+                            <li>The work is created according to the agreed details. We will contact you if a review is needed.</li>
+                        </ul>
+                        <ul>
+                            05 Delivery
+                            <li>The finished work is delivered using the method discussed in advance. Details depend on the request.</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-line"></div>
+                    <p class="order-note">
+                        * No fee is charged at the inquiry stage. Availability, price, schedule, and delivery will be explained individually after reviewing the request.
+                    </p>
+                    <a class="noise order-cta" href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const lines = document.querySelectorAll(".page-line");
+
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        entry.target.style.width = entry.isIntersecting ? "50%" : "0%";
+                    });
+                }, {
+                    threshold: Array.from({ length: 101 }, (_, i) => i / 100)
+                });
+
+                lines.forEach(line => observer.observe(line));
+            }
+        });
+    </script>
+
+    <script>
+        if (window.VANTA && typeof window.VANTA.TRUNK === "function") {
+            const background = document.querySelector("#vanta-bg-bio");
+            if (background) {
+                window.VANTA.TRUNK({
+                    el: background,
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    scale: 1.00,
+                    scaleMobile: 0.70,
+                    color: 0xffffff,
+                    chaos: 2.50
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

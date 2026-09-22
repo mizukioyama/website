@@ -86,11 +86,11 @@
     .work { justify-content: flex-start; }
     .art-page .work { min-height: 350px; justify-content: flex-start; }
     .gallery-containt .work-img a { height: 80px; }
-    .work h2 { font-size: calc(clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_7) + 0.35vw), var(--legacy-px-0_9)) - 2px); }
+    .work h2 { font-size: var(--type-gallery-mobile-work-h2-size); }
     #gallery-container .work p { width: 100%; line-height: 1.6; letter-spacing: 0; }
-    #gallery-container .work:nth-child(1) .noise { font-size: calc(clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_8) + 0.35vw), var(--legacy-px-1)) - 2px) !important; top: -10vmin !important; }
+    #gallery-container .work:nth-child(1) .noise { font-size: var(--type-gallery-mobile-noise-size) !important; top: -10vmin !important; }
     #gallery-container a::before { display: none; }
-    .gallery ol p { font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_85) + 0.5vw), var(--legacy-px-1_2)); font-weight: 300; width: fit-content; margin-top: 5vmin !important; line-height: 1; padding-left: 0; }
+    .gallery ol p { font-size: var(--type-gallery-ol-size); font-weight: 300; width: fit-content; margin-top: 5vmin !important; line-height: 1; padding-left: 0; }
     .gallery li { width: fit-content; max-width: 100%; }
     .gallery li a:hover { background: var(--inv); }
     .work .noise { letter-spacing: var(--legacy-px-0_075); }
@@ -102,5 +102,5 @@
     #state .content .work:nth-child(n+3) h3 { padding: 0.5rem 2rem; }
     #state .work:nth-child(2) h3 { width: auto; margin-top: 20vmin; }
     #state .work h3::before { width: 20px; top: 50%; }
-    #state .work:nth-child(n+3) ol p { font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_8) + 0.35vw), var(--legacy-px-1)); }
+    #state .work:nth-child(n+3) ol p { font-size: var(--type-form-radio-size); }
 }

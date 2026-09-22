@@ -8,13 +8,14 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
-  <link rel="stylesheet" href="css/modal.css?v=15cb883b06fd">
+  <link rel="stylesheet" href="css/modal.css?v=4bb80fe6e994">
   <link rel="stylesheet" href="css/all.css?v=b9ec91656338">
-  <link rel="stylesheet" href="css/gallery.css?v=9e2aaf24ae5f">
-  <link rel="stylesheet" href="css/mobile.css?v=d017313349ca">
-  <link rel="stylesheet" href="css/form.css?v=87c3de8dd18d">
-  <link rel="stylesheet" href="css/footer.css?v=e5c6d7ab061d">
+  <link rel="stylesheet" href="css/gallery.css?v=a097de2060f8">
+  <link rel="stylesheet" href="css/mobile.css?v=5c4ccd70a129">
+  <link rel="stylesheet" href="css/form.css?v=4c77eb6fd012">
+  <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
   <link rel="stylesheet" href="css/menu.css?v=ede7161c6bd6">
+  <link rel="stylesheet" href="assets/css/user-settings.css?v=9faf808b2d9e">
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
@@ -524,11 +525,11 @@
     }
 
     .modal-box h2 {
-      font-size: clamp(var(--legacy-px-1_4), calc(var(--legacy-px-1_1) + 0.8vw), var(--legacy-px-1_8));
+      font-size: var(--type-home-modal-h2-size);
     }
 
     .modal-box h3 {
-      font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_85) + 0.4vw), var(--legacy-px-1_2));
+      font-size: var(--type-home-modal-h3-size);
       line-height: 1.4;
       margin-top: 6rem;
       border-bottom: 1px solid;
@@ -536,7 +537,7 @@
     }
 
     .modal-box p {
-      font-size: clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_65) + 0.7vw), var(--legacy-px-1));
+      font-size: var(--type-home-modal-body-size);
       line-height: 1.8;
     }
 
@@ -553,13 +554,13 @@
     }
 
     h3.modal-en {
-      font-size: clamp(var(--legacy-px-0_85), calc(var(--legacy-px-0_75) + 0.4vw), var(--legacy-px-1));
+      font-size: var(--type-contact-modal-en-title-size);
       margin-top: 1vmin;
       margin-bottom: 0.2vmin;
     }
 
     p.modal-en {
-      font-size: clamp(var(--legacy-px-0_65), calc(var(--legacy-px-0_55) + 0.4vw), var(--legacy-px-0_8)) !important;
+      font-size: var(--type-contact-modal-en-body-size) !important;
       line-height: 1.5;
     }
 

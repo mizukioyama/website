@@ -62,7 +62,7 @@
 
     @media only screen and (min-width:1299px) {
         footer a {
-            font-size: clamp(var(--legacy-px-1_1), calc(var(--legacy-px-0_95) + 0.6vw), var(--legacy-px-1_5));
+            font-size: var(--type-header-footer-size);
         }
     }
 
@@ -83,7 +83,7 @@
         }
 
         footer a {
-            font-size: clamp(var(--legacy-px-1_1), calc(var(--legacy-px-0_95) + 0.7vw), var(--legacy-px-1_3));
+            font-size: var(--type-header-footer-size);
         }
 
         footer a:nth-of-type(n+5) {

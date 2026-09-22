@@ -87,7 +87,7 @@
    }
 
    .profile li {
-      font-size: clamp(var(--legacy-px-1_4), var(--legacy-px-0_561) + 1.03vw, var(--legacy-px-1_8));
+      font-size: var(--type-modal-profile-size);
    }
 }
 
@@ -145,7 +145,7 @@
    }
 
    .modal h3 {
-      font-size: clamp(var(--legacy-px-1_6), var(--legacy-px-1_371) + 1.14vw, var(--legacy-px-1_8));
+      font-size: var(--type-modal-mobile-h3-size);
    }
 
    .modal p .br {

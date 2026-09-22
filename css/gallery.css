@@ -282,7 +282,7 @@ body.dark-theme .modal-box {
 }*/
 
 h1 {
-    font-size: clamp(var(--legacy-px-2_4), calc(var(--legacy-px-1_5) + 4vw), var(--legacy-px-5_4));
+    font-size: var(--type-gallery-h1-size);
     font-weight: 300;
     width: fit-content;
     line-height: 1.2;
@@ -324,7 +324,7 @@ h1 {
 }
 
 .h1-text p {
-    font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_6) + 1.2vw), var(--legacy-px-2));
+    font-size: var(--type-gallery-lead-size);
 }
 
 
@@ -380,7 +380,7 @@ h1 {
 
 
 h2 {
-    font-size: calc(clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_4) + 2vw), var(--legacy-px-2_8)) - 2px);
+    font-size: var(--type-gallery-h2-size);
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -388,24 +388,24 @@ h2 {
 }
 
 span.name {
-    font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_7) + 0.7vw), var(--legacy-px-1_6));
+    font-size: var(--type-gallery-name-size);
     line-height: 1;
 }
 
 .gallery-containt h2 {
-    font-size: calc(clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_7) + 0.7vw), var(--legacy-px-1_4)) - 2px);
+    font-size: var(--type-gallery-card-h2-size);
     font-weight: 300;
 }
 
 h3 {
-    font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_4) + 1vw), var(--legacy-px-2));
+    font-size: var(--type-gallery-h3-size);
     font-weight: 300;
     line-height: 2;
     text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.95);
 }
 
 h4 {
-    font-size: clamp(var(--legacy-px-0_9), calc(var(--legacy-px-0_55) + 0.5vw), var(--legacy-px-1_2));
+    font-size: var(--type-gallery-h4-size);
     color: var(--def);
 }
 
@@ -774,7 +774,7 @@ main {
     }
 
     #state h2 {
-        font-size: calc(clamp(var(--legacy-px-1_2), calc(var(--legacy-px-0_8) + 1vw), var(--legacy-px-2_4)) - 2px);
+        font-size: var(--type-state-h2-size);
         align-items: end;
         margin-bottom: 1vmin;
     }

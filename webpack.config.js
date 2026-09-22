@@ -88,6 +88,11 @@ module.exports = {
           to: "css",
           force: true
         },
+        {
+          from: path.resolve(__dirname, "assets/css/user-settings.css"),
+          to: "assets/css/user-settings.css",
+          force: true
+        },
         ...rootVisualScripts.map(file => ({
           from: path.resolve(__dirname, `js/${file}`),
           to: `js/${file}`,
