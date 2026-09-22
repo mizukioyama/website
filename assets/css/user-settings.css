@@ -30,14 +30,16 @@
   /* 共通ページ見出し：375px → 1440px */
   --type-gallery-h1-size: clamp(39px, calc(24px + 4vw), 81.6px);
   --type-gallery-lead-size: clamp(16px, calc(12.1690px + 1.0216vw), 26.88px);
-  --type-gallery-h2-size: clamp(17.2px, calc(11.5662px + 1.5023vw), 33.2px);
+  /* Shared H2: former 1.2rem / 0.4rem+2vw / 2.8rem scale, minus 2px. */
+  --type-gallery-h2-size: clamp(14.4px, calc(2.16px + 2.16vw), 35.6px);
   --type-gallery-name-size: clamp(14.4px, calc(11.9775px + 0.6460vw), 21.28px);
   --type-gallery-card-h2-size: clamp(12.4px, calc(9.9775px + 0.6460vw), 19.28px);
   --type-gallery-mobile-work-h2-size: clamp(10.8px, calc(10.2366px + 0.1502vw), 12.4px);
   --type-gallery-mobile-noise-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
   --type-gallery-h3-size: clamp(16px, calc(14.3099px + 0.4507vw), 20.8px);
   --type-gallery-h4-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
-  --type-state-h2-size: clamp(17.2px, calc(14.3831px + 0.7512vw), 25.2px);
+  /* Biography desktop H2: former 0.8rem + 1vw scale, minus 2px. */
+  --type-state-h2-size: clamp(14.8px, calc(9.2px + 1vw), 31.6px);
 
   /* TOP：375px → 1440px */
   --type-home-h1-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
@@ -49,7 +51,8 @@
   --type-home-modal-h3-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
   --type-home-modal-body-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
   --type-statement-subtext-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
-  --type-biography-h2-size: clamp(16.75px, calc(15.7465px + 0.2676vw), 19.6px);
+  /* Biography mobile H2: former clamp(1.15rem, 5vw, 1.35rem), minus 2px. */
+  --type-biography-h2-size: clamp(16.4px, calc(5vw - 2px), 19.6px);
   --type-contact-modal-en-title-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
   --type-contact-modal-en-body-size: clamp(10.4px, calc(9.5549px + 0.2254vw), 12.8px);
   --type-home-date-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
@@ -88,6 +91,13 @@
   --font-header-footer-size: var(--type-header-footer-size);
   --font-nav-size: var(--type-header-footer-size);
   --font-footer-size: var(--type-header-footer-size);
+}
+
+/* At 900px the shared body root reaches 14px; keep the same rem-derived H2 scale. */
+@media screen and (min-width: 900px) {
+  :root {
+    --type-gallery-h2-size: clamp(14.8px, calc(3.6px + 2vw), 37.2px);
+  }
 }
 
 /* フォームのplaceholder/浮動ラベルだけは既存のデスクトップ縮小を維持する。 */
