@@ -47,7 +47,8 @@
   --type-menu-primary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
   --type-menu-secondary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
   --type-menu-mask-size: clamp(19.2px, calc(18.0732px + 0.3005vw), 22.4px);
-  --type-menu-mask-item-size: clamp(12px, calc(11.4366px + 0.1502vw), 13.6px);
+  /* Menu mask item: 12px → 13.6px */
+  --type-menu-mask-item-size: clamp(12px, calc(10.4px + 0.4vw), 13.6px);
 
   /* Gallery本文・状態見出し：375px → 1440px */
   --type-gallery-ol-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
@@ -63,34 +64,6 @@
   --type-modal-mobile-h3-size: clamp(26.2px, calc(25.2845px + 0.2441vw), 28.8px);
   --type-modal-mobile-close-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
 
-}
-
-/* At 900px the shared body root reaches 14px; keep the same rem-derived H2 scale. */
-@media screen and (min-width: 900px) {
-  :root {
-    --type-gallery-h2-size: clamp(17.2px, calc(11.5662px + 1.5023vw), 33.2px);
-  }
-}
-
-/* Non-Home pages historically scale these menu values with the page root. */
-@media screen and (min-width: 600px) and (max-width: 899px) {
-  :root {
-    --type-menu-secondary-size: clamp(calc(10.4px + 0.4vw), calc(9.36px + 0.76vw), calc(12.48px + 0.48vw));
-    --type-menu-mask-size: clamp(calc(12.48px + 0.48vw), calc(10.4px + 1vw), calc(14.56px + 0.56vw));
-  }
-}
-
-@media screen and (min-width: 900px) {
-  :root {
-    --type-menu-secondary-size: clamp(14px, calc(12.6px + 0.76vw), 16.8px);
-    --type-menu-mask-size: clamp(16.8px, calc(14px + 0.6vw), 19.6px);
-  }
-}
-
-@media screen and (min-width: 1299px) {
-  :root {
-    --type-menu-primary-size: clamp(16.8px, calc(14px + 1.4vw), 22.4px);
-  }
 }
 
 /* フォームのplaceholder/浮動ラベルだけは既存のデスクトップ縮小を維持する。 */

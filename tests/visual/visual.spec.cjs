@@ -783,8 +783,8 @@ function expectedHeaderFooterSize(projectName) {
     "desktop-1280": 24.6,
     "tablet-1024": 22.6,
     "tablet-768": 20.5,
-    "mobile-430": 18.4,
-    "mobile-390": 18.1,
+    "mobile-430": 18,
+    "mobile-390": 18,
     "mobile-375": 18
   };
   return expectedByProject[projectName];
@@ -815,12 +815,12 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
 
 function expectedH2Sizes(projectName) {
   const expectedByProject = {
-    "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 25.2 },
-    "desktop-1280": { homeCreator: 13.8, homeContent: 26.3, biography: 30.8 },
-    "tablet-1024": { homeCreator: 13.4, homeContent: 25.5, biography: 26.9 },
-    "tablet-768": { homeCreator: 13.0, homeContent: 24.8, biography: 23.1 },
-    "mobile-430": { homeCreator: 12.5, homeContent: 23.8, biography: 16.9 },
-    "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 },
+    "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 23.6 },
+    "desktop-1280": { homeCreator: 14.0, homeContent: 26.6, biography: 29.2 },
+    "tablet-1024": { homeCreator: 13.6, homeContent: 25.2, biography: 24.1 },
+    "tablet-768": { homeCreator: 13.1, homeContent: 23.8, biography: 18.7 },
+    "mobile-430": { homeCreator: 12.5, homeContent: 23.6, biography: 19.5 },
+    "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 17.5 },
     "mobile-375": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 }
   };
   return expectedByProject[projectName];
@@ -855,9 +855,9 @@ test("h2 typography matches the documented responsive scale", async ({ page }, t
 function expectedBodySizes(projectName) {
   const expectedByProject = {
     "desktop-1440": 14,
-    "desktop-1280": 13.7,
-    "tablet-1024": 13.2,
-    "tablet-768": 12.7,
+    "desktop-1280": 14,
+    "tablet-1024": 14,
+    "tablet-768": 13.5,
     "mobile-430": 12.1,
     "mobile-390": 12,
     "mobile-375": 12
