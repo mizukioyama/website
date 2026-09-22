@@ -10,40 +10,40 @@
  */
 :root {
   /* 共通ページ見出し：375px → 1440px */
-  --type-gallery-h1-size: clamp(39px, calc(24px + 4vw), 81.6px);
-  --type-gallery-lead-size: clamp(16px, calc(12.1690px + 1.0216vw), 26.88px);
+  --type-gallery-h1-size: clamp(38.4px, calc(24px + 4vw), 86.4px);
+  --type-gallery-lead-size: clamp(16px, calc(9.6px + 1.2vw), 32px);
   /* Shared H2: preserve the established 375px → 1440px scale. */
   /* H2: 17.2px → 33.2px */
   --type-gallery-h2-size: clamp(17.2px, calc(11.5662px + 1.5023vw), 33.2px);
-  --type-gallery-name-size: clamp(14.4px, calc(11.9775px + 0.6460vw), 21.28px);
-  --type-gallery-card-h2-size: clamp(12.4px, calc(9.9775px + 0.6460vw), 19.28px);
+  --type-gallery-name-size: clamp(14.4px, calc(11.2px + 0.7vw), 25.6px);
+  --type-gallery-card-h2-size: clamp(12.4px, calc(9.2px + 0.7vw), 20.8px);
   --type-gallery-mobile-work-h2-size: clamp(10.8px, calc(10.2366px + 0.1502vw), 12.4px);
   --type-gallery-mobile-noise-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
-  --type-gallery-h3-size: clamp(16px, calc(14.3099px + 0.4507vw), 20.8px);
-  --type-gallery-h4-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
+  --type-gallery-h3-size: clamp(16px, calc(5.6px + 1vw), 32px);
+  --type-gallery-h4-size: clamp(14.4px, calc(8.8px + 0.5vw), 19.2px);
   /* Biography desktop H2: preserve the established responsive scale. */
   /* Biography H2: 17.2px → 25.2px */
   --type-state-h2-size: clamp(17.2px, calc(14.3831px + 0.7512vw), 25.2px);
 
   /* TOP：375px → 1440px */
-  --type-home-h1-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
+  --type-home-h1-size: clamp(14.4px, calc(13.6px + 0.2vw), 16px);
   /* Home creator: 12.4px → 14px; preserves the established responsive interpolation. */
   --type-home-creator-size: clamp(12.4px, calc(11.6px + 0.2vw), 14px);
   /* Home H2: 23.6px → 26.8px; the prior scale is intentionally retained between endpoints. */
-  --type-home-h2-size: clamp(23.6px, calc(19.6px + 5.5vw), 26.8px);
-  --type-home-title-size: clamp(25.6px, calc(24.4732px + 0.3005vw), 28.8px);
-  --type-home-typing-size: clamp(22.4px, calc(21.2732px + 0.6009vw), 28.8px);
-  --type-home-modal-h2-size: clamp(22.4px, calc(20.1465px + 0.6009vw), 28.8px);
-  --type-home-modal-h3-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
-  --type-home-modal-body-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
-  --type-statement-subtext-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
+  --type-home-h2-size: clamp(23.6px, calc(19.6px + 0.55vw), 26.8px);
+  --type-home-title-size: clamp(25.6px, calc(21.6px + 0.55vw), 28.8px);
+  --type-home-typing-size: clamp(22.4px, calc(19.2px + 0.8vw), 28.8px);
+  --type-home-modal-h2-size: clamp(22.4px, calc(18.4px + 0.6vw), 28.8px);
+  --type-home-modal-h3-size: clamp(16px, calc(14.4px + 0.3vw), 19.2px);
+  --type-home-modal-body-size: clamp(12.8px, calc(11.2px + 0.3vw), 16px);
+  --type-statement-subtext-size: clamp(12.8px, calc(11.2px + 0.3vw), 16px);
   /* Biography mobile H2: preserve the established responsive scale. */
   /* Biography mobile H2: 16.75px → 19.6px */
   --type-biography-h2-size: clamp(16.75px, calc(-2px + 5vw), 19.6px);
-  --type-contact-modal-en-title-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
-  --type-contact-modal-en-body-size: clamp(10.4px, calc(9.5549px + 0.2254vw), 12.8px);
-  --type-home-date-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
-  --type-home-time-size: clamp(9.6px, calc(9.0366px + 0.1502vw), 11.2px);
+  --type-contact-modal-en-title-size: clamp(13.6px, calc(12px + 0.5vw), 19.2px);
+  --type-contact-modal-en-body-size: clamp(10.4px, calc(9.6px + 0.3vw), 12.8px);
+  --type-home-date-size: clamp(13.6px, calc(12px + 0.3vw), 16px);
+  --type-home-time-size: clamp(9.6px, calc(8.32px + 0.3vw), 11.2px);
 
   /* Menu：既存のモバイル / タブレット / デスクトップ3段階を維持 */
   --type-menu-primary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
@@ -53,7 +53,7 @@
   --type-menu-mask-item-size: clamp(12px, calc(11.4366px + 0.1502vw), 13.6px);
 
   /* Gallery本文・状態見出し：375px → 1440px */
-  --type-gallery-ol-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
+  --type-gallery-ol-size: clamp(16px, calc(13.6px + 0.5vw), 19.2px);
 
   /* Form/Modal：375px → 1440px */
   --type-form-radio-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
@@ -105,6 +105,31 @@
 @media screen and (min-width: 1299px) {
   :root {
     --type-state-h2-size: 23.6px;
+  }
+}
+
+/* Non-Home pages retain the established responsive heading interpolation. */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  :root {
+    --type-gallery-h1-size: clamp(calc(24.96px + 0.96vw), calc(15.6px + 4.6vw), calc(56.16px + 2.16vw));
+    --type-gallery-lead-size: clamp(calc(10.4px + 0.4vw), calc(6.24px + 1.44vw), calc(20.8px + 0.8vw));
+    --type-gallery-h2-size: clamp(calc(10.48px + 0.48vw), calc(2.16px + 2.16vw), calc(27.12px + 1.12vw));
+    --type-gallery-name-size: clamp(calc(9.36px + 0.36vw), calc(7.28px + 0.98vw), calc(16.64px + 0.64vw));
+    --type-gallery-card-h2-size: clamp(calc(7.36px + 0.36vw), calc(5.28px + 0.98vw), calc(14.56px + 0.56vw));
+    --type-gallery-h3-size: clamp(calc(10.4px + 0.4vw), calc(4.16px + 1.16vw), calc(20.8px + 0.8vw));
+    --type-gallery-h4-size: clamp(calc(9.36px + 0.36vw), calc(5.72px + 0.78vw), calc(12.48px + 0.48vw));
+  }
+}
+
+@media screen and (min-width: 900px) {
+  :root {
+    --type-gallery-h1-size: clamp(33.6px, calc(21px + 4vw), 75.6px);
+    --type-gallery-lead-size: clamp(14px, calc(8.4px + 1.2vw), 28px);
+    --type-gallery-h2-size: clamp(14.8px, calc(3.6px + 2vw), 37.2px);
+    --type-gallery-name-size: clamp(12.6px, calc(9.8px + 0.7vw), 22.4px);
+    --type-gallery-card-h2-size: clamp(10.6px, calc(7.8px + 0.7vw), 17.6px);
+    --type-gallery-h3-size: clamp(14px, calc(5.6px + 1vw), 28px);
+    --type-gallery-h4-size: clamp(12.6px, calc(7.7px + 0.5vw), 16.8px);
   }
 }
 
