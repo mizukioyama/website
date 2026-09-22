@@ -42,6 +42,14 @@ body {
 @media screen and (min-width: 600px) and (max-width: 899px) {
     :root {
         /* Shared font-size tokens stay in css/all.css; this block only preserves gallery-era tracking. */
+        /* Non-Home tablet values preserve the established rendered scale. */
+        --font-list-size: clamp(7.15px, calc(6.24px + 0.54vw), 8.32px);
+        --font-ui-size: clamp(9.1px, calc(7.8px + 0.7vw), 10.4px);
+        --font-caption-size: clamp(7.15px, calc(6.24px + 0.54vw), 8.45px);
+        --font-table-size: clamp(7.8px, calc(6.76px + 0.56vw), 9.1px);
+        --font-metadata-size: clamp(7.15px, calc(6.24px + 0.54vw), 8.32px);
+        --font-category-size: clamp(9.1px, calc(8.32px + 0.72vw), 11.44px);
+        --font-pagination-size: clamp(7.8px, calc(6.76px + 0.56vw), 9.1px);
         --tracking-gallery-body: calc(0.52px + 0.02vw);
         --tracking-gallery-heading: calc(0.104px + 0.004vw);
         --tracking-work-caption: calc(1.04px + 0.04vw);
@@ -71,6 +79,14 @@ body {
 @media screen and (min-width: 900px) {
     :root {
         /* Shared font-size tokens stay in css/all.css; this block only preserves gallery-era tracking. */
+        /* Non-Home desktop values preserve the established rendered scale. */
+        --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
+        --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);
+        --font-table-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
+        --font-metadata-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
+        --font-category-size: clamp(12.25px, calc(11.2px + 0.4vw), 15.4px);
+        --font-pagination-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
         --tracking-gallery-body: 0.7px;
         --tracking-gallery-heading: 0.14px;
         --tracking-work-caption: 1.4px;

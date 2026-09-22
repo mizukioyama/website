@@ -385,19 +385,19 @@ body {
   /* Home root context: 12px → 14px */
   --font-home-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);
   /* List: 11px → 12.8px */
-  --font-list-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8rem);
+  --font-list-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
   /* UI: 14px → 16px */
-  --font-ui-size: clamp(0.875rem, 0.75rem + 0.4vw, 1rem);
+  --font-ui-size: clamp(14px, calc(12px + 0.4vw), 16px);
   /* Caption: 11px → 13px */
-  --font-caption-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8125rem);
+  --font-caption-size: clamp(11px, calc(9.6px + 0.3vw), 13px);
   /* Table: 12px → 14px */
-  --font-table-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem);
+  --font-table-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
   /* Metadata: 11px → 12.8px */
-  --font-metadata-size: clamp(0.6875rem, 0.6rem + 0.3vw, 0.8rem);
+  --font-metadata-size: clamp(11px, calc(9.6px + 0.3vw), 12.8px);
   /* Category: 14px → 17.6px */
-  --font-category-size: clamp(0.875rem, 0.8rem + 0.4vw, 1.1rem);
+  --font-category-size: clamp(14px, calc(12.8px + 0.4vw), 17.6px);
   /* Pagination: 12px → 14px */
-  --font-pagination-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem);
+  --font-pagination-size: clamp(12px, calc(10.4px + 0.3vw), 14px);
   /* Navigation: 14px → 16.8px */
   --font-navigation-size: clamp(0.875rem, 0.8rem + 0.3vw, 1.05rem);
   /* Header: 16px → 22.4px */
