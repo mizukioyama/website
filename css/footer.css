@@ -103,7 +103,3 @@
             padding: 0.25rem 0.5rem;
         }
     }
-
-/* Keep footer navigation aligned with the header brand at every viewport. */
-footer a { font-size: var(--type-header-footer-size); }
-footer a:nth-of-type(n+5) { font-size: var(--type-header-footer-size) !important; }
