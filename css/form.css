@@ -346,11 +346,12 @@ input:-webkit-autofill:focus {
    .contact-form #message,
    .contact-form .submit-btn,
    .contact-form .label {
-      font-size: clamp(25.6px, 20.096px + 0.92vw, 32px);
+      /* Preserve the original responsive rem-derived scale without a legacy token. */
+      font-size: clamp(calc(16.64px + 0.64vw), calc(13.0624px + 1.4224vw), calc(20.8px + 0.8vw));
    }
 
    .contact-form .input-text {
-      font-size: clamp(28.8px, 26.048px + 0.46vw, 32px);
+      font-size: clamp(calc(18.72px + 0.72vw), calc(16.9312px + 1.1112vw), calc(20.8px + 0.8vw));
       height: 40pt;
       padding-left: 1rem;
    }
