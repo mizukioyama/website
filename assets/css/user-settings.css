@@ -27,8 +27,10 @@
 
   /* TOP：375px → 1440px */
   --type-home-h1-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
-  --type-home-creator-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
-  --type-home-h2-size: clamp(23.6px, calc(22.4732px + 0.3005vw), 26.8px);
+  /* Home creator: 12.4px → 14px; preserves the established responsive interpolation. */
+  --type-home-creator-size: clamp(12.4px, calc(11.6px + 0.2vw), 14px);
+  /* Home H2: 23.6px → 26.8px; the prior scale is intentionally retained between endpoints. */
+  --type-home-h2-size: clamp(23.6px, calc(19.6px + 5.5vw), 26.8px);
   --type-home-title-size: clamp(25.6px, calc(24.4732px + 0.3005vw), 28.8px);
   --type-home-typing-size: clamp(22.4px, calc(21.2732px + 0.6009vw), 28.8px);
   --type-home-modal-h2-size: clamp(22.4px, calc(20.1465px + 0.6009vw), 28.8px);

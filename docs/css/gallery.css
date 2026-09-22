@@ -41,6 +41,8 @@ body {
 /* Keep the established non-Home interpolation without migration-only tokens. */
 @media screen and (min-width: 600px) and (max-width: 899px) {
     :root {
+        /* Shared H2: preserve the established tablet interpolation after the 2px reduction. */
+        --type-gallery-h2-size: clamp(calc(10.48px + 0.48vw), calc(2.16px + 2.16vw), calc(27.12px + 1.12vw));
         --font-list-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.32px + 0.32vw));
         --font-ui-size: clamp(calc(9.1px + 0.35vw), calc(7.8px + 0.7vw), calc(10.4px + 0.4vw));
         --font-caption-size: clamp(calc(7.15px + 0.275vw), calc(6.24px + 0.54vw), calc(8.45px + 0.325vw));
@@ -68,6 +70,8 @@ body {
 
 @media screen and (min-width: 900px) {
     :root {
+        /* Shared H2: 14.8px → 37.2px source scale, with the existing 2px reduction. */
+        --type-gallery-h2-size: clamp(14.8px, calc(3.6px + 2vw), 37.2px);
         --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
         --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
         --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);
