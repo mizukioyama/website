@@ -14,7 +14,7 @@
 
 - Added Japanese-commented semantic `--type-*` variables with 375px → 1440px min/max values.
 - Used px fixed/min/max terms and Calculator-style `clamp(px, calc(px + vw), px)` interpolation.
-- Kept existing `--font-*` and `--root-font-size` variables as compatibility aliases.
+- Consolidated shared role tokens in `css/all.css`; removed the duplicate `--type-*`/`--font-*` compatibility aliases from `assets/css/user-settings.css`.
 - Routed common body/list/UI/caption/table/metadata/category/pagination, Header/Footer, TOP, Gallery, Menu, Form and Modal roles through the new settings.
 - Added `assets/css/user-settings.css` after page CSS on the root visual pages so user changes are applied safely without selector-specific `!important` overrides.
 - Added a Webpack copy rule so the setting file will be delivered as `docs/assets/css/user-settings.css` after a successful build.

@@ -18,7 +18,18 @@ function forbidText(file, fragment, label) {
 }
 
 requireText("css/all.css", "--font-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);", "shared body scale");
-requireText("assets/css/user-settings.css", "--type-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);", "user settings body scale");
+for (const file of [
+  "css/all.css",
+  "css/gallery.css",
+  "css/menu.css",
+  "css/footer.css",
+  "assets/css/user-settings.css"
+]) {
+  forbidText(file, "--legacy-px-", "migration-only legacy token must not ship");
+  forbidText(file, "--font-nav-size", "navigation compatibility alias must not ship");
+  forbidText(file, "--font-footer-size", "footer compatibility alias must not ship");
+  forbidText(file, "--font-header-footer-size", "header/footer compatibility alias must not ship");
+}
 for (const page of ["index.html", "gallery.html", "biography.html", "artist-statement.html", "contact.html", "order.html", "policy.html"]) {
   requireText(page, "assets/css/user-settings.css?v=20260922-typography", "user settings stylesheet link");
 }

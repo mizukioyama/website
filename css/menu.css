@@ -15,10 +15,10 @@ nav{display:flex;flex-direction:row;position:fixed;top:0;right:-100%;bottom:0;wi
 }
 /* Phase 3 typography: keep menu text quiet while preserving touch size. */
 .inner li a,
-.inner li:nth-of-type(n+5) a { font-size: var(--font-nav-size); }
+.inner li:nth-of-type(n+5) a { font-size: var(--type-header-footer-size); }
 @media screen and (max-width: 599px) {
   .inner li a {
-    font-size: var(--font-nav-size);
+    font-size: var(--type-header-footer-size);
     line-height: 1.4;
     min-height: 44px;
     display: flex;
@@ -28,5 +28,5 @@ nav{display:flex;flex-direction:row;position:fixed;top:0;right:-100%;bottom:0;wi
 }
 @media screen and (min-width: 600px) and (max-width: 1199px) and (orientation: portrait) {
   .home .inner li a,
-  .home .inner li:nth-of-type(n+5) a { font-size: var(--font-nav-size); }
+  .home .inner li:nth-of-type(n+5) a { font-size: var(--type-header-footer-size); }
 }
