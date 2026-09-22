@@ -37,7 +37,7 @@
   --type-statement-subtext-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
   /* Biography mobile H2: preserve the established responsive scale. */
   /* Biography mobile H2: 16.75px → 19.6px */
-  --type-biography-h2-size: clamp(16.75px, calc(15.7465px + 0.2676vw), 19.6px);
+  --type-biography-h2-size: clamp(16.75px, calc(-2px + 5vw), 19.6px);
   --type-contact-modal-en-title-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
   --type-contact-modal-en-body-size: clamp(10.4px, calc(9.5549px + 0.2254vw), 12.8px);
   --type-home-date-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
@@ -89,6 +89,20 @@
 @media screen and (max-width: 599px) {
   :root {
     --type-menu-primary-size: clamp(25.6px, calc(22.4px + 0.8vw), 28.8px);
+  }
+}
+
+/* Keep the established tablet interpolation at 768px: 13.1px. */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  :root {
+    --type-home-creator-size: clamp(12.4px, calc(11.9px + 0.16vw), 14px);
+  }
+}
+
+/* The desktop Biography heading remains 23.6px at the 1440px baseline. */
+@media screen and (min-width: 1299px) {
+  :root {
+    --type-state-h2-size: 23.6px;
   }
 }
 
