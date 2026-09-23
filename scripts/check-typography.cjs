@@ -27,7 +27,7 @@ function forbidText(file, fragment, label) {
   }
 }
 
-requireText("css/all.css", "--font-body-size: clamp(12px, calc(10.4px + 0.4vw), 14px);", "shared body scale");
+requireText("css/all.css", "--font-body-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);", "shared body scale");
 for (const file of [
   "css/all.css",
   "css/gallery.css",

@@ -56,10 +56,10 @@
   --type-gallery-ol-size: clamp(16px, calc(13.6px + 0.5vw), 19.2px);
 
   /* Form/Modal：375px → 1440px */
-  --type-form-radio-size: clamp(14.4px, calc(12.8px + 0.4vw), 16px);
+  --type-form-radio-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
   --type-form-radio-group-size: clamp(28.8px, calc(28.4451px + 0.0946vw), 29.808px);
-  --type-form-consent-size: clamp(10px, calc(9px + 0.4vw), 11px);
-  --type-form-button-size: clamp(16px, calc(14.4px + 0.5vw), 19.2px);
+  --type-form-consent-size: clamp(10px, calc(9.6479px + 0.0939vw), 11px);
+  --type-form-button-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
   --type-modal-title-size: clamp(32px, calc(21.328px + 0.89vw), 38.4px);
   --type-modal-close-size: clamp(22.4px, calc(19.2px + 0.6vw), 32px);
   --type-modal-profile-size: clamp(22.4px, calc(17.6px + 1.03vw), 28.8px);
@@ -130,25 +130,6 @@
     --type-gallery-card-h2-size: clamp(10.6px, calc(7.8px + 0.7vw), 17.6px);
     --type-gallery-h3-size: clamp(14px, calc(5.6px + 1vw), 28px);
     --type-gallery-h4-size: clamp(12.6px, calc(7.7px + 0.5vw), 16.8px);
-  }
-}
-
-/* Non-Home desktop form scale: preserve the established 900px+ rendering. */
-@media screen and (min-width: 900px) {
-  :root {
-    --type-form-radio-size: clamp(12.6px, calc(11.2px + 0.4vw), 14px);
-    --type-form-radio-group-size: clamp(25.2px, 20.538px + 0.44vw, 28px);
-    --type-form-button-size: clamp(14px, calc(12.6px + 0.5vw), 16.8px);
-  }
-}
-
-@media screen and (min-width: 600px) and (max-width: 899px) {
-  :root {
-    --type-form-radio-size: clamp(calc(9.36px + 0.36vw), calc(8.32px + 0.72vw), calc(10.4px + 0.4vw));
-    --type-form-radio-group-size: clamp(calc(18.72px + 0.72vw), calc(15.2568px + 1.0268vw), calc(20.8px + 0.8vw));
-    --type-form-button-size: clamp(calc(10.4px + 0.4vw), calc(9.36px + 0.9vw), calc(12.48px + 0.48vw));
-    --type-modal-title-size: clamp(calc(20.8px + 0.8vw), calc(13.8632px + 1.4232vw), calc(24.96px + 0.96vw));
-    --type-modal-close-size: clamp(calc(14.56px + 0.56vw), calc(12.48px + 1.08vw), calc(20.8px + 0.8vw));
   }
 }
 
