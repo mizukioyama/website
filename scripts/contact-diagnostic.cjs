@@ -4,6 +4,12 @@ const { chromium } = require("@playwright/test");
 const oldBase = process.env.CONTACT_OLD_URL || "http://127.0.0.1:4174/website/";
 const currentBase = process.env.CONTACT_CURRENT_URL || "http://127.0.0.1:4173/website/";
 const outputPath = process.env.CONTACT_DIAGNOSTIC_OUTPUT || "contact-diagnostic-report.json";
+const viewportSpecs = (process.env.CONTACT_VIEWPORTS || "1440x900")
+  .split(",")
+  .map(spec => {
+    const [width, height] = spec.split("x").map(Number);
+    return { width, height };
+  });
 const selectors = [
   ["main", "main"], ["contactForm", "#contactForm"], ["formRow", "#contactForm .form-row"],
   ["alignCenter", "#contactForm .align-center"], ["consentText", "#consent-text"],
@@ -113,24 +119,29 @@ function compare(oldValue, currentValue, pathName, differences) {
 async function main() {
   const browser = await chromium.launch({ headless: true });
   try {
-    const contextOptions = { viewport: { width: 1440, height: 900 }, colorScheme: "dark", reducedMotion: "reduce" };
-    const oldPage = await browser.newPage(contextOptions);
-    const currentPage = await browser.newPage(contextOptions);
-    const old = await collectPage(oldPage, oldBase);
-    const current = await collectPage(currentPage, currentBase);
-    const differences = [];
-    compare(old.result, current.result, "contact", differences);
+    const comparisons = [];
+    for (const viewport of viewportSpecs) {
+      const contextOptions = { viewport, colorScheme: "dark", reducedMotion: "reduce" };
+      const oldPage = await browser.newPage(contextOptions);
+      const currentPage = await browser.newPage(contextOptions);
+      const old = await collectPage(oldPage, oldBase);
+      const current = await collectPage(currentPage, currentBase);
+      const differences = [];
+      compare(old.result, current.result, "contact", differences);
+      comparisons.push({ viewport, old, current, differences, firstDifference: differences[0] || null });
+      await oldPage.close();
+      await currentPage.close();
+    }
     const report = {
       comparison: {
         old: { commit: process.env.CONTACT_OLD_COMMIT, url: oldBase },
         current: { commit: process.env.CONTACT_CURRENT_COMMIT, url: currentBase },
-        browser: await browser.version(), viewport: { width: 1440, height: 900 }
-      }, old, current, differences, firstDifference: differences[0] || null
+        browser: await browser.version(), viewports: viewportSpecs
+      }, comparisons
     };
     fs.writeFileSync(outputPath, JSON.stringify(report, null, 2) + "\n");
     console.log("CONTACT_DIAGNOSTIC_FULL_REPORT");
-    console.log(JSON.stringify({ comparison: report.comparison, old: report.old, current: report.current, firstDifference: report.firstDifference }, null, 2));
-    console.log(JSON.stringify({ firstDifference: report.firstDifference, differenceCount: differences.length, oldMetrics: old.result.documentMetrics, currentMetrics: current.result.documentMetrics, oldRuntime: old.runtime, currentRuntime: current.runtime }, null, 2));
+    console.log(JSON.stringify(report, null, 2));
   } finally { await browser.close(); }
 }
 main().catch(error => { console.error(error.stack || error); process.exitCode = 1; });

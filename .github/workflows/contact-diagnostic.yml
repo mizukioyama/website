@@ -77,6 +77,7 @@ jobs:
           CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || 'dda753281f4db0208d6d5376894a98d0946891cb' }}
           CONTACT_OLD_URL: http://127.0.0.1:4174/website/
           CONTACT_CURRENT_URL: http://127.0.0.1:4173/website/
+          CONTACT_VIEWPORTS: 1440x900,1280x900,1024x900,768x900,430x900,390x900,375x900
           CONTACT_DIAGNOSTIC_OUTPUT: contact-diagnostic-report.json
         run: node scripts/contact-diagnostic.cjs
       - name: Upload diagnostic report
