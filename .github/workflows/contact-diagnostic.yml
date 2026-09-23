@@ -2,7 +2,7 @@ name: Contact old-current diagnostic
 
 on:
   push:
-    branches: ["phase3-contact-main-pr-diagnostic"]
+    branches: ["phase3-contact-main-pr-diagnostic-v2"]
   pull_request:
     branches: ["main"]
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
       current_sha:
         description: "Current commit to compare"
         required: true
-        default: "d4a2995be7630e2d9428e3d8b8ba029a3e9a4a7e"
+        default: "e448190"
         type: string
 
 permissions:
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PASS_SHA: ${{ inputs.pass_sha || '1149795132feedfa3116b41547a2d850b027df0f' }}
-      CURRENT_SHA: ${{ inputs.current_sha || 'd4a2995be7630e2d9428e3d8b8ba029a3e9a4a7e' }}
+      CURRENT_SHA: ${{ inputs.current_sha || 'e448190' }}
       PLAYWRIGHT_VERSION: "1.63.0"
     steps:
       - name: Checkout current diagnostic revision
@@ -84,7 +84,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: contact-main-pr-diagnostic-${{ inputs.current_sha || 'd4a2995be7630e2d9428e3d8b8ba029a3e9a4a7e' }}
+          name: contact-main-pr-diagnostic-${{ inputs.current_sha || 'e448190' }}
           path: |
             contact-diagnostic-report.json
             /tmp/contact-old-server.log

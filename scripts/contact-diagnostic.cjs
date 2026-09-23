@@ -13,7 +13,8 @@ const viewportSpecs = (process.env.CONTACT_VIEWPORTS || "1440x900")
 const selectors = [
   ["main", "main"], ["contactForm", "#contactForm"], ["formRow", "#contactForm .form-row"],
   ["alignCenter", "#contactForm .align-center"], ["consentText", "#consent-text"],
-  ["submitButton", "#contactForm .submit-btn"], ["footerContainer", "#footer-container"], ["footer", "footer"]
+  ["submitButton", "#contactForm .submit-btn"], ["radioGroup", "#contactForm .radio-group"],
+  ["radioLabel", "#contactForm .radio-group label"], ["footerContainer", "#footer-container"], ["footer", "footer"]
 ];
 const styleProperties = ["margin-top", "margin-bottom", "padding-top", "padding-bottom", "font-size", "line-height", "display", "position"];
 const tokenNames = [
