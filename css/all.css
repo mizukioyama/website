@@ -469,6 +469,13 @@ body {
   --legacy-px-0_7216: 11.5456px;
   --legacy-px-0_836: 13.376px;
   color-scheme: light dark;
+
+  /* Shared site chrome typography.
+     Header navigation and footer navigation always share the same size.
+     Mobile: <= 599px */
+  --font-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
+  --font-nav-size: var(--font-header-footer-size);
+  --font-footer-size: var(--font-header-footer-size);
 }
 
 hr {
@@ -600,15 +607,6 @@ img {
     left: 1rem;
   }
 }
-:root {
-  /* Shared site chrome typography.
-     Header navigation and footer navigation always share the same size.
-     Mobile: <= 599px */
-  --font-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
-  --font-nav-size: var(--font-header-footer-size);
-  --font-footer-size: var(--font-header-footer-size);
-}
-
 /* Tablet: 600px - 1298px
    Targets: ~20.5px @ 768, ~22.6px @ 1024, ~24.6px @ 1280. */
 @media screen and (min-width: 600px) and (max-width: 1298px) {
