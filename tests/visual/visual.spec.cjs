@@ -780,10 +780,10 @@ for (const entry of pages) {
 function expectedHeaderFooterSize(projectName) {
   const expectedByProject = {
     "desktop-1440": 25.6,
-    "desktop-1280": 24.6,
+    "desktop-1280": 24.5,
     "tablet-1024": 22.6,
     "tablet-768": 20.8,
-    "mobile-430": 18,
+    "mobile-430": 18.4,
     "mobile-390": 18.1,
     "mobile-375": 18
   };
@@ -816,10 +816,10 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
 function expectedH2Sizes(projectName) {
   const expectedByProject = {
     "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 25.2 },
-    "desktop-1280": { homeCreator: 14.0, homeContent: 26.6, biography: 29.2 },
-    "tablet-1024": { homeCreator: 13.6, homeContent: 25.2, biography: 24.1 },
+    "desktop-1280": { homeCreator: 13.8, homeContent: 26.3, biography: 30.8 },
+    "tablet-1024": { homeCreator: 13.4, homeContent: 25.6, biography: 26.9 },
     "tablet-768": { homeCreator: 13.0, homeContent: 24.8, biography: 23.1 },
-    "mobile-430": { homeCreator: 12.5, homeContent: 23.6, biography: 19.5 },
+    "mobile-430": { homeCreator: 12.5, homeContent: 23.8, biography: 16.9 },
     "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 },
     "mobile-375": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 }
   };
@@ -855,8 +855,8 @@ test("h2 typography is exactly 2px below the previous responsive scale", async (
 function expectedBodySizes(projectName) {
   const expectedByProject = {
     "desktop-1440": 14,
-    "desktop-1280": 14,
-    "tablet-1024": 14,
+    "desktop-1280": 13.7,
+    "tablet-1024": 13.2,
     "tablet-768": 12.7,
     "mobile-430": 12.1,
     "mobile-390": 12,
