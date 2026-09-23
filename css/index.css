@@ -41,7 +41,7 @@ canvas {
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: clamp(var(--legacy-px-0_75), calc(var(--legacy-px-0_65) + 0.35vw), var(--legacy-px-0_875));
+  font-size: clamp(12px, calc(10.4px + 0.35vw), 14px);
   z-index: 99;
   pointer-events: none;
   user-select: none;
@@ -71,6 +71,11 @@ h2 {
 p {
   font-size: var(--font-body-size);
   letter-spacing: var(--tracking-body-010);
+}
+
+/* Home keeps its established root body scale; shared page tokens remain fluid. */
+body.home {
+  font-size: var(--font-home-body-size);
 }
 
 /* ========== Background Slides ========== */
@@ -354,7 +359,7 @@ p {
 .date__time {
   opacity: 0.75;
   font-size: var(--type-home-time-size);
-  letter-spacing: var(--legacy-px-0_05);
+  letter-spacing: var(--tracking-gallery-body);
 }
 
 .date:before {
@@ -547,7 +552,7 @@ p {
 
 .top-page .title {
   position: relative;
-  /*font-size: clamp(var(--legacy-px-4), calc(var(--legacy-px-4) + 0.5vw), var(--legacy-px-5));*/
+  /* Historical title sizing is intentionally inherited from the page token. */
   font-weight: 400;
   justify-content: flex-start;
   color: #f9fafbb3;
@@ -786,7 +791,7 @@ footer,
 }
 
   .date {
-    letter-spacing: var(--legacy-px-0_05);
+    letter-spacing: var(--tracking-gallery-body);
     bottom: calc(3% - 0.5rem);
   }
 

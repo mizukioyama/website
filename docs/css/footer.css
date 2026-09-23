@@ -36,7 +36,7 @@
         margin-top: 10vmin;
     }
 
-    .foot {
+        .foot {
         font-size: var(--font-caption-size);
         text-align: right;
         position: absolute;
@@ -62,7 +62,7 @@
 
     @media only screen and (min-width:1299px) {
         footer a {
-            font-size: var(--type-header-footer-size);
+            font-size: var(--font-footer-size);
         }
     }
 
@@ -83,7 +83,7 @@
         }
 
         footer a {
-            font-size: var(--type-header-footer-size);
+            font-size: var(--font-footer-size);
         }
 
         footer a:nth-of-type(n+5) {
@@ -99,10 +99,16 @@
             opacity: 0.95;
         }
 
-        .foot {
+    .foot {
             padding: 0.25rem 0.5rem;
         }
     }
-/* Keep footer navigation aligned with the header brand at every viewport. */
-footer a { font-size: var(--font-header-footer-size); }
-footer a:nth-of-type(n+5) { font-size: var(--font-header-footer-size) !important; }
+
+/* Header and footer navigation share the established viewport scale. */
+footer a {
+    font-size: var(--font-footer-size);
+}
+
+footer a:nth-of-type(n+5) {
+    font-size: var(--font-footer-size) !important;
+}

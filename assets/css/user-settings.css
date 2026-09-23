@@ -4,90 +4,68 @@
  * ユーザー調整用タイポグラフィ設定
  *
  * 変更する値は、原則として375px時の値と1440px時の値だけです。
- * 下記の clamp() は9elements Min-Max Calculatorと同じ線形補間です。
- * 既存の --font-* 変数は、下部の互換aliasからこの設定を参照します。
+ * Fluid viewport range: 375px → 1440px.
+ * 共通のbody/list/UI/caption/table/metadata/category/paginationはcss/all.cssが正本です。
+ * このファイルはページ固有の見出し・menu・form/modal tokenを編集します。
  */
 :root {
-  /* 本文：375px → 1440px = 12px → 14px */
-  --type-body-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
-  /* リスト本文：375px → 1440px = 11px → 12.8px */
-  --type-list-size: clamp(11px, calc(10.3662px + 0.1690vw), 12.8px);
-  /* UI・リンク・ボタン：375px → 1440px = 14px → 16px */
-  --type-ui-size: clamp(14px, calc(13.2958px + 0.1878vw), 16px);
-  /* キャプション・補助文：375px → 1440px = 11px → 13px */
-  --type-caption-size: clamp(11px, calc(10.2958px + 0.1878vw), 13px);
-  /* 表：375px → 1440px = 12px → 14px */
-  --type-table-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
-  /* メタデータ：375px → 1440px = 11px → 12.8px */
-  --type-metadata-size: clamp(11px, calc(10.3662px + 0.1690vw), 12.8px);
-  /* Galleryカテゴリ：375px → 1440px = 14px → 17.6px */
-  --type-category-size: clamp(14px, calc(12.7324px + 0.3380vw), 17.6px);
-  /* ページネーション：375px → 1440px = 12px → 14px */
-  --type-pagination-size: clamp(12px, calc(11.2958px + 0.1878vw), 14px);
-  /* Header/Footer：375px → 1440px = 18px → 25.6px */
-  --type-header-footer-size: clamp(18px, calc(15.3239px + 0.7136vw), 25.6px);
-
   /* 共通ページ見出し：375px → 1440px */
-  --type-gallery-h1-size: clamp(39px, calc(24px + 4vw), 81.6px);
-  --type-gallery-lead-size: clamp(16px, calc(12.1690px + 1.0216vw), 26.88px);
-  --type-gallery-h2-size: clamp(17.2px, calc(11.5662px + 1.5023vw), 33.2px);
-  --type-gallery-name-size: clamp(14.4px, calc(11.9775px + 0.6460vw), 21.28px);
-  --type-gallery-card-h2-size: clamp(12.4px, calc(9.9775px + 0.6460vw), 19.28px);
-  --type-gallery-mobile-work-h2-size: clamp(10.8px, calc(10.2366px + 0.1502vw), 12.4px);
-  --type-gallery-mobile-noise-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
-  --type-gallery-h3-size: clamp(16px, calc(14.3099px + 0.4507vw), 20.8px);
-  --type-gallery-h4-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
+  --type-gallery-h1-size: clamp(38.4px, calc(24px + 4vw), 86.4px);
+  --type-gallery-lead-size: clamp(16px, calc(9.6px + 1.2vw), 32px);
+  /* Shared H2: preserve the established 375px → 1440px scale. */
+  /* H2: 17.2px → 33.2px */
+  --type-gallery-h2-size: clamp(17.2px, calc(4.4px + 2vw), 42.8px);
+  --type-gallery-name-size: clamp(14.4px, calc(11.2px + 0.7vw), 25.6px);
+  --type-gallery-card-h2-size: clamp(12.4px, calc(9.2px + 0.7vw), 20.8px);
+  --type-gallery-mobile-work-h2-size: clamp(10.8px, calc(9.2px + 0.35vw), 12.4px);
+  --type-gallery-mobile-noise-size: clamp(12.4px, calc(10.8px + 0.35vw), 14px);
+  --type-gallery-h3-size: clamp(16px, calc(5.6px + 1vw), 32px);
+  --type-gallery-h4-size: clamp(14.4px, calc(8.8px + 0.5vw), 19.2px);
+  /* Biography desktop H2: preserve the established responsive scale. */
+  /* Biography H2: 17.2px → 25.2px */
   --type-state-h2-size: clamp(17.2px, calc(14.3831px + 0.7512vw), 25.2px);
 
   /* TOP：375px → 1440px */
-  --type-home-h1-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
-  --type-home-creator-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
-  --type-home-h2-size: clamp(23.6px, calc(22.4732px + 0.3005vw), 26.8px);
-  --type-home-title-size: clamp(25.6px, calc(24.4732px + 0.3005vw), 28.8px);
-  --type-home-typing-size: clamp(22.4px, calc(21.2732px + 0.6009vw), 28.8px);
-  --type-home-modal-h2-size: clamp(22.4px, calc(20.1465px + 0.6009vw), 28.8px);
-  --type-home-modal-h3-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
-  --type-home-modal-body-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
-  --type-statement-subtext-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
-  --type-biography-h2-size: clamp(16.75px, calc(15.7465px + 0.2676vw), 19.6px);
-  --type-contact-modal-en-title-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
-  --type-contact-modal-en-body-size: clamp(10.4px, calc(9.5549px + 0.2254vw), 12.8px);
-  --type-home-date-size: clamp(13.6px, calc(12.7549px + 0.2254vw), 16px);
-  --type-home-time-size: clamp(9.6px, calc(9.0366px + 0.1502vw), 11.2px);
+  --type-home-h1-size: clamp(14.4px, calc(13.6px + 0.2vw), 16px);
+  /* Home creator: 12.4px → 14px; preserves the established responsive interpolation. */
+  --type-home-creator-size: clamp(12.4px, calc(11.6px + 0.2vw), 14px);
+  /* Home H2: 23.6px → 26.8px; the prior scale is intentionally retained between endpoints. */
+  --type-home-h2-size: clamp(23.6px, calc(19.6px + 0.55vw), 26.8px);
+  --type-home-title-size: clamp(25.6px, calc(21.6px + 0.55vw), 28.8px);
+  --type-home-typing-size: clamp(22.4px, calc(19.2px + 0.8vw), 28.8px);
+  --type-home-modal-h2-size: clamp(22.4px, calc(18.4px + 0.6vw), 28.8px);
+  --type-home-modal-h3-size: clamp(16px, calc(14.4px + 0.3vw), 19.2px);
+  --type-home-modal-body-size: clamp(12.8px, calc(11.2px + 0.3vw), 16px);
+  --type-statement-subtext-size: clamp(12.8px, calc(11.2px + 0.3vw), 16px);
+  /* Biography mobile H2: preserve the established responsive scale. */
+  /* Biography mobile H2: 16.75px → 19.6px */
+  --type-biography-h2-size: clamp(16.75px, calc(-2px + 5vw), 19.6px);
+  --type-contact-modal-en-title-size: clamp(13.6px, calc(12px + 0.5vw), 19.2px);
+  --type-contact-modal-en-body-size: clamp(10.4px, calc(9.6px + 0.3vw), 12.8px);
+  --type-home-date-size: clamp(13.6px, calc(12px + 0.3vw), 16px);
+  --type-home-time-size: clamp(9.6px, calc(8.32px + 0.3vw), 11.2px);
 
   /* Menu：既存のモバイル / タブレット / デスクトップ3段階を維持 */
   --type-menu-primary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
   --type-menu-secondary-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
   --type-menu-mask-size: clamp(19.2px, calc(18.0732px + 0.3005vw), 22.4px);
+  /* Menu mask item: 12px → 13.6px */
   --type-menu-mask-item-size: clamp(12px, calc(11.4366px + 0.1502vw), 13.6px);
 
   /* Gallery本文・状態見出し：375px → 1440px */
-  --type-gallery-ol-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
+  --type-gallery-ol-size: clamp(16px, calc(13.6px + 0.5vw), 19.2px);
 
   /* Form/Modal：375px → 1440px */
   --type-form-radio-size: clamp(14.4px, calc(13.8366px + 0.1502vw), 16px);
   --type-form-radio-group-size: clamp(28.8px, calc(28.4451px + 0.0946vw), 29.808px);
   --type-form-consent-size: clamp(10px, calc(9.6479px + 0.0939vw), 11px);
   --type-form-button-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
-  --type-modal-title-size: clamp(32px, calc(29.7465px + 0.6009vw), 38.4px);
-  --type-modal-close-size: clamp(22.4px, calc(20.4831px + 0.5108vw), 27.84px);
-  --type-modal-profile-size: clamp(22.4px, calc(21.9070px + 0.1315vw), 23.8px);
-  --type-modal-mobile-h3-size: clamp(26.2px, calc(25.2845px + 0.2441vw), 28.8px);
-  --type-modal-mobile-close-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
+  --type-modal-title-size: clamp(32px, calc(21.328px + 0.89vw), 38.4px);
+  --type-modal-close-size: clamp(22.4px, calc(19.2px + 0.6vw), 32px);
+  --type-modal-profile-size: clamp(22.4px, calc(17.6px + 1.03vw), 28.8px);
+  --type-modal-mobile-h3-size: clamp(25.6px, calc(21.936px + 1.14vw), 28.8px);
+  --type-modal-mobile-close-size: clamp(16px, calc(14.4px + 0.4vw), 19.2px);
 
-  /* 旧変数は削除せず、既存CSSとの互換aliasとして維持する。 */
-  --root-font-size: var(--type-body-size);
-  --font-body-size: var(--type-body-size);
-  --font-list-size: var(--type-list-size);
-  --font-ui-size: var(--type-ui-size);
-  --font-caption-size: var(--type-caption-size);
-  --font-table-size: var(--type-table-size);
-  --font-metadata-size: var(--type-metadata-size);
-  --font-category-size: var(--type-category-size);
-  --font-pagination-size: var(--type-pagination-size);
-  --font-header-footer-size: var(--type-header-footer-size);
-  --font-nav-size: var(--type-header-footer-size);
-  --font-footer-size: var(--type-header-footer-size);
 }
 
 /* フォームのplaceholder/浮動ラベルだけは既存のデスクトップ縮小を維持する。 */
@@ -113,6 +91,45 @@
 @media screen and (max-width: 599px) {
   :root {
     --type-menu-primary-size: clamp(25.6px, calc(22.4px + 0.8vw), 28.8px);
+  }
+}
+
+/* Keep the established tablet interpolation at 768px: 13.1px. */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  :root {
+    --type-home-creator-size: clamp(12.4px, calc(11.9px + 0.16vw), 14px);
+  }
+}
+
+/* The desktop Biography heading remains 23.6px at the 1440px baseline. */
+@media screen and (min-width: 1299px) {
+  :root {
+    --type-state-h2-size: 23.6px;
+  }
+}
+
+/* Non-Home pages retain the established responsive heading interpolation. */
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  :root {
+    --type-gallery-h1-size: clamp(calc(24.96px + 0.96vw), calc(15.6px + 4.6vw), calc(56.16px + 2.16vw));
+    --type-gallery-lead-size: clamp(calc(10.4px + 0.4vw), calc(6.24px + 1.44vw), calc(20.8px + 0.8vw));
+    --type-gallery-h2-size: clamp(calc(10.48px + 0.48vw), calc(2.16px + 2.16vw), calc(27.12px + 1.12vw));
+    --type-gallery-name-size: clamp(calc(9.36px + 0.36vw), calc(7.28px + 0.98vw), calc(16.64px + 0.64vw));
+    --type-gallery-card-h2-size: clamp(calc(7.36px + 0.36vw), calc(5.28px + 0.98vw), calc(14.56px + 0.56vw));
+    --type-gallery-h3-size: clamp(calc(10.4px + 0.4vw), calc(4.16px + 1.16vw), calc(20.8px + 0.8vw));
+    --type-gallery-h4-size: clamp(calc(9.36px + 0.36vw), calc(5.72px + 0.78vw), calc(12.48px + 0.48vw));
+  }
+}
+
+@media screen and (min-width: 900px) {
+  :root {
+    --type-gallery-h1-size: clamp(33.6px, calc(21px + 4vw), 75.6px);
+    --type-gallery-lead-size: clamp(14px, calc(8.4px + 1.2vw), 28px);
+    --type-gallery-h2-size: clamp(14.8px, calc(3.6px + 2vw), 37.2px);
+    --type-gallery-name-size: clamp(12.6px, calc(9.8px + 0.7vw), 22.4px);
+    --type-gallery-card-h2-size: clamp(10.6px, calc(7.8px + 0.7vw), 17.6px);
+    --type-gallery-h3-size: clamp(14px, calc(5.6px + 1vw), 28px);
+    --type-gallery-h4-size: clamp(12.6px, calc(7.7px + 0.5vw), 16.8px);
   }
 }
 

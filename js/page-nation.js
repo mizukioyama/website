@@ -711,7 +711,7 @@ function setupCategoryFilter() {
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-            <p class="noise cg-text" style="font-size: var(--legacy-px-1_4); font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
+            <p class="noise cg-text" style="font-size: var(--type-gallery-category-label-size); font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
                 Category | ${selectedCategoryLabel}
             </p>
             <div class="work-img">
@@ -774,10 +774,10 @@ function showModal(item) {
             <div class="modal-text">
                 <p>${truncateText(item.text[lang])}</p>
                 ${hasLink ? `
-                <a href="${item.link}" class="noise" style="font-size: var(--legacy-px-1_6); margin-top: 1vmin; border-bottom: 3px solid;" rel="noopener" target="_blank">${buttonLabel} More</a>
+                <a href="${item.link}" class="noise" style="font-size: var(--type-gallery-modal-link-size); margin-top: 1vmin; border-bottom: 3px solid;" rel="noopener" target="_blank">${buttonLabel} More</a>
                 ` : ""}
                 <p>${inquiryMessage}</p>
-                <a href="contact.html" class="noise" style="font-size: var(--legacy-px-1_6); margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
+                <a href="contact.html" class="noise" style="font-size: var(--type-gallery-modal-link-size); margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
                 <button type="button" id="modalCloseBtn">Close</button>
             </div>
         </div>

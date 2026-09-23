@@ -103,7 +103,7 @@
     .modal-text { position: relative; }
     .modal-text p { margin-top: 8vmin; text-shadow: 0 2px 2px var(--text); line-height: 2.4; margin-bottom: 2vmin; }
     .modal-text p:nth-child(1) { margin: 0; margin-top: 5vmin; }
-    .text-content { font-size: var(--type-caption-size); }
+    .text-content { font-size: var(--font-caption-size); }
     #modalCloseBtn { font-size: var(--type-modal-close-size); position: absolute; bottom: -5rem; right: 0; cursor: pointer; }
     #modalCloseBtn:hover { mix-blend-mode: difference; }
     .modal-box a::before { display: none; }
@@ -112,10 +112,10 @@
     @media screen and (max-width: 599px) {
       .modal-box { height: 98svh; min-height: 90svh; padding: 8rem 2rem 7rem; }
       .noise.cg-text { font-size: var(--type-gallery-ol-size) !important; }
-      .modal-box p { font-size: var(--type-caption-size); letter-spacing: var(--legacy-px-0_05); }
+      .modal-box p { font-size: var(--font-caption-size); letter-spacing: var(--tracking-gallery-body); }
       .modal-text p { margin-top: 15vmin; }
       .modal-text a { margin-top: 5vmin !important; }
-      .modal-box .text-content { font-size: var(--type-caption-size); }
+      .modal-box .text-content { font-size: var(--font-caption-size); }
       .modal-box .work-img { width: 100%; }
       #modalCloseBtn { font-size: var(--type-modal-mobile-close-size); bottom: -2.5rem; }
       .modal-box .work-img img { height: auto; clip-path: polygon(0% 5%, 100% 5%, 100% 100%, 100% 95%, 0% 95%, 0% 100%, 0 0%); }
