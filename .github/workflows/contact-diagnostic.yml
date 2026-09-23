@@ -15,7 +15,7 @@ on:
       current_sha:
         description: "Current commit to compare"
         required: true
-        default: "dda753281f4db0208d6d5376894a98d0946891cb"
+        default: "4cee8d3"
         type: string
 
 permissions:
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PASS_SHA: ${{ inputs.pass_sha || '3c401505f70efac93cee3ae142e4ca78a2af05ea' }}
-      CURRENT_SHA: ${{ inputs.current_sha || 'dda753281f4db0208d6d5376894a98d0946891cb' }}
+      CURRENT_SHA: ${{ inputs.current_sha || '4cee8d3' }}
       PLAYWRIGHT_VERSION: "1.63.0"
     steps:
       - name: Checkout current diagnostic revision
@@ -74,7 +74,7 @@ jobs:
       - name: Measure old and current Contact DOM
         env:
           CONTACT_OLD_COMMIT: ${{ inputs.pass_sha || '3c401505f70efac93cee3ae142e4ca78a2af05ea' }}
-          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || 'dda753281f4db0208d6d5376894a98d0946891cb' }}
+          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || '4cee8d3' }}
           CONTACT_OLD_URL: http://127.0.0.1:4174/website/
           CONTACT_CURRENT_URL: http://127.0.0.1:4173/website/
           CONTACT_VIEWPORTS: 1440x900,1280x900,1024x900,768x900,430x900,390x900,375x900
