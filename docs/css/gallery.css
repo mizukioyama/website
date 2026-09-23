@@ -73,8 +73,8 @@ body {
         /* Shared H2: 14.8px → 37.2px source scale, with the existing 2px reduction. */
         --type-gallery-h2-size: clamp(14.8px, calc(3.6px + 2vw), 37.2px);
         --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
-        --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
-        --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);
+        /* Keep shared UI/caption tokens at their common values. Contact form
+           fields and required markers consume them outside Gallery. */
         --font-table-size: clamp(10.5px, calc(9.1px + 0.3vw), 12.25px);
         --font-metadata-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
         --font-category-size: clamp(12.25px, calc(11.2px + 0.4vw), 15.4px);
