@@ -1,0 +1,77 @@
+name: Main vs PR visual diagnostic
+
+on:
+  push:
+    branches: ["phase3-contact-main-pr-diagnostic-v2"]
+  workflow_dispatch:
+    inputs:
+      current_sha:
+        description: "PR HEAD to compare"
+        required: true
+        default: "3b90a4b689513c1855bcd07d9c1a50405a1a5416"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  compare-main-pr:
+    runs-on: ubuntu-latest
+    env:
+      OLD_SHA: "1149795132feedfa3116b41547a2d850b027df0f"
+      CURRENT_SHA: ${{ inputs.current_sha || '3b90a4b689513c1855bcd07d9c1a50405a1a5416' }}
+      PLAYWRIGHT_VERSION: "1.63.0"
+    steps:
+      - name: Checkout diagnostic scripts
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Build main and PR revisions
+        run: |
+          git fetch --no-tags origin "$OLD_SHA" "$CURRENT_SHA"
+          mkdir -p /tmp/main-visual /tmp/pr-visual
+          git archive "$OLD_SHA" | tar -x -C /tmp/main-visual
+          git archive "$CURRENT_SHA" | tar -x -C /tmp/pr-visual
+          (cd /tmp/main-visual && npm ci && npm run build)
+          (cd /tmp/pr-visual && npm ci && npm run build)
+      - name: Install pinned Playwright and diagnostic PNG parser
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@${PLAYWRIGHT_VERSION} pngjs@7.0.0
+          npx playwright install --with-deps chromium
+      - name: Start both site servers
+        run: |
+          (cd /tmp/main-visual && PORT=4174 node scripts/visual-server.cjs > /tmp/main-visual-server.log 2>&1 & echo $! > /tmp/main-visual-server.pid)
+          (cd /tmp/pr-visual && PORT=4173 node scripts/visual-server.cjs > /tmp/pr-visual-server.log 2>&1 & echo $! > /tmp/pr-visual-server.pid)
+          for url in http://127.0.0.1:4174/website/ http://127.0.0.1:4173/website/; do
+            for attempt in $(seq 1 30); do
+              if curl --fail --silent --show-error "$url" >/dev/null; then break; fi
+              sleep 1
+            done
+            curl --fail --silent --show-error "$url" >/dev/null
+          done
+      - name: Compare all pages and viewports
+        env:
+          VISUAL_OLD_COMMIT: "1149795132feedfa3116b41547a2d850b027df0f"
+          VISUAL_CURRENT_COMMIT: ${{ inputs.current_sha || '3b90a4b689513c1855bcd07d9c1a50405a1a5416' }}
+          VISUAL_OLD_URL: http://127.0.0.1:4174/website/
+          VISUAL_CURRENT_URL: http://127.0.0.1:4173/website/
+          VISUAL_OUTPUT_DIR: main-pr-visual-diagnostic
+          VISUAL_VIEWPORTS: 1440x900,1280x900,1024x900,768x900,430x900,390x900,375x900
+        run: node scripts/main-pr-visual-diagnostic.cjs
+      - name: Upload main vs PR evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-pr-visual-diagnostic-${{ inputs.current_sha || '3b90a4b689513c1855bcd07d9c1a50405a1a5416' }}
+          path: |
+            main-pr-visual-diagnostic
+            /tmp/main-visual-server.log
+            /tmp/pr-visual-server.log
+          if-no-files-found: error
+          retention-days: 14
