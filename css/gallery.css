@@ -43,12 +43,12 @@ body {
 @media screen and (min-width: 600px) and (max-width: 899px) {
     :root {
         --legacy-px-0_01: calc(0.104px + 0.004vw);
-        --legacy-px-0_015: calc(0.156px + 0.006vw);
+        --letter-spacing-contact-consent: calc(0.156px + 0.006vw);
         --legacy-px-0_02: calc(0.208px + 0.008vw);
         --legacy-px-0_05: calc(0.52px + 0.02vw);
-        --legacy-px-0_075: calc(0.78px + 0.03vw);
-        --legacy-px-0_1: calc(1.04px + 0.04vw);
-        --legacy-px-0_2: calc(2.08px + 0.08vw);
+        --letter-spacing-gallery-noise: calc(0.78px + 0.03vw);
+        --letter-spacing-gallery-work: calc(1.04px + 0.04vw);
+        --letter-spacing-contact-submit: calc(2.08px + 0.08vw);
         --legacy-px-0_62: calc(6.448px + 0.248vw);
         --legacy-px-0_65: calc(6.76px + 0.26vw);
         --legacy-px-0_68: calc(7.072px + 0.272vw);
@@ -57,7 +57,7 @@ body {
         --legacy-px-0_8: calc(8.32px + 0.32vw);
         --legacy-px-0_82: calc(8.528px + 0.328vw);
         --legacy-px-0_85: calc(8.84px + 0.34vw);
-        --legacy-px-0_875: calc(9.1px + 0.35vw);
+        --font-context-menu-max: calc(9.1px + 0.35vw);
         --legacy-px-0_9: calc(9.36px + 0.36vw);
         --legacy-px-0_95: calc(9.88px + 0.38vw);
         --legacy-px-1: calc(10.4px + 0.4vw);
@@ -100,12 +100,12 @@ body {
 @media screen and (min-width: 900px) {
     :root {
         --legacy-px-0_01: 0.14px;
-        --legacy-px-0_015: 0.21px;
+        --letter-spacing-contact-consent: 0.21px;
         --legacy-px-0_02: 0.28px;
         --legacy-px-0_05: 0.7px;
-        --legacy-px-0_075: 1.05px;
-        --legacy-px-0_1: 1.4px;
-        --legacy-px-0_2: 2.8px;
+        --letter-spacing-gallery-noise: 1.05px;
+        --letter-spacing-gallery-work: 1.4px;
+        --letter-spacing-contact-submit: 2.8px;
         --legacy-px-0_62: 8.68px;
         --legacy-px-0_65: 9.1px;
         --legacy-px-0_68: 9.52px;
@@ -114,7 +114,7 @@ body {
         --legacy-px-0_8: 11.2px;
         --legacy-px-0_82: 11.48px;
         --legacy-px-0_85: 11.9px;
-        --legacy-px-0_875: 12.25px;
+        --font-context-menu-max: 12.25px;
         --legacy-px-0_9: 12.6px;
         --legacy-px-0_95: 13.3px;
         --legacy-px-1: 14px;
@@ -921,7 +921,7 @@ main {
 
 .works p {
     font-size: var(--font-caption-size);
-    letter-spacing: var(--legacy-px-0_1);
+    letter-spacing: var(--letter-spacing-gallery-work);
     line-height: 1.8;
 }
 

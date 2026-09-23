@@ -399,12 +399,12 @@ body {
      Use semantic tokens for new UI; these exist only to preserve legacy
      rendering while removing rem from font-size/tracking declarations. */
   --legacy-px-0_01: 0.16px;
-  --legacy-px-0_015: 0.24px;
+  --letter-spacing-contact-consent: 0.24px;
   --legacy-px-0_02: 0.32px;
   --legacy-px-0_05: 0.8px;
-  --legacy-px-0_075: 1.2px;
-  --legacy-px-0_1: 1.6px;
-  --legacy-px-0_2: 3.2px;
+  --letter-spacing-gallery-noise: 1.2px;
+  --letter-spacing-gallery-work: 1.6px;
+  --letter-spacing-contact-submit: 3.2px;
   --legacy-px-0_62: 9.92px;
   --legacy-px-0_65: 10.4px;
   --legacy-px-0_68: 10.88px;
@@ -413,7 +413,7 @@ body {
   --legacy-px-0_8: 12.8px;
   --legacy-px-0_82: 13.12px;
   --legacy-px-0_85: 13.6px;
-  --legacy-px-0_875: 14px;
+  --font-context-menu-max: 14px;
   --legacy-px-0_9: 14.4px;
   --legacy-px-0_95: 15.2px;
   --legacy-px-1: 16px;
