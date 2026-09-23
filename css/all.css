@@ -428,10 +428,10 @@ body {
   --legacy-px-1_628: 26.048px;
   --legacy-px-1_8: 28.8px;
   --legacy-px-2: 32px;
-  --legacy-px-2_4: 38.4px;
-  --legacy-px-4: 64px;
-  --legacy-px-7: 112px;
-  --legacy-px-9: 144px;
+  --font-404-title-max: 38.4px;
+  --font-404-code-min: 64px;
+  --font-404-code-mobile-max: 112px;
+  --font-404-code-desktop-max: 144px;
   --legacy-px-0_5984: 9.5744px;
   /* Fixed px tracking derived from the corresponding visual text tokens. */
   --tracking-body-010: clamp(1.2px, calc(1.04px + 0.04vw), 1.4px);
