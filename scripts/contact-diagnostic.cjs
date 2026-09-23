@@ -128,6 +128,8 @@ async function main() {
       }, old, current, differences, firstDifference: differences[0] || null
     };
     fs.writeFileSync(outputPath, JSON.stringify(report, null, 2) + "\n");
+    console.log("CONTACT_DIAGNOSTIC_FULL_REPORT");
+    console.log(JSON.stringify({ comparison: report.comparison, old: report.old, current: report.current, firstDifference: report.firstDifference }, null, 2));
     console.log(JSON.stringify({ firstDifference: report.firstDifference, differenceCount: differences.length, oldMetrics: old.result.documentMetrics, currentMetrics: current.result.documentMetrics, oldRuntime: old.runtime, currentRuntime: current.runtime }, null, 2));
   } finally { await browser.close(); }
 }
