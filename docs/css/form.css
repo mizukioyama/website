@@ -233,33 +233,10 @@ input:-webkit-autofill:focus {
    /*margin-top: 10vmin;*/
 }
 
-/* Contact submit group spacing: preserve the last known PASS geometry. */
-:root {
-   --contact-submit-group-spacing: 36px;
-}
-
-@media screen and (min-width: 400px) and (max-width: 599px) {
-   :root {
-      --contact-submit-group-spacing: 36.36px;
-   }
-}
-
-@media screen and (min-width: 600px) and (max-width: 899px) {
-   :root {
-      --contact-submit-group-spacing: 35.364px;
-   }
-}
-
-@media screen and (min-width: 900px) {
-   :root {
-      --contact-submit-group-spacing: 36.75px;
-   }
-}
-
 .align-center {
    width: 100%;
    align-items: center;
-   margin-top: var(--contact-submit-group-spacing);
+   margin-top: 3em;
 }
 
 .align-center:last-child {
