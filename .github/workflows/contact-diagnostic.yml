@@ -3,6 +3,8 @@ name: Contact old-current diagnostic
 on:
   push:
     branches: ["phase3-contact-diagnostic"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch:
     inputs:
       pass_sha:
@@ -23,14 +25,14 @@ jobs:
   compare-contact:
     runs-on: ubuntu-latest
     env:
-      PASS_SHA: ${{ inputs.pass_sha }}
-      CURRENT_SHA: ${{ inputs.current_sha }}
+      PASS_SHA: ${{ inputs.pass_sha || '3c401505f70efac93cee3ae142e4ca78a2af05ea' }}
+      CURRENT_SHA: ${{ inputs.current_sha || 'dda753281f4db0208d6d5376894a98d0946891cb' }}
       PLAYWRIGHT_VERSION: "1.63.0"
     steps:
       - name: Checkout current diagnostic revision
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.current_sha || github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 1
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,8 +42,12 @@ jobs:
       - name: Build current revision
         run: |
           npm ci
+          git fetch --no-tags origin "$CURRENT_SHA"
+          mkdir -p /tmp/contact-current
+          git archive "$CURRENT_SHA" | tar -x -C /tmp/contact-current
+          cd /tmp/contact-current
+          npm ci
           npm run build
-          cp -R docs /tmp/contact-current-docs
       - name: Fetch and build passing revision
         run: |
           git fetch --no-tags origin "$PASS_SHA"
@@ -57,7 +63,7 @@ jobs:
       - name: Start old and current site servers
         run: |
           (cd /tmp/contact-old && PORT=4174 node scripts/visual-server.cjs > /tmp/contact-old-server.log 2>&1 & echo $! > /tmp/contact-old-server.pid)
-          (PORT=4173 node scripts/visual-server.cjs > /tmp/contact-current-server.log 2>&1 & echo $! > /tmp/contact-current-server.pid)
+          (cd /tmp/contact-current && PORT=4173 node scripts/visual-server.cjs > /tmp/contact-current-server.log 2>&1 & echo $! > /tmp/contact-current-server.pid)
           for url in http://127.0.0.1:4174/website/contact.html http://127.0.0.1:4173/website/contact.html; do
             for attempt in $(seq 1 30); do
               if curl --fail --silent --show-error "$url" >/dev/null; then break; fi
@@ -68,7 +74,7 @@ jobs:
       - name: Measure old and current Contact DOM
         env:
           CONTACT_OLD_COMMIT: ${{ inputs.pass_sha || '3c401505f70efac93cee3ae142e4ca78a2af05ea' }}
-          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || github.sha }}
+          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || 'dda753281f4db0208d6d5376894a98d0946891cb' }}
           CONTACT_OLD_URL: http://127.0.0.1:4174/website/
           CONTACT_CURRENT_URL: http://127.0.0.1:4173/website/
           CONTACT_DIAGNOSTIC_OUTPUT: contact-diagnostic-report.json
