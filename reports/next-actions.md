@@ -215,3 +215,9 @@
 3. Compare wrapping, overflow, Header/Footer, buttons, Gallery category/filter/modal, FAQ/form and reduced-motion behavior against the pre-change baseline.
 4. Verify `docs/assets/css/user-settings.css` and all generated page links before any public deployment decision.
 5. Keep GitHub Pages push/public verification and physical-device acceptance as separate approval-gated steps.
+# 2026-09-23 Contact Semantic Rename Follow-up
+
+1. Review the focused three-file source diff and generated `docs/` synchronization.
+2. If final visual acceptance is required, run the existing Contact browser matrix at 1440/1280/1024/768/430/390/375px and confirm the zero-difference result in a real browser.
+3. Keep `--legacy-px-1_3`, shared/ambiguous legacy variables, JS-generated CSS, formula changes, scope moves, and JS cleanup outside this task.
+4. Do not push or deploy without separate explicit approval.

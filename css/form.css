@@ -345,11 +345,11 @@ input:-webkit-autofill:focus {
    .contact-form #message,
    .contact-form .submit-btn,
    .contact-form .label {
-      font-size: clamp(var(--legacy-px-1_6), var(--legacy-px-1_256) + 0.92vw, var(--legacy-px-2));
+      font-size: clamp(var(--legacy-px-1_6), var(--font-contact-control-fluid-mid) + 0.92vw, var(--font-contact-control-fluid-max));
    }
 
    .contact-form .input-text {
-      font-size: clamp(var(--legacy-px-1_8), var(--legacy-px-1_628) + 0.46vw, var(--legacy-px-2));
+      font-size: clamp(var(--legacy-px-1_8), var(--font-contact-input-fluid-mid) + 0.46vw, var(--font-contact-control-fluid-max));
       height: 40pt;
       padding-left: 1rem;
    }
@@ -439,7 +439,7 @@ input:-webkit-autofill:focus {
 
    /*   .contact-form .submit-btn,
    .align-center h3 {
-      font-size: clamp(var(--legacy-px-1_8), var(--legacy-px-1_571) + 1.14vw, var(--legacy-px-2));
+      font-size: clamp(var(--legacy-px-1_8), var(--legacy-px-1_571) + 1.14vw, var(--font-contact-control-fluid-max));
    }*/
    .contact-form .input-text {
       font-size: var(--font-caption-size);

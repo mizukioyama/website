@@ -425,3 +425,15 @@ Please review only the focused typography settings and stylesheet-order changes.
 6. Treat generated `docs/`, public deployment, and physical-device acceptance as pending until dependencies are installed in an approved environment and a build is run.
 
 Review boundary: local code review only. Do not publish, deploy, push, send, delete, or change external services.
+# 2026-09-23 Contact Semantic Rename Review Request
+
+Please review only the Contact semantic rename in `css/all.css`, `css/gallery.css`, and `css/form.css` at commit `fbf8a0f51dfe12b908313efc0d6c007ddc6fcb8a` plus its generated build output.
+
+1. Confirm `--legacy-px-1_256` is accurately named `--font-contact-control-fluid-mid` as the Contact control clamp middle term.
+2. Confirm `--legacy-px-1_628` is accurately named `--font-contact-input-fluid-mid` as the Contact input clamp middle term.
+3. Confirm `--legacy-px-2` is accurately named `--font-contact-control-fluid-max` as the shared Contact control/input clamp maximum term, including the commented legacy formula.
+4. Confirm all base/tablet/desktop definitions use the same semantic name and preserve their exact values.
+5. Confirm no numeric values, formulas, units, breakpoints, selectors, specificity, declaration order, cascade, or Contact typography behavior changed.
+6. Confirm the seven-viewport Contact matrix has zero before/after computed-style differences.
+
+Review boundary: local source/build review only. Do not push, deploy, delete, publish, or modify external services.
