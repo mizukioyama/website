@@ -130,12 +130,6 @@
     --type-gallery-card-h2-size: clamp(10.6px, calc(7.8px + 0.7vw), 17.6px);
     --type-gallery-h3-size: clamp(14px, calc(5.6px + 1vw), 28px);
     --type-gallery-h4-size: clamp(12.6px, calc(7.7px + 0.5vw), 16.8px);
-    --type-form-radio-size: clamp(12.6px, calc(11.2px + 0.4vw), 14px);
-    --type-form-radio-group-size: clamp(25.2px, calc(20.538px + 0.44vw), 28px);
-    --type-form-button-size: clamp(14px, calc(12.6px + 0.5vw), 16.8px);
-    --type-modal-title-size: clamp(28px, calc(18.662px + 0.89vw), 33.6px);
-    --type-modal-close-size: clamp(19.6px, calc(16.8px + 0.6vw), 28px);
-    --type-modal-profile-size: clamp(19.6px, calc(7.854px + 1.03vw), 25.2px);
   }
 }
 
