@@ -10,7 +10,7 @@ nav{display:flex;flex-direction:row;position:fixed;top:0;right:-100%;bottom:0;wi
   .inner li a { font-size: clamp(var(--legacy-px-1_1), calc(var(--legacy-px-0_95) + 0.6vw), var(--legacy-px-1_5)); }
 }
 @media screen and (max-width: 599px) {
-  .inner li a { font-size: clamp(var(--legacy-px-1_5), calc(var(--legacy-px-1_3) + 0.8vw), 27.2px); }
+  .inner li a { font-size: clamp(var(--legacy-px-1_5), calc(var(--font-menu-item-fluid-mid) + 0.8vw), 27.2px); }
   .inner li:nth-of-type(n+5) a { font-size: var(--font-ui-size); }
 }
 /* Phase 3 typography: keep menu text quiet while preserving touch size. */

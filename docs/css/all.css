@@ -378,11 +378,6 @@ body {
   /*link accent (160, 113, 113)*/
   --accent: #A07171;
   /*cadet blue rgba(95, 158, 160)*/
-  --ac-blue: #5F9EA0;
-  /*bt (117, 117, 117)*/
-  --bt: #757575;
-  /*border */
-  --border: rgba(199, 199, 199, 0.5);
   --def: rgba(0, 0, 0, 0.75);
   --inv: #f9fafb;
   --text: #2e2e2e;
@@ -404,18 +399,12 @@ body {
      Use semantic tokens for new UI; these exist only to preserve legacy
      rendering while removing rem from font-size/tracking declarations. */
   --legacy-px-0_01: 0.16px;
-  --legacy-px-0_015: 0.24px;
+  --letter-spacing-contact-consent: 0.24px;
   --legacy-px-0_02: 0.32px;
   --legacy-px-0_05: 0.8px;
-  --legacy-px-0_075: 1.2px;
-  --legacy-px-0_1: 1.6px;
-  --legacy-px-0_2: 3.2px;
-  --legacy-px-0_4: 6.4px;
-  --legacy-px-0_5: 8px;
-  --legacy-px-0_52: 8.32px;
-  --legacy-px-0_55: 8.8px;
-  --legacy-px-0_561: 8.976px;
-  --legacy-px-0_6: 9.6px;
+  --letter-spacing-gallery-noise: 1.2px;
+  --letter-spacing-gallery-work: 1.6px;
+  --letter-spacing-contact-submit: 3.2px;
   --legacy-px-0_62: 9.92px;
   --legacy-px-0_65: 10.4px;
   --legacy-px-0_68: 10.88px;
@@ -424,37 +413,25 @@ body {
   --legacy-px-0_8: 12.8px;
   --legacy-px-0_82: 13.12px;
   --legacy-px-0_85: 13.6px;
-  --legacy-px-0_875: 14px;
+  --font-context-menu-max: 14px;
   --legacy-px-0_9: 14.4px;
   --legacy-px-0_95: 15.2px;
   --legacy-px-1: 16px;
   --legacy-px-1_1: 17.6px;
   --legacy-px-1_15: 18.4px;
-  --legacy-px-1_171: 18.736px;
   --legacy-px-1_2: 19.2px;
-  --legacy-px-1_256: 20.096px;
-  --legacy-px-1_3: 20.8px;
-  --legacy-px-1_333: 21.328px;
-  --legacy-px-1_35: 21.6px;
-  --legacy-px-1_371: 21.936px;
+  --font-contact-control-fluid-mid: 20.096px;
+  --font-menu-item-fluid-mid: 20.8px;
   --legacy-px-1_4: 22.4px;
-  --legacy-px-1_467: 23.472px;
   --legacy-px-1_5: 24px;
-  --legacy-px-1_571: 25.136px;
   --legacy-px-1_6: 25.6px;
-  --legacy-px-1_628: 26.048px;
+  --font-contact-input-fluid-mid: 26.048px;
   --legacy-px-1_8: 28.8px;
-  --legacy-px-2: 32px;
-  --legacy-px-2_4: 38.4px;
-  --legacy-px-2_8: 44.8px;
-  --legacy-px-4: 64px;
-  --legacy-px-5: 80px;
-  --legacy-px-5_4: 86.4px;
-  --legacy-px-6: 96px;
-  --legacy-px-7: 112px;
-  --legacy-px-8: 128px;
-  --legacy-px-9: 144px;
-  --legacy-px-10: 160px;
+  --font-contact-control-fluid-max: 32px;
+  --font-404-title-max: 38.4px;
+  --font-404-code-min: 64px;
+  --font-404-code-mobile-max: 112px;
+  --font-404-code-desktop-max: 144px;
   --legacy-px-0_5984: 9.5744px;
   /* Fixed px tracking derived from the corresponding visual text tokens. */
   --tracking-body-010: clamp(1.2px, calc(1.04px + 0.04vw), 1.4px);
@@ -469,6 +446,12 @@ body {
   --legacy-px-0_7216: 11.5456px;
   --legacy-px-0_836: 13.376px;
   color-scheme: light dark;
+
+  /* Shared site chrome typography.
+     Header navigation and footer navigation always share the same size.
+     Mobile: <= 599px */
+  --font-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
+  --font-nav-size: var(--font-header-footer-size);
 }
 
 hr {
@@ -600,15 +583,6 @@ img {
     left: 1rem;
   }
 }
-:root {
-  /* Shared site chrome typography.
-     Header navigation and footer navigation always share the same size.
-     Mobile: <= 599px */
-  --font-header-footer-size: clamp(18px, calc(15.2px + 0.6vw), 19px);
-  --font-nav-size: var(--font-header-footer-size);
-  --font-footer-size: var(--font-header-footer-size);
-}
-
 /* Tablet: 600px - 1298px
    Targets: ~20.5px @ 768, ~22.6px @ 1024, ~24.6px @ 1280. */
 @media screen and (min-width: 600px) and (max-width: 1298px) {

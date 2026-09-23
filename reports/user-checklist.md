@@ -250,3 +250,26 @@
 - [ ] Confirm no horizontal overflow or clipped text.
 - [ ] After an approved build, confirm generated `docs/assets/css/user-settings.css` is present.
 - [ ] Public deployment and real-device acceptance are separate final gates.
+# 2026-09-23 Contact Semantic Rename Check
+
+- [x] Confirm `--legacy-px-1_256` → `--font-contact-control-fluid-mid` is a Contact `clamp()` middle term.
+- [x] Confirm `--legacy-px-1_628` → `--font-contact-input-fluid-mid` is a Contact `clamp()` middle term.
+- [x] Confirm `--legacy-px-2` → `--font-contact-control-fluid-max` is a Contact control/input `clamp()` maximum term.
+- [x] Confirm base/tablet/desktop definitions retain identical values.
+- [x] Confirm old active source references are 0.
+- [x] Confirm unused custom properties are 0 and undefined custom properties are 0.
+- [x] Confirm Contact 1440/1280/1024/768/430/390/375px before/after computed-style difference count is 0 by deterministic CSS evaluation.
+- [x] Confirm `npm run build`, generated sync, SEO, and links in the final check.
+- [ ] Perform fresh real-browser and physical-device acceptance if required.
+- [ ] Obtain separate approval before public deployment.
+# 2026-09-23 Menu Semantic Rename Check
+
+- [x] Confirm `--legacy-px-1_3` → `--font-menu-item-fluid-mid` is the Menu item mobile `clamp()` middle term.
+- [x] Confirm base/tablet/desktop values remain identical.
+- [x] Confirm old active definition/reference counts are 0.
+- [x] Confirm Menu 1440/1280/1024/768/430/390/375px computed-style difference count is 0.
+- [x] Confirm active legacy unique count is 26 → 25.
+- [x] Confirm unused custom properties are 0 and undefined custom properties are 0.
+- [x] Confirm build, generated sync, SEO, and links in the final check.
+- [ ] Perform fresh real-browser and physical-device acceptance if required.
+- [ ] Obtain separate approval before public deployment.
