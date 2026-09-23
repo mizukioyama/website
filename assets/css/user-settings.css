@@ -57,7 +57,7 @@
 
   /* Form/Modal：375px → 1440px */
   --type-form-radio-size: clamp(14.4px, calc(12.8px + 0.4vw), 16px);
-  --type-form-radio-group-size: clamp(28.8px, calc(23.472px + 0.44vw), 32px);
+  --type-form-radio-group-size: clamp(28.8px, calc(28.4451px + 0.0946vw), 29.808px);
   --type-form-consent-size: clamp(10px, calc(9px + 0.4vw), 11px);
   --type-form-button-size: clamp(16px, calc(14.4px + 0.5vw), 19.2px);
   --type-modal-title-size: clamp(32px, calc(21.328px + 0.89vw), 38.4px);
