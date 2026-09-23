@@ -11,7 +11,7 @@ const viewportSpecs = (process.env.CONTACT_VIEWPORTS || "1440x900")
     return { width, height };
   });
 const selectors = [
-  ["main", "main"], ["contactForm", "#contactForm"], ["formRow", "#contactForm .form-row"],
+  ["html", "html"], ["main", "main"], ["contactForm", "#contactForm"], ["formStatus", "#contactForm .form-status"], ["formRow", "#contactForm .form-row"],
   ["alignCenter", "#contactForm .align-center"], ["consentText", "#consent-text"],
   ["submitButton", "#contactForm .submit-btn"], ["radioGroup", "#contactForm .radio-group"],
   ["radioLabel", "#contactForm .radio-group label"], ["footerContainer", "#footer-container"], ["footer", "footer"]
@@ -20,7 +20,8 @@ const styleProperties = ["margin-top", "margin-bottom", "padding-top", "padding-
 const tokenNames = [
   "--font-body-size", "--font-ui-size", "--type-form-field-size", "--type-form-radio-size",
   "--type-form-radio-group-size", "--type-form-consent-size", "--type-form-button-size",
-  "--tracking-form-submit", "--tracking-form-copy", "--tracking-form-message"
+  "--tracking-form-submit", "--tracking-form-copy", "--tracking-form-message",
+  "--type-form-status-size", "--legacy-px-0_7", "--legacy-px-0_62", "--legacy-px-0_85"
 ];
 
 function snapshot(element) {
@@ -93,8 +94,16 @@ async function collectPage(page, baseURL) {
     } : null;
     const hiddenInputs = [...document.querySelectorAll("#contactForm input[type=hidden], #contactForm iframe")].map(browserSnapshot);
     const tokens = Object.fromEntries(tokenNames.map(name => [name, getComputedStyle(document.documentElement).getPropertyValue(name).trim()]));
+    const matchedFormStatusRules = [];
+    for (const sheet of [...document.styleSheets]) {
+      try {
+        for (const rule of [...sheet.cssRules]) {
+          if (rule.selectorText?.includes("form-status")) matchedFormStatusRules.push(rule.cssText);
+        }
+      } catch (_) {}
+    }
     return {
-      bySelector, formChildren, adjacent, hiddenInputs, tokens, body: browserSnapshot(document.body),
+      bySelector, formChildren, adjacent, hiddenInputs, tokens, matchedFormStatusRules, body: browserSnapshot(document.body),
       documentMetrics: {
         documentScrollHeight: document.documentElement.scrollHeight, bodyScrollHeight: document.body.scrollHeight,
         documentClientWidth: document.documentElement.clientWidth, viewportWidth: window.innerWidth, viewportHeight: window.innerHeight
