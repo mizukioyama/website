@@ -1,0 +1,84 @@
+name: Contact old-current diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      pass_sha:
+        description: "Last known passing commit"
+        required: true
+        default: "3c401505f70efac93cee3ae142e4ca78a2af05ea"
+        type: string
+      current_sha:
+        description: "Current commit to compare"
+        required: true
+        default: "dda753281f4db0208d6d5376894a98d0946891cb"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  compare-contact:
+    runs-on: ubuntu-latest
+    env:
+      PASS_SHA: ${{ inputs.pass_sha }}
+      CURRENT_SHA: ${{ inputs.current_sha }}
+      PLAYWRIGHT_VERSION: "1.63.0"
+    steps:
+      - name: Checkout current diagnostic revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.current_sha }}
+          fetch-depth: 1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Build current revision
+        run: |
+          npm ci
+          npm run build
+          cp -R docs /tmp/contact-current-docs
+      - name: Fetch and build passing revision
+        run: |
+          git fetch --no-tags origin "$PASS_SHA"
+          mkdir -p /tmp/contact-old
+          git archive "$PASS_SHA" | tar -x -C /tmp/contact-old
+          cd /tmp/contact-old
+          npm ci
+          npm run build
+      - name: Install pinned Playwright and Chromium
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@${PLAYWRIGHT_VERSION}
+          npx playwright install --with-deps chromium
+      - name: Start old and current site servers
+        run: |
+          (cd /tmp/contact-old && PORT=4174 node scripts/visual-server.cjs > /tmp/contact-old-server.log 2>&1 & echo $! > /tmp/contact-old-server.pid)
+          (PORT=4173 node scripts/visual-server.cjs > /tmp/contact-current-server.log 2>&1 & echo $! > /tmp/contact-current-server.pid)
+          for url in http://127.0.0.1:4174/website/contact.html http://127.0.0.1:4173/website/contact.html; do
+            for attempt in $(seq 1 30); do
+              if curl --fail --silent --show-error "$url" >/dev/null; then break; fi
+              sleep 1
+            done
+            curl --fail --silent --show-error "$url" >/dev/null
+          done
+      - name: Measure old and current Contact DOM
+        env:
+          CONTACT_OLD_COMMIT: ${{ inputs.pass_sha }}
+          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha }}
+          CONTACT_OLD_URL: http://127.0.0.1:4174/website/
+          CONTACT_CURRENT_URL: http://127.0.0.1:4173/website/
+          CONTACT_DIAGNOSTIC_OUTPUT: contact-diagnostic-report.json
+        run: node scripts/contact-diagnostic.cjs
+      - name: Upload diagnostic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contact-old-current-diagnostic-${{ inputs.current_sha }}
+          path: |
+            contact-diagnostic-report.json
+            /tmp/contact-old-server.log
+            /tmp/contact-current-server.log
+          if-no-files-found: error
+          retention-days: 14
