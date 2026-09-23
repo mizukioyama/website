@@ -1,6 +1,8 @@
 name: Contact old-current diagnostic
 
 on:
+  push:
+    branches: ["phase3-contact-diagnostic"]
   workflow_dispatch:
     inputs:
       pass_sha:
@@ -28,7 +30,7 @@ jobs:
       - name: Checkout current diagnostic revision
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.current_sha }}
+          ref: ${{ inputs.current_sha || github.sha }}
           fetch-depth: 1
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -65,8 +67,8 @@ jobs:
           done
       - name: Measure old and current Contact DOM
         env:
-          CONTACT_OLD_COMMIT: ${{ inputs.pass_sha }}
-          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha }}
+          CONTACT_OLD_COMMIT: ${{ inputs.pass_sha || '3c401505f70efac93cee3ae142e4ca78a2af05ea' }}
+          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || github.sha }}
           CONTACT_OLD_URL: http://127.0.0.1:4174/website/
           CONTACT_CURRENT_URL: http://127.0.0.1:4173/website/
           CONTACT_DIAGNOSTIC_OUTPUT: contact-diagnostic-report.json
