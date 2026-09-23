@@ -179,3 +179,9 @@
 - The local CUA browser backend and Chrome headless process were unavailable in this environment, so the seven-viewport evidence is a deterministic CSS formula/computed-style comparison rather than fresh screenshot capture. A real-browser and physical-device acceptance pass remains a separate gate.
 - Webpack emitted its existing large-asset/performance warnings; they are unrelated to this rename.
 - Public deployment was not performed.
+# 2026-09-23 Menu Semantic Rename
+
+- No source, generated-output, SEO, link, undefined-variable, or unused-variable issue was introduced by this rename.
+- The local CUA browser backend and Chrome headless process were unavailable, so the seven-viewport result is a deterministic CSS cascade/formula comparison rather than fresh screenshot capture. Real-browser and physical-device acceptance remain separate gates.
+- Webpack emitted its existing large-asset/performance warnings; they are unrelated to this rename.
+- Public deployment was not performed.

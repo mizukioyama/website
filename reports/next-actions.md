@@ -221,3 +221,9 @@
 2. If final visual acceptance is required, run the existing Contact browser matrix at 1440/1280/1024/768/430/390/375px and confirm the zero-difference result in a real browser.
 3. Keep `--legacy-px-1_3`, shared/ambiguous legacy variables, JS-generated CSS, formula changes, scope moves, and JS cleanup outside this task.
 4. Do not push or deploy without separate explicit approval.
+# 2026-09-23 Menu Semantic Rename Follow-up
+
+1. Review the focused three-file source diff and generated `docs/` synchronization.
+2. Keep all remaining legacy variables, including JS-generated CSS and HTML inline/raw references, outside the next task until their usage boundaries are audited.
+3. If final visual acceptance is required, run the existing Menu browser matrix at 1440/1280/1024/768/430/390/375px.
+4. Do not push or deploy without separate explicit approval.

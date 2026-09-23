@@ -437,3 +437,13 @@ Please review only the Contact semantic rename in `css/all.css`, `css/gallery.cs
 6. Confirm the seven-viewport Contact matrix has zero before/after computed-style differences.
 
 Review boundary: local source/build review only. Do not push, deploy, delete, publish, or modify external services.
+# 2026-09-23 Menu Semantic Rename Review Request
+
+Please review only the rename of `--legacy-px-1_3` to `--font-menu-item-fluid-mid` in `css/all.css`, `css/gallery.css`, and `css/menu.css` from HEAD `ebda617d8d2e6c5c2535e1fc37f8c0884cad925e`.
+
+1. Confirm the variable is used only as the Menu item mobile `clamp()` middle term.
+2. Confirm all three source scopes retain exactly the same values.
+3. Confirm the seven-viewport Menu item font-size, line-height, width, and height are unchanged.
+4. Confirm no remaining legacy variable, JS-generated CSS, or HTML inline/raw variable was changed.
+
+Review boundary: local source/build review only. Do not push, deploy, delete, publish, or modify external services.
