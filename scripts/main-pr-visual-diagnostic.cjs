@@ -145,7 +145,7 @@ async function capture(browser, baseUrl, pagePath, viewport, destination) {
   const page = await browser.newPage({ viewport, colorScheme: "dark", reducedMotion: "reduce" });
   await fixedRuntime(page);
   const runtime = runtimeMonitor(page);
-  const response = await page.goto(baseUrl + pagePath, { waitUntil: "networkidle" });
+  const response = await page.goto(baseUrl + pagePath, { waitUntil: "domcontentloaded", timeout: 30000 });
   await stabilize(page);
   const image = await page.screenshot({ fullPage: true, animations: "disabled", caret: "hide" });
   fs.writeFileSync(destination, image);
