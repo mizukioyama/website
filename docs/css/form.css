@@ -270,7 +270,6 @@ input:-webkit-autofill:focus {
    transform: translate(-75%, -10%);
    -webkit-backdrop-filter: blur(10px);
    backdrop-filter: blur(10px);
-   border: 1px solid var(--sub);
    border-radius: 0;
 }
 
@@ -446,7 +445,6 @@ input:-webkit-autofill:focus {
       font-size: var(--font-caption-size);
       height: 40pt;
       padding-left: 1rem;
-      background: var(--sub);
    }
 
    .contact-form #message {
