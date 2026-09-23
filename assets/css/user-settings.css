@@ -87,7 +87,6 @@
   --font-pagination-size: var(--type-pagination-size);
   --font-header-footer-size: var(--type-header-footer-size);
   --font-nav-size: var(--type-header-footer-size);
-  --font-footer-size: var(--type-header-footer-size);
 }
 
 /* フォームのplaceholder/浮動ラベルだけは既存のデスクトップ縮小を維持する。 */
