@@ -72,10 +72,6 @@ body {
     :root {
         /* Shared H2: 14.8px → 37.2px source scale, with the existing 2px reduction. */
         --type-gallery-h2-size: clamp(14.8px, calc(3.6px + 2vw), 37.2px);
-        /* Preserve the established non-Home desktop form scale. */
-        --type-form-radio-size: clamp(12.6px, calc(11.2px + 0.4vw), 14px);
-        --type-form-radio-group-size: clamp(25.2px, 20.538px + 0.44vw, 28px);
-        --type-form-button-size: clamp(14px, calc(12.6px + 0.5vw), 16.8px);
         --font-list-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.2px);
         --font-ui-size: clamp(12.25px, calc(10.5px + 0.4vw), 14px);
         --font-caption-size: clamp(9.625px, calc(8.4px + 0.3vw), 11.375px);

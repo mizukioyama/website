@@ -133,6 +133,15 @@
   }
 }
 
+/* Non-Home desktop form scale: preserve the established 900px+ rendering. */
+@media screen and (min-width: 900px) {
+  :root {
+    --type-form-radio-size: clamp(12.6px, calc(11.2px + 0.4vw), 14px);
+    --type-form-radio-group-size: clamp(25.2px, 20.538px + 0.44vw, 28px);
+    --type-form-button-size: clamp(14px, calc(12.6px + 0.5vw), 16.8px);
+  }
+}
+
 @media screen and (min-width: 600px) and (max-width: 899px) {
   :root {
     --type-form-radio-size: clamp(calc(9.36px + 0.36vw), calc(8.32px + 0.72vw), calc(10.4px + 0.4vw));
