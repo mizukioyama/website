@@ -2,7 +2,7 @@ name: Contact old-current diagnostic
 
 on:
   push:
-    branches: ["phase3-contact-diagnostic"]
+    branches: ["phase3-contact-main-pr-diagnostic"]
   pull_request:
     branches: ["main"]
   workflow_dispatch:
@@ -10,12 +10,12 @@ on:
       pass_sha:
         description: "Last known passing commit"
         required: true
-        default: "3c401505f70efac93cee3ae142e4ca78a2af05ea"
+        default: "1149795132feedfa3116b41547a2d850b027df0f"
         type: string
       current_sha:
         description: "Current commit to compare"
         required: true
-        default: "4cee8d304af86baa7cb5661a6613b4adafa580e7"
+        default: "d4a2995be7630e2d9428e3d8b8ba029a3e9a4a7e"
         type: string
 
 permissions:
@@ -25,8 +25,8 @@ jobs:
   compare-contact:
     runs-on: ubuntu-latest
     env:
-      PASS_SHA: ${{ inputs.pass_sha || '3c401505f70efac93cee3ae142e4ca78a2af05ea' }}
-      CURRENT_SHA: ${{ inputs.current_sha || '4cee8d304af86baa7cb5661a6613b4adafa580e7' }}
+      PASS_SHA: ${{ inputs.pass_sha || '1149795132feedfa3116b41547a2d850b027df0f' }}
+      CURRENT_SHA: ${{ inputs.current_sha || 'd4a2995be7630e2d9428e3d8b8ba029a3e9a4a7e' }}
       PLAYWRIGHT_VERSION: "1.63.0"
     steps:
       - name: Checkout current diagnostic revision
@@ -73,8 +73,8 @@ jobs:
           done
       - name: Measure old and current Contact DOM
         env:
-          CONTACT_OLD_COMMIT: ${{ inputs.pass_sha || '3c401505f70efac93cee3ae142e4ca78a2af05ea' }}
-          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || '4cee8d304af86baa7cb5661a6613b4adafa580e7' }}
+          CONTACT_OLD_COMMIT: ${{ inputs.pass_sha || '1149795132feedfa3116b41547a2d850b027df0f' }}
+          CONTACT_CURRENT_COMMIT: ${{ inputs.current_sha || 'd4a2995be7630e2d9428e3d8b8ba029a3e9a4a7e' }}
           CONTACT_OLD_URL: http://127.0.0.1:4174/website/
           CONTACT_CURRENT_URL: http://127.0.0.1:4173/website/
           CONTACT_VIEWPORTS: 1440x900,1280x900,1024x900,768x900,430x900,390x900,375x900
@@ -84,7 +84,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: contact-old-current-diagnostic-${{ inputs.current_sha }}
+          name: contact-main-pr-diagnostic-${{ inputs.current_sha || 'd4a2995be7630e2d9428e3d8b8ba029a3e9a4a7e' }}
           path: |
             contact-diagnostic-report.json
             /tmp/contact-old-server.log
