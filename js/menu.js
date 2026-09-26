@@ -31,7 +31,7 @@ const HEADER_MARKUP = `
         </ul>
       </div>
       <div id="mask">
-      <div lang="ja" style="width: 95%;">
+      <div class="menu_ja-txt">
         <p class="noise">展示会情報</p>
         <ul>
           <li>
@@ -45,7 +45,7 @@ const HEADER_MARKUP = `
           <li>2021.11 | サロン・ド・アール・ジャポネ（会場 / フランス）</li>
           <li>2021.08 | OASISU2021（会場 / 大阪あべのハルカス）</li>
           <li>2021.04 | チャリティアート展（会場 / 東京）</li>
-          <hr>
+          <hr class="menu_ber">
           <li>
             認定 / 賞
             <br>
@@ -57,7 +57,8 @@ const HEADER_MARKUP = `
           <li>2016 | 第67回宮城県高等学校美術展（優秀賞）賞</li>
         </ul>
       </div>
-      <div lang="en" style="width: 95%;">
+
+      <div class="menu_en-txt">
         <p class="noise">Exhibition Information</p>
         <ul>
           <li>
@@ -84,6 +85,7 @@ const HEADER_MARKUP = `
           <li>2016 | Award for Excellence at the 67th Miyagi Prefectural High School Art Exhibition</li>
         </ul>
       </div>
+</div>
 
       <div class="noise"
         style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(0, 100, 100, 0.2); top: 0; left: 0; box-shadow: inset 0px 0px 4px 1px #000; z-index: -1;">

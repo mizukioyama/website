@@ -61,9 +61,11 @@ body {
         --legacy-px-0_9: calc(9.36px + 0.36vw);
         --legacy-px-0_95: calc(9.88px + 0.38vw);
         --legacy-px-1: calc(10.4px + 0.4vw);
+        --legacy-px-1_1: calc(11.44px + 0.44vw);
         --legacy-px-1_15: calc(11.96px + 0.46vw);
         --legacy-px-1_2: calc(12.48px + 0.48vw);
         --font-contact-control-fluid-mid: calc(13.0624px + 0.5024vw);
+        --font-menu-item-fluid-mid: calc(13.52px + 0.52vw);
         --legacy-px-1_4: calc(14.56px + 0.56vw);
         --legacy-px-1_5: calc(15.6px + 0.6vw);
         --legacy-px-1_6: calc(16.64px + 0.64vw);
@@ -116,9 +118,11 @@ body {
         --legacy-px-0_9: 12.6px;
         --legacy-px-0_95: 13.3px;
         --legacy-px-1: 14px;
+        --legacy-px-1_1: 15.4px;
         --legacy-px-1_15: 16.1px;
         --legacy-px-1_2: 16.8px;
         --font-contact-control-fluid-mid: 17.584px;
+        --font-menu-item-fluid-mid: 18.2px;
         --legacy-px-1_4: 19.6px;
         --legacy-px-1_5: 21px;
         --legacy-px-1_6: 22.4px;
