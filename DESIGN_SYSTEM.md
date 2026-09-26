@@ -88,25 +88,23 @@ Japanese and English paragraphs that express the same normal body-copy role must
 
 When changing a shared token, inspect all consumers before merging.
 
-## Font-size source of truth and same-tag rule
+## Font-size source of truth and page-group rule
 
 The formal user-editing source of truth for font size is `assets/css/user-settings.css`. Users normally edit only the `USER EDITABLE — TYPOGRAPHY` section. Compatibility aliases, internal implementation tokens and legacy tokens are not normal font-size editing surfaces.
 
-The same HTML tag uses one shared font-size role across the site by default:
+The same HTML tag uses one shared font-size role within its page group by default:
 
-- `h1` -> `--type-h1-size`
-- `h2` -> `--type-h2-size`
-- `h3` -> `--type-h3-size`
-- `h4` -> `--type-h4-size`
-- body and paragraphs -> shared body typography
+- Home: `index.html`
+- Standard pages: Gallery, Biography, Artist Statement, Information, Order, Contact, Policy and Yurayura
+- 404: the not-found experience, with independent 404 roles
 
-Page names alone must not create separate same-tag font-size tokens. Existing tokens such as `--type-gallery-h2-size`, `--type-home-h2-size` and `--type-biography-h2-size` are migration targets, not permission to change the current design. Keep them until the user has completed the final font-size adjustment; do not delete, merge or optimize their values in advance.
+Use group roles such as `--type-home-h1-size` / `--type-home-p-size`, `--type-page-h1-size` / `--type-page-p-size`, and `--type-404-title-size` / `--type-404-p-size`. Page names alone must not create separate same-tag font-size tokens within a group. Existing tokens such as `--type-gallery-h2-size`, `--type-home-h2-size`, `--type-biography-h2-size` and `--type-state-h2-size` are migration candidates; audit their selectors, pages, scopes and values before choosing a common value. Do not merge or numerically optimize them before the user confirms the final font size.
 
 ## Fluid range and permitted exceptions
 
 Normal font-size uses `clamp()` with the 375px-to-1440px range: the minimum is maintained at 375px and below, the value interpolates fluidly between 375px and 1440px, and the maximum is maintained at 1440px and above. Avoid viewport-by-viewport font-size declarations and do not add a breakpoint solely to adjust font size.
 
-An explicit font-size exception is permitted only for a component with a clearly different UI role, such as navigation/menu, form controls, buttons, modal controls or the 404 display code. Document the reason for each exception. Letter-spacing, tracking, 404 optical treatment and component-specific helper tokens are separate visual concerns; they are not evidence that same-tag font sizes should remain page-specific.
+An explicit font-size exception is permitted only for a component with a clearly different UI role, such as header/navigation, menu, footer, form controls, buttons, modal controls, captions/helpers or the 404 code. Document the reason for each exception. Letter-spacing, tracking, 404 optical treatment and component-specific helper tokens are separate visual concerns; they are not evidence that normal group typography should remain page-specific.
 
 Before the user's final font-size adjustment, AI/Codex must not numerically optimize, unify, delete or merge the existing page-specific typography tokens. This preserves the current visual output while the migration is pending.
 

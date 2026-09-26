@@ -40,17 +40,23 @@ Typography may remain fluid within each breakpoint, but fixed visual geometry mu
 
 The user-editable font-size source of truth is `assets/css/user-settings.css`. The normal user-editing area is the `USER EDITABLE — TYPOGRAPHY` section only.
 
-For the same HTML tag, `font-size` is shared across the site by default. Page names alone are not a reason to create separate tokens such as `--type-gallery-h2-size`, `--type-home-h2-size` or `--type-biography-h2-size`. The intended shared foundation is:
+For the same HTML tag, `font-size` is shared within its page group by default. The three page groups are:
 
-- `--type-h1-size`
-- `--type-h2-size`
-- `--type-h3-size`
-- `--type-h4-size`
-- `--type-body-size`
+- Home: `index.html`
+- Standard pages: Gallery, Biography, Artist Statement, Information, Order, Contact, Policy and Yurayura
+- 404: the not-found experience, with its own typography roles
+
+The intended group-level foundations are:
+
+- Home: `--type-home-h1-size`, `--type-home-h2-size`, `--type-home-h3-size`, `--type-home-h4-size`, `--type-home-p-size`, `--type-home-span-size`
+- Standard pages: `--type-page-h1-size`, `--type-page-h2-size`, `--type-page-h3-size`, `--type-page-h4-size`, `--type-page-p-size`, `--type-page-span-size`
+- 404: `--type-404-title-size`, `--type-404-code-size`, `--type-404-p-size`
+
+Page names alone are not a reason to create separate same-tag tokens within Home or Standard pages. Tokens such as `--type-gallery-h2-size`, `--type-home-h2-size`, `--type-biography-h2-size` and `--type-state-h2-size` must be audited as migration candidates according to their group, selector and current value.
 
 Normal font sizes are managed with `clamp()` using 375px and 1440px as the reference range: keep the minimum below 375px, interpolate fluidly from 375px through 1440px, and keep the maximum above 1440px. Do not create large sets of viewport-specific font-size declarations. Add a breakpoint override only when layout or component structure requires it.
 
-Exceptions are limited to components with a clearly different UI role, such as navigation/menu, form controls, buttons, modal controls and the 404 display code. Each exception must have its reason documented in the relevant CSS or design documentation. Letter-spacing, tracking, 404 optical treatment and component-specific helper tokens are separate concerns and must not be treated as same-tag font-size tokens.
+Exceptions are limited to components with a clearly different UI role, such as header/navigation, menu, footer, form controls, buttons, modal controls, captions/helpers and the 404 code. Each exception must have its reason documented in the relevant CSS or design documentation. Letter-spacing, tracking, 404 optical treatment and component-specific helper tokens are separate concerns and must not be treated as normal group typography.
 
 Existing page-name-plus-tag font-size tokens remain migration targets for now. Do not delete, merge or numerically optimize them before the user completes the final font-size adjustment; doing so could change the established design unintentionally.
 
