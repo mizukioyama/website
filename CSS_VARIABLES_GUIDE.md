@@ -1,11 +1,29 @@
 # CSS Variables Guide
 
-## ユーザー調整の入口
+## ユーザー調整の入口（Font Sizeの正本）
 
-表示サイズを調整するときは、まず [`assets/css/user-settings.css`](assets/css/user-settings.css) の `--type-*` 変数を変更します。各変数は、9elements Min-Max Calculatorと同じ考え方で、次の2つだけを入力値として管理します。
+Font Sizeの編集用正本は [`assets/css/user-settings.css`](assets/css/user-settings.css) です。通常ユーザーが編集する範囲は、同ファイルの `USER EDITABLE — TYPOGRAPHY` sectionだけです。Compatibility alias、internal token、legacy tokenは通常のFont Size調整では編集しません。
+
+同じHTMLタグの `font-size` は、原則としてサイト全体で共有します。将来的な基本形は次の共通tokenです。
+
+- `--type-h1-size`
+- `--type-h2-size`
+- `--type-h3-size`
+- `--type-h4-size`
+- `--type-body-size`
+
+ページ名だけを理由に、同じタグ用のページ固有Font Size tokenを新設しません。
+
+通常のFont Sizeは、9elements Min-Max Calculatorと同じ考え方で、375px〜1440pxを基準に `clamp(MIN, FLUID, MAX)` で管理します。
 
 - 375px時の最小側の表示サイズ
 - 1440px時の最大側の表示サイズ
+
+375px未満ではMIN、375px〜1440pxではfluid interpolation、1440px超ではMAXを維持します。viewportごとのFont Sizeを大量に個別設定せず、breakpointはレイアウトまたはcomponent構造の切り替えに必要な場合だけ使用します。
+
+Menu、Form、Button、Modal control、404 codeなど、通常の文章・見出しと役割が明確に異なるUI componentだけは例外として許可します。例外の理由はCSSコメントまたはこのガイドに記録します。ページ名だけを理由に例外tokenを追加しません。
+
+現在の `--type-gallery-h2-size`、`--type-home-h2-size`、`--type-biography-h2-size` など、ページ名と同一HTMLタグを組み合わせたtokenは移行対象です。ただし、ユーザーが最終Font Sizeを調整する前に削除・統合・数値最適化は行いません。既存デザインを意図せず変更しないためです。
 
 ページのHTMLでは、共通CSSの後に `user-settings.css` を読み込みます。既存の `--font-*` 変数は互換aliasとして残しているため、既存のCSSやページ内スタイルをいきなり置き換えずに調整できます。
 
@@ -36,7 +54,9 @@ H2を `24px → 32px` にする例：
 
 数値を変更した後は、375 / 390 / 430 / 768 / 1024 / 1280 / 1440pxで、改行・overflow・header/footer・ボタン・Galleryモーダルを確認します。
 
-## 現在のsemantic role
+## 現在のsemantic role（移行途中）
+
+この表には、現在の実装で使用される共通tokenと既存の移行対象tokenが含まれます。表に残るページ固有tokenは、現時点で削除・統合しません。
 
 | Role | 375px | 1440px | 主な対象 |
 | --- | ---: | ---: | --- |
@@ -54,6 +74,6 @@ H2を `24px → 32px` にする例：
 
 ## 対象外・互換維持
 
-border、hairline、icon/stroke、装飾線、`z-index`、`font-size: 0` による表示制御、resetの `inherit` / `100%` はユーザー調整用のfluid typography対象外です。Formのplaceholder・floating labelは既存のデスクトップ縮小表示を維持するため、専用の互換roleを使います。
+border、hairline、icon/stroke、装飾線、`z-index`、`font-size: 0` による表示制御、resetの `inherit` / `100%` はユーザー調整用のfluid typography対象外です。Letter-spacing、tracking、404表示の光学調整、component固有helperも、同一タグのFont Size統一とは別問題として扱います。Legacy/non-Home optical token群を一括削除しません。Formのplaceholder・floating labelは既存のデスクトップ縮小表示を維持するため、専用の互換roleを使います。
 
 Menu主要項目だけは、既存表示を維持するため `<=599px` / `600–1298px` / `>=1299px` の3段階を同じファイル内で管理しています。`docs/` は生成物です。デザイン変更はroot HTML / `css/` / `assets/css/`を編集し、依存関係が揃った環境でbuildしてから生成物を更新します。
