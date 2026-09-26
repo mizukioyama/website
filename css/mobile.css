@@ -81,7 +81,7 @@
     #state .content li::before, #policy .content li::before { top: 50%; }
     .gallery .content { width: 100%; padding: 0 5vmin; gap: 0; margin-top: 80svh; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .gallery-containt { width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem))); max-width: 100%; margin-inline: auto; }
-    #policy .content li { font-size: var(--font-list-size); padding-left: 1rem; }
+    #policy .content li { font-size: var(--type-page-li-size); padding-left: 1rem; }
     .works { padding: 0; }
     .work { justify-content: flex-start; }
     .art-page .work { min-height: 350px; justify-content: flex-start; }

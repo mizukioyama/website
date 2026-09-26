@@ -246,7 +246,7 @@ body.dark-theme .modal-box {
 }*/
 
 h1 {
-    font-size: var(--type-gallery-h1-size);
+    font-size: var(--type-page-h1-size);
     font-weight: 300;
     width: fit-content;
     line-height: 1.2;
@@ -288,7 +288,7 @@ h1 {
 }
 
 .h1-text p {
-    font-size: var(--type-gallery-lead-size);
+    font-size: var(--type-page-p-size);
 }
 
 
@@ -344,7 +344,7 @@ h1 {
 
 
 h2 {
-    font-size: var(--type-gallery-h2-size);
+    font-size: var(--type-page-h2-size);
     font-weight: 400;
     line-height: 2;
     color: var(--inv);
@@ -352,8 +352,14 @@ h2 {
 }
 
 span.name {
+    /* Artist identity label is a component role, not Standard body span text. */
     font-size: var(--type-gallery-name-size);
     line-height: 1;
+}
+
+/* Normal Standard-page spans share one role; UI, table and card spans remain exceptions. */
+:where(main span:not(.contact-form span):not(.modal span):not(#thanksModal span):not(table span):not(.gallery-containt span):not(#category-menu span):not(.status):not(.name):not(.consent-text):not(.close)) {
+    font-size: var(--type-page-span-size);
 }
 
 .gallery-containt h2 {
@@ -362,14 +368,14 @@ span.name {
 }
 
 h3 {
-    font-size: var(--type-gallery-h3-size);
+    font-size: var(--type-page-h3-size);
     font-weight: 300;
     line-height: 2;
     text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.95);
 }
 
 h4 {
-    font-size: var(--type-gallery-h4-size);
+    font-size: var(--type-page-h4-size);
     color: var(--def);
 }
 
@@ -380,7 +386,7 @@ img:hover {
 }
 
 p {
-    font-size: var(--font-body-size);
+    font-size: var(--type-page-p-size);
     letter-spacing: var(--legacy-px-0_05);
     line-height: 2.4;
 }
@@ -388,12 +394,12 @@ p {
 /* 共通p定義より後ろでPC本文サイズを確実に適用 */
 @media screen and (min-width: 601px) {
     p {
-        font-size: var(--font-body-size);
+        font-size: var(--type-page-p-size);
     }
 }
 
 main li {
-    font-size: var(--font-list-size);
+    font-size: var(--type-page-li-size);
     position: relative;
     color: var(--inv);
     margin-bottom: 2vmin;
@@ -738,7 +744,6 @@ main {
     }
 
     #state h2 {
-        font-size: var(--type-state-h2-size);
         align-items: end;
         margin-bottom: 1vmin;
     }

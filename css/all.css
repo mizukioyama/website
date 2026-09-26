@@ -277,7 +277,7 @@ body {
 }
 
 .typing-container p {
-  font-size: var(--font-body-size);
+  font-size: var(--type-home-p-size);
 }
 
 /*=========== lang */

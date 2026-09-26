@@ -61,16 +61,29 @@ h1 {
 }
 
 .creator-title {
-  font-size: var(--type-home-creator-size);
+  font-size: var(--type-home-h2-size);
 }
 
 h2 {
   font-size: var(--type-home-h2-size);
 }
 
+h3 {
+  font-size: var(--type-home-h3-size);
+}
+
+h4 {
+  font-size: var(--type-home-h4-size);
+}
+
 p {
-  font-size: var(--font-body-size);
+  font-size: var(--type-home-p-size);
   letter-spacing: var(--tracking-body-010);
+}
+
+/* Normal Home inline text shares one span role; display/time spans stay component-specific. */
+:where(main span:not(.number):not(.date):not(.date__time):not(.time-display)) {
+  font-size: var(--type-home-span-size);
 }
 
 /* ========== Background Slides ========== */
@@ -542,7 +555,7 @@ p {
 
 .top-page h1.title {
   width: fit-content;
-  font-size: var(--type-home-title-size);
+  font-size: var(--type-home-h1-size);
 }
 
 .top-page .title {
@@ -571,7 +584,7 @@ p {
   color: #f9fafbb3;
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
   margin: 1rem auto 0;
-  font-size: var(--font-body-size);
+  font-size: var(--type-home-p-size);
   line-height: 1.8;
 }
 
