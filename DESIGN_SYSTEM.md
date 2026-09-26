@@ -98,15 +98,15 @@ The same HTML tag uses one shared font-size role within its page group by defaul
 - Standard pages: Gallery, Biography, Artist Statement, Information, Order, Contact, Policy and Yurayura
 - 404: the not-found experience, with independent 404 roles
 
-Use group roles such as `--type-home-h1-size` / `--type-home-p-size`, `--type-page-h1-size` / `--type-page-p-size`, and `--type-404-title-size` / `--type-404-p-size`. Page names alone must not create separate same-tag font-size tokens within a group. Existing tokens such as `--type-gallery-h2-size`, `--type-home-h2-size`, `--type-biography-h2-size` and `--type-state-h2-size` are migration candidates; audit their selectors, pages, scopes and values before choosing a common value. Do not merge or numerically optimize them before the user confirms the final font size.
+Use the implemented group roles such as `--type-home-h1-size` / `--type-home-p-size`, `--type-page-h1-size` / `--type-page-p-size` / `--type-page-li-size`, and `--type-404-title-size` / `--type-404-p-size`. Normal same-tag content now uses one group token; page names, classes and IDs alone do not justify another same-tag size. Initial shared values came from the generic roles selected by the user and were not numerically optimized. Any retained old inline reference is a non-editable compatibility alias to its group token. Final size adjustments belong to the user in `USER EDITABLE — TYPOGRAPHY`.
 
 ## Fluid range and permitted exceptions
 
 Normal font-size uses `clamp()` with the 375px-to-1440px range: the minimum is maintained at 375px and below, the value interpolates fluidly between 375px and 1440px, and the maximum is maintained at 1440px and above. Avoid viewport-by-viewport font-size declarations and do not add a breakpoint solely to adjust font size.
 
-An explicit font-size exception is permitted only for a component with a clearly different UI role, such as header/navigation, menu, footer, form controls, buttons, modal controls, captions/helpers or the 404 code. Document the reason for each exception. Letter-spacing, tracking, 404 optical treatment and component-specific helper tokens are separate visual concerns; they are not evidence that normal group typography should remain page-specific.
+An explicit font-size exception is permitted only for a clearly different component role, such as header/navigation, menu, footer, interactive links, form controls, buttons, modal controls, Gallery cards, table/metadata text, captions/helpers, animated Home display text or the 404 code. Document each reason. Letter-spacing, tracking, optical treatment and component-specific helper tokens are separate visual concerns; they do not justify page-specific normal-content sizes.
 
-Before the user's final font-size adjustment, AI/Codex must not numerically optimize, unify, delete or merge the existing page-specific typography tokens. This preserves the current visual output while the migration is pending.
+AI/Codex must not numerically optimize or redesign the integrated values unless the user explicitly requests it. Final Font Size choices belong to the user.
 
 ## Header and footer
 Header navigation and footer navigation must use the same responsive size token within each breakpoint.

@@ -344,7 +344,7 @@
     margin-inline: auto;
   }
   #policy .content li {
-    font-size: var(--font-list-size);
+    font-size: var(--type-page-li-size);
     padding-left: 1rem;
   }
   .works {

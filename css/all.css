@@ -49,7 +49,6 @@ dd {
   list-style: none;
 }
 
-
 a {
   text-decoration: none;
   color: inherit;
@@ -100,7 +99,7 @@ blockquote::before,
 blockquote::after,
 q::before,
 q::after {
-  content: '';
+  content: "";
 }
 
 address {
@@ -116,7 +115,9 @@ canvas {
 
 html,
 body {
-  font-family: "Jost", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", "MS PMincho", "MS Mincho", serif, sans-serif !important;
+  font-family:
+    "Jost", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", "MS PMincho",
+    "MS Mincho", serif, sans-serif !important;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -131,7 +132,6 @@ html {
 body {
   font-size: var(--font-body-size);
 }
-
 
 /* ========== Custom Cursor ==========
 * {
@@ -195,7 +195,7 @@ body {
 @keyframes gradientGlow {
   0% {
     box-shadow:
-    0 0 5px rgba(0, 100, 100, 0.26),
+      0 0 5px rgba(0, 100, 100, 0.26),
       0 0 5px rgba(0, 0, 155, 0.4),
       0 0 5px rgba(100, 0, 100, 0.4);
   }
@@ -219,8 +219,8 @@ body {
   }
   100% {
     box-shadow:
-    0 0 5px rgba(0, 100, 100, 0.26),
-    0 0 5px rgba(0, 0, 155, 0.4),
+      0 0 5px rgba(0, 100, 100, 0.26),
+      0 0 5px rgba(0, 0, 155, 0.4),
       0 0 5px rgba(100, 0, 100, 0.4);
   }
 }
@@ -238,7 +238,10 @@ body {
   width: 15px;
   height: 15px;
   border: 2px solid rgba(255, 255, 255);
-  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+  transition:
+    opacity 0.3s ease-in-out,
+    width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
   animation: gradientGlow 6s infinite alternate ease-in-out;
 }
 
@@ -252,7 +255,6 @@ body {
   width: 50px !important;
   height: 50px !important;
 }
-
 
 /*======load*/
 #loading-bg {
@@ -277,33 +279,33 @@ body {
 }
 
 .typing-container p {
-  font-size: var(--font-body-size);
+  font-size: var(--type-home-p-size);
 }
 
 /*=========== lang */
-#langChenge input {
+#langChange input {
   display: none !important;
 }
 
-#langChenge {
+#langChange {
   position: absolute;
   top: 13vmin;
   left: 30vmin;
   z-index: 999;
 }
 
-#langChenge .gallery {
+#langChange .gallery {
   left: 10%;
 }
 
-#langChenge .inner_label {
+#langChange .inner_label {
   display: flex;
   gap: 1rem;
   align-items: center;
   pointer-events: none;
 }
 
-#langChenge label {
+#langChange label {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -311,8 +313,8 @@ body {
   transition: opacity 0.3s;
 }
 
-#langChenge .ja,
-#langChenge .en {
+#langChange .ja,
+#langChange .en {
   font-weight: 300;
   color: var(--text);
   text-shadow: 0 0 0px var(--inv);
@@ -320,30 +322,31 @@ body {
   transition: opacity 0.3s ease;
 }
 
-#langChenge .ja:hover,
-#langChenge .en:hover,
-#langChenge .ja.active,
-#langChenge .en.active {
+#langChange .ja:hover,
+#langChange .en:hover,
+#langChange .ja.active,
+#langChange .en.active {
   font-weight: 500;
   opacity: 1;
 }
 
 @media screen and (min-width: 1299px) {
-
-  .home #langChenge .ja,
-  .home #langChenge .en {
+  .home #langChange .ja,
+  .home #langChange .en {
     text-shadow: 0 0 0px var(--text);
   }
 
-  .home #langChenge .inner_label .noise {
-    mask: repeating-radial-gradient(circle at center,
-            #000,
-            var(--lines),
-            #000,
-            0,
-            #0000,
-            calc(var(--lines) * 1.5),
-            #0000 0);
+  .home #langChange .inner_label .noise {
+    mask: repeating-radial-gradient(
+      circle at center,
+      #000,
+      var(--lines),
+      #000,
+      0,
+      #0000,
+      calc(var(--lines) * 1.5),
+      #0000 0
+    );
     background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
   }
 }
@@ -368,7 +371,6 @@ body {
   background: rgba(46, 46, 46);
 }
 
-
 /* ========== Root Variables ========== */
 :root {
   /*sub  rgba(75, 75, 75)*/
@@ -376,7 +378,7 @@ body {
   /*bg base (199, 199, 199)*/
   --bg: #c7c7c7;
   /*link accent (160, 113, 113)*/
-  --accent: #A07171;
+  --accent: #a07171;
   /*cadet blue rgba(95, 158, 160)*/
   --def: rgba(0, 0, 0, 0.75);
   --inv: #f4f6f9b8;
@@ -417,11 +419,9 @@ body {
   --legacy-px-0_9: 14.4px;
   --legacy-px-0_95: 15.2px;
   --legacy-px-1: 16px;
-  --legacy-px-1_1: 17.6px;
   --legacy-px-1_15: 18.4px;
   --legacy-px-1_2: 19.2px;
   --font-contact-control-fluid-mid: 20.096px;
-  --font-menu-item-fluid-mid: 20.8px;
   --legacy-px-1_4: 22.4px;
   --legacy-px-1_5: 24px;
   --legacy-px-1_6: 25.6px;
@@ -470,7 +470,8 @@ hr {
 h1,
 .creator-title {
   width: 100%;
-  font-family: "Jost", sans-serif !important;
+    font-family: "Shippori Mincho", serif;
+
   font-optical-sizing: auto;
   font-weight: 400; /* 好みで変更 */
 }
@@ -510,7 +511,7 @@ footer a::before,
 header a::before,
 #contact .modal-open-label::before,
 #category-menu li::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 10px;
@@ -548,7 +549,6 @@ a:active,
   text-shadow: 0 1px 3px var(--text);
 }
 
-
 img {
   max-width: 100%;
   height: auto;
@@ -564,7 +564,6 @@ img {
   opacity: 0.7;
 }
 
-
 @media screen and (max-width: 599px) {
   .sp {
     display: block;
@@ -578,7 +577,7 @@ img {
     width: 80%;
   }
 
-  #langChenge {
+  #langChange {
     top: 1rem;
     left: 1rem;
   }

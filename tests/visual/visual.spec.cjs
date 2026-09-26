@@ -813,43 +813,23 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
   }
 }
 
-function expectedH2Sizes(projectName) {
-  const expectedByProject = {
-    "desktop-1440": { homeCreator: 14.0, homeContent: 26.8, biography: 25.2 },
-    "desktop-1280": { homeCreator: 13.8, homeContent: 26.3, biography: 30.8 },
-    "tablet-1024": { homeCreator: 13.4, homeContent: 25.6, biography: 26.9 },
-    "tablet-768": { homeCreator: 13.0, homeContent: 24.8, biography: 23.1 },
-    "mobile-430": { homeCreator: 12.5, homeContent: 23.8, biography: 16.9 },
-    "mobile-390": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 },
-    "mobile-375": { homeCreator: 12.4, homeContent: 23.6, biography: 16.8 }
-  };
-  return expectedByProject[projectName];
-}
-
-test("h2 typography is exactly 2px below the previous responsive scale", async ({ page }, testInfo) => {
-  const expected = expectedH2Sizes(testInfo.project.name);
-  expect(expected, "viewport should have documented h2 targets").toBeDefined();
-  const roundToTenth = value => Math.round(value * 10) / 10;
-
+test("normal H2 elements share one font-size within each page group", async ({ page }) => {
   await prepareDeterministicNetwork(page);
   await page.goto("", { waitUntil: "domcontentloaded" });
   await stabilize(page, { key: "home-h2-type" });
-  const homeCreatorSize = await page.locator("h2.creator-title").first().evaluate(element =>
-    parseFloat(getComputedStyle(element).fontSize)
+  const homeSizes = await page.locator("h2.creator-title, h2.title__inner").evaluateAll(elements =>
+    elements.map(element => getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(homeCreatorSize), "Home creator h2 font-size").toBe(expected.homeCreator);
-
-  const homeContentSize = await page.locator("h2.title__inner").first().evaluate(element =>
-    parseFloat(getComputedStyle(element).fontSize)
-  );
-  expect(roundToTenth(homeContentSize), "Home content h2 font-size").toBe(expected.homeContent);
+  expect(homeSizes.length, "Home normal H2 elements should exist").toBeGreaterThan(1);
+  expect(new Set(homeSizes).size, "Home normal H2 elements should share one size").toBe(1);
 
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
   await stabilize(page, { key: "biography-h2-type" });
-  const biographySize = await page.locator("#bio #state .content h2").first().evaluate(element =>
-    parseFloat(getComputedStyle(element).fontSize)
+  const standardSizes = await page.locator("#bio #state .content h2").evaluateAll(elements =>
+    elements.map(element => getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(biographySize), "Biography h2 font-size").toBe(expected.biography);
+  expect(standardSizes.length, "Biography normal H2 elements should exist").toBeGreaterThan(1);
+  expect(new Set(standardSizes).size, "Standard-page normal H2 elements should share one size").toBe(1);
 });
 
 function expectedBodySizes(projectName) {

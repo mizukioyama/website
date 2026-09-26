@@ -33,6 +33,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 
 ## Phase 3 - UX
 - [x] Verify shared spacing/typography/component consistency — typography uses px-based fixed/min/max terms with responsive clamp() interpolation; Header/Footer share breakpoint-specific type tokens across 1440/1280/1024/768/430/390/375 px; CI, Pages deploy, public checks, and Visual Regression verified.
+- [x] Integrate normal Font Size roles by Home / Standard pages / 404 — same-tag content uses group tokens, UI components remain explicit exceptions, and final value tuning belongs to the user; source HTML and screenshot baselines were not changed.
 - [x] Optimize mobile gallery/artwork viewing — mobile Gallery now uses a single artwork column with 44px side insets, full available artwork width, compact card flow without the legacy 350px minimum, and a minimum 48px artwork action target; verified at 1440/1280/1024/768/430/390/375 px with a refreshed Gallery-only 390px visual baseline.
 - [x] Verify Biography/Statement reading comfort
 - [x] Verify Order flow and Contact path — Order CTA reaches the usable Contact form; request/inquiry mode, request-category requirement, core required fields, Policy-gated consent, mocked Apps Script submission success, thanks modal and reset behavior are covered without sending external data.
@@ -68,6 +69,7 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-26: Integrated normal typography tokens for Home, Standard pages and 404; unified regular same-tag sizes from the user-selected generic seeds, preserved component exceptions and Biography's inline compatibility alias, updated the four typography MDs, and passed full 10-page × 7-viewport geometry/runtime checks. Screenshot baselines were unchanged; local platform-matched pixel comparison was unavailable.
 - 2026-09-22: Added `assets/css/user-settings.css` as the user-facing typography source of truth. Shared/root-page typography now uses Calculator-style px `clamp()` roles with 375px → 1440px comments and legacy aliases preserved; source checks pass and generated output will be rebuilt from the current main baseline.
 - 2026-09-22: Restored Order and Yurayura detail-page vertical layout to the shared portfolio rhythm by removing their page-specific zero-margin override and matching Information's 60vmin content start on desktop/mobile; added geometry regression coverage and seven-viewport verification.
 - 2026-09-22: Completed Information hierarchy/current-event usability review. The existing Upcoming→Past structure was retained and regression coverage now protects the Yurayura event title/date/detail CTA.

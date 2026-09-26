@@ -10,13 +10,13 @@ Font Sizeの編集用正本は [`assets/css/user-settings.css`](assets/css/user-
 - Standard pages: Gallery / Biography / Artist Statement / Information / Order / Contact / Policy / Yurayura
 - 404: 独立したnot-found experience
 
-将来的な基本形は次のgroup tokenです。
+現在のgroup tokenは次のとおりです。
 
 - Home: `--type-home-h1-size` / `--type-home-h2-size` / `--type-home-h3-size` / `--type-home-h4-size` / `--type-home-p-size` / `--type-home-span-size`
-- Standard pages: `--type-page-h1-size` / `--type-page-h2-size` / `--type-page-h3-size` / `--type-page-h4-size` / `--type-page-p-size` / `--type-page-span-size`
+- Standard pages: `--type-page-h1-size` / `--type-page-h2-size` / `--type-page-h3-size` / `--type-page-h4-size` / `--type-page-p-size` / `--type-page-span-size` / `--type-page-li-size`
 - 404: `--type-404-title-size` / `--type-404-code-size` / `--type-404-p-size`
 
-同じグループ内で、ページ名・class名だけを理由に同じタグ用の別Font Size tokenを維持しません。既存の`--type-gallery-h2-size`、`--type-home-h2-size`、`--type-biography-h2-size`、`--type-state-h2-size`などは、selector・使用ページ・scope・値を監査したうえで統合する移行対象です。
+通常コンテンツの同じタグは、各groupの共通tokenへ統合済みです。初期値はユーザーが指定した現在の汎用Home / Standard page tokenから採用し、数値最適化はしていません。最終Font Sizeはユーザー本人がこの設定ファイルで調整します。HTMLを維持するため残した旧inline参照は、共通tokenへ解決するCompatibility Aliasであり、独立した編集入口ではありません。
 
 通常のFont Sizeは、9elements Min-Max Calculatorと同じ考え方で、375px〜1440pxを基準に `clamp(MIN, FLUID, MAX)` で管理します。
 
@@ -25,11 +25,11 @@ Font Sizeの編集用正本は [`assets/css/user-settings.css`](assets/css/user-
 
 375px未満ではMIN、375px〜1440pxではfluid interpolation、1440px超ではMAXを維持します。viewportごとのFont Sizeを大量に個別設定せず、breakpointはレイアウトまたはcomponent構造の切り替えに必要な場合だけ使用します。
 
-Header / Navigation、Menu、Footer、Form、Button、Modal、Caption / helper、404 codeなど、通常の文章・見出しと役割が明確に異なるUI componentだけは例外として許可します。例外の理由はCSSコメントまたはこのガイドに記録します。ページ名だけを理由に例外tokenを追加しません。
+Header / Navigation、Menu、Footer、interactive link、Form、Button、Modal、Gallery card、table/metadata、Caption / helper、animated Home display、404 codeなど、通常本文と役割が明確に異なるcomponentは例外です。理由はCSSコメントまたはこのガイドに記録します。ページ名だけを理由に例外tokenを追加しません。
 
-現在のページ名と同一HTMLタグを組み合わせたtokenは移行対象です。ただし、現在値が異なる同一グループ・同一タグについては、ユーザーが最終Font Sizeを決める前に共通値を選択・削除・統合・数値最適化しません。既存デザインを意図せず変更しないためです。
+ユーザーが最終値を決める前に、AI/CodexはFont Sizeを数値最適化・再設計しません。実装済みのgroup tokenと既存scopeを保ち、ユーザー本人の調整を待ちます。
 
-ページのHTMLでは、共通CSSの後に `user-settings.css` を読み込みます。既存の `--font-*` 変数は互換aliasとして残しているため、既存のCSSやページ内スタイルをいきなり置き換えずに調整できます。
+ページのHTMLでは、共通CSSの後に `user-settings.css` を読み込みます。互換aliasは、HTMLを変更せずに既存inline参照をgroup tokenへ接続するためだけに残します。alias / internal / legacy tokenは通常の調整入口ではありません。
 
 ## CalculatorからCSSへ
 
@@ -40,41 +40,30 @@ Header / Navigation、Menu、Footer、Form、Button、Modal、Caption / helper�
 3. Viewport Min：375px
 4. Viewport Max：1440px
 
-Calculatorが返す値を、`--type-*` 変数の `clamp()` に反映します。プロジェクトでは固定値・最小値・最大値をpxで記載します。
+Calculatorが返す値を、`--type-*` group tokenの `clamp()` に反映します。プロジェクトでは固定値・最小値・最大値をpxで記載します。ユーザーが最終値を決めるまでは既存値を最適化・再設計しません。
 
-本文を `14px → 16px` にする例：
+本文設定の例（現在のStandard-page p token）：
 
 ```css
-/* 375px → 1440px = 14px → 16px */
---type-body-size: clamp(14px, calc(13.2958px + 0.1878vw), 16px);
+/* Standard-page paragraph setting; responsive scopes remain in user-settings.css. */
+--type-page-p-size: clamp(12px, calc(10.4px + 0.4vw), 14px);
 ```
 
-H2を `24px → 32px` にする例：
+Standard-page H2 setting（base scope。responsive scopesも同じtokenを使用）：
 
 ```css
-/* 375px → 1440px = 24px → 32px */
---type-gallery-h2-size: clamp(24px, calc(21.1831px + 0.7512vw), 32px);
+--type-page-h2-size: clamp(17.2px, calc(4.4px + 2vw), 42.8px);
 ```
 
 数値を変更した後は、375 / 390 / 430 / 768 / 1024 / 1280 / 1440pxで、改行・overflow・header/footer・ボタン・Galleryモーダルを確認します。
 
-## 現在のsemantic role（移行途中）
+## 現在のsemantic roles
 
-この表には、現在の実装で使用される共通tokenと既存の移行対象tokenが含まれます。表に残るページ固有tokenは、現時点で削除・統合しません。
-
-| Role | 375px | 1440px | 主な対象 |
-| --- | ---: | ---: | --- |
-| `--type-body-size` | 12px | 14px | 本文・日英通常文 |
-| `--type-list-size` | 11px | 12.8px | リスト・履歴 |
-| `--type-ui-size` | 14px | 16px | リンク・UI・button |
-| `--type-caption-size` | 11px | 13px | caption・補助文 |
-| `--type-category-size` | 14px | 17.6px | Gallery category |
-| `--type-header-footer-size` | 18px | 25.6px | header/footer |
-| `--type-gallery-h1-size` | 39px | 81.6px | Gallery/共通ページH1 |
-| `--type-gallery-h2-size` | 17.2px | 33.2px | 共通ページH2 |
-| `--type-home-title-size` | 25.6px | 28.8px | TOP title |
-| `--type-form-button-size` | 16px | 19.2px | Form button/required |
-| `--type-modal-title-size` | 32px | 38.4px | Form modal heading |
+| Group | Shared normal-content roles | Component exceptions |
+| --- | --- | --- |
+| Home | `--type-home-h1-size`, `--type-home-h2-size`, `--type-home-h3-size`, `--type-home-h4-size`, `--type-home-p-size`, `--type-home-span-size` | Header/navigation, buttons, modal, date/time and animated display |
+| Standard pages | `--type-page-h1-size`, `--type-page-h2-size`, `--type-page-h3-size`, `--type-page-h4-size`, `--type-page-p-size`, `--type-page-span-size`, `--type-page-li-size` | Header/navigation, links, menu, form, Gallery card, table/metadata, caption/helper and modal |
+| 404 | `--type-404-title-size`, `--type-404-code-size`, `--type-404-p-size` | Recovery links remain a distinct interactive component |
 
 ## 対象外・互換維持
 
