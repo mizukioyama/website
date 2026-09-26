@@ -379,7 +379,7 @@ body {
   --accent: #A07171;
   /*cadet blue rgba(95, 158, 160)*/
   --def: rgba(0, 0, 0, 0.75);
-  --inv: #f9fafb;
+  --inv: #f4f6f9b8;
   --text: #2e2e2e;
   --bg: #cedde6;
   /* Stable px typography for the 16px-root context (Home and mobile).
@@ -457,7 +457,7 @@ body {
 hr {
   width: 50%;
   height: 1px;
-  margin: 15vmin auto;
+  margin: 6vmin auto;
   /*background: #777;
   background: #333;*/
   background: var(--text);

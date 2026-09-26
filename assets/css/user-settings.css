@@ -214,7 +214,6 @@
 /* 既存Menuのページ別上書きも、同じユーザー設定を参照する。 */
 .inner li a { font-size: var(--type-menu-secondary-size); }
 .inner li:nth-of-type(n+5) a { font-size: var(--type-menu-secondary-size); }
-#mask p { font-size: var(--type-menu-mask-size); }
 
 @media screen and (min-width: 1299px) {
   .inner li a { font-size: var(--type-menu-primary-size); }

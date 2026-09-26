@@ -281,9 +281,9 @@ h1 {
 }
 
 .h1-text {
-    position: absolute;
-    left: 20vmin;
-    top: 40vmin;
+    position: relative;
+    left: 10vmin;
+    top: 0;
     z-index: 100;
 }
 
@@ -626,7 +626,7 @@ main {
 }
 
 .art-page main {
-    padding: 30vmin 2rem 80rem;
+    padding: 28vmin 2rem 80rem;
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(15px);
 }
@@ -639,7 +639,7 @@ main {
 
 /* コンテナ定義（.gallery .content をコンテナに） */
 .gallery-containt {
-    width: min(72%, calc(100vw - 2rem));
+    width: min(72%, calc(100vw - 10vw));
     max-width: none;
     min-width: 0;
     margin-inline: auto;
@@ -652,7 +652,7 @@ main {
     width: 100%;
     max-width: none;
     height: 100%;
-    margin: 60vmin auto 0;
+    margin: 0 auto;
     box-shadow: inset 0 0 15px rgba(0, 0, 0);
     position: relative;
     min-width: 0;
@@ -662,6 +662,11 @@ main {
     justify-content: center;
     /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
+}
+
+.gallery.statement .content,
+.gallery.biography .content {
+    display: block;
 }
 
 .art-page .content {
@@ -683,6 +688,7 @@ main {
     width: min(100%, calc(100vw - 4rem));
     max-width: 100%;
     min-width: 0;
+    padding-top: 48vmin;
 }
 
 .state-box > .content,
