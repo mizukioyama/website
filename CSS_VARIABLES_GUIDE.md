@@ -4,15 +4,19 @@
 
 Font Sizeの編集用正本は [`assets/css/user-settings.css`](assets/css/user-settings.css) です。通常ユーザーが編集する範囲は、同ファイルの `USER EDITABLE — TYPOGRAPHY` sectionだけです。Compatibility alias、internal token、legacy tokenは通常のFont Size調整では編集しません。
 
-同じHTMLタグの `font-size` は、原則としてサイト全体で共有します。将来的な基本形は次の共通tokenです。
+同じHTMLタグの `font-size` は、ページグループ内で原則として共有します。ページグループは次の3つです。
 
-- `--type-h1-size`
-- `--type-h2-size`
-- `--type-h3-size`
-- `--type-h4-size`
-- `--type-body-size`
+- Home: `index.html`
+- Standard pages: Gallery / Biography / Artist Statement / Information / Order / Contact / Policy / Yurayura
+- 404: 独立したnot-found experience
 
-ページ名だけを理由に、同じタグ用のページ固有Font Size tokenを新設しません。
+将来的な基本形は次のgroup tokenです。
+
+- Home: `--type-home-h1-size` / `--type-home-h2-size` / `--type-home-h3-size` / `--type-home-h4-size` / `--type-home-p-size` / `--type-home-span-size`
+- Standard pages: `--type-page-h1-size` / `--type-page-h2-size` / `--type-page-h3-size` / `--type-page-h4-size` / `--type-page-p-size` / `--type-page-span-size`
+- 404: `--type-404-title-size` / `--type-404-code-size` / `--type-404-p-size`
+
+同じグループ内で、ページ名・class名だけを理由に同じタグ用の別Font Size tokenを維持しません。既存の`--type-gallery-h2-size`、`--type-home-h2-size`、`--type-biography-h2-size`、`--type-state-h2-size`などは、selector・使用ページ・scope・値を監査したうえで統合する移行対象です。
 
 通常のFont Sizeは、9elements Min-Max Calculatorと同じ考え方で、375px〜1440pxを基準に `clamp(MIN, FLUID, MAX)` で管理します。
 
@@ -21,9 +25,9 @@ Font Sizeの編集用正本は [`assets/css/user-settings.css`](assets/css/user-
 
 375px未満ではMIN、375px〜1440pxではfluid interpolation、1440px超ではMAXを維持します。viewportごとのFont Sizeを大量に個別設定せず、breakpointはレイアウトまたはcomponent構造の切り替えに必要な場合だけ使用します。
 
-Menu、Form、Button、Modal control、404 codeなど、通常の文章・見出しと役割が明確に異なるUI componentだけは例外として許可します。例外の理由はCSSコメントまたはこのガイドに記録します。ページ名だけを理由に例外tokenを追加しません。
+Header / Navigation、Menu、Footer、Form、Button、Modal、Caption / helper、404 codeなど、通常の文章・見出しと役割が明確に異なるUI componentだけは例外として許可します。例外の理由はCSSコメントまたはこのガイドに記録します。ページ名だけを理由に例外tokenを追加しません。
 
-現在の `--type-gallery-h2-size`、`--type-home-h2-size`、`--type-biography-h2-size` など、ページ名と同一HTMLタグを組み合わせたtokenは移行対象です。ただし、ユーザーが最終Font Sizeを調整する前に削除・統合・数値最適化は行いません。既存デザインを意図せず変更しないためです。
+現在のページ名と同一HTMLタグを組み合わせたtokenは移行対象です。ただし、現在値が異なる同一グループ・同一タグについては、ユーザーが最終Font Sizeを決める前に共通値を選択・削除・統合・数値最適化しません。既存デザインを意図せず変更しないためです。
 
 ページのHTMLでは、共通CSSの後に `user-settings.css` を読み込みます。既存の `--font-*` 変数は互換aliasとして残しているため、既存のCSSやページ内スタイルをいきなり置き換えずに調整できます。
 
