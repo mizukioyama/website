@@ -36,6 +36,24 @@ Responsive behavior must preserve visual consistency rather than scaling every d
 
 Typography may remain fluid within each breakpoint, but fixed visual geometry must not depend on the browser root font size. Use px for font-size bounds/fixed terms, letter-spacing, border thickness, icon/stroke thickness where shape consistency matters, and text/box-shadow offset/blur/spread. Responsive type may use `clamp(px, calc(px + vw), px)`. Keep line-height unitless unless a fixed optical treatment explicitly requires otherwise.
 
+### Typography font-size policy
+
+The user-editable font-size source of truth is `assets/css/user-settings.css`. The normal user-editing area is the `USER EDITABLE — TYPOGRAPHY` section only.
+
+For the same HTML tag, `font-size` is shared across the site by default. Page names alone are not a reason to create separate tokens such as `--type-gallery-h2-size`, `--type-home-h2-size` or `--type-biography-h2-size`. The intended shared foundation is:
+
+- `--type-h1-size`
+- `--type-h2-size`
+- `--type-h3-size`
+- `--type-h4-size`
+- `--type-body-size`
+
+Normal font sizes are managed with `clamp()` using 375px and 1440px as the reference range: keep the minimum below 375px, interpolate fluidly from 375px through 1440px, and keep the maximum above 1440px. Do not create large sets of viewport-specific font-size declarations. Add a breakpoint override only when layout or component structure requires it.
+
+Exceptions are limited to components with a clearly different UI role, such as navigation/menu, form controls, buttons, modal controls and the 404 display code. Each exception must have its reason documented in the relevant CSS or design documentation. Letter-spacing, tracking, 404 optical treatment and component-specific helper tokens are separate concerns and must not be treated as same-tag font-size tokens.
+
+Existing page-name-plus-tag font-size tokens remain migration targets for now. Do not delete, merge or numerically optimize them before the user completes the final font-size adjustment; doing so could change the established design unintentionally.
+
 Do not convert layout behavior such as page width, percentage positioning, viewport-relative composition, or intentionally flexible spacing to px merely for consistency. Choose units by visual responsibility: px for stable shape, relative/viewport units for responsive layout.
 
 ## Performance
