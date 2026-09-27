@@ -182,7 +182,7 @@ async function assertBilingualPage(page, label) {
       const rect = element.getBoundingClientRect();
       return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
     };
-    const languageControl = document.querySelector("#langChenge");
+    const languageControl = document.querySelector("#langChange");
     const proseLanguages = [...document.querySelectorAll("main .work > p[lang]")]
       .map(element => element.getAttribute("lang"));
     const proseElements = [...document.querySelectorAll("main .work > p[lang]")];
@@ -413,13 +413,13 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
 
   const firstWork = page.locator("#gallery-container .work").first();
   const firstThumbnail = firstWork.locator(".work-img > img");
-  const firstTitle = firstWork.locator(".view-policy-button h2");
+  const firstTitle = firstWork.locator(".view-policy-button p");
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
 
-  await page.locator('#langChenge label[for="langEn"]').click();
+  await page.locator('#langChange label[for="langEn"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
-  await page.locator('#langChenge label[for="langJa"]').click();
+  await page.locator('#langChange label[for="langJa"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
 
@@ -428,7 +428,7 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await expect(page.locator("#modalCloseBtn")).toBeVisible();
   await expect(page.locator("#modalBox img").first()).toHaveAttribute(
     "alt",
-    await page.locator("#modalBox h2").first().textContent()
+    await page.locator("#modalBox .works p").first().textContent()
   );
 
   if (fullAudit) {
@@ -1184,7 +1184,7 @@ test("Biography and Artist Statement stay bilingual while language preference pe
   await page.goto("gallery.html", { waitUntil: "domcontentloaded" });
   await stabilize(page);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator('#langChenge input[value="en"]')).toBeChecked();
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
 
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
   await stabilize(page);
