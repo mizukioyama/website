@@ -2,9 +2,6 @@
 
 @import url("index-tablet.css?v=20260910-1514");
 
-        #langChenge #mask {
-            display: none;
-        }
 
 /*== NAV ==*/
 nav {
@@ -177,7 +174,7 @@ nav .noise {
   right: 0;
   padding-left: 2rem;
   width: 50%;
-  background: rgba(0, 15, 15, 0.75);
+  background: rgba(0, 15, 15, 0.65);
   backdrop-filter: blur(5px);
   cursor: pointer;
   transition: all 1s ease;
@@ -185,7 +182,7 @@ nav .noise {
   overflow-y: scroll;
 }
 .home .open #mask {
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.5);
 }
 @keyframes menu-left {
   0% {
@@ -228,14 +225,8 @@ nav .noise {
   margin-top: 0;
 }
 @media screen and (min-width: 1299px) {
-  .inner li a {
-    font-size: clamp(var(--legacy-px-1_2), calc(var(--legacy-px-1) + 0.6vw), var(--legacy-px-1_6));
-  }
   .inner ul li:nth-of-type(5) {
     margin-top: 10vmin;
-  }
-  .inner li:nth-of-type(n + 5) a {
-    font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_9) + 0.4vw), var(--legacy-px-1_2));
   }
 }
 @media screen and (max-width: 599px) {
@@ -256,9 +247,6 @@ nav .noise {
   }
   .inner ul li:nth-of-type(5) {
     margin-top: 10vmin;
-  }
-  .inner li:nth-of-type(n + 5) a {
-    font-size: clamp(var(--legacy-px-1), calc(var(--legacy-px-0_9) + 0.4vw), var(--legacy-px-1_2));
   }
   .toggle_btn {
     top: auto;
@@ -335,10 +323,7 @@ nav .noise {
     width: 100%;
     height: auto;
     min-height: 85vh;
-    padding: 0.5rem;
-  }
-  #mask p {
-    margin-top: 3rem;
+    padding: 4vmin;
   }
   .open #mask ul {
     width: auto;
@@ -354,51 +339,7 @@ nav .noise {
     );
   }
 }
-#category-menu {
-  max-height: 70vh;
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    max-height 0.4s ease,
-    opacity 0.3s ease,
-    transform 0.4s ease,
-    gap 0.4s ease;
-}
-#category-menu.collapsed {
-  max-height: 0 !important;
-  gap: 0 !important;
-  opacity: 0;
-  transform: translateY(-0.4rem);
-  pointer-events: none;
-  overflow: hidden !important;
-}
-#category-header {
-  animation: category-toggle-blink 1s ease-in-out infinite;
-}
-@keyframes category-toggle-blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.18;
-  }
-}
-@media screen and (max-width: 599px) {
-  #category-menu {
-    max-height: 40vh;
-  }
-  .art-page #category-menu.mobile-open,
-  .art-page #category-menu.mobile-open.collapsed {
-    max-height: 60svh !important;
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    pointer-events: auto !important;
-    overflow-y: auto !important;
-    visibility: visible !important;
-    gap: 5px !important;
-  }
-}
+
 html:has(#navArea.open),
 body:has(#navArea.open),
 html:has(#modalBox[style*="display: block"]),
@@ -411,17 +352,6 @@ body:has(#modalBox[style*="display: block"]) {
 #modalBox[style*="display: block"] {
   touch-action: pan-y;
   overscroll-behavior: contain;
-}
-@media (prefers-reduced-motion: reduce) {
-  #category-header {
-    animation: none;
-  }
-}
-/* Keep shared navigation hierarchy while reducing supporting UI text slightly. */
-@media screen and (max-width: 599px) {
-  .inner li:nth-of-type(n + 5) a {
-    font-size: var(--font-ui-size);
-  }
 }
 /* Phase 3 typography: keep menu text quiet while preserving touch size. */
 .inner li a,

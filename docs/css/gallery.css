@@ -8,10 +8,14 @@
   background-image: linear-gradient(to right, #ffffff 0%, #ffffffa6 100%);
 }
 
-#langChenge {
+#langChange {
   position: fixed;
   top: 5.5rem;
   left: 8rem;
+  z-index: 2002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ========== Common ========== */
@@ -32,12 +36,8 @@ body {
 
 /* index.htmlを除く共通ページのPC本文サイズをContactページと統一 */
 @media screen and (min-width: 601px) {
-  html {
-    font-size: var(--root-font-size);
-  }
-
   body {
-    font-size: var(--font-body-size);
+    font-size: var(--type-home-p-size);
   }
 }
 
@@ -64,11 +64,9 @@ body {
     --legacy-px-0_9: calc(9.36px + 0.36vw);
     --legacy-px-0_95: calc(9.88px + 0.38vw);
     --legacy-px-1: calc(10.4px + 0.4vw);
-    --legacy-px-1_1: calc(11.44px + 0.44vw);
     --legacy-px-1_15: calc(11.96px + 0.46vw);
     --legacy-px-1_2: calc(12.48px + 0.48vw);
     --font-contact-control-fluid-mid: calc(13.0624px + 0.5024vw);
-    --font-menu-item-fluid-mid: calc(13.52px + 0.52vw);
     --legacy-px-1_4: calc(14.56px + 0.56vw);
     --legacy-px-1_5: calc(15.6px + 0.6vw);
     --legacy-px-1_6: calc(16.64px + 0.64vw);
@@ -161,11 +159,9 @@ body {
     --legacy-px-0_9: 12.6px;
     --legacy-px-0_95: 13.3px;
     --legacy-px-1: 14px;
-    --legacy-px-1_1: 15.4px;
     --legacy-px-1_15: 16.1px;
     --legacy-px-1_2: 16.8px;
     --font-contact-control-fluid-mid: 17.584px;
-    --font-menu-item-fluid-mid: 18.2px;
     --legacy-px-1_4: 19.6px;
     --legacy-px-1_5: 21px;
     --legacy-px-1_6: 22.4px;
@@ -394,12 +390,6 @@ h2 {
   /*text-shadow: -1px -1px rgba(255, 255, 255, 0.75), 2px 2px 2px rgba(0, 0, 0, 0.95);*/
 }
 
-span.name {
-  /* Artist identity label is a component role, not Standard body span text. */
-  font-size: var(--type-gallery-name-size);
-  line-height: 1;
-}
-
 /* Normal Standard-page spans share one role; UI, table and card spans remain exceptions. */
 :where(
   main
@@ -411,7 +401,7 @@ span.name {
 }
 
 .gallery-containt h2 {
-  font-size: var(--type-gallery-card-h2-size);
+  font-size: var(--type-page-h2-size);
   font-weight: 300;
 }
 
@@ -526,9 +516,33 @@ main li {
 
 #category-menu {
   display: grid;
-  gap: 5px;
-  margin: 0 auto;
+  position: absolute;
+  left: 0;
+
+  max-height: 0;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+
   overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#category-menu.mobile-open {
+  max-height: 70vh !important;
+  gap: 5px !important;
+  padding: 0.75rem 0.85rem;
+
+  overflow-y: auto !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+
+  transform: none !important;
 }
 
 #category-menu p {
@@ -556,9 +570,8 @@ main li {
 }
 
 #sidebar-container {
-  z-index: 100;
-  padding: 0.75rem 0;
-  position: relative;
+  z-index: 1000;
+  position: absolute;
 }
 
 #sidebar-container .noise {
@@ -571,64 +584,12 @@ main li {
   font-weight: 400;
   width: 100%;
   top: 0;
-  left: -10px;
-  position: absolute;
+  position: relative;
   line-height: 0.5;
   padding: 0.35rem 0;
   justify-content: flex-start;
 }
 
-@media screen and (max-width: 599px) {
-  #sidebar-container {
-    min-width: 20vmin;
-    top: 7.5%;
-    right: 0;
-    padding: 0 0.5vmin;
-    border: 1px solid rgba(200, 200, 200, 0.25);
-    border-right: none;
-  }
-
-  #category-header {
-    font-size: var(--font-category-size);
-    font-weight: bold;
-    padding: 0.35rem 1vmin;
-    top: 2px;
-    left: 0;
-  }
-
-  #category-menu {
-    max-height: 40vh;
-    overflow-y: scroll;
-    transition:
-      gap 0.4s ease,
-      max-height 0.4s ease,
-      opacity 0.4s ease;
-    opacity: 1;
-  }
-
-  #category-menu li {
-    margin: 0;
-    margin-bottom: 1vmin;
-    padding-left: 1vmin;
-    border-bottom: 0 solid var(--inv);
-  }
-
-  #category-menu p {
-    font-weight: 500;
-    line-height: 1.2;
-    width: 100%;
-    justify-content: flex-start;
-    border-bottom: 1px solid var(--inv);
-  }
-
-  #sidebar-container ul li {
-    font-size: var(--font-category-size);
-  }
-
-  .work .noise {
-    top: -5%;
-  }
-}
 
 #pagination {
   font-size: var(--font-pagination-size);
@@ -642,6 +603,7 @@ main li {
   padding: 0.5rem;
   cursor: pointer;
   opacity: 0.3;
+  font-size: 12px;
 }
 
 .next-btn {
@@ -653,6 +615,7 @@ main li {
 .next-btn:hover,
 .next-btn:active {
   opacity: 0.8;
+  font-size: 16px;
 }
 
 main {
@@ -684,28 +647,26 @@ main {
 }*/
 
 /* コンテナ定義（.gallery .content をコンテナに） */
-.gallery-containt {
-  width: min(72%, calc(100vw - 10vw));
-  max-width: none;
-  min-width: 0;
-  margin-inline: auto 4vmin;
+.gallery-box {
+  width: 100%;
+  margin-top: 40vmin;
 }
 
 .gallery .content {
+    align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+background: rgba(0, 15, 15, 0.4);
+  margin-inline: auto 4vmin;
   container-type: inline-size;
   container-name: gallery;
-  /*width: clamp(55%, 100%, 45%);*/
-  width: 100%;
-  max-width: none;
+  width: clamp(65%, 100%, 50%);
   height: 100%;
-  margin: 0 auto;
   box-shadow: inset 0 0 15px rgba(0, 0, 0);
   position: relative;
-  min-width: 0;
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  justify-content: center;
   /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
 }
@@ -713,11 +674,6 @@ main {
 .gallery.statement .content,
 .gallery.biography .content {
   display: block;
-}
-
-.art-page .content {
-  padding: 3rem 2rem;
-  background: rgba(0, 15, 15, 0.4);
 }
 
 .art-page .work {
@@ -780,11 +736,8 @@ main {
   line-height: normal;
 }
 
-@media screen and (min-width: 1299px) {
-  .gallery-containt {
-    width: min(60%, calc(100vw - 2rem));
-  }
 
+@media screen and (min-width: 1299px) {
   #state .state-box:nth-child(2) .content {
     width: min(40%, calc(100% - 2rem));
   }
@@ -802,28 +755,9 @@ main {
 /* Keep the sidebar and artwork area together on the right side. */
 @media screen and (min-width: 600px) {
   .art-page main.gallery {
-    --gallery-sidebar-width: clamp(10rem, 20%, 30rem);
-    --gallery-sidebar-gap: clamp(2rem, 15%, 24rem);
     align-items: start;
   }
 
-  .art-page main.gallery > #sidebar-container {
-    grid-column: 1;
-    width: 100%;
-    min-width: 0;
-    margin: 0;
-    position: relative;
-    /* Preserve the backup layout's vertical offset below the heading. */
-  }
-
-  .art-page main.gallery > .gallery-content {
-    grid-column: 2;
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-    /* Keep the existing 60vmin offset on .gallery .content only. */
-    margin: 0;
-  }
 }
 
 #policy h2 {

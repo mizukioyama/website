@@ -9,7 +9,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css">
   <link rel="stylesheet" href="css/all.css?v=20260906-cursor">
-  <link rel="stylesheet" href="css/gallery.css?v=20260911-common-body-font-scale-12-14">
+  <link rel="stylesheet" href="css/gallery.css?v=20260927-gallery-category">
   <link rel="stylesheet" href="css/mobile.css?v=20260910-1500">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/menu.css?v=20260910-1335">
@@ -19,9 +19,9 @@
   <script src="js/three.r134.min.js"></script>
   <script src="js/vanta.fog.min.js"></script>
 
-  <script src="js/page-nation.js?v=20260910-1325"></script>
-  <script src="js/gallery-captions.js?v=20260910-1500"></script>
-  <script src="js/menu.js?v=20260910-1325"></script>
+  <script src="js/page-nation.js?v=20260927-gallery-category"></script>
+  <script src="js/gallery-captions.js?v=20260927-gallery-captions-2"></script>
+  <script src="js/menu.js?v=20260927-gallery-category"></script>
 
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
@@ -245,13 +245,6 @@
       }
 
       /* Mobile category toggle: render a guaranteed visible label independent of JS timing. */
-      .art-page #category-header {
-        font-size: 0 !important;
-        justify-content: flex-start !important;
-        text-align: left !important;
-        padding-left: 10px !important;
-      }
-
       .art-page #category-header::before {
         content: "・Category" !important;
         display: inline-block !important;
@@ -304,7 +297,7 @@
 
     <div class="scroll"></div>
 
-    <div class="gallery-containt">
+    <div class="gallery-box">
       <div id="sidebar-container"></div>
       <div id="gallery-container" class="content" aria-live="polite"></div>
       <div class="page-line" style="margin-top: 5rem;"></div>

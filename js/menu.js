@@ -31,64 +31,66 @@ const HEADER_MARKUP = `
         </ul>
       </div>
       <div id="mask">
-      <div class="menu_ja-txt">
-        <p class="noise">展示会情報</p>
-        <ul>
-          <li>
-            出展
-            <br>
-            2025.03 | 日台の絆展（会場 / 台湾）
-          </li>
-          <li>2023.06 | 第2回日仏友好オリジナル切手展（会場 / フランス）</li>
-          <li>2022.11 | 芸術の虎展（会場 / 日光東照宮美術館）</li>
-          <li>2022.04 | 日アセアン友好文化交流展（会場 / 東京アセアンセンター）</li>
-          <li>2021.11 | サロン・ド・アール・ジャポネ（会場 / フランス）</li>
-          <li>2021.08 | OASISU2021（会場 / 大阪あべのハルカス）</li>
-          <li>2021.04 | チャリティアート展（会場 / 東京）</li>
-          <hr class="menu_ber">
-          <li>
-            認定 / 賞
-            <br>
-            2025 | 日仏友好貢献親善大賞
-          </li>
-          <li>2022 | 徳川家康作家之賞</li>
-          <li>2022 | 日本・モンゴル外交関係樹立50周年記念事業認定</li>
-          <li>2021 | Artista del post luminescenza e sole bianco.【残照と白日の芸術家】認定</li>
-          <li>2016 | 第67回宮城県高等学校美術展（優秀賞）賞</li>
-        </ul>
-      </div>
+        <div class="menu_ja-txt">
+          <p class="noise">展示会情報</p>
+          <ul>
+            <li>
+              出展
+              <br>
+              2025.03 | 日台の絆展（会場 / 台湾）
+            </li>
+            <li>2023.06 | 第2回日仏友好オリジナル切手展（会場 / フランス）</li>
+            <li>2022.11 | 芸術の虎展（会場 / 日光東照宮美術館）</li>
+            <li>2022.04 | 日アセアン友好文化交流展（会場 / 東京アセアンセンター）</li>
+            <li>2021.11 | サロン・ド・アール・ジャポネ（会場 / フランス）</li>
+            <li>2021.08 | OASISU2021（会場 / 大阪あべのハルカス）</li>
+            <li>2021.04 | チャリティアート展（会場 / 東京）</li>
+            <hr class="menu_ber">
+            <li>
+              認定 / 賞
+              <br>
+              2025 | 日仏友好貢献親善大賞
+            </li>
+            <li>2022 | 徳川家康作家之賞</li>
+            <li>2022 | 日本・モンゴル外交関係樹立50周年記念事業認定</li>
+            <li>2021 | Artista del post luminescenza e sole bianco.【残照と白日の芸術家】認定</li>
+            <li>2016 | 第67回宮城県高等学校美術展（優秀賞）賞</li>
+          </ul>
+        </div>
 
-      <div class="menu_en-txt">
-        <p class="noise">Exhibition Information</p>
-        <ul>
-          <li>
-            Exhibition
-            <br>
-            2025.03 | Japan-Taiwan Bond Exhibition (Venue / Taiwan)
-          </li>
-          <li>2023.06 | 2nd Japan-France Friendship Original Stamp Exhibition (Venue / France)</li>
-          <li>2022.11 | Tigers of Art Exhibition (Venue / Nikko Toshogu Museum)</li>
-          <li>2022.04 | Japan-ASEAN Friendship and Cultural Exchange Exhibition (Venue / Tokyo ASEAN Centre)</li>
-          <li>2021.11 | Salon d'Art Japonais (Venue / France)</li>
-          <li>2021.08 | OASISU 2021 (Venue / Abeno Harukas, Osaka)</li>
-          <li>2021.04 | Charity Art Exhibition (Venue / Tokyo)</li>
-          <hr>
-          <li>
-            Certifications / Awards
-            <br>
-            2025 | Japan-France Friendship Contribution Goodwill Award
-          </li>
-          <li>2022 | Tokugawa Ieyasu Writers' Award</li>
-          <li>2022 | Certified as part of the 50th anniversary of the establishment of diplomatic relations between
-            Japan and Mongolia</li>
-          <li>2021 | Certified as Artista del post luminescenza e sole bianco. [Artist of afterglow and daylight]</li>
-          <li>2016 | Award for Excellence at the 67th Miyagi Prefectural High School Art Exhibition</li>
-        </ul>
+        <hr class="menu_ber">
+
+        <div class="menu_en-txt">
+          <p class="noise">Exhibition Information</p>
+          <ul>
+            <li>
+              Exhibition
+              <br>
+              2025.03 | Japan-Taiwan Bond Exhibition (Venue / Taiwan)
+            </li>
+            <li>2023.06 | 2nd Japan-France Friendship Original Stamp Exhibition (Venue / France)</li>
+            <li>2022.11 | Tigers of Art Exhibition (Venue / Nikko Toshogu Museum)</li>
+            <li>2022.04 | Japan-ASEAN Friendship and Cultural Exchange Exhibition (Venue / Tokyo ASEAN Centre)</li>
+            <li>2021.11 | Salon d'Art Japonais (Venue / France)</li>
+            <li>2021.08 | OASISU 2021 (Venue / Abeno Harukas, Osaka)</li>
+            <li>2021.04 | Charity Art Exhibition (Venue / Tokyo)</li>
+            <hr>
+            <li>
+              Certifications / Awards
+              <br>
+              2025 | Japan-France Friendship Contribution Goodwill Award
+            </li>
+            <li>2022 | Tokugawa Ieyasu Writers' Award</li>
+            <li>2022 | Certified as part of the 50th anniversary of the establishment of diplomatic relations between
+              Japan and Mongolia</li>
+            <li>2021 | Certified as Artista del post luminescenza e sole bianco. [Artist of afterglow and daylight]</li>
+            <li>2016 | Award for Excellence at the 67th Miyagi Prefectural High School Art Exhibition</li>
+          </ul>
+        </div>
       </div>
-</div>
 
       <div class="noise"
-        style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(0, 100, 100, 0.2); top: 0; left: 0; box-shadow: inset 0px 0px 4px 1px #000; z-index: -1;">
+        style="content: ''; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: -1;">
       </div>
     </nav>
     <div class="toggle_btn">
@@ -99,7 +101,7 @@ const HEADER_MARKUP = `
   </div>
 
   <!-- 言語切り替えUI -->
-  <div id="langChenge">
+  <div id="langChange">
     <!-- ラジオボタン（非表示） -->
     <input type="radio" id="langJa" name="lang" value="ja" hidden>
     <input type="radio" id="langEn" name="lang" value="en" hidden>
@@ -144,7 +146,6 @@ const SIDEBAR_MARKUP = `
   <li data-category="all" class="active noise">All</li>
   <li data-category="Digital" class="noise">Digital</li>
   <li data-category="Paint" class="noise">Paint</li>
-  <!--<li data-category="Natureinspire" class="noise">Natureinspire</li>-->
   <li data-category="Exhibition" class="noise">Exhibition</li>
   <li data-category="Certified" class="noise">Certified</li>
   <li data-category="Photo" class="noise">Photo</li>
@@ -413,7 +414,7 @@ multi_language.prototype.click_lang = function (e) {
 
 multi_language.prototype.update_active_class = function (lang) {
   if (isBilingualPage()) {
-    const languageControl = document.querySelector('#langChenge');
+    const languageControl = document.querySelector('#langChange');
     languageControl?.setAttribute('hidden', 'hidden');
     languageControl?.setAttribute('aria-hidden', 'true');
     document.querySelectorAll('[lang="ja"],[lang="en"]').forEach(element => {
@@ -423,8 +424,8 @@ multi_language.prototype.update_active_class = function (lang) {
   }
 
   // ボタンのactive切り替え
-  const jaDiv = document.querySelector('#langChenge .ja');
-  const enDiv = document.querySelector('#langChenge .en');
+  const jaDiv = document.querySelector('#langChange .ja');
+  const enDiv = document.querySelector('#langChange .en');
   jaDiv?.classList.toggle('active', lang === 'ja');
   enDiv?.classList.toggle('active', lang === 'en');
 
@@ -470,9 +471,10 @@ function initializeHeader() {
   try {
     if (!buildHeader()) return;
 
+    new multi_language();
+
     requestAnimationFrame(() => {
       initializeMenu();
-      new multi_language();
       if (typeof initializeTyping === 'function') initializeTyping();
     });
   } catch (error) {
@@ -496,35 +498,128 @@ function initializeFooter() {
 
 function initializeSidebar() {
   try {
-    if (!buildSidebar()) return;
+    buildSidebar();
 
+    const sidebar = document.getElementById("sidebar-container");
     const categoryHeader = document.getElementById("category-header");
     const categoryMenu = document.getElementById("category-menu");
-    const isMobile = window.matchMedia("(max-width: 599px)").matches;
 
-    if (isMobile && categoryHeader && categoryMenu && categoryHeader.dataset.mobileToggleBound !== "true") {
-      const setMobileOpen = isOpen => {
-        categoryMenu.classList.toggle("mobile-open", isOpen);
-        categoryHeader.setAttribute("aria-expanded", String(isOpen));
-      };
+    if (!sidebar || !categoryHeader || !categoryMenu) return;
 
-      categoryHeader.setAttribute("role", "button");
-      categoryHeader.setAttribute("tabindex", "0");
-      categoryHeader.setAttribute("aria-controls", "category-menu");
-      setMobileOpen(false);
+    const mobileQuery = window.matchMedia("(max-width: 599px)");
 
-      const toggleMobileCategory = event => {
-        if (event.type === "keydown" && event.key !== "Enter" && event.key !== " ") return;
-        if (event.type === "keydown") event.preventDefault();
-        setMobileOpen(!categoryMenu.classList.contains("mobile-open"));
-      };
+    if (categoryHeader.textContent !== "・Category") {
+      categoryHeader.textContent = "・Category";
+    }
 
-      categoryHeader.addEventListener("click", toggleMobileCategory);
-      categoryHeader.addEventListener("keydown", toggleMobileCategory);
-      categoryMenu.querySelectorAll("li[data-category]").forEach(item => {
-        item.addEventListener("click", () => setMobileOpen(false));
+    categoryHeader.setAttribute("aria-label", "Category");
+    categoryHeader.setAttribute("role", "button");
+    categoryHeader.setAttribute("tabindex", "0");
+    categoryHeader.setAttribute("aria-controls", "category-menu");
+
+    Object.assign(categoryHeader.style, {
+      justifyContent: "flex-start",
+      textAlign: "left",
+      background: "transparent",
+      backdropFilter: "none",
+      WebkitBackdropFilter: "none",
+      boxShadow: "none",
+      border: "0",
+      borderBottom: "1px solid currentColor"
+    });
+
+    function syncCategoryOverlay() {
+      const gallery = document.querySelector("main.gallery");
+      const isMobile = mobileQuery.matches;
+      let overlay = document.getElementById("category-glass-overlay");
+
+      if (!isMobile) {
+        if (overlay) {
+          overlay.style.opacity = "0";
+          overlay.style.visibility = "hidden";
+          overlay.style.pointerEvents = "none";
+          overlay.setAttribute("aria-hidden", "true");
+        }
+        return;
+      }
+
+      if (!gallery) return;
+
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "category-glass-overlay";
+        overlay.setAttribute("aria-hidden", "true");
+        gallery.insertBefore(overlay, gallery.firstChild);
+      }
+
+      Object.assign(overlay.style, {
+        position: "absolute",
+        inset: "0",
+        width: "100%",
+        height: "100%",
+        zIndex: "100",
+        opacity: "0",
+        visibility: "hidden",
+        pointerEvents: "none",
+        background: "linear-gradient(135deg, rgba(190,220,220,0.16), rgba(18,38,40,0.30) 42%, rgba(4,12,14,0.42))",
+        backdropFilter: "blur(18px) saturate(135%) contrast(104%)",
+        WebkitBackdropFilter: "blur(18px) saturate(135%) contrast(104%)",
+        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
+        transition: "opacity 0.28s ease, visibility 0.28s ease"
       });
-      categoryHeader.dataset.mobileToggleBound = "true";
+
+      if (overlay.dataset.categoryOverlayBound !== "true") {
+        overlay.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          setCategoryOpen(false);
+        });
+        overlay.dataset.categoryOverlayBound = "true";
+      }
+
+      const isOpen = categoryMenu.classList.contains("mobile-open");
+      overlay.style.opacity = isOpen ? "1" : "0";
+      overlay.style.visibility = isOpen ? "visible" : "hidden";
+      overlay.style.pointerEvents = isOpen ? "auto" : "none";
+      overlay.setAttribute("aria-hidden", String(!isOpen));
+    }
+
+    function setCategoryOpen(isOpen) {
+      categoryMenu.classList.toggle("mobile-open", isOpen);
+      categoryHeader.setAttribute("aria-expanded", String(isOpen));
+      syncCategoryOverlay();
+    }
+
+    function toggleCategory(event) {
+      if (event.type === "keydown") {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+      }
+
+      setCategoryOpen(!categoryMenu.classList.contains("mobile-open"));
+    }
+
+    if (categoryHeader.dataset.categoryToggleBound !== "true") {
+      categoryHeader.addEventListener("click", toggleCategory);
+      categoryHeader.addEventListener("keydown", toggleCategory);
+      categoryMenu.querySelectorAll("li[data-category]").forEach(item => {
+        item.addEventListener("click", () => setCategoryOpen(false));
+      });
+
+      categoryHeader.dataset.categoryToggleBound = "true";
+      setCategoryOpen(false);
+    } else {
+      syncCategoryOverlay();
+    }
+
+    if (sidebar.dataset.categoryViewportBound !== "true") {
+      const syncViewport = () => syncCategoryOverlay();
+      if (typeof mobileQuery.addEventListener === "function") {
+        mobileQuery.addEventListener("change", syncViewport);
+      } else if (typeof mobileQuery.addListener === "function") {
+        mobileQuery.addListener(syncViewport);
+      }
+      sidebar.dataset.categoryViewportBound = "true";
     }
 
     document.dispatchEvent(new CustomEvent("site:sidebar-ready"));

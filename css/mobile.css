@@ -31,7 +31,9 @@
   }
 
   .head a {
-    left: 2.5rem;
+    font-size: 14px;
+    top: 4vmin;
+    left: 7vmin;
     mask: repeating-radial-gradient(
       circle at center,
       #000,
@@ -46,9 +48,9 @@
   .head a span {
     letter-spacing: 0;
   }
-  #langChenge {
-    top: 4.5rem;
-    left: 2.4rem;
+  #langChange {
+    top: 12vmin;
+    left: 8vmin;
   }
   .ripples {
     width: 100%;
@@ -73,10 +75,7 @@
     backdrop-filter: blur(10px);
   }
   .h1-text {
-    left: 0;
-  }
-  body:not(.home) .h1-text {
-    margin-top: 20vmin;
+    left: 5vmin;
   }
   .scroll {
     left: 1.25rem;
@@ -127,9 +126,12 @@
     transform: matrix(-3rem);
   }
 
+  /* ========================================
+  -- Art page
+  ======================================== */
   .art-page .gallery {
+    padding: 60vmin 2vmin;
     background-color: rgba(0, 0, 0, 0.55);
-    padding: 10vmin 0 30vmin clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
   }
 
   .art-page #category-glass-overlay {
@@ -153,62 +155,41 @@
     pointer-events: auto;
   }
 
-  .art-page #sidebar-container {
-    position: absolute;
-    top: calc(80svh + 10vmin - 3.25rem - 10px);
-    left: calc(5% + 5vmin);
-    right: auto;
-    z-index: 3000;
+  #sidebar-container {
+    top: 96vmin;
     display: block;
-    width: auto;
-    min-width: 0;
-    padding: 0;
-    border: 0;
     overflow: visible;
     pointer-events: auto;
     isolation: isolate;
   }
 
+/* 初期状態：全端末で閉じる */
+.art-page #category-menu {
+  position: absolute;
+  left: 0;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.35s ease,
+    padding 0.35s ease,
+    gap 0.4s ease;
+}
+
   .art-page #category-header {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: max-content;
     min-width: 8.5rem;
     min-height: 3.25rem;
     margin: 0;
-    padding: 0.7rem 1.2rem 0.6rem 10px !important;
-    border: 0 !important;
-    border-bottom: 1px solid currentColor !important;
+    padding: 0 !important;
     border-radius: 0 !important;
-    line-height: 1.15;
+    line-height: 1.2;
     font-size: var(--font-category-size) !important;
     display: flex;
     align-items: center;
     justify-content: flex-start !important;
-    text-align: left !important;
     z-index: 2;
-    pointer-events: auto;
-    touch-action: manipulation;
-    cursor: pointer;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    animation: none !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: none !important;
-    mask: none !important;
-    -webkit-mask: none !important;
-    -webkit-background-clip: border-box !important;
-    background-clip: border-box !important;
-    -webkit-text-fill-color: initial !important;
-    text-shadow: none !important;
   }
 
   body.art-page main.gallery #category-header::before {
-    content: "・Category" !important;
+    content: "Category" !important;
     display: inline-block !important;
     position: static !important;
     font-family: "Jost", sans-serif !important;
@@ -217,7 +198,6 @@
     font-synthesis: none !important;
     font-synthesis-weight: none !important;
     font-size: var(--font-category-size) !important;
-    line-height: 1.15 !important;
     letter-spacing: var(--tracking-category-001) !important;
     color: var(--inv) !important;
     -webkit-text-fill-color: currentColor !important;
@@ -259,40 +239,9 @@
     display: none !important;
   }
 
-  .art-page #category-menu {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 0.35rem);
-    bottom: auto;
-    z-index: 1;
-    width: max-content;
-    min-width: 9.5rem;
-    max-width: min(70vw, 15rem);
-    max-height: 0;
-    margin: 0;
-    padding: 0;
-    gap: 0;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    background: rgba(14, 27, 28, 0.48);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 0 !important;
-    backdrop-filter: blur(20px) saturate(120%);
-    -webkit-backdrop-filter: blur(20px) saturate(120%);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 14px 38px rgba(0, 0, 0, 0.38);
-    transition:
-      max-height 0.4s ease,
-      opacity 0.35s ease,
-      gap 0.4s ease,
-      padding 0.35s ease;
-  }
   .art-page #category-menu.mobile-open {
     max-height: 60svh;
-    padding: 0.75rem 0.85rem;
+    padding: 0.4rem 1vmin;
     gap: 5px;
     overflow-y: auto;
     opacity: 1;
@@ -315,8 +264,6 @@
     margin: 0 auto;
     width: 100%;
     height: 100%;
-    margin: 115vmin auto 0;
-    margin: 80svh auto 0;
     padding: 0 3vmin;
     backdrop-filter: none;
     gap: 3vmin;
@@ -331,17 +278,20 @@
   #policy .content li::before {
     top: 50%;
   }
+
+  .gallery-box {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: block;
+    width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)));
+    max-width: 100%;
+margin: 0 auto;
+  }
   .gallery .content {
     width: 100%;
     padding: 0 5vmin;
     gap: 0;
-    margin-top: 80svh;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .gallery-containt {
-    width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)));
-    max-width: 100%;
-    margin-inline: auto;
+    margin-top: 100vmin;
+
   }
   #policy .content li {
     font-size: var(--type-page-li-size);
@@ -354,7 +304,7 @@
     justify-content: flex-start;
   }
   .art-page .work {
-    min-height: 350px;
+    min-height: 320px;
     justify-content: flex-start;
   }
   .gallery-containt .work-img a {
@@ -404,13 +354,6 @@
   }
   #state h3 {
     padding: 2.5rem 2rem;
-  }
-  #state .content .work:nth-child(n + 3) h3 {
-    padding: 0.5rem 2rem;
-  }
-  #state .work:nth-child(2) h3 {
-    width: auto;
-    margin-top: 20vmin;
   }
   #state .content .work:nth-child(n + 3) h3 {
     padding: 0.5rem 2rem;

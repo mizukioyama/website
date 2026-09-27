@@ -674,6 +674,7 @@ function setupCategoryFilter() {
     let selectedCategory = "all";
     let currentPage = 1;
     let filtered = [];
+    let activeModalItem = null;
 
     function getLang() {
         return document.documentElement.lang === "ja" ? "ja" : "en";
@@ -717,7 +718,7 @@ function setupCategoryFilter() {
             <div class="work-img">
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
-                    <h2>${item.title[lang]}</h2>
+                    <p>${item.title[lang]}</p>
                     <p>${firstLine}<br>${secondLine}</p>
                 </a>
             </div>
@@ -740,6 +741,7 @@ function setupCategoryFilter() {
 
 function showModal(item) {
     if (!item) return;
+    activeModalItem = item;
 
     const lang = getLang();
     const firstLine = item.category[0] || "";
@@ -758,7 +760,7 @@ function showModal(item) {
     modalBox.innerHTML = `
         <div class="work-img">
             <div class="works">
-                <h2>${item.title[lang]}</h2>
+                <p>${item.title[lang]}</p>
                 <p>
                     ${firstLine}
                     <br>
@@ -768,7 +770,7 @@ function showModal(item) {
                 </p>
             </div>
             <img src="${item.ImageData || item.img}" alt="${item.title[lang]}" style="margin: 10vmin auto; opacity: 0.85;">
-            <p class="noise cg-text" style="font-weight: 500; position: relative; top: 0rem; left: 0; width: fit-content; border-bottom: 1px solid;">
+            <p class="noise cg-text" style="font-weight: 400; position: relative; top: 0rem; left: 0; width: fit-content; border-bottom: 1px solid;">
                 Category | ${secondLine}
             </p>
             <div class="modal-text">
@@ -795,6 +797,14 @@ function showModal(item) {
             modalBox.style.display = "none";
             modalOverlay?.style.setProperty("display", "none");
             modalBox.className = "modal-box";
+            activeModalItem = null;
+        }
+    }
+
+    function refreshOpenModal() {
+        const modalBox = document.getElementById("modalBox");
+        if (activeModalItem && modalBox?.style.display === "block") {
+            showModal(activeModalItem);
         }
     }
 
@@ -971,6 +981,7 @@ function showModal(item) {
             currentLang = "ja";
             localStorage.setItem("lang", currentLang);
             renderGallery();
+            refreshOpenModal();
         }
     });
 
@@ -979,6 +990,7 @@ function showModal(item) {
             currentLang = "en";
             localStorage.setItem("lang", currentLang);
             renderGallery();
+            refreshOpenModal();
         }
     });
 
@@ -1003,37 +1015,7 @@ function initializeGallerySidebar() {
     if (!sidebarContainer || !document.getElementById("category-menu")) return;
 
     gallerySidebarInitialized = true;
-    setupCategoryToggle();
     setupCategoryFilter();
-}
-
-function setupCategoryToggle() {
-    const categoryMenu = document.getElementById("category-menu");
-    const categoryHeader = document.getElementById("category-header");
-    let isManuallyToggled = false;
-
-    if (!categoryMenu || !categoryHeader) {
-        console.warn("Category menu or header not found.");
-        return;
-    }
-
-    categoryHeader.addEventListener("click", () => {
-        categoryMenu.classList.toggle("collapsed");
-        isManuallyToggled = true;
-        setTimeout(() => {
-            isManuallyToggled = false;
-        }, 3000);
-    });
-
-    window.addEventListener("scroll", () => {
-        if (isManuallyToggled) return;
-        const scrollY = window.scrollY || window.pageYOffset;
-        if (scrollY > 200) {
-            categoryMenu.classList.add("collapsed");
-        } else {
-            categoryMenu.classList.remove("collapsed");
-        }
-    });
 }
 
 document.addEventListener("site:sidebar-ready", initializeGallerySidebar);

@@ -569,9 +569,6 @@ p {
   letter-spacing: clamp(2.56px, calc(2.16px + 0.055vw), 2.88px);
 }
 
-.content__slide:nth-child(even) .title {
-  text-shadow: 0px 0px 7px rgba(200, 200, 200, 0.75);
-}
 
 .top-page .title:nth-child(even)::before {
   transition-delay: 200ms;
@@ -678,7 +675,6 @@ footer,
 
 .card_line {
   width: var(--card-width);
-  height: var(--card-height);
   cursor: pointer;
   width: min(100vmin, calc(100vw - 1rem));
   height: 50%;
@@ -716,9 +712,6 @@ footer,
   margin: 0 auto;
   transform: scale(0.85);
   filter: blur(calc(var(--card-height) / 6));
-  background-image: linear-gradient(
-    var(--rotate)
-    , #197994, #133088 43%, #3a0c80);
   background-image: linear-gradient(
     var(--rotate)
     , #000000, #057379 43%, #000000);
