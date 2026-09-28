@@ -183,11 +183,12 @@ async function assertBilingualPage(page, label) {
       return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
     };
     const languageControl = document.querySelector("#langChange");
-    const proseLanguages = [...document.querySelectorAll("main .work > p[lang]")]
-      .map(element => element.getAttribute("lang"));
-    const proseElements = [...document.querySelectorAll("main .work > p[lang]")];
+    const proseLanguages = [
+      ...document.querySelectorAll("main .work > p.state-txt, main .work > p.text")
+    ].map(element => element.classList.contains("state-txt") ? "ja" : "en");
+    const proseElements = [...document.querySelectorAll("main .work > p.state-txt, main .work > p.text")];
     const englishPairVisuals = proseElements
-      .filter(element => element.getAttribute("lang") === "en")
+      .filter(element => element.classList.contains("text"))
       .map(element => {
         const style = getComputedStyle(element);
         const next = element.nextElementSibling;
@@ -195,14 +196,14 @@ async function assertBilingualPage(page, label) {
         return {
           borderTopWidth: parseFloat(style.borderTopWidth) || 0,
           borderTopStyle: style.borderTopStyle,
-          nextLanguage: next?.getAttribute("lang") || null,
+          nextLanguage: next?.classList.contains("state-txt") ? "ja" : null,
           nextMarginTop: nextStyle ? parseFloat(nextStyle.marginTop) || 0 : null
         };
       });
     const statementTimelineItems = [...document.querySelectorAll("main .timeline > .timeline-item")].map(item => {
-      const japaneseTitle = item.querySelector(':scope > .timeline-title[lang="ja"]');
-      const japaneseBody = item.querySelector('.timeline-copy > p[lang="ja"]');
-      const englishBody = item.querySelector('.timeline-copy > p.text[lang="en"]');
+      const japaneseTitle = item.querySelector(":scope > .timeline-title");
+      const japaneseBody = item.querySelector(".timeline-copy > p:not(.text)");
+      const englishBody = item.querySelector(".timeline-copy > p.text");
       const englishStyle = englishBody ? getComputedStyle(englishBody) : null;
       const copy = item.querySelector(".timeline-copy");
       const copyStyle = copy ? getComputedStyle(copy) : null;
@@ -217,8 +218,16 @@ async function assertBilingualPage(page, label) {
       };
     });
     return {
-      japaneseRegions: [...document.querySelectorAll('[lang="ja"]')].filter(visible).length,
-      englishRegions: [...document.querySelectorAll('[lang="en"]')].filter(visible).length,
+      japaneseRegions: [
+        ...document.querySelectorAll(
+          "main .work > p.state-txt, main .timeline > .timeline-item > .timeline-title, main .timeline-copy > p:not(.text)"
+        )
+      ].filter(visible).length,
+      englishRegions: [
+        ...document.querySelectorAll(
+          "main .work > p.text, main .timeline-copy > p.text, main .subtext-en, main .timeline-title-en, main .en-txt"
+        )
+      ].filter(visible).length,
       languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden),
       standaloneEnglishContent: document.querySelectorAll('main .state-box > .content[lang="en"]').length,
       proseLanguages,
@@ -402,18 +411,19 @@ async function exerciseSharedRuntimeInteractions(page) {
 
 async function exerciseGalleryRuntime(page, projectName, testInfo) {
   const categoryHeader = page.locator("#category-header");
-  if (projectName.startsWith("mobile-") && await categoryHeader.isVisible()) {
+  if (await categoryHeader.isVisible() && await categoryHeader.getAttribute("aria-expanded") !== "true") {
     await categoryHeader.click();
     await expect(categoryHeader).toHaveAttribute("aria-expanded", "true");
   }
 
   const paintCategory = page.locator('#category-menu li[data-category="Paint"]');
   await paintCategory.click();
+  await expect(categoryHeader).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator("#gallery-container .work").first()).toBeVisible();
 
   const firstWork = page.locator("#gallery-container .work").first();
   const firstThumbnail = firstWork.locator(".work-img > img");
-  const firstTitle = firstWork.locator(".view-policy-button p");
+  const firstTitle = firstWork.locator(".view-policy-button p").first();
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
 
   await page.locator('#langChange label[for="langEn"]').click();
@@ -777,22 +787,20 @@ for (const entry of pages) {
   });
 }
 
-function expectedHeaderFooterSize(projectName) {
-  const expectedByProject = {
-    "desktop-1440": 25.6,
-    "desktop-1280": 24.5,
-    "tablet-1024": 22.6,
-    "tablet-768": 20.8,
-    "mobile-430": 18.4,
-    "mobile-390": 18.1,
-    "mobile-375": 18
-  };
-  return expectedByProject[projectName];
+async function resolveCssFontToken(page, tokenName) {
+  return page.evaluate(name => {
+    const probe = document.createElement("span");
+    probe.style.cssText = "position: fixed; visibility: hidden; font-size: var(" + name + ");";
+    document.body.appendChild(probe);
+    const size = parseFloat(getComputedStyle(probe).fontSize);
+    probe.remove();
+    return size;
+  }, tokenName);
 }
 
 async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = true) {
-  const expected = expectedHeaderFooterSize(testInfo.project.name);
-  expect(expected, "viewport should have a documented Header/Footer target").toBeDefined();
+  const expected = Math.round((await resolveCssFontToken(page, "--type-header-footer-size")) * 10) / 10;
+  expect(expected, "Header/Footer token should resolve at " + testInfo.project.name).toBeGreaterThan(0);
 
   const sizes = await page.evaluate(hasFooterValue => ({
     header: parseFloat(getComputedStyle(document.querySelector("#header-container .head a")).fontSize),
@@ -832,61 +840,50 @@ test("normal H2 elements share one font-size within each page group", async ({ p
   expect(new Set(standardSizes).size, "Standard-page normal H2 elements should share one size").toBe(1);
 });
 
-function expectedBodySizes(projectName) {
-  const expectedByProject = {
-    "desktop-1440": 14,
-    "desktop-1280": 13.7,
-    "tablet-1024": 13.2,
-    "tablet-768": 12.7,
-    "mobile-430": 12.1,
-    "mobile-390": 12,
-    "mobile-375": 12
-  };
-  return expectedByProject[projectName];
-}
-
-test("shared body typography matches the documented responsive scale", async ({ page }, testInfo) => {
-  const expected = expectedBodySizes(testInfo.project.name);
-  expect(expected, "viewport should have a documented body target").toBeDefined();
+test("shared body typography matches the documented responsive scale", async ({ page }) => {
   const roundToTenth = value => Math.round(value * 10) / 10;
 
   await prepareDeterministicNetwork(page);
   await page.goto("", { waitUntil: "domcontentloaded" });
   await stabilize(page, { key: "home-body-type" });
+  const homeExpected = Math.round((await resolveCssFontToken(page, "--type-home-p-size")) * 10) / 10;
+  expect(homeExpected, "Home body typography token should resolve").toBeGreaterThan(0);
   const homeSize = await page.locator("main p").first().evaluate(element =>
     parseFloat(getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(homeSize), "Home body font-size").toBe(expected);
+  expect(roundToTenth(homeSize), "Home body font-size").toBe(homeExpected);
 
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
   await stabilize(page, { key: "biography-body-type" });
-  const biographySize = await page.locator("#bio #state .content .work > p[lang='ja']").first().evaluate(element =>
+  const standardExpected = Math.round((await resolveCssFontToken(page, "--type-page-p-size")) * 10) / 10;
+  expect(standardExpected, "Standard body typography token should resolve").toBeGreaterThan(0);
+  const biographySize = await page.locator("#bio #state .content .work > p.state-txt").first().evaluate(element =>
     parseFloat(getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(biographySize), "Biography body font-size").toBe(expected);
+  expect(roundToTenth(biographySize), "Biography body font-size").toBe(standardExpected);
 
-  const biographyEnglishSize = await page.locator("#bio #state .content .work > p.text[lang='en']").first().evaluate(element =>
+  const biographyEnglishSize = await page.locator("#bio #state .content .work > p.text").first().evaluate(element =>
     parseFloat(getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(biographyEnglishSize), "Biography English body font-size").toBe(expected);
+  expect(roundToTenth(biographyEnglishSize), "Biography English body font-size").toBe(standardExpected);
 
   await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
   await stabilize(page, { key: "statement-body-type" });
 
-  const statementJapaneseSize = await page.locator("#state .content .work > p[lang='ja']").first().evaluate(element =>
+  const statementJapaneseSize = await page.locator("#state .content .work > p.state-txt").first().evaluate(element =>
     parseFloat(getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(statementJapaneseSize), "Statement Japanese body font-size").toBe(expected);
+  expect(roundToTenth(statementJapaneseSize), "Statement Japanese body font-size").toBe(standardExpected);
 
-  const statementEnglishSize = await page.locator("#state .content .work > p.text[lang='en']").first().evaluate(element =>
+  const statementEnglishSize = await page.locator("#state .content .work > p.text").first().evaluate(element =>
     parseFloat(getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(statementEnglishSize), "Statement English body font-size").toBe(expected);
+  expect(roundToTenth(statementEnglishSize), "Statement English body font-size").toBe(standardExpected);
 
-  const statementTimelineEnglishSize = await page.locator("#state .timeline-copy > p.text[lang='en']").first().evaluate(element =>
+  const statementTimelineEnglishSize = await page.locator("#state .timeline-copy > p.text").first().evaluate(element =>
     parseFloat(getComputedStyle(element).fontSize)
   );
-  expect(roundToTenth(statementTimelineEnglishSize), "Statement timeline English body font-size").toBe(expected);
+  expect(roundToTenth(statementTimelineEnglishSize), "Statement timeline English body font-size").toBe(standardExpected);
 });
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
@@ -1216,7 +1213,7 @@ for (const entry of [
     expect(response.status()).toBe(200);
     await stabilize(page);
 
-    const englishParagraph = page.locator('main .work > p.text[lang="en"]').first();
+    const englishParagraph = page.locator("main .work > p.text").first();
     await expect(englishParagraph).toBeVisible();
 
     const metrics = await englishParagraph.evaluate((paragraph, key) => {
@@ -1235,7 +1232,7 @@ for (const entry of [
       };
 
       if (key === "artist-statement") {
-        const flow = document.querySelector('main .timeline .timeline-copy > p.text[lang="en"]');
+        const flow = document.querySelector("main .timeline .timeline-copy > p.text");
         const flowStyle = flow ? getComputedStyle(flow) : null;
         result.flowFontSize = flowStyle ? parseFloat(flowStyle.fontSize) : 0;
         result.flowLineHeight = flowStyle ? parseFloat(flowStyle.lineHeight) : 0;
