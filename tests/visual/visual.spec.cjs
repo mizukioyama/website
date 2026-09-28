@@ -975,7 +975,6 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   await prepareDeterministicNetwork(page);
   const response = await page.goto("exhibitions/yurayura/", { waitUntil: "domcontentloaded" });
   expect(response.status()).toBe(200);
-  await stabilize(page);
 
   const expected = {
     "Art Index": "/website/gallery.html",
