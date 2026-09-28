@@ -1211,7 +1211,6 @@ test("Biography and Artist Statement stay bilingual while language preference pe
   await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
 
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
-  await stabilize(page);
   await assertBilingualPage(page, "Biography after returning from Gallery");
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
 
