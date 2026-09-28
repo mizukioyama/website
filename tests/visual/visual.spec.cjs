@@ -718,7 +718,23 @@ for (const entry of pages) {
     const runtime = createRuntimeMonitor(page, entry);
 
     if (entry.key === "home") {
-      await page.clock.install({ time: new Date("2026-09-19T06:00:00Z") });
+      // Keep the first Home slide stable without freezing CSS/WebGL animation frames.
+      await page.addInitScript(() => {
+        const nativeSetTimeout = window.setTimeout.bind(window);
+        window.setTimeout = (callback, delay, ...args) => {
+          const source = typeof callback === "function"
+            ? Function.prototype.toString.call(callback)
+            : "";
+          const isHomeAutoAdvance =
+            (delay === 2000 && /goToSlide\(slideElements,\s*2\)/.test(source))
+            || (delay === 6000 && /goToSlide\(slideElements,\s*1\)/.test(source));
+
+          if (isHomeAutoAdvance) {
+            return nativeSetTimeout(() => {}, delay, ...args);
+          }
+          return nativeSetTimeout(callback, delay, ...args);
+        };
+      });
     }
 
     await page.addInitScript(() => {
@@ -743,10 +759,6 @@ for (const entry of pages) {
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
-
-    if (entry.key === "home") {
-      await page.clock.pauseAt(new Date("2026-09-19T06:00:01Z"));
-    }
 
     await stabilize(page, entry);
 
