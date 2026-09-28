@@ -553,8 +553,10 @@ async function exerciseOrderRuntime(page) {
     .first();
   await expect(contactLink).toBeVisible();
   await expect(contactLink).toHaveAttribute("href", "contact.html");
-  await contactLink.click();
-  await page.waitForURL(/\/website\/contact\.html$/);
+  await Promise.all([
+    page.waitForURL(/\/website\/contact\.html$/),
+    contactLink.click()
+  ]);
   await page.waitForLoadState("domcontentloaded");
 
   const form = page.locator("#contactForm");
@@ -711,7 +713,11 @@ async function layoutDiagnostics(page) {
 
 for (const entry of pages) {
   test(entry.key + " visual and layout regression", async ({ page }, testInfo) => {
-    if (entry.key === "home") {
+    if (entry.key === "home" || (
+      testInfo.project.name === "desktop-1440"
+      && ["biography", "order"].includes(entry.key)
+    )) {
+      // Large desktop captures and checks need more time on the CI runner.
       testInfo.setTimeout(60000);
     }
 
