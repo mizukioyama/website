@@ -717,6 +717,10 @@ for (const entry of pages) {
 
     const runtime = createRuntimeMonitor(page, entry);
 
+    if (entry.key === "home") {
+      await page.clock.install({ time: new Date("2026-09-19T06:00:00Z") });
+    }
+
     await page.addInitScript(() => {
       const RealDate = Date;
       const fixed = new RealDate("2026-09-19T06:00:00Z").valueOf();
@@ -739,6 +743,10 @@ for (const entry of pages) {
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
+
+    if (entry.key === "home") {
+      await page.clock.pauseAt(new Date("2026-09-19T06:00:01Z"));
+    }
 
     await stabilize(page, entry);
 
