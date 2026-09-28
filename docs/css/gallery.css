@@ -322,9 +322,9 @@ h1 {
 }
 
 .h1-text {
-  position: relative;
-  left: 10vmin;
-  top: 0;
+  position: absolute;
+  left: 20vmin;
+  top: 40vmin;
   z-index: 100;
 }
 
@@ -570,8 +570,9 @@ main li {
 }
 
 #sidebar-container {
-  z-index: 1000;
-  position: absolute;
+  top: 20vh;
+  z-index: 100;
+  padding: 0.75rem 0;
 }
 
 #sidebar-container .noise {
@@ -584,7 +585,8 @@ main li {
   font-weight: 400;
   width: 100%;
   top: 0;
-  position: relative;
+  left: -10px;
+  position: absolute;
   line-height: 0.5;
   padding: 0.35rem 0;
   justify-content: flex-start;
@@ -630,8 +632,8 @@ main {
   background-color: rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 0px 7px rgba(0, 0, 0, 1);
   z-index: 1;
-  /* display: flex;
-    justify-content: space-around; */
+  display: flex;
+  justify-content: space-around;
 }
 
 .art-page main {
@@ -648,25 +650,26 @@ main {
 
 /* コンテナ定義（.gallery .content をコンテナに） */
 .gallery-box {
-  width: 100%;
-  margin-top: 40vmin;
+  width: min(72%, calc(100vw - 2rem));
+  max-width: none;
+  min-width: 0;
+  margin-inline: auto 4vmin;
 }
 
 .gallery .content {
-    align-items: center;
-  justify-content: center;
-  padding: 3rem 2rem;
-background: rgba(0, 15, 15, 0.4);
-  margin-inline: auto 4vmin;
   container-type: inline-size;
   container-name: gallery;
-  width: clamp(65%, 100%, 50%);
+  width: 100%;
+  max-width: none;
   height: 100%;
+  margin: 60vmin auto 0;
   box-shadow: inset 0 0 15px rgba(0, 0, 0);
   position: relative;
+  min-width: 0;
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: center;
   /*background: rgba(55, 100, 100, 0.1);
     backdrop-filter: blur(10px);*/
 }
@@ -674,6 +677,11 @@ background: rgba(0, 15, 15, 0.4);
 .gallery.statement .content,
 .gallery.biography .content {
   display: block;
+}
+
+.art-page .content {
+  padding: 3rem 2rem;
+  background: rgba(0, 15, 15, 0.4);
 }
 
 .art-page .work {
@@ -755,9 +763,46 @@ background: rgba(0, 15, 15, 0.4);
 /* Keep the sidebar and artwork area together on the right side. */
 @media screen and (min-width: 600px) {
   .art-page main.gallery {
-    align-items: start;
+    display: block;
   }
 
+  .art-page main.gallery > .gallery-box {
+    --gallery-sidebar-width: clamp(10rem, 20%, 30rem);
+    --gallery-sidebar-gap: clamp(2rem, 23%, 24rem);
+    display: grid;
+    grid-template-columns:
+      minmax(0, var(--gallery-sidebar-width))
+      minmax(0, 1fr);
+    column-gap: var(--gallery-sidebar-gap);
+    align-items: start;
+    width: min(85%, calc(100vw - 2rem));
+    max-width: none;
+    min-width: 0;
+    margin-inline: auto 4vmin;
+  }
+
+  .art-page main.gallery > .gallery-box > #sidebar-container {
+    grid-column: 1;
+    width: calc(100% - 10vmin);
+    min-width: 0;
+    margin: 20vmin 0 0 10vmin;
+    position: relative;
+    top: 20vh;
+  }
+
+  .art-page main.gallery > .gallery-box > #gallery-container {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 60vmin 0 0;
+  }
+
+  .art-page main.gallery > .gallery-box > .page-line,
+  .art-page main.gallery > .gallery-box > #pagination {
+    grid-column: 2;
+  }
 }
 
 #policy h2 {

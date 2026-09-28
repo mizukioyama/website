@@ -43,7 +43,7 @@ module.exports = defineConfig({
     colorScheme: "dark",
     reducedMotion: "reduce",
     screenshot: "only-on-failure",
-    trace: "retain-on-failure"
+    trace: "off"
   },
   webServer: {
     command: "node scripts/visual-server.cjs",

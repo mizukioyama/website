@@ -74,7 +74,15 @@
     backdrop-filter: blur(10px);
   }
   .h1-text {
-    left: 5vmin;
+    left: 2.5rem;
+    top: 52%;
+  }
+  body:not(.home) .h1-text {
+    top: 20vh;
+  }
+  body:not(.home) .h1-text h1 {
+    margin-top: 0;
+    margin-bottom: 0;
   }
   .scroll {
     left: 1.25rem;
@@ -129,7 +137,7 @@
   -- Art page
   ======================================== */
   .art-page .gallery {
-    padding: 60vmin 2vmin;
+    padding: 10vmin 0 30vmin clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
     background-color: rgba(0, 0, 0, 0.55);
   }
 
@@ -155,8 +163,16 @@
   }
 
   #sidebar-container {
-    top: 96vmin;
+    position: absolute;
+    top: calc(80svh + 10vmin - 3.25rem - 10px);
+    left: calc(5% + 5vmin);
+    right: auto;
+    z-index: 3000;
     display: block;
+    width: auto;
+    min-width: 0;
+    padding: 0;
+    border: 0;
     overflow: visible;
     pointer-events: auto;
     isolation: isolate;
@@ -174,12 +190,18 @@
 }
 
   .art-page #category-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: max-content;
     min-width: 8.5rem;
     min-height: 3.25rem;
     margin: 0;
-    padding: 0 !important;
+    padding: 0.7rem 1.2rem 0.6rem 10px !important;
+    border: 0 !important;
+    border-bottom: 1px solid currentColor !important;
     border-radius: 0 !important;
-    line-height: 1.2;
+    line-height: 1.15;
     font-size: var(--font-category-size) !important;
     display: flex;
     align-items: center;
@@ -238,6 +260,23 @@
     display: none !important;
   }
 
+  .art-page #category-menu {
+    top: calc(100% + 0.35rem);
+    bottom: auto;
+    z-index: 1;
+    width: max-content;
+    min-width: 9.5rem;
+    max-width: min(70vw, 15rem);
+    background: rgba(14, 27, 28, 0.48);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0 !important;
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 14px 38px rgba(0, 0, 0, 0.38);
+  }
+
   .art-page #category-menu.mobile-open {
     max-height: 60svh;
     padding: 0.4rem 1vmin;
@@ -260,7 +299,7 @@
   #state .content,
   #contact .content,
   #policy .content {
-    margin: 0 auto;
+    margin: 80svh auto 0;
     width: 100%;
     height: 100%;
     padding: 0 3vmin;
@@ -279,17 +318,17 @@
   }
 
   .gallery-box {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     display: block;
     width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)));
     max-width: 100%;
-margin: 0 auto;
+    margin-inline: auto;
   }
   .gallery .content {
     width: 100%;
     padding: 0 5vmin;
     gap: 0;
-    margin-top: 100vmin;
+    margin-top: 80svh;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
   }
   #policy .content li {
@@ -303,10 +342,10 @@ margin: 0 auto;
     justify-content: flex-start;
   }
   .art-page .work {
-    min-height: 320px;
+    min-height: 350px;
     justify-content: flex-start;
   }
-  .gallery-containt .work-img a {
+  .gallery-box .work-img a {
     height: 80px;
   }
   .work h2 {

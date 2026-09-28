@@ -597,12 +597,34 @@ async function prepareDeterministicNetwork(page) {
 async function stabilize(page, entry = {}) {
   await page.addStyleTag({ path: path.resolve(__dirname, "stabilize.css") });
 
-  await page.waitForFunction(() => {
+  await page.evaluate(async () => {
     const title = document.querySelector(".h1-text h1.text");
-    if (!title) return true;
+    if (!title) return;
     const target = title.getAttribute("aria-label");
-    return !target || title.innerText.trim() === target.trim();
-  }, null, { timeout: 3500 }).catch(() => {});
+    if (!target) return;
+
+    await new Promise((resolve, reject) => {
+      let stableTimer;
+      const timeoutTimer = setTimeout(() => {
+        observer.disconnect();
+        reject(new Error("Page title did not finish its text animation."));
+      }, 5000);
+      const finish = () => {
+        observer.disconnect();
+        clearTimeout(timeoutTimer);
+        resolve();
+      };
+      const check = () => {
+        clearTimeout(stableTimer);
+        if (title.innerText.trim() === target.trim() && !title.querySelector(".dud")) {
+          stableTimer = setTimeout(finish, 300);
+        }
+      };
+      const observer = new MutationObserver(check);
+      observer.observe(title, { childList: true, characterData: true, subtree: true });
+      check();
+    });
+  });
 
   await page.evaluate(() => {
     const year = document.querySelector("#year");
