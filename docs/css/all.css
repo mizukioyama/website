@@ -460,7 +460,7 @@ hr {
 h1,
 .creator-title {
   width: 100%;
-font-family: serif;
+  font-family: "Shippori Mincho", serif;
   font-optical-sizing: auto;
   font-weight: 400; /* 好みで変更 */
 }

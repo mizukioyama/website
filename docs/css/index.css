@@ -61,7 +61,7 @@ h1 {
 }
 
 .creator-title {
-  font-size: var(--type-home-h2-size);
+  font-size: var(--type-home-creator-size);
 }
 
 h2 {
@@ -555,7 +555,7 @@ p {
 
 .top-page h1.title {
   width: fit-content;
-  font-size: var(--type-home-h1-size);
+  font-size: var(--type-home-title-size);
 }
 
 .top-page .title {

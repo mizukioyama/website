@@ -79,6 +79,10 @@
      Home
      ================================================== */
 
+  /* Home creator identity label: 12.4px → 14px */
+  --type-home-creator-size: clamp(12.4px, calc(11.8366px + 0.1502vw), 14px);
+  /* Animated Home display title: 25.6px → 28.8px */
+  --type-home-title-size: clamp(25.6px, calc(24.4732px + 0.3005vw), 28.8px);
   /* Home typing text: 22.4px → 28.8px */
   --type-home-typing-size: clamp(22.4px, calc(21.2732px + 0.6009vw), 28.8px);
   /* Home date: 13.6px → 16px */

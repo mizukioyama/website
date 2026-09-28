@@ -843,18 +843,28 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
   }
 }
 
-test("normal H2 elements share one font-size within each page group", async ({ page }) => {
+test("Home display and creator labels retain their typography roles; Biography H2s share a group size", async ({ page }) => {
+  const roundToTenth = value => Math.round(value * 10) / 10;
+
   await prepareDeterministicNetwork(page);
   await page.goto("", { waitUntil: "domcontentloaded" });
-  await stabilize(page, { key: "home-h2-type" });
-  const homeSizes = await page.locator("h2.creator-title, h2.title__inner").evaluateAll(elements =>
-    elements.map(element => getComputedStyle(element).fontSize)
+  const homeH2Expected = roundToTenth(await resolveCssFontToken(page, "--type-home-h2-size"));
+  const homeDisplayH2Size = await page.locator("h2.title__inner").first().evaluate(element =>
+    parseFloat(getComputedStyle(element).fontSize)
   );
-  expect(homeSizes.length, "Home normal H2 elements should exist").toBeGreaterThan(1);
-  expect(new Set(homeSizes).size, "Home normal H2 elements should share one size").toBe(1);
+  expect(roundToTenth(homeDisplayH2Size), "Home display H2 font-size").toBe(homeH2Expected);
+
+  const homeCreatorExpected = roundToTenth(await resolveCssFontToken(page, "--type-home-creator-size"));
+  const homeCreatorSizes = (await page.locator("h2.creator-title").evaluateAll(elements =>
+    elements.map(element => parseFloat(getComputedStyle(element).fontSize))
+  )).map(roundToTenth);
+  expect(homeCreatorSizes.length, "Home creator identity labels should exist").toBe(2);
+  expect(homeCreatorSizes, "Home creator identity labels should use their component token").toEqual([
+    homeCreatorExpected,
+    homeCreatorExpected
+  ]);
 
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
-  await stabilize(page, { key: "biography-h2-type" });
   const standardSizes = await page.locator("#bio #state .content h2").evaluateAll(elements =>
     elements.map(element => getComputedStyle(element).fontSize)
   );
@@ -867,7 +877,6 @@ test("shared body typography matches the documented responsive scale", async ({ 
 
   await prepareDeterministicNetwork(page);
   await page.goto("", { waitUntil: "domcontentloaded" });
-  await stabilize(page, { key: "home-body-type" });
   const homeExpected = Math.round((await resolveCssFontToken(page, "--type-home-p-size")) * 10) / 10;
   expect(homeExpected, "Home body typography token should resolve").toBeGreaterThan(0);
   const homeSize = await page.locator("main p").first().evaluate(element =>
@@ -876,7 +885,6 @@ test("shared body typography matches the documented responsive scale", async ({ 
   expect(roundToTenth(homeSize), "Home body font-size").toBe(homeExpected);
 
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
-  await stabilize(page, { key: "biography-body-type" });
   const standardExpected = Math.round((await resolveCssFontToken(page, "--type-page-p-size")) * 10) / 10;
   expect(standardExpected, "Standard body typography token should resolve").toBeGreaterThan(0);
   const biographySize = await page.locator("#bio #state .content .work > p.state-txt").first().evaluate(element =>
@@ -890,7 +898,6 @@ test("shared body typography matches the documented responsive scale", async ({ 
   expect(roundToTenth(biographyEnglishSize), "Biography English body font-size").toBe(standardExpected);
 
   await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
-  await stabilize(page, { key: "statement-body-type" });
 
   const statementJapaneseSize = await page.locator("#state .content .work > p.state-txt").first().evaluate(element =>
     parseFloat(getComputedStyle(element).fontSize)
@@ -1195,13 +1202,11 @@ test("Biography and Artist Statement stay bilingual while language preference pe
 
   for (const path of ["biography.html", "artist-statement.html"]) {
     await page.goto(path, { waitUntil: "domcontentloaded" });
-    await stabilize(page);
     await assertBilingualPage(page, path);
     await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   }
 
   await page.goto("gallery.html", { waitUntil: "domcontentloaded" });
-  await stabilize(page);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
 
