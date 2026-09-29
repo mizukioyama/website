@@ -301,7 +301,7 @@ async function assertResponsivePageGeometry(page, entry) {
   if (entry.key === "information") {
     await expectHorizontalFit(page.locator(".information-page .content"), "Information content");
     await expectHorizontalFit(page.locator(".information-page .history-table"), "Information table");
-    await expectHorizontalFit(page.locator(".information-page .info-link"), "Information links");
+    await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links");
   }
 
   if (entry.key === "order") {
@@ -604,22 +604,60 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("body")).toHaveAttribute("data-language-mode", "switchable");
   await expect(page.locator("#langChange")).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
-  await expect(page.locator(".information-page .content > h2[lang=ja]")).toBeVisible();
+  await expect(page.locator(".information-page .content > h2 [lang=ja]")).toBeVisible();
+  await expect(page.locator("#upcoming-title [lang=ja]")).toBeVisible();
+  await expect(page.locator("#past-title [lang=ja]")).toBeVisible();
+  await expect(page.locator(".history-table thead th:first-child [lang=ja]")).toHaveCount(2);
+  await expect(page.locator(".history-table thead th:first-child [lang=ja]").first()).toBeVisible();
   await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
-  await expect(page.locator(".information-intro p[lang=en]")).toHaveCount(0);
+  await expect(page.locator(".information-intro p[lang=en]")).toHaveCount(1);
+  await expect(page.locator(".information-intro p[lang=en]")).toBeHidden();
   await expect(page.locator('.history-table tbody tr[lang="ja"]')).toHaveCount(2);
+  await expect(page.locator('.history-table tbody tr[lang="en"]')).toHaveCount(2);
   await expect(page.locator('.history-table tbody tr[lang="ja"]').first()).toBeVisible();
+  await expect(page.locator('.info-link[lang="ja"]')).toBeVisible();
+  await expect(page.locator('.info-link[lang="en"]')).toBeHidden();
 
   await page.locator('#langChange label[for="langEn"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator(".information-page .content > h2[lang=ja]")).toBeHidden();
+  await expect(page.locator(".information-page .content > h2 [lang=ja]")).toBeHidden();
+  await expect(page.locator(".information-page .content > h2 [lang=en]")).toBeVisible();
+  await expect(page.locator("#upcoming-title [lang=ja]")).toBeHidden();
+  await expect(page.locator("#past-title [lang=ja]")).toBeHidden();
+  await expect(page.locator(".history-table thead th:first-child [lang=ja]").first()).toBeHidden();
+  await expect(page.locator(".history-table thead th:first-child [lang=en]").first()).toBeVisible();
   await expect(page.locator(".information-intro p[lang=ja]")).toBeHidden();
-  await expect(page.locator("#upcoming-title[lang=en]")).toBeVisible();
-  await expect(page.locator("#past-title[lang=en]")).toBeVisible();
+  await expect(page.locator(".information-intro p[lang=en]")).toBeVisible();
+  await expect(page.locator(".information-intro p[lang=en]")).toContainText("Current and upcoming exhibitions");
+  await expect(page.locator("#upcoming-title [lang=en]")).toBeVisible();
+  await expect(page.locator("#past-title [lang=en]")).toBeVisible();
   await expect(page.locator('.history-table tbody tr[lang="ja"]').first()).toBeHidden();
   await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
   await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "Japan-Taiwan Bond Exhibition" })).toBeVisible();
   await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "2nd Japan-France Friendship Original Stamp Exhibition" })).toBeVisible();
+  const englishHistoryRows = page.locator('.history-table tbody tr[lang="en"]');
+  await expect(englishHistoryRows.nth(0)).toContainText("2022");
+  await expect(englishHistoryRows.nth(0)).toContainText("Tigers of Art Exhibition");
+  await expect(englishHistoryRows.nth(0)).toContainText("Nikko Toshogu Museum");
+  await expect(englishHistoryRows.nth(0)).toContainText("Japan-ASEAN Friendship and Cultural Exchange Exhibition");
+  await expect(englishHistoryRows.nth(0)).toContainText("Tokyo ASEAN Centre");
+  await expect(englishHistoryRows.nth(1)).toContainText("2021");
+  await expect(englishHistoryRows.nth(1)).toContainText("Salon d'Art Japonais");
+  await expect(englishHistoryRows.nth(1)).toContainText("OASISU 2021");
+  await expect(englishHistoryRows.nth(1)).toContainText("Abeno Harukas, Osaka");
+  await expect(englishHistoryRows.nth(1)).toContainText("Charity Art Exhibition");
+  await expect(englishHistoryRows.nth(1)).toContainText("Tokyo");
+  const englishDetailLink = page.locator('.info-link[lang="en"]');
+  await expect(englishDetailLink).toBeVisible();
+  await expect(englishDetailLink).toHaveText("View exhibition details");
+  await expect(englishDetailLink).toHaveAttribute("href", "exhibitions/yurayura/");
+  await expect(page.locator('.info-link[lang="ja"]')).toBeHidden();
+  await expectHorizontalFit(page.locator(".information-page .content"), "Information content in English");
+  await expectHorizontalFit(page.locator(".information-page .history-table"), "Information table in English");
+  await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links in English");
+  const englishDiagnostics = await layoutDiagnostics(page);
+  expect(englishDiagnostics.overflow, "English Information has horizontal overflow").toBeLessThanOrEqual(2);
+  expect(englishDiagnostics.clippedText, "visible English Information text is clipped").toEqual([]);
   await expect.poll(() => page.evaluate(() => [
     localStorage.getItem("selectedLang"),
     localStorage.getItem("lang")
@@ -636,10 +674,13 @@ async function exerciseInformationLanguage(page, testInfo) {
   await page.reload({ waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
-  await expect(page.locator("#upcoming-title[lang=en]")).toBeVisible();
+  await expect(page.locator("#upcoming-title [lang=en]")).toBeVisible();
+  await expect(page.locator('.info-link[lang="en"]')).toBeVisible();
   await page.locator('#langChange label[for="langJa"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
+  await expect(page.locator('.info-link[lang="ja"]')).toBeVisible();
+  await expect(page.locator('.info-link[lang="en"]')).toBeHidden();
 }
 
 async function exerciseInformationRuntime(page, testInfo) {
@@ -647,8 +688,8 @@ async function exerciseInformationRuntime(page, testInfo) {
   const sections = page.locator(".information-page .info-section");
   await expect(sections).toHaveCount(2);
 
-  const headings = await sections.locator("h2").allTextContents();
-  expect(headings.map(text => text.trim())).toEqual(["Upcoming", "Past"]);
+  const headings = await sections.locator("h2").allInnerTexts();
+  expect(headings.map(text => text.trim())).toEqual(["開催予定", "過去の活動"]);
 
   const upcoming = page.locator('section[aria-labelledby="upcoming-title"]');
   await expect(upcoming).toContainText("2026.10");
@@ -1326,6 +1367,69 @@ test("all sitemap pages are registered for visual checks", async ({}, testInfo) 
     missing,
     "Every sitemap page must be registered in Visual Regression or explicitly designed as non-indexable."
   ).toEqual([]);
+});
+
+
+test("switchable pages preserve language through navigation and reload", async ({ page }, testInfo) => {
+  test.skip(
+    !["desktop-1440", "mobile-390"].includes(testInfo.project.name),
+    "Switchable-page persistence is verified on representative desktop and mobile viewports."
+  );
+
+  const entry = { key: "switchable-language-persistence" };
+  const runtime = createRuntimeMonitor(page, entry);
+  await prepareDeterministicNetwork(page);
+
+  const pagesToVerify = [
+    { name: "Home", path: "", localizedContent: true },
+    { name: "Gallery", path: "gallery.html", localizedContent: false },
+    { name: "Information", path: "information.html", localizedContent: true },
+    { name: "Order", path: "order.html", localizedContent: true },
+    { name: "Contact", path: "contact.html", localizedContent: true },
+    { name: "Policy", path: "policy.html", localizedContent: true }
+  ];
+
+  const assertSelectedLanguage = async (pageName, language, localizedContent) => {
+    await expect(page.locator("#langChange")).toBeVisible();
+    await expect(page.locator("html")).toHaveAttribute("lang", language);
+    await expect(page.locator("#langChange input[value='" + language + "']")).toBeChecked();
+
+    if (!localizedContent) return;
+
+    await expect(page.locator('main [lang="' + language + '"]:visible').first()).toBeVisible();
+    await expect(page.locator('main [lang="' + (language === "en" ? "ja" : "en") + '"]:visible')).toHaveCount(0);
+    const metrics = await page.evaluate(() => ({
+      overflow: Math.max(
+        document.documentElement.scrollWidth,
+        document.body?.scrollWidth || 0
+      ) - document.documentElement.clientWidth
+    }));
+    expect(metrics.overflow, pageName + " has horizontal overflow in " + language).toBeLessThanOrEqual(2);
+  };
+
+  const response = await page.goto("", { waitUntil: "domcontentloaded" });
+  expect(response.status()).toBe(200);
+  await assertSelectedLanguage("Home", "ja", true);
+  await page.locator('#langChange label[for="langEn"]').click();
+  await assertSelectedLanguage("Home", "en", true);
+
+  for (const [index, entryPage] of pagesToVerify.entries()) {
+    if (index > 0) {
+      const pageResponse = await page.goto(entryPage.path, { waitUntil: "domcontentloaded" });
+      expect(pageResponse.status(), entryPage.name + " should load").toBe(200);
+    }
+    await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
+  }
+
+  await page.locator('#langChange label[for="langJa"]').click();
+  await assertSelectedLanguage("Policy", "ja", true);
+  await page.goto("", { waitUntil: "domcontentloaded" });
+  await assertSelectedLanguage("Home", "ja", true);
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
 
