@@ -2,22 +2,25 @@
 
 ## Rule
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
+Only the baseline and current priority queue below define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
 
 ## Current baseline — 2026-09-29
 
-- Formal public baseline: `main` / `origin/main` at `f6427178ca3fa37ccd5744a6e66d14864f056818`.
-- Pages build/deploy: PASS. Visual Regression #406: 53 passed, 13 skipped, 0 failed; screenshot comparisons enabled. Visual Regression #398 is resolved by the later passing run.
-- All nine public pages were checked at 1440px and 390px: no horizontal overflow or browser console errors. Gallery sidebar and captions passed their interaction checks; CSS cleanup showed no observed layout regression.
-- Current page-language rules are in `PORTFOLIO_MASTER_SPEC.md`. This current queue supersedes older dated decisions in this roadmap.
+- Production-code checkpoint: `b360b71e120e616d734fb493aae49c2a6c2ec1d6` (main and origin/main matched this revision before the documentation-only checkpoint).
+- Before this documentation checkpoint, Pages deploy #380 passed and Visual Regression #407 passed for `b360b71`; #407 is the current passing regression reference. Public URL: `https://mizukioyama.github.io/website/`.
+- The committed Linux screenshot set was refreshed in `c238b18` (20 snapshots: nine indexable pages plus 404, at 1440px and 390px). This documentation checkpoint does not change production inputs or screenshot baselines.
+- Visual Regression #398 is a historical failure resolved at the gate level by subsequent baseline/test stabilization and passing runs #406 and #407. It is not an open blocker.
+- The latest recorded all-nine-page public layout/interaction check was after deploy #371 at 1440px and 390px; #380 was the successful deployment immediately before this documentation checkpoint. Do not imply that #407 itself is a public viewport check.
+- The required page-language matrix and the current implementation gap are in `PORTFOLIO_MASTER_SPEC.md`.
 
 ## Current priority queue
 
-1. Complete Information's English coverage: introduction, 2022 and 2021 records, necessary link text, and language markup.
-2. Prepare and review a full English translation plan for Yurayura, including the concept, intent, artist descriptions, archive and future plan; keep the switch hidden until the translation is complete.
-3. Address language `lang` attributes and verify Yurayura's detail-table header/value associations.
-4. Consider design or layout work only after these content and accessibility items, with the normal verification sequence in `AGENTS.md`.
+1. After owner review of the updated specification, implement the required Ja / En mode on Information, Contact and Yurayura. Complete Information's missing English copy and language markup, prepare and review the full Yurayura English version before exposing its switch, preserve the stored preference across the two bilingual pages, and synchronize `document.documentElement.lang` on switch pages.
+2. Update language-mode and persistence assertions in Visual Regression/check scripts to match the normative seven-switch / two-bilingual matrix; extend typography checks to enforce the documented group-token rule; verify Gallery caption behavior remains intact.
+3. For that grouped change, run the intermediate checkpoint in `AGENTS.md`: `npm run check` (includes build), screenshot-enabled Visual Regression, Pages deploy, public runtime checks, and all seven widths for responsive/layout-sensitive areas. Resolve Yurayura detail-table header/value associations as part of accessibility verification.
+4. Reconsider visual/design work only after the language and accessibility work is complete and reviewed.
 
-No implementation from this queue is part of the current documentation update.
+This queue is not authorization to start production-code changes before the owner reviews this documentation update.
 
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering

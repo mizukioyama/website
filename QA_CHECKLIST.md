@@ -19,15 +19,15 @@ Use this checklist after portfolio changes that can affect layout, typography, s
 - [ ] Layout dimensions were not converted to px unnecessarily.
 
 ## Shared typography
-- [ ] Common body text uses the intended shared token.
-- [ ] Japanese and English normal body-copy pairs use the same `--font-body-size`; translations are not accidentally using caption sizing.
+- [ ] Common same-tag normal content uses its Home, Standard Pages or 404 group token from `assets/css/user-settings.css`.
+- [ ] Japanese and English normal body-copy pairs use the same page-group token; translations are not accidentally using caption sizing.
 - [ ] Common links/UI text use the intended shared token.
 - [ ] Header navigation and footer navigation use the same type token inside each breakpoint.
 - [ ] Page-specific overrides are justified and do not duplicate an existing shared role.
 - [ ] Shared-token changes have been checked against every consumer.
 
 ## Breakpoints
-Verify at minimum:
+The normal public checkpoint checks affected routes at 1440px and 390px. Use all seven widths for responsive/layout changes and detailed breakpoint-sensitive audits:
 - [ ] 1440px
 - [ ] 1280px
 - [ ] 1024px
@@ -58,6 +58,12 @@ Shared breakpoint model:
 - [ ] No interaction is hidden by responsive changes.
 - [ ] Reduced-motion behavior remains valid.
 - [ ] Hover-only behavior is not required for essential information.
+- [ ] Ja / En switch pages are Home, Gallery, Information, Order, Contact, Policy and Yurayura; only the selected language is displayed.
+- [ ] Language preference persists across navigation and `document.documentElement.lang` follows the selected language on switch pages.
+- [ ] Biography and Artist Statement show Japanese followed by English, hide the switch, and preserve the stored preference for later switch pages.
+- [ ] Gallery modal title/caption follows the selected language, including when language changes while the modal remains open.
+- [ ] Gallery Category starts closed at every viewport; click/Enter/Space toggles, category selection closes it, and scrolling preserves state.
+- [ ] Gallery glass overlay is present only while open at widths up to 599px; overlay activation closes the sidebar; no overlay appears at 600px and above.
 
 ## Runtime checks
 - [ ] No page errors.
@@ -69,7 +75,9 @@ Shared breakpoint model:
 ## Visual Regression and deployment
 - [ ] Follow the canonical sequence and Linux screenshot-baseline policy in `AGENTS.md` → `Visual Regression standard`.
 - [ ] Keep screenshot comparison enabled for the formal Visual Regression run and classify any differences before a baseline update.
-- [ ] For breakpoint-sensitive work, use the full seven-viewport matrix.
+- [ ] Create an intermediate checkpoint after two or three related changes and after layout, typography, responsive or JavaScript DOM/interaction changes.
+- [ ] For responsive/layout changes, verify 1440, 1280, 1024, 768, 430, 390 and 375px.
+- [ ] For a normal public checkpoint, verify affected routes at 1440px and 390px; confirm the CI representative matrix also covers 768px.
 - [ ] Build and repository checks pass before Visual Regression.
 - [ ] GitHub Pages build and deploy pass after Visual Regression.
 - [ ] Confirm the deployed public URL at the affected routes and viewports; use a cache-busting URL or hard reload when verifying fresh CSS.

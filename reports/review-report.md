@@ -901,7 +901,9 @@ Interactive before/after comparison also matched at 390px and 1440px. At 390px t
 - Physical-device acceptance and owner review remain pending. Keep the next specification task stopped until the owner has reviewed the published checkpoint and the Visual Regression failure has been classified.
 
 
-## 2026-09-29 Language specification and release-baseline alignment
+## 2026-09-29 Earlier language specification and release-baseline snapshot — superseded later the same day
+
+> This section preserves the earlier decision and evidence as a dated record. The current language specification and formal baseline are summarized in the later “Specification consolidation” section at the end of this report.
 
 ### Current source-of-truth roles
 
@@ -928,3 +930,40 @@ Interactive before/after comparison also matched at 390px and 1440px. At 390px t
 ### Review-package handling
 
 `reports/chatgpt-review-package.zip` is a transfer snapshot for external review, not an authoritative spec or required build/deploy input. The repository operating rules do not require it in the documentation commit. It is retained unchanged and excluded from this commit; its existing modified working-tree version remains available for a separate decision.
+
+
+## 2026-09-29 Specification consolidation and current formal status
+
+### Current release evidence
+
+- Before this documentation update, `main` and `origin/main` were synchronized at `b360b71e120e616d734fb493aae49c2a6c2ec1d6`.
+- Pages deploy #380 succeeded for `b360b71`; the public URL is https://mizukioyama.github.io/website/.
+- Visual Regression #407 is the current passing regression reference for `b360b71`. The committed Linux screenshot files were last refreshed in `c238b18` across 20 route/viewport cases: the nine indexable pages and 404 at 1440px and 390px.
+- Visual Regression #398 is a historical failed run. Later screenshot baseline and test-stabilization commits were followed by passing #406 (53 passed, 13 skipped, 0 failed) and #407. The current gate is passing; #398 is not an open blocker.
+- #407 is CI regression evidence, not a public all-viewport runtime check. The latest recorded public all-nine-page layout/interaction check was after deploy #371 at 1440px and 390px.
+
+### Current language specification and code difference
+
+- Ja / En switch: Home, Gallery, Information, Order, Contact, Policy and Yurayura.
+- Japanese-first bilingual with hidden switch: Biography and Artist Statement.
+- On switch pages, the selected language persists through page navigation, `document.documentElement.lang` follows the selection, and only selected-language content is shown. Gallery title/caption follows language changes while a modal is open.
+- Current code still switches only on Home, Gallery, Order and Policy. Information, Contact and Yurayura still use bilingual mode with the switch hidden; Yurayura English is partial. This is the next implementation scope after owner review of the specification.
+
+### Specification and source map established
+
+- Gallery Category starts closed at all viewport classes; click/Enter/Space toggles; selection closes; scroll preserves state; `mobile-open` may represent state; overlay is only for an open sidebar at <=599px and closes on activation. `menu.js` owns sidebar/toggle state, `page-nation.js` owns filtering/pagination, and `gallery-captions.js` owns captions backed by `gallery-captions-data.js`.
+- `assets/css/user-settings.css` is the user-editable font-size source. Normal same-tag content follows Home / Standard Pages / 404 group tokens; component roles remain documented exceptions. The existing typography checker covers shared body aliases and selected bilingual paragraphs, not every group role; that extension remains in the next-actions queue.
+- `SITE_MAP.md` records the current CSS responsibilities and root/source/generated mapping. `src/components/header.html` and `footer.html` feed `js/menu.js`; `docs/` is generated and is not an implementation edit surface.
+- Checkpoints are required after two or three related changes and after layout, typography, responsive or JavaScript DOM/interaction changes. Normal public runtime checks cover affected routes at 1440px and 390px; responsive/layout work uses 1440/1280/1024/768/430/390/375px. CI uses 1440/768/390px, with committed screenshot comparison at 1440/390px.
+
+### Documentation inventory and retained local files
+
+- Active authority: `PORTFOLIO_MASTER_SPEC.md` (product/language requirements), `SITE_MAP.md` (routes/source architecture), `DESIGN_SYSTEM.md` (visual system), `CSS_VARIABLES_GUIDE.md` (user typography controls), `AGENTS.md` (development/release rules), `QA_CHECKLIST.md` (verification), `ROADMAP.md` (current priorities), and `reports/known-issues.md` / `reports/next-actions.md` (current gaps and queue).
+- Evidence/history: `reports/review-report.md`, `reports/user-checklist.md`, `reports/chatgpt-review-requests.md` and `AUDIT_LOG.md`. Dated entries are records, not active requirements when superseded by current authority.
+- `current-status.md` and `architecture.md` do not exist; `ROADMAP.md` owns current status and `SITE_MAP.md` owns architecture/source mapping. `backups/20260922_before_user_settings_typography/` contains historical backup copies and is not active guidance.
+- `css/変更メモ.css` and `docs/css/変更メモ.css` are byte-identical (196 lines; SHA-256 `0bb4794be724683814b35a23b8b7fa9aaf00ee7b5c6ff52499543cbde6181431`). Since the build copies root `css/` into `docs/`, these personal notes should eventually live in one non-production notes location. They were not edited, moved or deleted.
+- `reports/chatgpt-review-package.zip` is tracked and already modified in the working tree. Its archive contains dated report copies, `gallery-repair.patch` and `user-settings.css`; it is a one-time review snapshot rather than authoritative source. Recommend not keeping refreshed review bundles permanently in the repository; generate a separate copy only when review is requested. This ZIP was not modified in this task.
+
+### Scope and next step
+
+This specification checkpoint covers specification/report Markdown only. The pre-existing modified review ZIP and both user CSS notes remain outside its scope. No HTML, CSS, JavaScript, tests, build output or screenshot baselines were changed. No local build or automated test suite was run. Git delivery status is reported with the checkpoint result; Information / Contact / Yurayura production-code implementation remains outside this checkpoint.

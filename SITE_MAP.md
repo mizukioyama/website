@@ -62,10 +62,30 @@ The public root-page visual system primarily uses:
 - root visual HTML for Home, Artist Statement, Biography, Order, Gallery, Contact and Policy
 - specific `src/` HTML sources for Information, 404 and exhibition archives
 
+### CSS responsibilities and editing locations
+
+| File | Responsibility |
+| --- | --- |
+| `assets/css/user-settings.css` | User-editable typography settings; edit the `USER EDITABLE — TYPOGRAPHY` section for normal font-size tuning. |
+| `css/all.css` | Shared reset, document defaults and site-wide base rules. |
+| `css/menu.css` | Shared Header, navigation and menu layout; it imports `index-tablet.css` for Home-only portrait-tablet rules. |
+| `css/gallery.css` | Shared standard-page and Gallery presentation, including language-control, Category sidebar and artwork-viewing styles used by pages that load it. |
+| `css/mobile.css` | Narrow-mobile overrides, primarily scoped to widths of 599px and below, including mobile Gallery sidebar/overlay states. |
+| `css/index.css` | Home-specific layout and presentation. |
+| `css/index-tablet.css` | Home-only portrait-tablet layout rules, scoped by `.home` and imported from `menu.css`. |
+| `css/footer.css` | Shared footer layout and presentation. |
+| `css/form.css` | Contact form controls and form-specific presentation. |
+| `css/modal.css` | Modal and related interactive presentation where imported. |
+| `css/noise.css` | Shared noise texture and animation effects. |
+
+The same selector can appear in more than one stylesheet for an intentional component, state, breakpoint or responsive override. Check imports, selectors and cascade before treating it as duplicate CSS. Do not reintroduce rules removed by an approved cleanup without evidence that a required behavior is missing. User notes are not production CSS sources.
+
 ## Generated output policy
 `docs/` is deployment/generated output.
 
 Do not implement a fix by hand-editing `docs/` when an authoritative source exists. Update the source, run the build, and verify generated parity.
+
+The build runs component synchronization, Webpack assembly and Gallery-caption embedding. Use `npm run build`, inspect the generated tree, then run `npm run check` (which also performs the build and generated-output checks). The normal delivery path continues through review, commit/push, GitHub Pages deployment and public URL verification.
 
 The committed `docs/` tree must match the deterministic output produced by the current build. Generated local CSS/JS references use content-derived `?v=` hashes rather than commit/time tokens, so unchanged sources produce identical output across local and CI builds. `npm run check` rebuilds the site and fails when any file under `docs/` differs from the committed state, preventing a stale local deployment mirror from reaching `main`.
 

@@ -14,21 +14,39 @@ Home establishes artist identity/worldview and leads into work. Gallery makes ar
 
 ## Language presentation
 
-The page-specific language behavior is part of this master specification:
+The page-specific language behavior below is the normative specification. A current implementation difference is recorded separately so the desired behavior is not confused with the deployed behavior.
 
-| Page | Presentation | Language control |
+| Page | Required presentation | Language control |
 | --- | --- | --- |
 | Home | Japanese / English switch | Shown |
 | Gallery | Japanese / English switch | Shown |
 | Biography | Japanese followed by English | Hidden |
 | Artist Statement | Japanese followed by English | Hidden |
-| Information | Japanese followed by English; some older copy is still untranslated | Hidden |
+| Information | Japanese / English switch | Shown after English coverage is complete |
 | Order | Japanese / English switch | Shown |
-| Contact | Japanese followed immediately by English; form labels and fields are bilingual together | Hidden |
+| Contact | Japanese / English switch; form labels and fields follow the selected language | Shown |
 | Policy | Japanese / English switch | Shown |
-| Yurayura | Japanese-led with partial English | Hidden for now |
+| Yurayura | Japanese / English switch after the full English version is prepared and reviewed | Shown |
 
-Do not change a page's language mode only to make the site look uniform. Information remains a bilingual-display page while its English coverage is completed. Yurayura remains Japanese-led with partial English; consider a Ja/En switch only after the full English page has been prepared and reviewed. Do not show a switch while substantial page content remains untranslated.
+For switchable pages, the shared Header Ja / En control selects the corresponding content, stores the preference, preserves it across page navigation, and synchronizes `document.documentElement.lang`. Only the selected language is displayed in normal page content. Gallery modal titles and captions follow the selected language, including when the language changes while the modal is open.
+
+Biography and Artist Statement display Japanese followed by English and hide the language control. Visiting either page must not overwrite or clear the saved language preference used on switchable pages. Keep accurate `lang` attributes on language-specific content; on a bilingual page, the root `lang` describes the page's primary Japanese presentation.
+
+Complete and review the English coverage of Information and Yurayura before enabling their switch. Do not present an incomplete English page as a complete language option.
+
+### Current implementation difference — 2026-09-29
+
+At production-code revision `b360b71`, only Home, Gallery, Order and Policy implement the Ja / En switch. Biography, Artist Statement, Information, Contact and Yurayura currently use bilingual display with the switch hidden; Yurayura has partial English coverage. This is an implementation gap against the required matrix above, not a change to the specification. The language-mode implementation remains a future task.
+
+## Gallery behavior
+
+The Category sidebar starts closed at desktop, tablet and mobile widths. Activating Category toggles it open or closed; Enter and Space provide the same operation. Selecting a category closes it. Scrolling does not change its state. Do not use a `collapsed` class to control Category visibility. The existing `mobile-open` class may continue to represent the open state.
+
+The glass overlay appears only at viewport widths of 599px and below while the sidebar is open. Activating the overlay closes the sidebar. There is no glass overlay at 600px and above.
+
+`js/gallery-captions-data.js` is the caption content source. `js/gallery-captions.js` resolves a caption from the current modal artwork title and writes it into the modal's existing heading/paragraph structure. Captions follow the selected language, including a language change while the modal stays open. Caption-data load or parse failure must not prevent the Gallery itself from rendering or operating.
+
+Keep behavior ownership distinct: `js/menu.js` creates the shared sidebar and owns Category open/close state; `js/page-nation.js` owns Gallery filtering and pagination; `js/gallery-captions.js` owns caption presentation. Do not implement the same state or action in multiple scripts.
 
 ## Journeys
 Primary: Home -> Gallery -> deeper artist understanding.
@@ -58,6 +76,8 @@ Typography may remain fluid within each breakpoint, but fixed visual geometry mu
 
 The user-editable font-size source of truth is `assets/css/user-settings.css`. The normal user-editing area is the `USER EDITABLE — TYPOGRAPHY` section only.
 
+Do not manage a second set of user-editable font-size values in `css/all.css` or page stylesheets; those rules should consume the shared group tokens or a documented component-role token. Retain compatibility aliases while active references depend on them, and do not reintroduce legacy rules removed by an approved CSS cleanup.
+
 For the same HTML tag, `font-size` is shared within its page group by default. The three page groups are:
 
 - Home: `index.html`
@@ -73,6 +93,8 @@ The implemented group-level foundations are:
 Normal-content font sizes now use the shared group token for each HTML tag. Page names, classes and IDs alone do not create a separate same-tag font size. Shared values were seeded from the current generic Home H1/H2 and Standard-page H1/H2/H3/H4/body roles specifically selected by the user; this was structural integration, not numerical optimization. The user remains responsible for later final size adjustments in the `USER EDITABLE — TYPOGRAPHY` section. Any retained old inline reference is a non-editable compatibility alias to its group token, not an independent typography role.
 
 Normal font sizes are managed with `clamp()` using 375px and 1440px as the reference range: keep the minimum below 375px, interpolate fluidly from 375px through 1440px, and keep the maximum above 1440px. Do not create large sets of viewport-specific font-size declarations. Add a breakpoint override only when layout or component structure requires it.
+
+`scripts/check-typography.cjs` should verify the page-group token mapping for same-tag normal content and guard the documented component exceptions. The current checker has narrower coverage; its extension is tracked as a follow-up rather than treated as already complete.
 
 Exceptions are limited to clearly different component roles such as header/navigation, menu, footer, interactive links, form controls, buttons, modal controls, Gallery cards, table/metadata text, captions/helpers, animated Home display text and the 404 code. Each exception must have its reason documented in CSS or design documentation. Letter-spacing, tracking, optical treatment and component helper tokens remain separate from normal group typography.
 

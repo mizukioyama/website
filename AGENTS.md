@@ -6,6 +6,7 @@ This repository is the official portfolio website for Mizuki Oyama. AI/Codex mus
 ## Source of truth
 Priority: latest explicit user instruction > PORTFOLIO_MASTER_SPEC.md > DESIGN_SYSTEM.md > QA_CHECKLIST.md > SITE_MAP.md > ROADMAP.md > existing implementation.
 Biography and Artist Statement are authoritative for career facts and artistic philosophy. Never invent or materially reinterpret them.
+Page language modes and Gallery sidebar/caption requirements are defined in `PORTFOLIO_MASTER_SPEC.md`; current implementation gaps belong in `ROADMAP.md` and `reports/next-actions.md` until implemented.
 
 ## Loop Engineering
 Every task follows Discover -> Plan -> Execute -> Verify -> Iterate.
@@ -51,7 +52,9 @@ For a grouped change that can affect layout, typography, responsive behavior, Ja
 3. Confirm GitHub Pages build and deploy succeed.
 4. Inspect the deployed public URL at the affected routes and viewports.
 
-Use an intermediate checkpoint when it makes the public result easier to review. The committed Linux screenshots are the formal baseline. A macOS/Linux rendering difference alone is not a reason to update Linux screenshots. Update only the affected screenshots after proving that the visual change is intentional, approved and correct.
+Create an intermediate checkpoint after each two or three related changes and after any layout, typography, responsive, or JavaScript DOM/interaction change. At minimum, run `npm run check` (which includes the build), Visual Regression with screenshot comparison enabled, the Pages build/deploy, and public runtime checks. Check the affected routes at 1440px and 390px; use the full seven-viewport matrix for responsive or layout changes. The CI representative matrix is 1440px, 768px and 390px; committed screenshot baselines are 1440px and 390px.
+
+The committed Linux screenshots are the formal baseline. A macOS/Linux rendering difference alone is not a reason to update Linux screenshots. First identify the cause, confirm the difference is intentional, and verify that runtime/layout behavior is correct. Update only affected screenshots after the difference is approved; never update a baseline only to make a failing test pass.
 
 Stabilization belongs in tests and must not alter production design solely for Visual Regression.
 

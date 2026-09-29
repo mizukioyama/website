@@ -4,12 +4,13 @@
 
 ## Current queue
 
-1. Complete Information's English coverage: introduction, 2022 and 2021 exhibition records, necessary link text, and correct English language markup.
-2. Prepare and review the full Yurayura English translation (concept, intent, artist descriptions, archive and future plan); keep the page Japanese-led and the language control hidden until coverage is complete. Manage future exhibition records in both languages.
-3. Improve accessibility by adding accurate `lang` attributes to English text and checking Yurayura detail-table header/value associations.
-4. Consider design and layout adjustments after the language and accessibility work.
+1. Wait for owner review of the current specification update before production-code work.
+2. Implement the Ja / En switch mode on Information, Contact and Yurayura to match `PORTFOLIO_MASTER_SPEC.md`. Complete Information's missing English text and markup; prepare and review the full Yurayura English version before showing its switch. Preserve saved language preference through Biography and Artist Statement, and synchronize `document.documentElement.lang` on switch pages.
+3. Update the language-mode and persistence regression assertions, and extend the typography checker to cover the documented Home / Standard Pages / 404 same-tag token rule beyond its current body-token and selected bilingual-copy checks.
+4. Run the grouped checkpoint: `npm run check` (includes build), screenshot-enabled Visual Regression, Pages deployment, public runtime checks at affected routes at 1440px/390px, and the full seven-width matrix for responsive/layout-sensitive areas. Verify the Yurayura table header/value associations.
+5. Reconsider visual or layout work after the language and accessibility work is reviewed.
 
-For any change that affects the UI, follow the build/check → Visual Regression with screenshots enabled → Pages build/deploy → public-page verification sequence in `AGENTS.md`. No item above is authorized for implementation by this documentation update.
+No item above is authorized for implementation by this documentation update. Follow the checkpoint cadence and baseline-classification rules in `AGENTS.md` when work begins.
 
 ## 2026-09-20 Phase 3
 

@@ -4,15 +4,19 @@
 
 ## Current public baseline
 
-- `main` and `origin/main` are synchronized at `f6427178ca3fa37ccd5744a6e66d14864f056818`.
-- Pages build/deploy passed. Visual Regression #406 passed with 53 passed, 13 skipped, 0 failed and screenshot comparison enabled. #398 is resolved by the later passing run.
-- The nine public pages were checked at 1440px and 390px with no horizontal overflow or browser console errors. Gallery sidebar and bilingual caption behavior passed.
+- Production-code checkpoint `b360b71e120e616d734fb493aae49c2a6c2ec1d6` passed Pages deploy #380 and the current passing Visual Regression reference #407 before this documentation-only checkpoint; main and origin/main matched that revision at the start of this task.
+- The committed Linux screenshot set was last refreshed in `c238b18`. This documentation checkpoint does not change production inputs or screenshot baselines.
+- Visual Regression #398 is historical and resolved by the later baseline/test-stabilization sequence and passing runs #406/#407; there is no current Visual Regression blocker.
+- The last recorded all-nine-page public layout/interaction check was after deploy #371 at 1440px and 390px. #380 was the successful deployment immediately before this documentation checkpoint; #407 is CI regression evidence, not a public viewport audit.
 
-## Open translation and accessibility items
+## Open implementation gaps against the current specification
 
-- Information: translate the introduction, 2022 and 2021 exhibition records, and necessary link text; apply correct `lang="en"` to English passages.
-- Yurayura: prepare and review English for the full body (concept, intent, artist descriptions, archive and future plan); keep Japanese-led display and the language control hidden until full English coverage is approved. Manage future exhibition records in both languages.
-- Accessibility: apply correct language tags to English text; review the Yurayura detail table's `th` / `td` structure and programmatic association between field names and values.
+- Required Ja / En pages are Home, Gallery, Information, Order, Contact, Policy and Yurayura; Biography and Artist Statement remain bilingual with the control hidden. See `PORTFOLIO_MASTER_SPEC.md`.
+- Current code switches language only on Home, Gallery, Order and Policy. Information, Contact and Yurayura still use bilingual mode with the switch hidden. Yurayura has partial English. This is the main implementation gap; no code was changed in the current documentation task.
+- Information still needs English coverage for the introduction, 2022 and 2021 records and necessary links, with accurate `lang="en"` markup. Complete this before enabling its switch.
+- Yurayura needs a complete, reviewed English version (concept, intent, artist descriptions, archive and future plan) before enabling its switch; keep future records available in both languages.
+- Verify language attributes on translated content and the Yurayura detail table's `th` / `td` structure and programmatic header/value associations.
+- The typography specification calls for shared same-tag page-group tokens. The current typography checker confirms key body-token aliases and selected bilingual paragraphs; full enforcement of every same-tag role across Home / Standard Pages / 404 remains a follow-up.
 
 These are follow-up tasks, not defects in the confirmed release baseline. See `reports/next-actions.md` for their order.
 

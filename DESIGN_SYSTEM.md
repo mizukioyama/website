@@ -84,7 +84,7 @@ Shared body-text target scale:
 
 Non-Home pages must not override `--font-body-size` with the historical reduced-root compatibility values. They should inherit the same shared body token as Home unless a verified page-specific readability issue requires an exception.
 
-Japanese and English paragraphs that express the same normal body-copy role must use `--font-body-size` equally. Translation text must not be reduced to caption/metadata sizing merely because it is English. Caption, metadata, table, form-helper and intentional subtext roles may use their dedicated tokens.
+Japanese and English paragraphs that express the same normal body-copy role must use the same page-group token (for Standard Pages, `--type-page-p-size`). Translation text must not be reduced to caption/metadata sizing merely because it is English. Caption, metadata, table, form-helper and intentional subtext roles may use their dedicated tokens.
 
 When changing a shared token, inspect all consumers before merging.
 

@@ -2,11 +2,22 @@
 
 # User Checklist
 
-## 2026-09-20 Phase 3 review gates
+## Current specification review — 2026-09-29
+
+- [x] Production-code checkpoint being documented is `b360b71e120e616d734fb493aae49c2a6c2ec1d6`; `main` and `origin/main` were synchronized at that revision before this documentation edit.
+- [x] Pages deploy #380 passed and Visual Regression #407 is the current passing regression reference for `b360b71`.
+- [x] The committed Linux screenshot set was refreshed in `c238b18`; #398 is recorded as a resolved historical gate issue.
+- [x] Required language mode is seven Ja / En pages and two Japanese-first bilingual pages, as specified in `PORTFOLIO_MASTER_SPEC.md`.
+- [x] Current code gap is recorded: Information, Contact and Yurayura still hide the selector and display bilingual content; Yurayura English coverage is partial.
+- [x] Gallery Category, caption-data source, behavior ownership, typography source, CSS roles and source/generated boundary are documented.
+- [ ] Owner reviews this specification update before the next production-code task.
+- [ ] After that review, implement and verify the Information / Contact / Yurayura language-mode gap and the listed accessibility/checker follow-ups.
+
+## 2026-09-20 Phase 3 review gates — historical checklist
 
 - [ ] Review the source-of-truth mapping and retained legacy/reference classifications.
 - [ ] Confirm Biography and Artist Statement show Japanese and English simultaneously.
-- [x] Current language policy (updated 2026-09-29): switch UI is hidden on Biography, Artist Statement, Information, Contact and Yurayura; it is shown on Home, Gallery, Order and Policy.
+- [x] Historical language policy as recorded in the earlier 2026-09-29 update: switch UI was hidden on Biography, Artist Statement, Information, Contact and Yurayura; the later 2026-09-29 specification update supersedes it for Information, Contact and Yurayura.
 - [ ] Confirm an English Gallery preference is preserved after returning from either bilingual page.
 - [ ] Review Typography at 1440, 1280, 1024, 768, 430, 390, and 375px.
 - [ ] Confirm no unintended wrapping, overflow, table, form, Gallery, Yurayura, or 404 regression.
@@ -339,7 +350,7 @@
 - [x] Language rules are documented; Information/Yurayura translation, accessibility implementation and design work remain future tasks.
 
 
-## 2026-09-29 Documentation and formal baseline
+## 2026-09-29 Documentation and formal baseline — historical snapshot superseded by current specification review above
 
 - [x] Confirmed the nine-page language matrix with the user and recorded it in `PORTFOLIO_MASTER_SPEC.md`.
 - [x] Recorded the public baseline `f6427178ca3fa37ccd5744a6e66d14864f056818`, Pages PASS, and Visual Regression #406 (53 passed, 13 skipped, 0 failed; screenshot comparisons active).
