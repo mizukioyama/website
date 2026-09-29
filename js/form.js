@@ -22,6 +22,17 @@ document.addEventListener("DOMContentLoaded", function () {
   let policyConfirmed = false;
   let policyContentLoaded = false;
 
+  function setLocalizedText(element, japanese, english) {
+    const ja = document.createElement("span");
+    ja.lang = "ja";
+    ja.textContent = japanese;
+    const en = document.createElement("span");
+    en.lang = "en";
+    en.textContent = english;
+    element.replaceChildren(ja, en);
+    window.refreshPortfolioLanguageContent?.();
+  }
+
   // Keep the Site Policy modal fixed to the viewport, not to the filtered main content.
   if (
     policyToggle &&
@@ -39,7 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
     closeButton.textContent = "×";
     closeButton.setAttribute("role", "button");
     closeButton.setAttribute("tabindex", "0");
-    closeButton.setAttribute("aria-label", "閉じる");
+    const updateCloseButtonLabel = event => {
+      const language = event?.detail?.language || window.getPortfolioLanguage?.() || document.documentElement.lang;
+      closeButton.setAttribute("aria-label", language === "en" ? "Close" : "閉じる");
+    };
+    document.addEventListener("portfolio:languagechange", updateCloseButtonLabel);
+    updateCloseButtonLabel();
   }
 
   if (nameInput) nameInput.maxLength = 100;
@@ -47,8 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (messageInput) {
     messageInput.maxLength = 3000;
     messageInput.required = true;
-    const messageLabel = contactForm.querySelector('label[for="message"]');
-    if (messageLabel) messageLabel.textContent = "Message（お問い合わせ内容）";
   }
 
   function openPolicyModal() {
@@ -94,14 +108,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const policyDocument = new DOMParser().parseFromString(markup, "text/html");
         const policyContents = Array.from(policyDocument.querySelectorAll("#policy > .content"));
         if (!policyContents.length) throw new Error("Policy content not found");
-        policyModalContent.innerHTML = policyContents.map(content => content.innerHTML).join("");
+        policyModalContent.innerHTML = policyContents.map(content => content.outerHTML).join("");
+        policyModalContent.setAttribute("aria-busy", "false");
+        window.refreshPortfolioLanguageContent?.();
         policyContentLoaded = true;
         applyPolicyViewed();
       })
       .catch(error => {
-        policyModalContent.replaceChildren(Object.assign(document.createElement("p"), {
-          textContent: "Site Policyを読み込めませんでした。ページを再読み込みしてください。"
-        }));
+        policyModalContent.setAttribute("aria-busy", "false");
+        const ja = Object.assign(document.createElement("p"), {
+          lang: "ja",
+          textContent: "サイトポリシーを読み込めませんでした。ページを再読み込みしてください。"
+        });
+        const en = Object.assign(document.createElement("p"), {
+          lang: "en",
+          textContent: "Unable to load the Site Policy. Please reload the page."
+        });
+        policyModalContent.replaceChildren(ja, en);
+        window.refreshPortfolioLanguageContent?.();
         console.error("Site policy loading error:", error);
       });
   }
@@ -109,20 +133,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const requestOptions = document.createElement("fieldset");
   requestOptions.className = "request-options";
   requestOptions.hidden = true;
-  requestOptions.setAttribute("aria-label", "依頼内容");
   requestOptions.innerHTML = `
-    <legend>Request type <span>依頼内容</span></legend>
+    <legend><span lang="en">Request type</span><span lang="ja">依頼内容</span></legend>
     <div class="request-option-list">
       <input type="radio" id="request-order" name="requestCategory" value="オーダー制作">
-      <label for="request-order">Commission<br><span>オーダー制作</span></label>
+      <label for="request-order"><span lang="en">Commission</span><span lang="ja">オーダー制作</span></label>
       <input type="radio" id="request-purchase" name="requestCategory" value="作品購入">
-      <label for="request-purchase">Purchase<br><span>作品購入</span></label>
+      <label for="request-purchase"><span lang="en">Purchase</span><span lang="ja">作品購入</span></label>
       <input type="radio" id="request-exhibition" name="requestCategory" value="展示・出展について">
-      <label for="request-exhibition">Exhibition<br><span>展示・出展について</span></label>
+      <label for="request-exhibition"><span lang="en">Exhibition</span><span lang="ja">展示・出展について</span></label>
       <input type="radio" id="request-work" name="requestCategory" value="仕事・制作のご依頼">
-      <label for="request-work">Work<br><span>仕事・制作のご依頼</span></label>
+      <label for="request-work"><span lang="en">Work</span><span lang="ja">仕事・制作のご依頼</span></label>
       <input type="radio" id="request-other" name="requestCategory" value="その他">
-      <label for="request-other">Other<br><span>その他</span></label>
+      <label for="request-other"><span lang="en">Other</span><span lang="ja">その他</span></label>
     </div>
   `;
   if (primaryGroup) primaryGroup.insertAdjacentElement("afterend", requestOptions);
@@ -200,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isSubmitting) return;
     if (honeypot?.value) return;
     if (!policyConfirmed) {
-      status.textContent = "Site Policyをご確認ください。";
+      setLocalizedText(status, "サイトポリシーをご確認ください。", "Please review the Site Policy before submitting.");
       openPolicyModal();
       return;
     }
@@ -208,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedType = contactForm.querySelector('input[name="inquiryType"]:checked')?.value || "";
     const selectedCategory = contactForm.querySelector('input[name="requestCategory"]:checked')?.value || "";
     if (selectedType === "依頼" && !selectedCategory) {
-      status.textContent = "依頼内容を選択してください。";
+      setLocalizedText(status, "依頼内容を選択してください。", "Please select a request type.");
       requestOptions.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
@@ -225,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
     formData.set("formStartedAt", formStartedAt?.value || String(Date.now()));
     isSubmitting = true;
     if (submitButton) submitButton.disabled = true;
-    status.textContent = "Sending...";
+    setLocalizedText(status, "送信中...", "Sending...");
     try {
       const response = await fetch(contactForm.action, { method: "POST", body: formData });
       const result = await response.text();
@@ -237,9 +260,9 @@ document.addEventListener("DOMContentLoaded", function () {
       contactForm.reset();
       setRequestMode(false);
       inputs.forEach(input => input.classList.remove("not-empty"));
-      status.textContent = "送信しました。";
+      setLocalizedText(status, "送信しました。", "Your message has been sent.");
     } catch (error) {
-      status.textContent = "送信できませんでした。時間をおいて再度お試しください。";
+      setLocalizedText(status, "送信できませんでした。時間をおいて再度お試しください。", "We could not send your message. Please try again later.");
       console.error("Contact form submission error:", error);
     } finally {
       isSubmitting = false;

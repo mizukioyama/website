@@ -412,27 +412,38 @@ multi_language.prototype.click_lang = function (e) {
   this.update_active_class(lang);
 };
 
-multi_language.prototype.update_active_class = function (lang) {
+function applyLocalizedContent(language) {
+  const selectedLanguage = normalizeLanguage(language);
+  const languageControl = document.querySelector('#langChange');
+  const localizedElements = document.querySelectorAll('[lang="ja"],[lang="en"]');
+
   if (isBilingualPage()) {
-    const languageControl = document.querySelector('#langChange');
     languageControl?.setAttribute('hidden', 'hidden');
     languageControl?.setAttribute('aria-hidden', 'true');
-    document.querySelectorAll('[lang="ja"],[lang="en"]').forEach(element => {
+    localizedElements.forEach(element => {
       element.style.display = 'block';
     });
-    return;
+  } else {
+    languageControl?.removeAttribute('hidden');
+    languageControl?.removeAttribute('aria-hidden');
+    document.querySelector('#langChange .ja')?.classList.toggle('active', selectedLanguage === 'ja');
+    document.querySelector('#langChange .en')?.classList.toggle('active', selectedLanguage === 'en');
+    localizedElements.forEach(element => {
+      if (element === document.documentElement) return;
+      element.style.display = element.getAttribute('lang') === selectedLanguage ? '' : 'none';
+    });
   }
 
-  // ボタンのactive切り替え
-  const jaDiv = document.querySelector('#langChange .ja');
-  const enDiv = document.querySelector('#langChange .en');
-  jaDiv?.classList.toggle('active', lang === 'ja');
-  enDiv?.classList.toggle('active', lang === 'en');
+  document.dispatchEvent(new CustomEvent('portfolio:languagechange', {
+    detail: { language: selectedLanguage }
+  }));
+}
 
-  // <p lang="xx">の切り替え
-  document.querySelectorAll('h2[lang],h3[lang],h4[lang],p[lang],div[lang],hr[lang]').forEach(element => {
-    element.style.display = (element.getAttribute('lang') === lang) ? 'block' : 'none';
-  });
+window.getPortfolioLanguage = () => currentLang;
+window.refreshPortfolioLanguageContent = () => applyLocalizedContent(currentLang);
+
+multi_language.prototype.update_active_class = function (lang) {
+  applyLocalizedContent(lang);
 };
 
 // =======================
@@ -707,7 +718,7 @@ document.addEventListener("DOMContentLoaded", () => {
   new TextScramble(h1).setText(title);
 
   const subtitleElement = container.querySelector("p.subtext");
-  if (subtitleElement) {
+  if (subtitleElement && !subtitleElement.querySelector('[lang="ja"],[lang="en"]')) {
     const parts = subtitle.split(/<br\s*\/?>/gi);
     subtitleElement.replaceChildren();
     parts.forEach((part, index) => {

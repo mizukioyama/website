@@ -19,7 +19,7 @@
     <script src="js/bg_wave.js?v=1d7ca5581ed7"></script>
     <script src="js/p5.min.js?v=e6397ff8a293"></script>
     <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
-    <script src="js/menu.js?v=ba0de021820c"></script>
+    <script src="js/menu.js?v=2bf0bc350e79"></script>
 
     <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
@@ -84,10 +84,6 @@
     ">
 
     <style>
-        #langChange {
-            display: none;
-        }
-
         .information-page,
         .information-page .information-box {
             display: block;
@@ -253,7 +249,7 @@
     </style>
 </head>
 
-<body id="information" data-language-mode="bilingual">
+<body id="information" data-language-mode="switchable">
     <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
         <a href="/website/">Home</a>
@@ -277,10 +273,10 @@
 
         <div class="state-box information-box">
             <div class="content">
-                <h2 class="noise">活動・展示情報</h2>
+                <h2 class="noise" lang="ja">活動・展示情報</h2>
 
                 <div class="information-intro">
-                    <p>
+                    <p lang="ja">
                         小山瑞樹の展示、企画・主催活動など、現在とこれからの活動情報を掲載しています。
                         終了した活動も記録として残し、作家としての歩みを更新していきます。
                     </p>
@@ -288,7 +284,7 @@
 
                 <section class="info-section" aria-labelledby="upcoming-title">
                     <div class="page-line"></div>
-                    <h2 id="upcoming-title" class="noise">Upcoming</h2>
+                    <h2 id="upcoming-title" class="noise" lang="en">Upcoming</h2>
 
                     <table class="history-table">
                         <colgroup>
@@ -297,19 +293,18 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th scope="col">Year</th>
-                                <th scope="col">活動・展示｜Information</th>
+                                <th scope="col" lang="en">Year</th>
+                                <th scope="col"><span lang="ja">活動・展示</span><span lang="en">Information</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="year">2026.10</td>
                                 <td class="tb-content">
-                                    <span class="status">Upcoming</span>
-                                    グループ展「ゆらゆら」｜企画・主催<br>
-                                    2026年10月6日 — 10月12日
-                                    <span>Group Exhibition “Yurayura”｜Planning / Organizer<br>October 6 — 12, 2026</span>
-                                    <a class="noise info-link" href="exhibitions/yurayura/">展示詳細を見る</a>
+                                    <span class="status" lang="en">Upcoming</span>
+                                    <span lang="ja">グループ展「ゆらゆら」｜企画・主催<br>2026年10月6日 — 10月12日</span>
+                                    <span lang="en">Group Exhibition “Yurayura”｜Planning / Organizer<br>October 6 — 12, 2026</span>
+                                    <a class="noise info-link" lang="ja" href="exhibitions/yurayura/">展示詳細を見る</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -318,7 +313,7 @@
 
                 <section class="info-section" aria-labelledby="past-title">
                     <div class="page-line"></div>
-                    <h2 id="past-title" class="noise">Past</h2>
+                    <h2 id="past-title" class="noise" lang="en">Past</h2>
 
                     <table class="history-table">
                         <colgroup>
@@ -327,33 +322,33 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th scope="col">Year</th>
-                                <th scope="col">活動・展示｜Archive</th>
+                                <th scope="col" lang="en">Year</th>
+                                <th scope="col"><span lang="ja">活動・展示</span><span lang="en">Archive</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="year">2025.03</td>
                                 <td class="tb-content">
-                                    日台の絆展｜台湾
-                                    <span>Japan-Taiwan Bond Exhibition｜Taiwan</span>
+                                    <span lang="ja">日台の絆展｜台湾</span>
+                                    <span lang="en">Japan-Taiwan Bond Exhibition｜Taiwan</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="year">2023.06</td>
                                 <td class="tb-content">
-                                    第2回日仏友好オリジナル切手展｜フランス
-                                    <span>2nd Japan-France Friendship Original Stamp Exhibition｜France</span>
+                                    <span lang="ja">第2回日仏友好オリジナル切手展｜フランス</span>
+                                    <span lang="en">2nd Japan-France Friendship Original Stamp Exhibition｜France</span>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr lang="ja">
                                 <td class="year">2022</td>
                                 <td class="tb-content">
                                     芸術の虎展｜日光東照宮美術館<br>
                                     日アセアン友好文化交流展｜東京アセアンセンター
                                 </td>
                             </tr>
-                            <tr>
+                            <tr lang="ja">
                                 <td class="year">2021</td>
                                 <td class="tb-content">
                                     サロン・ド・アール・ジャポネ｜フランス<br>

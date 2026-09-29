@@ -454,7 +454,71 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await expect(page.locator("#modalBox")).toBeHidden();
 }
 
+async function exerciseContactLanguage(page, testInfo) {
+  await expect(page.locator("body")).toHaveAttribute("data-language-mode", "switchable");
+  await expect(page.locator("#langChange")).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect(page.locator("#contact .h1-text .subtext [lang=ja]")).toBeVisible();
+  await expect(page.locator("#contact .h1-text .subtext [lang=en]")).toBeHidden();
+  await expect(page.locator("#contact .content p[lang=ja]")).toBeVisible();
+  await expect(page.locator("#contact .content p[lang=en]")).toBeHidden();
+  await expect(page.locator('label[for="name"] [lang=ja]')).toBeVisible();
+  await expect(page.locator('label[for="name"] [lang=en]')).toBeHidden();
+  await expect(page.locator('#consent-text [lang="ja"]')).toBeVisible();
+  await expect(page.locator('#consent-text [lang="en"]')).toBeHidden();
+
+  await page.locator('label[for="radio1"]').click();
+  await expect(page.locator(".request-options legend [lang=ja]")).toBeVisible();
+  await expect(page.locator('label[for="request-order"] [lang=ja]')).toBeVisible();
+
+  await page.locator('#langChange label[for="langEn"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator("#contact .h1-text .subtext [lang=en]")).toBeVisible();
+  await expect(page.locator("#contact .h1-text .subtext [lang=ja]")).toBeHidden();
+  await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
+  await expect(page.locator("#contact .content p[lang=ja]")).toBeHidden();
+  await expect(page.locator('label[for="name"] [lang=en]')).toBeVisible();
+  await expect(page.locator('label[for="name"] [lang=ja]')).toBeHidden();
+  await expect(page.locator('#consent-text [lang="en"]')).toBeVisible();
+  await expect(page.locator('#consent-text [lang="ja"]')).toBeHidden();
+  await expect(page.locator(".request-options legend [lang=en]")).toBeVisible();
+  await expect(page.locator('label[for="request-order"] [lang=en]')).toBeVisible();
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(["en", "en"]);
+  if (fullAudit) {
+    await page.screenshot({
+      path: testInfo.outputPath("contact-en-full-page.png"),
+      fullPage: true,
+      animations: "disabled",
+      caret: "hide"
+    });
+  }
+
+  await page.goto("order.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
+  await page.goto("contact.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
+
+  await page.locator('label[for="modal-toggle"].modal-open-label').click();
+  await expect(page.locator("#policy-modal-content")).toHaveAttribute("aria-busy", "false");
+  await expect(page.locator('#policy-modal-content > div[lang="en"]')).toBeVisible();
+  await expect(page.locator('#policy-modal-content > div[lang="ja"]')).toBeHidden();
+  await page.locator("body > .modal-box .modal-close-label").click();
+
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
+  await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
+  await page.locator('#langChange label[for="langJa"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+}
+
 async function exerciseContactRuntime(page, testInfo) {
+  await exerciseContactLanguage(page, testInfo);
   const form = page.locator("#contactForm");
   await expect(form).toHaveAttribute("method", /post/i);
   await expect(form).toHaveAttribute("action", /^https:\/\/script\.google\.com\/macros\/s\//);
@@ -520,16 +584,66 @@ async function exerciseContactRuntime(page, testInfo) {
   await page.locator(".submit-btn").click();
 
   await expect(page.locator("#thanksModal")).toHaveClass(/show/);
-  await expect(page.locator(".form-status")).toHaveText("送信しました。");
+  await expect(page.locator('.form-status [lang="ja"]')).toHaveText("送信しました。");
+  await expect(page.locator('.form-status [lang="en"]')).toBeHidden();
   await expect(page.locator("#contactForm")).toBeVisible();
   await expect(requestRadio).not.toBeChecked();
   await expect(page.locator(".request-options")).toBeHidden();
 
   await page.locator("#thanksModal .close").click();
   await expect(page.locator("#thanksModal")).not.toHaveClass(/show/);
+  await page.waitForTimeout(350);
+  await page.locator('#langChange label[for="langEn"]').click();
+  await expect(page.locator('.form-status [lang="en"]')).toHaveText("Your message has been sent.");
+  await expect(page.locator("#thanksModal .close")).toHaveAttribute("aria-label", "Close");
+  await page.locator('#langChange label[for="langJa"]').click();
+  await expect(page.locator("#thanksModal .close")).toHaveAttribute("aria-label", "閉じる");
 }
 
-async function exerciseInformationRuntime(page) {
+async function exerciseInformationLanguage(page, testInfo) {
+  await expect(page.locator("body")).toHaveAttribute("data-language-mode", "switchable");
+  await expect(page.locator("#langChange")).toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect(page.locator(".information-page .content > h2[lang=ja]")).toBeVisible();
+  await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
+  await expect(page.locator(".information-intro p[lang=en]")).toHaveCount(0);
+  await expect(page.locator('.history-table tbody tr[lang="ja"]')).toHaveCount(2);
+  await expect(page.locator('.history-table tbody tr[lang="ja"]').first()).toBeVisible();
+
+  await page.locator('#langChange label[for="langEn"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator(".information-page .content > h2[lang=ja]")).toBeHidden();
+  await expect(page.locator(".information-intro p[lang=ja]")).toBeHidden();
+  await expect(page.locator("#upcoming-title[lang=en]")).toBeVisible();
+  await expect(page.locator("#past-title[lang=en]")).toBeVisible();
+  await expect(page.locator('.history-table tbody tr[lang="ja"]').first()).toBeHidden();
+  await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
+  await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "Japan-Taiwan Bond Exhibition" })).toBeVisible();
+  await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "2nd Japan-France Friendship Original Stamp Exhibition" })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(["en", "en"]);
+  if (fullAudit) {
+    await page.screenshot({
+      path: testInfo.outputPath("information-en-full-page.png"),
+      fullPage: true,
+      animations: "disabled",
+      caret: "hide"
+    });
+  }
+
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
+  await expect(page.locator("#upcoming-title[lang=en]")).toBeVisible();
+  await page.locator('#langChange label[for="langJa"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
+}
+
+async function exerciseInformationRuntime(page, testInfo) {
+  await exerciseInformationLanguage(page, testInfo);
   const sections = page.locator(".information-page .info-section");
   await expect(sections).toHaveCount(2);
 
@@ -800,7 +914,7 @@ for (const entry of pages) {
       await assertBilingualPage(page, entry.key);
     }
 
-    if (entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
+    if (process.env.VISUAL_SKIP_SNAPSHOTS !== "1" && entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
       await expect(page).toHaveScreenshot(entry.key + ".png", {
         fullPage: true,
         timeout: 15000
@@ -821,7 +935,7 @@ for (const entry of pages) {
       await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
     }
     if (entry.key === "information") {
-      await exerciseInformationRuntime(page);
+      await exerciseInformationRuntime(page, testInfo);
     }
     if (entry.key === "contact") {
       await exerciseContactRuntime(page, testInfo);
