@@ -430,7 +430,13 @@ function applyLocalizedContent(language) {
     document.querySelector('#langChange .en')?.classList.toggle('active', selectedLanguage === 'en');
     localizedElements.forEach(element => {
       if (element === document.documentElement) return;
-      element.style.display = element.getAttribute('lang') === selectedLanguage ? '' : 'none';
+      const shouldDisplay = element.getAttribute('lang') === selectedLanguage;
+      if (!shouldDisplay) {
+        element.style.display = 'none';
+        return;
+      }
+      const blockLevelTags = ['H2', 'H3', 'H4', 'P', 'DIV', 'HR'];
+      element.style.display = blockLevelTags.includes(element.tagName) ? 'block' : '';
     });
   }
 
