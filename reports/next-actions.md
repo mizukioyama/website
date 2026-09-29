@@ -1,5 +1,16 @@
 # Next Actions
 
+> The ordered queue below is current as of 2026-09-29. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
+
+## Current queue
+
+1. Complete Information's English coverage: introduction, 2022 and 2021 exhibition records, necessary link text, and correct English language markup.
+2. Prepare and review the full Yurayura English translation (concept, intent, artist descriptions, archive and future plan); keep the page Japanese-led and the language control hidden until coverage is complete. Manage future exhibition records in both languages.
+3. Improve accessibility by adding accurate `lang` attributes to English text and checking Yurayura detail-table header/value associations.
+4. Consider design and layout adjustments after the language and accessibility work.
+
+For any change that affects the UI, follow the build/check → Visual Regression with screenshots enabled → Pages build/deploy → public-page verification sequence in `AGENTS.md`. No item above is authorized for implementation by this documentation update.
+
 ## 2026-09-20 Phase 3
 
 1. Review the focused source/generated diff and exclude timestamp-only generated noise from unchanged pages.
@@ -227,3 +238,36 @@
 2. Keep all remaining legacy variables, including JS-generated CSS and HTML inline/raw references, outside the next task until their usage boundaries are audited.
 3. If final visual acceptance is required, run the existing Menu browser matrix at 1440/1280/1024/768/430/390/375px.
 4. Do not push or deploy without separate explicit approval.
+
+
+## 2026-09-27 Gallery Sidebar and Captions Repair
+
+1. Review the focused Gallery patch and generated docs changes together with the already-dirty working tree before any commit.
+2. Address the existing css/all.css shared body scale typography check failure in its own scoped task.
+3. If required, verify touch behavior on physical iOS/Android devices and the delivered site after an explicitly approved release.
+4. Keep commit, push, merge, and deployment decisions separate from this local repair.
+
+
+## 2026-09-27 Language Audit and CSS Cleanup Follow-up
+
+1. Decide whether Information, Contact, and Yurayura should remain bilingual with the selector hidden or receive complete single-language Ja/En markup and behavior.
+2. If the latter is selected, update source HTML only, preserve copy/design, rebuild docs/, and repeat the language and seven-viewport comparison.
+3. The local CSS cleanup and source/generated checks are complete. Do not commit, push, merge, or deploy without a separate instruction.
+
+
+## 2026-09-28 After Intermediate Release Checkpoint
+
+1. Stop at the published checkpoint and let the owner review the live pages at https://mizukioyama.github.io/website/.
+2. If needed, perform physical iOS Safari and Android checks for Gallery, menu, and the loading veil. Record device/browser details and any visible issue before proposing a fix.
+3. In a later task, decide whether Information, Contact, and Yurayura should keep bilingual display or receive complete Ja/En switching. Do not change them until that specification is confirmed.
+4. Review the applicable MD/spec files as a separate later task, then rebuild and validate if those documents drive implementation.
+
+This checkpoint did not begin the deferred language-spec work or large MD/spec review.
+
+## 2026-09-28 After Final Intermediate Release
+
+1. Owner review the published checkpoint at https://mizukioyama.github.io/website/ and complete physical-device checks if available.
+2. Inspect authenticated evidence for Visual Regression run 398. Classify the failure before deciding whether a release-related minimal fix is needed; keep screenshot-baseline changes out until the difference is understood.
+3. After the checkpoint review, start a separate task to decide the Information, Contact, and Yurayura language specification.
+4. Conduct the broad MD/spec review as a separate later task.
+5. Do not begin either deferred task in this checkpoint.

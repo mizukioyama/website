@@ -447,3 +447,61 @@ Please review only the rename of `--legacy-px-1_3` to `--font-menu-item-fluid-mi
 4. Confirm no remaining legacy variable, JS-generated CSS, or HTML inline/raw variable was changed.
 
 Review boundary: local source/build review only. Do not push, deploy, delete, publish, or modify external services.
+
+
+## 2026-09-27 Gallery Sidebar and Captions Review
+
+Please review the focused Gallery repair patch in chatgpt-review-package.zip.
+
+1. Confirm menu.js is the sole Category open/close owner and that no page-nation.js scroll handler changes its state.
+2. Confirm closed/open CSS state works at 599px and 600px, including keyboard operation and selection close behavior.
+3. Confirm the mobile glass overlay stays mobile-only and follows open/closed state.
+4. Confirm caption data parsing and JP/EN title mapping handle the current .works p modal title and update after modal content changes.
+5. Confirm generated docs match current source via check:generated and that existing unrelated working-tree changes remain intact.
+
+Review boundary: local source/build review only. Do not commit, push, merge, publish, or deploy.
+
+
+## 2026-09-27 Language Audit and CSS Cleanup Review
+
+Please review the latest addendum in reports/review-report.md and the source changes in the existing working tree.
+
+1. Confirm the language selector ID and initialization order are consistent across src/components/header.html, js/menu.js, source pages, and generated docs.
+2. Confirm Ja/En, documentElement.lang, storage synchronization, navigation persistence, Gallery modal title/caption updates, and one-time event binding on the switchable pages.
+3. Confirm the bilingual display and hidden selector mode on Biography, Artist Statement, Information, Contact, and Yurayura. In particular, assess whether the latter three should remain bilingual or become single-language switchable pages; do not rewrite copy as part of review.
+4. Confirm Category state has one owner, uses no collapsed state, stays stable on scroll, closes after selection, and only shows the glass overlay at mobile widths.
+5. Review each CSS removal against the saved post-Phase-1 baseline. Confirm responsive values, user-settings.css authority, referenced aliases, and component-specific exceptions remain intact.
+6. Confirm the 63-pair seven-viewport computed-style/geometry comparison, 390px/1440px interaction comparison, zero overflow/custom-property/conflict-marker results, and generated source parity.
+7. Record that check:docs-sync is blocked by the user's no-commit boundary and that pageerror events were not independently instrumented by the available browser interface.
+
+Review boundary: local source and generated-output review only. Do not commit, push, merge, publish, deploy, or modify external services.
+
+
+## 2026-09-28 Intermediate Release Checkpoint Review
+
+Please review commit `6c676cf6098742a2ffe8ef8e2432b4f404e2e8e0` against parent `9277c31def1e14290b5ff5dd6f821003f94060da`, including its generated `docs/` output.
+
+1. Confirm the release contains only the intended implementation, checker, and generated files; the user CSS notes, ROADMAP, reports, and review ZIP were excluded.
+2. Review the successful GitHub Actions build/deploy run: https://github.com/mizukioyama/website/actions/runs/36356601019
+3. Review the recorded public checks at https://mizukioyama.github.io/website/: all nine pages at 390px and 1440px, and Gallery at the seven standard widths.
+4. Confirm Gallery open/close, scroll-state retention, selection close, mobile-only glass overlay, modal behavior, and Japanese/English caption changes while open.
+5. Confirm Ja/En behavior on Home, Gallery, Order, and Policy, and the existing bilingual/hidden-control state on Biography, Artist Statement, Information, Contact, and Yurayura.
+6. Keep Information / Contact / Yurayura language-spec decisions and the broad MD/spec review out of this checkpoint review.
+
+Review boundary: review and record findings only. Do not modify public content or start the deferred language/spec work.
+
+## 2026-09-28 Visual Regression CI 398 follow-up review
+
+Review the failed workflow after commit cc19d2cb5167b99a3b296a700a1f57caf9043d81:
+https://github.com/mizukioyama/website/actions/runs/36362287009
+
+1. With access to the run logs or uploaded evidence, identify the exact failing tests and distinguish assertion failures from screenshot-baseline differences.
+2. Compare only the affected public pages and viewports against the deployed checkpoint and the committed Linux baselines.
+3. Recommend a minimal correction only if the failure is confirmed to come from this release. Do not update baselines until the difference is classified.
+4. The local checks/build and Pages deploy passed; the final public layout/interaction run passed 20 cases at 1440px and 390px with screenshot comparison disabled.
+5. Keep the deferred Information, Contact, and Yurayura language decision and broad MD/spec review out of this review.
+
+
+## 2026-09-29 Status of prior language and Visual Regression requests
+
+The earlier prompts in this file are archived as issued; their dated review boundaries are historical. The page-language decisions are now confirmed and recorded in `PORTFOLIO_MASTER_SPEC.md`: Information and Contact remain Japanese-first bilingual; Yurayura remains Japanese-led with partial English and no language control until a full English version is reviewed. Visual Regression #398 is resolved by #406 passing with screenshot comparisons active (53 passed, 13 skipped, 0 failed). No follow-up review request for those decisions remains open.

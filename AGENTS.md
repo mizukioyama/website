@@ -43,7 +43,17 @@ Permitted font-size exceptions are limited to clearly distinct component roles s
 ## Visual Regression standard
 Treat Playwright Visual Regression as a standard Verify step for changes that can affect UI, CSS, layout, shared components, header/footer/menu, images, responsive behavior or page structure. The normal CI matrix is 1440, 768 and 390 px; committed screenshot baselines are compared at 1440 and 390 px. Use the full 1440/1280/1024/768/430/390/375 matrix for detailed audits or breakpoint-sensitive work.
 
-Before changing a baseline, classify the difference as: real UI regression; test implementation defect; nondeterministic animation/font/time/random effect; or intentional approved design change. Never update screenshots only to make a failing test pass. Stabilization belongs in tests and must not alter production design solely for Visual Regression.
+Before changing a baseline, classify the difference as: real UI regression; test implementation defect; nondeterministic animation/font/time/random effect; or intentional approved design change. Never update screenshots only to make a failing test pass.
+For a grouped change that can affect layout, typography, responsive behavior, JavaScript interaction, Gallery, Header, Footer or Menu, use this release-verification order:
+
+1. Run the production build and repository checks.
+2. Run Visual Regression with screenshot comparison enabled; classify each difference before considering a baseline change.
+3. Confirm GitHub Pages build and deploy succeed.
+4. Inspect the deployed public URL at the affected routes and viewports.
+
+Use an intermediate checkpoint when it makes the public result easier to review. The committed Linux screenshots are the formal baseline. A macOS/Linux rendering difference alone is not a reason to update Linux screenshots. Update only the affected screenshots after proving that the visual change is intentional, approved and correct.
+
+Stabilization belongs in tests and must not alter production design solely for Visual Regression.
 
 New indexable pages must be registered in tests/visual/visual.spec.cjs. The Visual Regression suite compares registered routes against sitemap.xml so an unregistered sitemap page fails CI. Non-indexable special pages such as 404 must remain explicitly registered when they are part of recovery or critical UX.
 

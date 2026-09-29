@@ -3,6 +3,22 @@
 ## Rule
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
 
+## Current baseline — 2026-09-29
+
+- Formal public baseline: `main` / `origin/main` at `f6427178ca3fa37ccd5744a6e66d14864f056818`.
+- Pages build/deploy: PASS. Visual Regression #406: 53 passed, 13 skipped, 0 failed; screenshot comparisons enabled. Visual Regression #398 is resolved by the later passing run.
+- All nine public pages were checked at 1440px and 390px: no horizontal overflow or browser console errors. Gallery sidebar and captions passed their interaction checks; CSS cleanup showed no observed layout regression.
+- Current page-language rules are in `PORTFOLIO_MASTER_SPEC.md`. This current queue supersedes older dated decisions in this roadmap.
+
+## Current priority queue
+
+1. Complete Information's English coverage: introduction, 2022 and 2021 records, necessary link text, and language markup.
+2. Prepare and review a full English translation plan for Yurayura, including the concept, intent, artist descriptions, archive and future plan; keep the switch hidden until the translation is complete.
+3. Address language `lang` attributes and verify Yurayura's detail-table header/value associations.
+4. Consider design or layout work only after these content and accessibility items, with the normal verification sequence in `AGENTS.md`.
+
+No implementation from this queue is part of the current documentation update.
+
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering
 - [x] Master specification
@@ -69,6 +85,8 @@ Prioritize evidence-backed improvements. Keep this short/current. Do not accumul
 - [ ] Avoid changes with no measurable or user-requested benefit
 
 ## Completed
+- 2026-09-27: Audited bilingual behavior and source ownership across nine pages, repaired the switchable-page initialization/CSS/language and Gallery modal-caption paths, and removed only proven duplicate, overridden, or unreferenced CSS. The seven-viewport baseline comparison had zero measured computed-style/geometry differences and zero overflow. The user later confirmed Information and Contact as Japanese-first bilingual pages and Yurayura as Japanese-led with partial English and no language control until a full translation is reviewed; the current rules are recorded in PORTFOLIO_MASTER_SPEC.md.
+- 2026-09-27: Restored Gallery Category state ownership across breakpoints, removed scroll-driven collapsed behavior, preserved the mobile glass overlay, repaired Japanese/English captions for the current modal title markup, and passed the 599px/600px local browser matrix. The follow-up below fixes the stale typography assertion; the combined check now stops at docs sync because generated docs remain uncommitted. No public release was performed.
 - 2026-09-26: Integrated normal typography tokens for Home, Standard pages and 404; unified regular same-tag sizes from the user-selected generic seeds, preserved component exceptions and Biography's inline compatibility alias, updated the four typography MDs, and passed full 10-page × 7-viewport geometry/runtime checks. Screenshot baselines were unchanged; local platform-matched pixel comparison was unavailable.
 - 2026-09-22: Added `assets/css/user-settings.css` as the user-facing typography source of truth. Shared/root-page typography now uses Calculator-style px `clamp()` roles with 375px → 1440px comments and legacy aliases preserved; source checks pass and generated output will be rebuilt from the current main baseline.
 - 2026-09-22: Restored Order and Yurayura detail-page vertical layout to the shared portfolio rhythm by removing their page-specific zero-margin override and matching Information's 60vmin content start on desktop/mobile; added geometry regression coverage and seven-viewport verification.

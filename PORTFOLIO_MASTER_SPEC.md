@@ -12,6 +12,24 @@ Biography is the factual activity/career source of truth. Artist Statement is th
 ## Page purposes
 Home establishes artist identity/worldview and leads into work. Gallery makes artwork easy to browse and inspect. Biography communicates career/activity. Artist Statement communicates artistic philosophy with reading comfort. Information communicates current/relevant exhibition/activity information. Order explains commission availability, process, conditions and inquiry path. Contact provides a clear route. Policy provides necessary policy/legal information.
 
+## Language presentation
+
+The page-specific language behavior is part of this master specification:
+
+| Page | Presentation | Language control |
+| --- | --- | --- |
+| Home | Japanese / English switch | Shown |
+| Gallery | Japanese / English switch | Shown |
+| Biography | Japanese followed by English | Hidden |
+| Artist Statement | Japanese followed by English | Hidden |
+| Information | Japanese followed by English; some older copy is still untranslated | Hidden |
+| Order | Japanese / English switch | Shown |
+| Contact | Japanese followed immediately by English; form labels and fields are bilingual together | Hidden |
+| Policy | Japanese / English switch | Shown |
+| Yurayura | Japanese-led with partial English | Hidden for now |
+
+Do not change a page's language mode only to make the site look uniform. Information remains a bilingual-display page while its English coverage is completed. Yurayura remains Japanese-led with partial English; consider a Ja/En switch only after the full English page has been prepared and reviewed. Do not show a switch while substantial page content remains untranslated.
+
 ## Journeys
 Primary: Home -> Gallery -> deeper artist understanding.
 Commission: Gallery/Statement/Biography -> Order -> Contact.
@@ -27,7 +45,7 @@ Exhibition detail pages are long-lived activity records. Keep them after the eve
 New exhibition pages must receive their own title, description, canonical, OG URL, Event JSON-LD URL/@id, sitemap entry and internal Information link. Never copy an existing exhibition page and change only the visible body or URL.
 
 ## Responsive and accessibility
-No unintended horizontal scroll, overlap, clipped text, inaccessible controls or unreadably narrow text. Use semantic structure, meaningful alt text, visible focus, usable touch targets, adequate contrast, logical headings and reduced-motion support.
+No unintended horizontal scroll, overlap, clipped text, inaccessible controls or unreadably narrow text. Use semantic structure, meaningful alt text, visible focus, usable touch targets, adequate contrast, logical headings and reduced-motion support. Mark non-Japanese text with the appropriate `lang` value and use table header cells with explicit associations where tabular content needs them.
 
 Responsive behavior must preserve visual consistency rather than scaling every dimension indiscriminately. Use the shared breakpoint model unless a component has a documented reason to differ:
 - Mobile: up to 599px

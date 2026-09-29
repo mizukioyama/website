@@ -66,17 +66,10 @@ Shared breakpoint model:
 - [ ] Internal navigation still works.
 - [ ] Forms and modal controls still work where affected.
 
-## Visual Regression
-For UI-affecting changes:
-- [ ] Run the existing Visual Regression suite.
-- [ ] Classify every screenshot difference before changing a baseline.
-- [ ] Do not update baselines only to make CI pass.
-- [ ] Intentional approved visual changes may update baselines only after confirming the new appearance is correct.
+## Visual Regression and deployment
+- [ ] Follow the canonical sequence and Linux screenshot-baseline policy in `AGENTS.md` → `Visual Regression standard`.
+- [ ] Keep screenshot comparison enabled for the formal Visual Regression run and classify any differences before a baseline update.
 - [ ] For breakpoint-sensitive work, use the full seven-viewport matrix.
-
-## Deployment
-- [ ] `npm run check` or the repository-equivalent full check passes.
-- [ ] GitHub Pages build passes.
-- [ ] GitHub Pages deploy passes.
-- [ ] Post-deploy Visual Regression passes where configured.
-- [ ] Public URL is checked with cache-busting or hard reload when verifying a fresh CSS change.
+- [ ] Build and repository checks pass before Visual Regression.
+- [ ] GitHub Pages build and deploy pass after Visual Regression.
+- [ ] Confirm the deployed public URL at the affected routes and viewports; use a cache-busting URL or hard reload when verifying fresh CSS.

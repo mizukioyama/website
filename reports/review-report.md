@@ -747,3 +747,184 @@ The before and after Menu item matrices are identical; computed-style difference
 
 - No remaining legacy variable was changed.
 - No JS-generated CSS, HTML inline/raw legacy variable, usage-separated variable, deletion, push, or public deployment was included.
+
+
+## 2026-09-27 Gallery Sidebar and Captions Repair
+
+### Findings
+
+- Compared the Gallery JavaScript attached to the referenced conversation with the current files in the VS Code repository; the active source contained the same competing category handlers and the caption title-selector mismatch.
+- Category state had three competing owners: menu.js used a mobile-only handler, page-nation.js added a second toggle plus scroll-driven collapsed state, and gallery-captions.js also managed category state and observers. At widths of 600px and above, the Gallery CSS disabled pointer input on the Category heading.
+- The current modal markup renders its title as .works p, while caption lookup searched only .works h2. The caption data loaded, but the title lookup returned no match.
+
+### Changes
+
+- menu.js now owns the Category state at every width. It starts closed, toggles by click/Enter/Space, closes after selection, updates aria-expanded, and keeps the glass overlay mobile-only.
+- page-nation.js retains category filtering and no longer owns toggle or scroll state.
+- gallery-captions.js now handles caption data and modal captions only. It retains source parsing, JP/EN title mapping, language-change updates, and modal mutation observation; title matching supports both h2 and p.
+- gallery.css no longer blocks the desktop Category heading or uses a collapsed-open selector. gallery.html has updated local asset cache keys.
+- npm run build regenerated docs from the root sources and embedded 48 caption records. Shared component output is synchronized from src/components/header.html.
+
+### Verification
+
+- PASS: local browser at 599px and 600px; both start closed and click, Enter, Space, and category selection produce the expected state.
+- PASS: scrolling while open preserves mobile-open and aria-expanded at both widths.
+- PASS: at 599px the overlay is hidden closed, visible open, and clicking it closes the menu; at 600px it is absent.
+- PASS: 蒼縁 displays the Japanese caption; sōen displays the English caption after switching language before opening the modal.
+- PASS: caption data URL returned HTTP 200; browser console error and warning logs were empty.
+- PASS: npm run build, check:components, check:js, check:generated, check:seo, and check:links.
+- FAIL: npm run check stops at check:typography with css/all.css: missing shared body scale. css/all.css was already modified before this task and was not changed for this repair.
+- FAIL: check:docs-sync reports committed docs stale because current source and generated output are uncommitted. check:generated confirms current source/generated consistency.
+- WARN: git diff --check reports trailing whitespace and CRLF line endings across the already-dirty source and generated files; broad line-ending cleanup was kept out of this repair.
+- Webpack completed with existing large-asset/performance warnings. Public delivery and physical-device checks were not run.
+
+### Git boundary
+
+- HEAD remains 9277c31def1e14290b5ff5dd6f821003f94060da on main. The working tree remains dirty with pre-existing user changes, this repair, and generated docs. No commit, push, merge, or deployment was performed.
+
+## 2026-09-27 Language Audit and CSS Deduplication Follow-up
+
+This entry supersedes the earlier Gallery repair check summary above where the typography-check and modal-language results differ.
+
+### Language and caption findings
+
+- The shared header source is src/components/header.html. js/menu.js renders the matching header and owns the language radio state. The header and component IDs had drifted to the misspelled langChenge in several selectors; they now consistently use langChange.
+- The stored language is read from selectedLang first and legacy lang second. A selection writes both keys. The language radio handlers are bound once per generated input using data-language-bound; the header, navigation, Category control, caption observer, and Gallery initialization also have one-time guards.
+- Header language initialization now runs immediately after the header is built, before the animation-frame menu setup. This applies the saved language before Gallery's first language-sensitive render.
+- The browser's hidden attribute was losing to the positioned #langChange rule on bilingual pages. The explicit #langChange[hidden] rule now hides the control. On Gallery, the language control sits above the artwork modal layer so it remains usable while the modal is open.
+- The caption loader still fetches js/gallery-captions-data.js?v=20260910-2 and parses its JavaScript object records. The current modal title is a paragraph, while the old matcher only looked for an h2. The matcher now supports either .works h2 or .works p, then updates .modal-text p using documentElement.lang. Language-change and modal-mutation updates remain guarded against duplicate binding.
+
+| Page | Ja/En result |
+| --- | --- |
+| Home | PASS at 390px and 1440px: both directions, active control, visible language content, documentElement.lang, and navigation persistence. |
+| Gallery | PASS at 390px and 1440px: both directions, page content, modal title and caption, including changing language while the modal stays open. |
+| Order | PASS at 390px and 1440px: both directions, Japanese/English content blocks, documentElement.lang, and navigation persistence. |
+| Policy | PASS at 390px and 1440px: both directions, Japanese/English content blocks, documentElement.lang, and navigation persistence. |
+| Biography | Both languages remain visible and the selector remains hidden under data-language-mode=bilingual. documentElement.lang stays at the source value ja. Navigation back to a switchable page preserves the stored choice. A local Ja/En click on this page is not applicable because the control is intentionally hidden. |
+| Artist Statement | Both languages remain visible and the selector remains hidden under data-language-mode=bilingual. documentElement.lang stays at the source value ja. Navigation back to a switchable page preserves the stored choice. A local Ja/En click on this page is not applicable because the control is intentionally hidden. |
+| Information | The source currently marks this page bilingual, hides the selector, and presents Japanese/English copy together. documentElement.lang stays ja. Ja/En operation on this page is not available under the current source mode. |
+| Contact | The source currently marks this page bilingual, hides the selector, and presents Japanese/English copy together. documentElement.lang stays ja. Ja/En operation on this page is not available under the current source mode. |
+| Yurayura | The source currently marks this page bilingual, hides the selector, and presents Japanese/English copy together. documentElement.lang stays ja. Ja/En operation on this page is not available under the current source mode. |
+
+At the time of this 2026-09-27 audit, the project checklist documented Biography and Artist Statement as bilingual pages with the selector hidden. Information, Contact, and Yurayura also hid the selector and displayed Japanese and English together. The user decision was pending then; the confirmed 2026-09-29 policy is recorded in the latest addendum below.
+
+Gallery Category remains owned by js/menu.js at all widths: initially closed, click toggles, Enter/Space toggles, category selection closes, and scrolling does not change state. No Gallery display state uses collapsed. The glass overlay is present only through 599px and follows the menu state.
+
+### CSS cleanup and visual comparison
+
+Compared with the saved post-Phase-1 baseline, removed only duplicate, overridden, or unreferenced declarations:
+
+- css/all.css: the earlier --bg value overridden by the later value; unreferenced --legacy-px-1_1 and --font-menu-item-fluid-mid; the earlier h1 font-family declaration overridden in the same rule; and the earlier link padding value overridden by the next declaration.
+- css/gallery.css: unreferenced --legacy-px-1_1 and --font-menu-item-fluid-mid definitions at the existing breakpoints, plus --gallery-sidebar-width and --gallery-sidebar-gap with no remaining references.
+- css/mobile.css: the earlier duplicate .art-page #category-menu.mobile-open padding/gap rule and duplicate State heading declarations.
+- css/menu.css: the dead misspelled #langChenge #mask selector and older menu font-size rules superseded by the active shared semantic rule.
+- css/index.css: the overridden even-slide title shadow, card_line height, and first background gradient.
+- order.html: an inline #langChenge hide rule targeting an ID that does not exist.
+
+The root-level old numeric font-size scale was already absent in the saved pre-cleanup baseline. assets/css/user-settings.css remains the authoritative editable source, existing compatibility aliases with live references remain, and no blanket !important removal was made. The typography checker now checks that all.css uses the shared body token and that user-settings.css defines its role, instead of requiring a numeric token in the wrong file.
+
+Before/after comparison used the saved generated docs baseline and the current generated docs. After the title animation settled, all 9 pages at 1440, 1280, 1024, 768, 430, 390, and 375px (63 page/viewport pairs) had zero measured computed-style or geometry differences in the selected 27 properties and page selectors. Horizontal overflow was zero in all pairs. Header, language control, navigation, menu mask, footer, Gallery card, sidebar, and caption/modal selectors were included.
+
+Interactive before/after comparison also matched at 390px and 1440px. At 390px the closed Category menu measured 85.36px wide by 0px high and the open menu 93.16px by 506.13px; the mobile overlay changed from hidden to visible only while open. The modal box was 370.5px by 827.12px in both Japanese and English. At 1440px the Category menu measured 91.64px by 0px closed and 104.53px by 630px open; no glass overlay was present. The desktop modal measured 1368px by 855px in both languages. No horizontal overflow appeared.
+
+### Checks and limits
+
+- PASS: npm run build, check:components, check:js, check:typography, check:generated, check:seo, and check:links.
+- BLOCKED by the no-commit boundary: check:docs-sync and the combined npm run check stop because docs/ differs from committed HEAD. Source and generated output are synchronized; committing docs/ is prohibited for this task.
+- PASS: undefined CSS custom properties = 0, including the runtime property references scanned; conflict-marker scan = 0; browser console errors = 0; Gallery caption text rendered in both languages with no caption-load console error.
+- Pageerror events were not independently instrumented because the available browser interface exposes console logs but not a pageerror event hook. Do not interpret this as a separate pageerror event assertion.
+- git diff --check still reports changed CRLF lines as trailing whitespace. Line endings and unrelated manual changes were preserved rather than normalizing whole files.
+- Webpack retains its existing large-asset/performance warnings. Public and physical-device checks were not run.
+
+### Files and Git state
+
+- Source/runtime: biography.html, contact.html, gallery.html, order.html, src/components/header.html, src/information.html, src/exhibitions/yurayura/index.html, js/menu.js, js/page-nation.js, js/gallery-captions.js.
+- CSS/checker: css/all.css, css/gallery.css, css/mobile.css, css/menu.css, css/index.css, css/index-tablet.css, scripts/check-typography.cjs.
+- Generated docs were rebuilt from source; no generated file was directly edited.
+- Review reports and the existing review ZIP were updated append-only. Untracked css/変更メモ.css and docs/css/変更メモ.css were preserved.
+- HEAD remains 9277c31def1e14290b5ff5dd6f821003f94060da. The working tree is dirty, including changes that existed before this follow-up. No commit, push, merge, or deployment was performed.
+
+
+## 2026-09-28 Intermediate Release Checkpoint
+
+### Release
+
+- Published checkpoint commit `6c676cf6098742a2ffe8ef8e2432b4f404e2e8e0` (`Stabilize gallery interactions and CSS cleanup`) from `main`, parent `9277c31def1e14290b5ff5dd6f821003f94060da`.
+- The commit contains 36 implementation, checker, and generated `docs/` files. Push to `origin/main` succeeded.
+- GitHub Actions run 369, `Deploy static site to GitHub Pages`, completed successfully: both `build` and `deploy` jobs succeeded. Run: https://github.com/mizukioyama/website/actions/runs/36356601019
+- Public site: https://mizukioyama.github.io/website/
+
+### Public browser verification
+
+- All nine pages (Home, Gallery, Biography, Artist Statement, Information, Order, Contact, Policy, Yurayura) were opened at 390x844 and 1440x900. No horizontal overflow was found. Header and menu control were present on all nine; the footer was present on the eight pages that include it (Home has no footer).
+- Gallery was also checked at 1440, 1280, 1024, 768, 430, 390, and 375px. Category started closed at every width, the page had no horizontal overflow, and the glass overlay existed only at widths below 600px and started hidden.
+- Mobile Gallery: opening Category showed the overlay; after scrolling, `aria-expanded` remained true; the header closed the menu; choosing Digital set the active category, displayed eight cards, and closed the menu; clicking the overlay also closed the menu.
+- Desktop Gallery: Category opened and closed after selecting Digital; the glass overlay was absent. The modal fit inside the 1440x900 viewport. With the modal left open, the title/caption changed Japanese `蒼縁` to English `sōen` and back correctly; Close hid the modal.
+- Home, Gallery, Order, and Policy switched Ja/En in both directions at 390px and 1440px. Biography, Artist Statement, Information, Contact, and Yurayura retained their existing bilingual display with the language control hidden. No language-spec change was made.
+- CSS cleanup showed no public layout break or horizontal overflow in the checked page/viewport matrix.
+- Public browser console errors: 0. The existing `[VANTA] No THREE defined on window` warning appeared on page loads. The first uncached Home visit kept its loading veil until its intro finished (about 13 seconds in this session); no change was made to that behavior.
+
+### Local checks and boundaries
+
+- Post-commit `npm run check`: PASS, including components, JavaScript syntax, typography, build, docs sync, generated output, SEO, and links. `npm run check:docs-sync` also passed independently. The check hid untracked files from Git status so the intentionally preserved `docs/css/変更メモ.css` user memo would not be mistaken for generated output; tracked generated docs are clean and synchronized.
+- Undefined CSS custom-property references: 0. Conflict markers: 0. The Playwright package is unavailable in this checkout; browser verification used the connected real browser instead.
+- Webpack completed with its existing large-asset/performance warnings. The release diff retained existing CRLF conventions; no broad line-ending conversion was made.
+- Excluded from the release commit: `ROADMAP.md`, report files and review ZIP, `css/変更メモ.css`, and `docs/css/変更メモ.css`. The notes remain in place; reports and ROADMAP remain local changes.
+- Physical iOS/Android acceptance remains pending. Information, Contact, and Yurayura language behavior and large MD/spec review are deferred to the next task.
+
+## 2026-09-28 Final Intermediate Release Follow-up: cc19d2c
+
+### Release and deployment
+- Checkpoint commit 6c676cf6098742a2ffe8ef8e2432b4f404e2e8e0 was pushed to origin/main; Pages run 369 completed successfully.
+- Follow-up commit b0f98e79badb5dc203aad7d40915dc04109ad5f4 aligned the visual regression selectors with the current Gallery DOM.
+- Final corrective commit cc19d2cb5167b99a3b296a700a1f57caf9043d81 restored the shared mobile header typography and aligned the regression assertions. Push succeeded; main and origin/main are synchronized at this SHA.
+- Pages run 371 completed successfully: https://github.com/mizukioyama/website/actions/runs/36362240463
+- Public site: https://mizukioyama.github.io/website/
+
+### Final verification
+- Post-commit npm run check and standalone check:docs-sync passed. Components, JavaScript, typography, build, generated output, SEO, links, and source/docs synchronization passed.
+- Local browser suite at 1280px and 430px completed with 33 passed and 11 skipped.
+- After Pages run 371, public browser verification completed with 20 passed at 1440px and 390px, covering all nine pages plus the registered 404 route. The run used ignore-snapshots, so layout, content, overflow, and interaction assertions ran, but this result does not establish screenshot-baseline parity.
+- Public browser checks reported zero console errors and zero horizontal overflow. The expected missing-route response for the 404 test was recorded. Existing VANTA and WebGL performance warnings were observed.
+- Gallery Category, modal/caption, and Ja/En interactions were exercised in the public run. Home, Gallery, Order, and Policy retain Ja/En switching. Biography, Artist Statement, Information, Contact, and Yurayura retain their existing bilingual display with the language control hidden.
+- CSS cleanup produced no observed layout break at the verified widths. Undefined CSS custom-property references = 0 and conflict markers = 0. A CRLF-aware diff check passed; no broad line-ending conversion was made.
+
+### CI Visual Regression status
+- Visual Regression run 398 failed on cc19d2c: https://github.com/mizukioyama/website/actions/runs/36362287009
+- The repository-checks/build step passed; the visual test step exited with code 1. GitHub exposed only the generic failure annotation in the unauthenticated session. Retrieving the job log returned HTTP 403, so the failing assertion or screenshot difference could not be identified.
+- At the time of this 2026-09-28 report, the Visual Regression gate was unresolved. It is resolved by the later #406 PASS recorded in the 2026-09-29 addendum below; the baseline was not changed in this documentation task.
+
+### Working-tree boundary
+- Final HEAD: cc19d2cb5167b99a3b296a700a1f57caf9043d81; branch main is synchronized with origin/main.
+- Excluded and retained: css/変更メモ.css and docs/css/変更メモ.css remain untracked and unstaged; ROADMAP.md, this report set, and reports/chatgpt-review-package.zip remain local modifications and were not included in release commits.
+- No files were deleted. The language specification for Information, Contact, and Yurayura and the broad MD/spec review were deferred.
+- Physical-device acceptance and owner review remain pending. Keep the next specification task stopped until the owner has reviewed the published checkpoint and the Visual Regression failure has been classified.
+
+
+## 2026-09-29 Language specification and release-baseline alignment
+
+### Current source-of-truth roles
+
+- `PORTFOLIO_MASTER_SPEC.md` is the canonical page-purpose and language-presentation specification.
+- `AGENTS.md` is the canonical operational and Visual Regression/deployment sequence.
+- `DESIGN_SYSTEM.md` owns visual and typography rules; `assets/css/user-settings.css` remains the editable font-size source described in `CSS_VARIABLES_GUIDE.md`.
+- `SITE_MAP.md` owns public routes and source-to-generated mapping. `QA_CHECKLIST.md` is an evidence checklist that points back to the operational policy.
+- `ROADMAP.md`, `reports/known-issues.md`, and `reports/next-actions.md` own current priorities, open issues, and ordered actions respectively. Dated review/checklist/request documents remain evidence archives.
+
+### Confirmed page-language behavior
+
+- Ja/En switch: Home, Gallery, Order and Policy.
+- Japanese followed by English, with the switch hidden: Biography, Artist Statement, Information and Contact. Contact keeps its bilingual form labels/fields together.
+- Yurayura remains Japanese-led with partial English and no switch. Consider a switch only after the full translation is prepared and reviewed.
+- Information's remaining English coverage and language markup, Yurayura's full translation and language markup, and Yurayura table semantics remain open follow-ups.
+
+### Formal release baseline
+
+- `main` / `origin/main`: `f6427178ca3fa37ccd5744a6e66d14864f056818`.
+- Pages build/deploy: PASS. Visual Regression #406: 53 passed, 13 skipped, 0 failed, with screenshot comparison active. The earlier #398 failure is resolved by this later passing result.
+- Public Home, Gallery, Biography, Artist Statement, Information, Order, Contact, Policy and Yurayura were checked at 1440px and 390px. Horizontal overflow and browser console errors: 0. Gallery sidebar and captions behaved as expected.
+- This documentation pass changes no HTML, CSS, JavaScript, generated `docs/` or screenshot baselines. No translation or accessibility implementation was performed.
+
+### Review-package handling
+
+`reports/chatgpt-review-package.zip` is a transfer snapshot for external review, not an authoritative spec or required build/deploy input. The repository operating rules do not require it in the documentation commit. It is retained unchanged and excluded from this commit; its existing modified working-tree version remains available for a separate decision.

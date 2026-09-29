@@ -1,10 +1,12 @@
+> Dated sections below are retained as task history. The 2026-09-29 status and any explicit superseding notes below are the current state.
+
 # User Checklist
 
 ## 2026-09-20 Phase 3 review gates
 
 - [ ] Review the source-of-truth mapping and retained legacy/reference classifications.
 - [ ] Confirm Biography and Artist Statement show Japanese and English simultaneously.
-- [ ] Confirm the language switch UI is hidden only on those bilingual pages.
+- [x] Current language policy (updated 2026-09-29): switch UI is hidden on Biography, Artist Statement, Information, Contact and Yurayura; it is shown on Home, Gallery, Order and Policy.
 - [ ] Confirm an English Gallery preference is preserved after returning from either bilingual page.
 - [ ] Review Typography at 1440, 1280, 1024, 768, 430, 390, and 375px.
 - [ ] Confirm no unintended wrapping, overflow, table, form, Gallery, Yurayura, or 404 regression.
@@ -273,3 +275,74 @@
 - [x] Confirm build, generated sync, SEO, and links in the final check.
 - [ ] Perform fresh real-browser and physical-device acceptance if required.
 - [ ] Obtain separate approval before public deployment.
+
+
+## 2026-09-27 Gallery Sidebar and Captions Repair
+
+- [x] Category starts closed at 599px and 600px.
+- [x] Click opens and closes the menu at both widths.
+- [x] Enter and Space toggle the menu.
+- [x] Selecting a category closes the menu.
+- [x] Scrolling does not change the open/closed state.
+- [x] The mobile glass overlay is shown only at 599px while open and closes the menu when clicked; it is absent at 600px.
+- [x] Japanese and English modal captions match 蒼縁 and sōen.
+- [x] Caption data responds with HTTP 200; browser console errors and warnings are absent.
+- [x] Build, component, JavaScript, generated-output, SEO, and link checks passed.
+- [ ] Rerun the combined npm run check after the existing typography issue in css/all.css is resolved.
+- [ ] Complete physical-device and public-site acceptance if required.
+
+
+## 2026-09-27 Language Audit and CSS Cleanup Follow-up
+
+- [x] Confirm the shared-header language UI source and js/menu.js implementation use the same langChange ID.
+- [x] Confirm active Ja/En, documentElement.lang, language persistence, and navigation behavior on Home, Gallery, Order, and Policy at 390px and 1440px.
+- [x] Confirm Biography and Artist Statement continue to show both languages with the selector hidden.
+- [x] User confirmed Information and Contact as Japanese-first bilingual pages; Yurayura stays Japanese-led with partial English and no switch until its full English text is reviewed.
+- [x] Confirm Gallery Category is initially closed, toggles by click/Enter/Space, closes after category selection, and does not change state on scroll.
+- [x] Confirm the glass overlay is mobile-only and the Gallery caption changes Japanese/English while its modal remains open.
+- [x] Compare generated baseline and current output at 1440/1280/1024/768/430/390/375px: 63 page/viewport pairs, zero measured computed-style/geometry differences, zero horizontal overflow.
+- [x] Compare open/closed Gallery Category and modal geometry at 390px and 1440px; dimensions and computed values match the saved baseline.
+- [x] Confirm undefined custom properties = 0, conflict markers = 0, and browser console errors = 0.
+- [x] Confirm build, components, JavaScript, typography, generated output, SEO, and links checks pass.
+- [ ] The combined npm run check remains blocked at docs sync while generated docs are uncommitted; no commit is permitted.
+- [ ] Pageerror was not separately instrumented by the available browser interface.
+- [ ] Complete physical-device/public acceptance only if later required.
+
+
+## 2026-09-28 Intermediate Release Checkpoint
+
+- [x] Commit `6c676cf6098742a2ffe8ef8e2432b4f404e2e8e0` is pushed to `origin/main`.
+- [x] GitHub Actions Pages build and deploy jobs completed successfully.
+- [x] Public Home, Gallery, Biography, Artist Statement, Information, Order, Contact, Policy, and Yurayura checked at 390x844 and 1440x900; no horizontal overflow found.
+- [x] Public Gallery checked at 1440, 1280, 1024, 768, 430, 390, and 375px; Category starts closed and overflow is absent at all widths.
+- [x] Public mobile Category opens/closes, shows its glass overlay only while open, stays open after scrolling, closes on category selection, and filters Digital to eight cards.
+- [x] Public desktop Category selection closes the menu; modal opens, fits the viewport, switches 蒼縁 / sōen captions in both directions while open, and closes.
+- [x] Home, Gallery, Order, and Policy switch Ja/En both ways at 390px and 1440px.
+- [x] Biography, Artist Statement, Information, Contact, and Yurayura retain bilingual display and hidden language controls.
+- [x] Public browser console errors = 0; existing VANTA warning recorded separately.
+- [x] Post-commit `npm run check` and standalone `npm run check:docs-sync` pass with the preserved docs memo excluded from untracked status.
+- [ ] Physical iOS Safari / Android acceptance.
+- [ ] Owner review of the public checkpoint.
+- [x] Information, Contact and Yurayura language specifications and this MD review are now documented; implementation remains deferred.
+
+## 2026-09-28 Final Intermediate Release Follow-up
+
+- [x] Commit 6c676cf6098742a2ffe8ef8e2432b4f404e2e8e0 and follow-up commits b0f98e79badb5dc203aad7d40915dc04109ad5f4 and cc19d2cb5167b99a3b296a700a1f57caf9043d81 were pushed to main.
+- [x] Pages deploy run 371 completed successfully.
+- [x] Public all-page check: nine pages at 1440px and 390px; 20 automated cases passed, including the registered 404 route. Screenshot comparisons were disabled for this targeted run.
+- [x] Local all-page check at 1280px and 430px: 33 passed, 11 skipped.
+- [x] Public Gallery Category/modal/caption and language-switch behaviors were exercised; existing bilingual pages stayed unchanged.
+- [x] No public horizontal overflow or console errors were observed at the final checked widths.
+- [x] User CSS memos remain present and unstaged; reports, ZIP, and ROADMAP remain outside the release commits.
+- [x] Visual Regression #398 is resolved by #406: 53 passed, 13 skipped, 0 failed, screenshot comparison enabled.
+- [ ] Owner review and physical iOS Safari/Android acceptance.
+- [x] Language rules are documented; Information/Yurayura translation, accessibility implementation and design work remain future tasks.
+
+
+## 2026-09-29 Documentation and formal baseline
+
+- [x] Confirmed the nine-page language matrix with the user and recorded it in `PORTFOLIO_MASTER_SPEC.md`.
+- [x] Recorded the public baseline `f6427178ca3fa37ccd5744a6e66d14864f056818`, Pages PASS, and Visual Regression #406 (53 passed, 13 skipped, 0 failed; screenshot comparisons active).
+- [x] Recorded public checks at 1440px and 390px for all nine pages, zero horizontal overflow, zero console errors, and passing Gallery sidebar/caption behavior.
+- [x] Listed Information translation gaps, Yurayura full-translation work and language/table accessibility work as follow-ups.
+- [x] Kept implementation, generated output, screenshot baselines, and user CSS memos outside this documentation scope.

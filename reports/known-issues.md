@@ -1,5 +1,21 @@
 # Known Issues
 
+> The current register below is authoritative as of 2026-09-29. Dated entries that follow record the status at that time and are historical where they conflict with this summary.
+
+## Current public baseline
+
+- `main` and `origin/main` are synchronized at `f6427178ca3fa37ccd5744a6e66d14864f056818`.
+- Pages build/deploy passed. Visual Regression #406 passed with 53 passed, 13 skipped, 0 failed and screenshot comparison enabled. #398 is resolved by the later passing run.
+- The nine public pages were checked at 1440px and 390px with no horizontal overflow or browser console errors. Gallery sidebar and bilingual caption behavior passed.
+
+## Open translation and accessibility items
+
+- Information: translate the introduction, 2022 and 2021 exhibition records, and necessary link text; apply correct `lang="en"` to English passages.
+- Yurayura: prepare and review English for the full body (concept, intent, artist descriptions, archive and future plan); keep Japanese-led display and the language control hidden until full English coverage is approved. Manage future exhibition records in both languages.
+- Accessibility: apply correct language tags to English text; review the Yurayura detail table's `th` / `td` structure and programmatic association between field names and values.
+
+These are follow-up tasks, not defects in the confirmed release baseline. See `reports/next-actions.md` for their order.
+
 ## 2026-09-22 Min-Max Calculator typography settings
 
 - `npm run build` is pending: this checkout has no `node_modules`, so `webpack` is unavailable.
@@ -185,3 +201,41 @@
 - The local CUA browser backend and Chrome headless process were unavailable, so the seven-viewport result is a deterministic CSS cascade/formula comparison rather than fresh screenshot capture. Real-browser and physical-device acceptance remain separate gates.
 - Webpack emitted its existing large-asset/performance warnings; they are unrelated to this rename.
 - Public deployment was not performed.
+
+
+## 2026-09-27 Gallery Sidebar and Captions Repair
+
+- The full npm run check does not pass: check:typography reports css/all.css: missing shared body scale. That file was already dirty at task start and was left untouched.
+- check:docs-sync compares generated docs with committed HEAD and reports the current uncommitted generated output as stale. npm run build and check:generated pass; no commit was made.
+- git diff --check exits nonzero on trailing whitespace and CRLF line endings in multiple already-dirty source/generated files. No broad whitespace or line-ending normalization was included.
+- Webpack continues to report the repository's existing large images and third-party bundles over the recommended asset-size limit.
+- Local browser checks passed at 599px and 600px. Physical iOS/Android and public-site acceptance remain unverified.
+- The full-screen artwork modal covers the header language controls while open. Captions display correctly when opening the modal in either selected language; changing language requires closing the modal first.
+
+
+## 2026-09-27 Language Audit and CSS Cleanup Follow-up
+
+- The current source hides the language selector on Biography, Artist Statement, Information, Contact, and Yurayura. Biography and Artist Statement were already documented as bilingual-display pages; Information, Contact, and Yurayura also carry data-language-mode=bilingual and hide the selector. A user decision was requested on whether the latter three should stay bilingual or become single-language switchable.
+- Browser console errors were zero and both Gallery captions rendered. The available browser interface did not expose a separate pageerror event hook, so that event was not independently asserted.
+- The combined npm run check stops at check:docs-sync because regenerated docs/ is uncommitted. Source/generated parity and check:generated pass; the no-commit instruction was preserved.
+- git diff --check reports CRLF lines in changed files as trailing whitespace. Files were not normalized because broad line-ending changes are prohibited.
+- Webpack still emits its existing large-asset/performance warnings. Public and physical-device acceptance were not run.
+
+
+## 2026-09-28 Intermediate Release Checkpoint
+
+- No layout or functional regression was observed in the public 9-page 390px/1440px matrix or the seven-width Gallery check. Physical iOS Safari, Android, and touch-device acceptance has not been performed.
+- Public browser console errors were 0. The existing VANTA warning `[VANTA] No THREE defined on window` appeared on page loads; no VANTA change was included.
+- On the first uncached public Home visit, the loading veil remained visible until the intro completed (about 13 seconds in this browser session). It eventually cleared and the page worked; confirm on a physical device before considering a change.
+- The repository does not provide the Playwright test package, so the automated Playwright suite was unavailable. The user-requested browser checks were performed in the connected browser.
+- Webpack continues to emit its existing large-asset and performance warnings. They did not fail the build.
+- GitHub Actions build and Pages deploy both passed for commit `6c676cf6098742a2ffe8ef8e2432b4f404e2e8e0`; public pages were available for inspection.
+- Status at the 2026-09-28 checkpoint: Information, Contact, and Yurayura displayed bilingual content with hidden controls. On 2026-09-29 the user confirmed Information and Contact as Japanese-first bilingual, and Yurayura as Japanese-led with partial English and no control until a full translation is reviewed; see `PORTFOLIO_MASTER_SPEC.md`.
+
+## 2026-09-28 Intermediate Release Follow-up
+
+- Historical status at the time of this 2026-09-28 entry: Visual Regression run 398 failed. Resolved by the later Visual Regression #406 result: 53 passed, 13 skipped, 0 failed, with screenshot comparison enabled.
+- PENDING: Physical iOS Safari and Android acceptance and owner review of the published checkpoint.
+- WARN: Existing VANTA warning [VANTA] No THREE defined on window and WebGL GPU performance warnings appeared; public checks recorded zero console errors.
+- Existing Webpack large-asset/performance warnings remain.
+- Information, Contact, and Yurayura language behavior remains bilingual with the selector hidden; this is recorded current behavior, not a newly approved specification.
