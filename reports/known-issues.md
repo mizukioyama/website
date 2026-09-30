@@ -4,22 +4,18 @@
 
 ## Current public baseline
 
-- Information English content was completed in source/generated output at 8e0cce331de838ff9fd43009b4bf3a807e3cf851; Pages deploy #385 passed. Follow-up regression selector and Linux baseline commits are b5ad737 and ef16fb5; deploy #386 passed for ef16fb5.
-- Visual Regression #413 ran on ef16fb5 and failed only contact visual and layout regression at desktop-1440: a 30-second timeout while clicking label[for="radio1"]. Run #412 also had a Contact timeout. The Contact desktop check passed in the local representative run; the cause remains unconfirmed and no Contact code was changed.
-- The Information screenshot difference in #412 was limited to newly visible Japanese section headings and table labels. The reviewed Linux baselines for Information desktop-1440 and mobile-390 were updated in ef16fb5; no other Linux snapshots were changed.
-- Public Information was checked at 1440, 1280, 1024, 768, 430, 390 and 375px through Ja → En → Ja. The required English introduction and 2022/2021 records, Japanese content, link, header/footer, language state and horizontal overflow (0px) passed. English preference also persisted after reload at 390px.
-- The site-wide Adobe Fonts p.typekit.net stylesheet CSP block was resolved in 1910e7c2; Pages deploy #389 and Visual Regression #416 passed. Public checks of all nine pages at 1440px and 390px recorded successful font stylesheet requests and zero CSP or console errors.
-- Visual Regression #398 remains a resolved historical issue; it is not the current blocker.
+- Yurayura's English content, shared Ja / En switch, language-persistence test coverage, and nested-route assertions are in implementation commit 8e61d22. The separate baseline commit 123073c updates only the reviewed Yurayura Linux desktop-1440 and mobile-390 snapshots.
+- Pages deploy #391 and #392 passed. Visual Regression #419 passed on 123073c; #398 remains a resolved historical issue.
+- The published Yurayura page was checked across all seven requested widths with Ja → En → Ja, reload persistence, working related links, and no horizontal overflow, console errors, pageerrors, or CSP errors. Event JSON-LD remains valid and unchanged.
+- Public checks of the other eight pages at 1440px and 390px showed no unintended language or overflow regressions. Adobe Fonts CSP errors remained at zero.
 
 ## Open implementation gaps against the current specification
 
-- Required Ja / En pages are Home, Gallery, Information, Order, Contact, Policy and Yurayura; Biography and Artist Statement remain bilingual with the control hidden. See PORTFOLIO_MASTER_SPEC.md.
-- Information and Contact now use Ja / En switching. Information's English introduction, exhibition details, 2022/2021 history, labels and detail link are present; no known Information copy gap remains.
-- Yurayura still needs a complete, reviewed English version before its Ja / En switch is enabled. Verify language attributes and the detail table's th / td header/value associations.
-- Visual Regression #413 must pass before starting the next Yurayura production work. Its remaining failure is the Contact desktop-1440 interaction timeout described above.
-- The typography specification calls for shared same-tag page-group tokens. Full enforcement of every same-tag role across Home / Standard Pages / 404 remains a separate follow-up.
+- No known language-presentation gap remains: Home, Gallery, Information, Order, Contact, Policy, and Yurayura switch between Japanese and English; Biography and Artist Statement remain bilingual with the control hidden.
+- Watch item: Contact visual/layout regression at tablet-768 timed out once in #418. An isolated local CI-mode rerun passed in 13.3 seconds, and #419 passed. Investigate separately if the timeout recurs.
+- Full enforcement of shared same-tag typography roles across Home / Standard Pages / 404 remains a separate follow-up.
 
-These are follow-up tasks, not defects in the confirmed Information content. See reports/next-actions.md for their order.
+These are follow-up tasks, not defects in the confirmed Yurayura implementation. See reports/next-actions.md for their order.
 
 ## 2026-09-22 Min-Max Calculator typography settings
 

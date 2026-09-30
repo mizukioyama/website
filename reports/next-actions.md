@@ -4,12 +4,11 @@
 
 ## Current queue
 
-1. Resolve or classify the repeated Contact CI timeout before further production work. #412 and #413 failed in the Contact visual/layout test at desktop-1440; #413 records a 30-second timeout on label[for="radio1"]. The local representative Contact run passed. Do not change Contact production code as part of the completed Information content task.
-2. Keep Information content complete. Pages deploy #385 passed for its content commit; deploy #386 passed for the follow-up selector/baseline checkpoint. Public Information passed the seven-width Ja → En → Ja check with no horizontal overflow, and En preference survived reload at 390px.
-3. Do not start Yurayura until Visual Regression passes. After that gate clears, prepare and review its full English text before enabling the switch, verify the detail table's accessible header/value associations, and run the grouped build/check/deploy/public checkpoint.
-4. Continue the shared typography-token checker work as a separate follow-up after the language checkpoint.
+1. Review the published Yurayura checkpoint at https://mizukioyama.github.io/website/exhibitions/yurayura/ and decide the next production scope.
+2. Monitor the Contact tablet-768 timeout observed once in Visual Regression #418. The isolated local CI-mode rerun passed in 13.3 seconds and #419 passed; investigate in a separate task if it recurs.
+3. Continue the shared typography-token checker work as a separate follow-up.
 
-The current task did not change Contact or Yurayura production code. Follow the checkpoint cadence and baseline-classification rules in AGENTS.md when the next implementation scope begins.
+The Yurayura language implementation, reviewed two-image baseline update, Pages deploys #391/#392, and Visual Regression #419 are complete. No further production change is part of this checkpoint.
 
 ## 2026-09-20 Phase 3
 

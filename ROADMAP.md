@@ -6,19 +6,17 @@ Only the baseline and current priority queue below define active status. Dated p
 
 ## Current baseline — 2026-09-30
 
-- Information English content is complete in source and generated output at 8e0cce331de838ff9fd43009b4bf3a807e3cf851; Pages deploy #385 passed. The selector fix and the two reviewed Information Linux screenshots are separate commits ending at ef16fb5; Pages deploy #386 passed.
-- Visual Regression #413 on ef16fb5 failed only the Contact visual/layout test at desktop-1440. It timed out after 30 seconds clicking label[for="radio1"]; #412 also had a Contact timeout. The local representative Contact run passed. Root cause remains unknown.
-- Information public verification passed at 1440/1280/1024/768/430/390/375px with Ja → En → Ja, expected Japanese and English records, language state, links, header/footer, and zero horizontal overflow. The En preference survived reload at 390px.
-- The public Adobe Fonts p.typekit.net stylesheet CSP block was resolved in 1910e7c2; Pages deploy #389 and Visual Regression #416 passed. Public checks of all nine pages at 1440px and 390px recorded successful font stylesheet requests and zero CSP errors.
-- Visual Regression #398 is historical and resolved. The current blocker is #413's Contact timeout.
-- The required language matrix remains in PORTFOLIO_MASTER_SPEC.md; Information and Contact switch modes are implemented, while the remaining Yurayura English content/switch and table accessibility review are pending.
+- Information's complete English content and the Adobe Fonts CSP correction remain published; public checks of all nine pages at 1440px and 390px recorded zero CSP errors.
+- Yurayura's complete English content, shared Ja / En switching, language-persistence coverage, and nested-route checks were included in implementation commit 8e61d22. The reviewed Linux screenshot updates were limited to Yurayura desktop-1440 and mobile-390 in separate baseline commit 123073c.
+- Visual Regression #418 showed the expected Yurayura screenshot changes from switching to one displayed language and one Contact tablet-768 test timeout. The Contact test passed an isolated local CI-mode rerun in 13.3 seconds. Visual Regression #419 passed on 123073c.
+- Pages deploy #391 (implementation) and #392 (baseline checkpoint) passed. Public Yurayura checks covered all seven widths with Ja → En → Ja, reload persistence, nested links, and zero horizontal overflow, console errors, pageerrors, or CSP errors. Event JSON-LD remained valid and unchanged.
+- Visual Regression #398 remains a resolved historical issue. The Contact tablet-768 timeout is a nonblocking watch item after one occurrence; #419 is the current passing visual gate.
 
 ## Current priority queue
 
-1. Resolve or classify the repeated Contact CI timeout before another production change. Do not fold Contact code changes into the Information checkpoint.
-2. Proceed to Yurayura English content and switch implementation only after the Visual Regression gate is green; verify translated markup and table header/value associations.
-3. For the Yurayura checkpoint, run npm run check, screenshot-enabled Visual Regression, Pages deploy, public runtime checks, and all seven widths for responsive/layout-sensitive areas.
-4. Continue typography-checker coverage as a separate follow-up. Reconsider design work only after the language and accessibility work is complete and reviewed.
+1. Review the published Yurayura checkpoint at https://mizukioyama.github.io/website/exhibitions/yurayura/ and choose the next production scope.
+2. Monitor the Contact tablet-768 timeout on later Visual Regression runs; investigate it separately if it recurs.
+3. Continue shared typography-token checker coverage as a separate follow-up.
 
 This queue records pending work and does not authorize work outside the currently approved scope.
 
