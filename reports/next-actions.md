@@ -4,12 +4,11 @@
 
 ## Current queue
 
-1. Obtain authenticated details for Visual Regression #423 and identify the failing test or image diff; its log API returned 403 and artifact download returned 401. Do not update baselines without reviewing evidence.
-2. When browser access is available, verify published Contact Ja/En and Home, Gallery, Biography, Artist Statement, Information, Order, Policy, and Yurayura at 1440px / 390px; the admin-enforced browser check currently blocks this.
-3. Establish final design handoff readiness only after the CI failure is understood/resolved and the public checks pass.
-4. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those adjustments, run build/check and Visual Regression without baseline updates, then verify Pages/public rendering. Monitor Contact timeouts and continue typography-token checker coverage separately.
+1. When browser access is available, verify published Contact Ja/En and Home, Gallery, Biography, Artist Statement, Information, Order, Policy, and Yurayura at 1440px / 390px; the admin-enforced browser check currently blocks this.
+2. Establish final design handoff readiness after the public checks pass. Visual Regression #424 is green; #423 was an unexplained one-off on unchanged production code and its logs/artifact were inaccessible. Investigate if it recurs; do not update baselines without evidence.
+3. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those adjustments, run build/check and Visual Regression without baseline updates, then verify Pages/public rendering. Monitor Contact timeouts and continue typography-token checker coverage separately.
 
-The Contact code fix, seven-width local Ja/En checks, Pages #395, and Visual Regression #422 passed. Pages #396 passed for the documentation follow-up, but Visual Regression #423 failed at its visual step and public browser acceptance remains pending. Final handoff readiness is open.
+The Contact code fix, seven-width local Ja/En checks, Pages #395, and Visual Regression #422 passed. The later documentation follow-up passed Pages and Visual Regression #424; #423 failed once without accessible detail. Public browser acceptance remains pending, so final handoff readiness is open.
 
 ## 2026-09-20 Phase 3
 

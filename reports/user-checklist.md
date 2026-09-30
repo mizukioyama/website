@@ -8,8 +8,8 @@
 - [x] Current language modes match `PORTFOLIO_MASTER_SPEC.md`: seven Ja / En pages and two bilingual pages.
 - [x] Information English content and the Yurayura English / language-switch implementation are complete; nested-route and language-persistence checks passed.
 - [x] CSS typography entry point and page/component edit map are documented in `CSS_VARIABLES_GUIDE.md`.
-- [x] Contact label styling was restored without changing design tokens; the local Ja/En functional suite passed all seven widths, `npm run check` passed, and Visual Regression #422 passed with no baseline changes.
-- [ ] Investigate Visual Regression #423: the visual step failed, but the log API returned 403 and artifact download returned 401, leaving the failed test/diff unknown. No baseline was changed.
+- [x] Contact label styling was restored without changing design tokens; the local Ja/En functional suite passed all seven widths, `npm run check` passed, and Visual Regression #422 / #424 passed with no baseline changes.
+- [x] The intervening docs-only Visual Regression #423 failed once; its log/artifact could not be retrieved (403/401), but #424 passed with identical production code. No baseline update was made.
 - [ ] Verify published Contact Ja/En at 1440px / 390px and the other eight pages at both widths. Browser verification is pending because the admin-enforced browser policy check denied access.
 - [ ] Establish final design handoff readiness after the CI and public checks pass, then the owner may perform desired final design/layout adjustments.
 - [ ] After owner adjustments, run the ordinary build/check, review Visual Regression without updating baselines, and verify public Pages output.
