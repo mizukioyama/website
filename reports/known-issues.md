@@ -8,7 +8,7 @@
 - Visual Regression #413 ran on ef16fb5 and failed only contact visual and layout regression at desktop-1440: a 30-second timeout while clicking label[for="radio1"]. Run #412 also had a Contact timeout. The Contact desktop check passed in the local representative run; the cause remains unconfirmed and no Contact code was changed.
 - The Information screenshot difference in #412 was limited to newly visible Japanese section headings and table labels. The reviewed Linux baselines for Information desktop-1440 and mobile-390 were updated in ef16fb5; no other Linux snapshots were changed.
 - Public Information was checked at 1440, 1280, 1024, 768, 430, 390 and 375px through Ja → En → Ja. The required English introduction and 2022/2021 records, Japanese content, link, header/footer, language state and horizontal overflow (0px) passed. English preference also persisted after reload at 390px.
-- Headless public checks recorded a blocked Adobe Typekit stylesheet request to p.typekit.net under the site's existing style-src CSP. The same error occurred on Home; it is site-wide and unrelated to the Information copy change.
+- The site-wide Adobe Fonts p.typekit.net stylesheet CSP block was resolved in 1910e7c2; Pages deploy #389 and Visual Regression #416 passed. Public checks of all nine pages at 1440px and 390px recorded successful font stylesheet requests and zero CSP or console errors.
 - Visual Regression #398 remains a resolved historical issue; it is not the current blocker.
 
 ## Open implementation gaps against the current specification

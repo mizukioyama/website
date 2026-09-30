@@ -9,7 +9,7 @@ Only the baseline and current priority queue below define active status. Dated p
 - Information English content is complete in source and generated output at 8e0cce331de838ff9fd43009b4bf3a807e3cf851; Pages deploy #385 passed. The selector fix and the two reviewed Information Linux screenshots are separate commits ending at ef16fb5; Pages deploy #386 passed.
 - Visual Regression #413 on ef16fb5 failed only the Contact visual/layout test at desktop-1440. It timed out after 30 seconds clicking label[for="radio1"]; #412 also had a Contact timeout. The local representative Contact run passed. Root cause remains unknown.
 - Information public verification passed at 1440/1280/1024/768/430/390/375px with Ja → En → Ja, expected Japanese and English records, language state, links, header/footer, and zero horizontal overflow. The En preference survived reload at 390px.
-- A Typekit stylesheet CSP error for p.typekit.net was observed on both Information and Home; it predates this copy-only work and is tracked separately.
+- The public Adobe Fonts p.typekit.net stylesheet CSP block was resolved in 1910e7c2; Pages deploy #389 and Visual Regression #416 passed. Public checks of all nine pages at 1440px and 390px recorded successful font stylesheet requests and zero CSP errors.
 - Visual Regression #398 is historical and resolved. The current blocker is #413's Contact timeout.
 - The required language matrix remains in PORTFOLIO_MASTER_SPEC.md; Information and Contact switch modes are implemented, while the remaining Yurayura English content/switch and table accessibility review are pending.
 

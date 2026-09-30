@@ -7,8 +7,7 @@
 1. Resolve or classify the repeated Contact CI timeout before further production work. #412 and #413 failed in the Contact visual/layout test at desktop-1440; #413 records a 30-second timeout on label[for="radio1"]. The local representative Contact run passed. Do not change Contact production code as part of the completed Information content task.
 2. Keep Information content complete. Pages deploy #385 passed for its content commit; deploy #386 passed for the follow-up selector/baseline checkpoint. Public Information passed the seven-width Ja → En → Ja check with no horizontal overflow, and En preference survived reload at 390px.
 3. Do not start Yurayura until Visual Regression passes. After that gate clears, prepare and review its full English text before enabling the switch, verify the detail table's accessible header/value associations, and run the grouped build/check/deploy/public checkpoint.
-4. Track the public Typekit p.typekit.net CSP console error separately. It was observed on both Information and Home and is outside the Information copy scope.
-5. Continue the shared typography-token checker work as a separate follow-up after the language checkpoint.
+4. Continue the shared typography-token checker work as a separate follow-up after the language checkpoint.
 
 The current task did not change Contact or Yurayura production code. Follow the checkpoint cadence and baseline-classification rules in AGENTS.md when the next implementation scope begins.
 
