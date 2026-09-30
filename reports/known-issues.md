@@ -1,17 +1,18 @@
 # Known Issues
 
-> The current register below is authoritative as of 2026-09-30. Dated entries that follow record the status at that time and are historical where they conflict with this summary.
+> The current register below is authoritative as of 2026-10-01. Dated entries that follow record the status at that time and are historical where they conflict with this summary.
 
 ## Current production baseline
 
-- Starting production checkpoint: `2d194f6d3bab59b88eaa0a531f624568c379e01c`; Pages deploy #393 and Visual Regression #420 passed.
+- Contact styling correction checkpoint: `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages deploy #395 and Visual Regression #422 passed. Starting handoff checkpoint: `2d194f6d3bab59b88eaa0a531f624568c379e01c`.
 - All seven switchable pages (Home, Gallery, Information, Order, Contact, Policy, Yurayura) use Ja / En. Biography and Artist Statement remain bilingual. Information English content and Yurayura English content are complete.
 - Yurayura nested-route navigation, language persistence, Event JSON-LD, seven-width checks, and public rendering were verified. The Adobe Fonts CSP error was zero across the published nine-page 1440px / 390px check.
-- Visual Regression #398 is resolved historical. No current language-presentation gap is known.
+- Visual Regression #398 is resolved historical. The Contact label style regression was caused by broad label-span selectors styling the added language spans; the selectors now target required markers and regression assertions cover Ja/En label typography. Local Contact checks passed at all seven widths and Visual Regression #422 passed without baseline updates.
+- Public browser acceptance for this Contact correction and the other eight pages is pending: the browser tool denied access because its admin-enforced policy check was unavailable. Final design handoff readiness is not yet established.
 
 ## Open nonblocking follow-ups
 
-- Watch: Contact visual/layout regression at tablet-768 timed out once in #418. An isolated local CI-mode rerun passed in 13.3 seconds; Visual Regression #420 passed. Investigate separately if it recurs.
+- Watch: Contact visual/layout regression at tablet-768 timed out once in #418. During this task, an initial two-worker local run also timed out at varying actions, then the one-worker seven-width rerun passed 7/7; tablet-768 passed. No timeout values were changed. Investigate separately if timeouts recur.
 - Continue shared same-tag typography-role checker coverage as a separate follow-up. Final value selection remains with the owner.
 
 ## 2026-09-22 Min-Max Calculator typography settings

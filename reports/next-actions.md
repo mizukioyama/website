@@ -1,15 +1,15 @@
 # Next Actions
 
-> The ordered queue below is current as of 2026-09-30. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
+> The ordered queue below is current as of 2026-10-01. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
 
 ## Current queue
 
-1. The owner performs the final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; this repository handoff does not change design values.
-2. After those adjustments, run `npm run build`, `npm run check`, and Visual Regression without baseline updates; confirm the Pages deployment and public rendering before calling the design pass complete.
-3. Monitor the Contact tablet-768 timeout from #418; investigate in a separate task only if it recurs.
-4. Continue shared typography-token checker coverage as a separate follow-up.
+1. When browser access is available, verify published Contact Ja/En at 1440px / 390px and check Home, Gallery, Biography, Artist Statement, Information, Order, Policy, and Yurayura at those widths. Record console/page errors, CSP errors, overflow, navigation, and form presentation; the admin-enforced browser check currently blocks this step.
+2. Establish final design handoff readiness only after the public Contact and cross-page checks pass.
+3. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those adjustments, run build/check and Visual Regression without baseline updates, then verify Pages and public rendering.
+4. Monitor the Contact timeout from #418 and the observed local parallel-run timeouts; investigate separately if they recur. Continue shared typography-token checker coverage as a separate follow-up.
 
-The Information / Contact language switch, completed Information English content, Yurayura language switch and English content, reviewed two-image Linux baseline update, and Visual Regression #420 are complete for the starting production checkpoint. No further production change is part of this handoff task.
+The Contact style correction commit `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`, Pages #395, Visual Regression #422, seven-width local Contact Ja/En checks, Information English content, and Yurayura language switch / English content are complete. Public browser acceptance for the Contact correction remains pending, so the final handoff gate is open.
 
 ## 2026-09-20 Phase 3
 

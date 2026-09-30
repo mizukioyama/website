@@ -1,17 +1,18 @@
-> The 2026-09-30 handoff status below is current. Older dated sections are retained as historical records and do not override it.
+> The 2026-10-01 handoff status below is current. Older dated sections are retained as historical records and do not override it.
 
 # User Checklist
 
-## Current implementation and final design handoff — 2026-09-30
+## Current implementation and final design handoff — 2026-10-01
 
-- [x] Starting production checkpoint `2d194f6d3bab59b88eaa0a531f624568c379e01c`; Pages deploy #393 and Visual Regression #420 passed.
+- [x] Contact style correction commit `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages deploy #395 and Visual Regression #422 passed. The starting handoff checkpoint was `2d194f6d3bab59b88eaa0a531f624568c379e01c`.
 - [x] Current language modes match `PORTFOLIO_MASTER_SPEC.md`: seven Ja / En pages and two bilingual pages.
 - [x] Information English content and the Yurayura English / language-switch implementation are complete; nested-route and language-persistence checks passed.
 - [x] CSS typography entry point and page/component edit map are documented in `CSS_VARIABLES_GUIDE.md`.
-- [x] Source / generated boundary and normal build/check commands are documented; this handoff contains no production CSS or design-value changes.
-- [ ] Owner completes the desired final design/layout adjustments.
-- [ ] After owner adjustments, run the ordinary build/check, review Visual Regression without updating baselines, and verify the public Pages output.
-- [ ] Revisit the Contact tablet-768 timeout only if it recurs; #420 passed without a repeated failure.
+- [x] Contact label styling was restored without changing design tokens; the local Ja/En functional suite passed all seven widths, `npm run check` passed, and Visual Regression #422 passed with no baseline changes.
+- [ ] Verify published Contact Ja/En at 1440px / 390px and the other eight pages at both widths. Browser verification is pending because the admin-enforced browser policy check denied access.
+- [ ] Establish final design handoff readiness after public checks pass, then the owner may perform desired final design/layout adjustments.
+- [ ] After owner adjustments, run the ordinary build/check, review Visual Regression without updating baselines, and verify public Pages output.
+- [ ] Monitor the Contact timeout from #418; the initial parallel local run timed out at varying actions but the serial seven-width run passed 7/7. Investigate separately if it recurs.
 
 ## 2026-09-20 Phase 3 review gates — historical checklist
 

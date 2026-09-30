@@ -4,19 +4,21 @@
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
 Only the baseline and current priority queue below define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
 
-## Current production baseline — 2026-09-30
+## Current production baseline — 2026-10-01
 
-- The production design/runtime baseline at the start of the repository handoff was `2d194f6d3bab59b88eaa0a531f624568c379e01c`; Pages deploy #393 and Visual Regression #420 passed.
+- The Contact styling correction is committed at `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages deploy #395 and Visual Regression #422 passed. The starting handoff checkpoint was `2d194f6d3bab59b88eaa0a531f624568c379e01c`.
 - Information and Contact use the approved Ja / En switch. Information English content is complete. Yurayura English content, shared language state, reload persistence, and nested-route behavior are implemented and publicly checked.
 - The language matrix is complete: Home / Gallery / Information / Order / Contact / Policy / Yurayura switch Ja / En; Biography / Artist Statement remain bilingual.
-- Visual Regression #398 is a resolved historical issue. Contact tablet-768 timeout #418 is a nonblocking watch item; an isolated local rerun passed in 13.3 seconds and #420 passed.
-- Adobe Fonts CSP errors were zero in the published nine-page 1440px / 390px check. This handoff preparation makes no production design or runtime changes.
+- Visual Regression #398 is a resolved historical issue. The Contact label styling regression is fixed by limiting label span styling to required markers; the seven-width local Ja/En Contact suite passed and Linux Visual Regression passed without baseline changes. Public browser acceptance is still pending because the admin-enforced browser policy denied access.
+- Contact tablet-768 timeout #418 remains a nonblocking watch. An initial two-worker local run timed out at varying actions, while the one-worker seven-width rerun passed 7/7; no timeout values were changed.
+- Adobe Fonts CSP errors were zero in the published nine-page 1440px / 390px check. The Contact correction only scopes required-marker styling and adds regression assertions; typography values and other page layouts were not changed.
 
 ## Current priority queue
 
-1. The owner performs the final design/layout adjustments using the edit map in `CSS_VARIABLES_GUIDE.md`.
-2. After owner changes, run the normal build/check, review Visual Regression without updating baselines, then confirm Pages and public rendering.
-3. Keep the Contact tablet-768 timeout as a watch item and continue shared typography-token checker coverage as separate follow-ups.
+1. After browser access is available, verify the published Contact page in Ja and En at 1440px / 390px and check the other eight pages for regressions; then record whether final handoff readiness is established.
+2. The owner performs any final visual/layout adjustments using the edit map in `CSS_VARIABLES_GUIDE.md` after the public check.
+3. After owner changes, run the normal build/check, review Visual Regression without updating baselines, then confirm Pages and public rendering.
+4. Keep the Contact timeout and shared typography-token checker as separate follow-ups.
 
 This queue records the owner handoff and follow-up checks; it does not expand the current production implementation scope.
 
