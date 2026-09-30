@@ -1,19 +1,20 @@
-> Dated sections below are retained as task history. The 2026-09-29 status and any explicit superseding notes below are the current state.
+> The 2026-09-30 handoff status below is current. Older dated sections are retained as historical records and do not override it.
 
 # User Checklist
 
-## Current specification review — 2026-09-29
+## Current implementation and final design handoff — 2026-09-30
 
-- [x] Production-code checkpoint being documented is `b360b71e120e616d734fb493aae49c2a6c2ec1d6`; `main` and `origin/main` were synchronized at that revision before this documentation edit.
-- [x] Pages deploy #380 passed and Visual Regression #407 is the current passing regression reference for `b360b71`.
-- [x] The committed Linux screenshot set was refreshed in `c238b18`; #398 is recorded as a resolved historical gate issue.
-- [x] Required language mode is seven Ja / En pages and two Japanese-first bilingual pages, as specified in `PORTFOLIO_MASTER_SPEC.md`.
-- [x] Current code gap is recorded: Information, Contact and Yurayura still hide the selector and display bilingual content; Yurayura English coverage is partial.
-- [x] Gallery Category, caption-data source, behavior ownership, typography source, CSS roles and source/generated boundary are documented.
-- [ ] Owner reviews this specification update before the next production-code task.
-- [ ] After that review, implement and verify the Information / Contact / Yurayura language-mode gap and the listed accessibility/checker follow-ups.
+- [x] Starting production checkpoint `2d194f6d3bab59b88eaa0a531f624568c379e01c`; Pages deploy #393 and Visual Regression #420 passed.
+- [x] Current language modes match `PORTFOLIO_MASTER_SPEC.md`: seven Ja / En pages and two bilingual pages.
+- [x] Information English content and the Yurayura English / language-switch implementation are complete; nested-route and language-persistence checks passed.
+- [x] CSS typography entry point and page/component edit map are documented in `CSS_VARIABLES_GUIDE.md`.
+- [x] Source / generated boundary and normal build/check commands are documented; this handoff contains no production CSS or design-value changes.
+- [ ] Owner completes the desired final design/layout adjustments.
+- [ ] After owner adjustments, run the ordinary build/check, review Visual Regression without updating baselines, and verify the public Pages output.
+- [ ] Revisit the Contact tablet-768 timeout only if it recurs; #420 passed without a repeated failure.
 
 ## 2026-09-20 Phase 3 review gates — historical checklist
+
 
 - [ ] Review the source-of-truth mapping and retained legacy/reference classifications.
 - [ ] Confirm Biography and Artist Statement show Japanese and English simultaneously.

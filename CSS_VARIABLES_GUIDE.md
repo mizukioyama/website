@@ -1,5 +1,39 @@
 # CSS Variables Guide
 
+## 最終デザイン調整でまず見る場所
+
+この表は、既存のデザインを最後に調整するときの編集入口です。今回の整理では、CSSの値や公開デザインを変更していません。
+
+| 調整対象 | 編集する正本 | 補足 |
+| --- | --- | --- |
+| HomeのH1–H4、本文p、span | `assets/css/user-settings.css` の `USER EDITABLE — TYPOGRAPHY` | `--type-home-*` の該当roleを調整します。 |
+| Gallery、Biography、Artist Statement、Information、Order、Contact、Policy、YurayuraのH1–H4、本文p、span、li | 同上 | `--type-page-*` の該当roleを調整します。 |
+| 404の見出し・コード・本文 | 同上 | `--type-404-*` を使用します。 |
+| Header / Footer / Menu / UI文字 | 同上 | `--type-header-footer-size`、`--type-menu-*`、`--type-ui-size` など役割別tokenを使います。構造はHeader/Footer componentを編集します。 |
+| caption / table / metadata / Category / pagination | 同上 | `--type-caption-size`、`--type-table-size`、`--type-metadata-size`、`--type-category-size`、`--type-pagination-size` が編集入口です。 |
+| 共通のreset・グローバル表示 | `css/all.css` | 全体に影響するため、変更時は全ページを確認します。 |
+| Standard pagesとGalleryの本文・Gallery/sidebar/Categoryの配置 | `css/gallery.css` | Standard pagesでも共有されています。影響範囲を確認してから調整します。 |
+| Header / navigation / menuの配置・状態 | `css/menu.css` | Headerのmarkupは `src/components/header.html`。Menu内のtablet用Home規則は `css/index-tablet.css` をimportしています。 |
+| Footerの配置・見た目 | `css/footer.css` | Footerのmarkupは `src/components/footer.html`。 |
+| Homeのページ固有レイアウト・表示 | `index.html` と `css/index.css` | portrait tabletのHome layoutは `css/index-tablet.css` にあります。 |
+| Contact form / controls | `contact.html` と `css/form.css` | 表示ロジックを変える作業は別途 `js/form.js` の確認が必要です。 |
+| 既存のmobile-only共通override | `css/mobile.css` | 既存の幅条件を確認します。Footerやcomponent内にも個別media ruleがあります。 |
+
+ページ本文のsourceは、7つのroot HTML（Home、Gallery、Biography、Artist Statement、Order、Contact、Policy）と、`src/information.html`、`src/exhibitions/yurayura/index.html`、`src/404.html`です。routeとbuild対応の一覧は [SITE_MAP.md](SITE_MAP.md) を参照してください。Galleryのcaption文言は `js/gallery-captions-data.js` がsourceです。レイアウトや文字サイズの編集場所と、本文データの編集場所を混同しないでください。
+
+### Sourceから公開生成物まで
+
+`src/components/header.html` と `src/components/footer.html` が共有markupのsourceです。`npm run build` はまずcomponentを同期して `js/menu.js` 内の生成区間を更新し、Webpackでsource HTML・CSS・選択されたJS・画像を `docs/` に出力し、その後Gallery captionを埋め込み、asset URLをversioningします。`docs/` はGitHub Pages用generated outputです。`docs/` 内を直接編集せず、`js/menu.js` の生成区間も直接編集しないでください。
+
+最終調整後に通常実行する確認：
+
+```sh
+npm run build
+npm run check
+```
+
+`npm run check` はcomponent / JavaScript / typography確認、build、generated docs同期、SEO、link確認を順に行います。Visual Regressionはbaselineを更新せずに別途実行し、公開前はGitHub ActionsとPages上の表示を確認してください。数値変更やresponsive rule変更を行った場合のviewport確認は [QA_CHECKLIST.md](QA_CHECKLIST.md) を参照してください。
+
 ## ユーザー調整の入口（Font Sizeの正本）
 
 Font Sizeの編集用正本は [`assets/css/user-settings.css`](assets/css/user-settings.css) です。通常ユーザーが編集する範囲は、同ファイルの `USER EDITABLE — TYPOGRAPHY` sectionだけです。Compatibility alias、internal token、legacy tokenは通常のFont Size調整では編集しません。

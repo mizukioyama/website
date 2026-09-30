@@ -2,20 +2,17 @@
 
 > The current register below is authoritative as of 2026-09-30. Dated entries that follow record the status at that time and are historical where they conflict with this summary.
 
-## Current public baseline
+## Current production baseline
 
-- Yurayura's English content, shared Ja / En switch, language-persistence test coverage, and nested-route assertions are in implementation commit 8e61d22. The separate baseline commit 123073c updates only the reviewed Yurayura Linux desktop-1440 and mobile-390 snapshots.
-- Pages deploy #391 and #392 passed. Visual Regression #419 passed on 123073c; #398 remains a resolved historical issue.
-- The published Yurayura page was checked across all seven requested widths with Ja → En → Ja, reload persistence, working related links, and no horizontal overflow, console errors, pageerrors, or CSP errors. Event JSON-LD remains valid and unchanged.
-- Public checks of the other eight pages at 1440px and 390px showed no unintended language or overflow regressions. Adobe Fonts CSP errors remained at zero.
+- Starting production checkpoint: `2d194f6d3bab59b88eaa0a531f624568c379e01c`; Pages deploy #393 and Visual Regression #420 passed.
+- All seven switchable pages (Home, Gallery, Information, Order, Contact, Policy, Yurayura) use Ja / En. Biography and Artist Statement remain bilingual. Information English content and Yurayura English content are complete.
+- Yurayura nested-route navigation, language persistence, Event JSON-LD, seven-width checks, and public rendering were verified. The Adobe Fonts CSP error was zero across the published nine-page 1440px / 390px check.
+- Visual Regression #398 is resolved historical. No current language-presentation gap is known.
 
-## Open implementation gaps against the current specification
+## Open nonblocking follow-ups
 
-- No known language-presentation gap remains: Home, Gallery, Information, Order, Contact, Policy, and Yurayura switch between Japanese and English; Biography and Artist Statement remain bilingual with the control hidden.
-- Watch item: Contact visual/layout regression at tablet-768 timed out once in #418. An isolated local CI-mode rerun passed in 13.3 seconds, and #419 passed. Investigate separately if the timeout recurs.
-- Full enforcement of shared same-tag typography roles across Home / Standard Pages / 404 remains a separate follow-up.
-
-These are follow-up tasks, not defects in the confirmed Yurayura implementation. See reports/next-actions.md for their order.
+- Watch: Contact visual/layout regression at tablet-768 timed out once in #418. An isolated local CI-mode rerun passed in 13.3 seconds; Visual Regression #420 passed. Investigate separately if it recurs.
+- Continue shared same-tag typography-role checker coverage as a separate follow-up. Final value selection remains with the owner.
 
 ## 2026-09-22 Min-Max Calculator typography settings
 

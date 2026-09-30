@@ -4,21 +4,21 @@
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
 Only the baseline and current priority queue below define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
 
-## Current baseline — 2026-09-30
+## Current production baseline — 2026-09-30
 
-- Information's complete English content and the Adobe Fonts CSP correction remain published; public checks of all nine pages at 1440px and 390px recorded zero CSP errors.
-- Yurayura's complete English content, shared Ja / En switching, language-persistence coverage, and nested-route checks were included in implementation commit 8e61d22. The reviewed Linux screenshot updates were limited to Yurayura desktop-1440 and mobile-390 in separate baseline commit 123073c.
-- Visual Regression #418 showed the expected Yurayura screenshot changes from switching to one displayed language and one Contact tablet-768 test timeout. The Contact test passed an isolated local CI-mode rerun in 13.3 seconds. Visual Regression #419 passed on 123073c.
-- Pages deploy #391 (implementation) and #392 (baseline checkpoint) passed. Public Yurayura checks covered all seven widths with Ja → En → Ja, reload persistence, nested links, and zero horizontal overflow, console errors, pageerrors, or CSP errors. Event JSON-LD remained valid and unchanged.
-- Visual Regression #398 remains a resolved historical issue. The Contact tablet-768 timeout is a nonblocking watch item after one occurrence; #419 is the current passing visual gate.
+- The production design/runtime baseline at the start of the repository handoff was `2d194f6d3bab59b88eaa0a531f624568c379e01c`; Pages deploy #393 and Visual Regression #420 passed.
+- Information and Contact use the approved Ja / En switch. Information English content is complete. Yurayura English content, shared language state, reload persistence, and nested-route behavior are implemented and publicly checked.
+- The language matrix is complete: Home / Gallery / Information / Order / Contact / Policy / Yurayura switch Ja / En; Biography / Artist Statement remain bilingual.
+- Visual Regression #398 is a resolved historical issue. Contact tablet-768 timeout #418 is a nonblocking watch item; an isolated local rerun passed in 13.3 seconds and #420 passed.
+- Adobe Fonts CSP errors were zero in the published nine-page 1440px / 390px check. This handoff preparation makes no production design or runtime changes.
 
 ## Current priority queue
 
-1. Review the published Yurayura checkpoint at https://mizukioyama.github.io/website/exhibitions/yurayura/ and choose the next production scope.
-2. Monitor the Contact tablet-768 timeout on later Visual Regression runs; investigate it separately if it recurs.
-3. Continue shared typography-token checker coverage as a separate follow-up.
+1. The owner performs the final design/layout adjustments using the edit map in `CSS_VARIABLES_GUIDE.md`.
+2. After owner changes, run the normal build/check, review Visual Regression without updating baselines, then confirm Pages and public rendering.
+3. Keep the Contact tablet-768 timeout as a watch item and continue shared typography-token checker coverage as separate follow-ups.
 
-This queue records pending work and does not authorize work outside the currently approved scope.
+This queue records the owner handoff and follow-up checks; it does not expand the current production implementation scope.
 
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering

@@ -932,7 +932,9 @@ Interactive before/after comparison also matched at 390px and 1440px. At 390px t
 `reports/chatgpt-review-package.zip` is a transfer snapshot for external review, not an authoritative spec or required build/deploy input. The repository operating rules do not require it in the documentation commit. It is retained unchanged and excluded from this commit; its existing modified working-tree version remains available for a separate decision.
 
 
-## 2026-09-29 Specification consolidation and current formal status
+## 2026-09-29 Specification consolidation — historical checkpoint
+
+> This section records the state at the 2026-09-29 checkpoint. The current implementation and owner handoff status are summarized in ROADMAP.md, reports/known-issues.md, and reports/next-actions.md.
 
 ### Current release evidence
 

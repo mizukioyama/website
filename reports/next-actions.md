@@ -4,11 +4,12 @@
 
 ## Current queue
 
-1. Review the published Yurayura checkpoint at https://mizukioyama.github.io/website/exhibitions/yurayura/ and decide the next production scope.
-2. Monitor the Contact tablet-768 timeout observed once in Visual Regression #418. The isolated local CI-mode rerun passed in 13.3 seconds and #419 passed; investigate in a separate task if it recurs.
-3. Continue the shared typography-token checker work as a separate follow-up.
+1. The owner performs the final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; this repository handoff does not change design values.
+2. After those adjustments, run `npm run build`, `npm run check`, and Visual Regression without baseline updates; confirm the Pages deployment and public rendering before calling the design pass complete.
+3. Monitor the Contact tablet-768 timeout from #418; investigate in a separate task only if it recurs.
+4. Continue shared typography-token checker coverage as a separate follow-up.
 
-The Yurayura language implementation, reviewed two-image baseline update, Pages deploys #391/#392, and Visual Regression #419 are complete. No further production change is part of this checkpoint.
+The Information / Contact language switch, completed Information English content, Yurayura language switch and English content, reviewed two-image Linux baseline update, and Visual Regression #420 are complete for the starting production checkpoint. No further production change is part of this handoff task.
 
 ## 2026-09-20 Phase 3
 
