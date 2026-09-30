@@ -454,6 +454,26 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await expect(page.locator("#modalBox")).toBeHidden();
 }
 
+async function assertLocalizedContactLabelsInheritTypography(page, language) {
+  for (const field of ["name", "email", "message"]) {
+    const localizedLabel = page.locator(`label[for="${field}"] [lang="${language}"]`);
+    const styles = await localizedLabel.evaluate(element => {
+      const parent = getComputedStyle(element.closest(".label"));
+      const text = getComputedStyle(element);
+      return {
+        fontSizeMatches: text.fontSize === parent.fontSize,
+        colorMatches: text.color === parent.color,
+        letterSpacingMatches: text.letterSpacing === parent.letterSpacing
+      };
+    });
+    expect(styles, `${field} ${language} label should retain form field typography`).toEqual({
+      fontSizeMatches: true,
+      colorMatches: true,
+      letterSpacingMatches: true
+    });
+  }
+}
+
 async function exerciseContactLanguage(page, testInfo) {
   await expect(page.locator("body")).toHaveAttribute("data-language-mode", "switchable");
   await expect(page.locator("#langChange")).toBeVisible();
@@ -462,6 +482,7 @@ async function exerciseContactLanguage(page, testInfo) {
   await expect(page.locator("#contact .h1-text .subtext [lang=en]")).toBeHidden();
   await expect(page.locator("#contact .content p[lang=ja]")).toBeVisible();
   await expect(page.locator("#contact .content p[lang=en]")).toBeHidden();
+  await assertLocalizedContactLabelsInheritTypography(page, "ja");
   await expect(page.locator('label[for="name"] [lang=ja]')).toBeVisible();
   await expect(page.locator('label[for="name"] [lang=en]')).toBeHidden();
   await expect(page.locator('#consent-text [lang="ja"]')).toBeVisible();
@@ -477,6 +498,7 @@ async function exerciseContactLanguage(page, testInfo) {
   await expect(page.locator("#contact .h1-text .subtext [lang=ja]")).toBeHidden();
   await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
   await expect(page.locator("#contact .content p[lang=ja]")).toBeHidden();
+  await assertLocalizedContactLabelsInheritTypography(page, "en");
   await expect(page.locator('label[for="name"] [lang=en]')).toBeVisible();
   await expect(page.locator('label[for="name"] [lang=ja]')).toBeHidden();
   await expect(page.locator('#consent-text [lang="en"]')).toBeVisible();
