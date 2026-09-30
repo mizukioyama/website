@@ -921,6 +921,29 @@ for (const entry of pages) {
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
 
+    if (entry.key === "yurayura") {
+      const event = await page.locator('script[type="application/ld+json"]').evaluate(script => JSON.parse(script.textContent));
+      expect(event).toEqual({
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "@id": "https://mizukioyama.github.io/website/exhibitions/yurayura/#event",
+        "url": "https://mizukioyama.github.io/website/exhibitions/yurayura/",
+        "name": "グループ展「ゆらゆら」",
+        "description": "小山瑞樹が企画・主催するグループ展「ゆらゆら」。",
+        "startDate": "2026-10-06",
+        "endDate": "2026-10-12",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "organizer": {
+          "@type": "Person",
+          "@id": "https://mizukioyama.github.io/website/#person",
+          "name": "小山瑞樹",
+          "alternateName": "Mizuki Oyama",
+          "jobTitle": "Abstract Artist"
+        }
+      });
+    }
+
     await stabilize(page, entry);
 
     await expect(page).toHaveTitle(entry.title);
@@ -1207,6 +1230,145 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
+test("Yurayura language content switches at all seven viewport widths", async ({ page }, testInfo) => {
+  test.skip(
+    !fullAudit || testInfo.project.name !== "desktop-1440",
+    "The complete seven-width language sequence runs in full-audit mode and is checked once."
+  );
+  // Twenty-one viewport/language states need headroom when the suite runs in parallel.
+  testInfo.setTimeout(60000);
+
+  const entry = { key: "yurayura-language-seven-widths" };
+  const runtime = createRuntimeMonitor(page, entry);
+  await prepareDeterministicNetwork(page);
+  await page.addInitScript(() => {
+    localStorage.setItem("selectedLang", "ja");
+    localStorage.setItem("lang", "ja");
+  });
+
+  const response = await page.goto("exhibitions/yurayura/", { waitUntil: "domcontentloaded" });
+  expect(response.status()).toBe(200);
+  await expect(page.locator("#header-container header")).toBeAttached();
+  await expect(page.locator("#footer-container footer")).toBeAttached();
+
+  const localizedHeadings = [
+    "#exhibition-title",
+    "#detail-title",
+    "#concept-title",
+    "#project-title",
+    "#artists-title",
+    "#view-title",
+    "#future-title",
+    "#links-title"
+  ];
+  const viewportWidths = [1440, 1280, 1024, 768, 430, 390, 375];
+
+  const assertLanguage = async language => {
+    const state = await page.evaluate(({ language, headingSelectors }) => {
+      const otherLanguage = language === "ja" ? "en" : "ja";
+      const isVisible = element => Boolean(
+        element.getClientRects().length && getComputedStyle(element).visibility !== "hidden"
+      );
+      const headingStates = headingSelectors.map(selector => {
+        const heading = document.querySelector(selector);
+        return {
+          selectedVisible: isVisible(heading.querySelector('[lang="' + language + '"]')),
+          otherVisible: isVisible(heading.querySelector('[lang="' + otherLanguage + '"]'))
+        };
+      });
+      const lead = document.querySelector(".lead p");
+      const localizedRowLabels = [...document.querySelectorAll('.history-table [role="rowheader"]')];
+      const selectedRowLabels = localizedRowLabels.filter(row =>
+        isVisible(row.querySelector('[lang="' + language + '"]'))
+      ).length;
+      const otherRowLabelsVisible = localizedRowLabels.some(row =>
+        isVisible(row.querySelector('[lang="' + otherLanguage + '"]'))
+      );
+      const control = document.querySelector("#langChange");
+      const rootOverflow = Math.max(
+        document.documentElement.scrollWidth,
+        document.body?.scrollWidth || 0
+      ) - document.documentElement.clientWidth;
+
+      return {
+        mode: document.body.dataset.languageMode,
+        rootLanguage: document.documentElement.lang,
+        selectedRadio: document.querySelector('#langChange input[value="' + language + '"]')?.checked,
+        controlVisible: isVisible(control),
+        headings: headingStates,
+        leadSelectedVisible: isVisible(lead.querySelector('[lang="' + language + '"]')),
+        leadOtherVisible: isVisible(lead.querySelector('[lang="' + otherLanguage + '"]')),
+        rowHeaderCount: localizedRowLabels.length,
+        selectedRowLabels,
+        otherRowLabelsVisible,
+        artistNames: [...document.querySelectorAll(".artist-list p")].map(item => item.textContent.trim()),
+        detailLinkSelectedVisible: isVisible(document.querySelector('a.detail-link [lang="' + language + '"]')),
+        backLinkSelectedVisible: isVisible(document.querySelector('a.back-link [lang="' + language + '"]')),
+        storedLanguage: localStorage.getItem("selectedLang"),
+        compatibilityLanguage: localStorage.getItem("lang"),
+        overflow: rootOverflow,
+        mainText: document.querySelector("main").innerText
+      };
+    }, { language, headingSelectors: localizedHeadings });
+
+    expect(state.mode).toBe("switchable");
+    expect(state.rootLanguage).toBe(language);
+    expect(state.selectedRadio).toBe(true);
+    expect(state.controlVisible).toBe(true);
+    expect(state.headings).toEqual(localizedHeadings.map(() => ({
+      selectedVisible: true,
+      otherVisible: false
+    })));
+    expect(state.leadSelectedVisible).toBe(true);
+    expect(state.leadOtherVisible).toBe(false);
+    expect(state.rowHeaderCount).toBe(6);
+    expect(state.selectedRowLabels).toBe(6);
+    expect(state.otherRowLabelsVisible).toBe(false);
+    expect(state.artistNames).toEqual(["Mizuki", "かおる", "咲", "クリカン"]);
+    expect(state.detailLinkSelectedVisible).toBe(true);
+    expect(state.backLinkSelectedVisible).toBe(true);
+    expect(state.storedLanguage).toBe(language);
+    expect(state.compatibilityLanguage).toBe(language);
+    expect(state.overflow, "Yurayura has horizontal overflow in " + language).toBeLessThanOrEqual(2);
+    expect(state.mainText).toContain(language === "ja" ? "2026年10月6日 — 10月12日" : "October 6–12, 2026");
+  };
+
+  for (const width of viewportWidths) {
+    await page.setViewportSize({ width, height: 900 });
+    await assertLanguage("ja");
+    await page.locator('#langChange label[for="langEn"]').click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await assertLanguage("en");
+    await page.locator('#langChange label[for="langJa"]').click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+    await assertLanguage("ja");
+  }
+
+  const event = await page.locator('script[type="application/ld+json"]').evaluate(script => JSON.parse(script.textContent));
+  expect(event).toEqual({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "@id": "https://mizukioyama.github.io/website/exhibitions/yurayura/#event",
+    "url": "https://mizukioyama.github.io/website/exhibitions/yurayura/",
+    "name": "グループ展「ゆらゆら」",
+    "description": "小山瑞樹が企画・主催するグループ展「ゆらゆら」。",
+    "startDate": "2026-10-06",
+    "endDate": "2026-10-12",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "organizer": {
+      "@type": "Person",
+      "@id": "https://mizukioyama.github.io/website/#person",
+      "name": "小山瑞樹",
+      "alternateName": "Mizuki Oyama",
+      "jobTitle": "Abstract Artist"
+    }
+  });
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
+});
+
 test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   test.skip(
     !["desktop-1440", "mobile-390"].includes(testInfo.project.name),
@@ -1375,12 +1537,19 @@ test("switchable pages preserve language through navigation and reload", async (
     !["desktop-1440", "mobile-390"].includes(testInfo.project.name),
     "Switchable-page persistence is verified on representative desktop and mobile viewports."
   );
-  // Six page visits plus six reloads need headroom under parallel CI browser load.
+  const mobileAudit = testInfo.project.name === "mobile-390";
+  // The desktop pass reloads every page and verifies the nested Yurayura round trip.
   testInfo.setTimeout(60000);
 
   const entry = { key: "switchable-language-persistence" };
   const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
+  await page.addInitScript(() => {
+    if (localStorage.getItem("selectedLang") === null) {
+      localStorage.setItem("selectedLang", "en");
+      localStorage.setItem("lang", "en");
+    }
+  });
 
   const pagesToVerify = [
     { name: "Home", path: "", localizedContent: true },
@@ -1388,7 +1557,8 @@ test("switchable pages preserve language through navigation and reload", async (
     { name: "Information", path: "information.html", localizedContent: true },
     { name: "Order", path: "order.html", localizedContent: true },
     { name: "Contact", path: "contact.html", localizedContent: true },
-    { name: "Policy", path: "policy.html", localizedContent: true }
+    { name: "Policy", path: "policy.html", localizedContent: true },
+    { name: "Yurayura", path: "exhibitions/yurayura/", localizedContent: true }
   ];
 
   const assertSelectedLanguage = async (pageName, language, localizedContent) => {
@@ -1409,26 +1579,36 @@ test("switchable pages preserve language through navigation and reload", async (
     expect(metrics.overflow, pageName + " has horizontal overflow in " + language).toBeLessThanOrEqual(2);
   };
 
-  const response = await page.goto("", { waitUntil: "domcontentloaded" });
-  expect(response.status()).toBe(200);
-  await assertSelectedLanguage("Home", "ja", true);
-  await page.locator('#langChange label[for="langEn"]').click();
-  await assertSelectedLanguage("Home", "en", true);
-
-  for (const [index, entryPage] of pagesToVerify.entries()) {
-    if (index > 0) {
-      const pageResponse = await page.goto(entryPage.path, { waitUntil: "domcontentloaded" });
-      expect(pageResponse.status(), entryPage.name + " should load").toBe(200);
+  for (const entryPage of pagesToVerify) {
+    const pageResponse = await page.goto(entryPage.path, { waitUntil: "domcontentloaded" });
+    expect(pageResponse.status(), entryPage.name + " should load").toBe(200);
+    await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
+    if (!mobileAudit) {
+      await page.reload({ waitUntil: "domcontentloaded" });
+      await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
     }
-    await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
-    await page.reload({ waitUntil: "domcontentloaded" });
-    await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
   }
 
-  await page.locator('#langChange label[for="langJa"]').click();
-  await assertSelectedLanguage("Policy", "ja", true);
-  await page.goto("", { waitUntil: "domcontentloaded" });
-  await assertSelectedLanguage("Home", "ja", true);
+  if (mobileAudit) {
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await assertSelectedLanguage("Yurayura mobile reload", "en", true);
+  } else {
+    await page.locator('a.back-link [lang="en"]').click();
+    await expect(page.locator(".information-page")).toBeAttached();
+    await assertSelectedLanguage("Information after Yurayura", "en", true);
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await assertSelectedLanguage("Information after Yurayura reload", "en", true);
+    await page.locator('a.info-link[lang="en"][href="exhibitions/yurayura/"]').click();
+    await expect(page).toHaveURL(/\/website\/exhibitions\/yurayura\/$/);
+    await assertSelectedLanguage("Yurayura after Information", "en", true);
+  }
+
+  if (!mobileAudit) {
+    await page.locator('#langChange label[for="langJa"]').click();
+    await assertSelectedLanguage("Yurayura", "ja", true);
+    await page.locator('#langChange label[for="langEn"]').click();
+    await assertSelectedLanguage("Yurayura", "en", true);
+  }
 
   assertRuntimeClean(runtime, entry);
   await attachRuntimeObservations(testInfo, entry, runtime);
