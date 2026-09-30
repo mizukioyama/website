@@ -1278,7 +1278,7 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   await expect(page.locator(".information-page")).toBeAttached();
 
   const exhibitionDetail = page.locator(
-    'a.info-link[href="exhibitions/yurayura/"]'
+    'a.info-link[lang="ja"][href="exhibitions/yurayura/"]'
   );
   await expect(exhibitionDetail).toHaveCount(1);
   await expect(exhibitionDetail).toContainText("展示詳細を見る");
