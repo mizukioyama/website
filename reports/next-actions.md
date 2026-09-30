@@ -4,12 +4,12 @@
 
 ## Current queue
 
-1. When browser access is available, verify published Contact Ja/En at 1440px / 390px and check Home, Gallery, Biography, Artist Statement, Information, Order, Policy, and Yurayura at those widths. Record console/page errors, CSP errors, overflow, navigation, and form presentation; the admin-enforced browser check currently blocks this step.
-2. Establish final design handoff readiness only after the public Contact and cross-page checks pass.
-3. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those adjustments, run build/check and Visual Regression without baseline updates, then verify Pages and public rendering.
-4. Monitor the Contact timeout from #418 and the observed local parallel-run timeouts; investigate separately if they recur. Continue shared typography-token checker coverage as a separate follow-up.
+1. Obtain authenticated details for Visual Regression #423 and identify the failing test or image diff; its log API returned 403 and artifact download returned 401. Do not update baselines without reviewing evidence.
+2. When browser access is available, verify published Contact Ja/En and Home, Gallery, Biography, Artist Statement, Information, Order, Policy, and Yurayura at 1440px / 390px; the admin-enforced browser check currently blocks this.
+3. Establish final design handoff readiness only after the CI failure is understood/resolved and the public checks pass.
+4. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those adjustments, run build/check and Visual Regression without baseline updates, then verify Pages/public rendering. Monitor Contact timeouts and continue typography-token checker coverage separately.
 
-The Contact style correction commit `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`, Pages #395, Visual Regression #422, seven-width local Contact Ja/En checks, Information English content, and Yurayura language switch / English content are complete. Public browser acceptance for the Contact correction remains pending, so the final handoff gate is open.
+The Contact code fix, seven-width local Ja/En checks, Pages #395, and Visual Regression #422 passed. Pages #396 passed for the documentation follow-up, but Visual Regression #423 failed at its visual step and public browser acceptance remains pending. Final handoff readiness is open.
 
 ## 2026-09-20 Phase 3
 

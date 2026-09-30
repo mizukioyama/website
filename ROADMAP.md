@@ -6,19 +6,19 @@ Only the baseline and current priority queue below define active status. Dated p
 
 ## Current production baseline — 2026-10-01
 
-- The Contact styling correction is committed at `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages deploy #395 and Visual Regression #422 passed. The starting handoff checkpoint was `2d194f6d3bab59b88eaa0a531f624568c379e01c`.
+- Contact code checkpoint: `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages deploy #395 and Visual Regression #422 passed. Documentation follow-up `d47a7280df51bec80d8b74b5f3842fec5c44d385` passed Pages deploy #396, but Visual Regression #423 failed at its visual step. The unauthenticated log API returned 403 and artifact download returned 401, so the failure cause is unknown.
 - Information and Contact use the approved Ja / En switch. Information English content is complete. Yurayura English content, shared language state, reload persistence, and nested-route behavior are implemented and publicly checked.
 - The language matrix is complete: Home / Gallery / Information / Order / Contact / Policy / Yurayura switch Ja / En; Biography / Artist Statement remain bilingual.
-- Visual Regression #398 is a resolved historical issue. The Contact label styling regression is fixed by limiting label span styling to required markers; the seven-width local Ja/En Contact suite passed and Linux Visual Regression passed without baseline changes. Public browser acceptance is still pending because the admin-enforced browser policy denied access.
+- Visual Regression #398 is a resolved historical issue. The Contact label styling regression is fixed by limiting label span styling to required markers; the seven-width local Ja/En Contact suite passed and #422 passed without baseline changes. The later docs-only #423 failed at the visual step; its specific test/diff is unavailable, so CI status remains unresolved and no baseline was changed. Public browser acceptance is pending because the admin-enforced browser policy denied access.
 - Contact tablet-768 timeout #418 remains a nonblocking watch. An initial two-worker local run timed out at varying actions, while the one-worker seven-width rerun passed 7/7; no timeout values were changed.
 - Adobe Fonts CSP errors were zero in the published nine-page 1440px / 390px check. The Contact correction only scopes required-marker styling and adds regression assertions; typography values and other page layouts were not changed.
 
 ## Current priority queue
 
-1. After browser access is available, verify the published Contact page in Ja and En at 1440px / 390px and check the other eight pages for regressions; then record whether final handoff readiness is established.
-2. The owner performs any final visual/layout adjustments using the edit map in `CSS_VARIABLES_GUIDE.md` after the public check.
-3. After owner changes, run the normal build/check, review Visual Regression without updating baselines, then confirm Pages and public rendering.
-4. Keep the Contact timeout and shared typography-token checker as separate follow-ups.
+1. Obtain authenticated details for Visual Regression #423 and identify the failing test or image diff; do not update baselines without reviewing evidence.
+2. When browser access is available, verify published Contact Ja/En at 1440px / 390px and check the other eight pages for regressions.
+3. Establish final handoff readiness only after the CI failure is understood and resolved, and the public Contact/cross-page checks pass.
+4. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those changes, run build/check and Visual Regression without baseline updates and verify Pages/public rendering. Keep the Contact timeout and typography-token checker as separate follow-ups.
 
 This queue records the owner handoff and follow-up checks; it does not expand the current production implementation scope.
 
