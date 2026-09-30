@@ -870,9 +870,9 @@ for (const entry of pages) {
   test(entry.key + " visual and layout regression", async ({ page }, testInfo) => {
     if (entry.key === "home" || (
       testInfo.project.name === "desktop-1440"
-      && ["biography", "order"].includes(entry.key)
+      && ["biography", "order", "information", "contact"].includes(entry.key)
     )) {
-      // Large desktop captures and checks need more time on the CI runner.
+      // Large desktop captures and longer page runtime checks need more time on CI.
       testInfo.setTimeout(60000);
     }
 
@@ -1375,6 +1375,8 @@ test("switchable pages preserve language through navigation and reload", async (
     !["desktop-1440", "mobile-390"].includes(testInfo.project.name),
     "Switchable-page persistence is verified on representative desktop and mobile viewports."
   );
+  // Six page visits plus six reloads need headroom under parallel CI browser load.
+  testInfo.setTimeout(60000);
 
   const entry = { key: "switchable-language-persistence" };
   const runtime = createRuntimeMonitor(page, entry);
