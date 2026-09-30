@@ -1,24 +1,25 @@
 # Known Issues
 
-> The current register below is authoritative as of 2026-09-29. Dated entries that follow record the status at that time and are historical where they conflict with this summary.
+> The current register below is authoritative as of 2026-09-30. Dated entries that follow record the status at that time and are historical where they conflict with this summary.
 
 ## Current public baseline
 
-- Production-code checkpoint `b360b71e120e616d734fb493aae49c2a6c2ec1d6` passed Pages deploy #380 and the current passing Visual Regression reference #407 before this documentation-only checkpoint; main and origin/main matched that revision at the start of this task.
-- The committed Linux screenshot set was last refreshed in `c238b18`. This documentation checkpoint does not change production inputs or screenshot baselines.
-- Visual Regression #398 is historical and resolved by the later baseline/test-stabilization sequence and passing runs #406/#407; there is no current Visual Regression blocker.
-- The last recorded all-nine-page public layout/interaction check was after deploy #371 at 1440px and 390px. #380 was the successful deployment immediately before this documentation checkpoint; #407 is CI regression evidence, not a public viewport audit.
+- Information English content was completed in source/generated output at 8e0cce331de838ff9fd43009b4bf3a807e3cf851; Pages deploy #385 passed. Follow-up regression selector and Linux baseline commits are b5ad737 and ef16fb5; deploy #386 passed for ef16fb5.
+- Visual Regression #413 ran on ef16fb5 and failed only contact visual and layout regression at desktop-1440: a 30-second timeout while clicking label[for="radio1"]. Run #412 also had a Contact timeout. The Contact desktop check passed in the local representative run; the cause remains unconfirmed and no Contact code was changed.
+- The Information screenshot difference in #412 was limited to newly visible Japanese section headings and table labels. The reviewed Linux baselines for Information desktop-1440 and mobile-390 were updated in ef16fb5; no other Linux snapshots were changed.
+- Public Information was checked at 1440, 1280, 1024, 768, 430, 390 and 375px through Ja → En → Ja. The required English introduction and 2022/2021 records, Japanese content, link, header/footer, language state and horizontal overflow (0px) passed. English preference also persisted after reload at 390px.
+- Headless public checks recorded a blocked Adobe Typekit stylesheet request to p.typekit.net under the site's existing style-src CSP. The same error occurred on Home; it is site-wide and unrelated to the Information copy change.
+- Visual Regression #398 remains a resolved historical issue; it is not the current blocker.
 
 ## Open implementation gaps against the current specification
 
-- Required Ja / En pages are Home, Gallery, Information, Order, Contact, Policy and Yurayura; Biography and Artist Statement remain bilingual with the control hidden. See `PORTFOLIO_MASTER_SPEC.md`.
-- Current code switches language only on Home, Gallery, Order and Policy. Information, Contact and Yurayura still use bilingual mode with the switch hidden. Yurayura has partial English. This is the main implementation gap; no code was changed in the current documentation task.
-- Information still needs English coverage for the introduction, 2022 and 2021 records and necessary links, with accurate `lang="en"` markup. Complete this before enabling its switch.
-- Yurayura needs a complete, reviewed English version (concept, intent, artist descriptions, archive and future plan) before enabling its switch; keep future records available in both languages.
-- Verify language attributes on translated content and the Yurayura detail table's `th` / `td` structure and programmatic header/value associations.
-- The typography specification calls for shared same-tag page-group tokens. The current typography checker confirms key body-token aliases and selected bilingual paragraphs; full enforcement of every same-tag role across Home / Standard Pages / 404 remains a follow-up.
+- Required Ja / En pages are Home, Gallery, Information, Order, Contact, Policy and Yurayura; Biography and Artist Statement remain bilingual with the control hidden. See PORTFOLIO_MASTER_SPEC.md.
+- Information and Contact now use Ja / En switching. Information's English introduction, exhibition details, 2022/2021 history, labels and detail link are present; no known Information copy gap remains.
+- Yurayura still needs a complete, reviewed English version before its Ja / En switch is enabled. Verify language attributes and the detail table's th / td header/value associations.
+- Visual Regression #413 must pass before starting the next Yurayura production work. Its remaining failure is the Contact desktop-1440 interaction timeout described above.
+- The typography specification calls for shared same-tag page-group tokens. Full enforcement of every same-tag role across Home / Standard Pages / 404 remains a separate follow-up.
 
-These are follow-up tasks, not defects in the confirmed release baseline. See `reports/next-actions.md` for their order.
+These are follow-up tasks, not defects in the confirmed Information content. See reports/next-actions.md for their order.
 
 ## 2026-09-22 Min-Max Calculator typography settings
 

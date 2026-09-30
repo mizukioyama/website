@@ -4,23 +4,23 @@
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
 Only the baseline and current priority queue below define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
 
-## Current baseline — 2026-09-29
+## Current baseline — 2026-09-30
 
-- Production-code checkpoint: `b360b71e120e616d734fb493aae49c2a6c2ec1d6` (main and origin/main matched this revision before the documentation-only checkpoint).
-- Before this documentation checkpoint, Pages deploy #380 passed and Visual Regression #407 passed for `b360b71`; #407 is the current passing regression reference. Public URL: `https://mizukioyama.github.io/website/`.
-- The committed Linux screenshot set was refreshed in `c238b18` (20 snapshots: nine indexable pages plus 404, at 1440px and 390px). This documentation checkpoint does not change production inputs or screenshot baselines.
-- Visual Regression #398 is a historical failure resolved at the gate level by subsequent baseline/test stabilization and passing runs #406 and #407. It is not an open blocker.
-- The latest recorded all-nine-page public layout/interaction check was after deploy #371 at 1440px and 390px; #380 was the successful deployment immediately before this documentation checkpoint. Do not imply that #407 itself is a public viewport check.
-- The required page-language matrix and the current implementation gap are in `PORTFOLIO_MASTER_SPEC.md`.
+- Information English content is complete in source and generated output at 8e0cce331de838ff9fd43009b4bf3a807e3cf851; Pages deploy #385 passed. The selector fix and the two reviewed Information Linux screenshots are separate commits ending at ef16fb5; Pages deploy #386 passed.
+- Visual Regression #413 on ef16fb5 failed only the Contact visual/layout test at desktop-1440. It timed out after 30 seconds clicking label[for="radio1"]; #412 also had a Contact timeout. The local representative Contact run passed. Root cause remains unknown.
+- Information public verification passed at 1440/1280/1024/768/430/390/375px with Ja → En → Ja, expected Japanese and English records, language state, links, header/footer, and zero horizontal overflow. The En preference survived reload at 390px.
+- A Typekit stylesheet CSP error for p.typekit.net was observed on both Information and Home; it predates this copy-only work and is tracked separately.
+- Visual Regression #398 is historical and resolved. The current blocker is #413's Contact timeout.
+- The required language matrix remains in PORTFOLIO_MASTER_SPEC.md; Information and Contact switch modes are implemented, while the remaining Yurayura English content/switch and table accessibility review are pending.
 
 ## Current priority queue
 
-1. After owner review of the updated specification, implement the required Ja / En mode on Information, Contact and Yurayura. Complete Information's missing English copy and language markup, prepare and review the full Yurayura English version before exposing its switch, preserve the stored preference across the two bilingual pages, and synchronize `document.documentElement.lang` on switch pages.
-2. Update language-mode and persistence assertions in Visual Regression/check scripts to match the normative seven-switch / two-bilingual matrix; extend typography checks to enforce the documented group-token rule; verify Gallery caption behavior remains intact.
-3. For that grouped change, run the intermediate checkpoint in `AGENTS.md`: `npm run check` (includes build), screenshot-enabled Visual Regression, Pages deploy, public runtime checks, and all seven widths for responsive/layout-sensitive areas. Resolve Yurayura detail-table header/value associations as part of accessibility verification.
-4. Reconsider visual/design work only after the language and accessibility work is complete and reviewed.
+1. Resolve or classify the repeated Contact CI timeout before another production change. Do not fold Contact code changes into the Information checkpoint.
+2. Proceed to Yurayura English content and switch implementation only after the Visual Regression gate is green; verify translated markup and table header/value associations.
+3. For the Yurayura checkpoint, run npm run check, screenshot-enabled Visual Regression, Pages deploy, public runtime checks, and all seven widths for responsive/layout-sensitive areas.
+4. Continue typography-checker coverage as a separate follow-up. Reconsider design work only after the language and accessibility work is complete and reviewed.
 
-This queue is not authorization to start production-code changes before the owner reviews this documentation update.
+This queue records pending work and does not authorize work outside the currently approved scope.
 
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering

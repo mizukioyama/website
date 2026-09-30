@@ -1,16 +1,16 @@
 # Next Actions
 
-> The ordered queue below is current as of 2026-09-29. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
+> The ordered queue below is current as of 2026-09-30. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
 
 ## Current queue
 
-1. Wait for owner review of the current specification update before production-code work.
-2. Implement the Ja / En switch mode on Information, Contact and Yurayura to match `PORTFOLIO_MASTER_SPEC.md`. Complete Information's missing English text and markup; prepare and review the full Yurayura English version before showing its switch. Preserve saved language preference through Biography and Artist Statement, and synchronize `document.documentElement.lang` on switch pages.
-3. Update the language-mode and persistence regression assertions, and extend the typography checker to cover the documented Home / Standard Pages / 404 same-tag token rule beyond its current body-token and selected bilingual-copy checks.
-4. Run the grouped checkpoint: `npm run check` (includes build), screenshot-enabled Visual Regression, Pages deployment, public runtime checks at affected routes at 1440px/390px, and the full seven-width matrix for responsive/layout-sensitive areas. Verify the Yurayura table header/value associations.
-5. Reconsider visual or layout work after the language and accessibility work is reviewed.
+1. Resolve or classify the repeated Contact CI timeout before further production work. #412 and #413 failed in the Contact visual/layout test at desktop-1440; #413 records a 30-second timeout on label[for="radio1"]. The local representative Contact run passed. Do not change Contact production code as part of the completed Information content task.
+2. Keep Information content complete. Pages deploy #385 passed for its content commit; deploy #386 passed for the follow-up selector/baseline checkpoint. Public Information passed the seven-width Ja → En → Ja check with no horizontal overflow, and En preference survived reload at 390px.
+3. Do not start Yurayura until Visual Regression passes. After that gate clears, prepare and review its full English text before enabling the switch, verify the detail table's accessible header/value associations, and run the grouped build/check/deploy/public checkpoint.
+4. Track the public Typekit p.typekit.net CSP console error separately. It was observed on both Information and Home and is outside the Information copy scope.
+5. Continue the shared typography-token checker work as a separate follow-up after the language checkpoint.
 
-No item above is authorized for implementation by this documentation update. Follow the checkpoint cadence and baseline-classification rules in `AGENTS.md` when work begins.
+The current task did not change Contact or Yurayura production code. Follow the checkpoint cadence and baseline-classification rules in AGENTS.md when the next implementation scope begins.
 
 ## 2026-09-20 Phase 3
 
