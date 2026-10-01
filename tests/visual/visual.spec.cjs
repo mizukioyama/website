@@ -12,13 +12,45 @@ const fullAudit = process.env.VISUAL_FULL === "1";
 
 const pages = [
   { key: "home", path: "", title: /Mizuki|小山瑞樹/i, footer: false },
-  { key: "gallery", path: "gallery.html", title: /Gallery|Art|Mizuki|小山瑞樹/i },
-  { key: "biography", path: "biography.html", title: /Biography|Mizuki|小山瑞樹/i },
-  { key: "artist-statement", path: "artist-statement.html", title: /Statement|Mizuki|小山瑞樹/i },
-  { key: "information", path: "information.html", title: /Information|Mizuki|小山瑞樹/i },
-  { key: "order", path: "order.html", title: /Order|Mizuki|小山瑞樹/i },
-  { key: "contact", path: "contact.html", title: /Contact|Mizuki|小山瑞樹/i },
-  { key: "policy", path: "policy.html", title: /Policy|Mizuki|小山瑞樹/i },
+  {
+    key: "gallery", path: "gallery.html", title: /Gallery|Art|Mizuki|小山瑞樹/i,
+    subtitle: { mode: "switchable", ja: "作品一覧", en: "Artworks", dataSubtitle: "作品一覧" }
+  },
+  {
+    key: "biography", path: "biography.html", title: /Biography|Mizuki|小山瑞樹/i,
+    subtitle: {
+      mode: "bilingual", ja: "感覚を信じ、表現を探し続けた歩み",
+      en: "A journey of trusting one's instincts and ceaselessly seeking a form of expression.",
+      dataSubtitle: "感覚を信じ、表現を探し続けた歩み"
+    }
+  },
+  {
+    key: "artist-statement", path: "artist-statement.html", title: /Statement|Mizuki|小山瑞樹/i,
+    subtitle: {
+      mode: "bilingual",
+      ja: "自然、心、感情、在り方、想像、生命、記憶、波動、エネルギー",
+      en: "Nature, Mind, Emotions, State of being, Imagination, Life, Memory, Vibrations, Energy",
+      jaLines: ["自然、心、", "感情、在り方、", "想像、生命、", "記憶、波動、エネルギー"],
+      enLines: ["Nature, Mind,", "Emotions, State of being,", "Imagination, Life,", "Memory, Vibrations, Energy"],
+      dataSubtitle: "自然、心、<br>感情、在り方、<br>想像、生命、<br>記憶、波動、エネルギー"
+    }
+  },
+  {
+    key: "information", path: "information.html", title: /Information|Mizuki|小山瑞樹/i,
+    subtitle: { mode: "switchable", ja: "活動・展示情報", en: "Exhibition Information" }
+  },
+  {
+    key: "order", path: "order.html", title: /Order|Mizuki|小山瑞樹/i,
+    subtitle: { mode: "switchable", ja: "作品・制作のご依頼", en: "Works & Commissions", dataSubtitle: "作品・制作のご依頼" }
+  },
+  {
+    key: "contact", path: "contact.html", title: /Contact|Mizuki|小山瑞樹/i,
+    subtitle: { mode: "bilingual", ja: "依頼 | 問い合わせ", en: "Requests | Inquiries", dataSubtitle: "依頼 | 問い合わせ" }
+  },
+  {
+    key: "policy", path: "policy.html", title: /Policy|Mizuki|小山瑞樹/i,
+    subtitle: { mode: "switchable", ja: "当Webサイト利用について", en: "Use of This Website", dataSubtitle: "当Webサイト利用について" }
+  },
   {
     key: "404",
     path: "__visual-missing__/deep/path/",
@@ -28,7 +60,8 @@ const pages = [
   {
     key: "yurayura",
     path: "exhibitions/yurayura/",
-    title: /ゆらゆら|Yurayura/i
+    title: /ゆらゆら|Yurayura/i,
+    subtitle: { mode: "switchable", ja: "グループ展「ゆらゆら」", en: "Group Exhibition “Yurayura”" }
   }
 ];
 
@@ -266,6 +299,75 @@ async function assertBilingualPage(page, label) {
       expect(item.englishBorderTopStyle, "Artist Statement timeline English divider should be visible").not.toBe("none");
     }
   }
+}
+
+async function assertH1Subtitle(page, entry, label = entry.key) {
+  const subtitle = entry.subtitle;
+  if (!subtitle) return;
+
+  const h1Text = page.locator("main .h1-text");
+  const paragraph = h1Text.locator(":scope > p.subtext");
+  await expect(paragraph, label + " should use one shared H1 subtitle paragraph").toHaveCount(1);
+  await expect(paragraph, label + " should share Contact's noise/subtext classes").toHaveClass(/\bnoise\b/);
+  await expect(h1Text.locator(":scope > p.subtext-en"), label + " should not keep a separate English subtitle")
+    .toHaveCount(0);
+  const followsH1 = await paragraph.evaluate(element => element.previousElementSibling?.matches("h1") === true);
+  expect(followsH1, label + " subtitle should immediately follow its H1").toBe(true);
+  const languageOrder = await paragraph.evaluate(element =>
+    Array.from(element.children)
+      .filter(child => child.matches('[lang="ja"],[lang="en"]'))
+      .map(child => child.getAttribute("lang"))
+  );
+  expect(languageOrder, label + " subtitle should put Japanese before English").toEqual(["ja", "en"]);
+
+  const normalizeCopy = value => value.replace(/\s+/g, " ").trim();
+  const japanese = paragraph.locator(':scope > [lang="ja"]');
+  const english = paragraph.locator(':scope > [lang="en"]');
+  if (subtitle.jaLines) {
+    const readLines = locator => locator.evaluate(element => {
+      const lines = [""];
+      const visit = node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          lines[lines.length - 1] += node.nodeValue;
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.tagName === "BR") lines.push("");
+          else for (const child of node.childNodes) visit(child);
+        }
+      };
+      visit(element);
+      return lines.map(line => line.replace(/\s+/g, " ").trim());
+    });
+    const [japaneseLines, englishLines] = await Promise.all([readLines(japanese), readLines(english)]);
+    expect(japaneseLines, label + " Japanese subtitle line breaks").toEqual(subtitle.jaLines);
+    expect(englishLines, label + " English subtitle line breaks").toEqual(subtitle.enLines);
+  } else {
+    const japaneseCopy = await japanese.textContent();
+    const englishCopy = await english.textContent();
+    expect(normalizeCopy(japaneseCopy), label + " Japanese subtitle copy").toBe(normalizeCopy(subtitle.ja));
+    expect(normalizeCopy(englishCopy), label + " English subtitle copy").toBe(normalizeCopy(subtitle.en));
+  }
+
+  if (subtitle.dataSubtitle !== undefined) {
+    await expect(h1Text, label + " should preserve its existing data-subtitle").toHaveAttribute(
+      "data-subtitle",
+      subtitle.dataSubtitle
+    );
+  }
+
+  if (subtitle.mode === "bilingual") {
+    await expect(page.locator("#langChange"), label + " should hide the language switch UI").toBeHidden();
+    await expect(paragraph.locator(':scope > [lang="ja"]')).toBeVisible();
+    await expect(paragraph.locator(':scope > [lang="en"]')).toBeVisible();
+    await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+    return;
+  }
+
+  const selectedLanguage = await page.locator("html").getAttribute("lang");
+  expect(["ja", "en"], label + " should have a valid selected language").toContain(selectedLanguage);
+  await expect(page.locator("#langChange"), label + " should keep the switch UI available").toBeVisible();
+  await expect(paragraph.locator(':scope > [lang="' + selectedLanguage + '"]')).toBeVisible();
+  await expect(paragraph.locator(':scope > [lang="' + (selectedLanguage === "ja" ? "en" : "ja") + '"]'))
+    .toBeHidden();
 }
 
 async function assertResponsivePageGeometry(page, entry) {
@@ -1115,16 +1217,17 @@ for (const entry of pages) {
       await expect(page.locator("#footer-container footer")).toBeAttached();
     }
     await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false);
+    await assertH1Subtitle(page, entry);
 
     if (entry.key === "information") {
-      const titleBox = await page.locator(".information-page > .h1-text h1").boundingBox();
+      const titleBox = await page.locator(".information-page > .h1-text").boundingBox();
       const sectionTitleBox = await page.locator(".information-page .content > h2").boundingBox();
 
-      expect(titleBox, "Information H1 should have a layout box").not.toBeNull();
+      expect(titleBox, "Information H1 and subtitle should have a layout box").not.toBeNull();
       expect(sectionTitleBox, "Information section heading should have a layout box").not.toBeNull();
       expect(
         titleBox.y + titleBox.height,
-        "Information noise H1 must not overlap the section heading/content"
+        "Information H1 and subtitle must not overlap the section heading/content"
       ).toBeLessThan(sectionTitleBox.y);
     }
 
@@ -1714,18 +1817,36 @@ test("switchable pages preserve language through navigation and reload", async (
 
   const pagesToVerify = [
     { name: "Home", path: "", localizedContent: true },
-    { name: "Gallery", path: "gallery.html", localizedContent: false },
-    { name: "Information", path: "information.html", localizedContent: true },
-    { name: "Order", path: "order.html", localizedContent: true },
-    { name: "Policy", path: "policy.html", localizedContent: true },
-    { name: "Yurayura", path: "exhibitions/yurayura/", localizedContent: true }
+    {
+      name: "Gallery", path: "gallery.html", localizedContent: false,
+      subtitle: { mode: "switchable", ja: "作品一覧", en: "Artworks", dataSubtitle: "作品一覧" }
+    },
+    {
+      name: "Information", path: "information.html", localizedContent: true,
+      subtitle: { mode: "switchable", ja: "活動・展示情報", en: "Exhibition Information" }
+    },
+    {
+      name: "Order", path: "order.html", localizedContent: true,
+      subtitle: { mode: "switchable", ja: "作品・制作のご依頼", en: "Works & Commissions", dataSubtitle: "作品・制作のご依頼" }
+    },
+    {
+      name: "Policy", path: "policy.html", localizedContent: true,
+      subtitle: { mode: "switchable", ja: "当Webサイト利用について", en: "Use of This Website", dataSubtitle: "当Webサイト利用について" }
+    },
+    {
+      name: "Yurayura", path: "exhibitions/yurayura/", localizedContent: true,
+      subtitle: { mode: "switchable", ja: "グループ展「ゆらゆら」", en: "Group Exhibition “Yurayura”" }
+    }
   ];
 
-  const assertSelectedLanguage = async (pageName, language, localizedContent) => {
+  const assertSelectedLanguage = async (pageName, language, localizedContent, subtitle) => {
     await expect(page.locator("#langChange")).toBeVisible();
     await expect(page.locator("html")).toHaveAttribute("lang", language);
     await expect(page.locator("#langChange input[value='" + language + "']")).toBeChecked();
 
+    if (subtitle) {
+      await assertH1Subtitle(page, { key: pageName, subtitle }, pageName);
+    }
     if (!localizedContent) return;
 
     await expect(page.locator('main [lang="' + language + '"]:visible').first()).toBeVisible();
@@ -1742,32 +1863,32 @@ test("switchable pages preserve language through navigation and reload", async (
   for (const entryPage of pagesToVerify) {
     const pageResponse = await page.goto(entryPage.path, { waitUntil: "domcontentloaded" });
     expect(pageResponse.status(), entryPage.name + " should load").toBe(200);
-    await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
+    await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent, entryPage.subtitle);
     if (!mobileAudit) {
       await page.reload({ waitUntil: "domcontentloaded" });
-      await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent);
+      await assertSelectedLanguage(entryPage.name, "en", entryPage.localizedContent, entryPage.subtitle);
     }
   }
 
   if (mobileAudit) {
     await page.reload({ waitUntil: "domcontentloaded" });
-    await assertSelectedLanguage("Yurayura mobile reload", "en", true);
+    await assertSelectedLanguage("Yurayura mobile reload", "en", true, pagesToVerify[5].subtitle);
   } else {
     await page.locator('a.back-link [lang="en"]').click();
     await expect(page.locator(".information-page")).toBeAttached();
-    await assertSelectedLanguage("Information after Yurayura", "en", true);
+    await assertSelectedLanguage("Information after Yurayura", "en", true, pagesToVerify[2].subtitle);
     await page.reload({ waitUntil: "domcontentloaded" });
-    await assertSelectedLanguage("Information after Yurayura reload", "en", true);
+    await assertSelectedLanguage("Information after Yurayura reload", "en", true, pagesToVerify[2].subtitle);
     await page.locator('a.info-link[lang="en"][href="exhibitions/yurayura/"]').click();
     await expect(page).toHaveURL(/\/website\/exhibitions\/yurayura\/$/);
-    await assertSelectedLanguage("Yurayura after Information", "en", true);
+    await assertSelectedLanguage("Yurayura after Information", "en", true, pagesToVerify[5].subtitle);
   }
 
   if (!mobileAudit) {
     await page.locator('#langChange label[for="langJa"]').click();
-    await assertSelectedLanguage("Yurayura", "ja", true);
+    await assertSelectedLanguage("Yurayura", "ja", true, pagesToVerify[5].subtitle);
     await page.locator('#langChange label[for="langEn"]').click();
-    await assertSelectedLanguage("Yurayura", "en", true);
+    await assertSelectedLanguage("Yurayura", "en", true, pagesToVerify[5].subtitle);
   }
 
   assertRuntimeClean(runtime, entry);
@@ -1791,6 +1912,7 @@ test("Biography, Artist Statement, and Contact stay bilingual while language pre
 
   await page.goto("contact.html", { waitUntil: "domcontentloaded" });
   await assertContactBilingualPage(page, "Contact after Order");
+  await assertH1Subtitle(page, pages.find(entry => entry.key === "contact"), "Contact after Order");
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect.poll(() => page.evaluate(() => [
     localStorage.getItem("selectedLang"),
@@ -1799,6 +1921,7 @@ test("Biography, Artist Statement, and Contact stay bilingual while language pre
 
   await page.reload({ waitUntil: "domcontentloaded" });
   await assertContactBilingualPage(page, "Contact after reload");
+  await assertH1Subtitle(page, pages.find(entry => entry.key === "contact"), "Contact after reload");
   await expect.poll(() => page.evaluate(() => [
     localStorage.getItem("selectedLang"),
     localStorage.getItem("lang")
@@ -1811,6 +1934,7 @@ test("Biography, Artist Statement, and Contact stay bilingual while language pre
   for (const path of ["biography.html", "artist-statement.html"]) {
     await page.goto(path, { waitUntil: "domcontentloaded" });
     await assertBilingualPage(page, path);
+    await assertH1Subtitle(page, pages.find(entry => entry.path === path), path);
     await expect(page.locator("html")).toHaveAttribute("lang", "ja");
     await expect.poll(() => page.evaluate(() => [
       localStorage.getItem("selectedLang"),
@@ -1824,6 +1948,7 @@ test("Biography, Artist Statement, and Contact stay bilingual while language pre
 
   await page.goto("contact.html", { waitUntil: "domcontentloaded" });
   await assertContactBilingualPage(page, "Contact after returning from Gallery");
+  await assertH1Subtitle(page, pages.find(entry => entry.key === "contact"), "Contact after returning from Gallery");
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect.poll(() => page.evaluate(() => [
     localStorage.getItem("selectedLang"),
