@@ -301,6 +301,25 @@ async function assertBilingualPage(page, label) {
   }
 }
 
+async function assertSwitchableBodyLanguage(page, language, label) {
+  const visibleCounts = await page.locator('main [lang="ja"], main [lang="en"]').evaluateAll(elements => {
+    return elements.reduce((counts, element) => {
+      if (element.closest(".h1-text .subtext")) return counts;
+      const style = window.getComputedStyle(element);
+      const visible = element.getClientRects().length > 0 &&
+        style.display !== "none" &&
+        style.visibility !== "hidden";
+      if (visible) counts[element.getAttribute("lang")] += 1;
+      return counts;
+    }, { ja: 0, en: 0 });
+  });
+  const otherLanguage = language === "ja" ? "en" : "ja";
+  expect(visibleCounts[language], label + " should show localized body content in " + language)
+    .toBeGreaterThan(0);
+  expect(visibleCounts[otherLanguage], label + " should hide non-selected body content in " + otherLanguage)
+    .toBe(0);
+}
+
 async function assertH1Subtitle(page, entry, label = entry.key) {
   const subtitle = entry.subtitle;
   if (!subtitle) return;
@@ -354,10 +373,21 @@ async function assertH1Subtitle(page, entry, label = entry.key) {
     );
   }
 
+  await expect(japanese, label + " should always show the Japanese subtitle").toBeVisible();
+  await expect(english, label + " should always show the English subtitle").toBeVisible();
+  const [japaneseBox, englishBox] = await Promise.all([
+    japanese.boundingBox(),
+    english.boundingBox()
+  ]);
+  expect(japaneseBox, label + " Japanese subtitle should have a layout box").not.toBeNull();
+  expect(englishBox, label + " English subtitle should have a layout box").not.toBeNull();
+  expect(
+    englishBox.y,
+    label + " English subtitle should appear on a separate line below Japanese"
+  ).toBeGreaterThanOrEqual(japaneseBox.y + japaneseBox.height - 1);
+
   if (subtitle.mode === "bilingual") {
     await expect(page.locator("#langChange"), label + " should hide the language switch UI").toBeHidden();
-    await expect(paragraph.locator(':scope > [lang="ja"]')).toBeVisible();
-    await expect(paragraph.locator(':scope > [lang="en"]')).toBeVisible();
     await expect(page.locator("html")).toHaveAttribute("lang", "ja");
     return;
   }
@@ -365,9 +395,8 @@ async function assertH1Subtitle(page, entry, label = entry.key) {
   const selectedLanguage = await page.locator("html").getAttribute("lang");
   expect(["ja", "en"], label + " should have a valid selected language").toContain(selectedLanguage);
   await expect(page.locator("#langChange"), label + " should keep the switch UI available").toBeVisible();
-  await expect(paragraph.locator(':scope > [lang="' + selectedLanguage + '"]')).toBeVisible();
-  await expect(paragraph.locator(':scope > [lang="' + (selectedLanguage === "ja" ? "en" : "ja") + '"]'))
-    .toBeHidden();
+  await expect(page.locator('#langChange input[value="' + selectedLanguage + '"]'))
+    .toBeChecked();
 }
 
 async function assertResponsivePageGeometry(page, entry) {
@@ -1633,6 +1662,74 @@ test("Yurayura language content switches at all seven viewport widths", async ({
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
+test("H1 subtitles stay Japanese then English across seven viewport widths", async ({ page }, testInfo) => {
+  test.skip(
+    !fullAudit || testInfo.project.name !== "desktop-1440",
+    "The complete seven-width subtitle matrix runs once in full-audit mode."
+  );
+  testInfo.setTimeout(90000);
+
+  const entry = { key: "h1-subtitle-seven-widths" };
+  const runtime = createRuntimeMonitor(page, entry);
+  await prepareDeterministicNetwork(page);
+  await page.addInitScript(() => {
+    localStorage.setItem("selectedLang", "ja");
+    localStorage.setItem("lang", "ja");
+  });
+
+  const subtitlePages = pages.filter(item => item.subtitle);
+  const localizedBodyPages = new Set(["information", "order", "policy", "yurayura"]);
+  const viewports = [
+    { width: 1440, height: 900 },
+    { width: 1280, height: 800 },
+    { width: 1024, height: 900 },
+    { width: 768, height: 1024 },
+    { width: 430, height: 932 },
+    { width: 390, height: 844 },
+    { width: 375, height: 812 }
+  ];
+
+  for (const pageEntry of subtitlePages) {
+    const response = await page.goto(pageEntry.path, { waitUntil: "domcontentloaded" });
+    expect(response.status(), pageEntry.key + " should load").toBe(200);
+
+    for (const viewport of viewports) {
+      const { width } = viewport;
+      await page.setViewportSize(viewport);
+
+      const languages = pageEntry.subtitle.mode === "switchable"
+        ? ["ja", "en", "ja"]
+        : ["ja"];
+
+      for (const language of languages) {
+        if (pageEntry.subtitle.mode === "switchable") {
+          const currentLanguage = await page.locator("html").getAttribute("lang");
+          if (currentLanguage !== language) {
+            const labelFor = language === "ja" ? "langJa" : "langEn";
+            await page.locator('#langChange label[for="' + labelFor + '"]').click();
+            await expect(page.locator("html")).toHaveAttribute("lang", language);
+          }
+        }
+
+        await assertH1Subtitle(page, pageEntry, pageEntry.key + " at " + width + "px (" + language + ")");
+        if (pageEntry.subtitle.mode === "switchable" && localizedBodyPages.has(pageEntry.key)) {
+          await assertSwitchableBodyLanguage(page, language, pageEntry.key + " at " + width + "px");
+        }
+
+        const overflow = await page.evaluate(() => Math.max(
+          document.documentElement.scrollWidth,
+          document.body?.scrollWidth || 0
+        ) - document.documentElement.clientWidth);
+        expect(overflow, pageEntry.key + " horizontal overflow at " + width + "px")
+          .toBeLessThanOrEqual(2);
+      }
+    }
+  }
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
+});
+
 test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   test.skip(
     !["desktop-1440", "mobile-390"].includes(testInfo.project.name),
@@ -1849,8 +1946,7 @@ test("switchable pages preserve language through navigation and reload", async (
     }
     if (!localizedContent) return;
 
-    await expect(page.locator('main [lang="' + language + '"]:visible').first()).toBeVisible();
-    await expect(page.locator('main [lang="' + (language === "en" ? "ja" : "en") + '"]:visible')).toHaveCount(0);
+    await assertSwitchableBodyLanguage(page, language, pageName);
     const metrics = await page.evaluate(() => ({
       overflow: Math.max(
         document.documentElement.scrollWidth,

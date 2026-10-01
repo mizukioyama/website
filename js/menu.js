@@ -416,12 +416,19 @@ function applyLocalizedContent(language) {
   const selectedLanguage = normalizeLanguage(language);
   const languageControl = document.querySelector('#langChange');
   const localizedElements = document.querySelectorAll('[lang="ja"],[lang="en"]');
+  const showPersistentSubtitle = element => {
+    const subtitle = element.closest(".h1-text .subtext");
+    if (!subtitle) return false;
+    subtitle.style.display = "block";
+    element.style.display = "block";
+    return true;
+  };
 
   if (isBilingualPage()) {
     languageControl?.setAttribute('hidden', 'hidden');
     languageControl?.setAttribute('aria-hidden', 'true');
     localizedElements.forEach(element => {
-      element.style.display = 'block';
+      if (!showPersistentSubtitle(element)) element.style.display = 'block';
     });
   } else {
     languageControl?.removeAttribute('hidden');
@@ -430,6 +437,7 @@ function applyLocalizedContent(language) {
     document.querySelector('#langChange .en')?.classList.toggle('active', selectedLanguage === 'en');
     localizedElements.forEach(element => {
       if (element === document.documentElement) return;
+      if (showPersistentSubtitle(element)) return;
       const shouldDisplay = element.getAttribute('lang') === selectedLanguage;
       if (!shouldDisplay) {
         element.style.display = 'none';
