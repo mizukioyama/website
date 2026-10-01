@@ -1837,6 +1837,101 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
+test("Header menu follows saved language and hides language controls while open", async ({ page }, testInfo) => {
+  const entry = { key: "header-menu-language" };
+  const runtime = createRuntimeMonitor(page, entry);
+  await prepareDeterministicNetwork(page);
+
+  await page.addInitScript(() => {
+    localStorage.setItem("selectedLang", "en");
+    localStorage.setItem("lang", "en");
+  });
+
+  const languageControl = page.locator("#langChange");
+  const menu = page.locator("#navArea");
+  const toggle = page.locator("#navArea .toggle_btn");
+  const japanesePanel = page.locator("#navArea .menu_ja-txt");
+  const englishPanel = page.locator("#navArea .menu_en-txt");
+
+  const assertMenuLanguage = async (language, bilingual, label) => {
+    await toggle.click();
+    await expect(menu).toHaveClass(/open/);
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await expect(languageControl, label + " language UI should be hidden while menu is open").toBeHidden();
+    await expect(languageControl).toHaveAttribute("hidden", "");
+    await expect(languageControl).toHaveAttribute("aria-hidden", "true");
+    await expect(languageControl).toHaveAttribute("inert", "");
+
+    if (language === "ja") {
+      await expect(japanesePanel, label + " Japanese exhibition information should be visible").toBeVisible();
+      await expect(englishPanel, label + " English exhibition information should be hidden").toBeHidden();
+      await expect(japanesePanel).not.toHaveAttribute("aria-hidden", "true");
+      await expect(englishPanel).toHaveAttribute("aria-hidden", "true");
+    } else {
+      await expect(englishPanel, label + " English exhibition information should be visible").toBeVisible();
+      await expect(japanesePanel, label + " Japanese exhibition information should be hidden").toBeHidden();
+      await expect(englishPanel).not.toHaveAttribute("aria-hidden", "true");
+      await expect(japanesePanel).toHaveAttribute("aria-hidden", "true");
+    }
+
+    const overflow = await page.evaluate(() => Math.max(
+      document.documentElement.scrollWidth,
+      document.body?.scrollWidth || 0
+    ) - document.documentElement.clientWidth);
+    expect(overflow, label + " menu has horizontal overflow").toBeLessThanOrEqual(2);
+
+    await toggle.click();
+    await expect(menu).not.toHaveClass(/open/);
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    if (bilingual) {
+      await expect(languageControl, label + " bilingual page should keep language UI hidden after close").toBeHidden();
+    } else {
+      await expect(languageControl, label + " switchable page should restore language UI after close").toBeVisible();
+      await expect(languageControl).not.toHaveAttribute("aria-hidden", "true");
+      await expect(languageControl).not.toHaveAttribute("inert", "");
+    }
+  };
+
+  const galleryResponse = await page.goto("gallery.html", { waitUntil: "domcontentloaded" });
+  expect(galleryResponse.status()).toBe(200);
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
+  await assertMenuLanguage("en", false, "Gallery with saved English");
+
+  await page.locator('#langChange label[for="langJa"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect(japanesePanel).not.toHaveAttribute("hidden", "");
+  await expect(englishPanel).toHaveAttribute("hidden", "");
+  await assertMenuLanguage("ja", false, "Gallery after immediate Japanese switch");
+
+  await page.locator('#langChange label[for="langEn"]').click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
+  await assertMenuLanguage("en", false, "Gallery after English reload");
+
+  const biographyResponse = await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  expect(biographyResponse.status()).toBe(200);
+  await expect(page.locator("body")).toHaveAttribute("data-language-mode", "bilingual");
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect(languageControl).toBeHidden();
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(["en", "en"]);
+  await assertH1Subtitle(page, pages.find(item => item.path === "biography.html"), "Biography with saved English");
+  await assertMenuLanguage("en", true, "Biography with saved English");
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(["en", "en"]);
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
+});
+
 for (const entry of [
   { key: "information-motion-runtime", path: "information.html" },
   { key: "yurayura-motion-runtime", path: "exhibitions/yurayura/" }

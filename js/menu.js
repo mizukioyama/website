@@ -412,10 +412,49 @@ multi_language.prototype.click_lang = function (e) {
   this.update_active_class(lang);
 };
 
+function syncLanguageControlVisibility() {
+  const languageControl = document.querySelector('#langChange');
+  if (!languageControl) return;
+
+  const menuOpen = document.querySelector('#navArea')?.classList.contains('open') === true;
+  const shouldHide = isBilingualPage() || menuOpen;
+  if (shouldHide) {
+    languageControl.setAttribute('hidden', '');
+    languageControl.setAttribute('aria-hidden', 'true');
+    languageControl.setAttribute('inert', '');
+    return;
+  }
+
+  languageControl.removeAttribute('hidden');
+  languageControl.removeAttribute('aria-hidden');
+  languageControl.removeAttribute('inert');
+}
+
+function syncMenuExhibitionInformation(language) {
+  const selectedLanguage = normalizeLanguage(language);
+  const panels = [
+    ['ja', document.querySelector('.menu_ja-txt')],
+    ['en', document.querySelector('.menu_en-txt')]
+  ];
+
+  for (const [panelLanguage, panel] of panels) {
+    if (!panel) continue;
+    const isSelected = panelLanguage === selectedLanguage;
+    if (isSelected) {
+      panel.removeAttribute('hidden');
+      panel.removeAttribute('aria-hidden');
+    } else {
+      panel.setAttribute('hidden', '');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+  }
+}
+
 function applyLocalizedContent(language) {
   const selectedLanguage = normalizeLanguage(language);
-  const languageControl = document.querySelector('#langChange');
   const localizedElements = document.querySelectorAll('[lang="ja"],[lang="en"]');
+  syncLanguageControlVisibility();
+  syncMenuExhibitionInformation(selectedLanguage);
   const showPersistentSubtitle = element => {
     const subtitle = element.closest(".h1-text .subtext");
     if (!subtitle) return false;
@@ -425,14 +464,10 @@ function applyLocalizedContent(language) {
   };
 
   if (isBilingualPage()) {
-    languageControl?.setAttribute('hidden', 'hidden');
-    languageControl?.setAttribute('aria-hidden', 'true');
     localizedElements.forEach(element => {
       if (!showPersistentSubtitle(element)) element.style.display = 'block';
     });
   } else {
-    languageControl?.removeAttribute('hidden');
-    languageControl?.removeAttribute('aria-hidden');
     document.querySelector('#langChange .ja')?.classList.toggle('active', selectedLanguage === 'ja');
     document.querySelector('#langChange .en')?.classList.toggle('active', selectedLanguage === 'en');
     localizedElements.forEach(element => {
@@ -472,6 +507,7 @@ function initializeMenu() {
 
   const setOpen = isOpen => {
     nav.classList.toggle('open', isOpen);
+    syncLanguageControlVisibility();
     btn.setAttribute('aria-expanded', String(isOpen));
     btn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
   };
