@@ -335,6 +335,10 @@ async function assertResponsivePageGeometry(page, entry) {
       "Contact form control"
     );
     await expectHorizontalFit(
+      page.locator('#contactForm label[for="name"], #contactForm label[for="email"], #contactForm label[for="message"]'),
+      "Contact form label"
+    );
+    await expectHorizontalFit(
       page.locator('#contactForm label[for="modal-toggle"]'),
       "Contact SitePolicy control"
     );
@@ -454,24 +458,102 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await expect(page.locator("#modalBox")).toBeHidden();
 }
 
-async function assertLocalizedContactLabelsInheritTypography(page, language) {
-  for (const field of ["name", "email", "message"]) {
-    const localizedLabel = page.locator(`label[for="${field}"] [lang="${language}"]`);
-    const styles = await localizedLabel.evaluate(element => {
-      const parent = getComputedStyle(element.closest(".label"));
-      const text = getComputedStyle(element);
+async function assertContactFormUiLabels(page, label) {
+  const fieldLabels = [
+    { field: "name", text: "* Name（お名前）", required: true },
+    { field: "email", text: "* Email（メールアドレス）", required: true },
+    { field: "message", text: "Message（お問い合わせ内容）", required: false }
+  ];
+
+  const expectedMarkerFontSize = await page.evaluate(() => {
+    const probe = document.createElement("span");
+    probe.textContent = "*";
+    probe.style.position = "fixed";
+    probe.style.visibility = "hidden";
+    probe.style.fontSize = window.innerWidth <= 600
+      ? "var(--font-caption-size)"
+      : "var(--type-form-button-size)";
+    document.body.append(probe);
+    const size = getComputedStyle(probe).fontSize;
+    probe.remove();
+    return size;
+  });
+
+  for (const item of fieldLabels) {
+    const fieldLabel = page.locator(`label[for="${item.field}"]`);
+    await expect(fieldLabel, label + " " + item.field + " label copy").toHaveText(item.text);
+    await expect(fieldLabel.locator("[lang]"), label + " " + item.field + " label must be one UI string").toHaveCount(0);
+
+    const layout = await fieldLabel.evaluate(element => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const centers = Array.from(range.getClientRects())
+        .map(rect => (rect.top + rect.bottom) / 2)
+        .sort((a, b) => a - b);
+      const style = getComputedStyle(element);
+      const lineHeight = Number.parseFloat(style.lineHeight)
+        || Number.parseFloat(style.fontSize) * 1.2;
+      let lineCount = 0;
+      let lastCenter = null;
+      for (const center of centers) {
+        if (lastCenter === null || Math.abs(center - lastCenter) > lineHeight * 0.55) {
+          lineCount += 1;
+          lastCenter = center;
+        }
+      }
+      const marker = element.querySelector(".required-marker");
+      if (!marker) {
+        return { lineCount, markerCount: 0 };
+      }
+      const markerStyle = getComputedStyle(marker);
       return {
-        fontSizeMatches: text.fontSize === parent.fontSize,
-        colorMatches: text.color === parent.color,
-        letterSpacingMatches: text.letterSpacing === parent.letterSpacing
+        lineCount,
+        markerCount: element.querySelectorAll(".required-marker").length,
+        markerText: marker.textContent.trim(),
+        markerIsDirectChild: marker.parentElement === element,
+        markerFontSize: markerStyle.fontSize,
+        markerColor: markerStyle.color,
+        markerLetterSpacing: markerStyle.letterSpacing,
+        labelColor: style.color
       };
     });
-    expect(styles, `${field} ${language} label should retain form field typography`).toEqual({
-      fontSizeMatches: true,
-      colorMatches: true,
-      letterSpacingMatches: true
-    });
+
+    expect(layout.lineCount, label + " " + item.field + " label should stay on one line").toBe(1);
+    expect(layout.markerCount, label + " " + item.field + " required-marker count")
+      .toBe(item.required ? 1 : 0);
+    if (item.required) {
+      expect(layout.markerText, label + " " + item.field + " marker should contain only the asterisk").toBe("*");
+      expect(layout.markerIsDirectChild, label + " " + item.field + " marker should be scoped to the asterisk")
+        .toBe(true);
+      expect(layout.markerFontSize, label + " " + item.field + " marker font size should use its component token")
+        .toBe(expectedMarkerFontSize);
+      expect(layout.markerColor, label + " " + item.field + " marker color should not reach label copy")
+        .not.toBe(layout.labelColor);
+      expect(layout.markerLetterSpacing, label + " " + item.field + " marker tracking should stay scoped")
+        .toBe("-4px");
+    }
   }
+
+  const policyParagraph = page.locator("#contactForm .form-field.align-center > label > p");
+  await expect(policyParagraph).toContainText("Please review the Site Policy before submitting.");
+  await expect(policyParagraph).not.toContainText("送信前にサイトポリシーをご確認ください。");
+  await expect(policyParagraph.locator("[lang]"), label + " Site Policy form copy should be English-only")
+    .toHaveCount(0);
+
+  const consentCopy = page.locator("#consent-text");
+  await expect(consentCopy).toHaveText("I have reviewed the Site Policy.");
+  await expect(consentCopy.locator("[lang]"), label + " consent copy should be a single English UI string")
+    .toHaveCount(0);
+
+  const policyLink = page.locator("label.modal-open-label");
+  await expect(policyLink).toHaveText("Site Policy");
+  await expect(policyLink.locator("[lang]"), label + " Policy link should be English-only")
+    .toHaveCount(0);
+
+  const submit = page.locator(".submit-btn");
+  await expect(submit).toHaveText("SEND");
+  await expect(submit.locator("[lang]"), label + " submit should be English-only")
+    .toHaveCount(0);
 }
 
 async function assertContactBilingualPage(page, label) {
@@ -490,20 +572,14 @@ async function assertContactBilingualPage(page, label) {
   );
   expect(introLanguages, label + " intro should pair Japanese followed by English").toEqual(["ja", "en"]);
 
-  await assertLocalizedContactLabelsInheritTypography(page, "ja");
-  await assertLocalizedContactLabelsInheritTypography(page, "en");
+  await expect(page.locator('label[for="radio1"]')).toHaveText(/依頼\s*request/);
+  await expect(page.locator('label[for="radio2"]')).toHaveText(/問い合わせ\s*inquiry/);
+  await assertContactFormUiLabels(page, label);
 
   const pairedControls = [
     ['#contact .h1-text .subtext', "Contact subtitle"],
     ['label[for="radio1"]', "request"],
-    ['label[for="radio2"]', "inquiry"],
-    ['label[for="name"]', "Name"],
-    ['label[for="email"]', "Email"],
-    ['label[for="message"]', "Message"],
-    ["#contactForm .form-field.align-center > label > p", "Site Policy prompt"],
-    ["#consent-text", "Policy consent"],
-    ["label.modal-open-label", "Site Policy link"],
-    [".submit-btn", "Submit button"],
+    ['label[for="radio2"]', "inquiry"]
   ];
 
   for (const entry of pairedControls) {
@@ -526,9 +602,6 @@ async function assertContactBilingualPage(page, label) {
       label + " " + entry[1] + " English should appear directly below Japanese"
     ).toBeGreaterThanOrEqual(lineOrder.japaneseBottom - 1);
   }
-
-  await expect(page.locator('label[for="name"] > span[lang="ja"] > .required-marker')).toHaveCount(1);
-  await expect(page.locator('label[for="email"] > span[lang="ja"] > .required-marker')).toHaveCount(1);
 }
 
 async function exerciseContactLanguage(page, testInfo) {
