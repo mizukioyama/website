@@ -27,7 +27,7 @@
   <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
 
   <script src="js/menu.js?v=c23643e33278"></script>
-  <script src="js/form.js?v=9e33be615743"></script>
+  <script src="js/form.js?v=f006ecb73a15"></script>
 
   <!-- Font -->
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
@@ -103,7 +103,7 @@
 ">
 </head>
 
-<body data-language-mode="switchable">
+<body data-language-mode="bilingual">
   <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
         <a href="/website/">Home</a>
@@ -139,7 +139,7 @@
         <br>
         （自動返信メールが届かない場合は、入力したメールアドレスをご確認のうえ、再度送信してください。）
       </p>
-      <p lang="en" style="margin-top: 5vmin;">
+      <p lang="en">
         For requests and inquiries,
         <br>
         please use the form on this page.
@@ -159,10 +159,10 @@
 
       <fieldset class="radio-group">
         <input type="radio" id="radio1" name="inquiryType" value="依頼" required>
-        <label for="radio1"><span lang="en">request</span><br><span lang="ja">依頼</span></label>
+        <label for="radio1"><span lang="ja">依頼</span><span lang="en">request</span></label>
 
         <input type="radio" id="radio2" name="inquiryType" value="問い合わせ">
-        <label for="radio2"><span lang="en">inquiry</span><br><span lang="ja">問い合わせ</span></label>
+        <label for="radio2"><span lang="ja">問い合わせ</span><span lang="en">inquiry</span></label>
       </fieldset>
 
       <input type="hidden" id="formStartedAt" name="formStartedAt" value="">
@@ -172,33 +172,33 @@
         <div class="form-col">
           <div class="form-field col x-50">
             <input type="text" id="name" name="name" class="input-text" autocomplete="name" maxlength="100" required>
-            <label for="name" class="label"><span class="required-marker">*</span> <span lang="en">Name</span><span lang="ja">（お名前）</span></label>
+            <label for="name" class="label"><span lang="ja"><span class="required-marker">*</span> お名前</span><span lang="en">Name</span></label>
           </div>
 
           <div class="form-field col x-50">
             <input type="email" id="email" name="email" class="input-text" autocomplete="email" maxlength="254" required>
-            <label for="email" class="label"><span class="required-marker">*</span> <span lang="en">Mail</span><span lang="ja">（メールアドレス）</span></label>
+            <label for="email" class="label"><span lang="ja"><span class="required-marker">*</span> メールアドレス</span><span lang="en">Email</span></label>
           </div>
         </div>
 
         <div class="form-field col x-100">
           <textarea id="message" name="message" class="input-text" maxlength="3000" required></textarea>
-          <label for="message" class="label label-text"><span lang="en">Message</span><span lang="ja">（お問い合わせ内容）</span></label>
+          <label for="message" class="label label-text"><span lang="ja">お問い合わせ内容</span><span lang="en">Message</span></label>
         </div>
       </div>
 
       <div class="form-field col align-center">
         <label>
           <p>
-            <span lang="en">Please review our Site Policy before submitting.</span>
             <span lang="ja">送信前にサイトポリシーをご確認ください。</span>
+            <span lang="en">Please review the Site Policy before submitting.</span>
             <br>
             <input type="checkbox" id="consent" name="consent" value="同意する" required disabled>
             <span id="consent-text" class="consent-text"><span lang="ja">サイトポリシーを確認しました。</span><span lang="en">I have reviewed the Site Policy.</span></span>
           </p>
         </label>
-        <label for="modal-toggle" class="modal-open-label"><span lang="en">Site Policy</span><span lang="ja">サイトポリシー</span></label>
-        <button type="submit" class="submit-btn"><span lang="en">Send</span><span lang="ja">送信</span></button>
+        <label for="modal-toggle" class="modal-open-label"><span lang="ja">サイトポリシー</span><span lang="en">Site Policy</span></label>
+        <button type="submit" class="submit-btn"><span lang="ja">送信</span><span lang="en">Send</span></button>
       </div>
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
@@ -236,7 +236,7 @@
       </div>
 
       <label for="modal-toggle" class="button modal-close-label">
-        <span lang="en">Close</span><span lang="ja">閉じる</span>
+        <span lang="ja">閉じる</span><span lang="en">Close</span>
       </label>
     </div>
 
@@ -246,6 +246,10 @@
 
 
   <style>
+    #contact .h1-text .subtext {
+      display: block;
+    }
+
     html.policy-modal-open,
     body.policy-modal-open {
       overflow: hidden;

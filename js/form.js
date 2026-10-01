@@ -134,21 +134,22 @@ document.addEventListener("DOMContentLoaded", function () {
   requestOptions.className = "request-options";
   requestOptions.hidden = true;
   requestOptions.innerHTML = `
-    <legend><span lang="en">Request type</span><span lang="ja">依頼内容</span></legend>
+    <legend><span lang="ja">依頼内容</span><span lang="en">Request type</span></legend>
     <div class="request-option-list">
       <input type="radio" id="request-order" name="requestCategory" value="オーダー制作">
-      <label for="request-order"><span lang="en">Commission</span><span lang="ja">オーダー制作</span></label>
+      <label for="request-order"><span lang="ja">オーダー制作</span><span lang="en">Commission</span></label>
       <input type="radio" id="request-purchase" name="requestCategory" value="作品購入">
-      <label for="request-purchase"><span lang="en">Purchase</span><span lang="ja">作品購入</span></label>
+      <label for="request-purchase"><span lang="ja">作品購入</span><span lang="en">Purchase</span></label>
       <input type="radio" id="request-exhibition" name="requestCategory" value="展示・出展について">
-      <label for="request-exhibition"><span lang="en">Exhibition</span><span lang="ja">展示・出展について</span></label>
+      <label for="request-exhibition"><span lang="ja">展示・出展について</span><span lang="en">Exhibition</span></label>
       <input type="radio" id="request-work" name="requestCategory" value="仕事・制作のご依頼">
-      <label for="request-work"><span lang="en">Work</span><span lang="ja">仕事・制作のご依頼</span></label>
+      <label for="request-work"><span lang="ja">仕事・制作のご依頼</span><span lang="en">Work</span></label>
       <input type="radio" id="request-other" name="requestCategory" value="その他">
-      <label for="request-other"><span lang="en">Other</span><span lang="ja">その他</span></label>
+      <label for="request-other"><span lang="ja">その他</span><span lang="en">Other</span></label>
     </div>
   `;
   if (primaryGroup) primaryGroup.insertAdjacentElement("afterend", requestOptions);
+  window.refreshPortfolioLanguageContent?.();
 
   const requestCategoryInputs = Array.from(requestOptions.querySelectorAll('input[name="requestCategory"]'));
   function setRequestMode(isRequest) {

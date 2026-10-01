@@ -474,71 +474,130 @@ async function assertLocalizedContactLabelsInheritTypography(page, language) {
   }
 }
 
-async function exerciseContactLanguage(page, testInfo) {
-  await expect(page.locator("body")).toHaveAttribute("data-language-mode", "switchable");
-  await expect(page.locator("#langChange")).toBeVisible();
+async function assertContactBilingualPage(page, label) {
+  await expect(page.locator("body")).toHaveAttribute("data-language-mode", "bilingual");
+  await expect(page.locator("#langChange")).toBeHidden();
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect(page.locator("#contact .h1-text .subtext [lang=ja]")).toBeVisible();
-  await expect(page.locator("#contact .h1-text .subtext [lang=en]")).toBeHidden();
+  await expect(page.locator("#contact .h1-text .subtext [lang=en]")).toBeVisible();
   await expect(page.locator("#contact .content p[lang=ja]")).toBeVisible();
-  await expect(page.locator("#contact .content p[lang=en]")).toBeHidden();
+  await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
+
+  const introLanguages = await page.locator("#contact .content").evaluate(element =>
+    Array.from(element.children)
+      .filter(child => child.matches("p[lang]"))
+      .map(child => child.getAttribute("lang"))
+  );
+  expect(introLanguages, label + " intro should pair Japanese followed by English").toEqual(["ja", "en"]);
+
   await assertLocalizedContactLabelsInheritTypography(page, "ja");
-  await expect(page.locator('label[for="name"] [lang=ja]')).toBeVisible();
-  await expect(page.locator('label[for="name"] [lang=en]')).toBeHidden();
-  await expect(page.locator('#consent-text [lang="ja"]')).toBeVisible();
-  await expect(page.locator('#consent-text [lang="en"]')).toBeHidden();
+  await assertLocalizedContactLabelsInheritTypography(page, "en");
+
+  const pairedControls = [
+    ['#contact .h1-text .subtext', "Contact subtitle"],
+    ['label[for="radio1"]', "request"],
+    ['label[for="radio2"]', "inquiry"],
+    ['label[for="name"]', "Name"],
+    ['label[for="email"]', "Email"],
+    ['label[for="message"]', "Message"],
+    ["#contactForm .form-field.align-center > label > p", "Site Policy prompt"],
+    ["#consent-text", "Policy consent"],
+    ["label.modal-open-label", "Site Policy link"],
+    [".submit-btn", "Submit button"],
+  ];
+
+  for (const entry of pairedControls) {
+    const pair = page.locator(entry[0]);
+    await expect(pair.locator(':scope > [lang="ja"]')).toBeVisible();
+    await expect(pair.locator(':scope > [lang="en"]')).toBeVisible();
+    const languages = await pair.evaluate(element =>
+      Array.from(element.children)
+        .filter(child => child.matches('[lang="ja"],[lang="en"]'))
+        .map(child => child.getAttribute("lang"))
+    );
+    expect(languages, label + " " + entry[1] + " should place Japanese before English").toEqual(["ja", "en"]);
+    const lineOrder = await pair.evaluate(element => {
+      const japanese = element.querySelector(':scope > [lang="ja"]').getBoundingClientRect();
+      const english = element.querySelector(':scope > [lang="en"]').getBoundingClientRect();
+      return { japaneseBottom: japanese.bottom, englishTop: english.top };
+    });
+    expect(
+      lineOrder.englishTop,
+      label + " " + entry[1] + " English should appear directly below Japanese"
+    ).toBeGreaterThanOrEqual(lineOrder.japaneseBottom - 1);
+  }
+
+  await expect(page.locator('label[for="name"] > span[lang="ja"] > .required-marker')).toHaveCount(1);
+  await expect(page.locator('label[for="email"] > span[lang="ja"] > .required-marker')).toHaveCount(1);
+}
+
+async function exerciseContactLanguage(page, testInfo) {
+  await assertContactBilingualPage(page, "Contact visual runtime");
+
+  const languagePreferenceBefore = await page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ]);
 
   await page.locator('label[for="radio1"]').click();
   await expect(page.locator(".request-options legend [lang=ja]")).toBeVisible();
-  await expect(page.locator('label[for="request-order"] [lang=ja]')).toBeVisible();
-
-  await page.locator('#langChange label[for="langEn"]').click();
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator("#contact .h1-text .subtext [lang=en]")).toBeVisible();
-  await expect(page.locator("#contact .h1-text .subtext [lang=ja]")).toBeHidden();
-  await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
-  await expect(page.locator("#contact .content p[lang=ja]")).toBeHidden();
-  await assertLocalizedContactLabelsInheritTypography(page, "en");
-  await expect(page.locator('label[for="name"] [lang=en]')).toBeVisible();
-  await expect(page.locator('label[for="name"] [lang=ja]')).toBeHidden();
-  await expect(page.locator('#consent-text [lang="en"]')).toBeVisible();
-  await expect(page.locator('#consent-text [lang="ja"]')).toBeHidden();
   await expect(page.locator(".request-options legend [lang=en]")).toBeVisible();
+  await expect(page.locator('label[for="request-order"] [lang=ja]')).toBeVisible();
   await expect(page.locator('label[for="request-order"] [lang=en]')).toBeVisible();
+  const categoryLanguages = await page.locator('label[for="request-order"]').evaluate(element =>
+    Array.from(element.children).map(child => child.getAttribute("lang"))
+  );
+  expect(categoryLanguages, "Contact request category should place Japanese before English").toEqual(["ja", "en"]);
+
   await expect.poll(() => page.evaluate(() => [
     localStorage.getItem("selectedLang"),
     localStorage.getItem("lang")
-  ])).toEqual(["en", "en"]);
+  ])).toEqual(languagePreferenceBefore);
+
   if (fullAudit) {
     await page.screenshot({
-      path: testInfo.outputPath("contact-en-full-page.png"),
+      path: testInfo.outputPath("contact-bilingual-full-page.png"),
       fullPage: true,
       animations: "disabled",
       caret: "hide"
     });
   }
 
-  await page.goto("order.html", { waitUntil: "domcontentloaded" });
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
-  await page.goto("contact.html", { waitUntil: "domcontentloaded" });
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
-
   await page.locator('label[for="modal-toggle"].modal-open-label').click();
   await expect(page.locator("#policy-modal-content")).toHaveAttribute("aria-busy", "false");
+  await expect(page.locator('#policy-modal-content > div[lang="ja"]')).toBeVisible();
   await expect(page.locator('#policy-modal-content > div[lang="en"]')).toBeVisible();
-  await expect(page.locator('#policy-modal-content > div[lang="ja"]')).toBeHidden();
+  await expect(page.locator("body > .modal-box .modal-close-label [lang=ja]")).toBeVisible();
+  await expect(page.locator("body > .modal-box .modal-close-label [lang=en]")).toBeVisible();
+  const modalCloseLanguages = await page.locator("body > .modal-box .modal-close-label").evaluate(element =>
+    Array.from(element.children).map(child => child.getAttribute("lang"))
+  );
+  expect(modalCloseLanguages, "Contact Site Policy modal close should place Japanese before English").toEqual(["ja", "en"]);
+  const policyLanguages = await page.locator("#policy-modal-content").evaluate(element =>
+    Array.from(element.children)
+      .filter(child => child.matches('div[lang="ja"],div[lang="en"]'))
+      .map(child => child.getAttribute("lang"))
+  );
+  expect(policyLanguages, "Contact Site Policy modal should place Japanese before English").toEqual(["ja", "en"]);
   await page.locator("body > .modal-box .modal-close-label").click();
 
-  await page.reload({ waitUntil: "domcontentloaded" });
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
-  await expect(page.locator("#contact .content p[lang=en]")).toBeVisible();
-  await page.locator('#langChange label[for="langJa"]').click();
-  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
-}
+  const expectedStoredLanguage = await page.evaluate(() => window.getPortfolioLanguage?.() || "ja");
+  await page.goto("order.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", expectedStoredLanguage);
+  await page.goto("contact.html", { waitUntil: "domcontentloaded" });
+  await assertContactBilingualPage(page, "Contact after Order navigation");
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(languagePreferenceBefore);
 
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await assertContactBilingualPage(page, "Contact after reload");
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(languagePreferenceBefore);
+}
 async function exerciseContactRuntime(page, testInfo) {
   await exerciseContactLanguage(page, testInfo);
   const form = page.locator("#contactForm");
@@ -606,8 +665,18 @@ async function exerciseContactRuntime(page, testInfo) {
   await page.locator(".submit-btn").click();
 
   await expect(page.locator("#thanksModal")).toHaveClass(/show/);
+  await expect(page.locator("#thanksModal p[lang=ja]")).toBeVisible();
+  await expect(page.locator("#thanksModal p[lang=en]")).toBeVisible();
+  const thanksLanguages = await page.locator("#thanksModal .modal-content").evaluate(element =>
+    Array.from(element.children)
+      .filter(child => child.matches("p[lang]"))
+      .map(child => child.getAttribute("lang"))
+  );
+  expect(thanksLanguages, "Contact thanks modal should place Japanese before English").toEqual(["ja", "en"]);
   await expect(page.locator('.form-status [lang="ja"]')).toHaveText("送信しました。");
-  await expect(page.locator('.form-status [lang="en"]')).toBeHidden();
+  await expect(page.locator('.form-status [lang="ja"]')).toBeVisible();
+  await expect(page.locator('.form-status [lang="en"]')).toHaveText("Your message has been sent.");
+  await expect(page.locator('.form-status [lang="en"]')).toBeVisible();
   await expect(page.locator("#contactForm")).toBeVisible();
   await expect(requestRadio).not.toBeChecked();
   await expect(page.locator(".request-options")).toBeHidden();
@@ -615,10 +684,7 @@ async function exerciseContactRuntime(page, testInfo) {
   await page.locator("#thanksModal .close").click();
   await expect(page.locator("#thanksModal")).not.toHaveClass(/show/);
   await page.waitForTimeout(350);
-  await page.locator('#langChange label[for="langEn"]').click();
-  await expect(page.locator('.form-status [lang="en"]')).toHaveText("Your message has been sent.");
-  await expect(page.locator("#thanksModal .close")).toHaveAttribute("aria-label", "Close");
-  await page.locator('#langChange label[for="langJa"]').click();
+  await expect(page.locator("#langChange")).toBeHidden();
   await expect(page.locator("#thanksModal .close")).toHaveAttribute("aria-label", "閉じる");
 }
 
@@ -1578,7 +1644,6 @@ test("switchable pages preserve language through navigation and reload", async (
     { name: "Gallery", path: "gallery.html", localizedContent: false },
     { name: "Information", path: "information.html", localizedContent: true },
     { name: "Order", path: "order.html", localizedContent: true },
-    { name: "Contact", path: "contact.html", localizedContent: true },
     { name: "Policy", path: "policy.html", localizedContent: true },
     { name: "Yurayura", path: "exhibitions/yurayura/", localizedContent: true }
   ];
@@ -1637,7 +1702,7 @@ test("switchable pages preserve language through navigation and reload", async (
 });
 
 
-test("Biography and Artist Statement stay bilingual while language preference persists", async ({ page }, testInfo) => {
+test("Biography, Artist Statement, and Contact stay bilingual while language preference persists", async ({ page }, testInfo) => {
   const entry = { key: "bilingual-pages-interaction" };
   const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
@@ -1647,24 +1712,54 @@ test("Biography and Artist Statement stay bilingual while language preference pe
     localStorage.setItem("lang", "en");
   });
 
+  await page.goto("order.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
+
+  await page.goto("contact.html", { waitUntil: "domcontentloaded" });
+  await assertContactBilingualPage(page, "Contact after Order");
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(["en", "en"]);
+
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await assertContactBilingualPage(page, "Contact after reload");
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(["en", "en"]);
+
+  await page.goto("order.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
+
   for (const path of ["biography.html", "artist-statement.html"]) {
     await page.goto(path, { waitUntil: "domcontentloaded" });
     await assertBilingualPage(page, path);
     await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+    await expect.poll(() => page.evaluate(() => [
+      localStorage.getItem("selectedLang"),
+      localStorage.getItem("lang")
+    ])).toEqual(["en", "en"]);
   }
 
   await page.goto("gallery.html", { waitUntil: "domcontentloaded" });
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
 
-  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
-  await assertBilingualPage(page, "Biography after returning from Gallery");
+  await page.goto("contact.html", { waitUntil: "domcontentloaded" });
+  await assertContactBilingualPage(page, "Contact after returning from Gallery");
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect.poll(() => page.evaluate(() => [
+    localStorage.getItem("selectedLang"),
+    localStorage.getItem("lang")
+  ])).toEqual(["en", "en"]);
 
   assertRuntimeClean(runtime, entry);
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
-
 
 for (const entry of [
   { key: "biography", path: "biography.html" },
