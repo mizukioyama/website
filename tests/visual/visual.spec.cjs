@@ -956,11 +956,11 @@ async function layoutDiagnostics(page) {
 
 for (const entry of pages) {
   test(entry.key + " visual and layout regression", async ({ page }, testInfo) => {
-    if (entry.key === "home" || (
+    if (entry.key === "home" || entry.key === "contact" || (
       testInfo.project.name === "desktop-1440"
-      && ["biography", "order", "information", "contact"].includes(entry.key)
+      && ["biography", "order", "information"].includes(entry.key)
     )) {
-      // Large desktop captures and longer page runtime checks need more time on CI.
+      // Large desktop captures and Contact form runtime checks need more time on CI.
       testInfo.setTimeout(60000);
     }
 
