@@ -24,19 +24,19 @@ The page-specific language behavior below is the normative specification. The st
 | Artist Statement | Japanese followed by English | Hidden |
 | Information | Japanese / English switch | Shown |
 | Order | Japanese / English switch | Shown |
-| Contact | Japanese / English switch; form labels and fields follow the selected language | Shown |
+| Contact | Japanese followed immediately by the corresponding English; bilingual across the full page, form, and modals | Hidden |
 | Policy | Japanese / English switch | Shown |
 | Yurayura | Japanese / English switch | Shown |
 
 For switchable pages, the shared Header Ja / En control selects the corresponding content, stores the preference, preserves it across page navigation, and synchronizes `document.documentElement.lang`. Only the selected language is displayed in normal page content. Gallery modal titles and captions follow the selected language, including when the language changes while the modal is open.
 
-Biography and Artist Statement display Japanese followed by English and hide the language control. Visiting either page must not overwrite or clear the saved language preference used on switchable pages. Keep accurate `lang` attributes on language-specific content; on a bilingual page, the root `lang` describes the page's primary Japanese presentation.
+Biography, Artist Statement, and Contact display Japanese followed immediately by the corresponding English and hide the language control. Contact pairs each text unit in meaning order throughout the page, including form labels, request options, Policy copy, submit/status text, and both modals. Visiting a bilingual page must not overwrite or clear stored `selectedLang` or compatibility `lang`; switchable pages retain the previously selected language. Contact uses the shared bilingual-page behavior and keeps the root `lang` set to Japanese, matching the primary page language. Keep accurate `lang` attributes on language-specific content.
 
 Before enabling a language control for any switchable page, complete and review its English content. Do not present an incomplete English page as a complete language option.
 
-### Current implementation status — 2026-09-30
+### Current implementation status — 2026-10-01
 
-At production-code revision 8e61d22, the language behavior matches the required matrix above: Home, Gallery, Information, Order, Contact, Policy, and Yurayura use the shared Ja / En switch, while Biography and Artist Statement remain Japanese-first bilingual pages with the control hidden. Yurayura's complete English content and switch were implemented in 8e61d22; its reviewed Linux visual baselines were recorded separately in 123073c. No language-presentation gap remains against this specification.
+Contact's Japanese-first bilingual layout was restored in implementation commit `0b6a4b4c8d9bba9435dafd6789e2290749d7af4f`. The shared bilingual behavior hides its language control while preserving stored language preferences. Its long visual test received a targeted 60-second timeout in `25be9c5b51d0345e0cf5ca23f92ce562534af14b`; only the reviewed Contact desktop-1440 and mobile-390 Linux baselines were updated in `17b97a8991832837ea0bd991b125df6049ede51e`. Pages deploys #399–#401 passed. Visual Regression #428 passed (55 passed / 17 skipped), and `npm run check` passed. Public browser confirmation for this handoff was blocked by the admin-enforced browser policy, so final design handoff readiness remains pending. Yurayura's complete English content and switch were implemented in `8e61d22`; its reviewed Linux visual baselines were recorded separately in `123073c`.
 
 ## Gallery behavior
 

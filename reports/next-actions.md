@@ -4,11 +4,11 @@
 
 ## Current queue
 
-1. When browser access is available, verify published Contact Ja/En and Home, Gallery, Biography, Artist Statement, Information, Order, Policy, and Yurayura at 1440px / 390px; the admin-enforced browser check currently blocks this.
-2. Establish final design handoff readiness after the public checks pass. Visual Regression #424 is green; #423 was an unexplained one-off on unchanged production code and its logs/artifact were inaccessible. Investigate if it recurs; do not update baselines without evidence.
-3. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those adjustments, run build/check and Visual Regression without baseline updates, then verify Pages/public rendering. Monitor Contact timeouts and continue typography-token checker coverage separately.
+1. When browser access is available, verify the published Contact bilingual layout and the other eight pages at 1440px / 390px; this remains pending because the admin-enforced browser check denied access.
+2. Establish final design handoff readiness after public rendered-page acceptance. Visual Regression #428 passed (55 passed / 17 skipped), and the Contact timeout is resolved with a targeted 60-second limit.
+3. After handoff readiness, the owner may perform final design/layout adjustments. Then run build/check and Visual Regression without baseline updates and verify the public Pages output. Keep typography-token checker coverage separate.
 
-The Contact code fix, seven-width local Ja/En checks, Pages #395, and Visual Regression #422 passed. The later documentation follow-up passed Pages and Visual Regression #424; #423 failed once without accessible detail. Public browser acceptance remains pending, so final handoff readiness is open.
+Contact bilingual implementation, build/check, seven-viewport runtime checks, the two reviewed Contact-only Linux baselines, Pages deploys #399–#401, and Visual Regression #428 are complete. Public browser acceptance is not verified; do not mark final handoff ready until it passes.
 
 ## 2026-09-20 Phase 3
 

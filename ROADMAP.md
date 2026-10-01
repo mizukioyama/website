@@ -6,20 +6,19 @@ Only the baseline and current priority queue below define active status. Dated p
 
 ## Current production baseline — 2026-10-01
 
-- Contact code checkpoint: `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages deploy #395 and Visual Regression #422 passed. The documentation follow-up `3059ff207f53b6aec6d0836327c2183752f04ff7` passed Pages and Visual Regression #424.
-- Information and Contact use the approved Ja / En switch. Information English content is complete. Yurayura English content, shared language state, reload persistence, and nested-route behavior are implemented and publicly checked.
-- The language matrix is complete: Home / Gallery / Information / Order / Contact / Policy / Yurayura switch Ja / En; Biography / Artist Statement remain bilingual.
-- Visual Regression #398 is a resolved historical issue. The Contact label styling regression is fixed by limiting label span styling to required markers; the seven-width local Ja/En Contact suite passed, and #422 / #424 passed without baseline changes. The intervening docs-only #423 failed at the visual step; its exact test/diff remains unavailable (log API 403, artifact 401), but the same production code passed on #424. Public browser acceptance is pending because the admin-enforced browser policy denied access.
-- Contact tablet-768 timeout #418 remains a nonblocking watch. An initial two-worker local run timed out at varying actions, while the one-worker seven-width rerun passed 7/7; no timeout values were changed.
-- Adobe Fonts CSP errors were zero in the published nine-page 1440px / 390px check. The Contact correction only scopes required-marker styling and adds regression assertions; typography values and other page layouts were not changed.
+- Contact bilingual implementation: `0b6a4b4c8d9bba9435dafd6789e2290749d7af4f`; targeted Contact visual timeout: `25be9c5b51d0345e0cf5ca23f92ce562534af14b`; Contact-only Linux baselines: `17b97a8991832837ea0bd991b125df6049ede51e`. Pages deploys #399, #400, and #401 passed.
+- Current matrix: Home / Gallery / Information / Order / Policy / Yurayura use the shared Ja / En switch. Biography / Artist Statement / Contact are Japanese-first bilingual pages with the language control hidden. Contact preserves stored language preferences and pairs Japanese copy with English directly below throughout its form and modals.
+- Contact form behavior and bilingual invariants passed local checks at all seven viewports. `npm run build`, `npm run check`, and the representative visual suite passed; Visual Regression #428 passed with 55 passed / 17 skipped.
+- CI timeout investigation: #426 hit the 30-second global test limit during Contact tablet-768 geometry checks; a targeted 60-second Contact test timeout removed the timeout in #427. After reviewing CI actual/diff images, only Contact desktop-1440 and mobile-390 snapshots were updated; #428 passed. No production style tokens or other-page baselines changed.
+- Public browser acceptance for Contact and the other eight pages is still pending because the admin-enforced browser policy denied access. Final design handoff readiness remains open.
 
 ## Current priority queue
 
-1. When browser access is available, verify published Contact Ja/En at 1440px / 390px and check the other eight pages for regressions.
-2. Establish final handoff readiness after the required public checks pass; current Visual Regression #424 is green, though #423 remains an unexplained one-off failure with inaccessible details. Investigate only if it recurs.
-3. The owner may then perform final visual/layout adjustments using `CSS_VARIABLES_GUIDE.md`; after those changes, run build/check and Visual Regression without baseline updates and verify Pages/public rendering. Keep the Contact timeout and typography-token checker as separate follow-ups.
+1. When browser access is available, verify published Contact bilingual content and the other eight pages at 1440px / 390px.
+2. Establish final handoff readiness only after public rendered-page acceptance. Visual Regression #428 is green; Contact timeout stabilization is complete.
+3. After handoff readiness, the owner may make desired final design/layout adjustments using `CSS_VARIABLES_GUIDE.md`; then run build/check and Visual Regression without baseline updates and verify Pages/public rendering.
 
-This queue records the owner handoff and follow-up checks; it does not expand the current production implementation scope.
+This queue records the remaining public acceptance gate and owner handoff; it does not authorize new production changes.
 
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering

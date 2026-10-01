@@ -4,16 +4,15 @@
 
 ## Current implementation and final design handoff — 2026-10-01
 
-- [x] Contact style correction commit `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages deploy #395 and Visual Regression #422 passed. The starting handoff checkpoint was `2d194f6d3bab59b88eaa0a531f624568c379e01c`.
-- [x] Current language modes match `PORTFOLIO_MASTER_SPEC.md`: seven Ja / En pages and two bilingual pages.
-- [x] Information English content and the Yurayura English / language-switch implementation are complete; nested-route and language-persistence checks passed.
-- [x] CSS typography entry point and page/component edit map are documented in `CSS_VARIABLES_GUIDE.md`.
-- [x] Contact label styling was restored without changing design tokens; the local Ja/En functional suite passed all seven widths, `npm run check` passed, and Visual Regression #422 / #424 passed with no baseline changes.
-- [x] The intervening docs-only Visual Regression #423 failed once; its log/artifact could not be retrieved (403/401), but #424 passed with identical production code. No baseline update was made.
-- [ ] Verify published Contact Ja/En at 1440px / 390px and the other eight pages at both widths. Browser verification is pending because the admin-enforced browser policy check denied access.
-- [ ] Establish final design handoff readiness after the CI and public checks pass, then the owner may perform desired final design/layout adjustments.
+- [x] Contact bilingual implementation commit `0b6a4b4c8d9bba9435dafd6789e2290749d7af4f`; targeted timeout commit `25be9c5b51d0345e0cf5ca23f92ce562534af14b`; Contact-only Linux baselines commit `17b97a8991832837ea0bd991b125df6049ede51e`.
+- [x] Current language modes match `PORTFOLIO_MASTER_SPEC.md`: switchable — Home, Gallery, Information, Order, Policy, Yurayura; bilingual — Biography, Artist Statement, Contact.
+- [x] Contact shows Japanese followed immediately by English throughout the introduction, request choices, form labels, Policy copy, submit/status text, and both modals. Its language control is hidden through shared bilingual behavior; stored `selectedLang` and compatibility `lang` are preserved.
+- [x] Contact form functionality, required-marker styling, seven-viewport runtime assertions, and language invariants passed. `npm run build` and `npm run check` passed.
+- [x] Pages deploys #399–#401 passed. Visual Regression #428 passed (55 passed / 17 skipped). Only Contact desktop-1440 and mobile-390 Linux baselines were updated after reviewing the bilingual-content diffs.
+- [x] Contact timeout stabilization: #426 hit the 30-second global limit at tablet-768 geometry checks; the targeted 60-second timeout passed without recurrence in #427 and #428.
+- [ ] Verify published Contact and the other eight pages at 1440px / 390px. Browser verification remains pending because the admin-enforced policy check denied access.
+- [ ] Establish final design handoff readiness only after public rendered-page acceptance; then the owner may perform desired final visual/layout adjustments.
 - [ ] After owner adjustments, run the ordinary build/check, review Visual Regression without updating baselines, and verify public Pages output.
-- [ ] Monitor the Contact timeout from #418; the initial parallel local run timed out at varying actions but the serial seven-width run passed 7/7. Investigate separately if it recurs.
 
 ## 2026-09-20 Phase 3 review gates — historical checklist
 

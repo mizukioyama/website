@@ -4,15 +4,15 @@
 
 ## Current production baseline
 
-- Contact code checkpoint: `5f9a0b68ea3c77d55c9f1eb6b94bec0abed06ad8`; Pages #395 and Visual Regression #422 passed. The latest documentation follow-up `3059ff207f53b6aec6d0836327c2183752f04ff7` passed Pages and Visual Regression #424. Starting handoff checkpoint: `2d194f6d3bab59b88eaa0a531f624568c379e01c`.
-- All seven switchable pages (Home, Gallery, Information, Order, Contact, Policy, Yurayura) use Ja / En. Biography and Artist Statement remain bilingual. Information English content and Yurayura English content are complete.
-- Yurayura nested-route navigation, language persistence, Event JSON-LD, seven-width checks, and public rendering were verified. The Adobe Fonts CSP error was zero across the published nine-page 1440px / 390px check.
-- Visual Regression #398 is resolved historical. The Contact label regression came from broad label-span selectors styling language spans; selectors now target required markers and assertions cover Ja/En label typography. Local Contact checks passed at all seven widths; #422 and the subsequent #424 passed without baseline updates. The intervening docs-only #423 failed at the visual step, but its exact failed test/diff is unavailable (log API 403, artifact 401). The same production code passed on #424; treat #423 as an unexplained one-off unless it recurs.
-- Public browser acceptance for this Contact correction and the other eight pages is pending: the browser tool denied access because its admin-enforced policy check was unavailable. Final design handoff readiness remains open until public checks pass.
+- Contact bilingual implementation `0b6a4b4c8d9bba9435dafd6789e2290749d7af4f`, targeted timeout adjustment `25be9c5b51d0345e0cf5ca23f92ce562534af14b`, and two-image Linux baseline update `17b97a8991832837ea0bd991b125df6049ede51e` are on `main` and `origin/main`. Pages deploys #399–#401 passed; Visual Regression #428 passed (55 passed / 17 skipped).
+- Current language matrix: switchable — Home, Gallery, Information, Order, Policy, Yurayura; bilingual — Biography, Artist Statement, Contact. Contact labels, request choices, policy copy, submit/status text, and both modals display Japanese followed by English. The shared bilingual logic hides the language control and preserves stored language preference.
+- Contact form interactions, required-marker isolation, seven-width runtime assertions, language invariants, build, and `npm run check` passed. Only Contact desktop-1440 and mobile-390 Linux snapshots were updated after reviewing the intended bilingual-content diffs; other baselines and typography values were unchanged.
+- Visual Regression #398 remains resolved historical. The #426 Contact tablet-768 timeout was test-budget related: the test hit the 30-second global limit during geometry checks. A targeted 60-second Contact timeout removed it; #427 had no timeout and #428 passed.
+- Public browser acceptance for the published Contact bilingual layout and the other eight pages remains pending because the admin-enforced browser policy denied access. Final design handoff readiness is therefore open.
 
-## Open nonblocking follow-ups
+## Remaining handoff gate and follow-ups
 
-- Watch: Contact visual/layout regression at tablet-768 timed out once in #418. During this task, an initial two-worker local run also timed out at varying actions, then the one-worker seven-width rerun passed 7/7; tablet-768 passed. No timeout values were changed. Investigate separately if timeouts recur.
+- Complete the public rendered-page acceptance when browser access is available.
 - Continue shared same-tag typography-role checker coverage as a separate follow-up. Final value selection remains with the owner.
 
 ## 2026-09-22 Min-Max Calculator typography settings
