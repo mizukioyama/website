@@ -1857,6 +1857,9 @@ test("Header menu follows saved language and hides language controls while open"
     await toggle.click();
     await expect(menu).toHaveClass(/open/);
     await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await expect(page.locator("#navArea #mask > hr.menu_ber"), label + " language panel separator should be absent").toHaveCount(0);
+    await expect(japanesePanel.locator("ul > hr.menu_ber"), label + " Japanese exhibition/awards separator should remain").toHaveCount(1);
+    await expect(englishPanel.locator("ul > hr"), label + " English exhibition/awards separator should remain").toHaveCount(1);
     await expect(languageControl, label + " language UI should be hidden while menu is open").toBeHidden();
     await expect(languageControl).toHaveAttribute("hidden", "");
     await expect(languageControl).toHaveAttribute("aria-hidden", "true");

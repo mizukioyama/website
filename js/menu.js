@@ -58,8 +58,6 @@ const HEADER_MARKUP = `
           </ul>
         </div>
 
-        <hr class="menu_ber">
-
         <div class="menu_en-txt">
           <p class="noise">Exhibition Information</p>
           <ul>
