@@ -320,6 +320,80 @@ async function assertSwitchableBodyLanguage(page, language, label) {
     .toBe(0);
 }
 
+async function assertOrderPricingContent(page, language, label) {
+  const content = page.locator('.order-page .content[lang="' + language + '"]');
+  const pricing = content.locator(".order-pricing");
+  await expect(pricing, label + " pricing section should be visible").toBeVisible();
+  await expect(pricing.locator(":scope > h2"), label + " pricing heading").toHaveText(
+    language === "ja" ? "料金について" : "Pricing"
+  );
+
+  const table = pricing.locator(".order-price-table");
+  await expect(table, label + " pricing table").toBeVisible();
+  const headers = (await table.locator("thead th").allTextContents()).map(text => text.trim());
+  expect(headers, label + " pricing table headers").toEqual(
+    language === "ja" ? ["Size", "料金（税込・国内送料込）"] : ["Size", "Price"]
+  );
+
+  const rows = await table.locator("tbody tr").evaluateAll(elements =>
+    elements.map(row => Array.from(row.cells).map(cell => cell.textContent.trim().replace(/\s+/g, " ")))
+  );
+  const expectedRows = language === "ja"
+    ? [
+        ["F4", "¥60,000"], ["F6", "¥71,000"], ["F8", "¥83,000"],
+        ["F10", "¥95,000"], ["F12", "¥107,000"], ["F15", "¥120,000"],
+        ["F20", "¥165,000〜"], ["F25", "¥198,000〜"],
+        ["F30", "¥231,000〜"], ["F40以上", "要相談"]
+      ]
+    : [
+        ["F4", "¥60,000"], ["F6", "¥71,000"], ["F8", "¥83,000"],
+        ["F10", "¥95,000"], ["F12", "¥107,000"], ["F15", "¥120,000"],
+        ["F20", "From ¥165,000"], ["F25", "From ¥198,000"],
+        ["F30", "From ¥231,000"], ["F40+", "Please inquire"]
+      ];
+  expect(rows, label + " full pricing rows").toEqual(expectedRows);
+
+  await expect(pricing).toContainText(language === "ja"
+    ? "表示価格は消費税込み・国内送料込みの目安です。"
+    : "Prices shown include consumption tax and standard domestic shipping within Japan.");
+  await expect(pricing).toContainText(language === "ja"
+    ? "作品の配送は、作品サイズや仕様に応じて、ヤマト運輸の美術便など作品に適した配送方法をご案内します。"
+    : "Depending on the size and specifications of the artwork, an appropriate art-handling delivery service, such as Yamato Transport's art transportation service, will be arranged.");
+  await expect(pricing.locator(".order-policy-link"), label + " Site Policy link").toHaveAttribute("href", "policy.html");
+  await expect(pricing.locator(".order-policy-link")).toHaveText("Site Policy");
+  await expectHorizontalFit(table, label + " pricing table");
+}
+
+async function assertOrderCancellationPolicy(page, language, label) {
+  const content = page.locator('#policy .content[lang="' + language + '"]');
+  const section = content.locator(".order-cancellation-policy");
+  const sectionHeading = language === "ja" ? "オーダー・キャンセルポリシー" : "Order & Cancellation Policy";
+  const subheadings = language === "ja"
+    ? ["料金・お見積り", "キャンセル", "返品・交換", "配送・破損について"]
+    : ["Pricing and Quotations", "Cancellations", "Returns and Exchanges", "Delivery and Damage"];
+  const externalLinksHeading = language === "ja" ? "外部リンク" : "External Links";
+
+  await expect(section, label + " order policy section should be visible").toBeVisible();
+  await expect(section.locator(":scope > h2"), label + " order policy title").toHaveText(sectionHeading);
+  await expect(section.locator(":scope > h3"), label + " order policy subheadings").toHaveText(subheadings);
+
+  const policyHeadings = await content.locator(".policy h2, .policy h3").allTextContents();
+  const externalLinksIndex = policyHeadings.indexOf(externalLinksHeading);
+  expect(externalLinksIndex, label + " External Links heading should remain").toBeGreaterThanOrEqual(0);
+  expect(policyHeadings[externalLinksIndex + 1], label + " order policy should follow External Links")
+    .toBe(sectionHeading);
+  expect(policyHeadings.indexOf("Privacy Policy"), label + " Privacy Policy should follow order policy")
+    .toBeGreaterThan(policyHeadings.indexOf(sectionHeading));
+
+  await expect(section).toContainText(language === "ja"
+    ? "制作開始前のキャンセルについては、すでに発生している材料費、手配費その他の実費がある場合、それらを差し引いたうえで返金内容をご案内します。"
+    : "If a commission is cancelled before production begins, any material costs, arrangement fees, or other expenses already incurred may be deducted before determining the amount to be refunded.");
+  await expect(section).toContainText(language === "ja"
+    ? "配送会社の補償範囲を超える独自の補償は行いません。"
+    : "no additional compensation beyond the carrier's applicable compensation will be provided.");
+  await expectHorizontalFit(section, label + " order policy section");
+}
+
 async function assertH1Subtitle(page, entry, label = entry.key) {
   const subtitle = entry.subtitle;
   if (!subtitle) return;
@@ -1248,6 +1322,16 @@ for (const entry of pages) {
     await assertSharedHeaderFooterTypography(page, testInfo, entry.footer !== false);
     await assertH1Subtitle(page, entry);
 
+    if (entry.key === "order" || entry.key === "policy") {
+      const language = await page.locator("html").getAttribute("lang");
+      await assertSwitchableBodyLanguage(page, language, entry.key);
+      if (entry.key === "order") {
+        await assertOrderPricingContent(page, language, "Order visual regression");
+      } else {
+        await assertOrderCancellationPolicy(page, language, "Policy visual regression");
+      }
+    }
+
     if (entry.key === "information") {
       const titleBox = await page.locator(".information-page > .h1-text").boundingBox();
       const sectionTitleBox = await page.locator(".information-page .content > h2").boundingBox();
@@ -1722,6 +1806,70 @@ test("H1 subtitles stay Japanese then English across seven viewport widths", asy
         ) - document.documentElement.clientWidth);
         expect(overflow, pageEntry.key + " horizontal overflow at " + width + "px")
           .toBeLessThanOrEqual(2);
+      }
+    }
+  }
+
+  assertRuntimeClean(runtime, entry);
+  await attachRuntimeObservations(testInfo, entry, runtime);
+});
+
+test("Order pricing and cancellation policy stay complete in both languages", async ({ page }, testInfo) => {
+  test.skip(
+    fullAudit && testInfo.project.name !== "desktop-1440",
+    "The complete seven-width pricing and policy sequence runs once in full-audit mode."
+  );
+  testInfo.setTimeout(90000);
+
+  const entry = { key: "order-pricing-policy-language" };
+  const runtime = createRuntimeMonitor(page, entry);
+  await prepareDeterministicNetwork(page);
+  await page.addInitScript(() => {
+    localStorage.setItem("selectedLang", "ja");
+    localStorage.setItem("lang", "ja");
+  });
+
+  const pagesToVerify = [
+    { key: "order", path: "order.html", assertContent: assertOrderPricingContent },
+    { key: "policy", path: "policy.html", assertContent: assertOrderCancellationPolicy }
+  ];
+  const viewports = fullAudit
+    ? [
+        { width: 1440, height: 900 },
+        { width: 1280, height: 800 },
+        { width: 1024, height: 900 },
+        { width: 768, height: 1024 },
+        { width: 430, height: 932 },
+        { width: 390, height: 844 },
+        { width: 375, height: 812 }
+      ]
+    : [testInfo.project.use.viewport];
+
+  for (const pageEntry of pagesToVerify) {
+    const response = await page.goto(pageEntry.path, { waitUntil: "domcontentloaded" });
+    expect(response.status(), pageEntry.key + " should load").toBe(200);
+    await stabilize(page, pageEntry);
+
+    for (const viewport of viewports) {
+      await page.setViewportSize(viewport);
+      for (const language of ["ja", "en", "ja"]) {
+        const currentLanguage = await page.locator("html").getAttribute("lang");
+        if (currentLanguage !== language) {
+          const labelFor = language === "ja" ? "langJa" : "langEn";
+          await page.locator('#langChange label[for="' + labelFor + '"]').click();
+          await expect(page.locator("html")).toHaveAttribute("lang", language);
+        }
+
+        const label = pageEntry.key + " at " + viewport.width + "px (" + language + ")";
+        await expect(page.locator('#langChange input[value="' + language + '"]')).toBeChecked();
+        await assertSwitchableBodyLanguage(page, language, label);
+        await pageEntry.assertContent(page, language, label);
+
+        const overflow = await page.evaluate(() => Math.max(
+          document.documentElement.scrollWidth,
+          document.body?.scrollWidth || 0
+        ) - document.documentElement.clientWidth);
+        expect(overflow, label + " has horizontal overflow").toBeLessThanOrEqual(2);
       }
     }
   }
