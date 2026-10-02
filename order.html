@@ -186,6 +186,11 @@
             line-height: 1.8;
         }
 
+        .order-page .order-price-table td.year .order-dimensions {
+            display: block;
+            white-space: normal;
+        }
+
         /* Statement の 01〜05 フローを再利用 */
         .order-page .timeline {
             position: relative;
@@ -349,18 +354,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td class="year">F4</td><td class="tb-content">¥60,000</td></tr>
-                                <tr><td class="year">F6</td><td class="tb-content">¥71,000</td></tr>
-                                <tr><td class="year">F8</td><td class="tb-content">¥83,000</td></tr>
-                                <tr><td class="year">F10</td><td class="tb-content">¥95,000</td></tr>
-                                <tr><td class="year">F12</td><td class="tb-content">¥107,000</td></tr>
-                                <tr><td class="year">F15</td><td class="tb-content">¥120,000</td></tr>
-                                <tr><td class="year">F20</td><td class="tb-content">¥165,000〜</td></tr>
-                                <tr><td class="year">F25</td><td class="tb-content">¥198,000〜</td></tr>
-                                <tr><td class="year">F30</td><td class="tb-content">¥231,000〜</td></tr>
-                                <tr><td class="year">F40以上</td><td class="tb-content">要相談</td></tr>
+                                <tr><td class="year">F4<span class="order-dimensions">333 × 242&nbsp;mm</span></td><td class="tb-content">¥60,000</td></tr>
+                                <tr><td class="year">F6<span class="order-dimensions">410 × 318&nbsp;mm</span></td><td class="tb-content">¥71,000</td></tr>
+                                <tr><td class="year">F8<span class="order-dimensions">455 × 380&nbsp;mm</span></td><td class="tb-content">¥83,000</td></tr>
+                                <tr><td class="year">F10<span class="order-dimensions">530 × 455&nbsp;mm</span></td><td class="tb-content">¥95,000</td></tr>
+                                <tr><td class="year">F12<span class="order-dimensions">606 × 500&nbsp;mm</span></td><td class="tb-content">¥107,000</td></tr>
+                                <tr><td class="year">F15<span class="order-dimensions">652 × 530&nbsp;mm</span></td><td class="tb-content">¥120,000</td></tr>
+                                <tr><td class="year">F20<span class="order-dimensions">727 × 606&nbsp;mm</span></td><td class="tb-content">¥165,000〜</td></tr>
+                                <tr><td class="year">F25<span class="order-dimensions">803 × 652&nbsp;mm</span></td><td class="tb-content">¥198,000〜</td></tr>
+                                <tr><td class="year">F30<span class="order-dimensions">910 × 727&nbsp;mm</span></td><td class="tb-content">¥231,000〜</td></tr>
+                                <tr><td class="year">F40以上<span class="order-dimensions">1000 × 803&nbsp;mm〜</span></td><td class="tb-content">要相談</td></tr>
                             </tbody>
                         </table>
+                        <p class="order-note">
+                            寸法はF規格の標準サイズ（長辺 × 短辺）です。
+                        </p>
                         <p class="order-note">
                             ※ 表示価格には消費税および通常の国内送料を含みます。<br>
                             ※ 特殊な梱包、搬入・設置、離島・一部地域への配送、作品条件により特別な輸送が必要となる場合は、追加費用をご案内することがあります。<br>
@@ -467,18 +475,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td class="year">F4</td><td class="tb-content">¥60,000</td></tr>
-                                <tr><td class="year">F6</td><td class="tb-content">¥71,000</td></tr>
-                                <tr><td class="year">F8</td><td class="tb-content">¥83,000</td></tr>
-                                <tr><td class="year">F10</td><td class="tb-content">¥95,000</td></tr>
-                                <tr><td class="year">F12</td><td class="tb-content">¥107,000</td></tr>
-                                <tr><td class="year">F15</td><td class="tb-content">¥120,000</td></tr>
-                                <tr><td class="year">F20</td><td class="tb-content">From ¥165,000</td></tr>
-                                <tr><td class="year">F25</td><td class="tb-content">From ¥198,000</td></tr>
-                                <tr><td class="year">F30</td><td class="tb-content">From ¥231,000</td></tr>
-                                <tr><td class="year">F40+</td><td class="tb-content">Please inquire</td></tr>
+                                <tr><td class="year">F4<span class="order-dimensions">333 × 242&nbsp;mm</span></td><td class="tb-content">¥60,000</td></tr>
+                                <tr><td class="year">F6<span class="order-dimensions">410 × 318&nbsp;mm</span></td><td class="tb-content">¥71,000</td></tr>
+                                <tr><td class="year">F8<span class="order-dimensions">455 × 380&nbsp;mm</span></td><td class="tb-content">¥83,000</td></tr>
+                                <tr><td class="year">F10<span class="order-dimensions">530 × 455&nbsp;mm</span></td><td class="tb-content">¥95,000</td></tr>
+                                <tr><td class="year">F12<span class="order-dimensions">606 × 500&nbsp;mm</span></td><td class="tb-content">¥107,000</td></tr>
+                                <tr><td class="year">F15<span class="order-dimensions">652 × 530&nbsp;mm</span></td><td class="tb-content">¥120,000</td></tr>
+                                <tr><td class="year">F20<span class="order-dimensions">727 × 606&nbsp;mm</span></td><td class="tb-content">From ¥165,000</td></tr>
+                                <tr><td class="year">F25<span class="order-dimensions">803 × 652&nbsp;mm</span></td><td class="tb-content">From ¥198,000</td></tr>
+                                <tr><td class="year">F30<span class="order-dimensions">910 × 727&nbsp;mm</span></td><td class="tb-content">From ¥231,000</td></tr>
+                                <tr><td class="year">F40+<span class="order-dimensions">1000 × 803&nbsp;mm and above</span></td><td class="tb-content">Please inquire</td></tr>
                             </tbody>
                         </table>
+                        <p class="order-note">
+                            Dimensions shown are standard F-format sizes (long side × short side).
+                        </p>
                         <p class="order-note">
                             * Prices include consumption tax and standard domestic shipping within Japan.<br>
                             * Additional charges may apply for special packing, installation, delivery to remote areas, or special transportation requirements.<br>

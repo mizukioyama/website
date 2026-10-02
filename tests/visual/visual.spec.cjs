@@ -336,23 +336,32 @@ async function assertOrderPricingContent(page, language, label) {
   );
 
   const rows = await table.locator("tbody tr").evaluateAll(elements =>
-    elements.map(row => Array.from(row.cells).map(cell => cell.textContent.trim().replace(/\s+/g, " ")))
+    elements.map(row => Array.from(row.cells).map(cell => cell.innerText.trim().replace(/\s+/g, " ")))
   );
   const expectedRows = language === "ja"
     ? [
-        ["F4", "¥60,000"], ["F6", "¥71,000"], ["F8", "¥83,000"],
-        ["F10", "¥95,000"], ["F12", "¥107,000"], ["F15", "¥120,000"],
-        ["F20", "¥165,000〜"], ["F25", "¥198,000〜"],
-        ["F30", "¥231,000〜"], ["F40以上", "要相談"]
+        ["F4 333 × 242 mm", "¥60,000"], ["F6 410 × 318 mm", "¥71,000"],
+        ["F8 455 × 380 mm", "¥83,000"], ["F10 530 × 455 mm", "¥95,000"],
+        ["F12 606 × 500 mm", "¥107,000"], ["F15 652 × 530 mm", "¥120,000"],
+        ["F20 727 × 606 mm", "¥165,000〜"], ["F25 803 × 652 mm", "¥198,000〜"],
+        ["F30 910 × 727 mm", "¥231,000〜"], ["F40以上 1000 × 803 mm〜", "要相談"]
       ]
     : [
-        ["F4", "¥60,000"], ["F6", "¥71,000"], ["F8", "¥83,000"],
-        ["F10", "¥95,000"], ["F12", "¥107,000"], ["F15", "¥120,000"],
-        ["F20", "From ¥165,000"], ["F25", "From ¥198,000"],
-        ["F30", "From ¥231,000"], ["F40+", "Please inquire"]
+        ["F4 333 × 242 mm", "¥60,000"], ["F6 410 × 318 mm", "¥71,000"],
+        ["F8 455 × 380 mm", "¥83,000"], ["F10 530 × 455 mm", "¥95,000"],
+        ["F12 606 × 500 mm", "¥107,000"], ["F15 652 × 530 mm", "¥120,000"],
+        ["F20 727 × 606 mm", "From ¥165,000"], ["F25 803 × 652 mm", "From ¥198,000"],
+        ["F30 910 × 727 mm", "From ¥231,000"], ["F40+ 1000 × 803 mm and above", "Please inquire"]
       ];
   expect(rows, label + " full pricing rows").toEqual(expectedRows);
+  const dimensionFit = await table.locator(".order-dimensions").evaluateAll(elements =>
+    elements.every(element => element.scrollWidth <= element.clientWidth + 1)
+  );
+  expect(dimensionFit, label + " dimensions should wrap without overflowing their size cells").toBe(true);
 
+  await expect(pricing).toContainText(language === "ja"
+    ? "寸法はF規格の標準サイズ（長辺 × 短辺）です。"
+    : "Dimensions shown are standard F-format sizes (long side × short side).");
   await expect(pricing).toContainText(language === "ja"
     ? "表示価格は消費税込み・国内送料込みの目安です。"
     : "Prices shown include consumption tax and standard domestic shipping within Japan.");
@@ -1869,7 +1878,7 @@ test("Order pricing and cancellation policy stay complete in both languages", as
           document.documentElement.scrollWidth,
           document.body?.scrollWidth || 0
         ) - document.documentElement.clientWidth);
-        expect(overflow, label + " has horizontal overflow").toBeLessThanOrEqual(2);
+        expect(overflow, label + " has horizontal overflow").toBe(0);
       }
     }
   }
