@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=20260922-typography">
+    <link rel="stylesheet" href="css/portfolio-history-table.css">
 
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
@@ -169,49 +170,6 @@
             padding-top: 2vmin !important;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-            table-layout: auto;
-        }
-
-        th,
-        td {
-            padding: 2vmin 0;
-            border-bottom: 1px solid var(--text);
-            vertical-align: top;
-            overflow-wrap: anywhere;
-        }
-
-        th {
-            text-align: left;
-            font-size: var(--font-table-size);
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: var(--tracking-table-005);
-            font-weight: normal;
-        }
-
-        td.year {
-            width: 20%;
-            white-space: nowrap;
-            font-size: var(--font-table-size);
-            font-weight: 400;
-        }
-
-        td.tb-content {
-            width: 80%;
-            font-size: var(--font-table-size);
-            font-weight: 300;
-        }
-
-        td.tb-content .en-txt {
-            display: block;
-            font-size: var(--font-metadata-size);
-            overflow-wrap: anywhere;
-            margin-top: 1vmin !important;
-        }
 
         @media screen and (max-width: 599px) {
             .state-box {
@@ -246,46 +204,8 @@
                 overflow-wrap: break-word;
             }
 
-            #bio th {
-                font-size: var(--font-table-size);
-                line-height: 1.45;
-            }
-
-            #bio td.year {
-                padding-right: 0.75rem;
-                font-size: var(--font-table-size);
-                line-height: 1.6;
-            }
-
-            #bio td.tb-content {
-                font-size: var(--font-table-size);
-                line-height: 1.65;
-            }
-
-            #bio td.tb-content .en-txt {
-                font-size: var(--font-metadata-size);
-                line-height: 1.6;
-                margin-top: 4vmin !important;
-            }
         }
 
-        @media (max-width: 768px) {
-            td.year {
-                width: 30%;
-            }
-
-            td.tb-content {
-                width: 70%;
-            }
-
-            .tb-title {
-                width: 30%;
-            }
-
-            th,td {
-                padding: 8vmin 0;
-            }
-        }
     </style>
 </head>
 
@@ -392,7 +312,7 @@
 
                 <h2 class="noise">画歴｜Painting history</h2>
 
-                <table>
+                <table class="portfolio-history-table">
                     <thead>
                         <tr>
                             <th class="tb-title">Year</th>
@@ -437,7 +357,7 @@
                 </table>
 
                 <!-- 認定 / 賞 -->
-                <table>
+                <table class="portfolio-history-table">
                     <thead>
                         <tr>
                             <th class="tb-title">Year</th>

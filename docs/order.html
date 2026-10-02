@@ -186,9 +186,22 @@
             line-height: 1.8;
         }
 
-        .order-page .order-price-table td.year .order-dimensions {
+        .order-page .history-table.order-price-table td.order-price-cell {
+            width: 50%;
+            padding: 1rem 0.75rem 1rem 0;
+        }
+
+        .order-page .history-table.order-price-table td.order-price-cell + td.order-price-cell {
+            border-left: 1px solid var(--text);
+            padding-left: 1rem;
+            padding-right: 0;
+        }
+
+        .order-page .history-table.order-price-table td.order-price-cell > span {
             display: block;
-            white-space: normal;
+            margin-top: 0;
+            font-size: inherit;
+            line-height: inherit;
         }
 
         /* Statement の 01〜05 フローを再利用 */
@@ -246,6 +259,14 @@
             .order-page .history-table td.tb-content,
             .order-page .history-table td.tb-content span {
                 font-size: var(--font-list-size);
+            }
+
+            .order-page .history-table.order-price-table td.order-price-cell {
+                padding: 0.75rem 0.5rem 0.75rem 0;
+            }
+
+            .order-page .history-table.order-price-table td.order-price-cell + td.order-price-cell {
+                padding-left: 0.5rem;
             }
         }
 
@@ -342,28 +363,68 @@
                             制作内容、素材、仕様、配送条件などにより料金が変わる場合があります。<br>
                             正式な料金は、ご依頼内容を確認したうえでお見積りいたします。
                         </p>
-                        <table class="history-table order-price-table">
-                            <colgroup>
-                                <col class="history-year-column">
-                                <col class="history-content-column">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Size</th>
-                                    <th scope="col">料金（税込・国内送料込）</th>
-                                </tr>
-                            </thead>
+                        <table class="history-table order-price-table" aria-label="料金表">
                             <tbody>
-                                <tr><td class="year">F4<span class="order-dimensions">333 × 242&nbsp;mm</span></td><td class="tb-content">¥60,000</td></tr>
-                                <tr><td class="year">F6<span class="order-dimensions">410 × 318&nbsp;mm</span></td><td class="tb-content">¥71,000</td></tr>
-                                <tr><td class="year">F8<span class="order-dimensions">455 × 380&nbsp;mm</span></td><td class="tb-content">¥83,000</td></tr>
-                                <tr><td class="year">F10<span class="order-dimensions">530 × 455&nbsp;mm</span></td><td class="tb-content">¥95,000</td></tr>
-                                <tr><td class="year">F12<span class="order-dimensions">606 × 500&nbsp;mm</span></td><td class="tb-content">¥107,000</td></tr>
-                                <tr><td class="year">F15<span class="order-dimensions">652 × 530&nbsp;mm</span></td><td class="tb-content">¥120,000</td></tr>
-                                <tr><td class="year">F20<span class="order-dimensions">727 × 606&nbsp;mm</span></td><td class="tb-content">¥165,000〜</td></tr>
-                                <tr><td class="year">F25<span class="order-dimensions">803 × 652&nbsp;mm</span></td><td class="tb-content">¥198,000〜</td></tr>
-                                <tr><td class="year">F30<span class="order-dimensions">910 × 727&nbsp;mm</span></td><td class="tb-content">¥231,000〜</td></tr>
-                                <tr><td class="year">F40以上<span class="order-dimensions">1000 × 803&nbsp;mm〜</span></td><td class="tb-content">要相談</td></tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F4</span>
+                                        <span class="order-dimensions">333 × 242&nbsp;mm</span>
+                                        <span class="order-price-amount">¥60,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F15</span>
+                                        <span class="order-dimensions">652 × 530&nbsp;mm</span>
+                                        <span class="order-price-amount">¥120,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F6</span>
+                                        <span class="order-dimensions">410 × 318&nbsp;mm</span>
+                                        <span class="order-price-amount">¥71,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F20</span>
+                                        <span class="order-dimensions">727 × 606&nbsp;mm</span>
+                                        <span class="order-price-amount">¥165,000〜</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F8</span>
+                                        <span class="order-dimensions">455 × 380&nbsp;mm</span>
+                                        <span class="order-price-amount">¥83,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F25</span>
+                                        <span class="order-dimensions">803 × 652&nbsp;mm</span>
+                                        <span class="order-price-amount">¥198,000〜</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F10</span>
+                                        <span class="order-dimensions">530 × 455&nbsp;mm</span>
+                                        <span class="order-price-amount">¥95,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F30</span>
+                                        <span class="order-dimensions">910 × 727&nbsp;mm</span>
+                                        <span class="order-price-amount">¥231,000〜</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F12</span>
+                                        <span class="order-dimensions">606 × 500&nbsp;mm</span>
+                                        <span class="order-price-amount">¥107,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F40以上</span>
+                                        <span class="order-dimensions">1000 × 803&nbsp;mm〜</span>
+                                        <span class="order-price-amount">要相談</span>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <p class="order-note">
@@ -463,28 +524,68 @@
                             Prices may vary depending on the materials, specifications, production requirements, and delivery conditions.<br>
                             A final quotation will be provided after reviewing the details of your request.
                         </p>
-                        <table class="history-table order-price-table">
-                            <colgroup>
-                                <col class="history-year-column">
-                                <col class="history-content-column">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Size</th>
-                                    <th scope="col">Price</th>
-                                </tr>
-                            </thead>
+                        <table class="history-table order-price-table" aria-label="Commission pricing">
                             <tbody>
-                                <tr><td class="year">F4<span class="order-dimensions">333 × 242&nbsp;mm</span></td><td class="tb-content">¥60,000</td></tr>
-                                <tr><td class="year">F6<span class="order-dimensions">410 × 318&nbsp;mm</span></td><td class="tb-content">¥71,000</td></tr>
-                                <tr><td class="year">F8<span class="order-dimensions">455 × 380&nbsp;mm</span></td><td class="tb-content">¥83,000</td></tr>
-                                <tr><td class="year">F10<span class="order-dimensions">530 × 455&nbsp;mm</span></td><td class="tb-content">¥95,000</td></tr>
-                                <tr><td class="year">F12<span class="order-dimensions">606 × 500&nbsp;mm</span></td><td class="tb-content">¥107,000</td></tr>
-                                <tr><td class="year">F15<span class="order-dimensions">652 × 530&nbsp;mm</span></td><td class="tb-content">¥120,000</td></tr>
-                                <tr><td class="year">F20<span class="order-dimensions">727 × 606&nbsp;mm</span></td><td class="tb-content">From ¥165,000</td></tr>
-                                <tr><td class="year">F25<span class="order-dimensions">803 × 652&nbsp;mm</span></td><td class="tb-content">From ¥198,000</td></tr>
-                                <tr><td class="year">F30<span class="order-dimensions">910 × 727&nbsp;mm</span></td><td class="tb-content">From ¥231,000</td></tr>
-                                <tr><td class="year">F40+<span class="order-dimensions">1000 × 803&nbsp;mm and above</span></td><td class="tb-content">Please inquire</td></tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F4</span>
+                                        <span class="order-dimensions">333 × 242&nbsp;mm</span>
+                                        <span class="order-price-amount">¥60,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F15</span>
+                                        <span class="order-dimensions">652 × 530&nbsp;mm</span>
+                                        <span class="order-price-amount">¥120,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F6</span>
+                                        <span class="order-dimensions">410 × 318&nbsp;mm</span>
+                                        <span class="order-price-amount">¥71,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F20</span>
+                                        <span class="order-dimensions">727 × 606&nbsp;mm</span>
+                                        <span class="order-price-amount">From ¥165,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F8</span>
+                                        <span class="order-dimensions">455 × 380&nbsp;mm</span>
+                                        <span class="order-price-amount">¥83,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F25</span>
+                                        <span class="order-dimensions">803 × 652&nbsp;mm</span>
+                                        <span class="order-price-amount">From ¥198,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F10</span>
+                                        <span class="order-dimensions">530 × 455&nbsp;mm</span>
+                                        <span class="order-price-amount">¥95,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F30</span>
+                                        <span class="order-dimensions">910 × 727&nbsp;mm</span>
+                                        <span class="order-price-amount">From ¥231,000</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F12</span>
+                                        <span class="order-dimensions">606 × 500&nbsp;mm</span>
+                                        <span class="order-price-amount">¥107,000</span>
+                                    </td>
+                                    <td class="tb-content order-price-cell">
+                                        <span class="order-price-size">F40+</span>
+                                        <span class="order-dimensions">1000 × 803&nbsp;mm and above</span>
+                                        <span class="order-price-amount">Please inquire</span>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <p class="order-note">

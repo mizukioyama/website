@@ -330,30 +330,56 @@ async function assertOrderPricingContent(page, language, label) {
 
   const table = pricing.locator(".order-price-table");
   await expect(table, label + " pricing table").toBeVisible();
-  const headers = (await table.locator("thead th").allTextContents()).map(text => text.trim());
-  expect(headers, label + " pricing table headers").toEqual(
-    language === "ja" ? ["Size", "料金（税込・国内送料込）"] : ["Size", "Price"]
-  );
+  await expect(table).toHaveAttribute("aria-label", language === "ja" ? "料金表" : "Commission pricing");
+  await expect(table.locator("thead")).toHaveCount(0);
+  await expect(table.locator("tbody tr")).toHaveCount(5);
 
-  const rows = await table.locator("tbody tr").evaluateAll(elements =>
-    elements.map(row => Array.from(row.cells).map(cell => cell.innerText.trim().replace(/\s+/g, " ")))
-  );
-  const expectedRows = language === "ja"
+  const expectedPairs = language === "ja"
     ? [
-        ["F4 333 × 242 mm", "¥60,000"], ["F6 410 × 318 mm", "¥71,000"],
-        ["F8 455 × 380 mm", "¥83,000"], ["F10 530 × 455 mm", "¥95,000"],
-        ["F12 606 × 500 mm", "¥107,000"], ["F15 652 × 530 mm", "¥120,000"],
-        ["F20 727 × 606 mm", "¥165,000〜"], ["F25 803 × 652 mm", "¥198,000〜"],
-        ["F30 910 × 727 mm", "¥231,000〜"], ["F40以上 1000 × 803 mm〜", "要相談"]
+        [["F4", "333 × 242 mm", "¥60,000"], ["F15", "652 × 530 mm", "¥120,000"]],
+        [["F6", "410 × 318 mm", "¥71,000"], ["F20", "727 × 606 mm", "¥165,000〜"]],
+        [["F8", "455 × 380 mm", "¥83,000"], ["F25", "803 × 652 mm", "¥198,000〜"]],
+        [["F10", "530 × 455 mm", "¥95,000"], ["F30", "910 × 727 mm", "¥231,000〜"]],
+        [["F12", "606 × 500 mm", "¥107,000"], ["F40以上", "1000 × 803 mm〜", "要相談"]]
       ]
     : [
-        ["F4 333 × 242 mm", "¥60,000"], ["F6 410 × 318 mm", "¥71,000"],
-        ["F8 455 × 380 mm", "¥83,000"], ["F10 530 × 455 mm", "¥95,000"],
-        ["F12 606 × 500 mm", "¥107,000"], ["F15 652 × 530 mm", "¥120,000"],
-        ["F20 727 × 606 mm", "From ¥165,000"], ["F25 803 × 652 mm", "From ¥198,000"],
-        ["F30 910 × 727 mm", "From ¥231,000"], ["F40+ 1000 × 803 mm and above", "Please inquire"]
+        [["F4", "333 × 242 mm", "¥60,000"], ["F15", "652 × 530 mm", "¥120,000"]],
+        [["F6", "410 × 318 mm", "¥71,000"], ["F20", "727 × 606 mm", "From ¥165,000"]],
+        [["F8", "455 × 380 mm", "¥83,000"], ["F25", "803 × 652 mm", "From ¥198,000"]],
+        [["F10", "530 × 455 mm", "¥95,000"], ["F30", "910 × 727 mm", "From ¥231,000"]],
+        [["F12", "606 × 500 mm", "¥107,000"], ["F40+", "1000 × 803 mm and above", "Please inquire"]]
       ];
-  expect(rows, label + " full pricing rows").toEqual(expectedRows);
+
+  const groups = await table.locator("tbody tr").evaluateAll(rows => rows.map(row =>
+    Array.from(row.cells).map(cell => [
+      cell.querySelector(".order-price-size")?.textContent.trim() || "",
+      (cell.querySelector(".order-dimensions")?.textContent || "").replace(/\s+/g, " ").trim(),
+      cell.querySelector(".order-price-amount")?.textContent.trim() || ""
+    ])
+  ));
+  expect(groups, label + " five rows with the prescribed left/right size pairs").toEqual(expectedPairs);
+
+  const cellLayout = await table.locator("tbody tr").evaluateAll(rows => rows.map(row => {
+    const [left, right] = row.cells;
+    const leftStyle = getComputedStyle(left);
+    const rightStyle = getComputedStyle(right);
+    return {
+      count: row.cells.length,
+      widthDifference: Math.abs(left.getBoundingClientRect().width - right.getBoundingClientRect().width),
+      leftBorder: leftStyle.borderLeftWidth,
+      dividerWidth: rightStyle.borderLeftWidth,
+      dividerStyle: rightStyle.borderLeftStyle
+    };
+  }));
+  expect(cellLayout.map(row => row.count), label + " two cells per row").toEqual(Array(5).fill(2));
+  expect(cellLayout.every(row => row.widthDifference <= 1), label + " equal two-column widths").toBe(true);
+  expect(cellLayout.map(({ leftBorder, dividerWidth, dividerStyle }) => ({ leftBorder, dividerWidth, dividerStyle })),
+    label + " thin center divider").toEqual(Array.from({ length: 5 }, () => ({
+      leftBorder: "0px",
+      dividerWidth: "1px",
+      dividerStyle: "solid"
+    })));
+
   const dimensionFit = await table.locator(".order-dimensions").evaluateAll(elements =>
     elements.every(element => element.scrollWidth <= element.clientWidth + 1)
   );
@@ -514,7 +540,8 @@ async function assertResponsivePageGeometry(page, entry) {
 
   if (entry.key === "information") {
     await expectHorizontalFit(page.locator(".information-page .content"), "Information content");
-    await expectHorizontalFit(page.locator(".information-page .history-table"), "Information table");
+    await expectHorizontalFit(page.locator(".information-page .info-section[aria-labelledby=\"upcoming-title\"] .history-table"), "Information Upcoming table");
+    await expectHorizontalFit(page.locator(".information-page .past-activities-table"), "Information Past Activities table");
     await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links");
   }
 
@@ -975,6 +1002,114 @@ async function exerciseContactRuntime(page, testInfo) {
   await expect(page.locator("#thanksModal .close")).toHaveAttribute("aria-label", "閉じる");
 }
 
+const informationPastActivityRows = [
+  ["2025", "03｜日台の絆展 会場 / 台湾", "March｜Japan-Taiwan Bond Exhibition Venue / Taiwan"],
+  ["2023", "06｜第2回日仏友好オリジナル切手展 会場 / フランス", "June | 2nd Japan-France Friendship Original Stamp Exhibition Venue / France"],
+  ["2022", "11｜芸術の虎展 会場 / 日光東照宮美術館 04｜日アセアン友好文化交流展 会場 / 東京アセアンセンター", "November | Tigers of Art Exhibition Venue: Nikko Toshogu Museum April | Japan-ASEAN Friendship and Cultural Exchange Exhibition Venue: Tokyo ASEAN Centre"],
+  ["2021", "11｜サロン・ド・アール・ジャポネ 会場 / フランス 08｜OASISU2021 会場 / 大阪あべのハルカス 04｜チャリティアート展 会場 / 東京", "November | Salon d'Art Japonais, Venue: France August | OASISU 2021, Venue: Abeno Harukas, Osaka April | Charity Art Exhibition, Venue: Tokyo"]
+];
+
+async function assertInformationPastHistory(page, language, label) {
+  const table = page.locator(".information-page .past-activities-table");
+  await expect(table, label + " Biography-style Past Activities table").toHaveCount(1);
+  await expect(table).toHaveClass(/portfolio-history-table/);
+  await expect(table.locator("thead th")).toHaveCount(2);
+  await expect(table.locator("thead th")).toHaveClass([/tb-title/, /tb-title/]);
+  await expect(table.locator("thead th").first()).toHaveText("Year");
+  await expect(table.locator("thead th").nth(1).locator('[lang="ja"]')).toHaveText("活動・展示");
+  await expect(table.locator("thead th").nth(1).locator('[lang="en"]')).toHaveText("Activities / Exhibitions");
+  await expect(table.locator("tbody tr")).toHaveCount(informationPastActivityRows.length);
+  await expect(table.locator('tbody tr[lang]')).toHaveCount(0);
+
+  const rows = await table.locator("tbody tr").evaluateAll(elements => elements.map(row => {
+    const normalize = value => (typeof value === "string" ? value : [...value.childNodes]
+      .map(node => node.nodeName === "BR" ? " " : node.textContent || "")
+      .join(""))
+      .replace(/\s+/gu, " ")
+      .trim();
+    return [
+      normalize(row.querySelector("td.year")?.textContent || ""),
+      normalize(row.querySelector('td.tb-content > [lang="ja"]')),
+      normalize(row.querySelector('td.tb-content > [lang="en"]'))
+    ];
+  }));
+  expect(rows, label + " year, month, exhibition, and venue records").toEqual(informationPastActivityRows);
+
+  for (let index = 0; index < informationPastActivityRows.length; index += 1) {
+    const row = table.locator("tbody tr").nth(index);
+    await expect(row.locator('td.tb-content > [lang="ja"]'))[language === "ja" ? "toBeVisible" : "toBeHidden"]();
+    await expect(row.locator('td.tb-content > [lang="en"]'))[language === "en" ? "toBeVisible" : "toBeHidden"]();
+  }
+  await expect(table.locator("thead th").nth(1).locator('[lang="ja"]'))[language === "ja" ? "toBeVisible" : "toBeHidden"]();
+  await expect(table.locator("thead th").nth(1).locator('[lang="en"]'))[language === "en" ? "toBeVisible" : "toBeHidden"]();
+}
+
+async function compareInformationPastTableWithBiography(page, label) {
+  const informationTable = page.locator(".information-page .past-activities-table");
+  const referencePage = await page.context().newPage();
+  try {
+    const viewport = page.viewportSize();
+    if (viewport) await referencePage.setViewportSize(viewport);
+    await prepareDeterministicNetwork(referencePage);
+    await referencePage.goto(new URL("biography.html", page.url()).href, { waitUntil: "domcontentloaded" });
+    const biographyTable = referencePage.locator("#state .content .portfolio-history-table").first();
+    await expect(biographyTable, label + " Biography history table").toBeVisible();
+
+    const profile = async table => table.evaluate(element => {
+      const getProperties = (node, names) => {
+        const style = getComputedStyle(node);
+        return Object.fromEntries(names.map(name => [name, style[name]]));
+      };
+      const tableRect = element.getBoundingClientRect();
+      const parentStyle = getComputedStyle(element.parentElement);
+      const parentContentWidth = element.parentElement.clientWidth
+        - parseFloat(parentStyle.paddingLeft)
+        - parseFloat(parentStyle.paddingRight);
+      const header = element.querySelector("thead th");
+      const year = element.querySelector("tbody .year");
+      const content = element.querySelector("tbody .tb-content");
+      const english = element.querySelector("tbody .en-txt");
+      const yearRect = year.getBoundingClientRect();
+      const contentRect = content.getBoundingClientRect();
+      const sharedProperties = [
+        "paddingTop", "paddingRight", "paddingBottom", "paddingLeft",
+        "borderBottomWidth", "borderBottomStyle", "borderBottomColor",
+        "fontSize", "fontWeight", "lineHeight", "letterSpacing", "textAlign",
+        "verticalAlign", "textTransform", "whiteSpace", "overflowWrap", "color"
+      ];
+      return {
+        table: {
+          tableLayout: getComputedStyle(element).tableLayout,
+          borderCollapse: getComputedStyle(element).borderCollapse,
+          marginTop: getComputedStyle(element).marginTop,
+          widthRatio: tableRect.width / parentContentWidth,
+          yearColumnRatio: yearRect.width / tableRect.width,
+          contentColumnRatio: contentRect.width / tableRect.width
+        },
+        header: getProperties(header, sharedProperties),
+        year: getProperties(year, sharedProperties),
+        content: getProperties(content, sharedProperties),
+        english: getProperties(english, [...sharedProperties, "marginTop"])
+      };
+    });
+
+    const informationProfile = await profile(informationTable);
+    const biographyProfile = await profile(biographyTable);
+    expect(informationProfile.table.tableLayout, label + " table layout").toBe(biographyProfile.table.tableLayout);
+    expect(informationProfile.table.borderCollapse, label + " table border model").toBe(biographyProfile.table.borderCollapse);
+    expect(informationProfile.table.marginTop, label + " table spacing").toBe(biographyProfile.table.marginTop);
+    expect(informationProfile.table.widthRatio, label + " table width").toBeCloseTo(biographyProfile.table.widthRatio, 2);
+    expect(informationProfile.table.yearColumnRatio, label + " Year-column width").toBeCloseTo(biographyProfile.table.yearColumnRatio, 2);
+    expect(informationProfile.table.contentColumnRatio, label + " content-column width").toBeCloseTo(biographyProfile.table.contentColumnRatio, 2);
+    expect(informationProfile.header, label + " header style").toEqual(biographyProfile.header);
+    expect(informationProfile.year, label + " Year-column style").toEqual(biographyProfile.year);
+    expect(informationProfile.content, label + " activity-column style").toEqual(biographyProfile.content);
+    expect(informationProfile.english, label + " English-copy style").toEqual(biographyProfile.english);
+  } finally {
+    await referencePage.close();
+  }
+}
+
 async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("body")).toHaveAttribute("data-language-mode", "switchable");
   await expect(page.locator("#langChange")).toBeVisible();
@@ -982,14 +1117,14 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator(".information-page .content > h2 [lang=ja]")).toBeVisible();
   await expect(page.locator("#upcoming-title [lang=ja]")).toBeVisible();
   await expect(page.locator("#past-title [lang=ja]")).toBeVisible();
-  await expect(page.locator(".history-table thead th:first-child [lang=ja]")).toHaveCount(2);
-  await expect(page.locator(".history-table thead th:first-child [lang=ja]").first()).toBeVisible();
+  await expect(page.locator('#past-title [lang="ja"]')).toHaveText("過去の活動");
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table thead th:first-child [lang="ja"]')).toBeVisible();
+  await assertInformationPastHistory(page, "ja", "Information Past Activities in Japanese");
   await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
   await expect(page.locator(".information-intro p[lang=en]")).toHaveCount(1);
   await expect(page.locator(".information-intro p[lang=en]")).toBeHidden();
-  await expect(page.locator('.history-table tbody tr[lang="ja"]')).toHaveCount(2);
-  await expect(page.locator('.history-table tbody tr[lang="en"]')).toHaveCount(2);
-  await expect(page.locator('.history-table tbody tr[lang="ja"]').first()).toBeVisible();
+  await expect(page.locator(".past-activities-table tbody tr")).toHaveCount(4);
+  await expect(page.locator('.past-activities-table tbody tr[lang="ja"], .past-activities-table tbody tr[lang="en"]')).toHaveCount(0);
   await expect(page.locator('.info-link[lang="ja"]')).toBeVisible();
   await expect(page.locator('.info-link[lang="en"]')).toBeHidden();
 
@@ -999,8 +1134,10 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator(".information-page .content > h2 [lang=en]")).toBeVisible();
   await expect(page.locator("#upcoming-title [lang=ja]")).toBeHidden();
   await expect(page.locator("#past-title [lang=ja]")).toBeHidden();
-  await expect(page.locator(".history-table thead th:first-child [lang=ja]").first()).toBeHidden();
-  await expect(page.locator(".history-table thead th:first-child [lang=en]").first()).toBeVisible();
+  await expect(page.locator('#past-title [lang="en"]')).toHaveText("Past Activities");
+  await assertInformationPastHistory(page, "en", "Information Past Activities in English");
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table thead th:first-child [lang="ja"]')).toBeHidden();
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table thead th:first-child [lang="en"]')).toBeVisible();
   await expect(page.locator(".information-intro p[lang=ja]")).toBeHidden();
   await expect(page.locator(".information-intro p[lang=en]")).toBeVisible();
   await expect(page.locator(".information-intro p[lang=en]")).toContainText("Current and upcoming exhibitions");
@@ -1008,20 +1145,7 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("#past-title [lang=en]")).toBeVisible();
   await expect(page.locator('.history-table tbody tr[lang="ja"]').first()).toBeHidden();
   await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
-  await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "Japan-Taiwan Bond Exhibition" })).toBeVisible();
-  await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "2nd Japan-France Friendship Original Stamp Exhibition" })).toBeVisible();
-  const englishHistoryRows = page.locator('.history-table tbody tr[lang="en"]');
-  await expect(englishHistoryRows.nth(0)).toContainText("2022");
-  await expect(englishHistoryRows.nth(0)).toContainText("Tigers of Art Exhibition");
-  await expect(englishHistoryRows.nth(0)).toContainText("Nikko Toshogu Museum");
-  await expect(englishHistoryRows.nth(0)).toContainText("Japan-ASEAN Friendship and Cultural Exchange Exhibition");
-  await expect(englishHistoryRows.nth(0)).toContainText("Tokyo ASEAN Centre");
-  await expect(englishHistoryRows.nth(1)).toContainText("2021");
-  await expect(englishHistoryRows.nth(1)).toContainText("Salon d'Art Japonais");
-  await expect(englishHistoryRows.nth(1)).toContainText("OASISU 2021");
-  await expect(englishHistoryRows.nth(1)).toContainText("Abeno Harukas, Osaka");
-  await expect(englishHistoryRows.nth(1)).toContainText("Charity Art Exhibition");
-  await expect(englishHistoryRows.nth(1)).toContainText("Tokyo");
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
   const englishDetailLink = page.locator('.info-link[lang="en"]');
   await expect(englishDetailLink).toBeVisible();
   await expect(englishDetailLink).toHaveText("View exhibition details");
@@ -1031,7 +1155,7 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expectHorizontalFit(page.locator(".information-page .history-table"), "Information table in English");
   await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links in English");
   const englishDiagnostics = await layoutDiagnostics(page);
-  expect(englishDiagnostics.overflow, "English Information has horizontal overflow").toBeLessThanOrEqual(2);
+  expect(englishDiagnostics.overflow, "English Information has horizontal overflow").toBe(0);
   expect(englishDiagnostics.clippedText, "visible English Information text is clipped").toEqual([]);
   await expect.poll(() => page.evaluate(() => [
     localStorage.getItem("selectedLang"),
@@ -1054,6 +1178,7 @@ async function exerciseInformationLanguage(page, testInfo) {
   await page.locator('#langChange label[for="langJa"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
+  await assertInformationPastHistory(page, "ja", "Information Past Activities restored in Japanese");
   await expect(page.locator('.info-link[lang="ja"]')).toBeVisible();
   await expect(page.locator('.info-link[lang="en"]')).toBeHidden();
 }
@@ -1065,6 +1190,7 @@ async function exerciseInformationRuntime(page, testInfo) {
 
   const headings = await sections.locator("h2").allInnerTexts();
   expect(headings.map(text => text.trim())).toEqual(["開催予定", "過去の活動"]);
+  await compareInformationPastTableWithBiography(page, "Information table matches Biography at " + page.viewportSize().width + "px");
 
   const upcoming = page.locator('section[aria-labelledby="upcoming-title"]');
   await expect(upcoming).toContainText("2026.10");
@@ -1354,7 +1480,7 @@ for (const entry of pages) {
     }
 
     const diagnostics = await layoutDiagnostics(page);
-    expect(diagnostics.overflow, "document has horizontal overflow").toBeLessThanOrEqual(2);
+    expect(diagnostics.overflow, "document has horizontal overflow")[entry.key === "information" ? "toBe" : "toBeLessThanOrEqual"](entry.key === "information" ? 0 : 2);
     expect(diagnostics.clippedText, "visible main text is clipped inside its box").toEqual([]);
     expect(diagnostics.brokenVisibleImages, "visible image failed to load").toEqual([]);
 

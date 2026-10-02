@@ -1,0 +1,90 @@
+/* Shared table presentation for Biography history and Information past activities. */
+.portfolio-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.portfolio-history-table th,
+.portfolio-history-table td {
+    padding: 2vmin 0;
+    border-bottom: 1px solid var(--text);
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-history-table th {
+    text-align: left;
+    font-size: var(--font-table-size);
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-table-005);
+    font-weight: normal;
+}
+
+.portfolio-history-table td.year {
+    width: 20%;
+    white-space: nowrap;
+    font-size: var(--font-table-size);
+    font-weight: 400;
+}
+
+.portfolio-history-table td.tb-content {
+    width: 80%;
+    font-size: var(--font-table-size);
+    font-weight: 300;
+}
+
+.portfolio-history-table td.tb-content .en-txt {
+    display: block;
+    font-size: var(--font-metadata-size);
+    overflow-wrap: anywhere;
+    margin-top: 1vmin !important;
+}
+
+.information-page .past-activities-table td.tb-content > [lang="ja"] {
+    display: block;
+}
+
+@media screen and (max-width: 599px) {
+    .portfolio-history-table th {
+        font-size: var(--font-table-size);
+        line-height: 1.45;
+    }
+
+    .portfolio-history-table td.year {
+        padding-right: 0.75rem;
+        font-size: var(--font-table-size);
+        line-height: 1.6;
+    }
+
+    .portfolio-history-table td.tb-content {
+        font-size: var(--font-table-size);
+        line-height: 1.65;
+    }
+
+    .portfolio-history-table td.tb-content .en-txt {
+        font-size: var(--font-metadata-size);
+        line-height: 1.6;
+        margin-top: 4vmin !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-history-table td.year {
+        width: 30%;
+    }
+
+    .portfolio-history-table td.tb-content {
+        width: 70%;
+    }
+
+    .portfolio-history-table .tb-title {
+        width: 30%;
+    }
+
+    .portfolio-history-table th,
+    .portfolio-history-table td {
+        padding: 8vmin 0;
+    }
+}
