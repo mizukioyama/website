@@ -340,7 +340,7 @@ async function assertOrderPricingContent(page, language, label) {
         [["F6", "410 × 318 mm", "¥71,000"], ["F20", "727 × 606 mm", "¥165,000〜"]],
         [["F8", "455 × 380 mm", "¥83,000"], ["F25", "803 × 652 mm", "¥198,000〜"]],
         [["F10", "530 × 455 mm", "¥95,000"], ["F30", "910 × 727 mm", "¥231,000〜"]],
-        [["F12", "606 × 500 mm", "¥107,000"], ["F40以上", "1000 × 803 mm〜", "要相談"]]
+        [["F12", "606 × 500 mm", "¥107,000"], ["F40〜", "1000 × 803 mm〜", "要相談"]]
       ]
     : [
         [["F4", "333 × 242 mm", "¥60,000"], ["F15", "652 × 530 mm", "¥120,000"]],
@@ -384,6 +384,95 @@ async function assertOrderPricingContent(page, language, label) {
     elements.every(element => element.scrollWidth <= element.clientWidth + 1)
   );
   expect(dimensionFit, label + " dimensions should wrap without overflowing their size cells").toBe(true);
+
+  const viewportWidth = page.viewportSize().width;
+  const internalLayout = await table.locator("tbody td.order-price-cell").evaluateAll(cells => cells.map(cell => {
+    const grid = cell.querySelector(".order-price-cell-layout");
+    const cellBox = cell.getBoundingClientRect();
+    const pieces = Object.fromEntries([".order-price-size", ".order-dimensions", ".order-price-amount"].map(selector => {
+      const box = grid.querySelector(selector).getBoundingClientRect();
+      return [selector, {
+        left: box.left - cellBox.left,
+        top: box.top,
+        right: box.right,
+        bottom: box.bottom,
+        centerY: box.top + box.height / 2,
+        height: box.height
+      }];
+    }));
+    const dimension = grid.querySelector(".order-dimensions");
+    const previousWhiteSpace = dimension.style.whiteSpace;
+    dimension.style.whiteSpace = "nowrap";
+    const naturalDimensionWidth = dimension.scrollWidth;
+    dimension.style.whiteSpace = previousWhiteSpace;
+    return {
+      display: getComputedStyle(grid).display,
+      cellWidth: cellBox.width,
+      gridWidth: grid.getBoundingClientRect().width,
+      naturalDimensionWidth,
+      dimensionClientWidth: dimension.clientWidth,
+      dimensionLineHeight: parseFloat(getComputedStyle(dimension).lineHeight),
+      pieces
+    };
+  }));
+  expect(internalLayout.map(item => item.display), label + " each price cell uses an internal grid")
+    .toEqual(Array(10).fill("grid"));
+
+  if (viewportWidth <= 599) {
+    for (const item of internalLayout) {
+      const { ".order-price-size": size, ".order-dimensions": dimensions, ".order-price-amount": amount } = item.pieces;
+      expect(Math.abs(size.centerY - amount.centerY), label + " mobile size and price share the first row")
+        .toBeLessThanOrEqual(2);
+      expect(dimensions.top, label + " mobile dimensions sit on the second row")
+        .toBeGreaterThanOrEqual(Math.max(size.bottom, amount.bottom) - 1);
+      const dimensionsAreSingleLine = dimensions.height <= item.dimensionLineHeight + 1;
+      const sizeLabel = await table.locator("tbody td.order-price-cell").nth(internalLayout.indexOf(item))
+        .locator(".order-price-size").innerText();
+      const isF40English = language === "en" && sizeLabel.trim() === "F40+";
+      if (!isF40English) {
+        expect(dimensionsAreSingleLine, label + " mobile dimensions fit on one line: " + JSON.stringify({
+          sizeLabel,
+          cellWidth: item.cellWidth,
+          gridWidth: item.gridWidth,
+          dimensionClientWidth: item.dimensionClientWidth,
+          naturalDimensionWidth: item.naturalDimensionWidth,
+          dimensionHeight: dimensions.height,
+          dimensionLineHeight: item.dimensionLineHeight
+        })).toBe(true);
+      }
+    }
+  } else {
+    for (const item of internalLayout) {
+      const { ".order-price-size": size, ".order-dimensions": dimensions, ".order-price-amount": amount } = item.pieces;
+      expect(Math.abs(size.centerY - dimensions.centerY), label + " desktop values align on one row")
+        .toBeLessThanOrEqual(2);
+      expect(Math.abs(size.centerY - amount.centerY), label + " desktop price shares the size row")
+        .toBeLessThanOrEqual(2);
+    }
+
+    for (const selector of [".order-price-size", ".order-dimensions", ".order-price-amount"]) {
+      for (const cellColumn of [0, 1]) {
+        const offsets = internalLayout
+          .filter((_, index) => index % 2 === cellColumn)
+          .map(item => item.pieces[selector].left);
+        expect(Math.max(...offsets) - Math.min(...offsets), label + " aligned " + selector + " column")
+          .toBeLessThanOrEqual(2);
+      }
+    }
+
+    if (viewportWidth >= 1024) {
+      for (const item of internalLayout) {
+        const { ".order-price-size": size, ".order-dimensions": dimensions } = item.pieces;
+        const sizeLabel = await table.locator("tbody td.order-price-cell").nth(internalLayout.indexOf(item))
+          .locator(".order-price-size").innerText();
+        const isF40English = language === "en" && sizeLabel.trim() === "F40+";
+        if (!isF40English) {
+          expect(dimensions.height, label + " dimensions remain on one line at desktop widths")
+            .toBeLessThanOrEqual(size.height + 1);
+        }
+      }
+    }
+  }
 
   await expect(pricing).toContainText(language === "ja"
     ? "寸法はF規格の標準サイズ（長辺 × 短辺）です。"

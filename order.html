@@ -188,20 +188,45 @@
 
         .order-page .history-table.order-price-table td.order-price-cell {
             width: 50%;
-            padding: 1rem 0.75rem 1rem 0;
+            padding: 0.75rem 0.75rem 0.75rem 0;
+            vertical-align: middle !important;
+        }
+
+        .order-page .history-table.order-price-table .order-price-cell-layout {
+            display: grid;
+            grid-template-columns: 3.5rem minmax(0, 1fr) 7.5rem;
+            align-items: center;
+            column-gap: 0.5rem;
+            width: 100%;
         }
 
         .order-page .history-table.order-price-table td.order-price-cell + td.order-price-cell {
             border-left: 1px solid var(--text);
-            padding-left: 1rem;
+            padding-left: 0.75rem;
             padding-right: 0;
         }
 
-        .order-page .history-table.order-price-table td.order-price-cell > span {
-            display: block;
+        .order-page .history-table.order-price-table .order-price-cell-layout > span {
+            display: inline;
+            min-width: 0;
             margin-top: 0;
             font-size: inherit;
             line-height: inherit;
+        }
+
+        .order-page .history-table.order-price-table .order-price-size {
+            grid-column: 1;
+            white-space: nowrap;
+        }
+
+        .order-page .history-table.order-price-table .order-dimensions {
+            grid-column: 2;
+            overflow-wrap: normal;
+        }
+
+        .order-page .history-table.order-price-table .order-price-amount {
+            grid-column: 3;
+            white-space: nowrap;
         }
 
         /* Statement の 01〜05 フローを再利用 */
@@ -262,11 +287,16 @@
             }
 
             .order-page .history-table.order-price-table td.order-price-cell {
-                padding: 0.75rem 0.5rem 0.75rem 0;
+                padding: 0.6rem 0.35rem 0.6rem 0;
+            }
+
+            .order-page .history-table.order-price-table .order-price-cell-layout {
+                grid-template-columns: 3.25rem minmax(0, 1fr) 7.25rem;
+                column-gap: 0.2rem;
             }
 
             .order-page .history-table.order-price-table td.order-price-cell + td.order-price-cell {
-                padding-left: 0.5rem;
+                padding-left: 0.35rem;
             }
         }
 
@@ -275,6 +305,36 @@
                 width: 100%;
                 margin: 60vmin 0 0;
                 padding: 0 3vmin;
+            }
+
+            .order-page .history-table.order-price-table td.order-price-cell {
+                padding: 0.7rem 0.45rem 0.7rem 0;
+            }
+
+            .order-page .history-table.order-price-table .order-price-cell-layout {
+                grid-template-columns: minmax(0, 1fr) max-content;
+                grid-template-areas:
+                    "size amount"
+                    "dimensions dimensions";
+                column-gap: 0.35rem;
+                row-gap: 0.1rem;
+            }
+
+            .order-page .history-table.order-price-table td.order-price-cell + td.order-price-cell {
+                padding-left: 0.45rem;
+            }
+
+            .order-page .history-table.order-price-table .order-price-size {
+                grid-area: size;
+            }
+
+            .order-page .history-table.order-price-table .order-dimensions {
+                grid-area: dimensions;
+            }
+
+            .order-page .history-table.order-price-table .order-price-amount {
+                grid-area: amount;
+                text-align: right;
             }
 
             .order-page .work {
@@ -367,62 +427,82 @@
                             <tbody>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F4</span>
                                         <span class="order-dimensions">333 × 242&nbsp;mm</span>
                                         <span class="order-price-amount">¥60,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F15</span>
                                         <span class="order-dimensions">652 × 530&nbsp;mm</span>
                                         <span class="order-price-amount">¥120,000</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F6</span>
                                         <span class="order-dimensions">410 × 318&nbsp;mm</span>
                                         <span class="order-price-amount">¥71,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F20</span>
                                         <span class="order-dimensions">727 × 606&nbsp;mm</span>
                                         <span class="order-price-amount">¥165,000〜</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F8</span>
                                         <span class="order-dimensions">455 × 380&nbsp;mm</span>
                                         <span class="order-price-amount">¥83,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F25</span>
                                         <span class="order-dimensions">803 × 652&nbsp;mm</span>
                                         <span class="order-price-amount">¥198,000〜</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F10</span>
                                         <span class="order-dimensions">530 × 455&nbsp;mm</span>
                                         <span class="order-price-amount">¥95,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F30</span>
                                         <span class="order-dimensions">910 × 727&nbsp;mm</span>
                                         <span class="order-price-amount">¥231,000〜</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F12</span>
                                         <span class="order-dimensions">606 × 500&nbsp;mm</span>
                                         <span class="order-price-amount">¥107,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
-                                        <span class="order-price-size">F40以上</span>
+                                        <div class="order-price-cell-layout">
+                                        <span class="order-price-size">F40〜</span>
                                         <span class="order-dimensions">1000 × 803&nbsp;mm〜</span>
                                         <span class="order-price-amount">要相談</span>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -528,62 +608,82 @@
                             <tbody>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F4</span>
                                         <span class="order-dimensions">333 × 242&nbsp;mm</span>
                                         <span class="order-price-amount">¥60,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F15</span>
                                         <span class="order-dimensions">652 × 530&nbsp;mm</span>
                                         <span class="order-price-amount">¥120,000</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F6</span>
                                         <span class="order-dimensions">410 × 318&nbsp;mm</span>
                                         <span class="order-price-amount">¥71,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F20</span>
                                         <span class="order-dimensions">727 × 606&nbsp;mm</span>
                                         <span class="order-price-amount">From ¥165,000</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F8</span>
                                         <span class="order-dimensions">455 × 380&nbsp;mm</span>
                                         <span class="order-price-amount">¥83,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F25</span>
                                         <span class="order-dimensions">803 × 652&nbsp;mm</span>
                                         <span class="order-price-amount">From ¥198,000</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F10</span>
                                         <span class="order-dimensions">530 × 455&nbsp;mm</span>
                                         <span class="order-price-amount">¥95,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F30</span>
                                         <span class="order-dimensions">910 × 727&nbsp;mm</span>
                                         <span class="order-price-amount">From ¥231,000</span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F12</span>
                                         <span class="order-dimensions">606 × 500&nbsp;mm</span>
                                         <span class="order-price-amount">¥107,000</span>
+                                        </div>
                                     </td>
                                     <td class="tb-content order-price-cell">
+                                        <div class="order-price-cell-layout">
                                         <span class="order-price-size">F40+</span>
                                         <span class="order-dimensions">1000 × 803&nbsp;mm and above</span>
                                         <span class="order-price-amount">Please inquire</span>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
