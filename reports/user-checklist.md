@@ -359,3 +359,30 @@
 - [x] Recorded public checks at 1440px and 390px for all nine pages, zero horizontal overflow, zero console errors, and passing Gallery sidebar/caption behavior.
 - [x] Listed Information translation gaps, Yurayura full-translation work and language/table accessibility work as follow-ups.
 - [x] Kept implementation, generated output, screenshot baselines, and user CSS memos outside this documentation scope.
+
+
+## 2026-10-04 Biography and Artist Statement local review
+
+- [x] Confirmed the authoritative source mapping and edited the root HTML sources only.
+- [x] Preserved the existing bilingual paragraph structure, classes, header/footer references, title area, and Biography history tables.
+- [x] Retained the requested biography facts and concise NatureInspire mention; kept the detailed philosophy in Artist Statement.
+- [x] Built the generated docs pages.
+- [x] Checked Biography and Artist Statement at 1440px, 768px, and 390px for bilingual display, English reading comfort, and horizontal overflow.
+- [x] Confirmed screenshot differences are from the changed copy; no screenshot baseline was updated.
+- [ ] Owner review of the final copy and intentional 1440px visual differences.
+- [ ] Public deployment and physical-device acceptance, if later requested.
+
+## 2026-10-04 Selected Ink Field + TRUNK release checklist
+
+- [x] Selected Ink Field remains the primary background on all nine routes.
+- [x] Original TRUNK sphere restored only on Biography and Artist Statement with the prior VANTA settings.
+- [x] Ripple and VANTA.FOG remain disabled in Selected Ink mode; rollback path retained.
+- [x] Runtime canvas counts, repeated initialization, reduced-motion lifecycle, and no-context-loss checks passed.
+- [x] Biography and Artist Statement local layout checks passed at 1440px and 390px; no horizontal overflow.
+- [x] Build passed; clean candidate check chain passed. The formal checkout's docs-sync gate remains affected by preserved unrelated generated-output WIP.
+- [x] Pages #418 passed; Visual Regression #445 passed (61 passed / 20 skipped / 0 failed).
+- [x] Linux screenshot baselines unchanged; no baseline commit created.
+- [x] Existing Gallery / Category / menu.js changes and review-package attachments were kept out of the production commits.
+- [ ] Owner headed-browser review of the deployed sphere and background composition.
+- [ ] Real-GPU / physical-device performance acceptance; headless software-WebGL readings are diagnostic only.
+- [ ] Start the separate Gallery layout audit after reviewing the current preserved WIP.

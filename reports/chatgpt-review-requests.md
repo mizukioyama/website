@@ -505,3 +505,22 @@ https://github.com/mizukioyama/website/actions/runs/36362287009
 ## 2026-09-29 Status of prior language and Visual Regression requests
 
 The earlier prompts in this file are archived as issued; their dated review boundaries are historical. The earlier 2026-09-29 language decision was superseded by the later specification consolidation: `PORTFOLIO_MASTER_SPEC.md` now requires Ja / En switching on Home, Gallery, Information, Order, Contact, Policy and Yurayura, with Japanese-first bilingual display only on Biography and Artist Statement. The current code gap is recorded in `reports/known-issues.md` and `reports/next-actions.md`. Visual Regression #398 is resolved as a historical gate issue; #406 passed with screenshot comparisons active (53 passed, 13 skipped, 0 failed), and the latest #407 run also succeeded on `b360b71`. No external review request is opened by this documentation update.
+
+
+## 2026-10-04 Biography and Artist Statement copy review — draft only
+
+Review the current bilingual Biography and Artist Statement copy in the local portfolio checkout. Check that the Japanese preserves the artist’s voice, the English reads naturally, and both languages match in meaning. Confirm that Biography communicates the path to the current artist identity with the stated career facts, while Artist Statement carries the full NatureInspire explanation, working method, reasons for abstraction, art’s role, meaning of the work, and prompts 01–05. Review only; do not change HTML structure, styles, scripts, history tables, screenshots, or public content. No external review request was sent, and the existing review ZIP was left untouched.
+
+## 2026-10-04 Selected Ink Field + TRUNK release review
+
+Review production commits 3302163d9cd83eba54b63ed2294bb0e81284c94a and 7077f701f510d6be4803746efd18f28b71f0aa91.
+
+1. Confirm Selected Ink Field is the primary background on all nine routes, with the original VANTA.TRUNK sphere only on Biography and Artist Statement.
+2. Confirm Ripple and VANTA.FOG remain disabled in Selected Ink mode and the legacy rollback route is retained.
+3. Review the canvas lifecycle, reduced-motion behavior, route-scoped TRUNK setup, and the visual-test wait stabilization.
+4. Check Pages #418 (37194973209) and Visual Regression #445 (37195017587); #445 passed with 61 passed / 20 skipped / 0 failed.
+5. Confirm no Linux screenshot baseline was changed because the final suite passed against existing baselines.
+6. Treat local headless software-WebGL performance numbers as diagnostic only. Real GPU and physical-device acceptance remain pending.
+7. Keep the existing unfinished Gallery / Category / menu.js work out of this release. The next task is a separate Gallery layout audit; do not start it as part of this review.
+
+Review only. Do not update baselines, alter production code, or modify the preserved Gallery work as part of this review.

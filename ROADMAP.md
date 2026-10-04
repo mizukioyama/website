@@ -4,21 +4,31 @@
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
 Only the baseline and current priority queue below define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
 
-## Current production baseline — 2026-10-01
+## Current production baseline — 2026-10-04
 
-- Contact bilingual implementation: `0b6a4b4c8d9bba9435dafd6789e2290749d7af4f`; targeted Contact visual timeout: `25be9c5b51d0345e0cf5ca23f92ce562534af14b`; Contact-only Linux baselines: `17b97a8991832837ea0bd991b125df6049ede51e`. Pages deploys #399, #400, and #401 passed.
-- Current matrix: Home / Gallery / Information / Order / Policy / Yurayura use the shared Ja / En switch. Biography / Artist Statement / Contact are Japanese-first bilingual pages with the language control hidden. Contact preserves stored language preferences and pairs Japanese copy with English directly below throughout its form and modals.
-- Contact form behavior and bilingual invariants passed local checks at all seven viewports. `npm run build`, `npm run check`, and the representative visual suite passed; Visual Regression #428 passed with 55 passed / 17 skipped.
-- CI timeout investigation: #426 hit the 30-second global test limit during Contact tablet-768 geometry checks; a targeted 60-second Contact test timeout removed the timeout in #427. After reviewing CI actual/diff images, only Contact desktop-1440 and mobile-390 snapshots were updated; #428 passed. No production style tokens or other-page baselines changed.
-- Public browser acceptance for Contact and the other eight pages is still pending because the admin-enforced browser policy denied access. Final design handoff readiness remains open.
+- Production HEAD / origin/main: 7077f701f510d6be4803746efd18f28b71f0aa91. The Selected Ink + TRUNK implementation is 3302163d9cd83eba54b63ed2294bb0e81284c94a; the visual-test wait stabilization is 7077f701f510d6be4803746efd18f28b71f0aa91.
+- Primary background is Selected Ink Field on all nine routes. The original VANTA.TRUNK sphere is an optional accent only on Biography and Artist Statement. Ripple is disabled and VANTA.FOG stays disabled in Selected Ink mode; legacy rollback remains available.
+- Biography / Artist Statement preserve the user-approved 5500 layout refinements, scoped to those two pages. No Selected Ink visual parameters or Linux baselines changed in the sphere restoration.
+- Pages #418 passed. Visual Regression #445 passed with 61 passed / 20 skipped / 0 failed.
+
+## Current priority queue — 2026-10-04
+
+- Background system: Selected Ink Field is the primary background on all nine site routes. The original VANTA.TRUNK sphere runs as an optional accent only on Biography and Artist Statement. Ripple remains disabled, VANTA.FOG remains disabled in Selected Ink mode, and the legacy rollback path is retained.
+- Biography / Artist Statement layout refinements remain scoped to those two pages. Their approved 5500 composition and the shared page spacing are unchanged by the sphere restoration.
+- Runtime checks confirm one Selected Ink canvas on each route, one TRUNK canvas only on Biography and Artist Statement, and zero Ripple / VANTA.FOG canvases. Repeated mount/destroy, reduced-motion changes, and no-WebGL-context-loss checks passed.
+- Release gates: Pages #418 passed; Visual Regression #445 passed (61 passed, 20 skipped, 0 failed). Existing Linux baselines were not changed; no baseline commit was needed.
+- Build and source checks passed in a clean candidate copy. In the formal dirty checkout, npm run check stops at check:docs-sync because pre-existing Gallery/menu work has generated docs differences. The clean-copy check covers the intended production changes; existing unrelated work remains preserved.
+- Headless software-WebGL measurements were low and variable; they are not a real-GPU or device performance acceptance. Incremental TRUNK cost on the user's GPU remains unmeasured. No Selected Ink quality values were changed.
+- Existing Gallery / Category / menu.js work and other local changes remain untouched. Next: start a separate Gallery layout audit for sidebar reserved width, artwork-grid width, and Category open/close behavior across the seven viewport widths. Do not mix it with this background-system release.
+- Owner visual review in a headed browser and physical iOS / Android performance acceptance remain pending.
 
 ## Current priority queue
 
-1. When browser access is available, verify published Contact bilingual content and the other eight pages at 1440px / 390px.
-2. Establish final handoff readiness only after public rendered-page acceptance. Visual Regression #428 is green; Contact timeout stabilization is complete.
-3. After handoff readiness, the owner may make desired final design/layout adjustments using `CSS_VARIABLES_GUIDE.md`; then run build/check and Visual Regression without baseline updates and verify Pages/public rendering.
+1. Owner review of the deployed Biography / Artist Statement background composition and sphere placement; real-GPU and physical-device performance acceptance remains pending.
+2. Start a separate Gallery layout audit after mapping the preserved local WIP. Compare sidebar reserved width, artwork-grid width, and Category open/close geometry at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px. Do not mix Gallery changes into the background-system release.
+3. Keep current Linux baselines unchanged unless a later reviewed Visual Regression run confirms an intentional target-page difference.
 
-This queue records the remaining public acceptance gate and owner handoff; it does not authorize new production changes.
+This queue records the remaining acceptance and the next audit. It does not authorize editing preserved Gallery work without inspecting its current diff.
 
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering
@@ -119,3 +129,5 @@ This queue records the remaining public acceptance gate and owner handoff; it do
 - 2026-09-19: Information page source completed and shared header/footer navigation aligned; static source verification passed 13/13.
 - 2026-09-19: Verified source -> build -> docs mapping; corrected Information/shared-navigation build inputs.
 - 2026-09-19: Portfolio-specific AI governance/specification framework established.
+
+- 2026-10-04: Restored the original VANTA.TRUNK sphere as a scoped accent over Selected Ink Field on Biography and Artist Statement only. Selected Ink remains primary across all nine routes; Ripple and VANTA.FOG remain disabled in Selected Ink mode. Pages #418 and Visual Regression #445 passed, Linux baselines stayed unchanged, and the Gallery layout task is ready for a separate audit.

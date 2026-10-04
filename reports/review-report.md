@@ -969,3 +969,32 @@ Interactive before/after comparison also matched at 390px and 1440px. At 390px t
 ### Scope and next step
 
 This specification checkpoint covers specification/report Markdown only. The pre-existing modified review ZIP and both user CSS notes remain outside its scope. No HTML, CSS, JavaScript, tests, build output or screenshot baselines were changed. No local build or automated test suite was run. Git delivery status is reported with the checkpoint result; Information / Contact / Yurayura production-code implementation remains outside this checkpoint.
+
+
+## 2026-10-04 Biography and Artist Statement copy update
+
+- Worked in the existing checkout on branch main. Starting and final HEAD: 046d1acf3bb147249dd46021a8360cacae41c111.
+- SITE_MAP.md confirms biography.html and artist-statement.html are the authoritative sources; npm run build generated docs/biography.html and docs/artist-statement.html. No direct edits were made to docs source output.
+- Updated the Japanese and English bodies. Biography retains the requested career facts and gives NatureInspire only a short mention; the detailed NatureInspire explanation remains in Artist Statement. Artist Statement follows the requested six-part order and the five bilingual prompts.
+- HTML tag signature is unchanged. The full Biography history-table section through the end of main is byte-identical to the starting source.
+- Pre-edit copies of both source pages and both generated pages are in /private/tmp/website-biography-statement-before-2026-10-03T17-59-56-569Z.
+- npm run build: PASS. npm run check: stopped at check:docs-sync because generated docs/ is modified and remains uncommitted. Component, JavaScript and typography checks passed before that gate; standalone generated consistency, SEO and link checks passed.
+- The 1440/768/390 layout and mobile English-reading checks passed (8 passed, 4 skipped). Screenshot comparison at 1440 found content-driven differences: Biography +244px page height, 6% changed pixels; Artist Statement +699px, 11%. No baseline was updated. A Darwin 390px baseline is absent.
+- Raw git diff --check reports the two generated Biography asset-hash lines as trailing whitespace because they retain CRLF endings. The CRLF-aware whitespace check passed; no broad newline conversion was made.
+- Starting dirty css/gallery.css and js/menu.js were not edited in this task; the build reflected their existing state into docs and refreshed generated asset hashes across pages. The existing review ZIP and untracked 変更メモ.css hashes are unchanged.
+- Public deployment and physical-device acceptance were not performed.
+
+## 2026-10-04 Selected Ink Field and TRUNK sphere release closeout
+
+- Restored the original VANTA.TRUNK sphere as an optional accent on Biography and Artist Statement only. The original settings were retained: mouse/touch controls on, gyro off, minimum dimensions 200, scale 1.00 / mobile 0.70, white, chaos 2.50.
+- Selected Ink Field remains the primary background across all nine routes. Ripple rendering and VANTA.FOG remain disabled in Selected Ink mode; the legacy rollback path remains available. No Selected Ink visual parameter or the approved Biography / Artist Statement layout was changed in the sphere restoration.
+- Runtime assertions cover one Selected Ink canvas on all nine routes, one TRUNK canvas only on the two target pages, zero Ripple/VANTA.FOG canvases, idempotent initialization, reduced-motion lifecycle, and no WebGL context loss. Local runtime assertions passed.
+- Biography and Artist Statement layout checks passed at 1440px and 390px for headings, subtitle, image/content/footer geometry, and horizontal overflow. Headed visual review through the connected browser was blocked by its admin policy; owner/device acceptance remains pending.
+- npm run build passed. In the formal checkout, npm run check reached check:docs-sync and stopped because unrelated pre-existing Gallery/menu work has generated docs differences. A clean temporary candidate copy passed the complete available check chain, including generated consistency, SEO, and links; docs sync correctly skipped without Git metadata.
+- git -c core.whitespace=cr-at-eol diff --check passed. No broad newline conversion was performed.
+- Performance was measured in local headless Chromium using software WebGL (--enable-unsafe-swiftshader), not on the user's GPU. In a 7-second idle sample at Biography 1440, Selected-only averaged 20.76 FPS / p95 66.6ms / max 183.3ms; Selected + TRUNK averaged 16.40 FPS / p95 100.1ms / max 166.7ms. At 390px, the corresponding averages were 21.85 and 22.04 FPS, with p95 50ms in both runs. The software renderer also produced low Home results, so these are not hardware acceptance figures. No context loss or long task was observed in the desktop hybrid run. Real-GPU incremental cost remains unverified.
+- Implementation commit 3302163d9cd83eba54b63ed2294bb0e81284c94a and visual-test stabilization commit 7077f701f510d6be4803746efd18f28b71f0aa91 were pushed non-force to origin/main.
+- Pages #418 / run 37194973209: PASS. Visual Regression #445 / run 37195017587: PASS, 61 passed / 20 skipped / 0 failed.
+- Baselines were not updated: the final Visual Regression passed against the existing Linux baselines. No baseline-only commit was needed.
+- Existing Gallery / Category / menu.js WIP, reports history, review ZIP attachments, and 変更メモ.css were not included in either production commit. The Gallery layout implementation was not started.
+- Next step: a separate Gallery layout audit covering sidebar reserved width, artwork-grid width, and Category open/close behavior. Preserve and inspect current local Gallery changes before editing.

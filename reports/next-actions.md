@@ -270,3 +270,17 @@ This checkpoint did not begin the deferred language-spec work or large MD/spec r
 3. After the checkpoint review, start a separate task to decide the Information, Contact, and Yurayura language specification.
 4. Conduct the broad MD/spec review as a separate later task.
 5. Do not begin either deferred task in this checkpoint.
+
+
+## 2026-10-04 Biography and Artist Statement follow-up
+
+1. Review the revised Japanese and English copy in the local pages at 1440px and 390px; confirm the artist’s factual details and wording.
+2. Keep the screenshot baselines unchanged until the owner accepts the visual difference. If a later release requires baseline updates, compare on the formal Linux environment and update only the affected pages after review.
+3. Run the full release sequence only when requested: clean generated-output gate, Visual Regression, Pages build/deploy, and public URL verification. Physical-device acceptance remains separate.
+
+## 2026-10-04 After Selected Ink Field + TRUNK release
+
+1. Have the owner review the deployed Biography and Artist Statement pages and confirm the restored sphere's position, size, motion, and interaction with the text and artwork.
+2. If available, measure the hybrid pages on the user's actual GPU and on a physical mobile device. Keep the current Selected Ink quality settings unchanged unless the owner requests a new visual/performance tradeoff.
+3. Begin a separate Gallery layout audit. First map the current working-tree changes and compare sidebar reserved width, artwork-grid width, and Category open/close geometry at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px. Preserve the existing WIP and do not bundle it into the background-system release.
+4. Keep Linux baselines unchanged unless a later reviewed Visual Regression run shows an intentional, confirmed target-page difference.

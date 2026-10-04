@@ -238,3 +238,19 @@
 - WARN: Existing VANTA warning [VANTA] No THREE defined on window and WebGL GPU performance warnings appeared; public checks recorded zero console errors.
 - Existing Webpack large-asset/performance warnings remain.
 - Information, Contact, and Yurayura language behavior remains bilingual with the selector hidden; this is recorded current behavior, not a newly approved specification.
+
+
+## 2026-10-04 Biography and Artist Statement local verification
+
+- Screenshot comparison at 1440px differs from the current text baseline because of the approved longer copy: Biography is 244px taller with 6% changed pixels; Artist Statement is 699px taller with 11% changed pixels. Baselines remain unchanged. The macOS 390px snapshots are absent, so that viewport was checked for layout and English readability without snapshot comparison.
+- npm run check stops at check:docs-sync while generated docs/ changes are uncommitted. Standalone generated-consistency, SEO and link checks pass.
+- Raw git diff --check flags two generated Biography lines ending in CRLF after cache-hash updates; the line-ending-aware diff check passes. No whole-file newline normalization was made.
+- Public deployment and physical-device acceptance remain untested. Existing Webpack large-asset warnings and VANTA warning remain outside this copy task.
+
+## 2026-10-04 Selected Ink Field + TRUNK release
+
+- Headed browser visual acceptance and physical iOS / Android acceptance are pending. The connected browser denied local target access under its admin policy, so no physical-device or owner acceptance is claimed.
+- Local headless Chromium used software WebGL (--enable-unsafe-swiftshader) and reported low, variable FPS. Those measurements are not representative of the user's GPU. The incremental desktop cost of adding TRUNK to Selected Ink Field remains unverified on real hardware; Selected Ink quality settings were not reduced.
+- The formal dirty checkout's full npm run check stops at check:docs-sync due to pre-existing generated docs differences from Gallery / menu work. The intended candidate passed the complete available check chain in a clean temporary copy; docs sync skipped there because it had no Git metadata.
+- Existing Webpack asset-size warnings remain. No WebGL context loss was observed in the local hybrid runtime tests.
+- Pages #418 and Visual Regression #445 passed. The existing Linux baselines remain unchanged.
