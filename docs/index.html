@@ -2,13 +2,14 @@
 <html lang="ja">
 
 <head>
+  <script src="js/background-system-config.js?v=18aab532a738"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小山瑞樹｜抽象アート・アーティスト公式ポートフォリオ</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
-    <link rel="stylesheet" href="css/all.css?v=8fc114a717bc">
+    <link rel="stylesheet" href="css/all.css?v=25bf659435d3">
     <link rel="stylesheet" href="css/index.css?v=69da585b3a85">
     <link rel="stylesheet" href="css/menu.css?v=bf726ab5e6e2">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=21a2301fc9f2">
@@ -644,6 +645,8 @@
     </script>
 
     <script>
+    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
+
         VANTA.FOG({
             el: "#vanta-bg",
             mouseControls: true,
@@ -659,7 +662,9 @@
             speed: 0.60,
             zoom: 0.80
         })
-    </script>
+
+    }
+  </script>
 
     <script>
         function updateElapsedTime() {
@@ -723,6 +728,7 @@
     </script>
 
 
+  <script src="js/selected-ink-field.js?v=298fd03280c2"></script>
 </body>
 
 </html>

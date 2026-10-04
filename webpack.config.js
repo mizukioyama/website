@@ -13,6 +13,8 @@ const rootVisualPages = [
 
 const rootVisualScripts = [
   "bg_wave.js",
+  "background-system-config.js",
+  "selected-ink-field.js",
   "cursor.js",
   "form.js",
   "gallery-captions-data.js",

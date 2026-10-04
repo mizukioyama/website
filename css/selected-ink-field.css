@@ -1,0 +1,27 @@
+html.selected-ink-field-mode body {
+  isolation: isolate;
+}
+
+html.selected-ink-field-mode #selected-ink-field-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  pointer-events: none;
+  opacity: 1;
+}
+
+html.selected-ink-field-mode .ripples,
+html.selected-ink-field-mode #vanta-bg,
+html.selected-ink-field-mode #vanta-bg-bio {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.selected-ink-field-mode #selected-ink-field-canvas {
+    animation: none !important;
+  }
+}

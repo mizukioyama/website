@@ -679,6 +679,15 @@ main {
   display: block;
 }
 
+/* Preserve the 5500-selected composition on Artist Statement and Biography only. */
+.gallery.statement > .state-box {
+  padding-top: 60vmin;
+}
+
+.gallery.statement > .state-box > .content {
+  margin: 0 auto;
+}
+
 .art-page .content {
   padding: 3rem 2rem;
   background: rgba(0, 15, 15, 0.4);

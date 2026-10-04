@@ -2,6 +2,7 @@
 <html lang="ja">
 
 <head>
+  <script src="../../js/background-system-config.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>グループ展「ゆらゆら」｜展示詳細 - 小山瑞樹</title>
@@ -456,6 +457,8 @@
     </script>
 
     <script>
+    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
+
         if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
             window.VANTA &&
             typeof window.VANTA.TRUNK === "function") {
@@ -475,7 +478,10 @@
                 });
             }
         }
-    </script>
+
+    }
+  </script>
+  <script src="../../js/selected-ink-field.js"></script>
 </body>
 
 </html>

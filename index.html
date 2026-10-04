@@ -2,6 +2,7 @@
 <html lang="ja">
 
 <head>
+  <script src="js/background-system-config.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小山瑞樹｜抽象アート・アーティスト公式ポートフォリオ</title>
@@ -644,6 +645,8 @@
     </script>
 
     <script>
+    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
+
         VANTA.FOG({
             el: "#vanta-bg",
             mouseControls: true,
@@ -659,7 +662,9 @@
             speed: 0.60,
             zoom: 0.80
         })
-    </script>
+
+    }
+  </script>
 
     <script>
         function updateElapsedTime() {
@@ -723,6 +728,7 @@
     </script>
 
 
+  <script src="js/selected-ink-field.js"></script>
 </body>
 
 </html>

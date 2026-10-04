@@ -2307,30 +2307,57 @@ test("Header menu follows saved language and hides language controls while open"
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
-for (const entry of [
-  { key: "information-motion-runtime", path: "information.html" },
-  { key: "yurayura-motion-runtime", path: "exhibitions/yurayura/" }
-]) {
-  test(entry.key + " initializes without runtime errors", async ({ page }, testInfo) => {
-    test.skip(
-      testInfo.project.name !== "desktop-1440",
-      "Motion initialization is audited once per normal run."
-    );
+test("Selected Ink Field initializes on all nine production routes", async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "Background initialization is audited once per normal run."
+  );
 
-    const runtime = createRuntimeMonitor(page, entry);
-    await prepareDeterministicNetwork(page);
-    await page.emulateMedia({ reducedMotion: "no-preference" });
+  const runtime = createRuntimeMonitor(page);
+  await prepareDeterministicNetwork(page);
+  await page.emulateMedia({ reducedMotion: "no-preference" });
 
+  for (const entry of pages.filter(item => item.key !== "404")) {
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
-    expect(response.status()).toBe(200);
+    expect(response.status(), entry.key + " should return HTTP 200").toBe(200);
     await page.waitForLoadState("load");
+    await expect(page.locator("html"), entry.key + " should enable Selected Ink Field mode")
+      .toHaveClass(/selected-ink-field-mode/);
+    await expect.poll(
+      () => page.evaluate(() => Boolean(
+        window.__selectedInkField &&
+        window.__selectedInkField.getState().frameCount > 0
+      )),
+      { message: entry.key + " should render at least one Ink Field frame" }
+    ).toBe(true);
 
-    await expect(page.locator("#vanta-bg-bio canvas").first()).toBeAttached();
+    const state = await page.evaluate(() => {
+      const engine = window.__selectedInkField;
+      const canvas = document.querySelector("#selected-ink-field-canvas");
+      return {
+        mode: window.__PORTFOLIO_BACKGROUND_SYSTEM__,
+        canvasCount: document.querySelectorAll("#selected-ink-field-canvas").length,
+        canvasWidth: canvas?.width || 0,
+        canvasHeight: canvas?.height || 0,
+        legacyCanvasCount: document.querySelectorAll(
+          ".ripples canvas, #vanta-bg canvas, #vanta-bg-bio canvas"
+        ).length,
+        engine: engine ? engine.getState() : null
+      };
+    });
 
+    expect(state.mode, entry.key + " background engine").toBe("selectedInkField");
+    expect(state.canvasCount, entry.key + " Selected Ink Field canvas count").toBe(1);
+    expect(state.canvasWidth, entry.key + " canvas width").toBeGreaterThan(0);
+    expect(state.canvasHeight, entry.key + " canvas height").toBeGreaterThan(0);
+    expect(state.legacyCanvasCount, entry.key + " legacy Ripple/VANTA canvases").toBe(0);
+    expect(state.engine.frameCount, entry.key + " animation frame count").toBeGreaterThan(0);
+    expect(state.engine.webglErrors, entry.key + " WebGL errors").toEqual([]);
     assertRuntimeClean(runtime, entry);
-    await attachRuntimeObservations(testInfo, entry, runtime);
-  });
-}
+  }
+
+  await attachRuntimeObservations(testInfo, { key: "selected-ink-field" }, runtime);
+});
 
 test("all sitemap pages are registered for visual checks", async ({}, testInfo) => {
   test.skip(

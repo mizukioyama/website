@@ -2,6 +2,7 @@
 <html lang="ja">
 
 <head>
+  <script src="js/background-system-config.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order｜小山瑞樹 - 作品・制作のご依頼</title>
@@ -761,6 +762,8 @@
     </script>
 
     <script>
+    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
+
         if (window.VANTA && typeof window.VANTA.TRUNK === "function") {
             const background = document.querySelector("#vanta-bg-bio");
             if (background) {
@@ -778,7 +781,10 @@
                 });
             }
         }
-    </script>
+
+    }
+  </script>
+  <script src="js/selected-ink-field.js"></script>
 </body>
 
 </html>

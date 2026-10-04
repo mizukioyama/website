@@ -2,6 +2,7 @@
 <html lang="ja">
 
 <head>
+  <script src="js/background-system-config.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>作品一覧｜小山瑞樹 - Nature inspire</title>
@@ -328,6 +329,8 @@
   </script>
 
   <script>
+    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
+
     let vantaEffect = VANTA.FOG({
       el: "#vanta-bg",
       mouseControls: true,
@@ -361,7 +364,10 @@
         vantaEffect.options.zoom = baseZoom + (Math.sin(performance.now() * 0.0005) * 0.02);
       }
     }, interval);
+
+    }
   </script>
+  <script src="js/selected-ink-field.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,8 @@
 $(function () {
+    // Do not start the legacy Ripple engine while Selected Ink Field is active.
+    // Switching the config back to "legacy" keeps this initializer available for rollback.
+    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ === "selectedInkField") return;
+
     // 波紋コンテナ
     var $ripplesContainer = $('div.ripples');
 
