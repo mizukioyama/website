@@ -1344,7 +1344,10 @@ async function prepareDeterministicNetwork(page) {
 async function stabilize(page, entry = {}) {
   await page.addStyleTag({ path: path.resolve(__dirname, "stabilize.css") });
 
-  await page.evaluate(async () => {
+  // These pages run both the primary WebGL field and TRUNK in visual tests.
+  // Their letter-by-letter H1 reveal advances on RAF, so allow slower CI renderers more time.
+  const titleAnimationTimeoutMs = ["biography", "artist-statement"].includes(entry.key) ? 15000 : 5000;
+  await page.evaluate(async timeoutMs => {
     const title = document.querySelector(".h1-text h1.text");
     if (!title) return;
     const target = title.getAttribute("aria-label");
@@ -1355,7 +1358,7 @@ async function stabilize(page, entry = {}) {
       const timeoutTimer = setTimeout(() => {
         observer.disconnect();
         reject(new Error("Page title did not finish its text animation."));
-      }, 5000);
+      }, timeoutMs);
       const finish = () => {
         observer.disconnect();
         clearTimeout(timeoutTimer);
@@ -1371,7 +1374,7 @@ async function stabilize(page, entry = {}) {
       observer.observe(title, { childList: true, characterData: true, subtree: true });
       check();
     });
-  });
+  }, titleAnimationTimeoutMs);
 
   await page.evaluate(() => {
     const year = document.querySelector("#year");
