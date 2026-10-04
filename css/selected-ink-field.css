@@ -20,6 +20,16 @@ html.selected-ink-field-mode #vanta-bg-bio {
   display: none !important;
 }
 
+html.selected-ink-field-mode[data-background-accent="trunkSphere"] #vanta-bg-bio {
+  display: block !important;
+  z-index: 0;
+  pointer-events: none;
+}
+
+html.selected-ink-field-mode[data-background-accent="trunkSphere"] #state {
+  z-index: 10;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.selected-ink-field-mode #selected-ink-field-canvas {
     animation: none !important;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-background-accent="trunkSphere">
 
 <head>
   <script src="js/background-system-config.js"></script>
@@ -476,22 +476,10 @@
     </script>
 
     <script>
-    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
-
-        VANTA.TRUNK({
-            el: "#vanta-bg-bio",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 0.70,
-            color: 0xffffff,
-            chaos: 2.50
-        })
-
-    }
+    (function mountPortfolioBackgroundAccent() {
+      const accents = window.__PORTFOLIO_BACKGROUND_ACCENTS__;
+      if (accents) accents.mountTrunkSphere();
+    })();
   </script>
   <script src="js/selected-ink-field.js"></script>
 </body>

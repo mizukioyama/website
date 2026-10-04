@@ -14,8 +14,7 @@
 #stalker,
 #loading-bg,
 .ripples canvas,
-#vanta-bg canvas,
-#vanta-bg-bio canvas {
+#vanta-bg canvas {
   display: none !important;
 }
 

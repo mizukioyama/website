@@ -700,6 +700,9 @@
       const coarseParticles = 25 * Math.round(25 * aspect);
       const fineScale = Math.round(54 + 24 * quality);
       const fineParticles = fineScale * Math.round(fineScale * aspect);
+      const rippleCanvasCount = document.querySelectorAll(".ripples canvas").length;
+      const fogCanvasCount = document.querySelectorAll("#vanta-bg canvas").length;
+      const trunkCanvasCount = document.querySelectorAll("#vanta-bg-bio canvas").length;
       return {
         mode: systemMode,
         renderer: renderer,
@@ -720,7 +723,10 @@
         maximumFrameTimeMs: maximumFrameTimeMs,
         rafActive: Boolean(rafId),
         canvasCount: document.querySelectorAll("#selected-ink-field-canvas").length,
-        legacyCanvasCount: document.querySelectorAll(".ripples canvas, #vanta-bg canvas, #vanta-bg-bio canvas").length,
+        rippleCanvasCount: rippleCanvasCount,
+        fogCanvasCount: fogCanvasCount,
+        trunkCanvasCount: trunkCanvasCount,
+        legacyCanvasCount: rippleCanvasCount + fogCanvasCount,
         eventListenerCount: listeners.length,
         scrollVelocityPxPerSecond: Math.hypot(scrollX, scrollY),
         waveAmplitude: waveAmplitude,

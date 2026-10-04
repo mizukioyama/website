@@ -1507,6 +1507,9 @@ for (const entry of pages) {
     });
 
     await prepareDeterministicNetwork(page);
+    if (["biography", "artist-statement"].includes(entry.key)) {
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+    }
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
@@ -2339,9 +2342,13 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
         canvasCount: document.querySelectorAll("#selected-ink-field-canvas").length,
         canvasWidth: canvas?.width || 0,
         canvasHeight: canvas?.height || 0,
-        legacyCanvasCount: document.querySelectorAll(
-          ".ripples canvas, #vanta-bg canvas, #vanta-bg-bio canvas"
-        ).length,
+        trunkCanvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length,
+        rippleCanvasCount: document.querySelectorAll(".ripples canvas").length,
+        fogCanvasCount: document.querySelectorAll("#vanta-bg canvas").length,
+        trunkInstanceActive: Boolean(
+          window.__PORTFOLIO_BACKGROUND_ACCENTS__ &&
+          window.__PORTFOLIO_BACKGROUND_ACCENTS__.getTrunkSphereInstance()
+        ),
         engine: engine ? engine.getState() : null
       };
     });
@@ -2350,7 +2357,22 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     expect(state.canvasCount, entry.key + " Selected Ink Field canvas count").toBe(1);
     expect(state.canvasWidth, entry.key + " canvas width").toBeGreaterThan(0);
     expect(state.canvasHeight, entry.key + " canvas height").toBeGreaterThan(0);
-    expect(state.legacyCanvasCount, entry.key + " legacy Ripple/VANTA canvases").toBe(0);
+    const trunkExpected = ["biography", "artist-statement"].includes(entry.key);
+    expect(state.trunkCanvasCount, entry.key + " TRUNK canvas count").toBe(trunkExpected ? 1 : 0);
+    expect(state.rippleCanvasCount, entry.key + " Ripple canvas count").toBe(0);
+    expect(state.fogCanvasCount, entry.key + " VANTA.FOG canvas count").toBe(0);
+    expect(state.trunkInstanceActive, entry.key + " TRUNK instance").toBe(trunkExpected);
+    expect(state.engine.legacyCanvasCount, entry.key + " disabled legacy canvas count").toBe(0);
+    expect(state.engine.trunkCanvasCount, entry.key + " engine TRUNK canvas count").toBe(trunkExpected ? 1 : 0);
+    if (trunkExpected) {
+      const repeatedMount = await page.evaluate(() => {
+        const accents = window.__PORTFOLIO_BACKGROUND_ACCENTS__;
+        const current = accents.getTrunkSphereInstance();
+        const returned = accents.mountTrunkSphere();
+        return { canvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length, sameInstance: current === returned };
+      });
+      expect(repeatedMount).toEqual({ canvasCount: 1, sameInstance: true });
+    }
     expect(state.engine.frameCount, entry.key + " animation frame count").toBeGreaterThan(0);
     expect(state.engine.webglErrors, entry.key + " WebGL errors").toEqual([]);
     assertRuntimeClean(runtime, entry);
@@ -2359,6 +2381,43 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
   await attachRuntimeObservations(testInfo, { key: "selected-ink-field" }, runtime);
 });
 
+
+test("VANTA.TRUNK accent respects reduced motion and motion preference changes", async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "Reduced-motion background lifecycle is checked once per normal run."
+  );
+
+  await prepareDeterministicNetwork(page);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const biographyResponse = await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  expect(biographyResponse.status()).toBe(200);
+  await page.waitForLoadState("load");
+  await expect.poll(() => page.evaluate(() => {
+    const engine = window.__selectedInkField;
+    const state = engine && engine.getState();
+    const canvas = document.querySelector("#selected-ink-field-canvas");
+    return Boolean(state && state.reducedMotion && canvas && canvas.width > 0 && canvas.height > 0);
+  })).toBe(true);
+  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(0);
+  expect(await page.evaluate(() => window.__PORTFOLIO_BACKGROUND_ACCENTS__
+    .getTrunkSphereInstance())).toBeNull();
+
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(1);
+  await expect.poll(() => page.evaluate(() => window.__selectedInkField.getState().frameCount)).toBeGreaterThan(0);
+  expect(await page.evaluate(() => Boolean(window.__PORTFOLIO_BACKGROUND_ACCENTS__
+    .getTrunkSphereInstance()))).toBe(true);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(0);
+  expect(await page.evaluate(() => window.__PORTFOLIO_BACKGROUND_ACCENTS__
+    .getTrunkSphereInstance())).toBeNull();
+
+  const statementResponse = await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
+  expect(statementResponse.status()).toBe(200);
+  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(0);
+});
 test("all sitemap pages are registered for visual checks", async ({}, testInfo) => {
   test.skip(
     testInfo.project.name !== "desktop-1440",
