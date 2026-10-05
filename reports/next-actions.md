@@ -1,12 +1,13 @@
 # Next Actions
 
-> The ordered queue below is current as of 2026-10-01. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
+> The ordered queue below is current as of 2026-10-05. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
 
 ## Current queue
 
-1. When browser access is available, verify the published Contact bilingual layout and the other eight pages at 1440px / 390px; this remains pending because the admin-enforced browser check denied access.
-2. Establish final design handoff readiness after public rendered-page acceptance. Visual Regression #428 passed (55 passed / 17 skipped), and the Contact timeout is resolved with a targeted 60-second limit.
-3. After handoff readiness, the owner may perform final design/layout adjustments. Then run build/check and Visual Regression without baseline updates and verify the public Pages output. Keep typography-token checker coverage separate.
+1. Complete Gallery Phase H-1 Linux preflight on the feature branch: dispatch Visual regression with full_audit=true, review all seven viewport results and the expected / actual / diff artifacts, and keep main, Pages, and baselines unchanged.
+2. When browser access is available, verify the published Contact bilingual layout and the other eight pages at 1440px / 390px; this remains pending because the admin-enforced browser check denied access.
+3. Establish final design handoff readiness after public rendered-page acceptance. Visual Regression #428 passed (55 passed / 17 skipped), and the Contact timeout is resolved with a targeted 60-second limit.
+4. After handoff readiness, the owner may perform final design/layout adjustments. Then run build/check and Visual Regression without baseline updates and verify the public Pages output. Keep typography-token checker coverage separate.
 
 Contact bilingual implementation, build/check, seven-viewport runtime checks, the two reviewed Contact-only Linux baselines, Pages deploys #399–#401, and Visual Regression #428 are complete. Public browser acceptance is not verified; do not mark final handoff ready until it passes.
 
@@ -284,3 +285,70 @@ This checkpoint did not begin the deferred language-spec work or large MD/spec r
 2. If available, measure the hybrid pages on the user's actual GPU and on a physical mobile device. Keep the current Selected Ink quality settings unchanged unless the owner requests a new visual/performance tradeoff.
 3. Begin a separate Gallery layout audit. First map the current working-tree changes and compare sidebar reserved width, artwork-grid width, and Category open/close geometry at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px. Preserve the existing WIP and do not bundle it into the background-system release.
 4. Keep Linux baselines unchanged unless a later reviewed Visual Regression run shows an intentional, confirmed target-page difference.
+
+
+## 2026-10-04 Gallery layout Phase B
+
+1. Reload the local Gallery at http://127.0.0.1:4173/website/gallery.html and review at 1440px.
+2. Check the artwork area with Category closed and open, two-column sizing, balanced margins, and no large unused left area.
+3. Report any overlap or spacing issue before expanding to 1280 / 1024 / 768 / mobile.
+4. Keep the current branch uncommitted; no push or baseline update is included.
+
+## 2026-10-04 Gallery Phase B-2 — owner review pending
+
+1. Open `http://127.0.0.1:4173/website/gallery.html` at 1440px and compare Category closed/open.
+2. Confirm the centered composition, 2-column Artwork, image/card width stability, Category gap, Pagination, horizontal overflow, and Background.
+3. Keep 1280px and smaller viewports untouched until this review is accepted.
+4. Do not stage, commit, push, or update baselines in this phase.
+
+## 2026-10-05 Gallery Phase C — seven-viewport owner review pending
+
+1. Review `http://127.0.0.1:4173/website/gallery.html` at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px. PC and tablet use Category above the grid; expected columns are 4 / 4 / 3 / 2 / 2.
+2. Check Category closed/open, stable artwork X and width, captions, 8-item pages, pagination, modal, mobile glass overlay, and no horizontal overflow.
+3. Keep `gallery.html`, `js/menu.js`, Gallery background modules, Biography / Artist Statement and the existing WIP untouched. Generated HTML cache references may be refreshed only in a later reviewed build.
+4. No staging, commit, push, baseline update, or production publication is included.
+
+
+## 2026-10-05 Gallery Phase C — Tablet 2-column and combined filters
+
+1. Review Gallery at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px. Expected columns: 4 / 4 / 2 / 2 / 2 / 2 / 2.
+2. Confirm Category → Genre / Year → Result Count → Artwork Grid order, independent Genre × Year selection, per-dimension toggle-off, All reset, eight items per page, captions, pagination and modal.
+3. Confirm tablet 1024px card sizing, 768px continuity, mobile overlay/touch behavior, and no horizontal overflow.
+4. Keep baseline, staging, commit, push and public release deferred pending owner review.
+
+
+## 2026-10-05 Gallery Phase D — Filter owner review
+
+1. Review the local Gallery at http://127.0.0.1:4173/website/gallery.html, particularly the Result Count's subdued placement at 1024px.
+2. Verify Paint × 2025 shows the zero-result messages, then change Genre or Year and confirm cards and pagination return without reload.
+3. At mobile width, verify the open Category menu remains clickable above the nearby Footer.
+4. Automated Filter interactions passed at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px. Physical-device acceptance remains separate.
+5. Keep all work uncommitted. Do not stage, push, or update baselines.
+
+## 2026-10-05 — Gallery Phase E/F owner review
+
+1. Review the local Gallery at http://127.0.0.1:4173/website/gallery.html at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px.
+2. Confirm the tighter mobile card rows, image and caption readability, Category overlay, combined filter, empty state, pagination, and modal.
+3. Review snapshot differences only after fresh Linux actual captures are available. The 390 Linux baseline exists; do not update either baseline yet.
+4. Keep the 14 generated docs outputs separate from 215 preserved docs/._* sidecars. The generated-output check passes; the docs-sync check remains dirty until a reviewed release.
+5. Keep the tree uncommitted; do not stage, commit, push, publish, or update baselines before owner acceptance.
+
+Current gate: GALLERY PHASE E/F — MOBILE FINAL REVIEW READY.
+
+## Gallery Phase G — release review pending (2026-10-05)
+
+1. Review the Gallery candidate at http://127.0.0.1:4173/website/gallery.html across 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px.
+2. Review the generated 14-file docs diff and the scoped source hunks. Do not include 変更メモ.css, AppleDouble sidecars, protected background/content files, or snapshots.
+3. Resolve the committed-sync gate deliberately: check:docs-sync requires a clean committed docs/; the current no-stage/no-commit boundary prevents PASS. check:generated already confirms working source/output parity.
+4. Obtain Linux Visual Regression actual/expected/diff on a Linux runner before considering baseline changes. Keep the current Linux baselines unchanged.
+5. No stage, commit, push, deploy, or baseline update is authorized in this checkpoint.
+
+
+## Gallery Phase H-1 — Release Candidate preflight (2026-10-05)
+
+1. Push only codex/selected-ink-field-background-system after the separate Documentation commit; never push main in this phase.
+2. Dispatch Visual regression on that branch with full_audit=true and verify the Linux npm run check plus 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px results.
+3. Inspect expected / actual / diff artifacts, especially Gallery 1440 and 390. Do not update baselines automatically.
+4. Keep Pages deployment and production publication deferred until Linux verification and a later owner decision.
+
+Current gate: GALLERY PHASE H-1 — LINUX VISUAL PREFLIGHT PENDING.
