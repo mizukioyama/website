@@ -745,29 +745,253 @@ async function exerciseSharedRuntimeInteractions(page) {
 
 async function exerciseGalleryRuntime(page, projectName, testInfo) {
   const categoryHeader = page.locator("#category-header");
-  if (await categoryHeader.isVisible() && await categoryHeader.getAttribute("aria-expanded") !== "true") {
-    await categoryHeader.click();
+  const categoryMenu = page.locator("#category-menu");
+  const resultCount = page.locator("#gallery-result-count");
+  const emptyState = page.locator("#gallery-empty-state");
+  const gallery = page.locator("#gallery-container");
+  const pagination = page.locator("#pagination");
+  const initialLanguage = await page.locator("html").getAttribute("lang");
+
+  const initialGeometry = await page.evaluate(() => {
+    const box = document.querySelector(".gallery-box");
+    const grid = document.querySelector("#gallery-container");
+    const count = document.querySelector("#gallery-result-count");
+    const firstCard = grid?.querySelector(":scope > .work");
+    const boxRect = box?.getBoundingClientRect();
+    const gridRect = grid?.getBoundingClientRect();
+    const countRect = count?.getBoundingClientRect();
+    const cardRect = firstCard?.getBoundingClientRect();
+    return {
+      boxLeft: boxRect?.left ?? 0,
+      boxWidth: boxRect?.width ?? 0,
+      gridLeft: gridRect?.left ?? 0,
+      gridWidth: gridRect?.width ?? 0,
+      countLeft: countRect?.left ?? 0,
+      countWidth: countRect?.width ?? 0,
+      cardLeft: cardRect?.left ?? 0,
+      columns: grid ? getComputedStyle(grid).gridTemplateColumns.split(/\s+/).length : 0
+    };
+  });
+
+  const expectedColumns = (page.viewportSize()?.width || 0) >= 1200 ? 4 : 2;
+  expect(initialGeometry.columns, "Gallery column count follows the 4/2-column breakpoint policy")
+    .toBe(expectedColumns);
+
+  const currentGeometry = async () => page.evaluate(() => {
+    const boxRect = document.querySelector(".gallery-box")?.getBoundingClientRect();
+    const grid = document.querySelector("#gallery-container");
+    const gridRect = grid?.getBoundingClientRect();
+    const countRect = document.querySelector("#gallery-result-count")?.getBoundingClientRect();
+    const cardRect = grid?.querySelector(":scope > .work")?.getBoundingClientRect();
+    return {
+      boxLeft: boxRect?.left ?? 0,
+      boxWidth: boxRect?.width ?? 0,
+      gridHidden: Boolean(grid?.hidden),
+      gridLeft: gridRect?.left ?? 0,
+      gridWidth: gridRect?.width ?? 0,
+      countLeft: countRect?.left ?? 0,
+      countWidth: countRect?.width ?? 0,
+      cardLeft: cardRect?.left ?? 0,
+      columns: grid ? getComputedStyle(grid).gridTemplateColumns.split(/\s+/).length : 0
+    };
+  });
+
+  const assertStableGeometry = async empty => {
+    const geometry = await currentGeometry();
+    expect(geometry.boxLeft, "Filter state must not move the Gallery composition")
+      .toBeCloseTo(initialGeometry.boxLeft, 1);
+    expect(geometry.boxWidth, "Filter state must not resize the Gallery composition")
+      .toBeCloseTo(initialGeometry.boxWidth, 1);
+    expect(geometry.countLeft, "Result Count must keep its aligned horizontal position")
+      .toBeCloseTo(initialGeometry.countLeft, 1);
+    expect(geometry.countWidth, "Result Count must keep the Gallery width")
+      .toBeCloseTo(initialGeometry.countWidth, 1);
+    if (!empty) {
+      expect(geometry.columns, "Filter state must preserve the responsive column count")
+        .toBe(initialGeometry.columns);
+      expect(geometry.gridLeft, "Filter state must not move the artwork grid")
+        .toBeCloseTo(initialGeometry.gridLeft, 1);
+      expect(geometry.gridWidth, "Filter state must not resize the artwork grid")
+        .toBeCloseTo(initialGeometry.gridWidth, 1);
+      expect(geometry.countLeft, "Result Count must align to the artwork grid")
+        .toBeCloseTo(geometry.gridLeft, 1);
+      expect(geometry.countWidth, "Result Count must match the artwork grid width")
+        .toBeCloseTo(geometry.gridWidth, 1);
+      expect(geometry.cardLeft, "Filtered works should start in the first grid column")
+        .toBeCloseTo(initialGeometry.cardLeft, 1);
+    }
+  };
+
+  const assertTotal = async total => {
+    const language = await page.locator("html").getAttribute("lang");
+    await expect(resultCount).toHaveAttribute("data-result-count", String(total));
+    await expect(resultCount).toHaveText(
+      language === "ja" ? "該当作品 " + total + "件" : total + " works"
+    );
+    await expect(resultCount).toHaveAttribute("data-selected-genre");
+    await expect(resultCount).toHaveAttribute("data-selected-year");
+    await expect(gallery.locator(":scope > .work")).toHaveCount(Math.min(total, 8));
+
+    const totalPages = Math.ceil(total / 8);
+    if (totalPages === 0) {
+      expect(await gallery.evaluate(element => element.hidden)).toBe(true);
+      await expect(gallery).toHaveCSS("display", "none");
+      await expect(emptyState).toBeVisible();
+      expect(await pagination.evaluate(element => element.hidden)).toBe(true);
+      await expect(pagination).toHaveCSS("display", "none");
+      await expect(pagination.locator("button")).toHaveCount(0);
+      await assertStableGeometry(true);
+      return;
+    }
+
+    expect(await gallery.evaluate(element => element.hidden)).toBe(false);
+    await expect(emptyState).toBeHidden();
+    expect(await pagination.evaluate(element => element.hidden)).toBe(false);
+    await expect(pagination.locator("button[aria-label=\"Page " + totalPages + "\"]"))
+      .toBeVisible();
+    await assertStableGeometry(false);
+  };
+
+  const openCategory = async () => {
+    if (await categoryHeader.getAttribute("aria-expanded") !== "true") {
+      await categoryHeader.click();
+    }
     await expect(categoryHeader).toHaveAttribute("aria-expanded", "true");
-  }
+    const geometry = await currentGeometry();
+    expect(geometry.countLeft, "Opening Category must not misalign Result Count")
+      .toBeCloseTo(initialGeometry.countLeft, 1);
+    if (!geometry.gridHidden) {
+      expect(geometry.gridLeft, "Opening Category must not move the artwork grid sideways")
+        .toBeCloseTo(initialGeometry.gridLeft, 1);
+      expect(geometry.gridWidth, "Opening Category must not resize the artwork grid")
+        .toBeCloseTo(initialGeometry.gridWidth, 1);
+    }
+  };
 
-  const paintCategory = page.locator('#category-menu li[data-category="Paint"]');
-  await paintCategory.click();
-  await expect(categoryHeader).toHaveAttribute("aria-expanded", "false");
-  await expect(page.locator("#gallery-container .work").first()).toBeVisible();
+  const selectFilter = async (value, key) => {
+    await openCategory();
+    const option = categoryMenu.locator("[data-category=\"" + value + "\"]");
+    if (key) {
+      await option.press(key);
+    } else {
+      await option.click();
+    }
+    await expect(categoryHeader).toHaveAttribute("aria-expanded", "false");
+  };
 
-  const firstWork = page.locator("#gallery-container .work").first();
+  const assertFilterState = async (genre, year) => {
+    await expect(resultCount).toHaveAttribute("data-selected-genre", genre);
+    await expect(resultCount).toHaveAttribute("data-selected-year", year);
+    await expect(categoryMenu.locator("[data-category=\"Paint\"]"))
+      .toHaveAttribute("aria-pressed", String(genre === "Paint"));
+    await expect(categoryMenu.locator("[data-category=\"2024\"]"))
+      .toHaveAttribute("aria-pressed", String(year === "2024"));
+    await expect(categoryMenu.locator("[data-category=\"2025\"]"))
+      .toHaveAttribute("aria-pressed", String(year === "2025"));
+    await expect(categoryMenu.locator("[data-category=\"all\"]"))
+      .toHaveAttribute("aria-pressed", String(genre === "all" && year === "all"));
+  };
+
+  const setLanguage = async language => {
+    const label = language === "ja" ? "langJa" : "langEn";
+    await page.locator('#langChange label[for="' + label + '"]').click();
+    await expect(page.locator("html")).toHaveAttribute("lang", language);
+  };
+
+
+  await expect(resultCount).toHaveAttribute("data-result-count", "69");
+  await assertTotal(69);
+  await assertFilterState("all", "all");
+  await expect(pagination.locator('button[aria-label="Page 9"]')).toBeVisible();
+
+  await pagination.locator('button[aria-label="Page 2"]').click();
+  await expect(pagination.locator('[aria-current="page"]')).toHaveAttribute("aria-label", "Page 2");
+  await expect(gallery.locator(":scope > .work")).toHaveCount(8);
+  await selectFilter("Paint");
+  await assertTotal(25);
+  await assertFilterState("Paint", "all");
+  await expect(pagination.locator('[aria-current="page"]')).toHaveAttribute("aria-label", "Page 1");
+  await expect(pagination.locator('button[aria-label="Page 4"]')).toBeVisible();
+
+  await selectFilter("2024");
+  await assertTotal(1);
+  await assertFilterState("Paint", "2024");
+  await expect(pagination.locator('button[aria-label="Page 2"]')).toHaveCount(0);
+
+  // Clearing only Year keeps Genre; clearing only Genre keeps Year.
+  await selectFilter("2024");
+  await assertTotal(25);
+  await assertFilterState("Paint", "all");
+  await selectFilter("Paint");
+  await assertTotal(69);
+  await assertFilterState("all", "all");
+  await selectFilter("2024");
+  await assertTotal(4);
+  await assertFilterState("all", "2024");
+  await selectFilter("Paint");
+  await assertTotal(1);
+  await assertFilterState("Paint", "2024");
+  await selectFilter("Paint");
+  await assertTotal(4);
+  await assertFilterState("all", "2024");
+
+  await selectFilter("Paint");
+  await selectFilter("2025");
+  await assertFilterState("Paint", "2025");
+  await assertTotal(0);
+  await expect(emptyState).toHaveText("該当作品なし。");
+
+  await setLanguage("en");
+  await assertFilterState("Paint", "2025");
+  await assertTotal(0);
+  await expect(emptyState).toHaveText("No matching works.");
+  await setLanguage("ja");
+  await assertTotal(0);
+  await expect(emptyState).toHaveText("該当作品なし。");
+
+  await selectFilter("2024");
+  await assertTotal(1);
+  await assertFilterState("Paint", "2024");
+  await selectFilter("Paint");
+  await assertTotal(4);
+  await assertFilterState("all", "2024");
+
+  await setLanguage("en");
+  await assertTotal(4);
+  await assertFilterState("all", "2024");
+  await setLanguage(initialLanguage);
+  await assertTotal(4);
+  await assertFilterState("all", "2024");
+
+  await selectFilter("all");
+  await assertTotal(69);
+  await assertFilterState("all", "all");
+
+  // Filter controls support Enter and Space and expose matching pressed state.
+  await selectFilter("Paint", "Enter");
+  await assertTotal(25);
+  await assertFilterState("Paint", "all");
+  await selectFilter("2024", "Space");
+  await assertTotal(1);
+  await assertFilterState("Paint", "2024");
+  await selectFilter("2024", "Space");
+  await assertTotal(25);
+  await assertFilterState("Paint", "all");
+  await selectFilter("Paint", "Enter");
+  await assertTotal(69);
+  await assertFilterState("all", "all");
+
+  const firstWork = gallery.locator(":scope > .work").first();
   const firstThumbnail = firstWork.locator(".work-img > img");
   const firstTitle = firstWork.locator(".view-policy-button p").first();
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
 
-  await page.locator('#langChange label[for="langEn"]').click();
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await setLanguage("en");
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
-  await page.locator('#langChange label[for="langJa"]').click();
-  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await setLanguage(initialLanguage);
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
 
-  await page.locator(".view-policy-button").first().click();
+  await firstWork.locator(".view-policy-button").click();
   await expectViewportModalFit(page.locator("#modalBox"), "Gallery artwork modal");
   await expect(page.locator("#modalCloseBtn")).toBeVisible();
   await expect(page.locator("#modalBox img").first()).toHaveAttribute(
@@ -787,7 +1011,6 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await page.locator("#modalCloseBtn").click();
   await expect(page.locator("#modalBox")).toBeHidden();
 }
-
 async function assertContactFormUiLabels(page, label) {
   const fieldLabels = [
     { field: "name", text: "* Name（お名前）", required: true },

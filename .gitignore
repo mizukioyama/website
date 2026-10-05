@@ -4,3 +4,6 @@ test-results/
 
 # Local macOS snapshots are not the committed Linux CI baselines.
 tests/visual/visual.spec.cjs-snapshots/*-darwin.png
+
+# macOS AppleDouble sidecar metadata
+._*

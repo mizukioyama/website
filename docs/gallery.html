@@ -10,8 +10,8 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
   <link rel="stylesheet" href="css/all.css?v=25bf659435d3">
-  <link rel="stylesheet" href="css/gallery.css?v=a33b929c13a8">
-  <link rel="stylesheet" href="css/mobile.css?v=df460b01584f">
+  <link rel="stylesheet" href="css/gallery.css?v=3dd73f6e81dd">
+  <link rel="stylesheet" href="css/mobile.css?v=2abe8c9d43a2">
   <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
   <link rel="stylesheet" href="css/menu.css?v=bf726ab5e6e2">
   <link rel="stylesheet" href="assets/css/user-settings.css?v=21a2301fc9f2">
@@ -20,9 +20,9 @@
   <script src="js/three.r134.min.js?v=2d137d69ae99"></script>
   <script src="js/vanta.fog.min.js?v=902b0ec9cd38"></script>
 
-  <script src="js/page-nation.js?v=761ac896f3c7"></script>
+  <script src="js/page-nation.js?v=f21628849b2d"></script>
   <script src="js/gallery-captions.js?v=5249cd95a460"></script>
-  <script src="js/menu.js?v=2634d31872e9"></script>
+  <script src="js/menu.js?v=075a28d98ace"></script>
 
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
@@ -245,32 +245,7 @@
         clip-path: polygon(0% 5%, 100% 5%, 100% 100%, 100% 95%, 0% 95%, 0% 100%, 0 0%);
       }
 
-      /* Mobile category toggle: render a guaranteed visible label independent of JS timing. */
-      .art-page #category-header::before {
-        content: "・Category" !important;
-        display: inline-block !important;
-        position: static !important;
-        font-family: "Jost", sans-serif !important;
-        font-weight: 100 !important;
-        font-size: var(--font-category-size) !important;
-        line-height: 1.15 !important;
-        color: var(--inv) !important;
-        -webkit-text-fill-color: currentColor !important;
-        background: none !important;
-        mask: none !important;
-        -webkit-mask: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        text-align: left !important;
-      }
 
-      .art-page #category-header::after {
-        content: none !important;
-        display: none !important;
-      }
     }
   </style>
 </head>
