@@ -671,7 +671,8 @@ function setupCategoryFilter() {
     ];
 
     const itemsPerPage = 8;
-    let selectedCategory = "all";
+    let selectedGenre = "all";
+    let selectedYear = "all";
     let currentPage = 1;
     let filtered = [];
     let activeModalItem = null;
@@ -680,12 +681,83 @@ function setupCategoryFilter() {
         return document.documentElement.lang === "ja" ? "ja" : "en";
     }
 
-    function filterArtworks() {
-        return selectedCategory === "all"
-            ? artworks
-            : artworks.filter(item => item.category.includes(selectedCategory));
+    function isYearFilter(value) {
+        return /^\d{4}(?:-\d{4})?$/.test(value);
     }
 
+    function filterArtworks() {
+        return artworks.filter(item => {
+            const matchesGenre = selectedGenre === "all" || item.category.includes(selectedGenre);
+            const matchesYear = selectedYear === "all" || item.category.includes(selectedYear);
+            return matchesGenre && matchesYear;
+        });
+    }
+
+    function getFilterLabel(value) {
+        const option = [...document.querySelectorAll("#category-menu li[data-category]")]
+            .find(item => item.dataset.category === value);
+        return option ? option.textContent.trim() : value;
+    }
+
+    function getSelectedFilterLabel() {
+        const labels = [];
+        if (selectedGenre !== "all") labels.push(getFilterLabel(selectedGenre));
+        if (selectedYear !== "all") labels.push(getFilterLabel(selectedYear));
+        return labels.join(" × ") || getFilterLabel("all") || "All";
+    }
+
+    function syncCategorySelection() {
+        document.querySelectorAll("#category-menu li[data-category]").forEach(item => {
+            const value = item.dataset.category;
+            const active = value === "all"
+                ? selectedGenre === "all" && selectedYear === "all"
+                : isYearFilter(value)
+                    ? value === selectedYear
+                    : value === selectedGenre;
+            item.classList.toggle("active", active);
+            item.setAttribute("aria-pressed", String(active));
+        });
+    }
+
+    function updateResultCount(total) {
+        const gallery = document.getElementById("gallery-container");
+        const galleryBox = gallery?.parentElement;
+        if (!gallery || !galleryBox) return;
+
+        let resultCount = document.getElementById("gallery-result-count");
+        if (!resultCount) {
+            resultCount = document.createElement("p");
+            resultCount.id = "gallery-result-count";
+            resultCount.className = "gallery-result-count";
+            resultCount.setAttribute("role", "status");
+            resultCount.setAttribute("aria-live", "polite");
+            galleryBox.insertBefore(resultCount, gallery);
+        }
+
+        let emptyState = document.getElementById("gallery-empty-state");
+        if (!emptyState) {
+            emptyState = document.createElement("p");
+            emptyState.id = "gallery-empty-state";
+            emptyState.className = "gallery-empty-state";
+            emptyState.setAttribute("role", "status");
+            emptyState.setAttribute("aria-live", "polite");
+            galleryBox.insertBefore(emptyState, gallery);
+        }
+
+        const language = getLang();
+        resultCount.dataset.resultCount = String(total);
+        resultCount.dataset.selectedGenre = selectedGenre;
+        resultCount.dataset.selectedYear = selectedYear;
+        resultCount.textContent = language === "ja"
+            ? "該当作品 " + total + "件"
+            : total + " works";
+
+        emptyState.textContent = language === "ja"
+            ? "該当作品なし。"
+            : "No matching works.";
+        emptyState.hidden = total !== 0;
+        gallery.hidden = total === 0;
+    }
     function truncateText(text, maxLength = 500) {
         return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
@@ -698,11 +770,12 @@ function setupCategoryFilter() {
         container.classList.remove("show");
 
         filtered = filterArtworks();
+        syncCategorySelection();
+        updateResultCount(filtered.length);
         const start = (currentPage - 1) * itemsPerPage;
         const pageItems = filtered.slice(start, start + itemsPerPage);
 
-        const selectedLi = document.querySelector(`#category-menu li[data-category="${selectedCategory}"]`);
-        const selectedCategoryLabel = selectedLi ? selectedLi.textContent : "All";
+        const selectedCategoryLabel = getSelectedFilterLabel();
 
         container.innerHTML = "";
         pageItems.forEach(item => {
@@ -808,40 +881,6 @@ function showModal(item) {
         }
     }
 
-    function renderPagination(totalItems) {
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-        const pagination = document.getElementById("pagination");
-        if (!pagination) return;
-        pagination.innerHTML = "";
-
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement("button");
-            btn.textContent = i;
-            btn.className = i === currentPage ? "active" : "";
-            btn.addEventListener("click", () => {
-                currentPage = i;
-                renderGallery();
-            });
-            pagination.appendChild(btn);
-        }
-    }
-
-    function smoothScrollToTop(duration) {
-        const start = window.scrollY || document.documentElement.scrollTop;
-        const startTime = performance.now();
-
-        function scroll(timestamp) {
-            const elapsed = timestamp - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            window.scrollTo(0, start * (1 - progress));
-            if (progress < 1) {
-                requestAnimationFrame(scroll);
-            }
-        }
-
-        requestAnimationFrame(scroll);
-    }
-
 
 
     function renderPagination(totalItems) {
@@ -850,6 +889,8 @@ function showModal(item) {
 
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         pagination.innerHTML = "";
+        pagination.hidden = totalPages === 0;
+        if (totalPages === 0) return;
 
         const maxVisible = 5;
 
@@ -946,16 +987,26 @@ function showModal(item) {
     }
 
 
-    document.querySelectorAll("#category-menu li").forEach(li => {
+    document.querySelectorAll("#category-menu li[data-category]").forEach(li => {
+        li.setAttribute("role", "button");
+        li.setAttribute("tabindex", "0");
+        li.addEventListener("keydown", event => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            li.click();
+        });
         li.addEventListener("click", () => {
-            selectedCategory = li.getAttribute("data-category");
+            const value = li.dataset.category;
+            if (value === "all") {
+                selectedGenre = "all";
+                selectedYear = "all";
+            } else if (isYearFilter(value)) {
+                selectedYear = selectedYear === value ? "all" : value;
+            } else {
+                selectedGenre = selectedGenre === value ? "all" : value;
+            }
+
             currentPage = 1;
-
-            document.querySelectorAll("#category-menu li").forEach(el =>
-                el.classList.remove("active")
-            );
-            li.classList.add("active");
-
             renderGallery();
         });
     });

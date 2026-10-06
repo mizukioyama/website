@@ -6,29 +6,29 @@ Only the baseline and current priority queue below define active status. Dated p
 
 ## Current production baseline — 2026-10-04
 
-- Production HEAD / origin/main: 7077f701f510d6be4803746efd18f28b71f0aa91. The Selected Ink + TRUNK implementation is 3302163d9cd83eba54b63ed2294bb0e81284c94a; the visual-test wait stabilization is 7077f701f510d6be4803746efd18f28b71f0aa91.
+- Production HEAD / origin/main: a246a20eed526013c43a5e40c3b3024bc06e7884. The Selected Ink + TRUNK implementation and rollback policy remain unchanged.
 - Primary background is Selected Ink Field on all nine routes. The original VANTA.TRUNK sphere is an optional accent only on Biography and Artist Statement. Ripple is disabled and VANTA.FOG stays disabled in Selected Ink mode; legacy rollback remains available.
 - Biography / Artist Statement preserve the user-approved 5500 layout refinements, scoped to those two pages. No Selected Ink visual parameters or Linux baselines changed in the sphere restoration.
-- Pages #418 passed. Visual Regression #445 passed with 61 passed / 20 skipped / 0 failed.
+- Pages #419 passed. Visual Regression #446 passed (user-confirmed).
 
-## Current priority queue — 2026-10-04
+## Current priority queue — 2026-10-05
 
 - Background system: Selected Ink Field is the primary background on all nine site routes. The original VANTA.TRUNK sphere runs as an optional accent only on Biography and Artist Statement. Ripple remains disabled, VANTA.FOG remains disabled in Selected Ink mode, and the legacy rollback path is retained.
 - Biography / Artist Statement layout refinements remain scoped to those two pages. Their approved 5500 composition and the shared page spacing are unchanged by the sphere restoration.
 - Runtime checks confirm one Selected Ink canvas on each route, one TRUNK canvas only on Biography and Artist Statement, and zero Ripple / VANTA.FOG canvases. Repeated mount/destroy, reduced-motion changes, and no-WebGL-context-loss checks passed.
-- Release gates: Pages #418 passed; Visual Regression #445 passed (61 passed, 20 skipped, 0 failed). Existing Linux baselines were not changed; no baseline commit was needed.
-- Build and source checks passed in a clean candidate copy. In the formal dirty checkout, npm run check stops at check:docs-sync because pre-existing Gallery/menu work has generated docs differences. The clean-copy check covers the intended production changes; existing unrelated work remains preserved.
+- Release gates: Pages #419 passed; Visual Regression #446 passed (user-confirmed). Existing Linux baselines were not changed; no baseline commit was needed.
+- Gallery release-candidate build and component, JavaScript, typography, generated-output, SEO, link, and CRLF-aware checks pass. After the implementation commit, check:docs-sync also passes against the committed generated docs.
 - Headless software-WebGL measurements were low and variable; they are not a real-GPU or device performance acceptance. Incremental TRUNK cost on the user's GPU remains unmeasured. No Selected Ink quality values were changed.
-- Existing Gallery / Category / menu.js work and other local changes remain untouched. Next: start a separate Gallery layout audit for sidebar reserved width, artwork-grid width, and Category open/close behavior across the seven viewport widths. Do not mix it with this background-system release.
+- Gallery Phase H-1: the seven-viewport Gallery candidate is committed on codex/selected-ink-field-background-system. Linux Visual Regression full_audit=true is the next gate; do not push to main, deploy Pages, or update baselines before artifact review.
 - Owner visual review in a headed browser and physical iOS / Android performance acceptance remain pending.
 
 ## Current priority queue
 
 1. Owner review of the deployed Biography / Artist Statement background composition and sphere placement; real-GPU and physical-device performance acceptance remains pending.
-2. Start a separate Gallery layout audit after mapping the preserved local WIP. Compare sidebar reserved width, artwork-grid width, and Category open/close geometry at 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px. Do not mix Gallery changes into the background-system release.
+2. Complete Gallery Phase H-1 Linux preflight on the feature branch: verify the full 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px matrix with full_audit=true, inspect actual / expected / diff artifacts, and keep main, Pages, and baselines unchanged.
 3. Keep current Linux baselines unchanged unless a later reviewed Visual Regression run confirms an intentional target-page difference.
 
-This queue records the remaining acceptance and the next audit. It does not authorize editing preserved Gallery work without inspecting its current diff.
+This queue records the Gallery release candidate and its pending Linux visual gate. Feature-branch publication is scoped to preflight; main push, Pages deployment, and baseline updates remain deferred.
 
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering
@@ -131,3 +131,64 @@ This queue records the remaining acceptance and the next audit. It does not auth
 - 2026-09-19: Portfolio-specific AI governance/specification framework established.
 
 - 2026-10-04: Restored the original VANTA.TRUNK sphere as a scoped accent over Selected Ink Field on Biography and Artist Statement only. Selected Ink remains primary across all nine routes; Ripple and VANTA.FOG remain disabled in Selected Ink mode. Pages #418 and Visual Regression #445 passed, Linux baselines stayed unchanged, and the Gallery layout task is ready for a separate audit.
+
+## Gallery Phase B-3 — 1440 measured checkpoint (2026-10-05)
+
+- Closed state measured in Playwright at 1440px: .gallery-box and #gallery-container left 220px / width 1000px; first card left 252px / width 446.41px. The reported x≈600 state did not reproduce in this local HTTP context.
+- The B-2 :has() state selector matched when Category opened. The 128px artwork shift came from centering a 1240px sidebar+gap+art grid, not from selector or specificity failure.
+- The 1300px+ Gallery CSS now keeps closed artwork centered and limits open/closed artwork-area movement to 60px. Open Category is 190px wide with a 40px gap; card widths remain 446.41px. The centered-group target was subordinated to the user's explicit artwork-stability priority.
+- HTTP preview returned 200; both states had no horizontal overflow or browser/page/resource errors. Source/generated Gallery CSS match. npm run check passed component sync, JS syntax, typography, and build, then stopped at check:docs-sync because generated docs WIP is dirty. Separate generated, SEO, and link checks passed after restoring pre-check docs; the generated check also passed on the final state. Build-side changes to other generated files were restored from pre-check copies.
+- 1280px and below, Gallery behavior, background assets, baseline, and Git release state remain untouched. Await owner review at http://127.0.0.1:4173/website/gallery.html before further viewport work.
+
+
+## Gallery Phase B-4 — 1440 desktop listing candidate (2026-10-05)
+
+- Desktop Category is a horizontal filter area above the artwork list; the former sidebar-plus-artwork columns are removed at 1300px and wider.
+- The artwork list uses four columns and eight items per page; the existing pagination JavaScript already had an eight-item page size and was not changed.
+- Category open/closed states share the same centered gallery width, so opening filters only adds vertical height.
+- Candidate remains local and uncommitted for user review at 1440px. Smaller viewports, production release, and baselines remain out of scope.
+
+## Gallery Phase C — Tablet vertical layout + CSS cleanup (2026-10-05)
+
+- PC and tablet now share the vertical Category → wrapped filter menu → Artwork Grid → Pagination structure. Closed/open Category states keep the same artwork X position and width.
+- Measured grid: 1440px 1150px / 4 columns / 266.5px cards; 1280px 1120px / 4 / 259px; 1024px 956px / 3 / 300px; 768px 700px / 2 / 336px. Each has eight cards and 28px × 48px gaps.
+- Mobile 430 / 390 / 375 remains two columns with the existing glass overlay; opening Category does not move the artwork grid. No horizontal overflow was measured at any of the seven widths.
+- Gallery CSS reduced from 1253 to 1093 lines; mobile CSS from 410 to 330. The duplicate declaration inventory went from 24 to 0 in gallery.css and 1 to 0 in mobile.css. Proven dead typo/comment-only rules were removed; modal, caption, pagination, mobile Category and shared typography rules remain.
+- Local browser checks covered Category toggle/filter, pagination, captions, modal open/close, Selected Ink canvas presence, image loads, headers/footers and console errors. `npm run build`, check:components, check:js, check:typography, check:generated, check:seo, and check:links passed. `check:docs-sync` remains blocked by preserved generated-page WIP; full `git diff --check` reports CRLF trailing whitespace on pre-existing Biography / Contact generated HTML. The Phase C source, generated CSS and Roadmap diff check is clean.
+- No background engine, Biography/Artist Statement content, pagination JavaScript, baseline, or production release state was changed. Await owner review at http://127.0.0.1:4173/website/gallery.html; do not stage, commit, push, or update baselines yet.
+
+## Gallery Phase D — Genre × Year filter acceptance (2026-10-05)
+
+- Filter counts are sourced from the full filtered set: All 69, Paint 25, Year 2024 4, Paint × 2024 1. Paint × 2025 is the data-confirmed zero-result pair.
+- The Japanese / English count and empty-state messages, zero-result grid/pagination hiding, in-place recovery, current-page reset, independent Genre / Year toggling, language-state persistence, mouse / Enter / Space controls, and `aria-pressed` state pass the Gallery interaction suite at all seven viewport widths.
+- A mobile Category menu/Footer stacking defect reproduced at 390px when zero results shortened the content. `main.gallery` now rises above the Footer only while the mobile Category menu is open; all seven viewport tests pass after the fix.
+- `npm run build`, component / JS / typography / generated / SEO / link checks pass. `check:docs-sync` remains blocked by preserved generated-output WIP. Raw `git diff --check` reports CRLF line endings; CRLF-aware diff checking passes.
+- Screenshot baselines remain unchanged. Human visual acceptance, physical-device testing, and release readiness remain separate. No Git staging, commit, push, or deployment was done.
+
+## Gallery Phase E/F — mobile final spacing and release-candidate audit (2026-10-05)
+
+- Removed the mobile-only 350px minimum card height; Gallery remains two columns at 430 / 390 / 375px. Natural card heights measured 268.9 / 250.5 / 243.6px, with readable captions and no horizontal overflow.
+- Removed the corresponding stale commented rule and the obsolete inline Category pseudo-element CSS. Removed one duplicate filter-state synchronization call from the Genre / Year handler.
+- Full Gallery interaction regression passed 7/7 configured widths. 390px touch emulation passed Year 2025 → Paint × 2025 → All, including the zero-result state.
+- Local macOS screenshot comparison differs from existing Gallery snapshots: 1440 expected 4140px / actual 2802px; 390 expected 3342px / actual 2952px. These reflect the adopted four-column desktop layout and the mobile card-height adjustment. No baseline was updated.
+- Correction: the tracked 390px Gallery baselines exist for both Linux (390×3319) and Darwin (390×3342). A fresh Linux actual comparison remains pending.
+- Build, component, JS, typography, generated-output, SEO, link, and CRLF-aware diff checks passed. The docs-sync check remains blocked by 14 tracked generated docs outputs plus 215 preserved AppleDouble sidecars in this uncommitted tree.
+- Selected Ink Field and other protected background/content files retain their hashes. No staging, commit, push, deploy, baseline update, or production publication was performed.
+
+## Gallery Phase G — Release-candidate audit (2026-10-05)
+
+- Rebuilt from source and confirmed generated output parity. Component, JavaScript, typography, generated-output, SEO, link, and CRLF-aware diff checks pass.
+- The 7-width Gallery interaction/layout run passes on macOS Chromium. Snapshot matching was deliberately disabled; this is runtime evidence, not Linux Visual Regression evidence. Mobile 390px cross-route geometry checks also show no change from the shared .gallery .content width declaration across Gallery, Biography, Artist Statement, Information, Order, Contact, Policy, and Yurayura.
+- The committed-sync checker inspects git status --porcelain -- docs; it therefore remains red while the 14 generated docs outputs are uncommitted, even though check:generated passes. A commit is prohibited at this checkpoint.
+- The 215 docs/._* files all have AppleDouble magic/version headers, are untracked and unreferenced by source/build code. They remain on disk and are ignored by the new ._* rule.
+- Linux actual/diff was not obtained: this host is macOS and has no Docker, Podman, or GitHub CLI. Linux baselines (1440×4134 and 390×3319) remain unchanged; 390 is included in the official screenshot projects.
+- Branch codex/selected-ink-field-background-system, HEAD and origin/main a246a20eed526013c43a5e40c3b3024bc06e7884; staged files 0. No commit, push, deploy, or baseline update.
+
+
+## Gallery Phase H-1 — Feature release candidate (2026-10-05)
+
+- Revalidated 215 docs/._* files: all were untracked AppleDouble files with no source or build references and matched the .gitignore rule. A byte-for-byte backup was made under /private/tmp/portfolio-phase-h1-appledouble-20261005/sidecars; the 215 local sidecars were removed and the remaining count is zero. 変更メモ.css was preserved.
+- Implementation commit 35acd44 contains only the seven Gallery source/test files and fourteen generated docs files. The Documentation commit remains separate.
+- Local build and component, JavaScript, typography, generated-output, SEO, link, and CRLF-aware diff checks pass. check:docs-sync passes after the implementation commit.
+- Protected background modules, Biography / Artist Statement source, review ZIP, and 1440 / 390 Linux Gallery baselines retain their preflight hashes.
+- Current gate: feature-branch push and Linux Visual Regression workflow_dispatch with full_audit=true; review expected / actual / diff before any baseline decision. main, Pages, and production remain unchanged.

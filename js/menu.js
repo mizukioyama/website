@@ -139,8 +139,8 @@ const FOOTER_MARKUP = `
 
 const SIDEBAR_MARKUP = `
 <p id="category-header" class="noise">・</p>
-<ul id="category-menu">
-  <p class="noise">Category</p>
+<ul id="category-menu" aria-label="Gallery filters">
+  <li class="filter-group-title" role="presentation">Genre</li>
   <li data-category="all" class="active noise">All</li>
   <li data-category="Digital" class="noise">Digital</li>
   <li data-category="Paint" class="noise">Paint</li>
@@ -148,7 +148,7 @@ const SIDEBAR_MARKUP = `
   <li data-category="Certified" class="noise">Certified</li>
   <li data-category="Photo" class="noise">Photo</li>
   <li data-category="Unreleased" class="noise">Unreleased</li>
-  <p class="noise">Year</p>
+  <li class="filter-group-title" role="presentation">Year</li>
   <li data-category="2025" class="noise">2025</li>
   <li data-category="2024" class="noise">2024</li>
   <li data-category="2023" class="noise">2023</li>
@@ -578,12 +578,6 @@ function initializeSidebar() {
 
     Object.assign(categoryHeader.style, {
       justifyContent: "flex-start",
-      textAlign: "left",
-      background: "transparent",
-      backdropFilter: "none",
-      WebkitBackdropFilter: "none",
-      boxShadow: "none",
-      border: "0",
       borderBottom: "1px solid currentColor"
     });
 
