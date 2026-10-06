@@ -1569,7 +1569,7 @@ async function stabilize(page, entry = {}) {
 
   // These pages run both the primary WebGL field and TRUNK in visual tests.
   // Their letter-by-letter H1 reveal advances on RAF, so allow slower CI renderers more time.
-  const titleAnimationTimeoutMs = ["biography", "artist-statement"].includes(entry.key) ? 15000 : 5000;
+  const titleAnimationTimeoutMs = ["biography", "artist-statement", "order"].includes(entry.key) ? 15000 : 5000;
   await page.evaluate(async timeoutMs => {
     const title = document.querySelector(".h1-text h1.text");
     if (!title) return;
@@ -1685,10 +1685,12 @@ async function layoutDiagnostics(page) {
 for (const entry of pages) {
   test(entry.key + " visual and layout regression", async ({ page }, testInfo) => {
     if (entry.key === "home" || entry.key === "contact" || (
+      fullAudit && ["biography", "artist-statement"].includes(entry.key)
+    ) || (
       testInfo.project.name === "desktop-1440"
       && ["biography", "order", "information"].includes(entry.key)
     )) {
-      // Large desktop captures and Contact form runtime checks need more time on CI.
+      // Keep full-page heavy cases bounded while allowing the seven viewport audit to finish.
       testInfo.setTimeout(60000);
     }
 
