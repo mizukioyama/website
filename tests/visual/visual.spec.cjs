@@ -78,10 +78,16 @@ function createRuntimeMonitor(page, entry = {}) {
     pageErrors: [],
     consoleErrors: [],
     consoleWarnings: [],
+    rippleAssetRequests: [],
     localResourceFailures: [],
     externalResourceFailures: []
   };
 
+  page.on("request", request => {
+    if (/(?:^|\/)(?:jquery\.ripples-min\.js|bg_wave\.js)(?:[?#]|$)/.test(request.url())) {
+      runtime.rippleAssetRequests.push(request.url());
+    }
+  });
   page.on("pageerror", error => runtime.pageErrors.push(error.message));
   page.on("console", message => {
     const source = message.location()?.url || "";
@@ -2549,6 +2555,7 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
   await page.emulateMedia({ reducedMotion: "no-preference" });
 
   for (const entry of pages.filter(item => item.key !== "404")) {
+    const rippleRequestCountBeforeRoute = runtime.rippleAssetRequests.length;
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response.status(), entry.key + " should return HTTP 200").toBe(200);
     await page.waitForLoadState("load");
@@ -2571,7 +2578,11 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
         canvasWidth: canvas?.width || 0,
         canvasHeight: canvas?.height || 0,
         trunkCanvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length,
+        rippleDomCount: document.querySelectorAll(".ripples").length,
         rippleCanvasCount: document.querySelectorAll(".ripples canvas").length,
+        rippleScriptCount: Array.from(document.scripts).filter(script =>
+          /(?:jquery\.ripples-min\.js|bg_wave\.js)(?:[?#]|$)/.test(script.src)
+        ).length,
         fogCanvasCount: document.querySelectorAll("#vanta-bg canvas").length,
         trunkInstanceActive: Boolean(
           window.__PORTFOLIO_BACKGROUND_ACCENTS__ &&
@@ -2587,7 +2598,11 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     expect(state.canvasHeight, entry.key + " canvas height").toBeGreaterThan(0);
     const trunkExpected = ["biography", "artist-statement"].includes(entry.key);
     expect(state.trunkCanvasCount, entry.key + " TRUNK canvas count").toBe(trunkExpected ? 1 : 0);
+    expect(state.rippleDomCount, entry.key + " Ripple DOM count").toBe(0);
     expect(state.rippleCanvasCount, entry.key + " Ripple canvas count").toBe(0);
+    expect(state.rippleScriptCount, entry.key + " Ripple script element count").toBe(0);
+    expect(runtime.rippleAssetRequests.length, entry.key + " Ripple asset request count")
+      .toBe(rippleRequestCountBeforeRoute);
     expect(state.fogCanvasCount, entry.key + " VANTA.FOG canvas count").toBe(0);
     expect(state.trunkInstanceActive, entry.key + " TRUNK instance").toBe(trunkExpected);
     expect(state.engine.legacyCanvasCount, entry.key + " disabled legacy canvas count").toBe(0);
@@ -2606,6 +2621,8 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     assertRuntimeClean(runtime, entry);
   }
 
+  expect(runtime.rippleAssetRequests, "Ripple production assets should never be requested")
+    .toEqual([]);
   await attachRuntimeObservations(testInfo, { key: "selected-ink-field" }, runtime);
 });
 

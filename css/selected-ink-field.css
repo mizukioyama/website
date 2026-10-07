@@ -14,7 +14,6 @@ html.selected-ink-field-mode #selected-ink-field-canvas {
   opacity: 1;
 }
 
-html.selected-ink-field-mode .ripples,
 html.selected-ink-field-mode #vanta-bg,
 html.selected-ink-field-mode #vanta-bg-bio {
   display: none !important;

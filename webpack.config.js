@@ -12,14 +12,12 @@ const rootVisualPages = [
 ];
 
 const rootVisualScripts = [
-  "bg_wave.js",
   "background-system-config.js",
   "selected-ink-field.js",
   "cursor.js",
   "form.js",
   "gallery-captions-data.js",
   "jquery-3.7.1.min.js",
-  "jquery.ripples-min.js",
   "loading.js",
   "menu.js",
   "mobile.js",

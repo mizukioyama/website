@@ -201,21 +201,6 @@ body.dark-theme .modal-box {
 }
 */
 
-/*== bg water ==*/
-.ripples {
-  width: 100%;
-  height: 100%;
-  background: rgba(25, 25, 25);
-  position: fixed;
-  opacity: 0.25;
-  z-index: 1;
-}
-
-.ripples,
-.ripples canvas {
-  pointer-events: none;
-}
-
 .font-change-text {
   font-family:
     "Arial",
