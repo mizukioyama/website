@@ -1,0 +1,10 @@
+/* Reusable empty mount point for a future page-level background overlay. */
+#portfolio-overlay-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  pointer-events: none;
+}

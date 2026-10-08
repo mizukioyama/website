@@ -78,10 +78,16 @@ function createRuntimeMonitor(page, entry = {}) {
     pageErrors: [],
     consoleErrors: [],
     consoleWarnings: [],
+    rippleAssetRequests: [],
     localResourceFailures: [],
     externalResourceFailures: []
   };
 
+  page.on("request", request => {
+    if (/(?:^|\/)(?:jquery\.ripples-min\.js|bg_wave\.js)(?:[?#]|$)/.test(request.url())) {
+      runtime.rippleAssetRequests.push(request.url());
+    }
+  });
   page.on("pageerror", error => runtime.pageErrors.push(error.message));
   page.on("console", message => {
     const source = message.location()?.url || "";
@@ -2549,6 +2555,7 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
   await page.emulateMedia({ reducedMotion: "no-preference" });
 
   for (const entry of pages.filter(item => item.key !== "404")) {
+    const rippleRequestCountBeforeRoute = runtime.rippleAssetRequests.length;
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response.status(), entry.key + " should return HTTP 200").toBe(200);
     await page.waitForLoadState("load");
@@ -2565,13 +2572,38 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     const state = await page.evaluate(() => {
       const engine = window.__selectedInkField;
       const canvas = document.querySelector("#selected-ink-field-canvas");
+      const trunk = document.querySelector("#vanta-bg-bio");
+      const overlay = document.querySelector("#portfolio-overlay-animation");
+      const overlayStyle = overlay ? getComputedStyle(overlay) : null;
+      const content = document.querySelector("main#state");
       return {
         mode: window.__PORTFOLIO_BACKGROUND_SYSTEM__,
         canvasCount: document.querySelectorAll("#selected-ink-field-canvas").length,
         canvasWidth: canvas?.width || 0,
         canvasHeight: canvas?.height || 0,
         trunkCanvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length,
+        overlayDomCount: document.querySelectorAll("#portfolio-overlay-animation").length,
+        overlayStylesheetCount: Array.from(document.styleSheets).filter(sheet =>
+          sheet.href && new URL(sheet.href).pathname.endsWith("/css/background-overlay.css")
+        ).length,
+        overlay: overlay && trunk ? {
+          position: overlayStyle.position,
+          zIndex: overlayStyle.zIndex,
+          pointerEvents: overlayStyle.pointerEvents,
+          ariaHidden: overlay.getAttribute("aria-hidden"),
+          childElementCount: overlay.childElementCount,
+          appearsAfterTrunk: Boolean(trunk.compareDocumentPosition(overlay) & Node.DOCUMENT_POSITION_FOLLOWING),
+          selectedInkZIndex: canvas ? getComputedStyle(canvas).zIndex : null,
+          trunkZIndex: getComputedStyle(trunk).zIndex,
+          contentZIndex: content ? getComputedStyle(content).zIndex : null,
+          width: overlay.getBoundingClientRect().width,
+          height: overlay.getBoundingClientRect().height
+        } : null,
+        rippleDomCount: document.querySelectorAll(".ripples").length,
         rippleCanvasCount: document.querySelectorAll(".ripples canvas").length,
+        rippleScriptCount: Array.from(document.scripts).filter(script =>
+          /(?:jquery\.ripples-min\.js|bg_wave\.js)(?:[?#]|$)/.test(script.src)
+        ).length,
         fogCanvasCount: document.querySelectorAll("#vanta-bg canvas").length,
         trunkInstanceActive: Boolean(
           window.__PORTFOLIO_BACKGROUND_ACCENTS__ &&
@@ -2587,7 +2619,30 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     expect(state.canvasHeight, entry.key + " canvas height").toBeGreaterThan(0);
     const trunkExpected = ["biography", "artist-statement"].includes(entry.key);
     expect(state.trunkCanvasCount, entry.key + " TRUNK canvas count").toBe(trunkExpected ? 1 : 0);
+    expect(state.overlayDomCount, entry.key + " overlay layer count").toBe(trunkExpected ? 1 : 0);
+    expect(state.overlayStylesheetCount, entry.key + " overlay stylesheet count").toBe(trunkExpected ? 1 : 0);
+    if (trunkExpected) {
+      expect(state.overlay, entry.key + " overlay should sit above TRUNK and below page content").toEqual({
+        position: "fixed",
+        zIndex: "5",
+        pointerEvents: "none",
+        ariaHidden: "true",
+        childElementCount: 0,
+        appearsAfterTrunk: true,
+        selectedInkZIndex: "-1",
+        trunkZIndex: "0",
+        contentZIndex: "10",
+        width: 1440,
+        height: 900
+      });
+    } else {
+      expect(state.overlay, entry.key + " should not receive the initial overlay layer").toBeNull();
+    }
+    expect(state.rippleDomCount, entry.key + " Ripple DOM count").toBe(0);
     expect(state.rippleCanvasCount, entry.key + " Ripple canvas count").toBe(0);
+    expect(state.rippleScriptCount, entry.key + " Ripple script element count").toBe(0);
+    expect(runtime.rippleAssetRequests.length, entry.key + " Ripple asset request count")
+      .toBe(rippleRequestCountBeforeRoute);
     expect(state.fogCanvasCount, entry.key + " VANTA.FOG canvas count").toBe(0);
     expect(state.trunkInstanceActive, entry.key + " TRUNK instance").toBe(trunkExpected);
     expect(state.engine.legacyCanvasCount, entry.key + " disabled legacy canvas count").toBe(0);
@@ -2606,7 +2661,98 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     assertRuntimeClean(runtime, entry);
   }
 
+  expect(runtime.rippleAssetRequests, "Ripple production assets should never be requested")
+    .toEqual([]);
   await attachRuntimeObservations(testInfo, { key: "selected-ink-field" }, runtime);
+});
+
+test("Background overlay layer remains full viewport and non-interactive at all seven widths", async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "The overlay viewport geometry is audited once per normal run."
+  );
+
+  const runtime = createRuntimeMonitor(page);
+  await prepareDeterministicNetwork(page);
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+
+  const viewports = [
+    { width: 1440, height: 900 },
+    { width: 1280, height: 800 },
+    { width: 1024, height: 900 },
+    { width: 768, height: 1024 },
+    { width: 430, height: 932 },
+    { width: 390, height: 844 },
+    { width: 375, height: 812 }
+  ];
+  const overlayPages = pages.filter(item => ["biography", "artist-statement"].includes(item.key));
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    for (const entry of overlayPages) {
+      const rippleRequestCountBeforeRoute = runtime.rippleAssetRequests.length;
+      const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
+      expect(response.status(), entry.key + " at " + viewport.width + "px should return HTTP 200").toBe(200);
+      await page.waitForLoadState("load");
+      await expect.poll(() => page.evaluate(() => Boolean(
+        window.__selectedInkField &&
+        window.__selectedInkField.getState().frameCount > 0 &&
+        document.querySelectorAll("#vanta-bg-bio canvas").length === 1
+      ))).toBe(true);
+
+      const layer = await page.evaluate(() => {
+        const canvas = document.querySelector("#selected-ink-field-canvas");
+        const trunk = document.querySelector("#vanta-bg-bio");
+        const overlay = document.querySelector("#portfolio-overlay-animation");
+        const content = document.querySelector("main#state");
+        const rect = overlay.getBoundingClientRect();
+        return {
+          selectedInkCanvasCount: document.querySelectorAll("#selected-ink-field-canvas").length,
+          trunkCanvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length,
+          overlayCount: document.querySelectorAll("#portfolio-overlay-animation").length,
+          overlay: {
+            position: getComputedStyle(overlay).position,
+            zIndex: getComputedStyle(overlay).zIndex,
+            pointerEvents: getComputedStyle(overlay).pointerEvents,
+            ariaHidden: overlay.getAttribute("aria-hidden"),
+            childElementCount: overlay.childElementCount,
+            appearsAfterTrunk: Boolean(trunk.compareDocumentPosition(overlay) & Node.DOCUMENT_POSITION_FOLLOWING),
+            selectedInkZIndex: getComputedStyle(canvas).zIndex,
+            trunkZIndex: getComputedStyle(trunk).zIndex,
+            contentZIndex: getComputedStyle(content).zIndex,
+            width: rect.width,
+            height: rect.height
+          },
+          rippleDomCount: document.querySelectorAll(".ripples").length
+        };
+      });
+
+      expect(layer.selectedInkCanvasCount, entry.key + " Selected Ink canvas count").toBe(1);
+      expect(layer.trunkCanvasCount, entry.key + " TRUNK canvas count").toBe(1);
+      expect(layer.overlayCount, entry.key + " overlay count").toBe(1);
+      expect(layer.overlay, entry.key + " layer order at " + viewport.width + "px").toEqual({
+        position: "fixed",
+        zIndex: "5",
+        pointerEvents: "none",
+        ariaHidden: "true",
+        childElementCount: 0,
+        appearsAfterTrunk: true,
+        selectedInkZIndex: "-1",
+        trunkZIndex: "0",
+        contentZIndex: "10",
+        width: viewport.width,
+        height: viewport.height
+      });
+      expect(layer.rippleDomCount, entry.key + " Ripple DOM count").toBe(0);
+      expect(runtime.rippleAssetRequests.length, entry.key + " Ripple request count")
+        .toBe(rippleRequestCountBeforeRoute);
+      assertRuntimeClean(runtime, entry);
+    }
+  }
+
+  expect(runtime.rippleAssetRequests, "Ripple assets should not be requested at any viewport")
+    .toEqual([]);
+  await attachRuntimeObservations(testInfo, { key: "background-overlay-seven-viewports" }, runtime);
 });
 
 
