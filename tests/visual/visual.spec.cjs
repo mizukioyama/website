@@ -2560,8 +2560,19 @@ async function verifyOrganicFlowShowcaseReload(page, pagePath) {
   await prepareDeterministicNetwork(page);
   await page.emulateMedia({ reducedMotion: "no-preference" });
 
+  const waitForFirstFrame = async () => {
+    await expect.poll(() => page.evaluate(() => {
+      const state = window.__organicFlowProduction?.getState?.();
+      return state?.engine?.frameCount ?? 0;
+    }), {
+      message: "Organic Flow should render its first frame after the document becomes interactive",
+      timeout: 10000
+    }).toBeGreaterThan(0);
+  };
+
   const firstResponse = await page.goto(pagePath, { waitUntil: "domcontentloaded" });
   expect(firstResponse.status()).toBe(200);
+  await waitForFirstFrame();
   const first = await page.evaluate(() => window.__organicFlowProduction.getState());
   expect(first.status).toBe("active");
   expect(["contour", "ribbons", "currents", "atmosphere", "hybrid-random"]).toContain(first.variant);
@@ -2581,6 +2592,7 @@ async function verifyOrganicFlowShowcaseReload(page, pagePath) {
 
   const reloadResponse = await page.reload({ waitUntil: "domcontentloaded" });
   expect(reloadResponse.status()).toBe(200);
+  await waitForFirstFrame();
   const reloaded = await page.evaluate(() => window.__organicFlowProduction.getState());
   expect(page.url()).toContain(pagePath);
   expect(reloaded.status).toBe("active");
