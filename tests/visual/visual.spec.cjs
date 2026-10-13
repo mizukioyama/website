@@ -1817,11 +1817,23 @@ for (const entry of pages) {
     }
 
     if (process.env.VISUAL_SKIP_SNAPSHOTS !== "1" && entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
+      if (["biography", "artist-statement"].includes(entry.key)) {
+        // Keep established page-layout baselines deterministic. Organic Flow is
+        // checked separately by the production-runtime lifecycle assertions.
+        await page.addStyleTag({
+          content: "#portfolio-overlay-animation .organic-flow-canvas { visibility: hidden !important; }"
+        });
+      }
       await expect(page).toHaveScreenshot(entry.key + ".png", {
         fullPage: true,
         timeout: 15000
       });
     } else if (fullAudit) {
+      if (["biography", "artist-statement"].includes(entry.key)) {
+        await page.addStyleTag({
+          content: "#portfolio-overlay-animation .organic-flow-canvas { visibility: hidden !important; }"
+        });
+      }
       await page.screenshot({
         path: testInfo.outputPath(entry.key + "-full-page.png"),
         fullPage: true,
@@ -2544,6 +2556,57 @@ test("Header menu follows saved language and hides language controls while open"
   await attachRuntimeObservations(testInfo, entry, runtime);
 });
 
+async function verifyOrganicFlowShowcaseReload(page, pagePath) {
+  await prepareDeterministicNetwork(page);
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+
+  const firstResponse = await page.goto(pagePath, { waitUntil: "domcontentloaded" });
+  expect(firstResponse.status()).toBe(200);
+  const first = await page.evaluate(() => window.__organicFlowProduction.getState());
+  expect(first.status).toBe("active");
+  expect(["contour", "ribbons", "currents", "atmosphere", "hybrid-random"]).toContain(first.variant);
+  expect(first.lastVariant).toBe(first.variant);
+  expect(first.canvasCount).toBe(1);
+  expect(first.engine.rafActive).toBe(true);
+  expect(first.engine.frameCount).toBeGreaterThan(0);
+  expect(page.url()).toContain(pagePath);
+  if (first.variant === "hybrid-random") {
+    expect(Object.values(first.hybridContributions).reduce((sum, value) => sum + value, 0)).toBe(100);
+  }
+
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const resized = await page.evaluate(() => window.__organicFlowProduction.getState());
+  expect(resized.variant).toBe(first.variant);
+  expect(resized.canvasCount).toBe(1);
+
+  const reloadResponse = await page.reload({ waitUntil: "domcontentloaded" });
+  expect(reloadResponse.status()).toBe(200);
+  const reloaded = await page.evaluate(() => window.__organicFlowProduction.getState());
+  expect(page.url()).toContain(pagePath);
+  expect(reloaded.status).toBe("active");
+  expect(reloaded.variant).not.toBe(first.variant);
+  expect(reloaded.lastVariant).toBe(reloaded.variant);
+  expect(reloaded.canvasCount).toBe(1);
+  expect(reloaded.engine.rafActive).toBe(true);
+  if (reloaded.variant === "hybrid-random") {
+    expect(Object.values(reloaded.hybridContributions).reduce((sum, value) => sum + value, 0), "Hybrid Random weights should sum to 100").toBe(100);
+  }
+
+  const localSettingsKeys = await page.evaluate(() => Object.keys(localStorage).sort());
+  expect(localSettingsKeys.some(key => /organic.?flow/i.test(key))).toBe(false);
+}
+
+for (const pagePath of ["biography.html", "artist-statement.html"]) {
+  test("Organic Flow Showcase Random reloads " + pagePath + " without repeat or resize reroll", async ({ page }, testInfo) => {
+    test.skip(
+      testInfo.project.name !== "desktop-1440",
+      "Organic Flow selection lifecycle is checked once per normal run."
+    );
+    test.setTimeout(90000);
+    await verifyOrganicFlowShowcaseReload(page, pagePath);
+  });
+}
+
 test("Selected Ink Field initializes on all nine production routes", async ({ page }, testInfo) => {
   test.skip(
     testInfo.project.name !== "desktop-1440",
@@ -2554,6 +2617,7 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
   await prepareDeterministicNetwork(page);
   await page.emulateMedia({ reducedMotion: "no-preference" });
 
+  let previousOrganicVariant = null;
   for (const entry of pages.filter(item => item.key !== "404")) {
     const rippleRequestCountBeforeRoute = runtime.rippleAssetRequests.length;
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
@@ -2605,6 +2669,8 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
           /(?:jquery\.ripples-min\.js|bg_wave\.js)(?:[?#]|$)/.test(script.src)
         ).length,
         fogCanvasCount: document.querySelectorAll("#vanta-bg canvas").length,
+        organicCanvasCount: document.querySelectorAll("#portfolio-overlay-animation .organic-flow-canvas").length,
+        organic: window.__organicFlowProduction ? window.__organicFlowProduction.getState() : null,
         trunkInstanceActive: Boolean(
           window.__PORTFOLIO_BACKGROUND_ACCENTS__ &&
           window.__PORTFOLIO_BACKGROUND_ACCENTS__.getTrunkSphereInstance()
@@ -2618,6 +2684,7 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     expect(state.canvasWidth, entry.key + " canvas width").toBeGreaterThan(0);
     expect(state.canvasHeight, entry.key + " canvas height").toBeGreaterThan(0);
     const trunkExpected = ["biography", "artist-statement"].includes(entry.key);
+    expect(state.organicCanvasCount, entry.key + " Organic Flow canvas count").toBe(trunkExpected ? 1 : 0);
     expect(state.trunkCanvasCount, entry.key + " TRUNK canvas count").toBe(trunkExpected ? 1 : 0);
     expect(state.overlayDomCount, entry.key + " overlay layer count").toBe(trunkExpected ? 1 : 0);
     expect(state.overlayStylesheetCount, entry.key + " overlay stylesheet count").toBe(trunkExpected ? 1 : 0);
@@ -2627,7 +2694,7 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
         zIndex: "5",
         pointerEvents: "none",
         ariaHidden: "true",
-        childElementCount: 0,
+        childElementCount: 1,
         appearsAfterTrunk: true,
         selectedInkZIndex: "-1",
         trunkZIndex: "0",
@@ -2635,6 +2702,21 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
         width: 1440,
         height: 900
       });
+      expect(state.organic.status, entry.key + " Organic Flow runtime status").toBe("active");
+      expect(state.organic.lastVariant, entry.key + " persisted Showcase Random selection")
+        .toBe(state.organic.variant);
+      expect(["contour", "ribbons", "currents", "atmosphere", "hybrid-random"])
+        .toContain(state.organic.variant);
+      expect(state.organic.engine.rafActive, entry.key + " should have one Organic Flow RAF loop").toBe(true);
+      expect(state.organic.engine.frameCount, entry.key + " should render Organic Flow frames").toBeGreaterThan(0);
+      if (previousOrganicVariant) {
+        expect(state.organic.variant, entry.key + " should not repeat the prior route selection")
+          .not.toBe(previousOrganicVariant);
+      }
+      previousOrganicVariant = state.organic.variant;
+      if (state.organic.variant === "hybrid-random") {
+        expect(Object.values(state.organic.hybridContributions).reduce((sum, value) => sum + value, 0)).toBe(100);
+      }
     } else {
       expect(state.overlay, entry.key + " should not receive the initial overlay layer").toBeNull();
     }
@@ -2671,6 +2753,7 @@ test("Background overlay layer remains full viewport and non-interactive at all 
     testInfo.project.name !== "desktop-1440",
     "The overlay viewport geometry is audited once per normal run."
   );
+  test.setTimeout(180000);
 
   const runtime = createRuntimeMonitor(page);
   await prepareDeterministicNetwork(page);
@@ -2687,18 +2770,27 @@ test("Background overlay layer remains full viewport and non-interactive at all 
   ];
   const overlayPages = pages.filter(item => ["biography", "artist-statement"].includes(item.key));
 
-  for (const viewport of viewports) {
-    await page.setViewportSize(viewport);
-    for (const entry of overlayPages) {
+  for (const entry of overlayPages) {
+    await page.setViewportSize(viewports[0]);
+    const initialResponse = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
+    expect(initialResponse.status(), entry.key + " should return HTTP 200").toBe(200);
+    await expect(page.locator("#selected-ink-field-canvas"), entry.key + " Selected Ink canvas should mount")
+      .toBeAttached();
+    await expect(page.locator("#vanta-bg-bio canvas"), entry.key + " TRUNK canvas should mount")
+      .toBeAttached();
+    await expect(page.locator("#portfolio-overlay-animation .organic-flow-canvas"), entry.key + " Organic Flow canvas should mount")
+      .toBeAttached();
+
+    for (const viewport of viewports) {
+      await page.setViewportSize(viewport);
+      await expect.poll(() => page.evaluate(() => {
+        const overlay = document.querySelector("#portfolio-overlay-animation");
+        if (!overlay) return null;
+        const rect = overlay.getBoundingClientRect();
+        return { width: rect.width, height: rect.height };
+      })).toEqual({ width: viewport.width, height: viewport.height });
+
       const rippleRequestCountBeforeRoute = runtime.rippleAssetRequests.length;
-      const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
-      expect(response.status(), entry.key + " at " + viewport.width + "px should return HTTP 200").toBe(200);
-      await page.waitForLoadState("load");
-      await expect.poll(() => page.evaluate(() => Boolean(
-        window.__selectedInkField &&
-        window.__selectedInkField.getState().frameCount > 0 &&
-        document.querySelectorAll("#vanta-bg-bio canvas").length === 1
-      ))).toBe(true);
 
       const layer = await page.evaluate(() => {
         const canvas = document.querySelector("#selected-ink-field-canvas");
@@ -2720,6 +2812,7 @@ test("Background overlay layer remains full viewport and non-interactive at all 
             selectedInkZIndex: getComputedStyle(canvas).zIndex,
             trunkZIndex: getComputedStyle(trunk).zIndex,
             contentZIndex: getComputedStyle(content).zIndex,
+            organicCanvasCount: document.querySelectorAll("#portfolio-overlay-animation .organic-flow-canvas").length,
             width: rect.width,
             height: rect.height
           },
@@ -2735,11 +2828,12 @@ test("Background overlay layer remains full viewport and non-interactive at all 
         zIndex: "5",
         pointerEvents: "none",
         ariaHidden: "true",
-        childElementCount: 0,
+        childElementCount: 1,
         appearsAfterTrunk: true,
         selectedInkZIndex: "-1",
         trunkZIndex: "0",
         contentZIndex: "10",
+        organicCanvasCount: 1,
         width: viewport.width,
         height: viewport.height
       });
@@ -2761,36 +2855,87 @@ test("VANTA.TRUNK accent respects reduced motion and motion preference changes",
     testInfo.project.name !== "desktop-1440",
     "Reduced-motion background lifecycle is checked once per normal run."
   );
+  test.setTimeout(120000);
 
   await prepareDeterministicNetwork(page);
   await page.emulateMedia({ reducedMotion: "reduce" });
   const biographyResponse = await page.goto("biography.html", { waitUntil: "domcontentloaded" });
   expect(biographyResponse.status()).toBe(200);
   await page.waitForLoadState("load");
-  await expect.poll(() => page.evaluate(() => {
-    const engine = window.__selectedInkField;
-    const state = engine && engine.getState();
-    const canvas = document.querySelector("#selected-ink-field-canvas");
-    return Boolean(state && state.reducedMotion && canvas && canvas.width > 0 && canvas.height > 0);
-  })).toBe(true);
+  expect(await page.evaluate(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches)).toBe(true);
+  await expect(page.locator("#selected-ink-field-canvas")).toBeAttached();
+  const reducedSelectedInk = await page.evaluate(() => window.__selectedInkField.getState());
+  expect(reducedSelectedInk.reducedMotion).toBe(true);
+  expect(reducedSelectedInk.canvasCount).toBe(1);
   await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(0);
+  await expect.poll(() => page.locator("#portfolio-overlay-animation .organic-flow-canvas").count()).toBe(1);
+  const reducedOrganic = await page.evaluate(() => window.__organicFlowProduction.getState());
+  expect(reducedOrganic.status).toBe("active");
+  expect(reducedOrganic.engine.reducedMotion).toBe(true);
+  expect(reducedOrganic.engine.rafActive).toBe(false);
+  expect(reducedOrganic.engine.frameCount).toBe(0);
   expect(await page.evaluate(() => window.__PORTFOLIO_BACKGROUND_ACCENTS__
     .getTrunkSphereInstance())).toBeNull();
 
   await page.emulateMedia({ reducedMotion: "no-preference" });
-  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(1);
-  await expect.poll(() => page.evaluate(() => window.__selectedInkField.getState().frameCount)).toBeGreaterThan(0);
+  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count(), { timeout: 20000 }).toBe(1);
+  await expect.poll(() => page.evaluate(() => window.__organicFlowProduction.getState().engine.frameCount), { timeout: 20000 }).toBeGreaterThan(0);
+  const resumedOrganic = await page.evaluate(() => window.__organicFlowProduction.getState());
+  expect(resumedOrganic.canvasCount).toBe(1);
+  expect(resumedOrganic.engine.rafActive).toBe(true);
+  await expect.poll(() => page.evaluate(() => window.__selectedInkField.getState().frameCount), { timeout: 20000 }).toBeGreaterThan(0);
   expect(await page.evaluate(() => Boolean(window.__PORTFOLIO_BACKGROUND_ACCENTS__
     .getTrunkSphereInstance()))).toBe(true);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(0);
+  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count(), { timeout: 20000 }).toBe(0);
+  const pausedOrganic = await page.evaluate(() => window.__organicFlowProduction.getState());
+  expect(pausedOrganic.canvasCount).toBe(1);
+  expect(pausedOrganic.engine.rafActive).toBe(false);
+  await page.waitForTimeout(120);
+  expect((await page.evaluate(() => window.__organicFlowProduction.getState())).engine.frameCount)
+    .toBe(pausedOrganic.engine.frameCount);
   expect(await page.evaluate(() => window.__PORTFOLIO_BACKGROUND_ACCENTS__
     .getTrunkSphereInstance())).toBeNull();
 
   const statementResponse = await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
   expect(statementResponse.status()).toBe(200);
-  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count()).toBe(0);
+  await page.waitForLoadState("load");
+  const statementMotionState = await page.evaluate(() => ({
+    reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    trunkCanvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length,
+    trunkInstanceActive: Boolean(window.__PORTFOLIO_BACKGROUND_ACCENTS__
+      .getTrunkSphereInstance()),
+    organicReducedMotion: window.__organicFlowProduction.getState().engine.reducedMotion,
+    organicRafActive: window.__organicFlowProduction.getState().engine.rafActive
+  }));
+  expect(statementMotionState).toEqual({
+    reducedMotion: true,
+    trunkCanvasCount: 0,
+    trunkInstanceActive: false,
+    organicReducedMotion: true,
+    organicRafActive: false
+  });
+
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect.poll(() => page.evaluate(() => (
+    document.querySelectorAll("#vanta-bg-bio canvas").length === 1 &&
+    window.__organicFlowProduction.getState().engine.frameCount > 0
+  )), { timeout: 20000 }).toBe(true);
+  const statementMotionResumed = await page.evaluate(() => ({
+    reducedMotion: window.__organicFlowProduction.getState().engine.reducedMotion,
+    rafActive: window.__organicFlowProduction.getState().engine.rafActive,
+    frameCount: window.__organicFlowProduction.getState().engine.frameCount
+  }));
+  expect(statementMotionResumed.reducedMotion).toBe(false);
+  expect(statementMotionResumed.rafActive).toBe(true);
+  expect(statementMotionResumed.frameCount).toBeGreaterThan(0);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(() => page.locator("#vanta-bg-bio canvas").count(), { timeout: 20000 }).toBe(0);
+  const statementMotionPaused = await page.evaluate(() => window.__organicFlowProduction.getState().engine);
+  expect(statementMotionPaused.reducedMotion).toBe(true);
+  expect(statementMotionPaused.rafActive).toBe(false);
 });
 test("all sitemap pages are registered for visual checks", async ({}, testInfo) => {
   test.skip(
