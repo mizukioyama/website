@@ -25,10 +25,11 @@ Only the baseline and current priority queue below define active status. Dated p
 ## Current priority queue
 
 1. Owner review of the deployed Biography / Artist Statement background composition and sphere placement; real-GPU and physical-device performance acceptance remains pending.
-2. Complete Gallery Phase H-1 Linux preflight on the feature branch: verify the full 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px matrix with full_audit=true, inspect actual / expected / diff artifacts, and keep main, Pages, and baselines unchanged.
-3. Keep current Linux baselines unchanged unless a later reviewed Visual Regression run confirms an intentional target-page difference.
+2. Review the isolated Organic Flow production-integration candidate on `feat/organic-flow-production-integration` at `5bf879ea2100be7ebd6ea4fd3f77abb4b3345d68`. The local build/checks and targeted browser lifecycle checks pass, but no user-tuned settings JSON was supplied, visual acceptance is pending, and performance remains inconclusive. Do not push, merge, deploy, or update baselines before owner review and the remaining gates.
+3. Complete Gallery Phase H-1 Linux preflight on the feature branch: verify the full 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px matrix with full_audit=true, inspect actual / expected / diff artifacts, and keep main, Pages, and baselines unchanged.
+4. Keep current Linux baselines unchanged unless a later reviewed Visual Regression run confirms an intentional target-page difference.
 
-This queue records the Gallery release candidate and its pending Linux visual gate. Feature-branch publication is scoped to preflight; main push, Pages deployment, and baseline updates remain deferred.
+This queue records the Organic Flow local candidate and Gallery release candidate. Candidate review, GitHub CI, main push, Pages deployment, and baseline updates remain pending; production state is unchanged.
 
 ## Phase 0 - Governance
 - [x] AI operating rules and Loop Engineering
