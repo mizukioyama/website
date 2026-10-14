@@ -6,6 +6,10 @@ const localJquery = fs.readFileSync(
   path.resolve(__dirname, "../../docs/js/jquery-3.7.1.min.js"),
   "utf8"
 );
+const productionSource = fs.readFileSync(
+  path.resolve(__dirname, "../../js/organic-flow-production.js"),
+  "utf8"
+);
 
 const pageRoutes = [
   { key: "biography", path: "biography.html" },
@@ -84,7 +88,7 @@ test("captures visible Organic Flow variants on both candidate pages", async ({ 
 
   await page.route("**/organic-flow-production.js*", async route => {
     const response = await route.fetch();
-    const source = await response.text();
+    const source = productionSource;
     const testHook = `value: Object.freeze({
       getState,
       setVariantForTest(choice, seed) {
