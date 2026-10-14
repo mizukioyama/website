@@ -1816,6 +1816,12 @@ for (const entry of pages) {
       await assertBilingualPage(page, entry.key);
     }
 
+    // Run Home's interactive menu assertion before the expensive full-page
+    // capture, which can consume most of its bounded CI test budget.
+    if (entry.key === "home") {
+      await exerciseSharedRuntimeInteractions(page);
+    }
+
     if (process.env.VISUAL_SKIP_SNAPSHOTS !== "1" && entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
       if (["biography", "artist-statement"].includes(entry.key)) {
         // Keep established page-layout baselines deterministic. Organic Flow is
@@ -1842,7 +1848,7 @@ for (const entry of pages) {
       });
     }
 
-    if (!["biography", "artist-statement", "404", "yurayura"].includes(entry.key)) {
+    if (!["home", "biography", "artist-statement", "404", "yurayura"].includes(entry.key)) {
       await exerciseSharedRuntimeInteractions(page);
     }
     if (entry.key === "gallery") {
