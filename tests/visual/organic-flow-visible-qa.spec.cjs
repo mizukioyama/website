@@ -85,6 +85,29 @@ test("captures visible Organic Flow variants on both candidate pages", async ({ 
   await page.route("**/organic-flow-production.js*", async route => {
     const response = await route.fetch();
     const source = await response.text();
+    const testHook = `value: Object.freeze({
+      getState,
+      setVariantForTest(choice, seed) {
+        if (!validChoices.includes(choice) || !instance) return false;
+        const engine = window.OrganicFlow;
+        const isHybridRandom = choice === "hybrid-random";
+        const random = engine.createSeededRandom(seed);
+        const nextContributions = isHybridRandom
+          ? engine.randomizeHybridContributions(random)
+          : { ...HYBRID_BASE };
+        instance.setMode(isHybridRandom ? "hybrid" : "manual");
+        instance.setVariant(isHybridRandom ? "contour" : choice);
+        if (isHybridRandom) instance.setHybridContributions(nextContributions);
+        selectedChoice = choice;
+        selectedContributions = nextContributions;
+        const overlay = document.getElementById("portfolio-overlay-animation");
+        if (overlay) overlay.dataset.organicFlowVariant = selectedChoice;
+        rememberChoice(selectedChoice);
+        return true;
+      }
+    })`;
+    const testableSource = source.replace("value: Object.freeze({ getState })", testHook);
+    if (testableSource === source) throw new Error("Visible Organic Flow test hook could not be installed.");
     const wrappedSource = [
       "(() => {",
       "  const nativeRandom = Math.random;",
@@ -92,7 +115,7 @@ test("captures visible Organic Flow variants on both candidate pages", async ({ 
       "  let fixedIndex = 0;",
       "  Math.random = () => fixedIndex < fixedValues.length ? fixedValues[fixedIndex++] : nativeRandom();",
       "  try {",
-      source,
+      testableSource,
       "  } finally {",
       "    Math.random = nativeRandom;",
       "  }",
@@ -104,24 +127,30 @@ test("captures visible Organic Flow variants on both candidate pages", async ({ 
 
   for (const route of pageRoutes) {
     for (const viewport of viewports) {
+      const pageSeed = seedFor(route.key, viewport.width, "visible-qa-runtime");
+      currentRandomTape = [0.1, ...seededValues(pageSeed, 24)];
       await page.setViewportSize(viewport);
+
+      const response = await page.goto(route.path, { waitUntil: "domcontentloaded" });
+      expect(response.status(), route.key + " should load at " + viewport.width + "px")
+        .toBe(200);
+      await page.waitForLoadState("load");
+      await expect.poll(() => page.locator(".h1-text h1.text").evaluate(title => {
+        const target = title.getAttribute("aria-label");
+        return Boolean(target && title.innerText.trim() === target.trim() && !title.querySelector(".dud"));
+      }), { timeout: 30000 }).toBe(true);
+      await expect.poll(() => page.evaluate(() => {
+        const state = window.__organicFlowProduction?.getState?.();
+        return state && state.engine ? state.engine.frameCount : 0;
+      }), { timeout: 15000 }).toBeGreaterThan(0);
 
       for (const variant of variants) {
         const seed = seedFor(route.key, viewport.width, variant.key);
-        currentRandomTape = [variant.firstRandom, ...seededValues(seed, 8)];
-
-        const response = await page.goto(route.path, { waitUntil: "domcontentloaded" });
-        expect(response.status(), route.key + " should load at " + viewport.width + "px")
-          .toBe(200);
-        await page.waitForLoadState("load");
-        await expect.poll(() => page.locator(".h1-text h1.text").evaluate(title => {
-          const target = title.getAttribute("aria-label");
-          return Boolean(target && title.innerText.trim() === target.trim() && !title.querySelector(".dud"));
-        }), { timeout: 30000 }).toBe(true);
-        await expect.poll(() => page.evaluate(() => {
-          const state = window.__organicFlowProduction?.getState?.();
-          return state && state.engine ? state.engine.frameCount : 0;
-        }), { timeout: 15000 }).toBeGreaterThan(0);
+        const applied = await page.evaluate(({ choice, fixedSeed }) => {
+          return window.__organicFlowProduction?.setVariantForTest?.(choice, fixedSeed) === true;
+        }, { choice: variant.key, fixedSeed: seed });
+        expect(applied, route.key + " test-only variant hook at " + viewport.width + "px")
+          .toBe(true);
 
         const observation = await page.evaluate(() => {
           const state = window.__organicFlowProduction.getState();
@@ -177,6 +206,7 @@ test("captures visible Organic Flow variants on both candidate pages", async ({ 
             body: await page.screenshot({ fullPage: false }),
             contentType: "image/png"
           });
+          await page.evaluate(() => window.scrollTo(0, 0));
         }
 
         observations.push({
