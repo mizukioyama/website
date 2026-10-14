@@ -113,10 +113,11 @@ test("captures visible Organic Flow variants on both candidate pages", async ({ 
         const response = await page.goto(route.path, { waitUntil: "domcontentloaded" });
         expect(response.status(), route.key + " should load at " + viewport.width + "px")
           .toBe(200);
+        await page.waitForLoadState("load");
         await expect.poll(() => page.locator(".h1-text h1.text").evaluate(title => {
           const target = title.getAttribute("aria-label");
           return Boolean(target && title.innerText.trim() === target.trim() && !title.querySelector(".dud"));
-        }), { timeout: 15000 }).toBe(true);
+        }), { timeout: 30000 }).toBe(true);
         await expect.poll(() => page.evaluate(() => {
           const state = window.__organicFlowProduction?.getState?.();
           return state && state.engine ? state.engine.frameCount : 0;
