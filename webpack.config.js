@@ -13,6 +13,8 @@ const rootVisualPages = [
 
 const rootVisualScripts = [
   "background-system-config.js",
+  "organic-flow-engine.js",
+  "organic-flow-production.js",
   "selected-ink-field.js",
   "cursor.js",
   "form.js",
