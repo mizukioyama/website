@@ -24,7 +24,8 @@ concurrency:
 jobs:
   visual:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     env:
       PLAYWRIGHT_VERSION: "1.63.0"
       VISUAL_FULL: ${{ (github.event_name == 'pull_request' && '1') || (github.event_name == 'workflow_dispatch' && inputs.full_audit && '1') || '0' }}
@@ -39,7 +40,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install site dependencies
         run: npm ci
@@ -52,16 +52,26 @@ jobs:
 
       - name: Cache Playwright Chromium
         id: playwright-cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-chromium-${{ env.PLAYWRIGHT_VERSION }}
 
+      # Only the disposable GitHub runner is changed; browser/font/test settings stay pinned.
+      - name: Bound Ubuntu dependency acquisition
+        timeout-minutes: 2
+        run: |
+          test -f /etc/apt/apt-mirrors.txt
+          printf '%s\n' 'https://archive.ubuntu.com/ubuntu' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null
+          printf '%s\n' 'Acquire::Retries "1";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-portfolio-ci-timeouts >/dev/null
+
       - name: Install Chromium and system dependencies
+        timeout-minutes: 10
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Install Chromium system dependencies on cache hit
+        timeout-minutes: 10
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
@@ -78,12 +88,11 @@ jobs:
       - name: Run visual regression
         shell: bash
         run: |
-          if [ "${{ steps.baseline.outputs.exists }}" = "false" ]; then
-            echo "No committed baseline exists yet; generating bootstrap snapshots."
-            npx playwright test --config=playwright.config.cjs --update-snapshots
-          else
-            npx playwright test --config=playwright.config.cjs
+          if [ "${{ steps.baseline.outputs.exists }}" != "true" ]; then
+            echo "Committed Linux baselines are required; automatic bootstrap is disabled."
+            exit 1
           fi
+          npx playwright test --config=playwright.config.cjs --update-snapshots=none
 
       - name: Upload visual evidence
         if: always()
@@ -95,13 +104,4 @@ jobs:
             test-results/visual
           if-no-files-found: ignore
           retention-days: 14
-
-      - name: Upload bootstrap baselines
-        if: success() && steps.baseline.outputs.exists == 'false'
-        uses: actions/upload-artifact@v4
-        with:
-          name: visual-baselines-${{ github.event.workflow_run.head_sha || github.sha }}
-          path: tests/visual/visual.spec.cjs-snapshots
-          if-no-files-found: error
-          retention-days: 7
 

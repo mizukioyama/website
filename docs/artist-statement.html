@@ -255,6 +255,13 @@
             }
         }
 
+        /* Page-local reading hierarchy; timeline styling remains intact. */
+        #state .statement-reading-nav { position: relative; inset: auto; z-index: auto; overflow: visible; flex-direction: row; transition: none; display: flex; flex-wrap: wrap; gap: 1.5rem; width: 100%; margin: 0 0 3rem; }
+        #state .statement-reading-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.4rem 0; border-bottom: 1px solid currentColor; }
+        #state .statement-reading-nav a:focus-visible, #state .statement-section-heading:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+        #state .statement-section-heading { scroll-margin-top: 7rem; margin-bottom: 2rem; overflow-wrap: anywhere; }
+        #state .work > p { word-break: normal; overflow-wrap: break-word; }
+        #state .work > p.text + p:not(.text) { margin-top: clamp(2rem, 6vmin, 4rem) !important; }
     </style>
 </head>
 
@@ -275,9 +282,9 @@
     <div id="portfolio-overlay-animation" aria-hidden="true"></div>
 
     <main id="state" class="gallery statement">
-            <div class="h1-text" data-title="Artist Statement" data-subtitle="自然、心、<br>感情、在り方、<br>想像、生命、<br>記憶、波動、エネルギー">
+            <div class="h1-text" data-title="Artist Statement" data-subtitle="揺らぎ、感覚、記憶<br>色と余白、<br>見えないもの<br>固定された視点を緩めること">
                 <h1 class="noise text" aria-label="Artist Statement">Artist Statement</h1>
-                <p class="noise subtext"><span lang="ja">自然、心、<br>感情、在り方、<br>想像、生命、<br>記憶、波動、エネルギー</span><span lang="en">Nature, Mind,<br>Emotions, State of being,<br>Imagination, Life,<br>Memory, Vibrations, Energy</span></p>
+                <p class="noise subtext"><span lang="ja">揺らぎ、感覚、記憶<br>色と余白、<br>見えないもの<br>固定された視点を緩めること</span><span lang="en">Fluctuation, Sensation, Memory<br>Color and Space,<br>the Invisible<br>Loosening Fixed Ways of Seeing</span></p>
             </div>
         <div class="scroll"></div>
 
@@ -286,158 +293,198 @@
                 <img src="img/202344-2-web.jpg" alt="黒と白の筆致が重なる小山瑞樹の抽象作品">
             </div>
             <div class="content">
+        <nav class="statement-reading-nav" aria-label="Statement ページ内ナビゲーション / On this page">
+          <a href="#main-statement">Statement</a><a href="#statement-questions">01–05</a>
+        </nav>
+
+                <h2 id="main-statement" class="noise statement-section-heading" tabindex="-1"><span lang="ja">制作思想</span> / <span lang="en">Statement</span></h2>
                 <div class="work">
-                    <p class="state-txt">
-                        「NatureInspire」とは、自然の在り方に学びながら、感覚と対話を重ねて生まれる小山瑞樹の制作思想である。
-                        自然は、秩序と混沌、静けさと動き、意図と偶然を同時に含んでいる。そのどちらか一方に定まらない曖昧さに、人の心や感情にも通じるものを感じている。
-                        作品もまた、一つの意味や見え方に固定されるのではなく、見る人、その瞬間、その記憶によって異なるものとして存在してほしいと考えている。
+                    <p class="state-txt" lang="ja">
+                        目に見えないものを、どのように見ることができるのか。
+                        感情、記憶、気配、生命、空気、その場に流れる雰囲気。
+                        それらは明確な形を持たず、同じ状態に留まり続けることもない。
+                        人のこころや思考もまた、環境や時間、経験によって絶えず変化している。
+                        私は、その変化の途中に現れる「揺らぎ」を、色、線、形、重なり、余白へ置き換えながら制作している。
                     </p>
-                    <p class="text">
-                        NatureInspire is Mizuki Oyama’s approach to creation, shaped through an ongoing dialogue with sensation and inspired by the way nature exists.
-                        Nature contains order and chaos, stillness and movement, intention and chance at the same time. In this ambiguity—where things do not settle into a single state—Oyama finds something that resonates with the complexity of human emotions and perception.
-                        His works likewise resist being fixed to a single meaning or way of seeing. They are intended to exist differently depending on the viewer, the moment, and the memories brought to them.
-                    </p>
-
-                    <p class="state-txt">
-                        制作では、あらかじめ完成形を決めるのではなく、計画と予測不能のあいだに身を置き、描くというより画面に「応答する」ことを意識している。
-                        滲み、混ざり、揺らめく色や形、偶然に生まれる線。その一つひとつを受け取りながら次の動きを選び、作品を立ち上げていく。
-                    </p>
-                    <p class="text">
-                        In his process, Oyama does not begin with a predetermined final image. Working between intention and unpredictability, he approaches painting less as an act of controlling an image and more as a process of responding to what emerges on the surface.
-                        Colors bleed and merge, forms shift, and unexpected lines appear. Each of these events becomes something to respond to, guiding the next movement of the work.
+                    <p class="text" lang="en">
+                        How can we see what is invisible? Emotions, memories, presence, life, air, and the atmosphere that moves through a place.
+                        These things have no definite form and never remain in the same state. Our inner lives and thoughts also change constantly with our surroundings, time, and experience.
+                        In my work, I translate the “fluctuations” that appear amid this change into color, line, form, layers, and space.
                     </p>
 
-                    <p class="state-txt">
-                        制御しすぎず、意味を与えすぎず、その瞬間に現れたものの「在り方」を残す。それは自然と向き合うときの感覚にも近い。
+                    <p class="state-txt" lang="ja">
+                        自然を見ていると、そこには秩序と混沌、静けさと動き、偶然と必然が同時に存在している。
+                        同じ風景であっても、光や時間、天候、自分自身の状態によって違って見える。
+                        私にとって自然は、描くための対象というよりも、「ひとつの見方に固定されない」という在り方を教えてくれる存在である。
+                        私が「NatureInspire」と呼んでいる制作思想も、自然の形を模倣することではなく、その変化や曖昧さ、予測できなさと向き合うことから始まっている。
                     </p>
-                    <p class="text">
-                        Rather than controlling the image or assigning too much meaning to it, he allows what appears in that moment to retain its own way of being—a process closely connected to his experience of observing nature.
-                    </p>
-
-                    <p class="state-txt">
-                        抽象を選ぶ理由の一つは、そこに一つの「正解」がないからである。
-                        「これは何だろう」「なぜ惹かれるのだろう」。作品を見ることで生まれる問いを、作者が先回りして閉じたくない。
-                        作品と向き合う時間が、自分自身の感覚や記憶、感情に触れる時間になってほしいと考えている。
-                    </p>
-                    <p class="text">
-                        One reason Oyama chooses abstraction is that it does not contain a single “correct” answer.
-                        “What is this?” “Why am I drawn to it?” He does not want to close such questions before the viewer has the opportunity to encounter them.
-                        He hopes that time spent with a work can also become time spent encountering one’s own sensations, memories, and emotions.
+                    <p class="text" lang="en">
+                        When I observe nature, order and chaos, stillness and movement, chance and necessity coexist.
+                        Even the same landscape looks different depending on the light, time, weather, and my own state.
+                        For me, nature is less a subject to depict than a presence that teaches me not to settle on a single way of seeing.
+                        The approach to making that I call “NatureInspire” begins not with imitating natural forms, but with engaging with nature’s change, ambiguity, and unpredictability.
                     </p>
 
-                    <p class="state-txt">
-                        日々の生活の中でふと感じる違和感、小さな感情の揺れ、自然のなかで呼吸が静かに深まる瞬間。そうした出来事も作品の源になっている。
-                        記憶、感情、生命、気配、波動やエネルギーといった、目には見えないものをそのまま描くことはできない。
-                        だからこそ、それらを色、形、線、重なり、リズムへと置き換えながら、画面の上に現れるものを探している。
+                    <p class="state-txt" lang="ja">
+                        制作では、最初から完成形を決めることはあまりない。
+                        色を置き、重ねる。混ざる。滲む。隠す。線を加える。余白を残す。
+                        そこで起きた変化を見ながら、次の動きを決めていく。
+                        自分で制御することと、自分では制御できないことのあいだを行き来しながら、画面に現れたものへ応答する。
+                        描き加えることだけではなく、何を残すのか、どこで手を止めるのかも制作の一部である。
                     </p>
-                    <p class="text">
-                        Small moments of discomfort in everyday life, subtle shifts in emotion, and moments in nature when his breathing quietly deepens all become sources for Oyama’s work.
-                        Memory, emotion, life, presence, vibration, and energy cannot be represented directly as visible objects.
-                        Instead, he explores how these invisible elements might emerge through color, form, line, layers, and rhythm.
-                    </p>
-
-                    <p class="state-txt">
-                        小山瑞樹にとってアートは、感覚をひらき、自分自身や世界との距離を静かに取り戻すためのひとつの場所である。
-                        情報や思考に疲れたとき、感情がうまく動かないときにも、作品が見る人の内側に小さな余白をつくり、ゆっくりと風を通すような存在であってほしいと考えている。
-                        解釈や答えを押しつけるのではなく、ただそこに「ある」こと。目には見えない感情、記憶、気配、揺らぎを感じ取ろうとすること。その感覚そのものに、アートの根源的な力があると考えている。
-                    </p>
-                    <p class="text">
-                        For Mizuki Oyama, art is a space that opens the senses and allows us to quietly regain a sense of connection with ourselves and the world.
-                        When the mind is overwhelmed by information or thought, or when emotions seem unable to move freely, he hopes that a work can create a small space within the viewer—a place where something can gently begin to breathe again.
-                        Rather than imposing an interpretation or offering a fixed answer, the work simply exists. Oyama believes that one of art’s most fundamental powers lies in the attempt to sense what cannot be seen: emotions, memories, traces, and subtle shifts in perception.
+                    <p class="text" lang="en">
+                        I rarely decide the finished form from the outset. I place and layer color, let it mix or bleed, conceal parts, add a line, and leave space.
+                        Watching the changes that take place, I decide what to do next. I move between what I can control and what I cannot, responding to what appears on the surface.
+                        Adding marks is only one part of making; choosing what to keep and when to stop is part of the process too.
                     </p>
 
-                    <p class="state-txt">
-                        作品は完成した瞬間に意味が決まるものではない。
-                        見る人の記憶や感情、そのときの経験と交差することで、新しい意味が生まれていく。
-                        だから小山瑞樹は、答えを提示するのではなく、問いを開いたまま作品を差し出す。それが、アートにできる最も素朴でありながら力強いことのひとつだと考えている。
+                    <p class="state-txt" lang="ja">
+                        私が抽象表現を選ぶ理由のひとつは、そこにひとつの正解を必要としないからだ。
+                        具体的な形や物語を示せば、見る人の意識はその意味へ向かいやすい。
+                        しかし抽象には、「これは何だろう」「なぜこの色が気になるのだろう」「なぜ自分はこう感じるのだろう」という、鑑賞者自身の中から生まれる問いを残すことができる。
+                        私は、その問いを作者の説明によって先回りして閉じたくない。
                     </p>
-                    <p class="text">
-                        A work does not acquire a single fixed meaning when it is completed.
-                        New meanings emerge when it encounters the memories, emotions, and experiences of each viewer.
-                        For this reason, Oyama does not present answers. Instead, he leaves the question open. He sees this openness as one of the simplest yet most powerful things art can offer.
+                    <p class="text" lang="en">
+                        One reason I choose abstraction is that it needs no single correct answer. Showing a concrete form or story can draw the viewer’s attention toward its meaning.
+                        Abstraction, however, can leave questions that arise within the viewer: “What is this?” “Why does this color catch my attention?” “Why do I feel this way?”
+                        I do not want to close those questions in advance with my own explanation.
+                    </p>
+
+                    <p class="state-txt" lang="ja">
+                        高校時代、長い時間をかけて抽象画と向き合う中で、美術、芸術、アートとは何なのかを考えるようになった。
+                        そのときから現在まで変わらず関心を持っているのは、作品そのものだけではなく、アートに触れた人の中で何が起こるのかということだ。
+                        私は、アートを単に美しいものをつくる行為だとは考えていない。
+                        日常の中で固定されていく視野や思考を少し緩ませ、それまでとは異なる方向から物事を見るきっかけをつくる。
+                        知らなかった感覚に気づく。忘れていた記憶に触れる。自分とは異なる見方が存在することを知る。
+                        その意味でアートは、私にとって感覚や思考に刺激を与えるものであり、学びにも似た存在である。
+                    </p>
+                    <p class="text" lang="en">
+                        In high school, as I spent time with abstract painting, I began to ask what art is.
+                        From then until now, my interest has remained not only in the work itself, but in what happens within a person who encounters art.
+                        I do not think of art simply as making beautiful things. It can loosen the ways of seeing and thinking that become fixed in everyday life and give us a chance to look from a different direction.
+                        We may notice a sensation we had not recognized, touch a forgotten memory, or discover that another way of seeing exists.
+                        In this sense, art stimulates my senses and thoughts and feels much like learning.
+                    </p>
+
+                    <p class="state-txt" lang="ja">
+                        私自身も、作品を制作することで答えを見つけようとしているわけではない。
+                        むしろ、分からないものを分からないまま観察するために制作している。
+                        言葉では捉えきれない感覚や感情を、無理に説明するのではなく、色や形として外側へ取り出してみる。
+                        そうすることで初めて、自分でも気づいていなかったものが見えてくることがある。
+                    </p>
+                    <p class="text" lang="en">
+                        I am not trying to find answers by making work. Rather, I make art to observe what I do not understand without trying to resolve it.
+                        Instead of trying to explain sensations and emotions that words cannot fully capture, I bring them outward as color and form.
+                        Only then, I sometimes see things I had not noticed in myself.
+                    </p>
+
+                    <p class="state-txt" lang="ja">
+                        作品もまた、完成した瞬間に意味が決まるものではないと考えている。
+                        同じ作品であっても、見る人、見る時期、心の状態、過去の経験によって、その見え方は変わる。
+                        作者である私の記憶や感情から始まった作品が、鑑賞者の記憶や感情と交わることで、私自身が想定していなかった意味を持つ。
+                        その変化も含めて作品である。
+                        だから私は、作品によって答えを提示したいのではない。
+                        作品の前で少し立ち止まり、何かを感じたり、何かを思い出したり、これまでとは少し違う見方をしたり、あるいは何も考えず、ただ色や形を眺めたりする。
+                        そのための余白を残したい。
+                        見えないものを感じようとすること。一つの意味に固定しないこと。変化し続けるものを、そのまま受け入れること。そして、自分とは異なる視点の存在を想像すること。
+                        私は、その小さな揺らぎの中に、アートが人へ与えることのできる力があると考えている。
+                    </p>
+                    <p class="text" lang="en">
+                        I do not think a work’s meaning is fixed at the moment it is completed. The same work can be seen differently by different people, or by the same person at different times, depending on their state of mind and past experiences.
+                        A work that began in my own memories and emotions can take on a meaning I never anticipated when it meets the viewer’s memories and emotions.
+                        That change is part of the work, too.
+                        That is why I do not want my work to provide answers. I want to leave room for someone to pause in front of it, feel something, remember something, see things a little differently, or simply look at the colors and forms without thinking at all.
+                        I want to leave space for that: trying to sense what is invisible; not fixing a work to a single meaning; accepting things that continue to change as they are; and imagining that other perspectives exist.
+                        I believe art’s power lies in those small fluctuations.
                     </p>
                 </div>
 
                 <div class="page-line"></div>
 
-                <ul class="timeline">
+                <h2 id="statement-questions" class="noise statement-section-heading" tabindex="-1"><span lang="ja">制作をめぐる5つの問い</span> / <span lang="en">Five Questions on My Practice</span></h2>
+                <ul class="timeline" aria-labelledby="statement-questions">
                     <li class="timeline-item">
-                        <p class="timeline-title">01 なぜ作るのか</p>
+                        <p class="timeline-title">01 なぜ抽象なのか</p>
                         <div class="timeline-copy">
                             <p>
-                                なぜ作るのかを、ひとつの理由に言い切ることはできない。ただ、作品を通して、見る人の中に小さな気づきや余白が生まれるような何かを表現したいという思いがある。
-                                自分の思考や感情、人や生命との関わりの中から立ち上がるイメージ。時間や状況によって変化し、見る人によって異なる姿を見せるもの。そうした、ひとつの意味に固定されない存在に惹かれている。
+                                抽象には、ひとつの正解がない。
+                                具体的な対象や物語を説明するのではなく、色、形、線、余白によって、見る人自身の感覚が入り込む場所を残すことができる。
+                                「何に見えるか」ではなく、「自分は何を感じたのか」。
+                                作品と向き合う時間が、自分自身の感覚に気づく時間になることを大切にしている。
                             </p>
-                            <p class="text">
-                                <span class="timeline-title-en">01 Why I Create</span>
-                                I cannot reduce the reason I create to a single clear answer.
-                                What I do know is that I want to make something that can create a small sense of awareness or space within the viewer.
-                                I am drawn to images that emerge from my thoughts and emotions, and from my encounters with people and life—things that change with time and circumstance and appear differently to each viewer. I value what cannot be fixed to a single meaning.
+                            <p class="text" lang="en">
+                                <span class="timeline-title-en">01 Why Abstraction</span>
+                                Abstract art has no single correct answer. Rather than explaining a concrete subject or story, it can leave room for the viewer’s own sensations to enter through color, form, line, and space.
+                                The question is not “What does it look like?” but “What do I feel?”
+                                I value the possibility that time spent with a work can become time spent noticing one’s own sensations.
                             </p>
                         </div>
                     </li>
                     <li class="timeline-item">
-                        <p class="timeline-title">02 何に向き合っているのか</p>
+                        <p class="timeline-title">02 何を表現しているのか</p>
                         <div class="timeline-copy">
                             <p>
-                                制作を通して向き合っているのは、生きることそのものだと思う。
-                                人への思いやりや共感を忘れず、日々変化する感覚や思考、何気ない出来事、五感を通して受け取るものに耳を澄ませたい。
-                                そうした日常の中にある小さな変化と作品を通してつながり、自分自身や他者、世界の在り方を見つめている。
+                                感情、記憶、生命、気配、空気、波動。
+                                目には見えず、言葉だけでは捉えきれないものに関心がある。
+                                それらを直接描くことはできない。
+                                だから、色、線、重なり、余白、リズムへ置き換えながら、その瞬間に感じたものが画面の上でどのように現れるのかを探している。
                             </p>
-                            <p class="text">
-                                <span class="timeline-title-en">02 What I Face</span>
-                                Through my work, I feel that I am ultimately facing life itself.
-                                I want to remain attentive to compassion and empathy for others while listening closely to changing sensations and thoughts, ordinary experiences, and what I perceive through the senses.
-                                Through these small shifts in everyday life, I use my work to reflect on myself, others, and the way we exist in the world.
+                            <p class="text" lang="en">
+                                <span class="timeline-title-en">02 What I Express</span>
+                                I am interested in emotions, memories, life, presence, air, and vibration—things that cannot be seen or fully captured in words.
+                                They cannot be depicted directly.
+                                Instead, I translate them into color, line, layers, space, and rhythm, exploring how what I feel in a particular moment can emerge on the surface.
                             </p>
                         </div>
                     </li>
                     <li class="timeline-item">
-                        <p class="timeline-title">03 表現したいものの根源</p>
+                        <p class="timeline-title">03 どのように作るのか</p>
                         <div class="timeline-copy">
                             <p>
-                                一人として同じ人間がいないように、一つとして同じ作品もない。
-                                作品は自分の内面と深く結びついているが、感情そのものを直接説明することを目的にはしていない。
-                                むしろ、見る人の中に「これは何だろう」「なぜこう感じるのだろう」という問いが生まれ、それぞれの記憶や感覚と結びついていくような存在でありたい。
+                                完成形を先に決めるのではなく、画面に起きた変化へ応答しながら制作する。
+                                計画と偶然、制御と予測不能のあいだを行き来し、色が混ざること、滲むこと、線が偶然生まれることも作品の一部として受け入れる。
+                                描くことだけではなく、残すこと、隠すこと、手を止めることも表現だと考えている。
                             </p>
-                            <p class="text">
-                                <span class="timeline-title-en">03 The Source of What I Want to Express</span>
-                                Just as no two people are exactly the same, no two works are ever the same.
-                                My work is deeply connected to my inner world, but I do not aim to directly explain or represent a particular emotion.
-                                Instead, I want each work to open a question within the viewer—“What is this?” or “Why does this make me feel this way?”—and allow it to connect with their own memories and sensations.
+                            <p class="text" lang="en">
+                                <span class="timeline-title-en">03 How I Create</span>
+                                Rather than deciding on a finished form in advance, I make work by responding to the changes that take place on the surface.
+                                I move between planning and chance, control and unpredictability. I accept colors mixing and bleeding, and lines appearing by chance, as parts of the work.
+                                Expression lies not only in adding to the work, but also in choosing what to keep, what to conceal, and when to stop.
                             </p>
                         </div>
                     </li>
                     <li class="timeline-item">
-                        <p class="timeline-title">04 「生命」とは</p>
+                        <p class="timeline-title">04 アートとは何か</p>
                         <div class="timeline-copy">
                             <p>
-                                私にとって生命とは、常に明確に感じられるものではない。ふとした瞬間に、その存在や気配を強く感じることがある。
-                                だから制作では、すべてを生命として捉えるのではなく、その瞬間にだけ立ち上がる感覚や気配を掬い取ることを大切にしている。
-                                二度と同じかたちでは訪れない瞬間を、そのときの感覚のまま作品へ残している。
+                                私にとってアートは、答えを教えるものではない。
+                                固定された視野や思考を少し緩ませ、別の見方が存在することに気づくためのきっかけである。
+                                作品に触れることで、自分自身の感覚、記憶、感情、そして他者の異なる視点へ意識が開かれていく。
+                                その小さな変化に、アートの持つ力を感じている。
                             </p>
-                            <p class="text">
-                                <span class="timeline-title-en">04 What Is “Life”?</span>
-                                For me, life is not something that can always be felt clearly. There are moments when its presence suddenly becomes vivid.
-                                In my work, I do not treat everything as a symbol of life. Instead, I try to capture the sensations and traces that emerge only in a particular moment.
-                                Like life itself, those moments cannot be repeated in exactly the same way, and I allow them to remain in the work as they were felt.
+                            <p class="text" lang="en">
+                                <span class="timeline-title-en">04 What Art Means to Me</span>
+                                For me, art does not give answers. It offers a chance to loosen fixed ways of seeing and thinking and to notice that other perspectives exist.
+                                Encountering a work can open us to our own sensations, memories, and emotions, as well as to the differing perspectives of others.
+                                I feel art’s power in that small change.
                             </p>
                         </div>
                     </li>
                     <li class="timeline-item">
-                        <p class="timeline-title">05 「記憶」や「無意識」について</p>
+                        <p class="timeline-title">05 作品と鑑賞者</p>
                         <div class="timeline-copy">
                             <p>
-                                作品は、作者である自分自身の記憶や無意識だけでなく、見る人の記憶や無意識にも触れるものであってほしい。
-                                同じ作品でも、見る時期や心の状態、視点や角度によって印象は変化する。その変化も作品の一部だと考えている。
-                                ひとつの意味や見え方に固定するのではなく、それぞれの人の内側で異なるものとして立ち上がる表現を目指している。
+                                作品の意味は、作者だけによって完成するものではない。
+                                作品と鑑賞者、それぞれの記憶や経験が交わったとき、新しい意味が生まれる。
+                                同じ作品でも、昨日と今日では違って見えるかもしれない。
+                                私はその変化を閉じず、作品の中に問いと余白を残したい。
+                                作品を見る人が、それぞれの感覚で自由に受け取り、自分自身の中に生まれたものと向き合えることを願っている。
                             </p>
-                            <p class="text">
-                                <span class="timeline-title-en">05 On Memory and the Unconscious</span>
-                                I want my work to touch not only my own memories and unconscious mind, but also those of the viewer.
-                                The same work can feel different depending on when it is seen, the viewer’s state of mind, or even the viewpoint and angle from which it is observed. I consider those changes to be part of the work itself.
-                                Rather than fixing a single meaning or way of seeing, I want the work to emerge differently within each person.
+                            <p class="text" lang="en">
+                                <span class="timeline-title-en">05 The Work and the Viewer</span>
+                                A work’s meaning is not completed by the artist alone. New meaning emerges when the viewer’s memories and experiences meet the work.
+                                The same work may look different today than it did yesterday. I want to leave that change open, keeping questions and space within the work.
+                                I hope each viewer can receive it freely through their own sensations and face what arises within them.
                             </p>
                         </div>
                     </li>

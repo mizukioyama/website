@@ -207,6 +207,19 @@
 
         }
 
+
+        /* Page-local information hierarchy; shared typography tokens remain unchanged. */
+        #bio .reading-nav { position: relative; inset: auto; z-index: auto; overflow: visible; flex-direction: row; transition: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; width: 100%; margin: 0 0 3rem; }
+        #bio .reading-nav a { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; padding: 0.4rem 0; border-bottom: 1px solid currentColor; overflow-wrap: anywhere; }
+        #bio .reading-nav a:focus-visible, #bio .biography-section:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+        #bio .biography-section { scroll-margin-top: 7rem; }
+        #bio .biography-section + .biography-section { margin-top: clamp(4rem, 10vmin, 7rem); }
+        #bio .biography-section h2 { margin-bottom: 2rem; overflow-wrap: anywhere; }
+        #bio .biography-section h3 { margin-bottom: 2rem; }
+        #bio .biography-section > p { line-height: 1.8; word-break: normal; overflow-wrap: break-word; }
+        #bio .full-biography-story > p { word-break: normal; overflow-wrap: break-word; }
+        #bio .full-biography-story > p.text + p:not(.text) { margin-top: clamp(2rem, 6vmin, 4rem) !important; }
+        #bio .career-table th[scope="row"] { text-align: left; vertical-align: top; font-weight: normal; }
     </style>
 </head>
 
@@ -234,60 +247,29 @@
 
         <div class="scroll"></div>
 
-        <div class="state-box">
-            <div class="state-img">
-                <img src="img/心樹-web.jpg" alt="小山瑞樹の作品『心樹』">
-            </div>
-            <div class="content">
-                <h2 class="noise">小山瑞樹｜Mizuki Oyama</h2>
-                <div class="work">
-                    <p class="state-txt">
-                        宮城県仙台市出身、1998年生まれの抽象画家。
-                        幼少期から動植物を描くことを好み、とりわけ鳥を繰り返し描いてきた。既成の価値観や一般的な「正解」よりも、自分の内側に生まれる感覚や衝動を大切にし、言葉にならないものを絵にする時間を自然と持ち続けてきた。
-                        ASD、ADHDの特性とともに育つなかで、周囲との感じ方や考え方の違いを意識することも多かった。その経験は、自分自身の感覚を問い直し、異なる見方や受け取り方を受け入れる現在の制作姿勢にもつながっている。
-                    </p>
-                    <p class="text">
-                        Mizuki Oyama is an abstract painter born in 1998 in Sendai, Miyagi Prefecture, Japan.
-                        From an early age, he was drawn to depicting plants and animals, particularly birds. Rather than relying solely on established values or conventional ideas of what is “correct,” he learned to trust the sensations and impulses that emerged from within, continuing to draw as a way of engaging with things that could not easily be expressed in words.
-                        Growing up with traits associated with ASD and ADHD also made him conscious of differences in perception and ways of thinking. These experiences later became part of his artistic approach—one that values multiple perspectives and leaves interpretation open to the viewer.
-                    </p>
+        <div class="state-box biography-overview">
+          <div class="state-img"><img src="img/心樹-web.jpg" alt="小山瑞樹の作品『心樹』"></div>
+          <div class="content">
+        <nav class="reading-nav" aria-label="Biography ページ内ナビゲーション / On this page">
+          <a href="#biography-overview">01 Biography</a><a href="#career-timeline">02 Career / Timeline</a><a href="#biography-records">03 Exhibitions / Awards / Certifications</a><a href="#full-biography">04 Full Biography / Story</a>
+        </nav>
 
-                    <p class="state-txt">
-                        高校では美術部に所属し、本格的に抽象画へ取り組む。高校3年時に制作した「無題」は、2016年の第67回宮城県高等学校美術展で優秀賞を受賞した。あらかじめ構成や意味を定めず、感覚に応答するように描いた作品が評価されたことは、自分自身の感覚を信じて制作することへの大きな転機となった。
-                        <br>
-                        高校卒業後は専門学校でデザインを学んだ。そこで、人の行動や欲求を促すことを目的とした表現と、自分が求めている表現との違いを意識するようになる。デザインから一度距離を置いた後、さまざまな仕事や環境を経験し、人間関係や環境との摩擦に向き合いながら、自分自身の考え方や行動を見直す試みを重ねた。
-                        <br>
-                        その経験を通して、一つの正しさに固執するのではなく、状況に応じて見方や方法を変える柔軟さを身につけていった。
-                    </p>
-                    <p class="text">
-                        In high school, Oyama joined the art club and began exploring abstract painting more seriously. In his final year of high school, his work “Untitled” received an Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition in 2016. The recognition became an important turning point, helping him trust his own perception as a starting point for creation.
-                        <br>
-                        After high school, he studied design at a vocational school. He became aware of the difference between expression intended to influence people’s behavior or desires and the kind he wanted to pursue, and stepped away from design for a time. Through a variety of jobs and environments, he reconsidered his own thinking and repeatedly tried new ways of responding to friction in relationships and his surroundings.
-                        <br>
-                        These experiences helped him develop greater flexibility, loosening his attachment to a single idea of what is right.
-                    </p>
-                    <p class="state-txt">
-                        2021年頃から制作と出展活動を本格的に再開。地元や東北で十分な出展機会を得られない時期をきっかけに活動の場を全国へ広げ、麗人社主催の全国公募展や藝文協会主催のグループ展をはじめ、さまざまな公募展・グループ展へ出展を重ねている。
-                        <br>
-                        現在は、自然の在り方に着想を得た「NatureInspire」を軸に制作している。制作と並行してWeb制作や情報発信も学び、自身のポートフォリオを通じて作品を届ける環境を整えている。かつて距離を置いたデザインも、現在では作品や考えを届けるための手段として向き合い直している。
-                    </p>
-                    <p class="text">
-                        Around 2021, Oyama returned more fully to making and exhibiting art. After finding few opportunities to exhibit in his local area and the Tohoku region, he expanded his activities nationwide. He has since participated in open-call and group exhibitions organized by Reijinsha and the Geibun Association, among others.
-                        <br>
-                        Today, he develops his practice around “NatureInspire,” an approach inspired by nature. Alongside his studio practice, he continues to study web production and digital communication, building his portfolio as a way to share his work online. Design has returned in a different role: as a means of sharing his work and ideas.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="state-box">
-            <div class="content" style="display: block; margin-top: 0;">
-                <div class="page-line"></div>
-
-                <h2 class="noise">画歴｜Painting history</h2>
-
-                <table class="portfolio-history-table">
+            <section id="biography-overview" class="biography-section" tabindex="-1" aria-labelledby="overview-title">
+              <h2 id="overview-title" class="noise">01 Biography</h2>
+              <h3>小山瑞樹｜Mizuki Oyama</h3>
+              <p lang="ja">小山瑞樹（Mizuki Oyama）は、1998年、宮城県仙台市生まれの抽象アーティスト。幼い頃から絵を描き、2011年の東日本大震災をきっかけに、目に見える形だけでなく、その場の雰囲気や感情、言葉では説明しきれない感覚を色で表すことを意識するようになる。高校では美術部で抽象画に向き合い、作品「無題」で第67回宮城県高等学校美術展の優秀賞を受賞した。デザインやイラストを学ぶ専門学校へ進んだ後、制作や進路から距離を置く時期を経て作品制作に戻り、2021年から出展活動を本格的に開始。東京、大阪、日光のほか、フランス、台湾など国内外で発表している。同年、自ら作品を届ける場所としてポートフォリオWebサイトの制作も始めた。現在は抽象作品とオーダー作品の制作、展示、Web制作・情報発信を横断して活動。2026年にはグループ展「ゆらゆら」を企画・初開催し、作家と鑑賞者の接点や、表現する人が無理なく活動を続けられる環境づくりにも取り組んでいる。作品を通して固定された視点や思考を少し緩め、新しいものの見方に出会うきっかけをつくることを目指している。</p><p class="text" lang="en">Mizuki Oyama is an abstract artist born in Sendai, Miyagi Prefecture, Japan, in 1998. Drawing since childhood, he began to focus on expressing not only visible forms but also atmosphere, emotions, and sensations beyond words through color after experiencing the Great East Japan Earthquake in 2011. In his high school art club, he engaged with abstract painting and received an Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition for “Untitled.” After studying design and illustration at a vocational school and spending a period away from making work and considering his career, he returned to art and began exhibiting actively in 2021. He has shown work in Tokyo, Osaka, and Nikko, as well as France and Taiwan. Also in 2021, he began building a portfolio website as a place of his own through which to share his work. Today, his practice spans abstract and commissioned artworks, exhibitions, web production, and communication. In 2026, he planned and held the first group exhibition “Yurayura,” also working to connect artists with viewers and create an environment in which people can continue making art sustainably. Through his work, he aims to loosen fixed perspectives and ways of thinking and open up encounters with new ways of seeing.</p>
+            </section>
+            <section id="career-timeline" class="biography-section" tabindex="-1" aria-labelledby="career-title">
+              <h2 id="career-title" class="noise">02 Career / Timeline</h2>
+              <table class="portfolio-history-table career-table"><thead><tr><th scope="col">Year</th><th scope="col"><span lang="ja">主な転機</span> / <span lang="en">Milestones</span></th></tr></thead><tbody><tr><th scope="row">1998</th><td><span lang="ja">宮城県仙台市に生まれる。</span><br><span lang="en" class="en-txt">Born in Sendai, Miyagi Prefecture, Japan.</span></td></tr>
+<tr><th scope="row">2011</th><td><span lang="ja">東日本大震災を経験。雰囲気や感情を色として表すことを意識するようになる。</span><br><span lang="en" class="en-txt">Experiences the Great East Japan Earthquake and begins to focus on expressing atmosphere and emotions through color.</span></td></tr>
+<tr><th scope="row">2016</th><td><span lang="ja">「無題」で第67回宮城県高等学校美術展 優秀賞を受賞。</span><br><span lang="en" class="en-txt">Receives an Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition for “Untitled.”</span></td></tr>
+<tr><th scope="row">2021</th><td><span lang="ja">出展活動を本格的に開始。ポートフォリオWebサイトの制作を始める。</span><br><span lang="en" class="en-txt">Begins exhibiting actively and building his portfolio website.</span></td></tr>
+<tr><th scope="row">2026</th><td><span lang="ja">プログラミングスクールを受講。2月に「ゆらゆら」の企画を始め、10月に初開催。</span><br><span lang="en" class="en-txt">Enrols in a programming school, begins planning “Yurayura” in February, and holds its first edition in October.</span></td></tr></tbody></table>
+            </section>
+            <section id="biography-records" class="biography-section" tabindex="-1" aria-labelledby="records-title">
+              <h2 id="records-title" class="noise">03 Exhibitions / Awards / Certifications</h2>
+              <table class="portfolio-history-table">
                     <thead>
                         <tr>
                             <th class="tb-title">Year</th>
@@ -330,9 +312,7 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <!-- 認定 / 賞 -->
-                <table class="portfolio-history-table">
+              <table class="portfolio-history-table">
                     <thead>
                         <tr>
                             <th class="tb-title">Year</th>
@@ -378,8 +358,117 @@
                         </tr>
                     </tbody>
                 </table>
+            </section>
+            <section id="full-biography" class="biography-section" tabindex="-1" aria-labelledby="story-title">
+              <h2 id="story-title" class="noise">04 Full Biography / Story</h2>
+              <div class="work full-biography-story">
+                    <p class="state-txt">抽象アーティスト。1998年、宮城県仙台市生まれ。</p>
+                    <p class="text" lang="en">Mizuki Oyama is an abstract artist born in 1998 in Sendai, Miyagi Prefecture, Japan.</p>
 
-            </div>
+                    <p class="state-txt">6歳になる前から絵を描くことが好きで、子どもの頃から「画家になって旅をすること」を夢見ていた。学校では体育や図工以外の授業中にも絵を描き続け、先生に注意されてもなかなか手を止めなかった。描くことのできない状況になると教室を抜け出すこともあり、幼い頃から絵を描くことは、自分の内側にある感覚と向き合うための自然な行為だった。</p>
+                    <p class="text" lang="en">Before turning six, Oyama already loved to draw and dreamed of becoming a painter and traveling. At school, he kept drawing even during lessons other than physical education and art, and found it difficult to stop even when teachers told him to. When he was unable to draw, he sometimes left the classroom. From an early age, drawing was a natural way for him to engage with the sensations within himself.</p>
+
+                    <p class="state-txt">2011年、東日本大震災を経験したことをきっかけに、ものの見方が変化する。目に見えるものをそのまま描くだけではなく、その場の雰囲気や感情、言葉では説明しきれない「感じたもの」を色として表現することを意識するようになった。</p>
+                    <p class="text" lang="en">Experiencing the Great East Japan Earthquake in 2011 changed the way Oyama saw things. He began to look beyond depicting only what was visible and to express, through color, the atmosphere of a place, emotions, and what he had felt but could not fully explain in words.</p>
+
+                    <p class="state-txt">中学生になると不定期でアート教室に通い、写真、コラージュ、オイルパステル、セメントなど、絵画だけに限らないさまざまな表現方法に触れる。表現には決められたひとつの方法があるのではなく、素材や手法そのものを自由に選べることを知った。</p>
+                    <p class="text" lang="en">In junior high school, he attended an art class irregularly and encountered a range of approaches beyond painting, including photography, collage, oil pastels, and cement. He learned that expression did not have to follow one prescribed method: materials and techniques themselves could be chosen freely.</p>
+
+                    <p class="state-txt">高校では美術部に入部し、本格的に抽象画と向き合い始める。構成や意味を先に決めず、好きなだけ絵の具を使い、感覚のままに描いた作品「無題」で、第67回宮城県高等学校美術展 優秀賞を受賞した。</p>
+                    <p class="text" lang="en">In high school, Oyama joined the art club and began engaging with abstract painting in earnest. Without deciding on a composition or meaning in advance, he used as much paint as he wished and painted by instinct. His work “Untitled” received an Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition.</p>
+
+                    <p class="state-txt">受賞したことへの喜びがある一方、「なぜこの作品が評価されたのか」「芸術は何を基準に評価されるのか」という疑問も残った。</p>
+                    <p class="text" lang="en">He was glad to receive the award, but questions remained: “Why was this work recognized?” and “By what standards is art evaluated?”</p>
+
+                    <p class="state-txt">高校時代に長い時間をかけて抽象画と向き合う中で、美術、芸術、アートとは何なのか、そして作品を見ることが人にどのような影響を与えるのかを自分なりに考えるようになる。</p>
+                    <p class="text" lang="en">As he spent long hours with abstract painting in high school, Oyama began to think for himself about what art is and how encountering a work might affect a person.</p>
+
+                    <p class="state-txt">作品に触れることで、固定されていたものの見方や考え方が少し緩み、それまで気づかなかった視点に出会うことがある。アートには、人の感覚や思考を刺激し、新しいものの見方を見つけるきっかけをつくる力があるのではないか。</p>
+                    <p class="text" lang="en">Encountering a work can loosen a fixed way of seeing or thinking and bring someone into contact with a perspective they had not noticed before. Oyama began to wonder whether art can stimulate our senses and thoughts and create an opening for new ways of seeing.</p>
+
+                    <p class="state-txt">この頃に生まれた考えは、現在の制作活動にもつながっている。</p>
+                    <p class="text" lang="en">The ideas that took shape at this time continue to inform his practice today.</p>
+
+                    <p class="state-txt">高校卒業後は、デジタルでも絵を描けるようになりたいと考え、デザインやイラストを学ぶ専門学校へ進学した。</p>
+                    <p class="text" lang="en">After graduating from high school, Oyama went on to a vocational school to study design and illustration, hoping to learn to draw digitally as well.</p>
+
+                    <p class="state-txt">それまで本格的にパソコンを使ってこなかったこともあり、入学後の半年から1年ほどは操作を覚えることにも苦戦した。コーディングの授業にも初歩からついていくことが難しく、当時は自宅にパソコンを持っていなかったため、授業後も学校に残り、課題制作や予習を続けた。</p>
+                    <p class="text" lang="en">Because he had not used a computer extensively, for roughly six months to a year after enrolling he struggled even to learn how to operate one. He also found it difficult to keep up with coding classes from the basics. As he did not have a computer at home at the time, he stayed at school after lessons to work on assignments and prepare for upcoming classes.</p>
+
+                    <p class="state-txt">デザインについても、思いついた感覚から途中で形を変えることが多く、意図や設計を求められるデザインとの違いを意識するようになった。</p>
+                    <p class="text" lang="en">In design too, Oyama often changed the form of an idea as it came to him. This made him more conscious of how design, which asks for intention and planning, differed from his own process.</p>
+
+                    <p class="state-txt">1年目が終わる頃、デザインを学ぶ中で、商品やサービスへの欲求を生み出すために表現が使われる側面に違和感を持つようになる。</p>
+                    <p class="text" lang="en">By the end of his first year, as he studied design, Oyama had begun to feel uneasy about the ways expression can be used to create demand for products and services.</p>
+
+                    <p class="state-txt">同時に、自分の技術で仕事にできるのか、本当にその道へ進みたいのか、大人になって何をしたいのかを考えるようになった。</p>
+                    <p class="text" lang="en">At the same time, he began asking himself whether he could make a living with his skills, whether this was truly the path he wanted to follow, and what he wanted to do as an adult.</p>
+
+                    <p class="state-txt">高校を卒業してから、現実的な進路や生き方について考える時間が増える中で、子どもの頃から持っていた夢や、自分が何のために表現したいのかを一度見失った。</p>
+                    <p class="text" lang="en">As he spent more time after high school thinking about practical paths and ways of living, Oyama lost sight for a time of the dream he had held since childhood and of why he wanted to express himself.</p>
+
+                    <p class="state-txt">その後の約3年間は、制作や進路から距離を置きながら、自分の生き方や目的を模索する時間を過ごした。</p>
+                    <p class="text" lang="en">For the next three years or so, he stepped away from making work and thinking about his career while searching for a way of living and a sense of purpose.</p>
+
+                    <p class="state-txt">さまざまな仕事、人間関係、環境を経験する中で、少しずつ自分が本当にやりたかったことを思い出すきっかけを得る。</p>
+                    <p class="text" lang="en">Through experiences in a variety of jobs, relationships, and environments, he gradually found moments that helped him remember what he had truly wanted to do.</p>
+
+                    <p class="state-txt">そして再び作品制作へ戻り、2021年から出展活動を本格的に始めた。</p>
+                    <p class="text" lang="en">Oyama returned to making work and began exhibiting actively in 2021.</p>
+
+                    <p class="state-txt">活動当初は地元や東北で発表の機会を得ることが難しかったことから、活動範囲を全国へ広げることを決意。東京、大阪、日光をはじめ、フランス、台湾など、国内外の展覧会へ出展を重ねている。</p>
+                    <p class="text" lang="en">At first, opportunities to present his work locally and in Tohoku were limited, so he decided to expand his activities nationwide. He has since taken part in exhibitions across Japan, including in Tokyo, Osaka, and Nikko, as well as internationally in France and Taiwan.</p>
+
+                    <p class="state-txt">同じ2021年からは、自分自身で作品を発信する場所をつくるため、ポートフォリオWebサイトの制作も始めた。</p>
+                    <p class="text" lang="en">Also in 2021, he began building a portfolio website to create a place of his own from which to share his work.</p>
+
+                    <p class="state-txt">当初は苦手だったコーディングを改めて独学し、その後は生成AIも取り入れながら、自分に合った方法でWeb制作を身につけていった。作品をつくるだけでなく、それを届ける場所も自分自身でつくるという現在の活動につながっている。</p>
+                    <p class="text" lang="en">Although coding had initially felt difficult to him, Oyama returned to it through self-study and later incorporated generative AI, learning web production in a way that suited him. This led to his current practice of creating not only artworks but also the places through which those works can reach others.</p>
+
+                    <p class="state-txt">制作とWebの両方を続ける中で、「時間や場所に縛られず、自分がやりたいことを続けられる環境をつくりたい」という思いが強くなる。</p>
+                    <p class="text" lang="en">As he continued both his studio practice and web work, he became more determined to create an environment where he could pursue what mattered to him without being bound by time or place.</p>
+
+                    <p class="state-txt">独立を視野に入れ、自分がどのような価値やサービスを提供できるのかを考えるようになり、2026年には自身のWeb制作スキルを客観的に確かめ、さらに学び直すためプログラミングスクールを受講した。</p>
+                    <p class="text" lang="en">With independence in view, he began considering what value or services he could offer. In 2026, he enrolled in a programming school to assess his web-production skills objectively and continue learning.</p>
+
+                    <p class="state-txt">同年2月には、グループ展「ゆらゆら」の企画を始め、10月に初開催。</p>
+                    <p class="text" lang="en">In February of the same year, he began planning the group exhibition “Yurayura,” which held its first edition in October.</p>
+
+                    <p class="state-txt">企画の根底にあるのは、</p>
+                    <p class="text" lang="en">At the heart of the project is this intention:</p>
+
+                    <p class="state-txt">「人がそれぞれの感性や能力を、存分に発揮できる環境をつくりたい」</p>
+                    <p class="text" lang="en">“To create an environment where each person can fully express their own sensibilities and abilities.”</p>
+
+                    <p class="state-txt">という思いである。</p>
+                    <p class="text" lang="en">This is the intention behind the project.</p>
+
+                    <p class="state-txt">これまで自身が参加してきた展示の中には、受賞枠などを含め、一作品の出展に10万円から25万円ほどの費用が必要になるものもあった。</p>
+                    <p class="text" lang="en">Among the exhibitions Oyama has taken part in, some—including those with award categories—have required an exhibitor to pay approximately ¥100,000 to ¥250,000 to show a single work.</p>
+
+                    <p class="state-txt">作品を発表するために大きな負担が必要になる環境を経験したことで、もっと気軽に展示活動を続けられ、アーティスト同士がつながり、それぞれの活動を広げていけるコミュニティのような場所をつくりたいと考えるようになった。</p>
+                    <p class="text" lang="en">Having experienced settings where presenting a work required a substantial financial commitment, he came to want to create a community-like place where artists could continue exhibiting more easily, connect with one another, and expand their individual practices.</p>
+
+                    <p class="state-txt">「ゆらゆら」では、単に作品を展示するだけではなく、参加するアーティストと鑑賞者との接点をつくり、それぞれの作家が次の活動へつながる環境を目指している。</p>
+                    <p class="text" lang="en">“Yurayura” aims to do more than display artworks: it seeks to connect participating artists with viewers and create an environment that can lead each artist toward their next activity.</p>
+
+                    <p class="state-txt">今後は定期的に展示を企画しながら「ゆらゆら」の認知を広げ、継続できる仕組みをつくることで、将来的にはアーティストの出展費を無償化することを目標としている。2027年から、そのための活動を本格的に進めていく予定である。</p>
+                    <p class="text" lang="en">The aim is to organize exhibitions regularly, broaden awareness of “Yurayura,” and build a sustainable structure, with the long-term goal of eliminating exhibition fees for artists. Work toward that goal is planned to begin in earnest in 2027.</p>
+
+                    <p class="state-txt">現在は、抽象作品の制作、国内外での展示、オーダー作品の制作、Web制作・情報発信、そしてグループ展「ゆらゆら」の企画・運営を横断しながら活動している。</p>
+                    <p class="text" lang="en">Today, Oyama works across abstract art, exhibitions in Japan and abroad, commissioned works, web production and communication, and the planning and organization of the group exhibition “Yurayura.”</p>
+
+                    <p class="state-txt">作品を通して、固定された視点や思考を少し緩め、新しいものの見方と出会うきっかけをつくること。</p>
+                    <p class="text" lang="en">Through his work, he hopes to loosen fixed perspectives and ways of thinking and create opportunities to encounter new ways of seeing.</p>
+
+                    <p class="state-txt">そして、表現する人がそれぞれの能力や感性を発揮し、無理なく活動を続けていける環境をつくること。</p>
+                    <p class="text" lang="en">He also hopes to help create an environment where people who make art can express their individual abilities and sensibilities and continue their work sustainably.</p>
+
+                    <p class="state-txt">幼い頃から続けてきた「つくる」という行為を起点に、自分自身の表現と、それを取り巻く環境の両方をつくる活動へと広げている。</p>
+                    <p class="text" lang="en">Beginning with the act of making that has been part of his life since childhood, Oyama has expanded his practice to shape both his own expression and the environment around it.</p>
+              </div>
+            </section>
+          </div>
         </div>
     </main>
 
