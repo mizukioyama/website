@@ -1570,6 +1570,13 @@ async function prepareDeterministicNetwork(page) {
       });
     });
   }
+
+  // CI has no local Yurayura source file; per-test routes can replace this deterministic empty feed.
+  await page.route("**/website/__preview/yurayura-events.json*", route => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: "[]"
+  }));
 }
 
 async function stabilize(page, entry = {}) {
