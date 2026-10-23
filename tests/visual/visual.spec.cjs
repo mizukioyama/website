@@ -28,11 +28,11 @@ const pages = [
     key: "artist-statement", path: "artist-statement.html", title: /Statement|Mizuki|小山瑞樹/i,
     subtitle: {
       mode: "bilingual",
-      ja: "自然、心、感情、在り方、想像、生命、記憶、波動、エネルギー",
-      en: "Nature, Mind, Emotions, State of being, Imagination, Life, Memory, Vibrations, Energy",
-      jaLines: ["自然、心、", "感情、在り方、", "想像、生命、", "記憶、波動、エネルギー"],
-      enLines: ["Nature, Mind,", "Emotions, State of being,", "Imagination, Life,", "Memory, Vibrations, Energy"],
-      dataSubtitle: "自然、心、<br>感情、在り方、<br>想像、生命、<br>記憶、波動、エネルギー"
+      ja: "揺らぎ、感覚、記憶 色と余白、 見えないもの 固定された視点を緩めること",
+      en: "Fluctuation, Sensation, Memory Color and Space, the Invisible Loosening Fixed Ways of Seeing",
+      jaLines: ["揺らぎ、感覚、記憶", "色と余白、", "見えないもの", "固定された視点を緩めること"],
+      enLines: ["Fluctuation, Sensation, Memory", "Color and Space,", "the Invisible", "Loosening Fixed Ways of Seeing"],
+      dataSubtitle: "揺らぎ、感覚、記憶<br>色と余白、<br>見えないもの<br>固定された視点を緩めること"
     }
   },
   {
@@ -635,7 +635,7 @@ async function assertResponsivePageGeometry(page, entry) {
 
   if (entry.key === "information") {
     await expectHorizontalFit(page.locator(".information-page .content"), "Information content");
-    await expectHorizontalFit(page.locator(".information-page .info-section[aria-labelledby=\"upcoming-title\"] .history-table"), "Information Upcoming table");
+    await expectHorizontalFit(page.locator('.information-page .info-section[aria-labelledby="upcoming-title"] > p:visible'), "Information Upcoming empty state");
     await expectHorizontalFit(page.locator(".information-page .past-activities-table"), "Information Past Activities table");
     await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links");
   }
@@ -1321,6 +1321,7 @@ async function exerciseContactRuntime(page, testInfo) {
 }
 
 const informationPastActivityRows = [
+  ["2026.10", "開催終了 グループ展「ゆらゆら」｜企画・主催 2026年10月6日 — 10月12日", "Concluded Group Exhibition “Yurayura”｜Planning / Organizer October 6 — 12, 2026"],
   ["2025", "03｜日台の絆展 会場 / 台湾", "March｜Japan-Taiwan Bond Exhibition Venue / Taiwan"],
   ["2023", "06｜第2回日仏友好オリジナル切手展 会場 / フランス", "June | 2nd Japan-France Friendship Original Stamp Exhibition Venue / France"],
   ["2022", "11｜芸術の虎展 会場 / 日光東照宮美術館 04｜日アセアン友好文化交流展 会場 / 東京アセアンセンター", "November | Tigers of Art Exhibition Venue: Nikko Toshogu Museum April | Japan-ASEAN Friendship and Cultural Exchange Exhibition Venue: Tokyo ASEAN Centre"],
@@ -1347,16 +1348,16 @@ async function assertInformationPastHistory(page, language, label) {
       .trim();
     return [
       normalize(row.querySelector("td.year")?.textContent || ""),
-      normalize(row.querySelector('td.tb-content > [lang="ja"]')),
-      normalize(row.querySelector('td.tb-content > [lang="en"]'))
+      normalize(row.querySelector('td.tb-content > span[lang="ja"]')),
+      normalize(row.querySelector('td.tb-content > span[lang="en"]'))
     ];
   }));
   expect(rows, label + " year, month, exhibition, and venue records").toEqual(informationPastActivityRows);
 
   for (let index = 0; index < informationPastActivityRows.length; index += 1) {
     const row = table.locator("tbody tr").nth(index);
-    await expect(row.locator('td.tb-content > [lang="ja"]'))[language === "ja" ? "toBeVisible" : "toBeHidden"]();
-    await expect(row.locator('td.tb-content > [lang="en"]'))[language === "en" ? "toBeVisible" : "toBeHidden"]();
+    await expect(row.locator('td.tb-content > span[lang="ja"]'))[language === "ja" ? "toBeVisible" : "toBeHidden"]();
+    await expect(row.locator('td.tb-content > span[lang="en"]'))[language === "en" ? "toBeVisible" : "toBeHidden"]();
   }
   await expect(table.locator("thead th").nth(1).locator('[lang="ja"]'))[language === "ja" ? "toBeVisible" : "toBeHidden"]();
   await expect(table.locator("thead th").nth(1).locator('[lang="en"]'))[language === "en" ? "toBeVisible" : "toBeHidden"]();
@@ -1370,7 +1371,7 @@ async function compareInformationPastTableWithBiography(page, label) {
     if (viewport) await referencePage.setViewportSize(viewport);
     await prepareDeterministicNetwork(referencePage);
     await referencePage.goto(new URL("biography.html", page.url()).href, { waitUntil: "domcontentloaded" });
-    const biographyTable = referencePage.locator("#state .content .portfolio-history-table").first();
+    const biographyTable = referencePage.locator("#biography-records .portfolio-history-table").first();
     await expect(biographyTable, label + " Biography history table").toBeVisible();
 
     const profile = async table => table.evaluate(element => {
@@ -1436,12 +1437,12 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("#upcoming-title [lang=ja]")).toBeVisible();
   await expect(page.locator("#past-title [lang=ja]")).toBeVisible();
   await expect(page.locator('#past-title [lang="ja"]')).toHaveText("過去の活動");
-  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table thead th:first-child [lang="ja"]')).toBeVisible();
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] > p[lang="ja"]')).toBeVisible();
   await assertInformationPastHistory(page, "ja", "Information Past Activities in Japanese");
   await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
   await expect(page.locator(".information-intro p[lang=en]")).toHaveCount(1);
   await expect(page.locator(".information-intro p[lang=en]")).toBeHidden();
-  await expect(page.locator(".past-activities-table tbody tr")).toHaveCount(4);
+  await expect(page.locator(".past-activities-table tbody tr")).toHaveCount(5);
   await expect(page.locator('.past-activities-table tbody tr[lang="ja"], .past-activities-table tbody tr[lang="en"]')).toHaveCount(0);
   await expect(page.locator('.info-link[lang="ja"]')).toBeVisible();
   await expect(page.locator('.info-link[lang="en"]')).toBeHidden();
@@ -1454,23 +1455,22 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("#past-title [lang=ja]")).toBeHidden();
   await expect(page.locator('#past-title [lang="en"]')).toHaveText("Past Activities");
   await assertInformationPastHistory(page, "en", "Information Past Activities in English");
-  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table thead th:first-child [lang="ja"]')).toBeHidden();
-  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table thead th:first-child [lang="en"]')).toBeVisible();
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] > p[lang="ja"]')).toBeHidden();
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] > p[lang="en"]')).toBeVisible();
   await expect(page.locator(".information-intro p[lang=ja]")).toBeHidden();
   await expect(page.locator(".information-intro p[lang=en]")).toBeVisible();
   await expect(page.locator(".information-intro p[lang=en]")).toContainText("Current and upcoming exhibitions");
   await expect(page.locator("#upcoming-title [lang=en]")).toBeVisible();
   await expect(page.locator("#past-title [lang=en]")).toBeVisible();
-  await expect(page.locator('.history-table tbody tr[lang="ja"]').first()).toBeHidden();
-  await expect(page.locator('.history-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
-  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] .history-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
+  await expect(page.locator('.past-activities-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
+  await expect(page.locator('.past-activities-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
   const englishDetailLink = page.locator('.info-link[lang="en"]');
   await expect(englishDetailLink).toBeVisible();
   await expect(englishDetailLink).toHaveText("View exhibition details");
   await expect(englishDetailLink).toHaveAttribute("href", "exhibitions/yurayura/");
   await expect(page.locator('.info-link[lang="ja"]')).toBeHidden();
   await expectHorizontalFit(page.locator(".information-page .content"), "Information content in English");
-  await expectHorizontalFit(page.locator(".information-page .history-table"), "Information table in English");
+  await expectHorizontalFit(page.locator(".information-page .past-activities-table"), "Information table in English");
   await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links in English");
   const englishDiagnostics = await layoutDiagnostics(page);
   expect(englishDiagnostics.overflow, "English Information has horizontal overflow").toBe(0);
@@ -1511,9 +1511,9 @@ async function exerciseInformationRuntime(page, testInfo) {
   await compareInformationPastTableWithBiography(page, "Information table matches Biography at " + page.viewportSize().width + "px");
 
   const upcoming = page.locator('section[aria-labelledby="upcoming-title"]');
-  await expect(upcoming).toContainText("2026.10");
-  await expect(upcoming).toContainText("グループ展「ゆらゆら」");
-  await expect(upcoming).toContainText("2026年10月6日 — 10月12日");
+  await expect(upcoming).not.toContainText("ゆらゆら");
+  await expect(upcoming).toContainText("現在、開催が確定している展示の告知はありません。");
+  await expect(page.locator('section[aria-labelledby="past-title"]')).toContainText("2026年10月6日 — 10月12日");
 
   const detailLink = page.getByRole("link", { name: "展示詳細を見る" });
   await expect(detailLink).toBeVisible();
@@ -1701,20 +1701,22 @@ for (const entry of pages) {
     }
 
     const runtime = createRuntimeMonitor(page, entry);
+    let homeSuppressedDelays = [];
+    let screenshotDiagnostics = null;
 
     if (entry.key === "home") {
-      // Keep the first Home slide stable without freezing CSS/WebGL animation frames.
+      // Generated docs/js/time.js is minified, so match its caller stack rather than callback names.
+      // Hold only the known 2s/6s carousel timers; keep CSS and canvas animation frames running.
       await page.addInitScript(() => {
         const nativeSetTimeout = window.setTimeout.bind(window);
+        window.__visualHomeAutoAdvanceSuppressed = [];
         window.setTimeout = (callback, delay, ...args) => {
-          const source = typeof callback === "function"
-            ? Function.prototype.toString.call(callback)
-            : "";
-          const isHomeAutoAdvance =
-            (delay === 2000 && /goToSlide\(slideElements,\s*2\)/.test(source))
-            || (delay === 6000 && /goToSlide\(slideElements,\s*1\)/.test(source));
+          const stack = new Error().stack || "";
+          const isHomeAutoAdvance = [2000, 6000].includes(Number(delay))
+            && /\/js\/time\.js(?:[?#:]|$)/.test(stack);
 
           if (isHomeAutoAdvance) {
+            window.__visualHomeAutoAdvanceSuppressed.push(Number(delay));
             return nativeSetTimeout(() => {}, delay, ...args);
           }
           return nativeSetTimeout(callback, delay, ...args);
@@ -1741,9 +1743,8 @@ for (const entry of pages) {
     });
 
     await prepareDeterministicNetwork(page);
-    if (["biography", "artist-statement"].includes(entry.key)) {
-      await page.emulateMedia({ reducedMotion: "no-preference" });
-    }
+    // Match the reduced-motion setting used to create the committed layout baselines.
+    // Normal-motion drawing and preference changes have independent lifecycle tests.
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
@@ -1772,6 +1773,16 @@ for (const entry of pages) {
     }
 
     await stabilize(page, entry);
+
+    if (entry.key === "home") {
+      homeSuppressedDelays = await page.evaluate(
+        () => window.__visualHomeAutoAdvanceSuppressed || []
+      );
+      expect(
+        homeSuppressedDelays,
+        "Home screenshot must suppress both auto-advance timers from generated time.js"
+      ).toEqual([2000, 6000]);
+    }
 
     await expect(page).toHaveTitle(entry.title);
     await expect(page.locator("#header-container header")).toBeAttached();
@@ -1809,6 +1820,9 @@ for (const entry of pages) {
     expect(diagnostics.overflow, "document has horizontal overflow")[entry.key === "information" ? "toBe" : "toBeLessThanOrEqual"](entry.key === "information" ? 0 : 2);
     expect(diagnostics.clippedText, "visible main text is clipped inside its box").toEqual([]);
     expect(diagnostics.brokenVisibleImages, "visible image failed to load").toEqual([]);
+    await testInfo.attach("layout-diagnostics-" + entry.key + ".json", {
+      body: Buffer.from(JSON.stringify(diagnostics, null, 2)), contentType: "application/json"
+    });
 
     await assertResponsivePageGeometry(page, entry);
 
@@ -1830,9 +1844,50 @@ for (const entry of pages) {
           content: "#portfolio-overlay-animation .organic-flow-canvas { visibility: hidden !important; }"
         });
       }
-      await expect(page).toHaveScreenshot(entry.key + ".png", {
-        fullPage: true,
-        timeout: 15000
+      const heavyDesktopCapture = testInfo.project.name === "desktop-1440"
+        && ["home", "biography"].includes(entry.key);
+      const captureTimeoutMs = heavyDesktopCapture ? 30000 : 15000;
+      const preflight = await page.evaluate(async () => {
+        const started = performance.now();
+        let fontTimer;
+        const fontReadyWithinBudget = await Promise.race([
+          document.fonts.ready.then(() => true),
+          new Promise(resolve => { fontTimer = setTimeout(() => resolve(false), 1000); })
+        ]);
+        clearTimeout(fontTimer);
+        return {
+          fontReadyWithinBudget,
+          fontReadyWaitMs: performance.now() - started,
+          fontStatus: document.fonts.status,
+          fontFaceCount: document.fonts.size,
+          documentHeight: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight),
+          viewport: {width: innerWidth, height: innerHeight},
+          reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
+          canvasCount: document.querySelectorAll("canvas").length,
+          trunkCanvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length,
+          selectedInk: window.__selectedInkField?.getState?.() || null,
+          organicFlow: window.__organicFlowProduction?.getState?.() || null
+        };
+      });
+      const captureStarted = performance.now();
+      const errorsBeforeCapture = testInfo.errors.length;
+      await test.step("Screenshot comparison (runtime continues after mismatch)", async () => {
+        // Keep the mismatch as a test failure without skipping independent runtime checks.
+        await expect.soft(page).toHaveScreenshot(entry.key + ".png", {
+          fullPage: true,
+          timeout: captureTimeoutMs
+        });
+      });
+      screenshotDiagnostics = {
+        ...preflight,
+        captureTimeoutMs,
+        workers: testInfo.config.workers,
+        captureElapsedMs: performance.now() - captureStarted,
+        screenshotFailureCount: testInfo.errors.length - errorsBeforeCapture
+      };
+      await testInfo.attach("capture-diagnostics-" + entry.key + ".json", {
+        body: Buffer.from(JSON.stringify(screenshotDiagnostics, null, 2)),
+        contentType: "application/json"
       });
     } else if (fullAudit) {
       if (["biography", "artist-statement"].includes(entry.key)) {
@@ -1848,24 +1903,62 @@ for (const entry of pages) {
       });
     }
 
-    if (!["home", "biography", "artist-statement", "404", "yurayura"].includes(entry.key)) {
-      await exerciseSharedRuntimeInteractions(page);
-    }
-    if (entry.key === "gallery") {
-      await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
-    }
-    if (entry.key === "information") {
-      await exerciseInformationRuntime(page, testInfo);
-    }
-    if (entry.key === "contact") {
-      await exerciseContactRuntime(page, testInfo);
-    }
-    if (entry.key === "order") {
-      await exerciseOrderRuntime(page);
-    }
+    await test.step("Independent runtime interactions and final error checks", async () => {
+      let completed = false;
+      try {
+        if (!["home", "biography", "artist-statement", "404", "yurayura"].includes(entry.key)) {
+          await exerciseSharedRuntimeInteractions(page);
+        }
+        if (entry.key === "gallery") {
+          await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
+        }
+        if (entry.key === "information") {
+          await exerciseInformationRuntime(page, testInfo);
+        }
+        if (entry.key === "contact") {
+          await exerciseContactRuntime(page, testInfo);
+        }
+        if (entry.key === "order") {
+          await exerciseOrderRuntime(page);
+        }
 
-    assertRuntimeClean(runtime, entry);
-    await attachRuntimeObservations(testInfo, entry, runtime);
+        assertRuntimeClean(runtime, entry);
+        await attachRuntimeObservations(testInfo, entry, runtime);
+        completed = true;
+      } finally {
+        await testInfo.attach("runtime-verification-" + entry.key + ".json", {
+          body: Buffer.from(JSON.stringify({
+            completed, pageErrors: runtime.pageErrors,
+            consoleErrors: relevantConsoleErrors(runtime, entry),
+            localResourceFailures: runtime.localResourceFailures,
+            externalResourceFailures: runtime.externalResourceFailures,
+            layoutBeforeCapture: diagnostics
+          }, null, 2)), contentType: "application/json"
+        });
+        if (entry.key === "home") {
+          const evidence = {
+            commitSHA: process.env.GITHUB_SHA || null,
+            project: testInfo.project.name,
+            homeSuppressedDelays,
+            screenshot: screenshotDiagnostics,
+            runtime: {
+              completed,
+              pageErrors: runtime.pageErrors,
+              consoleErrors: relevantConsoleErrors(runtime, entry),
+              consoleWarnings: runtime.consoleWarnings,
+              localResourceFailures: runtime.localResourceFailures,
+              externalResourceFailures: runtime.externalResourceFailures
+            },
+            layoutBeforeCapture: diagnostics
+          };
+          fs.writeFileSync(
+            testInfo.outputPath("home-stability-evidence.json"),
+            JSON.stringify(evidence, null, 2)
+          );
+          console.log("[home-stability-evidence] " + JSON.stringify(evidence));
+        }
+      }
+    });
   });
 }
 
@@ -1973,6 +2066,51 @@ test("shared body typography matches the documented responsive scale", async ({ 
     parseFloat(getComputedStyle(element).fontSize)
   );
   expect(roundToTenth(statementTimelineEnglishSize), "Statement timeline English body font-size").toBe(standardExpected);
+});
+
+test("Home carousel still advances automatically outside screenshot stabilization", async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "The Home carousel runtime is checked once per run."
+  );
+
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  const runtime = createRuntimeMonitor(page, { key: "home" });
+  await prepareDeterministicNetwork(page);
+  await page.addInitScript(() => {
+    window.__visualHomeSlideHistory = [];
+    document.addEventListener("DOMContentLoaded", () => {
+      const root = document.querySelector("#mainContent");
+      if (!root) return;
+      const slides = [...root.querySelectorAll(".content__slide")];
+      let lastIndex = -1;
+      const recordActiveSlide = () => {
+        const activeIndex = slides.findIndex(slide => slide.classList.contains("active"));
+        if (activeIndex < 0 || activeIndex === lastIndex) return;
+        lastIndex = activeIndex;
+        window.__visualHomeSlideHistory.push(activeIndex);
+      };
+      recordActiveSlide();
+      new MutationObserver(recordActiveSlide).observe(root, {
+        attributes: true,
+        attributeFilter: ["class"],
+        subtree: true
+      });
+    }, { once: true });
+  });
+
+  const response = await page.goto("", { waitUntil: "domcontentloaded" });
+  expect(response, "Home carousel should return a document response").not.toBeNull();
+  expect(response.status(), "Home carousel document status").toBe(200);
+  await page.waitForFunction(() => {
+    const history = window.__visualHomeSlideHistory || [];
+    return history.includes(0) && history.includes(1);
+  }, null, { timeout: 8000 });
+
+  const slideHistory = await page.evaluate(() => window.__visualHomeSlideHistory);
+  expect(slideHistory[0], "Home should begin on the first slide").toBe(0);
+  expect(slideHistory, "Home should automatically advance to the second slide").toContain(1);
+  assertRuntimeClean(runtime, { key: "home" });
 });
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {
@@ -2986,6 +3124,66 @@ test("all sitemap pages are registered for visual checks", async ({}, testInfo) 
 });
 
 
+
+
+test("portfolio copy candidate preserves approved content", async ({ page }, testInfo) => {
+  const normalize = value => value.replace(/\s+/g, " ").trim();
+  const expectUniqueParagraphs = async locator => {
+    const paragraphs = (await locator.allTextContents()).map(normalize);
+    expect(new Set(paragraphs).size, "approved paragraphs should not be duplicated").toBe(paragraphs.length);
+  };
+  await page.goto("", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("#mainContent .content__slide.active h1")).toHaveText("Mizuki Oyama");
+  expect(normalize(await page.locator('#mainContent .content__slide.active .desc[lang="ja"]').textContent()))
+    .toBe("抽象アーティスト 1998 — Japan");
+  expect(normalize(await page.locator('#mainContent .content__slide.active .desc[lang="en"]').textContent()))
+    .toBe("Abstract Artist 1998 — Japan");
+  const enter = page.locator("#mainContent .content__slide.active .button-wrap a.button");
+  await expect(enter).toHaveText("Enter");
+  await expect(enter).toHaveAttribute("href", "/website/gallery.html");
+  await enter.click();
+  await expect(page).toHaveURL(/\/website\/gallery\.html$/);
+
+  await page.goto("biography.html", { waitUntil: "domcontentloaded" });
+  const biographyJapanese = page.locator("main .work > p.state-txt");
+  const biographyEnglish = page.locator('main .work > p.text[lang="en"]');
+  await expect(biographyJapanese).toHaveCount(35);
+  await expect(biographyEnglish).toHaveCount(35);
+  await expectUniqueParagraphs(biographyJapanese);
+  await expectUniqueParagraphs(biographyEnglish);
+  await expect(biographyJapanese.first()).toHaveText("抽象アーティスト。1998年、宮城県仙台市生まれ。");
+  await expect(biographyEnglish.first()).toHaveText("Mizuki Oyama is an abstract artist born in 1998 in Sendai, Miyagi Prefecture, Japan.");
+  await expect(biographyJapanese.last()).toContainText("幼い頃から続けてきた「つくる」という行為を起点に");
+  await expect(biographyEnglish.last()).toContainText("shape both his own expression and the environment around it.");
+  await expect(page.locator("main .portfolio-history-table").first()).toBeAttached();
+
+  await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator('main .h1-text .subtext [lang="ja"]')).toContainText("揺らぎ、感覚、記憶");
+  await expect(page.locator('main .h1-text .subtext [lang="en"]')).toContainText("Fluctuation, Sensation, Memory");
+  await expect(page.locator("main .work > p.state-txt")).toHaveCount(7);
+  await expect(page.locator("main .work > p.text")).toHaveCount(7);
+  await expectUniqueParagraphs(page.locator("main .work > p.state-txt"));
+  await expectUniqueParagraphs(page.locator("main .work > p.text"));
+  await expect(page.locator("main .timeline > .timeline-item > p.timeline-title")).toHaveText([
+    "01 なぜ抽象なのか",
+    "02 何を表現しているのか",
+    "03 どのように作るのか",
+    "04 アートとは何か",
+    "05 作品と鑑賞者"
+  ]);
+  await expect(page.locator("main .timeline-title-en")).toHaveText([
+    "01 Why Abstraction",
+    "02 What I Express",
+    "03 How I Create",
+    "04 What Art Means to Me",
+    "05 The Work and the Viewer"
+  ]);
+  await expect(page.locator("main .timeline-item").first().locator(".timeline-copy > p").first())
+    .toContainText("抽象には、ひとつの正解がない。");
+  await expect(page.locator("main .timeline-item").last().locator(".timeline-copy > p.text"))
+    .toContainText("I hope each viewer can receive it freely");
+});
+
 test("switchable pages preserve language through navigation and reload", async ({ page }, testInfo) => {
   test.skip(
     !["desktop-1440", "mobile-390"].includes(testInfo.project.name),
@@ -3227,7 +3425,7 @@ test("Biography mobile table reading comfort", async ({ page }, testInfo) => {
   expect(response.status()).toBe(200);
   await stabilize(page);
 
-  const metrics = await page.locator("#state table").first().evaluate(table => {
+  const metrics = await page.locator("#biography-records table").first().evaluate(table => {
     const year = table.querySelector("td.year");
     const content = table.querySelector("td.tb-content");
     const translation = table.querySelector("td.tb-content span");
