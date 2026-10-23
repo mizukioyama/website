@@ -125,3 +125,15 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+      - name: Upload Home 1440 stability evidence only
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.home_stability_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: home-stability-${{ github.sha }}
+          path: |
+            test-results/visual/visual-home-visual-and-layout-regression-desktop-1440/home-actual.png
+            test-results/visual/visual-home-visual-and-layout-regression-desktop-1440/home-expected.png
+            test-results/visual/visual-home-visual-and-layout-regression-desktop-1440/home-diff.png
+            test-results/visual/visual-home-visual-and-layout-regression-desktop-1440/home-stability-evidence.json
+          if-no-files-found: warn
+          retention-days: 1

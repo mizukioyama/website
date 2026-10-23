@@ -1701,6 +1701,8 @@ for (const entry of pages) {
     }
 
     const runtime = createRuntimeMonitor(page, entry);
+    let homeSuppressedDelays = [];
+    let screenshotDiagnostics = null;
 
     if (entry.key === "home") {
       // Generated docs/js/time.js is minified, so match its caller stack rather than callback names.
@@ -1773,11 +1775,11 @@ for (const entry of pages) {
     await stabilize(page, entry);
 
     if (entry.key === "home") {
-      const suppressedDelays = await page.evaluate(
+      homeSuppressedDelays = await page.evaluate(
         () => window.__visualHomeAutoAdvanceSuppressed || []
       );
       expect(
-        suppressedDelays,
+        homeSuppressedDelays,
         "Home screenshot must suppress both auto-advance timers from generated time.js"
       ).toEqual([2000, 6000]);
     }
@@ -1876,12 +1878,16 @@ for (const entry of pages) {
           timeout: captureTimeoutMs
         });
       });
+      screenshotDiagnostics = {
+        ...preflight,
+        captureTimeoutMs,
+        workers: testInfo.config.workers,
+        captureElapsedMs: performance.now() - captureStarted,
+        screenshotFailureCount: testInfo.errors.length - errorsBeforeCapture
+      };
       await testInfo.attach("capture-diagnostics-" + entry.key + ".json", {
-        body: Buffer.from(JSON.stringify({
-          ...preflight, captureTimeoutMs, workers: testInfo.config.workers,
-          captureElapsedMs: performance.now() - captureStarted,
-          screenshotFailureCount: testInfo.errors.length - errorsBeforeCapture
-        }, null, 2)), contentType: "application/json"
+        body: Buffer.from(JSON.stringify(screenshotDiagnostics, null, 2)),
+        contentType: "application/json"
       });
     } else if (fullAudit) {
       if (["biography", "artist-statement"].includes(entry.key)) {
@@ -1929,6 +1935,28 @@ for (const entry of pages) {
             layoutBeforeCapture: diagnostics
           }, null, 2)), contentType: "application/json"
         });
+        if (entry.key === "home") {
+          const evidence = {
+            commitSHA: process.env.GITHUB_SHA || null,
+            project: testInfo.project.name,
+            homeSuppressedDelays,
+            screenshot: screenshotDiagnostics,
+            runtime: {
+              completed,
+              pageErrors: runtime.pageErrors,
+              consoleErrors: relevantConsoleErrors(runtime, entry),
+              consoleWarnings: runtime.consoleWarnings,
+              localResourceFailures: runtime.localResourceFailures,
+              externalResourceFailures: runtime.externalResourceFailures
+            },
+            layoutBeforeCapture: diagnostics
+          };
+          fs.writeFileSync(
+            testInfo.outputPath("home-stability-evidence.json"),
+            JSON.stringify(evidence, null, 2)
+          );
+          console.log("[home-stability-evidence] " + JSON.stringify(evidence));
+        }
       }
     });
   });
