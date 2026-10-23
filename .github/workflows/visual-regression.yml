@@ -105,7 +105,7 @@ jobs:
           if [ "${{ github.event_name == 'workflow_dispatch' && inputs.home_stability_only }}" = "true" ]; then
             npx playwright test --config=playwright.config.cjs --update-snapshots=none \
               --project=desktop-1440 --workers=1 \
-              --grep '^(home visual and layout regression|Home carousel still advances automatically outside screenshot stabilization)$'
+              --grep '(home visual and layout regression|Home carousel still advances automatically outside screenshot stabilization)$'
           elif [ "${{ github.event_name == 'workflow_dispatch' && inputs.limited_reverification }}" = "true" ]; then
             npx playwright test --config=playwright.config.cjs --update-snapshots=none \
               --project=desktop-1440 --project=mobile-390 --workers=1 \
