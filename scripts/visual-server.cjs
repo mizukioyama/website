@@ -59,6 +59,25 @@ const server = http.createServer((request, response) => {
     pathname = url.pathname;
   }
 
+  if (pathname === projectBase + "__preview/yurayura-events.json") {
+    const sourcePath = process.env.YURAYURA_EVENTS_FILE;
+    if (!sourcePath) {
+      response.writeHead(503, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" });
+      response.end(method === "HEAD" ? undefined : JSON.stringify({ error: "Local Yurayura data source is not configured" }));
+      return;
+    }
+    try {
+      const body = fs.readFileSync(fs.realpathSync(sourcePath), "utf8");
+      JSON.parse(body);
+      response.writeHead(200, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" });
+      response.end(method === "HEAD" ? undefined : body);
+    } catch (_) {
+      response.writeHead(503, { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" });
+      response.end(method === "HEAD" ? undefined : JSON.stringify({ error: "Local Yurayura data source could not be read" }));
+    }
+    return;
+  }
+
   if (pathname === projectBase.slice(0, -1)) {
     response.writeHead(308, { Location: projectBase });
     response.end();

@@ -13,11 +13,12 @@ test.afterEach(async({page})=>{
 const hash=s=>createHash('sha256').update(s.replace(/\s+/g,' ').trim()).digest('hex');
 
 test('Phase 1 concluded exhibition remains consistent in both languages',async({page})=>{
+ await page.route('**/website/__preview/yurayura-events.json*',route=>route.fulfill({status:200,contentType:'application/json',body:'[]'}));
  for(const lang of ['ja','en']){
   await page.goto('information.html');
   await page.evaluate(l=>{localStorage.setItem('selectedLang',l);localStorage.setItem('lang',l)},lang);
   await page.reload();
-  await expect(page.locator('[aria-labelledby="upcoming-title"]')).not.toContainText('ゆらゆら');
+  await expect(page.locator('[data-yurayura-current-events] tr, [data-yurayura-upcoming-events] tr')).toHaveCount(0);
   const past=page.locator('[aria-labelledby="past-title"]');
   await expect(past).toContainText(lang==='ja'?'開催終了':'Concluded');
   await expect(past.locator(`a[lang="${lang}"]`)).toBeVisible();
@@ -56,4 +57,70 @@ test('Phase 3 statement and five questions preserve the approved wording',async(
   await page.locator(`.statement-reading-nav a[href="${href}"]`).focus();await page.keyboard.press('Enter');
   await expect(page.locator(href)).toBeFocused();
  }
+});
+
+
+const isoSecond = value => new Date(value).toISOString().replace(/\.\d{3}Z$/, "Z");
+
+function eventFixture(id,edition,start,end,portfolioJa,portfolioEn,overrides={}) {
+ return {
+  id,edition,published:true,city:'横浜',venue:'確認済み会場',startsAt:start,endsAt:end,
+  officialUrl:'https://mizukioyama.github.io/yurayura/information.html#past-exhibitions',
+  artists:['Mizuki','かおる'],artworkCount:18,
+  copy:{
+   yurayura:{ja:'作品と空間のあいだに余白をひらきます。',en:'The exhibition opens a space between artworks and their surroundings.'},
+   portfolio:{ja:portfolioJa,en:portfolioEn}
+  },
+  ...overrides
+ };
+}
+
+test('Portfolio information reads distinct safe event data and keeps the first-edition archive',async({page})=>{
+ const now=Date.now();
+ const attack='<img src=x onerror=window.__portfolioXss=true>';
+ const fixtures=[
+  eventFixture('yurayura-01',1,'2026-10-06T13:00:00+09:00','2026-10-12T13:00:00+09:00','First edition archive copy','First edition archive copy in English',{portfolioDetailUrl:'https://mizukioyama.github.io/website/exhibitions/yurayura/'}),
+  eventFixture('yurayura-02',2,isoSecond(now-3600000),isoSecond(now+3600000),attack,'Second edition is currently open.'),
+  eventFixture('yurayura-03',3,isoSecond(now+86400000),isoSecond(now+172800000),'Second edition is planned.','A future edition is planned.'),
+  eventFixture('yurayura-04',4,isoSecond(now-864000000),isoSecond(now-777600000),'A later past archive.','A later past archive in English.'),
+  eventFixture('yurayura-05',5,null,null,'Dates are not scheduled yet.','Dates are not scheduled yet.',{city:null,venue:null,portfolioDetailUrl:undefined})
+ ];
+ await page.route('**/website/__preview/yurayura-events.json*',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(fixtures)}));
+ await page.goto('information.html');
+ await expect(page.locator('[data-yurayura-feed]')).toHaveAttribute('data-state','ready');
+ await expect(page.locator('[data-yurayura-current-events]')).toContainText('開催中');
+ await expect(page.locator('[data-yurayura-upcoming-events]')).toContainText('Second edition is planned.');
+ await expect(page.locator('[data-yurayura-past-events]')).toContainText('A later past archive.');
+ const undatedRow=page.locator('[data-yurayura-upcoming-events] tr').filter({hasText:'Dates are not scheduled yet.'});
+ await expect(undatedRow.locator('[data-event-state="undated"]')).toContainText('日程未定');
+ await expect(page.locator('.past-activities-table')).toContainText('グループ展「ゆらゆら」｜企画・主催');
+ await expect(page.locator('[data-yurayura-current-events] img')).toHaveCount(0);
+ expect(await page.evaluate(()=>window.__portfolioXss)).toBeUndefined();
+ await expect(page.locator('[data-yurayura-current-events]')).toContainText(attack);
+ await expect(page.locator('[data-yurayura-current-events] a').first()).toHaveAttribute('href',fixtures[1].officialUrl);
+ await expect(page.locator('[data-yurayura-current-events] a[lang="ja"][href="https://mizukioyama.github.io/yurayura/"]')).toBeVisible();
+ await page.locator('#langChange label[for="langEn"]').click();
+ await expect(page.locator('[data-yurayura-past-events] [lang="en"]').filter({hasText:'A later past archive in English.'})).toBeVisible();
+ await expect(page.locator('[data-yurayura-past-events] [lang="ja"]').filter({hasText:'A later past archive.'})).toBeHidden();
+ await expect(undatedRow.locator('[data-event-state="undated"]')).toContainText('Not scheduled');
+});
+
+test('Portfolio feed switches to English and shows an explicit error without claiming there is no event',async({page})=>{
+ const now=Date.now();
+ const fixture=eventFixture('yurayura-02',2,isoSecond(now+86400000),isoSecond(now+172800000),'Portfolio日本語紹介','Portfolio English introduction.');
+ await page.addInitScript(()=>{localStorage.setItem('selectedLang','en');localStorage.setItem('lang','en');});
+ await page.route('**/website/__preview/yurayura-events.json*',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify([fixture])}));
+ await page.goto('information.html');
+ await expect(page.locator('[data-yurayura-feed]')).toHaveAttribute('data-state','ready');
+ await expect(page.locator('[data-yurayura-upcoming-events]')).toContainText('Portfolio English introduction.');
+ await expect(page.locator('[data-yurayura-upcoming-events] [lang="en"]').filter({hasText:'Portfolio English introduction.'})).toBeVisible();
+ await expect(page.locator('[data-yurayura-upcoming-events] [lang="ja"]').filter({hasText:'Portfolio日本語紹介'})).toBeHidden();
+ await page.unroute('**/website/__preview/yurayura-events.json*');
+ await page.route('**/website/__preview/yurayura-events.json*',route=>route.fulfill({status:503,contentType:'application/json',body:'{}'}));
+ await page.reload();
+ await expect(page.locator('[data-yurayura-feed]')).toHaveAttribute('data-state','error');
+ await expect(page.locator('[data-yurayura-feed-status][lang="en"]')).toContainText('could not be loaded');
+ await expect(page.locator('[data-yurayura-feed-status][lang="en"]')).toBeVisible();
+ await expect(page.locator('[data-yurayura-feed]')).not.toContainText('There are currently no confirmed upcoming exhibitions');
+ await expect(page.locator('.past-activities-table')).toContainText('Group Exhibition “Yurayura”');
 });

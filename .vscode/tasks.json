@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Portfolio: Build generated site",
+      "type": "npm",
+      "script": "build",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Portfolio: Preview generated site",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "scripts/visual-server.cjs"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PORT": "4174",
+          "YURAYURA_EVENTS_FILE": "/Users/mizu/.codex/worktrees/yurayura-cross-site-events/assets/data/exhibitions.json"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Portfolio: Full quality checks",
+      "type": "npm",
+      "script": "check",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

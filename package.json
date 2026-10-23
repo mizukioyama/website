@@ -9,11 +9,12 @@
     "test:organic-flow": "node --test tests/organic-flow-engine.test.cjs",
     "check:seo": "node scripts/check-seo.cjs",
     "check:links": "node scripts/check-links.cjs",
-    "check": "npm run check:components && npm run check:js && npm run check:typography && npm run build && npm run check:docs-sync && npm run check:generated && npm run check:seo && npm run check:links",
+    "check": "npm run check:components && npm run check:js && npm run test:cross-site-events && npm run check:typography && npm run build && npm run check:docs-sync && npm run check:generated && npm run check:seo && npm run check:links",
     "check:typography": "node scripts/check-typography.cjs",
     "sync:components": "node scripts/sync-shared-components.cjs",
     "check:components": "node scripts/sync-shared-components.cjs --check",
-    "check:docs-sync": "node scripts/check-docs-sync.cjs"
+    "check:docs-sync": "node scripts/check-docs-sync.cjs",
+    "test:cross-site-events": "node --test tests/portfolio-yurayura-events.test.cjs"
   },
   "keywords": [],
   "author": "",

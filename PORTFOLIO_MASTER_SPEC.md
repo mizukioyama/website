@@ -12,6 +12,10 @@ Biography is the factual activity/career source of truth. Artist Statement is th
 ## Page purposes
 Home establishes artist identity/worldview and leads into work. Gallery makes artwork easy to browse and inspect. Biography communicates career/activity. Artist Statement communicates artistic philosophy with reading comfort. Information communicates current/relevant exhibition/activity information. Order explains commission availability, process, conditions and inquiry path. Contact provides a clear route. Policy provides necessary policy/legal information.
 
+### Yurayura event feed
+
+The canonical public event source is `assets/data/exhibitions.json` in the Yurayura repository. Portfolio Information fetches the published feed on each visit and displays only validated `published: true` records. `copy.portfolio.ja` and `.en` are the Portfolio display copy; `copy.yurayura` remains separate for the official site's Japanese-led event cards. The 2026 first-edition archive and its detail URL remain static, durable activity records. A failed request or invalid feed must show an explicit retrieval error, never an empty-schedule claim, and must not remove that archive. Current page metadata remains generic `CollectionPage` metadata and must not be made event-specific through client-only data. See the Portfolio user editing guide for the local preview and publication sequence.
+
 ## Language presentation
 
 The page-specific language behavior below is the normative specification. The status section records how current production maps to it.

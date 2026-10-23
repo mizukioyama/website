@@ -287,10 +287,23 @@
 
                 <section class="info-section" aria-labelledby="upcoming-title">
                     <div class="page-line"></div>
-                    <h2 id="upcoming-title" class="noise"><span lang="ja">開催予定</span><span lang="en">Upcoming</span></h2>
+                    <h2 id="upcoming-title" class="noise"><span lang="ja">開催中・開催予定</span><span lang="en">Current &amp; Upcoming</span></h2>
 
-                    <p lang="ja">現在、開催が確定している展示の告知はありません。</p>
-                    <p lang="en">There are currently no confirmed upcoming exhibitions to announce.</p>
+                    <div class="yurayura-feed" data-yurayura-feed data-state="loading">
+                        <p lang="ja" data-yurayura-feed-status>最新の開催状況を確認しています。</p>
+                        <p lang="en" data-yurayura-feed-status>Checking the latest exhibition information.</p>
+                        <div data-yurayura-feed-results hidden>
+                            <section data-yurayura-current-section hidden>
+                                <h3 class="noise"><span lang="ja">開催中</span><span lang="en">Current</span></h3>
+                                <table class="history-table"><colgroup><col class="history-year-column"><col class="history-content-column"></colgroup><thead><tr><th class="tb-title" scope="col"><span lang="ja">会期</span><span lang="en">Dates</span></th><th class="tb-title" scope="col"><span lang="ja">展示情報</span><span lang="en">Exhibition</span></th></tr></thead><tbody data-yurayura-current-events></tbody></table>
+                            </section>
+                            <section data-yurayura-upcoming-section hidden>
+                                <h3 class="noise"><span lang="ja">開催予定</span><span lang="en">Upcoming</span></h3>
+                                <table class="history-table"><colgroup><col class="history-year-column"><col class="history-content-column"></colgroup><thead><tr><th class="tb-title" scope="col"><span lang="ja">会期</span><span lang="en">Dates</span></th><th class="tb-title" scope="col"><span lang="ja">展示情報</span><span lang="en">Exhibition</span></th></tr></thead><tbody data-yurayura-upcoming-events></tbody></table>
+                            </section>
+                        </div>
+                        <p class="noise info-link"><a lang="ja" href="https://mizukioyama.github.io/yurayura/information.html" target="_blank" rel="noopener noreferrer">ゆらゆら公式サイトで確認する</a><a lang="en" href="https://mizukioyama.github.io/yurayura/information.html" target="_blank" rel="noopener noreferrer">Check the official Yurayura website</a></p>
+                    </div>
                 </section>
 
                 <section class="info-section" aria-labelledby="past-title">
@@ -304,6 +317,7 @@
                                 <th class="tb-title" scope="col"><span lang="ja">活動・展示</span><span lang="en">Activities / Exhibitions</span></th>
                             </tr>
                         </thead>
+                        <tbody data-yurayura-past-events></tbody>
                         <tbody>
                             <tr>
                                 <td class="year">2026.10</td>
@@ -382,6 +396,7 @@
 
     }
   </script>
+  <script src="js/portfolio-yurayura-events.js?v=62227a217469" defer></script>
   <script src="js/selected-ink-field.js?v=fcc5b966083b"></script>
 </body>
 

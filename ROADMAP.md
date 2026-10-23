@@ -24,6 +24,8 @@ Only the baseline and current priority queue below define active status. Dated p
 
 ## Current priority queue
 
+- Cross-site Yurayura event feed: the release candidate uses the official JSON as the single edit source and serves bilingual Portfolio copy. After publication, routine event updates go through the Yurayura data edit and Pages release; Portfolio reads the public feed without a redeploy.
+
 1. Owner review of the deployed Biography / Artist Statement background composition and sphere placement; real-GPU and physical-device performance acceptance remains pending.
 2. Review the isolated Organic Flow production-integration candidate on `feat/organic-flow-production-integration` at `5bf879ea2100be7ebd6ea4fd3f77abb4b3345d68`. The local build/checks and targeted browser lifecycle checks pass, but no user-tuned settings JSON was supplied, visual acceptance is pending, and performance remains inconclusive. Do not push, merge, deploy, or update baselines before owner review and the remaining gates.
 3. Complete Gallery Phase H-1 Linux preflight on the feature branch: verify the full 1440 / 1280 / 1024 / 768 / 430 / 390 / 375px matrix with full_audit=true, inspect actual / expected / diff artifacts, and keep main, Pages, and baselines unchanged.
