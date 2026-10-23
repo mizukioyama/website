@@ -27,6 +27,7 @@ const rootVisualScripts = [
   "page-nation.js",
   "three.r134.min.js",
   "time.js",
+  "portfolio-yurayura-events.js",
   "vanta.fog.min.js",
   "vanta.trunk.min.js"
 ];

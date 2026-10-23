@@ -635,7 +635,7 @@ async function assertResponsivePageGeometry(page, entry) {
 
   if (entry.key === "information") {
     await expectHorizontalFit(page.locator(".information-page .content"), "Information content");
-    await expectHorizontalFit(page.locator('.information-page .info-section[aria-labelledby="upcoming-title"] > p:visible'), "Information Upcoming empty state");
+    await expectHorizontalFit(page.locator('.information-page .info-section[aria-labelledby="upcoming-title"] [data-yurayura-feed-status]:visible'), "Information Upcoming empty state");
     await expectHorizontalFit(page.locator(".information-page .past-activities-table"), "Information Past Activities table");
     await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links");
   }
@@ -1437,15 +1437,16 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("#upcoming-title [lang=ja]")).toBeVisible();
   await expect(page.locator("#past-title [lang=ja]")).toBeVisible();
   await expect(page.locator('#past-title [lang="ja"]')).toHaveText("過去の活動");
-  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] > p[lang="ja"]')).toBeVisible();
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] [data-yurayura-feed-status][lang="ja"]')).toBeVisible();
   await assertInformationPastHistory(page, "ja", "Information Past Activities in Japanese");
   await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
   await expect(page.locator(".information-intro p[lang=en]")).toHaveCount(1);
   await expect(page.locator(".information-intro p[lang=en]")).toBeHidden();
   await expect(page.locator(".past-activities-table tbody tr")).toHaveCount(5);
   await expect(page.locator('.past-activities-table tbody tr[lang="ja"], .past-activities-table tbody tr[lang="en"]')).toHaveCount(0);
-  await expect(page.locator('.info-link[lang="ja"]')).toBeVisible();
-  await expect(page.locator('.info-link[lang="en"]')).toBeHidden();
+  await expect(page.locator('.info-link[lang="ja"][href="exhibitions/yurayura/"]')).toBeVisible();
+  await expect(page.locator('.info-link a[lang="ja"][href="https://mizukioyama.github.io/yurayura/information.html"]')).toBeVisible();
+  await expect(page.locator('.info-link[lang="en"][href="exhibitions/yurayura/"]')).toBeHidden();
 
   await page.locator('#langChange label[for="langEn"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
@@ -1455,8 +1456,8 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("#past-title [lang=ja]")).toBeHidden();
   await expect(page.locator('#past-title [lang="en"]')).toHaveText("Past Activities");
   await assertInformationPastHistory(page, "en", "Information Past Activities in English");
-  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] > p[lang="ja"]')).toBeHidden();
-  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] > p[lang="en"]')).toBeVisible();
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] [data-yurayura-feed-status][lang="ja"]')).toBeHidden();
+  await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] [data-yurayura-feed-status][lang="en"]')).toBeVisible();
   await expect(page.locator(".information-intro p[lang=ja]")).toBeHidden();
   await expect(page.locator(".information-intro p[lang=en]")).toBeVisible();
   await expect(page.locator(".information-intro p[lang=en]")).toContainText("Current and upcoming exhibitions");
@@ -1464,11 +1465,12 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("#past-title [lang=en]")).toBeVisible();
   await expect(page.locator('.past-activities-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
   await expect(page.locator('.past-activities-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
-  const englishDetailLink = page.locator('.info-link[lang="en"]');
+  await expect(page.locator('.info-link a[lang="en"][href="https://mizukioyama.github.io/yurayura/information.html"]')).toBeVisible();
+  const englishDetailLink = page.locator('.info-link[lang="en"][href="exhibitions/yurayura/"]');
   await expect(englishDetailLink).toBeVisible();
   await expect(englishDetailLink).toHaveText("View exhibition details");
   await expect(englishDetailLink).toHaveAttribute("href", "exhibitions/yurayura/");
-  await expect(page.locator('.info-link[lang="ja"]')).toBeHidden();
+  await expect(page.locator('.info-link[lang="ja"][href="exhibitions/yurayura/"]')).toBeHidden();
   await expectHorizontalFit(page.locator(".information-page .content"), "Information content in English");
   await expectHorizontalFit(page.locator(".information-page .past-activities-table"), "Information table in English");
   await expectHorizontalFit(page.locator(".information-page .info-link:visible"), "Information links in English");
@@ -1492,13 +1494,13 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('#langChange input[value="en"]')).toBeChecked();
   await expect(page.locator("#upcoming-title [lang=en]")).toBeVisible();
-  await expect(page.locator('.info-link[lang="en"]')).toBeVisible();
+  await expect(page.locator('.info-link[lang="en"][href="exhibitions/yurayura/"]')).toBeVisible();
   await page.locator('#langChange label[for="langJa"]').click();
   await expect(page.locator("html")).toHaveAttribute("lang", "ja");
   await expect(page.locator(".information-intro p[lang=ja]")).toBeVisible();
   await assertInformationPastHistory(page, "ja", "Information Past Activities restored in Japanese");
-  await expect(page.locator('.info-link[lang="ja"]')).toBeVisible();
-  await expect(page.locator('.info-link[lang="en"]')).toBeHidden();
+  await expect(page.locator('.info-link[lang="ja"][href="exhibitions/yurayura/"]')).toBeVisible();
+  await expect(page.locator('.info-link[lang="en"][href="exhibitions/yurayura/"]')).toBeHidden();
 }
 
 async function exerciseInformationRuntime(page, testInfo) {
@@ -1507,11 +1509,11 @@ async function exerciseInformationRuntime(page, testInfo) {
   await expect(sections).toHaveCount(2);
 
   const headings = await sections.locator("h2").allInnerTexts();
-  expect(headings.map(text => text.trim())).toEqual(["開催予定", "過去の活動"]);
+  expect(headings.map(text => text.trim())).toEqual(["開催中・開催予定", "過去の活動"]);
   await compareInformationPastTableWithBiography(page, "Information table matches Biography at " + page.viewportSize().width + "px");
 
   const upcoming = page.locator('section[aria-labelledby="upcoming-title"]');
-  await expect(upcoming).not.toContainText("ゆらゆら");
+  await expect(page.locator("[data-yurayura-current-events] tr, [data-yurayura-upcoming-events] tr")).toHaveCount(0);
   await expect(upcoming).toContainText("現在、開催が確定している展示の告知はありません。");
   await expect(page.locator('section[aria-labelledby="past-title"]')).toContainText("2026年10月6日 — 10月12日");
 
@@ -1568,6 +1570,13 @@ async function prepareDeterministicNetwork(page) {
       });
     });
   }
+
+  // CI has no local Yurayura source file; per-test routes can replace this deterministic empty feed.
+  await page.route("**/website/__preview/yurayura-events.json*", route => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: "[]"
+  }));
 }
 
 async function stabilize(page, entry = {}) {
@@ -1743,11 +1752,19 @@ for (const entry of pages) {
     });
 
     await prepareDeterministicNetwork(page);
+    if (entry.key === "information") {
+      await page.route("**/website/__preview/yurayura-events.json*", route => route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: "[]"
+      }));
+    }
     // Match the reduced-motion setting used to create the committed layout baselines.
     // Normal-motion drawing and preference changes have independent lifecycle tests.
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
+    if (entry.key === "information") await expect(page.locator("[data-yurayura-feed]")).toHaveAttribute("data-state", "ready");
 
     if (entry.key === "yurayura") {
       const event = await page.locator('script[type="application/ld+json"]').evaluate(script => JSON.parse(script.textContent));
