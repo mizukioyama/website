@@ -1703,18 +1703,18 @@ for (const entry of pages) {
     const runtime = createRuntimeMonitor(page, entry);
 
     if (entry.key === "home") {
-      // Keep the first Home slide stable without freezing CSS/WebGL animation frames.
+      // Generated docs/js/time.js is minified, so match its caller stack rather than callback names.
+      // Hold only the known 2s/6s carousel timers; keep CSS and canvas animation frames running.
       await page.addInitScript(() => {
         const nativeSetTimeout = window.setTimeout.bind(window);
+        window.__visualHomeAutoAdvanceSuppressed = [];
         window.setTimeout = (callback, delay, ...args) => {
-          const source = typeof callback === "function"
-            ? Function.prototype.toString.call(callback)
-            : "";
-          const isHomeAutoAdvance =
-            (delay === 2000 && /goToSlide\(slideElements,\s*2\)/.test(source))
-            || (delay === 6000 && /goToSlide\(slideElements,\s*1\)/.test(source));
+          const stack = new Error().stack || "";
+          const isHomeAutoAdvance = [2000, 6000].includes(Number(delay))
+            && /\/js\/time\.js(?:[?#:]|$)/.test(stack);
 
           if (isHomeAutoAdvance) {
+            window.__visualHomeAutoAdvanceSuppressed.push(Number(delay));
             return nativeSetTimeout(() => {}, delay, ...args);
           }
           return nativeSetTimeout(callback, delay, ...args);
@@ -1771,6 +1771,16 @@ for (const entry of pages) {
     }
 
     await stabilize(page, entry);
+
+    if (entry.key === "home") {
+      const suppressedDelays = await page.evaluate(
+        () => window.__visualHomeAutoAdvanceSuppressed || []
+      );
+      expect(
+        suppressedDelays,
+        "Home screenshot must suppress both auto-advance timers from generated time.js"
+      ).toEqual([2000, 6000]);
+    }
 
     await expect(page).toHaveTitle(entry.title);
     await expect(page.locator("#header-container header")).toBeAttached();
@@ -2028,6 +2038,51 @@ test("shared body typography matches the documented responsive scale", async ({ 
     parseFloat(getComputedStyle(element).fontSize)
   );
   expect(roundToTenth(statementTimelineEnglishSize), "Statement timeline English body font-size").toBe(standardExpected);
+});
+
+test("Home carousel still advances automatically outside screenshot stabilization", async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-1440",
+    "The Home carousel runtime is checked once per run."
+  );
+
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  const runtime = createRuntimeMonitor(page, { key: "home" });
+  await prepareDeterministicNetwork(page);
+  await page.addInitScript(() => {
+    window.__visualHomeSlideHistory = [];
+    document.addEventListener("DOMContentLoaded", () => {
+      const root = document.querySelector("#mainContent");
+      if (!root) return;
+      const slides = [...root.querySelectorAll(".content__slide")];
+      let lastIndex = -1;
+      const recordActiveSlide = () => {
+        const activeIndex = slides.findIndex(slide => slide.classList.contains("active"));
+        if (activeIndex < 0 || activeIndex === lastIndex) return;
+        lastIndex = activeIndex;
+        window.__visualHomeSlideHistory.push(activeIndex);
+      };
+      recordActiveSlide();
+      new MutationObserver(recordActiveSlide).observe(root, {
+        attributes: true,
+        attributeFilter: ["class"],
+        subtree: true
+      });
+    }, { once: true });
+  });
+
+  const response = await page.goto("", { waitUntil: "domcontentloaded" });
+  expect(response, "Home carousel should return a document response").not.toBeNull();
+  expect(response.status(), "Home carousel document status").toBe(200);
+  await page.waitForFunction(() => {
+    const history = window.__visualHomeSlideHistory || [];
+    return history.includes(0) && history.includes(1);
+  }, null, { timeout: 8000 });
+
+  const slideHistory = await page.evaluate(() => window.__visualHomeSlideHistory);
+  expect(slideHistory[0], "Home should begin on the first slide").toBe(0);
+  expect(slideHistory, "Home should automatically advance to the second slide").toContain(1);
+  assertRuntimeClean(runtime, { key: "home" });
 });
 
 test("404 keyboard focus and recovery links", async ({ page }, testInfo) => {

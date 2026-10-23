@@ -18,6 +18,11 @@ on:
         required: false
         default: false
         type: boolean
+      home_stability_only:
+        description: "Run Home 1440 screenshot stability and normal carousel advance only"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -97,7 +102,11 @@ jobs:
             echo "Committed Linux baselines are required; automatic bootstrap is disabled."
             exit 1
           fi
-          if [ "${{ github.event_name == 'workflow_dispatch' && inputs.limited_reverification }}" = "true" ]; then
+          if [ "${{ github.event_name == 'workflow_dispatch' && inputs.home_stability_only }}" = "true" ]; then
+            npx playwright test --config=playwright.config.cjs --update-snapshots=none \
+              --project=desktop-1440 --workers=1 \
+              --grep '^(home visual and layout regression|Home carousel still advances automatically outside screenshot stabilization)$'
+          elif [ "${{ github.event_name == 'workflow_dispatch' && inputs.limited_reverification }}" = "true" ]; then
             npx playwright test --config=playwright.config.cjs --update-snapshots=none \
               --project=desktop-1440 --project=mobile-390 --workers=1 \
               --grep '(home|gallery|biography|artist-statement|information|yurayura) visual and layout regression$|VANTA\.TRUNK accent respects reduced motion and motion preference changes$'
@@ -106,7 +115,7 @@ jobs:
           fi
 
       - name: Upload visual evidence
-        if: always()
+        if: ${{ always() && !(github.event_name == 'workflow_dispatch' && inputs.home_stability_only) }}
         uses: actions/upload-artifact@v4
         with:
           name: visual-regression-${{ github.event.workflow_run.head_sha || github.sha }}
