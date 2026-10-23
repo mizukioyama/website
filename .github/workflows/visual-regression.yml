@@ -13,6 +13,11 @@ on:
         required: false
         default: false
         type: boolean
+      limited_reverification:
+        description: "Recheck 10 changed images, 2 Gallery controls and the motion lifecycle only"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -92,7 +97,13 @@ jobs:
             echo "Committed Linux baselines are required; automatic bootstrap is disabled."
             exit 1
           fi
-          npx playwright test --config=playwright.config.cjs --update-snapshots=none
+          if [ "${{ github.event_name == 'workflow_dispatch' && inputs.limited_reverification }}" = "true" ]; then
+            npx playwright test --config=playwright.config.cjs --update-snapshots=none \
+              --project=desktop-1440 --project=mobile-390 --workers=1 \
+              --grep '(home|gallery|biography|artist-statement|information|yurayura) visual and layout regression$|VANTA\.TRUNK accent respects reduced motion and motion preference changes$'
+          else
+            npx playwright test --config=playwright.config.cjs --update-snapshots=none
+          fi
 
       - name: Upload visual evidence
         if: always()

@@ -1741,9 +1741,8 @@ for (const entry of pages) {
     });
 
     await prepareDeterministicNetwork(page);
-    if (["biography", "artist-statement"].includes(entry.key)) {
-      await page.emulateMedia({ reducedMotion: "no-preference" });
-    }
+    // Match the reduced-motion setting used to create the committed layout baselines.
+    // Normal-motion drawing and preference changes have independent lifecycle tests.
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
@@ -1809,6 +1808,9 @@ for (const entry of pages) {
     expect(diagnostics.overflow, "document has horizontal overflow")[entry.key === "information" ? "toBe" : "toBeLessThanOrEqual"](entry.key === "information" ? 0 : 2);
     expect(diagnostics.clippedText, "visible main text is clipped inside its box").toEqual([]);
     expect(diagnostics.brokenVisibleImages, "visible image failed to load").toEqual([]);
+    await testInfo.attach("layout-diagnostics-" + entry.key + ".json", {
+      body: Buffer.from(JSON.stringify(diagnostics, null, 2)), contentType: "application/json"
+    });
 
     await assertResponsivePageGeometry(page, entry);
 
@@ -1830,9 +1832,46 @@ for (const entry of pages) {
           content: "#portfolio-overlay-animation .organic-flow-canvas { visibility: hidden !important; }"
         });
       }
-      await expect(page).toHaveScreenshot(entry.key + ".png", {
-        fullPage: true,
-        timeout: 15000
+      const heavyDesktopCapture = testInfo.project.name === "desktop-1440"
+        && ["home", "biography"].includes(entry.key);
+      const captureTimeoutMs = heavyDesktopCapture ? 30000 : 15000;
+      const preflight = await page.evaluate(async () => {
+        const started = performance.now();
+        let fontTimer;
+        const fontReadyWithinBudget = await Promise.race([
+          document.fonts.ready.then(() => true),
+          new Promise(resolve => { fontTimer = setTimeout(() => resolve(false), 1000); })
+        ]);
+        clearTimeout(fontTimer);
+        return {
+          fontReadyWithinBudget,
+          fontReadyWaitMs: performance.now() - started,
+          fontStatus: document.fonts.status,
+          fontFaceCount: document.fonts.size,
+          documentHeight: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight),
+          viewport: {width: innerWidth, height: innerHeight},
+          reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
+          canvasCount: document.querySelectorAll("canvas").length,
+          trunkCanvasCount: document.querySelectorAll("#vanta-bg-bio canvas").length,
+          selectedInk: window.__selectedInkField?.getState?.() || null,
+          organicFlow: window.__organicFlowProduction?.getState?.() || null
+        };
+      });
+      const captureStarted = performance.now();
+      const errorsBeforeCapture = testInfo.errors.length;
+      await test.step("Screenshot comparison (runtime continues after mismatch)", async () => {
+        // Keep the mismatch as a test failure without skipping independent runtime checks.
+        await expect.soft(page).toHaveScreenshot(entry.key + ".png", {
+          fullPage: true,
+          timeout: captureTimeoutMs
+        });
+      });
+      await testInfo.attach("capture-diagnostics-" + entry.key + ".json", {
+        body: Buffer.from(JSON.stringify({
+          ...preflight, captureTimeoutMs, workers: testInfo.config.workers,
+          captureElapsedMs: performance.now() - captureStarted,
+          screenshotFailureCount: testInfo.errors.length - errorsBeforeCapture
+        }, null, 2)), contentType: "application/json"
       });
     } else if (fullAudit) {
       if (["biography", "artist-statement"].includes(entry.key)) {
@@ -1848,24 +1887,40 @@ for (const entry of pages) {
       });
     }
 
-    if (!["home", "biography", "artist-statement", "404", "yurayura"].includes(entry.key)) {
-      await exerciseSharedRuntimeInteractions(page);
-    }
-    if (entry.key === "gallery") {
-      await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
-    }
-    if (entry.key === "information") {
-      await exerciseInformationRuntime(page, testInfo);
-    }
-    if (entry.key === "contact") {
-      await exerciseContactRuntime(page, testInfo);
-    }
-    if (entry.key === "order") {
-      await exerciseOrderRuntime(page);
-    }
+    await test.step("Independent runtime interactions and final error checks", async () => {
+      let completed = false;
+      try {
+        if (!["home", "biography", "artist-statement", "404", "yurayura"].includes(entry.key)) {
+          await exerciseSharedRuntimeInteractions(page);
+        }
+        if (entry.key === "gallery") {
+          await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
+        }
+        if (entry.key === "information") {
+          await exerciseInformationRuntime(page, testInfo);
+        }
+        if (entry.key === "contact") {
+          await exerciseContactRuntime(page, testInfo);
+        }
+        if (entry.key === "order") {
+          await exerciseOrderRuntime(page);
+        }
 
-    assertRuntimeClean(runtime, entry);
-    await attachRuntimeObservations(testInfo, entry, runtime);
+        assertRuntimeClean(runtime, entry);
+        await attachRuntimeObservations(testInfo, entry, runtime);
+        completed = true;
+      } finally {
+        await testInfo.attach("runtime-verification-" + entry.key + ".json", {
+          body: Buffer.from(JSON.stringify({
+            completed, pageErrors: runtime.pageErrors,
+            consoleErrors: relevantConsoleErrors(runtime, entry),
+            localResourceFailures: runtime.localResourceFailures,
+            externalResourceFailures: runtime.externalResourceFailures,
+            layoutBeforeCapture: diagnostics
+          }, null, 2)), contentType: "application/json"
+        });
+      }
+    });
   });
 }
 
