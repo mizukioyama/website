@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@import url("standard-background.css");
+
 .noise {
   display: flex;
   /*background-image: linear-gradient(to right, #fff 0%, #000 70%);
@@ -23,15 +25,6 @@ html,
 body {
   font-weight: 300;
   overflow-x: hidden;
-  background-image:
-    linear-gradient(rgba(20, 20, 20, 0.3), rgba(20, 20, 20, 0.3)), url("../img/shinju.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  transition:
-    background-color 0.5s,
-    color 0.5s;
 }
 
 /* index.htmlを除く共通ページのPC本文サイズをContactページと統一 */
@@ -130,11 +123,6 @@ body {
       calc(0.338px + 0.028vw),
       calc(0.455px + 0.0175vw)
     );
-    --tracking-category-001: clamp(
-      calc(0.091px + 0.0035vw),
-      calc(0.0832px + 0.0072vw),
-      calc(0.1144px + 0.0044vw)
-    );
   }
 }
 
@@ -189,7 +177,6 @@ body {
     --tracking-list-005: clamp(0.48125px, calc(0.42px + 0.015vw), 0.56px);
     --tracking-list-012: clamp(1.155px, calc(1.008px + 0.036vw), 1.344px);
     --tracking-table-005: clamp(0.525px, calc(0.455px + 0.015vw), 0.6125px);
-    --tracking-category-001: clamp(0.1225px, calc(0.112px + 0.004vw), 0.154px);
   }
 }
 
@@ -208,19 +195,7 @@ body.dark-theme .modal-box {
   transition: font-family 1s ease-in-out;
 }
 
-#vanta-bg,
-#vanta-bg-bio {
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  mix-blend-mode: hard-light;
-}
 
-#vanta-bg-bio {
-  opacity: 0.75;
-}
 
 /*h1 {
     font-size: clamp(var(--legacy-px-8), calc(var(--legacy-px-8) + 0.5vw), var(--legacy-px-10));
@@ -428,7 +403,6 @@ main li {
 .head a {
   position: fixed;
   justify-content: flex-start;
-  font-size: var(--font-header-footer-size);
   font-weight: 400;
   letter-spacing: var(--legacy-px-0_01);
   padding: 0;
@@ -711,7 +685,8 @@ main {
 }
 
 .state-box {
-  width: min(100%, calc(100vw - 4rem));
+  display: flex;
+  width: 100%;
   max-width: 100%;
   min-width: 0;
   padding-top: 48vmin;
@@ -1122,5 +1097,32 @@ main {
 @media screen and (min-width: 1300px) {
   .art-page main.gallery > .gallery-box {
     --gallery-max-width: 1150px;
+  }
+}
+
+/* Shared reading-page rules, formerly duplicated in Biography / Statement / Policy. */
+.gallery.statement .page-line, #policy .page-line {
+  height: 1px;
+  margin: 15vmin 0;
+}
+.state-img {
+  position: relative;
+  width: 42vmin;
+  max-width: 100%;
+  left: 10vmin;
+  top: 0;
+}
+.state-txt {
+  padding-bottom: 2vmin !important;
+}
+@media screen and (max-width: 599px) {
+  .state-img {
+    width: auto;
+    left: 0;
+    top: -10px;
+  }
+  .state-box {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-background-accent="trunkSphere">
 
 <head>
   <script src="../../js/background-system-config.js"></script>
@@ -248,26 +248,27 @@
                 width: 50%;
                 transition: none;
             }
-
-            #vanta-bg-bio { display: none; }
         }
     </style>
+  <link rel="stylesheet" href="../../css/background-overlay.css">
+  <link rel="stylesheet" href="../../css/organic-flow.css">
 </head>
 
 <body id="exhibition-yurayura" data-language-mode="switchable">
     <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
-        <a href="/website/">Home</a>
-        <a href="/website/gallery.html">Art Index</a>
-        <a href="/website/artist-statement.html">Artist Statement</a>
-        <a href="/website/biography.html">Biography</a>
-        <a href="/website/information.html">Information</a>
-        <a href="/website/contact.html">Contact Us</a>
-        <a href="/website/order.html">Order</a>
-        <a href="/website/policy.html">Site Policy</a>
-    </nav>
+  <a href="/website/">Home</a>
+  <a href="/website/gallery.html">Art Index</a>
+  <a href="/website/artist-statement.html">Artist Statement</a>
+  <a href="/website/biography.html">Biography</a>
+  <a href="/website/information.html">Information</a>
+  <a href="/website/contact.html">Contact Us</a>
+  <a href="/website/order.html">Order</a>
+  <a href="/website/policy.html">Site Policy</a>
+</nav>
     </div>
     <div id="vanta-bg-bio"></div>
+  <div id="portfolio-overlay-animation" aria-hidden="true"></div>
 
     <main class="gallery exhibition-page">
         <div class="h1-text" data-title="Yurayura">
@@ -452,32 +453,10 @@
         });
     </script>
 
-    <script>
-    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
 
-        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-            window.VANTA &&
-            typeof window.VANTA.TRUNK === "function") {
-            const background = document.querySelector("#vanta-bg-bio");
-            if (background) {
-                window.VANTA.TRUNK({
-                    el: background,
-                    mouseControls: true,
-                    touchControls: true,
-                    gyroControls: false,
-                    minHeight: 200.00,
-                    minWidth: 200.00,
-                    scale: 1.00,
-                    scaleMobile: 0.70,
-                    color: 0xffffff,
-                    chaos: 2.50
-                });
-            }
-        }
-
-    }
-  </script>
   <script src="../../js/selected-ink-field.js"></script>
+  <script src="../../js/organic-flow-engine.js"></script>
+  <script src="../../js/organic-flow-production.js"></script>
 </body>
 
 </html>

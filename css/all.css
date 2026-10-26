@@ -431,7 +431,6 @@ body {
   --tracking-list-005: clamp(0.55px, calc(0.48px + 0.015vw), 0.64px);
   --tracking-list-012: clamp(1.32px, calc(1.152px + 0.036vw), 1.536px);
   --tracking-table-005: clamp(0.6px, calc(0.52px + 0.015vw), 0.7px);
-  --tracking-category-001: clamp(0.14px, calc(0.128px + 0.004vw), 0.176px);
   --tracking-ui-015: clamp(2.1px, calc(1.8px + 0.06vw), 2.4px);
   --legacy-px-0_66: 10.56px;
   --legacy-px-0_7216: 11.5456px;
@@ -476,7 +475,6 @@ a {
   color: var(--inv);
   display: block;
   height: fit-content;
-  text-decoration: none;
   overflow: hidden;
   /*background-position: 0 0; 背景色の位置 */
   /*background-size: 200% auto;  背景色のサイズ */

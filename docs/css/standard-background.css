@@ -1,0 +1,34 @@
+/* Standard-page background source. Home does not import gallery.css or this file.
+   Biography / Artist Statement values and layer geometry are preserved verbatim. */
+html,
+body {
+  background-image:
+    linear-gradient(rgba(20, 20, 20, 0.3), rgba(20, 20, 20, 0.3)), url("../img/shinju.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  transition:
+    background-color 0.5s,
+    color 0.5s;
+}
+
+#vanta-bg,
+#vanta-bg-bio {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  mix-blend-mode: hard-light;
+}
+
+#vanta-bg-bio {
+  opacity: 0.75;
+}
+
+/* Match Biography/Statement: overlay (5) stays below the reading/artwork layer (10).
+   The common main backdrop therefore composites the same background stack. */
+html[data-background-accent="trunkSphere"] main {
+  z-index: 10;
+}

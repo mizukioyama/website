@@ -717,6 +717,12 @@ async function exerciseSharedRuntimeInteractions(page) {
   const toggle = page.locator("#navArea .toggle_btn");
   await expect(toggle).toHaveAttribute("role", "button");
   await expect(toggle).toHaveAttribute("tabindex", "0");
+  if (page.viewportSize().width >= 1024) {
+    await expect(toggle).toBeHidden();
+    await expect(page.locator("#navArea nav")).toBeVisible();
+    await expect(page.locator("#navArea nav")).not.toHaveAttribute("inert", "");
+    return;
+  }
 
   const openState = await toggle.evaluate(element => {
     element.dispatchEvent(new KeyboardEvent("keydown", {
@@ -997,6 +1003,20 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await setLanguage(initialLanguage);
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
 
+  // Filter/language changes schedule an existing smooth scroll to the top.
+  // Let it finish before asking Playwright to scroll the artwork into view.
+  await page.evaluate(() => new Promise(resolve => {
+    let previous = window.scrollY;
+    let stableFrames = 0;
+    const settle = () => {
+      const current = window.scrollY;
+      stableFrames = Math.abs(current - previous) < 0.5 ? stableFrames + 1 : 0;
+      previous = current;
+      if (stableFrames >= 6) resolve();
+      else requestAnimationFrame(settle);
+    };
+    requestAnimationFrame(settle);
+  }));
   await firstWork.locator(".view-policy-button").click();
   await expectViewportModalFit(page.locator("#modalBox"), "Gallery artwork modal");
   await expect(page.locator("#modalCloseBtn")).toBeVisible();
@@ -1761,6 +1781,7 @@ for (const entry of pages) {
     }
     // Match the reduced-motion setting used to create the committed layout baselines.
     // Normal-motion drawing and preference changes have independent lifecycle tests.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const response = await page.goto(entry.path, { waitUntil: "domcontentloaded" });
     expect(response, "navigation should return a response").not.toBeNull();
     expect(response.status()).toBe(entry.status || 200);
@@ -2206,11 +2227,16 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
 
-  await toggle.focus();
-  await page.keyboard.press("Enter");
-  await expect(page.locator("#navArea")).toHaveClass(/open/);
-  await expect(toggle).toHaveAttribute("aria-expanded", "true");
-  await expect(toggle).toHaveAttribute("aria-label", "Close navigation menu");
+  if (page.viewportSize().width < 1024) {
+    await toggle.focus();
+    await page.keyboard.press("Enter");
+    await expect(page.locator("#navArea")).toHaveClass(/open/);
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await expect(toggle).toHaveAttribute("aria-label", "Close navigation menu");
+  } else {
+    await expect(toggle).toBeHidden();
+    await expect(page.locator("#navArea nav")).toBeVisible();
+  }
 
   for (const [label, expectedPath] of Object.entries(expected)) {
     const link = page
@@ -2531,6 +2557,11 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
 
   const openMenu = async () => {
     const toggle = page.locator("#navArea .toggle_btn");
+    if (page.viewportSize().width >= 1024) {
+      await expect(toggle).toBeHidden();
+      await expect(page.locator("#navArea nav")).toBeVisible();
+      return;
+    }
     await expect(toggle).toHaveAttribute("aria-expanded", "false");
     await toggle.click();
     await expect(page.locator("#navArea")).toHaveClass(/open/);
@@ -2620,6 +2651,7 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
 });
 
 test("Header menu follows saved language and hides language controls while open", async ({ page }, testInfo) => {
+  test.skip(page.viewportSize().width >= 1024, "The exhibition overlay is a mobile/tablet menu; desktop navigation is covered independently.");
   const entry = { key: "header-menu-language" };
   const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
@@ -2856,7 +2888,7 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
     expect(state.canvasCount, entry.key + " Selected Ink Field canvas count").toBe(1);
     expect(state.canvasWidth, entry.key + " canvas width").toBeGreaterThan(0);
     expect(state.canvasHeight, entry.key + " canvas height").toBeGreaterThan(0);
-    const trunkExpected = ["biography", "artist-statement"].includes(entry.key);
+    const trunkExpected = entry.key !== "home";
     expect(state.organicCanvasCount, entry.key + " Organic Flow canvas count").toBe(trunkExpected ? 1 : 0);
     expect(state.trunkCanvasCount, entry.key + " TRUNK canvas count").toBe(trunkExpected ? 1 : 0);
     expect(state.overlayDomCount, entry.key + " overlay layer count").toBe(trunkExpected ? 1 : 0);

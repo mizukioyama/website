@@ -114,39 +114,9 @@
             display: none;
         }
 
-        .page-line {
-            height: 1px;
-            background-color: var(--text);
-            width: 0%;
-            left: 50%;
-            margin: 15vmin 0 15vmin;
-            transform: translateX(-50%);
-            position: relative;
-            transition: width 1s ease;
-            border-radius: 8px;
-        }
-
         .content hr {
             /*background: #333;*/
             background: var(--text);
-        }
-
-        .state-img {
-            position: relative;
-            width: min(35%, calc(100% - 6rem));
-            width: 42vmin;
-            max-width: 100%;
-            left: 10vmin;
-            top: 0;
-        }
-
-        .state-box {
-            display: flex;
-            width: 100%;
-        }
-
-        .state-txt {
-            padding-bottom: 2vmin !important;
         }
 
         .work>p.text+p:not(.text) {
@@ -173,19 +143,9 @@
 
 
         @media screen and (max-width: 599px) {
-            .state-box {
-                flex-direction: column;
-                align-items: flex-start;
-            }
 
             .state-box:nth-child(2) {
                 margin-top: 130vmin;
-            }
-
-            .state-img {
-                width: auto;
-                left: 0;
-                top: -10px;
             }
 
             #bio #state .content {
@@ -226,15 +186,15 @@
 <body id="bio" data-language-mode="bilingual">
     <div id="header-container">
         <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
-            <a href="/website/">Home</a>
-            <a href="/website/gallery.html">Art Index</a>
-            <a href="/website/artist-statement.html">Artist Statement</a>
-            <a href="/website/biography.html">Biography</a>
-            <a href="/website/information.html">Information</a>
-            <a href="/website/contact.html">Contact Us</a>
-            <a href="/website/order.html">Order</a>
-            <a href="/website/policy.html">Site Policy</a>
-        </nav>
+  <a href="/website/">Home</a>
+  <a href="/website/gallery.html">Art Index</a>
+  <a href="/website/artist-statement.html">Artist Statement</a>
+  <a href="/website/biography.html">Biography</a>
+  <a href="/website/information.html">Information</a>
+  <a href="/website/contact.html">Contact Us</a>
+  <a href="/website/order.html">Order</a>
+  <a href="/website/policy.html">Site Policy</a>
+</nav>
     </div>
     <div id="vanta-bg-bio"></div>
     <div id="portfolio-overlay-animation" aria-hidden="true"></div>
