@@ -216,3 +216,5 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 ## Menu / reading release authorization — 2026-10-27
 
 - Owner approved this reviewed design and the commit/PR/Linux-review/conditional-publication sequence. Required Linux checks and per-image review must pass before merge. Preserve formal WIP, the old editing checkout and stash. Local review evidence is excluded from the release commit.
+
+- Linux full audit #477: 257 passed / 124 conditional skips / 4 screenshot-only failures; independent runtime 70/70. All 20 Linux image pairs reviewed. Adopt only desktop 10 plus mobile Biography/Statement 2; keep the other 8 mobile references unchanged. Full CI after baseline adoption and publication results are tracked in PR #38.
