@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-background-accent="trunkSphere">
 
 <head>
   <script src="js/background-system-config.js"></script>
@@ -100,22 +100,25 @@
   connect-src 'self' https://script.google.com https://script.googleusercontent.com;
   object-src 'none';
 ">
+  <link rel="stylesheet" href="css/background-overlay.css">
+  <link rel="stylesheet" href="css/organic-flow.css">
 </head>
 
 <body data-language-mode="bilingual">
   <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
-        <a href="/website/">Home</a>
-        <a href="/website/gallery.html">Art Index</a>
-        <a href="/website/artist-statement.html">Artist Statement</a>
-        <a href="/website/biography.html">Biography</a>
-        <a href="/website/information.html">Information</a>
-        <a href="/website/contact.html">Contact Us</a>
-        <a href="/website/order.html">Order</a>
-        <a href="/website/policy.html">Site Policy</a>
-    </nav>
+  <a href="/website/">Home</a>
+  <a href="/website/gallery.html">Art Index</a>
+  <a href="/website/artist-statement.html">Artist Statement</a>
+  <a href="/website/biography.html">Biography</a>
+  <a href="/website/information.html">Information</a>
+  <a href="/website/contact.html">Contact Us</a>
+  <a href="/website/order.html">Order</a>
+  <a href="/website/policy.html">Site Policy</a>
+</nav>
     </div>
   <div id="vanta-bg-bio"></div>
+  <div id="portfolio-overlay-animation" aria-hidden="true"></div>
 
   <main id="contact" class="gallery">
   <div class="h1-text" data-title="Contact" data-subtitle="依頼 | 問い合わせ">
@@ -386,25 +389,10 @@
     }
   </style>
 
-  <script>
-    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
 
-    VANTA.TRUNK({
-      el: "#vanta-bg-bio",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 0.70,
-      color: 0xffffff,
-      chaos: 2.50
-    })
-
-    }
-  </script>
   <script src="js/selected-ink-field.js"></script>
+  <script src="js/organic-flow-engine.js"></script>
+  <script src="js/organic-flow-production.js"></script>
 </body>
 
 </html>

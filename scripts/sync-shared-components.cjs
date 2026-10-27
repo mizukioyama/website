@@ -37,6 +37,29 @@ function renderSegment(target) {
   ].join("\n");
 }
 
+
+const pageSources = ["index.html", "gallery.html", "biography.html", "artist-statement.html", "order.html", "contact.html", "policy.html", "src/information.html", "src/exhibitions/yurayura/index.html", "src/404.html"];
+const headerSource = fs.readFileSync(path.join(root, "src/components/header.html"), "utf8");
+const primaryLinks = [...headerSource.matchAll(/<li><a href="@@SITE:([^@]+)@@"[^>]*>([^<]+)<\/a>/g)];
+const fallback = '<nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">\n' +
+  '  <a href="/website/">Home</a>\n' + primaryLinks.map(match => '  <a href="/website/' + match[1] + '">' + match[2] + '</a>').join('\n') + '\n</nav>';
+for (const source of pageSources) {
+  const file = path.join(root, source);
+  const original = fs.readFileSync(file, "utf8");
+  const updated = /<nav\b[^>]*data-static-primary-navigation[^>]*>[\s\S]*?<\/nav>/.test(original)
+    ? (original.match(/<nav\b[^>]*data-static-primary-navigation[^>]*>[\s\S]*?<\/nav>/)[0].replace(/\r\n/g, "\n") === fallback
+      ? original
+      : original.replace(/<nav\b[^>]*data-static-primary-navigation[^>]*>[\s\S]*?<\/nav>/, fallback))
+    : original.replace('<div id="header-container"></div>', '<div id="header-container">' + fallback + '</div>');
+  if (updated !== original) {
+    if (process.argv.includes("--check")) {
+      console.error("Static navigation is stale: " + source);
+      process.exit(1);
+    }
+    fs.writeFileSync(file, updated, "utf8");
+  }
+}
+
 let current = fs.readFileSync(menuPath, "utf8");
 let expected = current;
 

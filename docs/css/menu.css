@@ -56,10 +56,6 @@ nav .noise {
 .home .inner .noise {
   background-image: linear-gradient(to right, rgba(46, 46, 46, 0.75) 30%, var(--text) 100%);
 }
-.home nav .noise:nth-last-child {
-  background: rgba(120, 120, 110, 0.5);
-  backdrop-filter: blur(40px);
-}
 .toggle_btn {
   display: block;
   position: fixed;
@@ -364,4 +360,87 @@ body:has(#modalBox[style*="display: block"]) {
   .home .inner li:nth-of-type(n + 5) a {
     font-size: var(--font-nav-size);
   }
+}
+
+/* No-JavaScript navigation is replaced, not duplicated, by buildHeader(). */
+#header-container > .static-primary-navigation {
+  position: relative;
+  z-index: 10000;
+  background: var(--text);
+  inset: auto;
+  width: auto;
+  padding: 24px 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  overflow: visible;
+}
+#navArea .inner a:focus-visible,
+.head a:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+#navArea .inner a[aria-current="page"] {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+}
+/* Navigation has a verified 1024px layout boundary; body typography keeps its existing breakpoints.
+   Two rows allow the existing navigation font size to remain unchanged. */
+@media screen and (min-width: 1024px) {
+  #header-container header {
+    position: fixed;
+    inset: 0 0 auto;
+    width: 100%;
+    z-index: 2001;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 24px;
+    padding: 4px 6vw 0;
+    background: linear-gradient(rgba(10, 18, 19, 0.92), rgba(10, 18, 19, 0.7) 80%, transparent);
+  }
+  .home #header-container header {
+    background: linear-gradient(rgba(225, 225, 220, 0.92), rgba(225, 225, 220, 0.7) 80%, transparent);
+  }
+  .home #header-container header .head a {
+    background-image: linear-gradient(to right, rgba(46, 46, 46, 0.75), var(--text));
+  }
+  #header-container header .head { display: block; }
+  #header-container header .head a:focus-visible { outline-offset: 2px; }
+  #header-container header .head a {
+    position: static;
+    width: fit-content;
+    padding: 0;
+    margin: 0;
+  }
+  #navArea { grid-column: 1 / -1; }
+  #navArea nav {
+    position: static;
+    inset: auto;
+    width: 100%;
+    display: block;
+    overflow: visible;
+    transition: none;
+  }
+  #navArea .inner { width: 100%; padding: 0; min-height: 0; }
+  #navArea .inner ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px 24px;
+    height: auto;
+  }
+  #navArea .inner ul li { margin: 0; border: 0; }
+  #navArea .inner li a { padding: 2px 0; line-height: 1.4; white-space: nowrap; }
+  #navArea #mask, #navArea .toggle_btn, #navArea nav > .noise { display: none; }
+  #header-container header #langChange {
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    margin: 0;
+  }
+  main [id] { scroll-margin-top: 180px; }
 }

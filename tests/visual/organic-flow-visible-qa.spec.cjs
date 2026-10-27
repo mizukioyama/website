@@ -139,10 +139,26 @@ test("captures visible Organic Flow variants on both candidate pages", async ({ 
       expect(response.status(), route.key + " should load at " + viewport.width + "px")
         .toBe(200);
       await page.waitForLoadState("load");
-      await expect.poll(() => page.locator(".h1-text h1.text").evaluate(title => {
-        const target = title.getAttribute("aria-label");
-        return Boolean(target && title.innerText.trim() === target.trim() && !title.querySelector(".dud"));
-      }), { timeout: 30000 }).toBe(true);
+      // This multi-viewport evidence run reuses a page after GPU readbacks.
+      // Activate it before waiting for the real RAF-driven title to settle.
+      await page.bringToFront();
+      const readTitleState = () => page.locator(".h1-text h1.text").evaluate(title => ({
+        text: title.textContent.replace(/\s+/g, " ").trim(),
+        target: (title.getAttribute("aria-label") || "").replace(/\s+/g, " ").trim(),
+        dudCount: title.querySelectorAll(".dud").length,
+        visibility: document.visibilityState,
+        organicFrames: window.__organicFlowProduction?.getState?.()?.engine?.frameCount || 0
+      }));
+      try {
+        await expect.poll(async () => {
+          const state = await readTitleState();
+          return Boolean(state.target && state.text === state.target && state.dudCount === 0);
+        }, { timeout: 30000 }).toBe(true);
+      } finally {
+        await testInfo.attach("visible-title-" + route.key + "-" + viewport.width + ".json", {
+          body: Buffer.from(JSON.stringify(await readTitleState(), null, 2)), contentType: "application/json"
+        });
+      }
       await expect.poll(() => page.evaluate(() => {
         const state = window.__organicFlowProduction?.getState?.();
         return state && state.engine ? state.engine.frameCount : 0;

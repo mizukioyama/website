@@ -104,3 +104,22 @@ Standard-page H2 setting（base scope。responsive scopesも同じtokenを使用
 border、hairline、icon/stroke、装飾線、`z-index`、`font-size: 0` による表示制御、resetの `inherit` / `100%` はユーザー調整用のfluid typography対象外です。Letter-spacing、tracking、404表示の光学調整、component固有helperも、同一タグのFont Size統一とは別問題として扱います。Legacy/non-Home optical token群を一括削除しません。Formのplaceholder・floating labelは既存のデスクトップ縮小表示を維持するため、専用の互換roleを使います。
 
 Menu主要項目だけは、既存表示を維持するため `<=599px` / `600–1298px` / `>=1299px` の3段階を同じファイル内で管理しています。`docs/` は生成物です。デザイン変更はroot HTML / `css/` / `assets/css/`を編集し、依存関係が揃った環境でbuildしてから生成物を更新します。
+
+## 2026-10-26 shared Header and Standard background candidate
+
+- Header links: edit `src/components/header.html` only; `npm run build` synchronizes the JS component and no-JavaScript navigation in all ten page sources. Runtime replaces the fallback, so only one primary navigation exists.
+- Desktop navigation uses the existing navigation typography from 1024px, wrapping when necessary. Up to 1023px retains the overlay; Escape closes it, and hidden links are inert. This component-specific boundary does not change body typography breakpoints.
+- Standard background: edit `css/standard-background.css` for the Biography/Statement-derived base color/image and TRUNK opacity/geometry. `gallery.css` imports it; Home does not. Selected Ink Field lives in `js/selected-ink-field.js`; the optional TRUNK lifecycle belongs to `js/background-system-config.js`; Organic Flow settings remain in `js/organic-flow-engine.js` and production selection in `js/organic-flow-production.js`.
+- Cascade: shared base/reset → shared standard/component rules → deliberate page-specific inline rules; `assets/css/user-settings.css` remains the typography source. Keep role-specific overrides; do not flatten font-size controls or remove compatibility tokens without checking consumers.
+- New Standard pages need the common Header fallback, `data-background-accent="trunkSphere"`, one TRUNK mount, one overlay, and the same background scripts/styles as Information. Add indexable pages to sitemap and visual tests; 404 stays noindex.
+- Build with `Portfolio: Build generated site`; preview with `Portfolio: Preview generated site`; run `Portfolio: Full quality checks` and the relevant Playwright suite. Do not edit generated `docs/` by hand. This candidate requires Before/After design approval before merging or publishing.
+
+
+### 2026-10-27 最終監査の判断
+
+- 769〜1023pxは開閉式、1024px以上は常時表示です。境界は `css/menu.css` と `js/menu.js` の同じ1024px条件で管理し、Typographyの幅条件とは分けています。
+- `--tracking-category-001` は参照がないため、基本宣言に加えて残っていた2つのmedia宣言も除去しました。
+- `--legacy-px-*` は `js/form.js` が実行時に生成するCSSにも参照があります。通常のCSSファイル検索だけを根拠に削除しないでください。
+- Typographyの互換aliasとユーザー編集用roleは維持します。現在のCSS参照がない編集用roleも、表示値の調整口を削減する目的では削除しません。
+- 同値でもHome用・Standard用・404用・component用は役割が異なります。モーダルもGalleryとPolicyで状態・構造・上書きが異なるため、一括統合しません。
+- `!important` とページ固有ルールは、スクロール制御、操作状態、Typography roleやレスポンシブ上書きのためのものを維持します。ローカルレビュー画像・ログは公開変更に含めません。最終監査では表示値と既存編集口の保護を優先しています。

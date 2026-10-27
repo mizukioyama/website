@@ -17,7 +17,7 @@ const HEADER_MARKUP = `
 
   <!-- Nav -->
   <div id="navArea">
-    <nav>
+    <nav aria-label="Primary navigation">
       <div class="inner">
         <ul>
           <li><a href="${siteHref("gallery.html")}" class="noise">Art Index</a></li>
@@ -503,7 +503,20 @@ function initializeMenu() {
 
   if (!btn || !nav || btn.dataset.menuBound === 'true') return;
 
+  const desktop = window.matchMedia('(min-width: 1024px)');
+  const panel = nav.querySelector('nav');
+  const normalizePath = value => new URL(value, location.href).pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+  const currentPath = normalizePath(location.href);
+  document.querySelectorAll('header .head a, #navArea .inner a').forEach(link => {
+    const target = normalizePath(link.href);
+    const isCurrent = target === currentPath || (currentPath.includes('/exhibitions/') && target.endsWith('/information.html'));
+    if (isCurrent) link.setAttribute('aria-current', 'page');
+  });
+
   const setOpen = isOpen => {
+    isOpen = !desktop.matches && isOpen;
+    panel?.toggleAttribute('inert', !desktop.matches && !isOpen);
+    panel?.setAttribute('aria-hidden', String(!desktop.matches && !isOpen));
     nav.classList.toggle('open', isOpen);
     syncLanguageControlVisibility();
     btn.setAttribute('aria-expanded', String(isOpen));
@@ -523,6 +536,13 @@ function initializeMenu() {
     setOpen(!nav.classList.contains('open'));
   });
   mask?.addEventListener('click', () => setOpen(false));
+  nav.querySelectorAll('.inner a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !nav.classList.contains('open')) return;
+    setOpen(false);
+    btn.focus();
+  });
+  desktop.addEventListener('change', () => setOpen(false));
   btn.dataset.menuBound = 'true';
 }
 

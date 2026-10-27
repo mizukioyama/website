@@ -68,6 +68,7 @@ The public root-page visual system primarily uses:
 | --- | --- |
 | `assets/css/user-settings.css` | User-editable typography settings; edit the `USER EDITABLE — TYPOGRAPHY` section for normal font-size tuning. |
 | `css/all.css` | Shared reset, document defaults and site-wide base rules. |
+| `css/standard-background.css` | Shared non-Home background color/image and TRUNK compositing geometry, imported by gallery.css. |
 | `css/menu.css` | Shared Header, navigation and menu layout; it imports `index-tablet.css` for Home-only portrait-tablet rules. |
 | `css/gallery.css` | Shared standard-page and Gallery presentation, including language-control, Category sidebar and artwork-viewing styles used by pages that load it. |
 | `css/mobile.css` | Narrow-mobile overrides, primarily scoped to widths of 599px and below, including mobile Gallery sidebar/overlay states. |

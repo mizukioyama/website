@@ -190,8 +190,18 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 
 ## Gallery Phase H-1 — Feature release candidate (2026-10-05)
 
-- Revalidated 215 docs/._* files: all were untracked AppleDouble files with no source or build references and matched the .gitignore rule. A byte-for-byte backup was made under /private/tmp/portfolio-phase-h1-appledouble-20261005/sidecars; the 215 local sidecars were removed and the remaining count is zero. 変更メモ.css was preserved.
+- Revalidated 215 docs/._* files: all were untracked AppleDouble files with no source or build references and matched the .gitignore rule. A byte-for-byte backup was made under the verified local AppleDouble recovery archive; the 215 local sidecars were removed and the remaining count is zero. 変更メモ.css was preserved.
 - Implementation commit 35acd44 contains only the seven Gallery source/test files and fourteen generated docs files. The Documentation commit remains separate.
 - Local build and component, JavaScript, typography, generated-output, SEO, link, and CRLF-aware diff checks pass. check:docs-sync passes after the implementation commit.
 - Protected background modules, Biography / Artist Statement source, review ZIP, and 1440 / 390 Linux Gallery baselines retain their preflight hashes.
 - Current gate: feature-branch push and Linux Visual Regression workflow_dispatch with full_audit=true; review expected / actual / diff before any baseline decision. main, Pages, and production remain unchanged.
+
+- 2026-10-26: Shared desktop navigation (1024px+), non-Home Biography/Statement background profiles and scoped CSS deduplication implemented locally; visual review and publication approval pending. No production change.
+
+- 2026-10-27: Final shared-design candidate audit removed two remaining unused tracking declarations and one redundant anchor declaration without changing typography values. Added tablet/desktop boundary, resize and persisted-lifecycle tests. Local clean-Git verification is the current gate; owner design approval and formal Linux screenshot review remain required. No push/PR/merge/deploy authorized for this task.
+
+## Shared-design release — 2026-10-27
+
+- Owner approved the shared desktop navigation, tablet/mobile overlay behavior, and non-Home background direction. The 41-file reviewed candidate is prepared against b128a6d; Linux screenshot review and clean CI are required before merge. Preserve the dirty formal checkout and Gallery WIP. Do not include local evidence or temporary configuration in the release.
+
+- Shared-design release verification: Linux full audit #474 passed (259 passed, 112 existing conditional skips, zero failures). All 20 Linux image pairs were reviewed; 17 approved navigation/background captures become the reference, while mobile Home/Biography/Statement references remain unchanged. Snapshot auto-updates are disabled. Tests preserve the shared main-layer assertion and retain successful review captures. Release and post-deploy results are recorded in PR #37.

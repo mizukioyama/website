@@ -163,3 +163,14 @@ Current design authority is:
 4. `QA_CHECKLIST.md`
 5. `ROADMAP.md`
 6. existing implementation when not contradicted above
+
+## 2026-10-26 shared Header and Standard background candidate
+
+- Header links: edit `src/components/header.html` only; `npm run build` synchronizes the JS component and no-JavaScript navigation in all ten page sources. Runtime replaces the fallback, so only one primary navigation exists.
+- Desktop navigation uses the existing navigation typography from 1024px, wrapping when necessary. Up to 1023px retains the overlay; Escape closes it, and hidden links are inert. This component-specific boundary does not change body typography breakpoints.
+- Standard background: edit `css/standard-background.css` for the Biography/Statement-derived base color/image and TRUNK opacity/geometry. `gallery.css` imports it; Home does not. Selected Ink Field lives in `js/selected-ink-field.js`; the optional TRUNK lifecycle belongs to `js/background-system-config.js`; Organic Flow settings remain in `js/organic-flow-engine.js` and production selection in `js/organic-flow-production.js`.
+- Cascade: shared base/reset → shared standard/component rules → deliberate page-specific inline rules; `assets/css/user-settings.css` remains the typography source. Keep role-specific overrides; do not flatten font-size controls or remove compatibility tokens without checking consumers.
+- New Standard pages need the common Header fallback, `data-background-accent="trunkSphere"`, one TRUNK mount, one overlay, and the same background scripts/styles as Information. Add indexable pages to sitemap and visual tests; 404 stays noindex.
+- Build with `Portfolio: Build generated site`; preview with `Portfolio: Preview generated site`; run `Portfolio: Full quality checks` and the relevant Playwright suite. Do not edit generated `docs/` by hand. This candidate requires Before/After design approval before merging or publishing.
+
+Desktop horizontal navigation keeps the existing font-size, weight and tracking, with component line-height 1.4 to fit above Home’s unchanged creator label. The mobile overlay retains its existing text rhythm.

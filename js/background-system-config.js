@@ -92,6 +92,7 @@
   window.__PORTFOLIO_BACKGROUND_ACCENTS__ = accents;
 
   if (hasTrunkSphereProfile) {
+    document.addEventListener("DOMContentLoaded", mountTrunkSphere, { once: true });
     window.addEventListener("pagehide", cleanup);
     window.addEventListener("pageshow", restoreAfterBackForwardCache);
     addMotionListener();
