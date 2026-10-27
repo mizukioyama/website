@@ -1916,6 +1916,11 @@ for (const entry of pages) {
           timeout: captureTimeoutMs
         });
       });
+      // Preserve Linux review evidence even when the full-page comparator passes.
+      // Full-page tolerance can admit a small but intentional shared-header change.
+      const reviewCapturePath = testInfo.outputPath("review-" + entry.key + ".png");
+      await page.screenshot({ path: reviewCapturePath, fullPage: true, animations: "disabled", caret: "hide" });
+      await testInfo.attach("review-" + entry.key + ".png", { path: reviewCapturePath, contentType: "image/png" });
       screenshotDiagnostics = {
         ...preflight,
         captureTimeoutMs,
@@ -2844,7 +2849,7 @@ test("Selected Ink Field initializes on all nine production routes", async ({ pa
       const trunk = document.querySelector("#vanta-bg-bio");
       const overlay = document.querySelector("#portfolio-overlay-animation");
       const overlayStyle = overlay ? getComputedStyle(overlay) : null;
-      const content = document.querySelector("main#state");
+      const content = document.querySelector("main");
       return {
         mode: window.__PORTFOLIO_BACKGROUND_SYSTEM__,
         canvasCount: document.querySelectorAll("#selected-ink-field-canvas").length,

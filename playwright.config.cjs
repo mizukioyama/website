@@ -34,6 +34,7 @@ module.exports = defineConfig({
   fullyParallel: false,
   workers: process.env.CI ? 2 : 1,
   retries: 0,
+  updateSnapshots: "none",
   reporter: [
     ["line"],
     ["html", { outputFolder: "playwright-report", open: "never" }]
