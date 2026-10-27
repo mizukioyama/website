@@ -203,3 +203,5 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 ## Shared-design release — 2026-10-27
 
 - Owner approved the shared desktop navigation, tablet/mobile overlay behavior, and non-Home background direction. The 41-file reviewed candidate is prepared against b128a6d; Linux screenshot review and clean CI are required before merge. Preserve the dirty formal checkout and Gallery WIP. Do not include local evidence or temporary configuration in the release.
+
+- Shared-design release verification: Linux full audit #474 passed (259 passed, 112 existing conditional skips, zero failures). All 20 Linux image pairs were reviewed; 17 approved navigation/background captures become the reference, while mobile Home/Biography/Statement references remain unchanged. Snapshot auto-updates are disabled. Tests preserve the shared main-layer assertion and retain successful review captures. Release and post-deploy results are recorded in PR #37.
