@@ -105,10 +105,6 @@ function selectorCompounds(branch) {
     .filter(Boolean);
 }
 
-function compoundHasId(compound, name) {
-  return new RegExp("#" + name + "(?![\\w-])").test(compound);
-}
-
 function compoundHasClass(compound, name) {
   return new RegExp("\\." + name + "(?![\\w-])").test(compound);
 }
@@ -127,35 +123,6 @@ function selectorTargetsEnglishTextParagraph(selector) {
   );
 }
 
-function selectorTargetsBiographyParagraph(selector) {
-  return selectorBranches(selector).some(branch => {
-    const compounds = selectorCompounds(branch);
-    let previous = -1;
-    for (const [kind, name] of [["id", "bio"], ["id", "state"], ["class", "content"], ["class", "work"]]) {
-      const found = compounds.findIndex((compound, index) =>
-        index > previous && (kind === "id" ? compoundHasId(compound, name) : compoundHasClass(compound, name))
-      );
-      if (found < 0) return false;
-      previous = found;
-    }
-    return compounds.slice(previous + 1).some(compound =>
-      compoundHasTag(compound, "p") && !/:not\(\s*\.text\b/i.test(compound)
-    );
-  });
-}
-
-function selectorTargetsContainerTextParagraph(selector, containerClass) {
-  return selectorBranches(selector).some(branch => {
-    const compounds = selectorCompounds(branch);
-    const container = compounds.findIndex(compound => compoundHasClass(compound, containerClass));
-    return container >= 0 && compounds.slice(container + 1).some(compound =>
-      compoundHasTag(compound, "p") &&
-      compoundHasClass(compound, "text") &&
-      !/:not\(\s*\.text\b/i.test(compound)
-    );
-  });
-}
-
 function normalizedCssValue(value) {
   return (value || "").replace(/\s+/g, " ").trim().toLowerCase();
 }
@@ -164,15 +131,6 @@ function requireRootTokenMapping(file, token, expectedValue, label) {
   const found = collectCssRules(read(file)).some(rule =>
     selectorBranches(rule.selector).some(branch => branch === ":root") &&
     normalizedCssValue(rule.declarations.get(token)) === normalizedCssValue(expectedValue)
-  );
-  if (!found) errors.push(file + ": missing " + label);
-}
-
-function requireInlineStyleRule(file, selectorMatches, contextMatches, declarationsMatch, label) {
-  const found = inlineCssRules(file).some(rule =>
-    selectorMatches(rule.selector) &&
-    contextMatches(rule.contexts) &&
-    declarationsMatch(rule.declarations)
   );
   if (!found) errors.push(file + ": missing " + label);
 }
@@ -191,41 +149,27 @@ requireRootTokenMapping(
   "shared body alias to the Standard Pages paragraph token"
 );
 
-const hasBodyToken = declarations =>
-  normalizedCssValue(declarations.get("font-size")) === "var(--font-body-size)";
-const outsideMobileMedia = contexts =>
-  !contexts.some(context => /max-width\s*:\s*599px/i.test(context));
-const biographyMobileMedia = contexts =>
-  contexts.some(context => /@media\b/i.test(context) && /max-width\s*:\s*599px/i.test(context));
-
-requireInlineStyleRule(
-  "biography.html",
-  selectorTargetsEnglishTextParagraph,
-  outsideMobileMedia,
-  hasBodyToken,
-  "desktop English paragraph using the shared Standard Pages body token"
-);
-requireInlineStyleRule(
-  "biography.html",
-  selectorTargetsBiographyParagraph,
-  biographyMobileMedia,
-  hasBodyToken,
-  "mobile Biography work paragraphs using the shared Standard Pages body token"
-);
-requireInlineStyleRule(
-  "artist-statement.html",
-  selector => selectorTargetsContainerTextParagraph(selector, "work"),
-  outsideMobileMedia,
-  hasBodyToken,
-  "desktop Statement English paragraphs using the shared Standard Pages body token"
-);
-requireInlineStyleRule(
-  "artist-statement.html",
-  selector => selectorTargetsContainerTextParagraph(selector, "timeline-copy"),
-  outsideMobileMedia,
-  declarations => hasBodyToken(declarations) && normalizedCssValue(declarations.get("border-top")) === "1px solid #333",
-  "desktop Statement timeline English body token and divider"
-);
+// Normal reading copy now inherits the shared Standard-page paragraph rule.
+// Check its real source rather than requiring duplicate inline declarations.
+const galleryRules = collectCssRules(read("css/gallery.css"));
+if (!galleryRules.some(rule => rule.selector === "p" &&
+  normalizedCssValue(rule.declarations.get("font-size")) === "var(--type-page-p-size)")) {
+  errors.push("css/gallery.css: normal reading paragraphs must use the shared Standard Pages token");
+}
+if (!galleryRules.some(rule => rule.selector === "#state.statement :is(.biography-section, .work) > p.text" &&
+  normalizedCssValue(rule.declarations.get("border-top")) === "1px solid var(--text)")) {
+  errors.push("css/gallery.css: shared English reading paragraphs must retain their divider");
+}
+for (const file of ["biography.html", "artist-statement.html", "css/gallery.css", "css/mobile.css"]) {
+  const rules = file.endsWith(".html") ? inlineCssRules(file) : collectCssRules(read(file));
+  for (const rule of rules) {
+    if (!selectorTargetsEnglishTextParagraph(rule.selector)) continue;
+    const size = normalizedCssValue(rule.declarations.get("font-size"));
+    if (size && !["var(--font-body-size)", "var(--type-page-p-size)"].includes(size)) {
+      errors.push(file + ": English reading paragraphs must not override the Standard Pages body role");
+    }
+  }
+}
 forbidText("artist-statement.html", "font-size: max(12px, var(--font-caption-size));", "normal English body must not use caption sizing");
 forbidText("biography.html", "font-size: max(12px, var(--font-caption-size));", "normal English body must not use caption sizing");
 

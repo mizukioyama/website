@@ -9,17 +9,17 @@
 
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=6eb5020ee3a4">
-    <link rel="stylesheet" href="css/gallery.css?v=9ccb64ed55e2">
-    <link rel="stylesheet" href="css/mobile.css?v=315e2a348e12">
+    <link rel="stylesheet" href="css/gallery.css?v=b07a32d65005">
+    <link rel="stylesheet" href="css/mobile.css?v=2969edea662a">
     <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
-    <link rel="stylesheet" href="css/menu.css?v=059be5c659ff">
+    <link rel="stylesheet" href="css/menu.css?v=7348e8f8951d">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=21a2301fc9f2">
-    <link rel="stylesheet" href="css/portfolio-history-table.css?v=327f5296ebfc">
+    <link rel="stylesheet" href="css/portfolio-history-table.css?v=29a1b0449205">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="js/p5.min.js?v=e6397ff8a293"></script>
     <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
-    <script src="js/menu.js?v=c59c60f78858"></script>
+    <script src="js/menu.js?v=4602b02e3ce6"></script>
 
     <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
@@ -250,14 +250,12 @@
 <body id="information" data-language-mode="switchable">
     <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
-  <a href="/website/">Home</a>
-  <a href="/website/gallery.html">Art Index</a>
-  <a href="/website/artist-statement.html">Artist Statement</a>
+  <a href="/website/">Top</a>
+  <a href="/website/gallery.html">ArtIndex</a>
   <a href="/website/biography.html">Biography</a>
-  <a href="/website/information.html">Information</a>
-  <a href="/website/contact.html">Contact Us</a>
+  <a href="/website/artist-statement.html">Artist Statement</a>
   <a href="/website/order.html">Order</a>
-  <a href="/website/policy.html">Site Policy</a>
+  <a href="/website/contact.html">Contact</a>
 </nav>
     </div>
     <div id="vanta-bg-bio"></div>
@@ -350,7 +348,19 @@
         </div>
     </main>
 
-    <div id="footer-container"></div>
+    <div id="footer-container"><footer data-static-footer>
+   <a class="noise" href="/website/gallery.html">Art Index</a>
+   <a class="noise" href="/website/artist-statement.html">Artist Statement</a>
+   <a class="noise" href="/website/biography.html">Biography</a>
+   <a class="noise" href="/website/information.html">Information</a>
+   <a class="noise" href="/website/contact.html">Contact Us</a>
+   <a class="noise" href="/website/order.html">Order</a>
+   <a class="noise" href="/website/policy.html">Site Policy</a>
+
+   <div class="foot">&copy; <span id="year"></span>
+      Mizuki Oyama
+   </div>
+</footer></div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {

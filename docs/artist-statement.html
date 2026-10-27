@@ -10,10 +10,10 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=6eb5020ee3a4">
-    <link rel="stylesheet" href="css/gallery.css?v=9ccb64ed55e2">
-    <link rel="stylesheet" href="css/mobile.css?v=315e2a348e12">
+    <link rel="stylesheet" href="css/gallery.css?v=b07a32d65005">
+    <link rel="stylesheet" href="css/mobile.css?v=2969edea662a">
     <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
-    <link rel="stylesheet" href="css/menu.css?v=059be5c659ff">
+    <link rel="stylesheet" href="css/menu.css?v=7348e8f8951d">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=21a2301fc9f2">
     <link rel="stylesheet" href="css/background-overlay.css?v=689606cc3631">
     <link rel="stylesheet" href="css/organic-flow.css?v=afb7d113fa42">
@@ -25,7 +25,7 @@
     <script src="js/p5.min.js?v=e6397ff8a293"></script>
     <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
 
-    <script src="js/menu.js?v=c59c60f78858"></script>
+    <script src="js/menu.js?v=4602b02e3ce6"></script>
 
     <!-- Font -->
     <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
@@ -107,17 +107,6 @@
             line-height: 1.8;
         }
 
-        .work > p.text {
-            font-size: var(--font-body-size);
-            line-height: 1.8;
-            border-top: 1px solid #333;
-            padding-top: 2vmin !important;
-        }
-
-        .work > p.text + p:not(.text) {
-            margin-top: 20vmin !important;
-        }
-
         .timeline {
             position: relative;
             margin: 0 auto;
@@ -152,7 +141,6 @@
 
         .timeline-copy > p.text {
             border-top: 1px solid #333;
-            font-size: var(--font-body-size);
             line-height: 1.8;
         }
 
@@ -165,20 +153,8 @@
 
         @media screen and (max-width: 599px) {
 
-            #state .content {
-                padding-inline: clamp(0.5rem, 2vw, 0.75rem);
-            }
-
-            #state .content .work > p {
-                font-size: var(--font-body-size);
-                line-height: 2;
-                letter-spacing: var(--legacy-px-0_02);
-                word-break: normal;
-                overflow-wrap: break-word;
-            }
-
             #state .content .timeline {
-                margin-top: 5rem;
+                margin-top: 2rem;
             }
 
             #state .content .timeline-title {
@@ -187,11 +163,10 @@
             }
 
             #state .content .timeline-copy {
-                width: 100%;
+                width: auto;
                 max-width: 100%;
-                margin-left: 0.35rem;
-                padding: 0.5rem 0 2.75rem 1rem;
-                border-left: 1px solid var(--text);
+                margin-left: 0;
+                padding: 0.75rem 0 3rem 1rem;
             }
 
             #state .content .timeline-copy > p {
@@ -203,40 +178,25 @@
                 overflow-wrap: break-word;
             }
 
-            #state .content .timeline-copy > p.text {
-                margin-top: 0.75rem;
-                padding-top: 0.75rem;
-                border-top: 1px solid #333;
-                font-size: var(--font-body-size);
-                line-height: 1.9;
-            }
+            #state .content .timeline-copy > p.text { margin-top: 0.75rem; }
 
             #state .content .timeline-copy .timeline-title-en {
                 line-height: 1.6;
             }
         }
 
-        /* Page-local reading hierarchy; timeline styling remains intact. */
-        #state .statement-reading-nav { position: relative; inset: auto; z-index: auto; overflow: visible; flex-direction: row; transition: none; display: flex; flex-wrap: wrap; gap: 1.5rem; width: 100%; margin: 0 0 3rem; }
-        #state .statement-reading-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.4rem 0; border-bottom: 1px solid currentColor; }
-        #state .statement-reading-nav a:focus-visible, #state .statement-section-heading:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
-        #state .statement-section-heading { scroll-margin-top: 7rem; margin-bottom: 2rem; overflow-wrap: anywhere; }
-        #state .work > p { word-break: normal; overflow-wrap: break-word; }
-        #state .work > p.text + p:not(.text) { margin-top: clamp(2rem, 6vmin, 4rem) !important; }
     </style>
 </head>
 
 <body id="state" data-language-mode="bilingual">
     <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
-  <a href="/website/">Home</a>
-  <a href="/website/gallery.html">Art Index</a>
-  <a href="/website/artist-statement.html">Artist Statement</a>
+  <a href="/website/">Top</a>
+  <a href="/website/gallery.html">ArtIndex</a>
   <a href="/website/biography.html">Biography</a>
-  <a href="/website/information.html">Information</a>
-  <a href="/website/contact.html">Contact Us</a>
+  <a href="/website/artist-statement.html">Artist Statement</a>
   <a href="/website/order.html">Order</a>
-  <a href="/website/policy.html">Site Policy</a>
+  <a href="/website/contact.html">Contact</a>
 </nav>
     </div>
     <div id="vanta-bg-bio"></div>
@@ -254,7 +214,7 @@
                 <img src="img/202344-2-web.jpg" alt="黒と白の筆致が重なる小山瑞樹の抽象作品">
             </div>
             <div class="content">
-        <nav class="statement-reading-nav" aria-label="Statement ページ内ナビゲーション / On this page">
+        <nav class="reading-nav" aria-label="Statement ページ内ナビゲーション / On this page">
           <a href="#main-statement">Statement</a><a href="#statement-questions">01–05</a>
         </nav>
 
@@ -455,7 +415,19 @@
 
     </main>
 
-    <div id="footer-container"></div>
+    <div id="footer-container"><footer data-static-footer>
+   <a class="noise" href="/website/gallery.html">Art Index</a>
+   <a class="noise" href="/website/artist-statement.html">Artist Statement</a>
+   <a class="noise" href="/website/biography.html">Biography</a>
+   <a class="noise" href="/website/information.html">Information</a>
+   <a class="noise" href="/website/contact.html">Contact Us</a>
+   <a class="noise" href="/website/order.html">Order</a>
+   <a class="noise" href="/website/policy.html">Site Policy</a>
+
+   <div class="foot">&copy; <span id="year"></span>
+      Mizuki Oyama
+   </div>
+</footer></div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {

@@ -334,4 +334,31 @@
   #state .work:nth-child(n + 3) ol p {
     font-size: var(--type-form-radio-size);
   }
+
+  /* Flow content prevents long bilingual subtitles from overlapping artwork. */
+  #state.statement {
+    padding: 7rem clamp(24px, 7vw, 32px) 6rem;
+  }
+  #state.statement .h1-text {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+  #state.statement .h1-text .subtext { line-height: 1.8; }
+  #state.statement .h1-text .subtext span[lang="en"] { margin-top: 0.75rem; }
+  #state.statement > .state-box { padding-top: 0; gap: 2rem; }
+  #state.statement .state-img { width: 100%; top: 0; }
+  #state.statement .content { padding: 0; }
+  #state.statement .biography-section h3 { padding: 0; }
+  #state.statement .content :is(.work > p, .biography-section > p, p.text) {
+    line-height: 1.9;
+    letter-spacing: var(--legacy-px-0_02);
+  }
+  #state.statement :is(.biography-section h2, .statement-section-heading) {
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  #state.statement .content p.text { padding-top: 0.75rem; }
+  #state.statement .statement-section-heading:not(:first-child) { margin-top: 4rem; }
 }

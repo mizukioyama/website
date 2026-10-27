@@ -62,3 +62,10 @@ Only publishing the approved Yurayura data to its GitHub Pages site changes the 
 4. Build後、Previewの `http://127.0.0.1:4174/website/` を確認します。ローカル保存・Buildでは本番は変わりません。
 5. `check:docs-sync` は「再ビルドしたdocsがGitの記録と一致するか」を確認するため、正しい生成内容でも未コミットなら停止します。チェックを無効化せず、承認された統合候補をクリーンな検証用Git環境に記録して確認します。
 6. 共通デザインは承認済みです。同じ候補のLinux比較で意図した差分だけを個別審査し、全品質ゲート成功後にPRを統合・公開します。Mac画像をLinux基準へ置き換えません。
+
+
+## 2026-10-27 menu and reading-layout candidate
+
+Primary menu labels/links: `src/components/header.html`. Desktop alignment, the 1200px inner limit and single-color links: `css/menu.css`. Shared Biography/Statement reading navigation and bilingual paragraphs: `css/gallery.css`; mobile flow, gutters and reading rhythm: the existing mobile section of `css/mobile.css`. Statement question-line geometry remains in `artist-statement.html`. History-table column roles remain in `css/portfolio-history-table.css`.
+
+Font-size editing stays in `assets/css/user-settings.css` → `USER EDITABLE — TYPOGRAPHY`; this candidate does not change its values. Build also synchronizes static Header/Footer fallbacks. `docs/` stays generated. The candidate is local and requires final design/release approval; preserving the old editing worktree does not automatically update it to this candidate.

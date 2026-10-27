@@ -4,7 +4,7 @@ const approved=require('./fixtures/phase123-approved-copy.json');
 test.afterEach(async({page})=>{
  const overflow=await page.evaluate(()=>Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-document.documentElement.clientWidth);
  expect(overflow,'page and body must both fit the viewport').toBeLessThanOrEqual(2);
- const nav=page.locator('main .reading-nav, main .statement-reading-nav');
+ const nav=page.locator('main .reading-nav');
  if(await nav.count()){
  const overlap=await nav.evaluate(e=>document.querySelector('main .h1-text').getBoundingClientRect().bottom-e.getBoundingClientRect().top);
  expect(overlap,'page index must follow the H1 and subtitle').toBeLessThanOrEqual(0);
@@ -54,7 +54,7 @@ test('Phase 3 statement and five questions preserve the approved wording',async(
  await expect(page.locator('.timeline-item')).toHaveCount(5);
  await expect(page.locator('.h1-text')).toHaveAttribute('data-subtitle','揺らぎ、感覚、記憶<br>色と余白、<br>見えないもの<br>固定された視点を緩めること');
  for(const href of ['#main-statement','#statement-questions']){
-  await page.locator(`.statement-reading-nav a[href="${href}"]`).focus();await page.keyboard.press('Enter');
+  await page.locator(`.reading-nav a[href="${href}"]`).focus();await page.keyboard.press('Enter');
   await expect(page.locator(href)).toBeFocused();
  }
 });
