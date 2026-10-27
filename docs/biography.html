@@ -10,14 +10,14 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=6eb5020ee3a4">
-    <link rel="stylesheet" href="css/gallery.css?v=9ccb64ed55e2">
-    <link rel="stylesheet" href="css/mobile.css?v=315e2a348e12">
+    <link rel="stylesheet" href="css/gallery.css?v=b07a32d65005">
+    <link rel="stylesheet" href="css/mobile.css?v=2969edea662a">
     <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
-    <link rel="stylesheet" href="css/menu.css?v=059be5c659ff">
+    <link rel="stylesheet" href="css/menu.css?v=7348e8f8951d">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=21a2301fc9f2">
     <link rel="stylesheet" href="css/background-overlay.css?v=689606cc3631">
     <link rel="stylesheet" href="css/organic-flow.css?v=afb7d113fa42">
-    <link rel="stylesheet" href="css/portfolio-history-table.css?v=327f5296ebfc">
+    <link rel="stylesheet" href="css/portfolio-history-table.css?v=29a1b0449205">
 
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
     <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
 
     <script src="js/mobile.js?v=4e0bb840c839"></script>
-    <script src="js/menu.js?v=c59c60f78858"></script>
+    <script src="js/menu.js?v=4602b02e3ce6"></script>
 
     <!-- Font -->
     <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
@@ -119,10 +119,6 @@
             background: var(--text);
         }
 
-        .work>p.text+p:not(.text) {
-            margin-top: 20vmin !important;
-        }
-
         span.noise {
             mask: repeating-radial-gradient(circle at center,
                     #000,
@@ -134,51 +130,6 @@
                     #0000 0);
         }
 
-        p.text {
-            font-size: var(--font-body-size);
-            line-height: 1.8;
-            border-top: 1px solid #333;
-            padding-top: 2vmin !important;
-        }
-
-
-        @media screen and (max-width: 599px) {
-
-            .state-box:nth-child(2) {
-                margin-top: 130vmin;
-            }
-
-            #bio #state .content {
-                padding-inline: clamp(0.5rem, 2vw, 0.75rem);
-            }
-
-            #bio #state .content h2 {
-                font-size: var(--type-biography-h2-size);
-                line-height: 2;
-            }
-
-            #bio #state .content .work>p {
-                font-size: var(--font-body-size);
-                line-height: 2;
-                letter-spacing: var(--legacy-px-0_02);
-                word-break: normal;
-                overflow-wrap: break-word;
-            }
-
-        }
-
-
-        /* Page-local information hierarchy; shared typography tokens remain unchanged. */
-        #bio .reading-nav { position: relative; inset: auto; z-index: auto; overflow: visible; flex-direction: row; transition: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; width: 100%; margin: 0 0 3rem; }
-        #bio .reading-nav a { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; padding: 0.4rem 0; border-bottom: 1px solid currentColor; overflow-wrap: anywhere; }
-        #bio .reading-nav a:focus-visible, #bio .biography-section:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
-        #bio .biography-section { scroll-margin-top: 7rem; }
-        #bio .biography-section + .biography-section { margin-top: clamp(4rem, 10vmin, 7rem); }
-        #bio .biography-section h2 { margin-bottom: 2rem; overflow-wrap: anywhere; }
-        #bio .biography-section h3 { margin-bottom: 2rem; }
-        #bio .biography-section > p { line-height: 1.8; word-break: normal; overflow-wrap: break-word; }
-        #bio .full-biography-story > p { word-break: normal; overflow-wrap: break-word; }
-        #bio .full-biography-story > p.text + p:not(.text) { margin-top: clamp(2rem, 6vmin, 4rem) !important; }
         #bio .career-table th[scope="row"] { text-align: left; vertical-align: top; font-weight: normal; }
     </style>
 </head>
@@ -186,14 +137,12 @@
 <body id="bio" data-language-mode="bilingual">
     <div id="header-container">
         <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
-  <a href="/website/">Home</a>
-  <a href="/website/gallery.html">Art Index</a>
-  <a href="/website/artist-statement.html">Artist Statement</a>
+  <a href="/website/">Top</a>
+  <a href="/website/gallery.html">ArtIndex</a>
   <a href="/website/biography.html">Biography</a>
-  <a href="/website/information.html">Information</a>
-  <a href="/website/contact.html">Contact Us</a>
+  <a href="/website/artist-statement.html">Artist Statement</a>
   <a href="/website/order.html">Order</a>
-  <a href="/website/policy.html">Site Policy</a>
+  <a href="/website/contact.html">Contact</a>
 </nav>
     </div>
     <div id="vanta-bg-bio"></div>
@@ -221,11 +170,11 @@
             </section>
             <section id="career-timeline" class="biography-section" tabindex="-1" aria-labelledby="career-title">
               <h2 id="career-title" class="noise">02 Career / Timeline</h2>
-              <table class="portfolio-history-table career-table"><thead><tr><th scope="col">Year</th><th scope="col"><span lang="ja">主な転機</span> / <span lang="en">Milestones</span></th></tr></thead><tbody><tr><th scope="row">1998</th><td><span lang="ja">宮城県仙台市に生まれる。</span><br><span lang="en" class="en-txt">Born in Sendai, Miyagi Prefecture, Japan.</span></td></tr>
-<tr><th scope="row">2011</th><td><span lang="ja">東日本大震災を経験。雰囲気や感情を色として表すことを意識するようになる。</span><br><span lang="en" class="en-txt">Experiences the Great East Japan Earthquake and begins to focus on expressing atmosphere and emotions through color.</span></td></tr>
-<tr><th scope="row">2016</th><td><span lang="ja">「無題」で第67回宮城県高等学校美術展 優秀賞を受賞。</span><br><span lang="en" class="en-txt">Receives an Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition for “Untitled.”</span></td></tr>
-<tr><th scope="row">2021</th><td><span lang="ja">出展活動を本格的に開始。ポートフォリオWebサイトの制作を始める。</span><br><span lang="en" class="en-txt">Begins exhibiting actively and building his portfolio website.</span></td></tr>
-<tr><th scope="row">2026</th><td><span lang="ja">プログラミングスクールを受講。2月に「ゆらゆら」の企画を始め、10月に初開催。</span><br><span lang="en" class="en-txt">Enrols in a programming school, begins planning “Yurayura” in February, and holds its first edition in October.</span></td></tr></tbody></table>
+              <table class="portfolio-history-table career-table"><thead><tr><th scope="col" class="year">Year</th><th scope="col"><span lang="ja">主な転機</span> / <span lang="en">Milestones</span></th></tr></thead><tbody><tr><th scope="row" class="year">1998</th><td class="tb-content"><span lang="ja">宮城県仙台市に生まれる。</span><br><span lang="en" class="en-txt">Born in Sendai, Miyagi Prefecture, Japan.</span></td></tr>
+<tr><th scope="row" class="year">2011</th><td class="tb-content"><span lang="ja">東日本大震災を経験。雰囲気や感情を色として表すことを意識するようになる。</span><br><span lang="en" class="en-txt">Experiences the Great East Japan Earthquake and begins to focus on expressing atmosphere and emotions through color.</span></td></tr>
+<tr><th scope="row" class="year">2016</th><td class="tb-content"><span lang="ja">「無題」で第67回宮城県高等学校美術展 優秀賞を受賞。</span><br><span lang="en" class="en-txt">Receives an Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition for “Untitled.”</span></td></tr>
+<tr><th scope="row" class="year">2021</th><td class="tb-content"><span lang="ja">出展活動を本格的に開始。ポートフォリオWebサイトの制作を始める。</span><br><span lang="en" class="en-txt">Begins exhibiting actively and building his portfolio website.</span></td></tr>
+<tr><th scope="row" class="year">2026</th><td class="tb-content"><span lang="ja">プログラミングスクールを受講。2月に「ゆらゆら」の企画を始め、10月に初開催。</span><br><span lang="en" class="en-txt">Enrols in a programming school, begins planning “Yurayura” in February, and holds its first edition in October.</span></td></tr></tbody></table>
             </section>
             <section id="biography-records" class="biography-section" tabindex="-1" aria-labelledby="records-title">
               <h2 id="records-title" class="noise">03 Exhibitions / Awards / Certifications</h2>
@@ -432,7 +381,19 @@
         </div>
     </main>
 
-    <div id="footer-container"></div>
+    <div id="footer-container"><footer data-static-footer>
+   <a class="noise" href="/website/gallery.html">Art Index</a>
+   <a class="noise" href="/website/artist-statement.html">Artist Statement</a>
+   <a class="noise" href="/website/biography.html">Biography</a>
+   <a class="noise" href="/website/information.html">Information</a>
+   <a class="noise" href="/website/contact.html">Contact Us</a>
+   <a class="noise" href="/website/order.html">Order</a>
+   <a class="noise" href="/website/policy.html">Site Policy</a>
+
+   <div class="foot">&copy; <span id="year"></span>
+      Mizuki Oyama
+   </div>
+</footer></div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {

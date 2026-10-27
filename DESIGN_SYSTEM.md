@@ -167,10 +167,21 @@ Current design authority is:
 ## 2026-10-26 shared Header and Standard background candidate
 
 - Header links: edit `src/components/header.html` only; `npm run build` synchronizes the JS component and no-JavaScript navigation in all ten page sources. Runtime replaces the fallback, so only one primary navigation exists.
-- Desktop navigation uses the existing navigation typography from 1024px, wrapping when necessary. Up to 1023px retains the overlay; Escape closes it, and hidden links are inert. This component-specific boundary does not change body typography breakpoints.
+- Desktop navigation uses the shared Header/Footer typography from 1024px. Up to 1023px retains the overlay; Escape closes it, and hidden links are inert. This component-specific boundary does not change body typography breakpoints.
 - Standard background: edit `css/standard-background.css` for the Biography/Statement-derived base color/image and TRUNK opacity/geometry. `gallery.css` imports it; Home does not. Selected Ink Field lives in `js/selected-ink-field.js`; the optional TRUNK lifecycle belongs to `js/background-system-config.js`; Organic Flow settings remain in `js/organic-flow-engine.js` and production selection in `js/organic-flow-production.js`.
 - Cascade: shared base/reset → shared standard/component rules → deliberate page-specific inline rules; `assets/css/user-settings.css` remains the typography source. Keep role-specific overrides; do not flatten font-size controls or remove compatibility tokens without checking consumers.
 - New Standard pages need the common Header fallback, `data-background-accent="trunkSphere"`, one TRUNK mount, one overlay, and the same background scripts/styles as Information. Add indexable pages to sitemap and visual tests; 404 stays noindex.
 - Build with `Portfolio: Build generated site`; preview with `Portfolio: Preview generated site`; run `Portfolio: Full quality checks` and the relevant Playwright suite. Do not edit generated `docs/` by hand. This candidate requires Before/After design approval before merging or publishing.
 
-Desktop horizontal navigation keeps the existing font-size, weight and tracking, with component line-height 1.4 to fit above Home’s unchanged creator label. The mobile overlay retains its existing text rhythm.
+Desktop horizontal navigation uses one shared size role, weight and tracking, with component line-height 1.4. The mobile overlay retains its existing text rhythm.
+
+
+## Menu and mobile reading candidate — 2026-10-27
+
+- Primary navigation is Top / ArtIndex / Biography / Artist Statement / Order / Contact, from the shared Header source on desktop, overlay and no-JavaScript fallback. Information and Policy stay in the unchanged shared Footer. The build embeds that Footer as a static fallback too; runtime replaces it without duplication.
+- `.header-inner` is the only new layout class: one inner wrapper is needed to align brand, navigation and language controls inside a centered `max-width: 1200px` while retaining a full-width Header background. It uses `display: contents` below the existing 1024px boundary. No body/Gallery width is changed.
+- Desktop brand and primary links use existing `--inv` on standard pages and `--text` on Home; text gradients, mask/noise and text shadows are disabled only within the desktop Header. Hover/current underline and focus outline remain visible. All six desktop links consume existing `--font-nav-size`; user-editable typography values stay unchanged.
+- Biography/Statement share `.reading-nav`, paragraph wrapping and translation-divider rules in `css/gallery.css`. Their mobile flow/gutters/line-height live in the existing mobile media query in `css/mobile.css`; font sizes remain inherited. Statement keeps its own question timeline rules because their vertical-line structure is a distinct role.
+- Mobile title/subtitle, artwork, Reading Nav and text are in normal flow with no fixed height; the artwork remains uncropped. The shared reading gutter is `clamp(24px, 7vw, 32px)`, inside the existing mobile breakpoint. Year/content cells reuse the existing history-table roles.
+- No new CSS variables, CSS files or media-query boundaries. The legacy Statement-only Reading Nav class and repeated inline body/divider declarations are removed. Typography checking follows the shared CSS source rather than requiring duplicate inline rules.
+- Local candidate only. Design review, clean committed-output validation and formal Linux comparison precede publication approval.

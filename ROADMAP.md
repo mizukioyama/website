@@ -205,3 +205,16 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 - Owner approved the shared desktop navigation, tablet/mobile overlay behavior, and non-Home background direction. The 41-file reviewed candidate is prepared against b128a6d; Linux screenshot review and clean CI are required before merge. Preserve the dirty formal checkout and Gallery WIP. Do not include local evidence or temporary configuration in the release.
 
 - Shared-design release verification: Linux full audit #474 passed (259 passed, 112 existing conditional skips, zero failures). All 20 Linux image pairs were reviewed; 17 approved navigation/background captures become the reference, while mobile Home/Biography/Statement references remain unchanged. Snapshot auto-updates are disabled. Tests preserve the shared main-layer assertion and retain successful review captures. Release and post-deploy results are recorded in PR #37.
+
+
+## Menu / mobile reading design candidate — 2026-10-27
+
+- Based on the published `038d0c0` tree. Shared six-item navigation, a 1200px desktop inner container and single-color Header text are implemented locally; Biography/Statement share mobile reading flow, gutters and bilingual rhythm. Artwork, source wording, typography values, background engines, Gallery, Home slides and Yurayura data behavior are preserved.
+- Review materials: `reports/menu-reading-20261027/`. Existing formal checkout, editing worktree and stash are preserved. No staging, commit, push, merge or publication is authorized at this stage. Clean committed docs synchronization and Linux screenshot review remain release gates.
+
+
+## Menu / reading release authorization — 2026-10-27
+
+- Owner approved this reviewed design and the commit/PR/Linux-review/conditional-publication sequence. Required Linux checks and per-image review must pass before merge. Preserve formal WIP, the old editing checkout and stash. Local review evidence is excluded from the release commit.
+
+- Linux full audit #477: 257 passed / 124 conditional skips / 4 screenshot-only failures; independent runtime 70/70. All 20 Linux image pairs reviewed. Adopt only desktop 10 plus mobile Biography/Statement 2; keep the other 8 mobile references unchanged. Full CI after baseline adoption and publication results are tracked in PR #38.

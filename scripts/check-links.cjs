@@ -23,12 +23,10 @@ const indexableOutputs = [
 const expectedStaticPrimaryPaths = [
    "/website/",
    "/website/gallery.html",
-   "/website/artist-statement.html",
    "/website/biography.html",
-   "/website/information.html",
-   "/website/contact.html",
+   "/website/artist-statement.html",
    "/website/order.html",
-   "/website/policy.html"
+   "/website/contact.html"
 ];
 
 function listFiles(directory, extensionPattern) {
@@ -194,6 +192,17 @@ for (const output of indexableOutputs) {
             crawlFailures.push(
                "docs/" + output + ": static primary navigation is missing " + expectedPath
             );
+         }
+      }
+   }
+
+   // Secondary routes stay crawlable through the common static footer after
+   // the primary menu is intentionally reduced to six items.
+   if (/id=["']footer-container["']/.test(contents)) {
+      const footer = contents.match(/<footer\b[^>]*data-static-footer[^>]*>([\s\S]*?)<\/footer>/i);
+      for (const secondary of ["information.html", "policy.html"]) {
+         if (!footer || !footer[1].includes('href="/website/' + secondary + '"')) {
+            crawlFailures.push("docs/" + output + ": static footer is missing " + secondary);
          }
       }
    }

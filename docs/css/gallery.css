@@ -1112,9 +1112,7 @@ main {
   left: 10vmin;
   top: 0;
 }
-.state-txt {
-  padding-bottom: 2vmin !important;
-}
+
 @media screen and (max-width: 599px) {
   .state-img {
     width: auto;
@@ -1126,3 +1124,49 @@ main {
     align-items: flex-start;
   }
 }
+
+/* Biography and Statement share the same reading roles; no page-size tokens. */
+#state.statement .reading-nav {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  width: 100%;
+  margin: 0 0 3rem;
+  transition: none;
+}
+#state.statement .reading-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid currentColor;
+  overflow-wrap: break-word;
+}
+#state.statement :is(.reading-nav a, .biography-section, .statement-section-heading):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 6px;
+}
+#state.statement :is(.biography-section, .statement-section-heading) { scroll-margin-top: 7rem; }
+#state.statement :is(.biography-section h2, .biography-section h3, .statement-section-heading) {
+  margin-bottom: 2rem;
+  overflow-wrap: break-word;
+}
+#state.statement .biography-section + .biography-section { margin-top: clamp(4rem, 10vmin, 7rem); }
+#state.statement :is(.work > p, .biography-section > p) {
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+#state.statement .biography-section > p { line-height: 1.8; }
+#state.statement :is(.biography-section, .work) > p.text {
+  line-height: 1.8;
+  border-top: 1px solid var(--text);
+  padding-top: 2vmin;
+}
+#state.statement .work > p.state-txt { padding-bottom: 2vmin; }
+#state.statement .work > p.text + p:not(.text) { margin-top: clamp(2rem, 6vmin, 4rem); }

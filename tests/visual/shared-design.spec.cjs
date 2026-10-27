@@ -11,7 +11,8 @@ for(const route of routes)test('Shared desktop navigation / standard background 
  await prepare(page);await page.emulateMedia({reducedMotion:"reduce"});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
  await expect(page.locator('#navArea nav')).toBeAttached();
- await expect(page.locator('[data-static-primary-navigation]')).toHaveCount(0);
+ await expect(page.locator('[data-static-primary-navigation], [data-static-footer]')).toHaveCount(0);
+ if(route)await expect(page.locator('#footer-container footer')).toHaveCount(1);
  const nav=page.locator('#navArea nav'),toggle=page.locator('.toggle_btn');
  if(page.viewportSize().width>=1024){
   await expect(nav).toBeVisible();await expect(toggle).toBeHidden();
@@ -19,7 +20,7 @@ for(const route of routes)test('Shared desktop navigation / standard background 
    await expect(link).toBeVisible();const b=await link.boundingBox();expect(b.x).toBeGreaterThanOrEqual(0);expect(b.x+b.width).toBeLessThanOrEqual(page.viewportSize().width+1);
    await link.focus();await expect(link).toBeFocused();
   }
-  if(route!=='404.html')await expect(page.locator('header [aria-current="page"]')).toHaveCount(1);
+  await expect(page.locator('header [aria-current="page"]')).toHaveCount(['information.html','policy.html','exhibitions/yurayura/','404.html'].includes(route)?0:1);
   if(!route){const header=await page.locator('header').boundingBox();const creator=await page.locator('.back__slide.active .creator').boundingBox();expect(creator.y).toBeGreaterThanOrEqual(header.y+header.height);}
 
  }else{
@@ -45,7 +46,7 @@ test('Every standard background mounts once and responds to Reduced Motion',asyn
 test('Common-source static fallback supports JavaScript-disabled navigation',async({browser},info)=>{
  test.skip(!['desktop-1440','mobile-390'].includes(info.project.name),'Fallback checked at desktop and mobile.');
  const c=await browser.newContext({javaScriptEnabled:false,viewport:info.project.use.viewport});const p=await c.newPage();
- for(const route of routes){await p.goto(route);const nav=p.locator('[data-static-primary-navigation]');await expect(nav).toBeVisible();await expect(nav.locator('a')).toHaveCount(8);await nav.locator('a[href="/website/gallery.html"]').click();await expect(p).toHaveURL(/gallery\.html$/);}
+ for(const route of routes){await p.goto(route);const nav=p.locator('[data-static-primary-navigation]');await expect(nav).toBeVisible();await expect(nav.locator('a')).toHaveCount(6);await nav.locator('a[href="/website/gallery.html"]').click();await expect(p).toHaveURL(/gallery\.html$/);}
  await c.close();
 });
 
@@ -65,6 +66,7 @@ test('Navigation resize restores focusability and unlocked scrolling',async({pag
  await prepare(page);await page.emulateMedia({reducedMotion:'reduce'});await page.goto('biography.html');
  await page.setViewportSize({width:900,height:900});
  const nav=page.locator('#navArea nav'),toggle=page.locator('.toggle_btn');
+ await expect(nav).toHaveAttribute('inert','');
  await toggle.focus();await page.keyboard.press('Space');await expect(page.locator('#navArea')).toHaveClass(/open/);
  await page.setViewportSize({width:1024,height:900});
  await expect(nav).not.toHaveAttribute('inert','');await expect(toggle).toBeHidden();
@@ -86,5 +88,42 @@ test('Standard backgrounds recover from persisted lifecycle events without dupli
   await expect(page.locator('#selected-ink-field-canvas')).toHaveCount(1);
   await expect(page.locator('#portfolio-overlay-animation .organic-flow-canvas')).toHaveCount(1);
   await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('#vanta-bg-bio canvas')).toHaveCount(0);
+ }
+});
+
+test('Editorial desktop header keeps six single-color links inside 1200px',async({page},info)=>{
+ test.skip(info.project.name!=='desktop-1440','Desktop width audit runs once.');
+ test.setTimeout(90000);await prepare(page);
+ const labels=['Top','ArtIndex','Biography','Artist Statement','Order','Contact'];
+ const paths=['/website/','/website/gallery.html','/website/biography.html','/website/artist-statement.html','/website/order.html','/website/contact.html'];
+ for(const width of [1024,1280,1440,1920])for(const route of ['','gallery.html']){
+  await page.setViewportSize({width,height:900});await page.goto(route);
+  await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
+  const links=page.locator('#navArea .inner a');await expect(links).toHaveText(labels);
+  const inner=await page.locator('.header-inner').boundingBox();expect(inner.width).toBeLessThanOrEqual(1200);expect(Math.abs(inner.x-(width-inner.width)/2)).toBeLessThan(1);
+  const states=await links.evaluateAll(es=>es.map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {href:e.href,x:r.x,y:r.y,width:r.width,image:s.backgroundImage,mask:s.maskImage,fill:s.webkitTextFillColor,color:s.color,shadow:s.textShadow}}));
+  let lastRight=0,top;
+  for(let i=0;i<labels.length;i++){
+   const cs=states[i];expect(new URL(cs.href).pathname).toBe(paths[i]);
+   expect(cs.x).toBeGreaterThanOrEqual(lastRight);lastRight=cs.x+cs.width;top??=cs.y;expect(cs.y).toBeCloseTo(top,0);
+   expect(cs.image).toBe('none');expect(cs.mask).toBe('none');expect(cs.fill).toBe(cs.color);expect(cs.shadow).toBe('none');
+  }
+  const first=links.first();await first.focus();expect(await first.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
+  await first.hover();expect(await first.evaluate(e=>getComputedStyle(e).textDecorationLine)).toContain('underline');
+  expect(lastRight).toBeLessThanOrEqual(inner.x+inner.width);if(route)await expect(page.locator('#footer-container a[href$="information.html"]')).toHaveCount(1);
+ }
+});
+test('Mobile bilingual reading flow keeps titles artwork and anchors separate',async({page},info)=>{
+ test.skip(info.project.name!=='mobile-390','Reading width audit runs once.');test.setTimeout(120000);await prepare(page);
+ for(const width of [320,375,390,430,768])for(const route of ['biography.html','artist-statement.html']){
+  await page.setViewportSize({width,height:900});await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
+  const title=await page.locator('.h1-text').boundingBox(),image=await page.locator('.state-img').boundingBox(),content=await page.locator('#state .content').boundingBox();
+  if(width<600){expect(title.y+title.height).toBeLessThanOrEqual(image.y);expect(image.y+image.height).toBeLessThan(content.y);expect(content.x).toBeGreaterThanOrEqual(24);expect(content.x+content.width).toBeLessThanOrEqual(width-24);}
+  for(const link of await page.locator('.reading-nav a').all()){
+   const b=await link.boundingBox();expect(b.height).toBeGreaterThanOrEqual(44);await link.click();
+   const href=await link.getAttribute('href'),target=page.locator(href);const box=await target.boundingBox();expect(box.y).toBeGreaterThanOrEqual(64);await expect(target).toBeFocused();
+  }
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  if(route==='artist-statement.html')await expect(page.locator('.timeline-item')).toHaveCount(5);
  }
 });

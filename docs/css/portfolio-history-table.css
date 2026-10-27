@@ -22,7 +22,7 @@
     font-weight: normal;
 }
 
-.portfolio-history-table td.year {
+.portfolio-history-table .year {
     width: 20%;
     white-space: nowrap;
     font-size: var(--font-table-size);
@@ -52,7 +52,7 @@
         line-height: 1.45;
     }
 
-    .portfolio-history-table td.year {
+    .portfolio-history-table .year {
         padding-right: 0.75rem;
         font-size: var(--font-table-size);
         line-height: 1.6;
@@ -71,7 +71,7 @@
 }
 
 @media (max-width: 768px) {
-    .portfolio-history-table td.year {
+    .portfolio-history-table .year {
         width: 30%;
     }
 

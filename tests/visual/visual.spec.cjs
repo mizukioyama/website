@@ -2218,11 +2218,11 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   expect(response.status()).toBe(200);
 
   const expected = {
-    "Art Index": "/website/gallery.html",
+    "Top": "/website/",
+    "ArtIndex": "/website/gallery.html",
     "Artist Statement": "/website/artist-statement.html",
     "Biography": "/website/biography.html",
-    "Information": "/website/information.html",
-    "Contact Us": "/website/contact.html",
+    "Contact": "/website/contact.html",
     "Order": "/website/order.html"
   };
 
@@ -2577,13 +2577,12 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   await openMenu();
 
   const expectedMenuPaths = {
-    "Art Index": "/website/gallery.html",
+    "Top": "/website/",
+    "ArtIndex": "/website/gallery.html",
     "Artist Statement": "/website/artist-statement.html",
     "Biography": "/website/biography.html",
-    "Information": "/website/information.html",
-    "Contact Us": "/website/contact.html",
-    "Order": "/website/order.html",
-    "Site Policy": "/website/policy.html"
+    "Contact": "/website/contact.html",
+    "Order": "/website/order.html"
   };
 
   for (const [label, expectedPath] of Object.entries(expectedMenuPaths)) {
@@ -2597,7 +2596,7 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
 
   const galleryLink = page
     .locator("#navArea nav")
-    .getByRole("link", { name: "Art Index", exact: true })
+    .getByRole("link", { name: "ArtIndex", exact: true })
     .first();
   await Promise.all([
     page.waitForURL(/\/website\/gallery\.html$/),
@@ -2605,11 +2604,9 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   ]);
   await expect(page.locator("#gallery-container")).toBeAttached();
 
-  await visitHome();
-  await openMenu();
-
+  // Secondary routes remain reachable from the Gallery Footer.
   const informationLink = page
-    .locator("#navArea nav")
+    .locator("#footer-container")
     .getByRole("link", { name: "Information", exact: true })
     .first();
   await Promise.all([
@@ -2638,11 +2635,9 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
   await expect(officialSite).toHaveAttribute("rel", /noopener/);
   await expect(officialSite).toHaveAttribute("rel", /noreferrer/);
 
-  await visitHome();
-  await openMenu();
-
+  // The exhibition Footer retains Policy without duplicating the primary menu.
   const policyLink = page
-    .locator("#navArea nav")
+    .locator("#footer-container")
     .getByRole("link", { name: "Site Policy", exact: true })
     .first();
   await Promise.all([

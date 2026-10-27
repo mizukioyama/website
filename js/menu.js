@@ -8,6 +8,7 @@ const siteHref = path => new URL(path, SITE_ROOT_URL).href;
 // BEGIN GENERATED HEADER_MARKUP — source: src/components/header.html
 const HEADER_MARKUP = `
 <header>
+  <div class="header-inner">
   <div class="head">
     <a class="noise" href="${siteHref("index.html")}">
       <!--<span>O.</span>MIZUKI-->
@@ -20,14 +21,12 @@ const HEADER_MARKUP = `
     <nav aria-label="Primary navigation">
       <div class="inner">
         <ul>
-          <li><a href="${siteHref("gallery.html")}" class="noise">Art Index</a></li>
-          <li><a href="${siteHref("artist-statement.html")}" class="noise">Artist Statement</a></li>
+          <li><a href="${siteHref("")}" class="noise">Top</a></li>
+          <li><a href="${siteHref("gallery.html")}" class="noise">ArtIndex</a></li>
           <li><a href="${siteHref("biography.html")}" class="noise">Biography</a></li>
-          <li><a href="${siteHref("information.html")}" class="noise">Information</a></li>
-          <li><a href="${siteHref("contact.html")}" class="noise">Contact Us</a></li>
+          <li><a href="${siteHref("artist-statement.html")}" class="noise">Artist Statement</a></li>
           <li><a href="${siteHref("order.html")}" class="noise">Order</a></li>
-          <li><a href="${siteHref("policy.html")}" class="noise">Site Policy</a>
-          </li>
+          <li><a href="${siteHref("contact.html")}" class="noise">Contact</a></li>
         </ul>
       </div>
       <div id="mask">
@@ -115,6 +114,7 @@ const HEADER_MARKUP = `
     </div>
   </div>
 
+  </div>
 </header>
 `;
 // END GENERATED HEADER_MARKUP
@@ -507,9 +507,9 @@ function initializeMenu() {
   const panel = nav.querySelector('nav');
   const normalizePath = value => new URL(value, location.href).pathname.replace(/index\.html$/, '').replace(/\/$/, '');
   const currentPath = normalizePath(location.href);
-  document.querySelectorAll('header .head a, #navArea .inner a').forEach(link => {
+  document.querySelectorAll('#navArea .inner a').forEach(link => {
     const target = normalizePath(link.href);
-    const isCurrent = target === currentPath || (currentPath.includes('/exhibitions/') && target.endsWith('/information.html'));
+    const isCurrent = target === currentPath;
     if (isCurrent) link.setAttribute('aria-current', 'page');
   });
 
