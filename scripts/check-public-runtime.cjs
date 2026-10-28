@@ -104,7 +104,7 @@ async function scroll(page, ratio) {
     }
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
     page.on('pageerror', error => results.errors.push({ url: page.url(), message: error.message }));
-    await page.goto(base);
+    await page.goto(base, { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.content__slide').nth(1)).toHaveClass(/active/, { timeout: 5000 });
     await expect(page.locator('.content__slide').first()).toHaveClass(/active/, { timeout: 7000 });
     await scroll(page, 0);
