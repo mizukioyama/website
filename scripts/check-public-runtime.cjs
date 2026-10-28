@@ -104,11 +104,14 @@ async function scroll(page, ratio) {
     }
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
     page.on('pageerror', error => results.errors.push({ url: page.url(), message: error.message }));
+    await page.bringToFront();
     await page.goto(base, { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.content__slide').nth(1)).toHaveClass(/active/, { timeout: 5000 });
     await expect(page.locator('.content__slide').first()).toHaveClass(/active/, { timeout: 7000 });
     await scroll(page, 0);
-    await page.locator('#navArea .inner a').filter({ hasText: 'Art Index' }).click();
+    // Observe the real intro ending before using the existing Enter path.
+    await expect(page.locator('#loading-bg')).toBeHidden({ timeout: 90000 });
+    await page.locator('#mainContent .content__slide.active .button-wrap a.button').click();
     await expect(page).toHaveURL(/gallery.html$/);
     await page.goBack();
     await expect(page).toHaveURL(base);
