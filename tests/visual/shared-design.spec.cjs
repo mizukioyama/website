@@ -55,6 +55,7 @@ test('Fixed desktop header leaves Biography anchor headings visible',async({page
  await prepare(page);await page.emulateMedia({reducedMotion:'reduce'});await page.goto('biography.html');
  await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
  for(const href of ['#biography-overview','#career-timeline','#biography-records','#full-biography']){
+  await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});
   await page.locator('.reading-nav a[href="'+href+'"]').click();
   const target=await page.locator(href).boundingBox(),header=await page.locator('header').boundingBox();
   expect(target.y).toBeGreaterThanOrEqual(header.y+header.height);
@@ -91,17 +92,20 @@ test('Standard backgrounds recover from persisted lifecycle events without dupli
  }
 });
 
-test('Editorial desktop header keeps six single-color links inside 1200px',async({page},info)=>{
+test('Editorial desktop header keeps six equal columns in a right-aligned fluid menu',async({page},info)=>{
  test.skip(info.project.name!=='desktop-1440','Desktop width audit runs once.');
  test.setTimeout(90000);await prepare(page);
- const labels=['Top','ArtIndex','Biography','Artist Statement','Order','Contact'];
+ const labels=['Top','Art Index','Biography','Artist Statement','Order','Contact'];
  const paths=['/website/','/website/gallery.html','/website/biography.html','/website/artist-statement.html','/website/order.html','/website/contact.html'];
- for(const width of [1024,1280,1440,1920])for(const route of ['','gallery.html']){
+ for(const width of [1024,1280,1440,1600,1800,1920])for(const route of ['','gallery.html']){
   await page.setViewportSize({width,height:900});await page.goto(route);
   await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
   const links=page.locator('#navArea .inner a');await expect(links).toHaveText(labels);
-  const inner=await page.locator('.header-inner').boundingBox();expect(inner.width).toBeLessThanOrEqual(1200);expect(Math.abs(inner.x-(width-inner.width)/2)).toBeLessThan(1);
+  const inner=await page.locator('#navArea').boundingBox();expect(inner.width).toBeLessThanOrEqual(1200);expect(inner.x+inner.width).toBeCloseTo(width,0);if(width>=1440)expect(inner.width).toBeCloseTo(Math.min(1200,width*.25+720),0);
+  const cells=await page.locator('#navArea .inner li').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().width));if(width>=1299)expect(Math.max(...cells)-Math.min(...cells)).toBeLessThan(1);
+  const brand=await page.locator('header .head').boundingBox();expect(brand.x+brand.width).toBeLessThan(inner.x);
   const states=await links.evaluateAll(es=>es.map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {href:e.href,x:r.x,y:r.y,width:r.width,image:s.backgroundImage,mask:s.maskImage,fill:s.webkitTextFillColor,color:s.color,shadow:s.textShadow}}));
+  const centers=states.map(s=>s.x+s.width/2),steps=centers.slice(1).map((x,i)=>x-centers[i]);if(width>=1299)expect(Math.max(...steps)-Math.min(...steps)).toBeLessThan(1);else {const gaps=states.slice(1).map((s,i)=>s.x-states[i].x-states[i].width);expect(Math.max(...gaps)-Math.min(...gaps)).toBeLessThan(1);}
   let lastRight=0,top;
   for(let i=0;i<labels.length;i++){
    const cs=states[i];expect(new URL(cs.href).pathname).toBe(paths[i]);
@@ -117,6 +121,9 @@ test('Mobile bilingual reading flow keeps titles artwork and anchors separate',a
  test.skip(info.project.name!=='mobile-390','Reading width audit runs once.');test.setTimeout(120000);await prepare(page);
  for(const width of [320,375,390,430,768])for(const route of ['biography.html','artist-statement.html']){
   await page.setViewportSize({width,height:900});await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
+  await page.waitForFunction(()=>{const e=document.querySelector('.h1-text h1.text');return !e||e.innerText.trim()===e.getAttribute('aria-label')&&!e.querySelector('.dud')});
+  await page.evaluate(()=>document.fonts.ready);
+  await page.locator('.state-img img').evaluate(img=>img.complete?Promise.resolve():new Promise(resolve=>img.addEventListener('load',resolve,{once:true})));
   const title=await page.locator('.h1-text').boundingBox(),image=await page.locator('.state-img').boundingBox(),content=await page.locator('#state .content').boundingBox();
   if(width<600){expect(title.y+title.height).toBeLessThanOrEqual(image.y);expect(image.y+image.height).toBeLessThan(content.y);expect(content.x).toBeGreaterThanOrEqual(24);expect(content.x+content.width).toBeLessThanOrEqual(width-24);}
   for(const link of await page.locator('.reading-nav a').all()){
@@ -125,5 +132,42 @@ test('Mobile bilingual reading flow keeps titles artwork and anchors separate',a
   }
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   if(route==='artist-statement.html')await expect(page.locator('.timeline-item')).toHaveCount(5);
+ }
+});
+
+// Desktop scroll navigation is threshold based, independent of direction.
+test('Desktop scroll thresholds and in-page navigation preserve keyboard access',async({page},info)=>{
+ test.setTimeout(180000);await prepare(page);
+ const desktop=page.viewportSize().width>=1024;
+ const withSidebar=['biography.html','artist-statement.html','information.html','order.html','policy.html','exhibitions/yurayura/'];
+ const widths=desktop?[1024,1280,1440]:[page.viewportSize().width];
+ for(const width of widths){
+  await page.setViewportSize({width,height:900});
+  for(const route of routes){
+   await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});await page.evaluate(()=>document.fonts.ready);await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden',desktop?'false':'true');
+   const side=page.locator('body > .page-navigation');
+   for(const ratio of [0,0.5,0.6,0.9,1.1,0.6,0]){
+    await page.evaluate(async r=>{document.activeElement?.blur();scrollTo({top:innerHeight*r,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))},ratio);
+    await expect.poll(()=>page.evaluate(d=>document.querySelector('#navArea nav').getAttribute('aria-hidden')===(d?String(scrollY>=innerHeight*0.55):'true'),desktop)).toBe(true);
+    if(desktop&&withSidebar.includes(route)){
+     await expect(side).toHaveCount(1);
+     await expect.poll(()=>side.getAttribute('aria-hidden')).toBe(String(await page.evaluate(()=>scrollY<innerHeight)));
+    }else await expect(side).toHaveCount(0);
+   }
+   if(desktop){
+    await page.locator('#navArea .inner a').first().focus();await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});
+    await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden','false');
+    await page.keyboard.press('Tab');await page.evaluate(()=>document.activeElement.blur());
+    await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden',String(await page.evaluate(()=>scrollY>=innerHeight*0.55)));
+    if(withSidebar.includes(route)){
+     await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});
+     for(const link of await side.locator('a').all()){
+      await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});await expect(link).toBeVisible();await expect(side).toHaveAttribute('aria-hidden','false');await link.focus();await expect(link, route+' at '+width).toBeFocused();await page.keyboard.press('Enter');
+      const id=await link.getAttribute('href');await expect(page.locator(id)).toBeFocused();
+      await expect.poll(()=>page.locator(id).evaluate(e=>Math.round(e.getBoundingClientRect().top))).toBeGreaterThanOrEqual(0);
+     }
+    }
+   }
+  }
  }
 });

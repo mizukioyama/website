@@ -12,7 +12,7 @@ const HEADER_MARKUP = `
   <div class="head">
     <a class="noise" href="${siteHref("index.html")}">
       <!--<span>O.</span>MIZUKI-->
-      Mizuki Oyama
+      Mizuki Oyama.
     </a>
   </div>
 
@@ -22,7 +22,7 @@ const HEADER_MARKUP = `
       <div class="inner">
         <ul>
           <li><a href="${siteHref("")}" class="noise">Top</a></li>
-          <li><a href="${siteHref("gallery.html")}" class="noise">ArtIndex</a></li>
+          <li><a href="${siteHref("gallery.html")}" class="noise">Art Index</a></li>
           <li><a href="${siteHref("biography.html")}" class="noise">Biography</a></li>
           <li><a href="${siteHref("artist-statement.html")}" class="noise">Artist Statement</a></li>
           <li><a href="${siteHref("order.html")}" class="noise">Order</a></li>
@@ -544,6 +544,76 @@ function initializeMenu() {
   });
   desktop.addEventListener('change', () => setOpen(false));
   btn.dataset.menuBound = 'true';
+  initializeDesktopNavigation(desktop, panel);
+}
+
+
+// One desktop scroll controller owns primary-menu and in-page navigation state.
+function initializeDesktopNavigation(desktop, panel) {
+  const main = document.querySelector('main');
+  let reading = main?.querySelector('.reading-nav');
+  const existing = Boolean(reading);
+  const destinations = [...(main?.querySelectorAll('[data-page-nav]') || [])];
+  const origin = existing ? document.createComment('Reading Nav position') : null;
+  if (reading) reading.before(origin);
+  if (!reading && destinations.length > 1) {
+    reading = document.createElement('nav');
+    reading.className = 'reading-nav';
+    reading.setAttribute('aria-label', 'ページ内ナビゲーション / On this page');
+  }
+  reading?.classList.add('page-navigation');
+  if (reading && main.querySelector('.state-img')) reading.dataset.withArtwork = '';
+  const updateLinks = () => {
+    if (!reading || existing) return;
+    const language = window.getPortfolioLanguage?.() || 'ja';
+    const links = destinations.filter(target => target.getClientRects().length).map(target => {
+      const link = document.createElement('a');
+      link.href = '#' + target.id;
+      link.textContent = target.dataset.pageNav || target.querySelector('[lang="' + language + '"]')?.textContent || target.textContent;
+      return link;
+    });
+    reading.replaceChildren(...links);
+  };
+  const readingLabels = new Map([...(reading?.querySelectorAll('[data-sidebar-label]') || [])].map(link => [link, link.textContent]));
+  const setVisible = (element, visible) => {
+    if (!element) return;
+    element.classList.toggle('is-scroll-hidden', !visible);
+    element.toggleAttribute('inert', !visible);
+    element.setAttribute('aria-hidden', String(!visible));
+  };
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    for (const [link, label] of readingLabels) {
+      const text = desktop.matches ? link.dataset.sidebarLabel : label;
+      if (link.textContent !== text) link.textContent = text;
+      if (desktop.matches) link.setAttribute('aria-label', label);
+      else link.removeAttribute('aria-label');
+    }
+    if (desktop.matches) {
+      if (reading && reading.parentElement !== document.body) document.body.append(reading);
+      setVisible(panel, scrollY < innerHeight * 0.55 || panel.contains(document.activeElement));
+      setVisible(reading, scrollY >= innerHeight || reading?.contains(document.activeElement));
+    } else {
+      panel.classList.remove('is-scroll-hidden');
+      if (existing && reading.parentElement === document.body) origin.after(reading);
+      if (reading) {
+        reading.classList.remove('is-scroll-hidden');
+        reading.toggleAttribute('inert', !existing);
+        reading.setAttribute('aria-hidden', String(!existing));
+      }
+    }
+  };
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+  document.addEventListener('portfolio:languagechange', () => { updateLinks(); schedule(); });
+  document.addEventListener('focusin', schedule);
+  document.addEventListener('focusout', schedule);
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  window.addEventListener('pageshow', schedule);
+  desktop.addEventListener('change', schedule);
+  updateLinks();
+  update();
 }
 
 function initializeHeader() {
@@ -552,8 +622,8 @@ function initializeHeader() {
 
     new multi_language();
 
+    initializeMenu();
     requestAnimationFrame(() => {
-      initializeMenu();
       if (typeof initializeTyping === 'function') initializeTyping();
     });
   } catch (error) {

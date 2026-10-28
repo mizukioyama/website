@@ -1126,7 +1126,7 @@ main {
 }
 
 /* Biography and Statement share the same reading roles; no page-size tokens. */
-#state.statement .reading-nav {
+.reading-nav {
   position: relative;
   inset: auto;
   z-index: auto;
@@ -1139,7 +1139,7 @@ main {
   margin: 0 0 3rem;
   transition: none;
 }
-#state.statement .reading-nav a {
+.reading-nav a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -1148,7 +1148,7 @@ main {
   border-bottom: 1px solid currentColor;
   overflow-wrap: break-word;
 }
-#state.statement :is(.reading-nav a, .biography-section, .statement-section-heading):focus-visible {
+:is(.reading-nav a, .biography-section, .statement-section-heading, [data-page-nav]):focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 6px;
 }

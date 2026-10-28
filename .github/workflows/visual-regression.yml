@@ -85,6 +85,12 @@ jobs:
             npx playwright test --config=playwright.config.cjs
           fi
 
+      - name: Verify deployed Pages runtime
+        if: github.event_name == 'workflow_run'
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: node scripts/check-public-runtime.cjs
+
       - name: Upload visual evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -93,6 +99,7 @@ jobs:
           path: |
             playwright-report
             test-results/visual
+            test-results/public-runtime
           if-no-files-found: ignore
           retention-days: 14
 

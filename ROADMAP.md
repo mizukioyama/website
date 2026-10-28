@@ -218,3 +218,27 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 - Owner approved this reviewed design and the commit/PR/Linux-review/conditional-publication sequence. Required Linux checks and per-image review must pass before merge. Preserve formal WIP, the old editing checkout and stash. Local review evidence is excluded from the release commit.
 
 - Linux full audit #477: 257 passed / 124 conditional skips / 4 screenshot-only failures; independent runtime 70/70. All 20 Linux image pairs reviewed. Adopt only desktop 10 plus mobile Biography/Statement 2; keep the other 8 mobile references unchanged. Full CI after baseline adoption and publication results are tracked in PR #38.
+
+## 2026-10-28 PC scroll navigation — local review candidate
+
+- At the existing 1024px desktop boundary, only the primary menu fades after 55vh; brand/language controls remain. A single passive scroll listener with requestAnimationFrame owns both navigation states; focused navigation stays usable until focus leaves.
+- At 100vh, reuse Biography/Statement Reading Nav as a fixed left rail. Information, Order, Policy and Yurayura use explicitly marked existing destinations. Native anchors, language handling and mobile inline Reading Nav are preserved. Contact/404 have no useful multi-section index; Home/Gallery are excluded.
+- Source: src/components/header.html, js/menu.js, css/menu.css, css/gallery.css; destination IDs/data-page-nav stay with each page source. No new library, CSS variable or viewport boundary.
+- Local only: no commit, push, merge, Linux snapshot adoption or publication. See reports/pc-scroll-navigation-20261028 in the formal local repository for verification and Before/After review. npm run check's committed-docs gate remains pending until a separately approved commit of the reviewed generated output.
+
+## 2026-10-28 fluid PC menu — local review update
+
+- Layout reference: PC表示レイアウト.png. Right-aligned primary region interpolates 1080px at 1440px to 1200px at 1920px, capped by available width. Rule matches menu width; brand and language sit at the left.
+- Existing 1299px boundary provides equal wide columns, 1024–1298px uses evenly spaced links to avoid typography shrink/overlap. Home header spacing preserves its creator label; content, typography and animation sources stay intact.
+- Local only; no commit/push/merge/deployment. Shared runtime checks and 6-width geometry tests are recorded in reports/pc-fluid-menu-20261028 in the formal local repository. Formal Linux snapshots and the committed-docs gate remain publication-stage work.
+
+## 2026-10-28 PC sidebar final spacing — local design review
+
+- Reuse the existing fixed sidebar on six pages, left 40px at 1920px and fluid at smaller widths. Increase vertical spacing and cap height for internal scrolling; artwork pages keep their narrow rail below visible artwork.
+- Only the desktop sidebar rules in css/menu.css change. Header/menu, language controls, fonts, content, backgrounds and mobile inline navigation are preserved; no new breakpoint, variable, JavaScript or dependency.
+- Review images and local results: reports/sidebar-final-design-20261028 in the formal local repository. Private Drive permissions are retained. No commit, push, merge, Linux baseline update or publication; design approval and formal Linux verification remain pending.
+
+## PC navigation publication candidate — 2026-10-28
+
+- User approved release of the reviewed fluid PC header and six-page sidebar. This branch contains the source and deterministic generated output only; private review images/logs and unrelated Gallery WIP are excluded.
+- Required gates: clean npm run check, reviewed Linux image differences, final Linux CI success, Pages deployment and public runtime checks. Physical-device acceptance remains with the user.
