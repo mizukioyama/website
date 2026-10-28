@@ -66,6 +66,17 @@ Only publishing the approved Yurayura data to its GitHub Pages site changes the 
 
 ## 2026-10-27 menu and reading-layout candidate
 
-Primary menu labels/links: `src/components/header.html`. Desktop alignment, the 1200px inner limit and single-color links: `css/menu.css`. Shared Biography/Statement reading navigation and bilingual paragraphs: `css/gallery.css`; mobile flow, gutters and reading rhythm: the existing mobile section of `css/mobile.css`. Statement question-line geometry remains in `artist-statement.html`. History-table column roles remain in `css/portfolio-history-table.css`.
+Primary menu labels/links: `src/components/header.html`. Desktop alignment, the fluid 1080–1200px primary-menu region and single-color links: `css/menu.css`. Shared Biography/Statement reading navigation and bilingual paragraphs: `css/gallery.css`; mobile flow, gutters and reading rhythm: the existing mobile section of `css/mobile.css`. Statement question-line geometry remains in `artist-statement.html`. History-table column roles remain in `css/portfolio-history-table.css`.
 
-Font-size editing stays in `assets/css/user-settings.css` → `USER EDITABLE — TYPOGRAPHY`; this candidate does not change its values. Build also synchronizes static Header/Footer fallbacks. `docs/` stays generated. The candidate is local and requires final design/release approval; preserving the old editing worktree does not automatically update it to this candidate.
+Font-size editing stays in `assets/css/user-settings.css` → `USER EDITABLE — TYPOGRAPHY`; this candidate does not change its values. Build also synchronizes static Header/Footer fallbacks. `docs/` stays generated. The PC navigation release preserves separate editing worktrees; synchronize an editing checkout only after preserving its uncommitted work.
+
+## PC scroll navigation (local candidate, 2026-10-28)
+
+- Desktop threshold/layout: `js/menu.js` and the existing 1024px block in `css/menu.css`. Brand and language controls remain visible; primary menu hides at 55vh and the in-page rail appears at 100vh.
+- Biography/Statement reuse their `.reading-nav`; mobile keeps its original inline links. Biography `data-sidebar-label` provides a compact desktop label while retaining the full accessible/mobile name.
+- Other rails use existing page headings/steps with unique `id`, `data-page-nav` and `tabindex="-1"`. Only visible-language destinations are used. Do not duplicate the link list in JavaScript.
+- Save source → `Portfolio: Build generated site` → reload `http://127.0.0.1:4174/website/`. `docs/` and Header fallbacks are generated. No automatic publication. The release includes the reviewed generated files; run quality checks after committing regenerated output.
+
+## Fluid desktop menu width (local candidate, 2026-10-28)
+
+`css/menu.css`: the menu region uses `min(100%, clamp(1080px, calc(25vw + 720px), 1200px))`. At 1920px it is 1200px, at 1440px it is 1080px; the horizontal rule shares that width and meets the viewport right edge. Below the available logo+menu space it shrinks safely. The existing 1299px typography boundary is reused for six equal columns; narrower desktop widths use evenly spaced links. No new viewport breakpoint or Font Size token. Home uses compact header-only vertical spacing to preserve its existing creator label. The left brand/language column stays visible while the primary menu and rule fade after 55vh. The in-page rail still appears after 100vh.

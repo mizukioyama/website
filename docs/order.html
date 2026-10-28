@@ -9,10 +9,10 @@
 
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=6eb5020ee3a4">
-    <link rel="stylesheet" href="css/gallery.css?v=b07a32d65005">
+    <link rel="stylesheet" href="css/gallery.css?v=5d492246cdbc">
     <link rel="stylesheet" href="css/mobile.css?v=2969edea662a">
     <link rel="stylesheet" href="css/footer.css?v=abf94f79239e">
-    <link rel="stylesheet" href="css/menu.css?v=7348e8f8951d">
+    <link rel="stylesheet" href="css/menu.css?v=547f52a393bf">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=21a2301fc9f2">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
     <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
     <script src="js/cursor.js?v=5d1e46011ab2"></script>
     <script src="js/loading.js?v=e176402d352d"></script>
-    <script src="js/menu.js?v=4602b02e3ce6"></script>
+    <script src="js/menu.js?v=137e6f8a809a"></script>
 
     <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;700&display=swap" rel="stylesheet">
@@ -358,7 +358,7 @@
     <div id="header-container">
     <nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">
   <a href="/website/">Top</a>
-  <a href="/website/gallery.html">ArtIndex</a>
+  <a href="/website/gallery.html">Art Index</a>
   <a href="/website/biography.html">Biography</a>
   <a href="/website/artist-statement.html">Artist Statement</a>
   <a href="/website/order.html">Order</a>
@@ -414,7 +414,7 @@
                     <div class="page-line"></div>
 
                     <div class="order-pricing">
-                        <h2 class="noise">料金について</h2>
+                        <h2 class="noise" id="order-pricing-ja" data-page-nav="" tabindex="-1">料金について</h2>
                         <p class="order-note">
                             オーダー制作はF4以上から承ります。<br>
                             表示価格は消費税込み・国内送料込みの目安です。<br>
@@ -525,23 +525,23 @@
 
                     <h2 class="noise">ご依頼の流れ</h2>
                     <div class="timeline" aria-label="ご依頼の流れ">
-                        <ul>
+                        <ul id="order-step-1-ja" data-page-nav="01 ご相談" tabindex="-1">
                             01 ご相談
                             <li>Contactページから、ご希望の内容、用途、サイズ、予算感、希望時期など、決まっている範囲でお知らせください。</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-2-ja" data-page-nav="02 ヒアリング" tabindex="-1">
                             02 ヒアリング
                             <li>いただいた内容をもとに、作品の方向性や条件を確認します。必要に応じて追加で質問します。</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-3-ja" data-page-nav="03 ご提案・お見積り" tabindex="-1">
                             03 ご提案・お見積り
                             <li>制作内容、価格、納期、配送などの条件を整理し、内容をご確認いただきます。</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-4-ja" data-page-nav="04 制作・確認" tabindex="-1">
                             04 制作・確認
                             <li>合意した内容に沿って制作を進めます。確認が必要な場合は、その時点でご連絡します。</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-5-ja" data-page-nav="05 納品" tabindex="-1">
                             05 納品
                             <li>完成した作品を、事前に確認した方法でお届けします。詳細はご依頼内容に合わせてご案内します。</li>
                         </ul>
@@ -595,7 +595,7 @@
                     <div class="page-line"></div>
 
                     <div class="order-pricing">
-                        <h2 class="noise">Pricing</h2>
+                        <h2 class="noise" id="order-pricing-en" data-page-nav="" tabindex="-1">Pricing</h2>
                         <p class="order-note">
                             Commissions are available from size F4 and above.<br>
                             Prices shown include consumption tax and standard domestic shipping within Japan.<br>
@@ -706,23 +706,23 @@
 
                     <h2 class="noise">The Process</h2>
                     <div class="timeline" aria-label="The process">
-                        <ul>
+                        <ul id="order-step-1-en" data-page-nav="01 Inquiry" tabindex="-1">
                             01 Inquiry
                             <li>Tell us what you know so far, such as the request, purpose, size, budget range, and preferred timing.</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-2-en" data-page-nav="02 Conversation" tabindex="-1">
                             02 Conversation
                             <li>We review the details and confirm the direction and conditions. Additional questions may follow.</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-3-en" data-page-nav="03 Proposal &amp; estimate" tabindex="-1">
                             03 Proposal &amp; estimate
                             <li>We organize the production details, price, schedule, and delivery terms for your review.</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-4-en" data-page-nav="04 Creation &amp; review" tabindex="-1">
                             04 Creation &amp; review
                             <li>The work is created according to the agreed details. We will contact you if a review is needed.</li>
                         </ul>
-                        <ul>
+                        <ul id="order-step-5-en" data-page-nav="05 Delivery" tabindex="-1">
                             05 Delivery
                             <li>The finished work is delivered using the method discussed in advance. Details depend on the request.</li>
                         </ul>

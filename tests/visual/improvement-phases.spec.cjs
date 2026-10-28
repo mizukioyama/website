@@ -40,10 +40,11 @@ test('Phase 2 overview, original story and records are accessible and intact',as
  expect((await page.locator('#biography-records table').allTextContents()).map(hash)).toEqual(approved.records);
  await expect(page.locator('#career-timeline tbody tr')).toHaveCount(5);
  for(const href of ['#biography-overview','#career-timeline','#biography-records','#full-biography']){
-  const link=page.locator(`.reading-nav a[href="${href}"]`);await link.focus();await page.keyboard.press('Enter');
+  if(page.viewportSize().width>=1024)await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});
+  const link=page.locator(`.reading-nav a[href="${href}"]`);await expect(link).toBeVisible();if(page.viewportSize().width>=1024)await expect(page.locator('.page-navigation')).toHaveAttribute('aria-hidden','false');await link.focus();await page.keyboard.press('Enter');
   await expect(page).toHaveURL(new RegExp(href+'$'));
   await expect(page.locator(href)).toBeFocused();
-  expect(await page.locator(href).evaluate(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.top<innerHeight})).toBe(true);
+  await expect.poll(()=>page.locator(href).evaluate(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.top<innerHeight})).toBe(true);
  }
 });
 
@@ -54,6 +55,9 @@ test('Phase 3 statement and five questions preserve the approved wording',async(
  await expect(page.locator('.timeline-item')).toHaveCount(5);
  await expect(page.locator('.h1-text')).toHaveAttribute('data-subtitle','揺らぎ、感覚、記憶<br>色と余白、<br>見えないもの<br>固定された視点を緩めること');
  for(const href of ['#main-statement','#statement-questions']){
+  if(page.viewportSize().width>=1024)await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});
+  await expect(page.locator(`.reading-nav a[href="${href}"]`)).toBeVisible();
+  if(page.viewportSize().width>=1024)await expect(page.locator('.page-navigation')).toHaveAttribute('aria-hidden','false');
   await page.locator(`.reading-nav a[href="${href}"]`).focus();await page.keyboard.press('Enter');
   await expect(page.locator(href)).toBeFocused();
  }

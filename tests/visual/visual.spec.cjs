@@ -2219,7 +2219,7 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
 
   const expected = {
     "Top": "/website/",
-    "ArtIndex": "/website/gallery.html",
+    "Art Index": "/website/gallery.html",
     "Artist Statement": "/website/artist-statement.html",
     "Biography": "/website/biography.html",
     "Contact": "/website/contact.html",
@@ -2578,7 +2578,7 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
 
   const expectedMenuPaths = {
     "Top": "/website/",
-    "ArtIndex": "/website/gallery.html",
+    "Art Index": "/website/gallery.html",
     "Artist Statement": "/website/artist-statement.html",
     "Biography": "/website/biography.html",
     "Contact": "/website/contact.html",
@@ -2596,7 +2596,7 @@ test("primary navigation and conversion paths", async ({ page }, testInfo) => {
 
   const galleryLink = page
     .locator("#navArea nav")
-    .getByRole("link", { name: "ArtIndex", exact: true })
+    .getByRole("link", { name: "Art Index", exact: true })
     .first();
   await Promise.all([
     page.waitForURL(/\/website\/gallery\.html$/),
