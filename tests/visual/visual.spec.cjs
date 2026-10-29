@@ -1567,6 +1567,24 @@ async function exerciseOrderRuntime(page) {
 }
 
 async function prepareDeterministicNetwork(page) {
+  // Observe the real animation promise; the initial static heading can already
+  // match its label before TextScramble has started replacing its letters.
+  await page.addInitScript(() => {
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof TextScramble === "undefined") return;
+      const setText = TextScramble.prototype.setText;
+      TextScramble.prototype.setText = function (text) {
+        const isPageTitle = this.el.matches(".h1-text h1.text");
+        if (isPageTitle) this.el.dataset.visualTitleComplete = "false";
+        const completion = setText.call(this, text);
+        if (isPageTitle) completion.then(() => {
+          this.el.dataset.visualTitleComplete = "true";
+        });
+        return completion;
+      };
+    }, { once: true });
+  });
+
   await page.route("https://code.jquery.com/jquery-3.7.1.min.js", route => {
     route.fulfill({
       status: 200,
@@ -1624,12 +1642,16 @@ async function stabilize(page, entry = {}) {
       };
       const check = () => {
         clearTimeout(stableTimer);
-        if (title.innerText.trim() === target.trim() && !title.querySelector(".dud")) {
+        if (title.dataset.visualTitleComplete === "true"
+          && title.innerText.trim() === target.trim() && !title.querySelector(".dud")) {
           stableTimer = setTimeout(finish, 300);
         }
       };
       const observer = new MutationObserver(check);
-      observer.observe(title, { childList: true, characterData: true, subtree: true });
+      observer.observe(title, {
+        childList: true, characterData: true, subtree: true,
+        attributes: true, attributeFilter: ["data-visual-title-complete"]
+      });
       check();
     });
   }, titleAnimationTimeoutMs);
@@ -2495,6 +2517,9 @@ test("Order pricing and cancellation policy stay complete in both languages", as
   const runtime = createRuntimeMonitor(page, entry);
   await prepareDeterministicNetwork(page);
   await page.addInitScript(() => {
+    // Match the existing visual fixtures: keep the actual scramble, but make
+    // its random frame schedule reproducible while verifying pricing/copy.
+    Math.random = () => 0.42;
     localStorage.setItem("selectedLang", "ja");
     localStorage.setItem("lang", "ja");
   });

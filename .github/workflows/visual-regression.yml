@@ -75,6 +75,9 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Run isolated Order regression
+        run: npx playwright test --config=playwright.config.cjs --project=desktop-1440 --grep 'Order pricing and cancellation policy' --workers=1
+
       - name: Run visual regression
         shell: bash
         run: |

@@ -32,7 +32,9 @@ module.exports = defineConfig({
     }
   },
   fullyParallel: false,
-  workers: process.env.CI ? 2 : 1,
+  // WebGL/RAF tests share the runner's software renderer. Serial execution keeps
+  // unrelated GPU evidence captures from starving the real title animation.
+  workers: 1,
   retries: 0,
   updateSnapshots: "none",
   reporter: [

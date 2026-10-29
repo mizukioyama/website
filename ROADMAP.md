@@ -248,3 +248,9 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 - Adopt reviewed18px brand /16px primary menu, bounded logo hover, fit-content sidebar,3vmin/10vmin inset, shared800–860px right-aligned column and4vmin right gutter. Preserve prior menu/sidebar scroll behavior, shared Typography values and non-PC layouts.
 - Candidate sourced selectively from protected editing worktree onto current main; Gallery WIP and private review evidence excluded.
 - Release gates: clean npm run check, individually reviewed Linux screenshots, zero-failure Linux CI, Pages deployment and ten-route public checks. User-owned physical-device verification remains separate.
+
+## Post-deploy title synchronization — 2026-10-30
+
+- Both Order pricing-test failures occurred on the subsequent Policy title. Linux software-renderer contention delayed its frame-based scramble past the existing5s budget; local and deployed copies both completed without a production logic error.
+- Observe the real TextScramble completion promise in visual fixtures, retain exact text/no-dud/stability assertions and existing timeout budgets, seed the pricing fixture consistently with visual fixtures, and serialize WebGL-heavy tests. Run the isolated Order regression before the unchanged full suite. No production assets or Linux reference images change.
+- Completion requires zero-failure Linux checks and the deployed public-runtime gate; user-owned physical-device review remains separate.
