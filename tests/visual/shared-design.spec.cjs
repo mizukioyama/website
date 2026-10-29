@@ -104,14 +104,20 @@ test('Editorial desktop header keeps six equal columns in a right-aligned fluid 
   const inner=await page.locator('#navArea').boundingBox();expect(inner.width).toBeLessThanOrEqual(1200);expect(inner.x+inner.width).toBeCloseTo(width,0);if(width>=1440)expect(inner.width).toBeCloseTo(Math.min(1200,width*.25+720),0);
   const cells=await page.locator('#navArea .inner li').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().width));if(width>=1299)expect(Math.max(...cells)-Math.min(...cells)).toBeLessThan(1);
   const brand=await page.locator('header .head').boundingBox();expect(brand.x+brand.width).toBeLessThan(inner.x);
-  const states=await links.evaluateAll(es=>es.map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {href:e.href,x:r.x,y:r.y,width:r.width,image:s.backgroundImage,mask:s.maskImage,fill:s.webkitTextFillColor,color:s.color,shadow:s.textShadow}}));
+  const states=await links.evaluateAll(es=>es.map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return {href:e.href,x:r.x,y:r.y,width:r.width,image:s.backgroundImage,mask:s.maskImage,fill:s.webkitTextFillColor,color:s.color,shadow:s.textShadow,size:s.fontSize}}));
   const centers=states.map(s=>s.x+s.width/2),steps=centers.slice(1).map((x,i)=>x-centers[i]);if(width>=1299)expect(Math.max(...steps)-Math.min(...steps)).toBeLessThan(1);else {const gaps=states.slice(1).map((s,i)=>s.x-states[i].x-states[i].width);expect(Math.max(...gaps)-Math.min(...gaps)).toBeLessThan(1);}
   let lastRight=0,top;
   for(let i=0;i<labels.length;i++){
    const cs=states[i];expect(new URL(cs.href).pathname).toBe(paths[i]);
    expect(cs.x).toBeGreaterThanOrEqual(lastRight);lastRight=cs.x+cs.width;top??=cs.y;expect(cs.y).toBeCloseTo(top,0);
-   expect(cs.image).toBe('none');expect(cs.mask).toBe('none');expect(cs.fill).toBe(cs.color);expect(cs.shadow).toBe('none');
+   expect(cs.size).toBe('16px');expect(cs.image).toBe('none');expect(cs.mask).toBe('none');expect(cs.fill).toBe(cs.color);expect(cs.shadow).toBe('none');
   }
+  const logo=page.locator('header .head a');
+  await expect(logo).toHaveCSS('font-size','18px');
+  await logo.hover();
+  const ornament=await logo.evaluate(e=>{const r=e.getBoundingClientRect(),p=getComputedStyle(e,'::before');return {anchor:r.width,x:r.x,parentX:e.parentElement.getBoundingClientRect().x,pseudo:parseFloat(p.width),position:getComputedStyle(e).position}});
+  expect(ornament.x).toBeCloseTo(ornament.parentX,0);expect(ornament.position).toBe('relative');expect(ornament.pseudo).toBeLessThanOrEqual(ornament.anchor*1.1+1);
+  await logo.focus();expect(await logo.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
   const first=links.first();await first.focus();expect(await first.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
   await first.hover();expect(await first.evaluate(e=>getComputedStyle(e).textDecorationLine)).toContain('underline');
   expect(lastRight).toBeLessThanOrEqual(inner.x+inner.width);if(route)await expect(page.locator('#footer-container a[href$="information.html"]')).toHaveCount(1);
@@ -167,6 +173,31 @@ test('Desktop scroll thresholds and in-page navigation preserve keyboard access'
       await expect.poll(()=>page.locator(id).evaluate(e=>Math.round(e.getBoundingClientRect().top))).toBeGreaterThanOrEqual(0);
      }
     }
+   }
+  }
+ }
+});
+
+
+test('PC sidebar and right-aligned reading column share the available width',async({page},info)=>{
+ test.skip(info.project.name!=='desktop-1440','Responsive geometry audit runs once.');test.setTimeout(240000);await prepare(page);
+ const cases=[... [1920,1600,1440,1300,1299,1280,1024,768,390].map(width=>({width,height:900})),... [600,768,1080,1200].map(height=>({width:1024,height}))];
+ for(const {width,height} of cases){
+  await page.setViewportSize({width,height});
+  for(const route of ['biography.html','artist-statement.html','information.html','order.html','policy.html','exhibitions/yurayura/']){
+   await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
+   const side=page.locator('body > .page-navigation');
+   if(width<1024){await expect(side).toHaveCount(0);continue;}
+   for(const lang of ['Ja','En']){
+    const label=page.locator('label[for="lang'+lang+'"]');if(await label.isVisible())await label.click();
+    await page.evaluate(async()=>{document.activeElement?.blur();scrollTo({top:innerHeight,behavior:'instant'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))});
+    await expect(side).toHaveAttribute('aria-hidden','false');
+    const layout=await side.evaluate(n=>{const r=n.getBoundingClientRect(),s=getComputedStyle(n),intersects=b=>r.left<b.right&&r.right>b.left&&r.top<b.bottom&&r.bottom>b.top;
+     return {x:r.x,margin:parseFloat(s.marginLeft),left:s.left,width:r.width,maxWidth:parseFloat(s.maxWidth),overlap:[...document.querySelectorAll('main .content, main .state-img img')].some(e=>e.getClientRects().length&&intersects(e.getBoundingClientRect())),overflow:document.documentElement.scrollWidth>innerWidth+1,clipped:[...n.querySelectorAll('a')].some(e=>e.scrollWidth>e.clientWidth+1)};});
+    expect(layout.x,route+' '+width+' '+lang).toBeCloseTo(Math.min(width,height)*(width<=1299?0.03:0.1),0);expect(layout.margin).toBeCloseTo(layout.x,0);expect(layout.left).toBe('0px');
+    const columns=await page.locator('main .content:visible').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect(),p=e.parentElement.getBoundingClientRect();return {width:r.width,right:r.right,parentRight:p.right-parseFloat(getComputedStyle(e.parentElement).paddingRight),rightGap:innerWidth-r.right,gap:r.left-document.querySelector('body > .page-navigation').getBoundingClientRect().right,internal:[...e.querySelectorAll('.biography-section > h2,.biography-section > h3,.biography-section > p,.biography-section > table,.statement-section-heading,.work > p.state-txt,.order-lead,.history-table,.information-intro,.lead')].filter(t=>t.getClientRects().length).map(t=>{const q=t.getBoundingClientRect(),ts=getComputedStyle(t);return {left:q.left-r.left,padding:parseFloat(ts.paddingLeft),right:q.right-r.right};})};}));
+    for(const c of columns){expect(c.width).toBeCloseTo(Math.max(800,Math.min(860,800+(width-1024)*60/896)),0);expect(c.right).toBeCloseTo(c.parentRight,0);expect(c.rightGap).toBeCloseTo(Math.min(width,height)*0.04,0);expect(c.gap).toBeGreaterThanOrEqual(23.9);for(const t of c.internal){expect(Math.abs(t.left)).toBeLessThan(1);expect(t.padding).toBe(0);expect(t.right).toBeLessThanOrEqual(1);}}
+    expect(layout.width).toBeLessThanOrEqual(layout.maxWidth+1);expect(layout.overlap,route+' '+width+' '+lang).toBe(false);expect(layout.overflow).toBe(false);expect(layout.clipped).toBe(false);
    }
   }
  }

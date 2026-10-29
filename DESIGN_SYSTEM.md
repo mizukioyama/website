@@ -109,7 +109,7 @@ An explicit font-size exception is permitted only for a clearly different compon
 AI/Codex must not numerically optimize or redesign the integrated values unless the user explicitly requests it. Final Font Size choices belong to the user.
 
 ## Header and footer
-Header navigation and footer navigation must use the same responsive size token within each breakpoint.
+Header and Footer normally share the responsive size token. The approved 2026-10-29 PC component exceptions (min-width: 1024px) are an 18px brand and 16px primary menu, owned by the existing component rules in css/menu.css. Footer, language controls and mobile/tablet sizes retain the shared tokens.
 
 Current target scale:
 - 375px / 390px / 430px: approximately 18px
@@ -120,7 +120,7 @@ Current target scale:
 
 Implementation should remain breakpoint-specific and fluid with `clamp()`, using px bounds.
 
-Do not silently give the header and footer independent font-size systems again.
+Do not add further independent Header/Footer font-size systems. The explicit PC component exceptions above do not change the shared Typography values.
 
 ## Letter spacing
 Use px for tracking so the visual texture of type remains stable. Avoid `em` tracking for portfolio UI unless proportional tracking is deliberately required and documented.
@@ -180,7 +180,7 @@ Desktop horizontal navigation uses one shared size role, weight and tracking, wi
 
 - Primary navigation is Top / ArtIndex / Biography / Artist Statement / Order / Contact, from the shared Header source on desktop, overlay and no-JavaScript fallback. Information and Policy stay in the unchanged shared Footer. The build embeds that Footer as a static fallback too; runtime replaces it without duplication.
 - `.header-inner` is the only new layout class: one inner wrapper is needed to align the brand/language column at the left and the primary menu at the viewport right edge. The local 2026-10-28 candidate limits the menu itself to `min(100%, clamp(1080px, calc(25vw + 720px), 1200px))`; the wrapper is no longer capped at 1200px. The Header background remains full width. It uses `display: contents` below the existing 1024px boundary. No body/Gallery width is changed.
-- Desktop brand and primary links use existing `--inv` on standard pages and `--text` on Home; text gradients, mask/noise and text shadows are disabled only within the desktop Header. Hover/current underline and focus outline remain visible. All six desktop links consume existing `--font-nav-size`; user-editable typography values stay unchanged.
+- Desktop brand and primary links use existing `--inv` on standard pages and `--text` on Home; text gradients, mask/noise and text shadows are disabled only within the desktop Header. Hover/current underline and focus outline remain visible. All six desktop links use the approved fixed 16px component exception; the PC brand uses 18px. The shared `--font-nav-size` alias and user-editable Typography values remain unchanged for Footer and non-PC consumers.
 - Biography/Statement share `.reading-nav`, paragraph wrapping and translation-divider rules in `css/gallery.css`. Their mobile flow/gutters/line-height live in the existing mobile media query in `css/mobile.css`; font sizes remain inherited. Statement keeps its own question timeline rules because their vertical-line structure is a distinct role.
 - Mobile title/subtitle, artwork, Reading Nav and text are in normal flow with no fixed height; the artwork remains uncropped. The shared reading gutter is `clamp(24px, 7vw, 32px)`, inside the existing mobile breakpoint. Year/content cells reuse the existing history-table roles.
 - No new CSS variables, CSS files or media-query boundaries. The legacy Statement-only Reading Nav class and repeated inline body/divider declarations are removed. Typography checking follows the shared CSS source rather than requiring duplicate inline rules.

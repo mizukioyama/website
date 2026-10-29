@@ -80,3 +80,10 @@ Font-size editing stays in `assets/css/user-settings.css` → `USER EDITABLE —
 ## Fluid desktop menu width (local candidate, 2026-10-28)
 
 `css/menu.css`: the menu region uses `min(100%, clamp(1080px, calc(25vw + 720px), 1200px))`. At 1920px it is 1200px, at 1440px it is 1080px; the horizontal rule shares that width and meets the viewport right edge. Below the available logo+menu space it shrinks safely. The existing 1299px typography boundary is reused for six equal columns; narrower desktop widths use evenly spaced links. No new viewport breakpoint or Font Size token. Home uses compact header-only vertical spacing to preserve its existing creator label. The left brand/language column stays visible while the primary menu and rule fade after 55vh. The in-page rail still appears after 100vh.
+
+## Approved PC layout refinement — 2026-10-29
+
+- Existing desktop rules in css/menu.css own the explicit PC brand18px / primary links16px exceptions. Shared Footer, language-control and non-PC Typography values remain unchanged. The logo link is relatively positioned with inset:auto so its existing hover decoration uses its own text width.
+- css/gallery.css owns --reading-column-width, the single800–860px fluid reading-column width. Six reading pages right-align this column inside main with4vmin right padding. Scope parent padding to main: Statement has a legacy shared body/main ID.
+- Sidebar is fit-content with10vmin left margin above1299px,3vmin through1299px. Its shared cap subtracts the article width,4vmin right margin and24px clearance. Wide-PC artwork stays alongside text; narrow-PC artwork precedes the column. Policy keeps its own HTML.
+- PC Biography H3 padding-inline is0; Information/Yurayura introduction wrappers fill the column. Timeline indents and tablet/mobile rules remain. Edit shared CSS, save, run the existing Build Task and reload preview; docs/ is generated.

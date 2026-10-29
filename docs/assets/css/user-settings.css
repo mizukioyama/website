@@ -63,7 +63,8 @@
      Header / Navigation / Footer
      ================================================== */
 
-  /* Header / Footer: 18px → 25.6px */
+  /* Header / Footer: 18px → 25.6px. Explicit PC component exceptions:
+     menu.css owns the 18px brand and 16px primary menu; Footer/mobile keep this token. */
   --type-header-footer-size: clamp(18px, calc(15.3239px + 0.7136vw), 25.6px);
 
   /* Primary menu: 16px → 19.2px (breakpoint overrides below) */
