@@ -13,7 +13,7 @@ const out = path.resolve('test-results/title-diagnostic');
   try {
     for (const competing of [false,true]) {
       const competitor = competing ? await browser.newPage({viewport:{width:1440,height:900}, reducedMotion:'no-preference'}) : null;
-      if (competitor) await competitor.goto('http://127.0.0.1:4173/website/biography.html', {waitUntil:'load'});
+      if (competitor) await competitor.goto('http://127.0.0.1:4173/website/biography.html', {waitUntil:'domcontentloaded'});
       for (const base of ['http://127.0.0.1:4173/website/','https://mizukioyama.github.io/website/']) {
         for (const motion of ['reduce','no-preference']) {
           const page = await browser.newPage({viewport:{width:1440,height:900},reducedMotion:motion});
@@ -22,6 +22,12 @@ const out = path.resolve('test-results/title-diagnostic');
             const p=window.__titleProbe;
             const frame=()=>{p.raf++;requestAnimationFrame(frame);};requestAnimationFrame(frame);
             addEventListener('DOMContentLoaded',()=>{
+              const original=TextScramble.prototype.setText;
+              TextScramble.prototype.setText=function(text){
+                const promise=original.call(this,text);
+                promise.then(()=>{p.completed={ms:performance.now()-p.started,text:this.el.textContent,dud:this.el.querySelectorAll('.dud').length,raf:p.raf,mutations:p.mutations,visibility:document.visibilityState};});
+                return promise;
+              };
               const title=document.querySelector('.h1-text h1.text');
               p.started=performance.now();p.initial=title?.textContent;p.target=title?.getAttribute('aria-label');
               if (!title)return;
@@ -29,7 +35,6 @@ const out = path.resolve('test-results/title-diagnostic');
               setInterval(()=>{
                 const sample={ms:performance.now()-p.started,text:title.textContent,dud:title.querySelectorAll('.dud').length,raf:p.raf,mutations:p.mutations,visibility:document.visibilityState,ink:window.__selectedInkField?.getState?.()?.frameCount};
                 p.samples.push(sample);
-                if(!sample.dud&&sample.text===p.target&&p.mutations>0&&!p.completed)p.completed=sample;
               },100);
             });
           });
