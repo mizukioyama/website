@@ -736,9 +736,35 @@ main {
 }
 
 
+/* One width also reserves the matching sidebar and artwork space. */
+@media screen and (min-width: 1024px) {
+  :root { --reading-column-width: clamp(800px, calc(6.69642857vw + 731.428571px), 860px); }
+  main:is(#state, #policy, .information-page, .order-page, .exhibition-page) { padding-right: 4vmin; }
+  #state .content h3 { padding-inline: 0; }
+  :is(.information-page, .exhibition-page) > .state-box > .content > :is(.information-intro, .lead) { width: auto; }
+  :is(#state, #policy, .information-page, .order-page, .exhibition-page) > .content,
+  :is(#state, .information-page, .order-page, .exhibition-page) > .state-box > .content {
+    width: var(--reading-column-width);
+    min-width: min(800px, 100%);
+    max-width: min(860px, 100%);
+    margin-left: auto;
+    margin-right: 0;
+    flex-shrink: 0;
+  }
+  .gallery.statement > .state-box { flex-direction: column; }
+  .gallery.statement > .state-box > .state-img {
+    left: 0;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+}
+
 @media screen and (min-width: 1299px) {
-  #state .state-box:nth-child(2) .content {
-    width: min(40%, calc(100% - 2rem));
+  .gallery.statement > .state-box { flex-direction: row; }
+  .gallery.statement > .state-box > .state-img {
+    left: 10vmin;
+    margin-left: 0;
+    max-width: calc(100% - var(--reading-column-width) - 10vmin - 2rem);
   }
 
   #state h2 {

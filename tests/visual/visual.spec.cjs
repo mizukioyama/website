@@ -2029,12 +2029,17 @@ async function assertSharedHeaderFooterTypography(page, testInfo, hasFooter = tr
   }), hasFooter);
   const roundToTenth = value => Math.round(value * 10) / 10;
 
-  expect(roundToTenth(sizes.header), "Header brand font-size").toBe(expected);
+  const desktop = page.viewportSize().width >= 1024;
+  expect(roundToTenth(sizes.header), "Header brand: explicit PC component exception").toBe(desktop ? 18 : expected);
+  if (desktop) {
+    const menuSizes = await page.locator("#navArea .inner a").evaluateAll(es => es.map(e => parseFloat(getComputedStyle(e).fontSize)));
+    expect(menuSizes).toEqual([16, 16, 16, 16, 16, 16]);
+  }
   if (hasFooter) {
     expect(sizes.footer.length, "Footer navigation should exist").toBeGreaterThan(0);
     for (const size of sizes.footer) {
       expect(roundToTenth(size), "Footer navigation font-size").toBe(expected);
-      expect(Math.abs(size - sizes.header), "Header/Footer font-size should match").toBeLessThanOrEqual(0.05);
+      if (!desktop) expect(Math.abs(size - sizes.header), "Mobile Header/Footer share the original token").toBeLessThanOrEqual(0.05);
     }
   }
 }

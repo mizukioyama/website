@@ -430,8 +430,11 @@ body:has(#modalBox[style*="display: block"]) {
   #header-container header .head { display: block; grid-area: brand; }
   #header-container header .head a:focus-visible { outline-offset: 2px; }
   #header-container header .head a {
-    position: static;
+    position: relative;
+    inset: auto;
     width: fit-content;
+    font-size: 18px;
+    white-space: nowrap;
     padding: 8px 0;
     margin: 0;
   }
@@ -461,7 +464,7 @@ body:has(#modalBox[style*="display: block"]) {
     height: auto;
   }
   #navArea .inner ul li { width: auto; margin: 0; border: 0; min-width: 0; }
-  #navArea .inner li a { font-size: var(--font-nav-size); width: max-content; margin-inline: 0; padding: 8px 0; line-height: 1.4; white-space: nowrap; }
+  #navArea .inner li a { font-size: 16px; width: max-content; margin-inline: 0; padding: 8px 0; line-height: 1.4; white-space: nowrap; }
   .home #header-container .header-inner { row-gap: 4px; }
   .home #header-container header .head a, .home #navArea .inner li a { padding-block: 0; }
   #navArea #mask, #navArea .toggle_btn, #navArea nav > .noise { display: none; }
@@ -481,16 +484,17 @@ body:has(#modalBox[style*="display: block"]) {
   }
   .page-navigation:not(main .page-navigation) {
     position: fixed;
-    inset: 65% auto auto clamp(16px, calc(2.5vw - 8px), 40px);
+    inset: 65% auto auto 0;
     transform: translateY(-50%);
     z-index: 2000;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     gap: clamp(16px, 6vh, 60px);
-    width: clamp(90px, 12vw, 180px);
+    width: fit-content;
+    max-width: calc(100vw - var(--reading-column-width) - 10vmin - 4vmin - 24px);
     max-height: calc(70dvh - 4rem);
-    margin: 0;
+    margin: 0 0 0 10vmin;
     overflow-y: auto;
     color: var(--inv);
     text-align: left;
@@ -498,11 +502,17 @@ body:has(#modalBox[style*="display: block"]) {
     line-height: 1.6;
   }
   .page-navigation:not(main .page-navigation)[data-with-artwork] {
-    width: 90px;
     top: calc(65% + 1rem);
     max-height: calc(70dvh - 6rem);
   }
-  .page-navigation a { border: 0; padding: 0.4rem 0; }
+  /* Reuse the 1299px layout boundary; keep room for the 800px article. */
+  @media (width <= 1299px) {
+    .page-navigation:not(main .page-navigation) {
+      margin-left: 3vmin;
+      max-width: calc(100vw - var(--reading-column-width) - 3vmin - 4vmin - 24px);
+    }
+  }
+  .page-navigation a { display: block; border: 0; padding: 0.4rem 0; text-wrap: balance; hyphens: auto; }
   .page-navigation a:hover, .page-navigation a:focus-visible { text-decoration: underline; text-underline-offset: 5px; }
   #navArea nav.is-scroll-hidden, .page-navigation.is-scroll-hidden {
     opacity: 0;

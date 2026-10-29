@@ -242,3 +242,9 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 
 - User approved release of the reviewed fluid PC header and six-page sidebar. This branch contains the source and deterministic generated output only; private review images/logs and unrelated Gallery WIP are excluded.
 - Required gates: clean npm run check, reviewed Linux image differences, final Linux CI success, Pages deployment and public runtime checks. Physical-device acceptance remains with the user.
+
+## Approved PC layout release — 2026-10-29
+
+- Adopt reviewed18px brand /16px primary menu, bounded logo hover, fit-content sidebar,3vmin/10vmin inset, shared800–860px right-aligned column and4vmin right gutter. Preserve prior menu/sidebar scroll behavior, shared Typography values and non-PC layouts.
+- Candidate sourced selectively from protected editing worktree onto current main; Gallery WIP and private review evidence excluded.
+- Release gates: clean npm run check, individually reviewed Linux screenshots, zero-failure Linux CI, Pages deployment and ten-route public checks. User-owned physical-device verification remains separate.
