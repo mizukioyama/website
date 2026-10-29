@@ -21,7 +21,7 @@ const out = path.resolve('test-results/title-diagnostic');
             window.__titleProbe={samples:[],raf:0,mutations:0};
             const p=window.__titleProbe;
             const frame=()=>{p.raf++;requestAnimationFrame(frame);};requestAnimationFrame(frame);
-            addEventListener('DOMContentLoaded',()=>{
+            document.addEventListener('DOMContentLoaded',()=>{
               const original=TextScramble.prototype.setText;
               TextScramble.prototype.setText=function(text){
                 const promise=original.call(this,text);
