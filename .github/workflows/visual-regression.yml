@@ -75,6 +75,12 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Diagnose title frame progression
+        run: node scripts/diagnose-title-animation.cjs
+
+      - name: Run isolated Order regression
+        run: npx playwright test --config=playwright.config.cjs --project=desktop-1440 --grep '^Order pricing and cancellation policy' --workers=1
+
       - name: Run visual regression
         shell: bash
         run: |
@@ -100,6 +106,7 @@ jobs:
             playwright-report
             test-results/visual
             test-results/public-runtime
+            test-results/title-diagnostic
           if-no-files-found: ignore
           retention-days: 14
 
