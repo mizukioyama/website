@@ -61,6 +61,17 @@ async function scroll(page, ratio) {
             const y = await page.evaluate(() => scrollY);
             await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden', String(y >= 900 * .55));
             await expect(page.locator('header .head')).toBeVisible();
+            const compact = y >= 900 * .55;
+            const toggle = page.locator('.toggle_btn');
+            if (compact) {
+              await expect(toggle).toBeVisible();
+              await toggle.click();
+              await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+              await expect(page.locator('#navArea .inner a')).toHaveCount(6);
+              await page.keyboard.press('Escape');
+              await expect(toggle).toBeFocused();
+              await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+            } else await expect(toggle).toBeHidden();
             if (sidebarRoutes.has(route)) {
               await expect(side).toHaveCount(1);
               await expect(side).toHaveAttribute('aria-hidden', String(y < 900));
@@ -92,6 +103,12 @@ async function scroll(page, ratio) {
           }
         } else {
           await expect(side).toHaveCount(0);
+          if (width === 390) {
+            const r = await page.locator('.toggle_btn').boundingBox();
+            assert.equal(r.width, 64); assert.equal(r.height, 64);
+            assert.ok(Math.abs(r.x + r.width - (390 - 390 * .05)) < 1);
+            assert.ok(Math.abs(r.y + r.height - (900 - 390 * .35)) < 1);
+          }
           if (route && route !== '404.html') {
             await page.waitForFunction(() => window.__runtimeTitleComplete);
             const title = await page.locator('.h1-text h1').boundingBox();
@@ -107,6 +124,14 @@ async function scroll(page, ratio) {
         if (await en.isVisible()) {
           await en.click(); assert.equal(await page.evaluate(() => window.getPortfolioLanguage()), 'en');
           await page.locator('label[for="langJa"]').click();
+        }
+        if (width >= 1024 && sidebarRoutes.has(route)) {
+          await scroll(page, 1.2);
+          await expect(side).toHaveAttribute('aria-hidden', 'false');
+          const r = await side.boundingBox(); assert.ok(Math.abs(r.y + r.height / 2 - 450) < 1);
+          await page.evaluate(() => { const f = document.querySelector('#footer-container'); scrollTo({top:scrollY + f.getBoundingClientRect().top - innerHeight - 32,behavior:'instant'}); });
+          await expect(side).toHaveAttribute('aria-hidden', 'true');
+          await scroll(page, 1.2); await expect(side).toHaveAttribute('aria-hidden', 'false');
         }
         if (route === 'gallery.html') {
           await expect(page.locator('#gallery-container > .work').first()).toBeVisible();

@@ -258,5 +258,13 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 ## Responsive first-view / reading-layout candidate — 2026-10-30
 
 - Owner-approved release candidate: shared smartphone H1 Grid using svh, consolidated reading gutters/paragraph spacing,1200px State Box,800px maximum Content and centered left-area Sidebar with28px/350ms motion. Keep existing Header sizes,55vh/100vh thresholds, content, artwork, backgrounds and Typography values.
-- The existing mobile menu control moves to the upper right only on non-Home pages with an H1 first view, resolving measured short-screen text collisions. Home/404 and tablet behavior remain separate. Long subtitles may expand short landscape flow boxes; a shared visual offset retains the50svh H1 center.
+- Historical PR43 placement (superseded by the navigation UX candidate below): non-Home mobile controls moved upper right. The current local candidate restores the original bottom-right position and uses short-screen line-width reservations instead. Long subtitles retain the50svh H1 center.
 - Design review completed; PR #43 tracks clean repository checks, individual Linux image review and conditional publication. Private review evidence stays outside the release. Physical-device acceptance remains separate.
+
+
+## 2026-10-30 navigation UX / Gallery background — local candidate
+
+- Based on publishedf12f079 tree; reuse the existing release worktree and preserve dirty formal/editor checkouts and stash.
+- Native shared menu control;55vh desktop compact mode,50% vertical Sidebar,56px Footer proximity gate and scoped44px targets. Restore the mobile64px bottom-right control while retaining50svh H1 centering.
+- Gallery normal-motion layers verified as separate primary/accent/overlay engines rather than duplicate initializations. Preserve active background behavior; remove only inactive old background comments.
+- Owner design review completed; PR #44 tracks the authorized release. Fifteen affected Linux references were reviewed individually; five passing mobile references remain unchanged. Test checks use the actual viewport and focused native control, and Home overlap uses visible component regions. Required green CI and public verification remain release gates; physical-device acceptance is separate.

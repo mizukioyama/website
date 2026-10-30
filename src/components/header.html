@@ -9,7 +9,7 @@
 
   <!-- Nav -->
   <div id="navArea">
-    <nav aria-label="Primary navigation">
+    <nav id="primary-navigation" aria-label="Primary navigation">
       <div class="inner">
         <ul>
           <li><a href="@@SITE:@@" class="noise">Top</a></li>
@@ -81,11 +81,11 @@
         style="content: ''; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: -1;">
       </div>
     </nav>
-    <div class="toggle_btn">
+    <button class="toggle_btn" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open navigation menu">
       <span class="noise"></span>
       <span class="noise"></span>
       <span class="noise"></span>
-    </div>
+    </button>
   </div>
 
   <!-- 言語切り替えUI -->
@@ -96,10 +96,10 @@
 
     <div class="inner_label">
       <!-- ラベルと表示テキスト（JP/EN） -->
-      <label for="langJa">
+      <label for="langJa" role="button" tabindex="0" aria-label="日本語">
         <div class="lang-button ja noise">Ja</div>
       </label>
-      <label for="langEn">
+      <label for="langEn" role="button" tabindex="0" aria-label="English">
         <div class="lang-button en noise">En</div>
       </label>
     </div>
