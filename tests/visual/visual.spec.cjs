@@ -715,8 +715,8 @@ async function assertResponsivePageGeometry(page, entry) {
 
 async function exerciseSharedRuntimeInteractions(page) {
   const toggle = page.locator("#navArea .toggle_btn");
-  await expect(toggle).toHaveAttribute("role", "button");
-  await expect(toggle).toHaveAttribute("tabindex", "0");
+  await expect(toggle).toHaveJSProperty("tagName", "BUTTON");
+  await expect(toggle).toHaveJSProperty("tabIndex", 0);
   if (page.viewportSize().width >= 1024) {
     await expect(toggle).toBeHidden();
     await expect(page.locator("#navArea nav")).toBeVisible();
@@ -724,35 +724,14 @@ async function exerciseSharedRuntimeInteractions(page) {
     return;
   }
 
-  const openState = await toggle.evaluate(element => {
-    element.dispatchEvent(new KeyboardEvent("keydown", {
-      key: "Enter",
-      code: "Enter",
-      bubbles: true,
-      cancelable: true
-    }));
-    const nav = element.closest("#navArea");
-    return {
-      open: Boolean(nav?.classList.contains("open")),
-      expanded: element.getAttribute("aria-expanded")
-    };
-  });
-  expect(openState).toEqual({ open: true, expanded: "true" });
-
-  const closedState = await toggle.evaluate(element => {
-    element.dispatchEvent(new KeyboardEvent("keydown", {
-      key: " ",
-      code: "Space",
-      bubbles: true,
-      cancelable: true
-    }));
-    const nav = element.closest("#navArea");
-    return {
-      open: Boolean(nav?.classList.contains("open")),
-      expanded: element.getAttribute("aria-expanded")
-    };
-  });
-  expect(closedState).toEqual({ open: false, expanded: "false" });
+  await toggle.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#navArea")).toHaveClass(/open/);
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await toggle.focus();
+  await page.keyboard.press("Space");
+  await expect(page.locator("#navArea")).not.toHaveClass(/open/);
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
 }
 
 async function exerciseGalleryRuntime(page, projectName, testInfo) {
@@ -2254,8 +2233,8 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   };
 
   const toggle = page.locator("#navArea .toggle_btn");
-  await expect(toggle).toHaveAttribute("role", "button");
-  await expect(toggle).toHaveAttribute("tabindex", "0");
+  await expect(toggle).toHaveJSProperty("tagName", "BUTTON");
+  await expect(toggle).toHaveJSProperty("tabIndex", 0);
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(toggle).toHaveAttribute("aria-label", "Open navigation menu");
 

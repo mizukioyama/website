@@ -18,7 +18,7 @@ const HEADER_MARKUP = `
 
   <!-- Nav -->
   <div id="navArea">
-    <nav aria-label="Primary navigation">
+    <nav id="primary-navigation" aria-label="Primary navigation">
       <div class="inner">
         <ul>
           <li><a href="${siteHref("")}" class="noise">Top</a></li>
@@ -90,11 +90,11 @@ const HEADER_MARKUP = `
         style="content: ''; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: -1;">
       </div>
     </nav>
-    <div class="toggle_btn">
+    <button class="toggle_btn" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open navigation menu">
       <span class="noise"></span>
       <span class="noise"></span>
       <span class="noise"></span>
-    </div>
+    </button>
   </div>
 
   <!-- 言語切り替えUI -->
@@ -105,10 +105,10 @@ const HEADER_MARKUP = `
 
     <div class="inner_label">
       <!-- ラベルと表示テキスト（JP/EN） -->
-      <label for="langJa">
+      <label for="langJa" role="button" tabindex="0" aria-label="日本語">
         <div class="lang-button ja noise">Ja</div>
       </label>
-      <label for="langEn">
+      <label for="langEn" role="button" tabindex="0" aria-label="English">
         <div class="lang-button en noise">En</div>
       </label>
     </div>
@@ -415,7 +415,7 @@ function syncLanguageControlVisibility() {
   if (!languageControl) return;
 
   const menuOpen = document.querySelector('#navArea')?.classList.contains('open') === true;
-  const shouldHide = isBilingualPage() || menuOpen;
+  const shouldHide = isBilingualPage() || (menuOpen && !window.matchMedia('(min-width: 1024px)').matches);
   if (shouldHide) {
     languageControl.setAttribute('hidden', '');
     languageControl.setAttribute('aria-hidden', 'true');
@@ -452,6 +452,9 @@ function applyLocalizedContent(language) {
   const selectedLanguage = normalizeLanguage(language);
   const localizedElements = document.querySelectorAll('[lang="ja"],[lang="en"]');
   syncLanguageControlVisibility();
+  document.querySelectorAll('#langChange label').forEach(label => {
+    label.setAttribute('aria-pressed', String(label.htmlFor === (selectedLanguage === 'ja' ? 'langJa' : 'langEn')));
+  });
   syncMenuExhibitionInformation(selectedLanguage);
   const showPersistentSubtitle = element => {
     const subtitle = element.closest(".h1-text .subtext");
@@ -514,42 +517,69 @@ function initializeMenu() {
   });
 
   const setOpen = isOpen => {
-    isOpen = !desktop.matches && isOpen;
-    panel?.toggleAttribute('inert', !desktop.matches && !isOpen);
-    panel?.setAttribute('aria-hidden', String(!desktop.matches && !isOpen));
+    isOpen = (!desktop.matches || scrollY >= innerHeight * 0.55) && isOpen;
+    const visible = (desktop.matches && scrollY < innerHeight * 0.55) || isOpen;
+    panel?.toggleAttribute('inert', !visible);
+    panel?.setAttribute('aria-hidden', String(!visible));
+    panel?.classList.toggle('is-scroll-hidden', !visible);
     nav.classList.toggle('open', isOpen);
     syncLanguageControlVisibility();
     btn.setAttribute('aria-expanded', String(isOpen));
     btn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    if (isOpen) {
+      const first = panel.querySelector('.inner a');
+      const focusWhenVisible = () => {
+        if (!nav.classList.contains('open') || panel.inert || document.activeElement !== btn) return;
+        // Visibility can still be hidden in the first transition frame, including
+        // Reduced Motion. Wait for the actual computed state, not a fixed delay.
+        if (getComputedStyle(first).visibility !== 'visible') {
+          requestAnimationFrame(focusWhenVisible);
+          return;
+        }
+        first.focus({ preventScroll: true });
+      };
+      focusWhenVisible();
+    }
+    else if (panel.contains(document.activeElement) && !visible) btn.focus({ preventScroll: true });
   };
 
-  btn.setAttribute('role', 'button');
-  btn.setAttribute('tabindex', '0');
-  btn.setAttribute('aria-controls', 'navArea');
+  btn.setAttribute('aria-controls', 'primary-navigation');
   setOpen(false);
   btn.addEventListener('click', () => {
     setOpen(!nav.classList.contains('open'));
   });
-  btn.addEventListener('keydown', event => {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
-    event.preventDefault();
-    setOpen(!nav.classList.contains('open'));
-  });
   mask?.addEventListener('click', () => setOpen(false));
   nav.querySelectorAll('.inner a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('pointerdown', event => {
+    if (nav.classList.contains('open') && !nav.contains(event.target)) setOpen(false);
+  });
   document.addEventListener('keydown', event => {
-    if (event.key !== 'Escape' || !nav.classList.contains('open')) return;
+    const languageButton = event.target.closest?.('#langChange label');
+    if (languageButton && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault(); languageButton.click(); return;
+    }
+    if (!nav.classList.contains('open')) return;
+    if (event.key === 'Tab') {
+      const first = panel.querySelector('.inner a');
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); btn.focus(); }
+      else if (!event.shiftKey && document.activeElement === btn) { event.preventDefault(); first?.focus(); }
+      return;
+    }
+    if (event.key !== 'Escape') return;
     setOpen(false);
     btn.focus();
   });
   desktop.addEventListener('change', () => setOpen(false));
   btn.dataset.menuBound = 'true';
-  initializeDesktopNavigation(desktop, panel);
+  initializeDesktopNavigation(desktop, panel, setOpen);
 }
 
 
 // One desktop scroll controller owns primary-menu and in-page navigation state.
-function initializeDesktopNavigation(desktop, panel) {
+function initializeDesktopNavigation(desktop, panel, setOpen) {
+  const nav = panel.closest("#navArea");
+  const button = nav.querySelector(".toggle_btn");
+  const footer = document.getElementById("footer-container");
   const main = document.querySelector('main');
   let reading = main?.querySelector('.reading-nav');
   const existing = Boolean(reading);
@@ -562,7 +592,6 @@ function initializeDesktopNavigation(desktop, panel) {
     reading.setAttribute('aria-label', 'ページ内ナビゲーション / On this page');
   }
   reading?.classList.add('page-navigation');
-  if (reading && main.querySelector('.state-img')) reading.dataset.withArtwork = '';
   const updateLinks = () => {
     if (!reading || existing) return;
     const language = window.getPortfolioLanguage?.() || 'ja';
@@ -577,6 +606,10 @@ function initializeDesktopNavigation(desktop, panel) {
   const readingLabels = new Map([...(reading?.querySelectorAll('[data-sidebar-label]') || [])].map(link => [link, link.textContent]));
   const setVisible = (element, visible) => {
     if (!element) return;
+    if (!visible && element.contains(document.activeElement)) {
+      const fallback = nav.classList.contains('is-compact') ? button : document.querySelector('.head a');
+      fallback?.focus({ preventScroll: true });
+    }
     element.classList.toggle('is-scroll-hidden', !visible);
     element.toggleAttribute('inert', !visible);
     element.setAttribute('aria-hidden', String(!visible));
@@ -592,9 +625,19 @@ function initializeDesktopNavigation(desktop, panel) {
     }
     if (desktop.matches) {
       if (reading && reading.parentElement !== document.body) document.body.append(reading);
-      setVisible(panel, scrollY < innerHeight * 0.55 || panel.contains(document.activeElement));
-      setVisible(reading, scrollY >= innerHeight || reading?.contains(document.activeElement));
+      const compact = scrollY >= innerHeight * 0.55;
+      nav.classList.toggle('is-compact', compact);
+      button.toggleAttribute('inert', !compact);
+      button.setAttribute('aria-hidden', String(!compact));
+      if (!compact && nav.classList.contains('open')) setOpen(false);
+      if (!compact && document.activeElement === button) document.querySelector('.head a')?.focus({ preventScroll: true });
+      setVisible(panel, !compact || nav.classList.contains('open'));
+      const footerNear = footer && footer.getBoundingClientRect().top <= innerHeight + 56;
+      setVisible(reading, scrollY >= innerHeight && !footerNear);
     } else {
+      nav.classList.remove('is-compact');
+      button.removeAttribute('inert');
+      button.removeAttribute('aria-hidden');
       panel.classList.remove('is-scroll-hidden');
       if (existing && reading.parentElement === document.body) origin.after(reading);
       if (reading) {
@@ -612,6 +655,7 @@ function initializeDesktopNavigation(desktop, panel) {
   window.addEventListener('resize', schedule, { passive: true });
   window.addEventListener('pageshow', schedule);
   desktop.addEventListener('change', schedule);
+  if (footer) new IntersectionObserver(schedule, { rootMargin: '0px 0px 56px 0px' }).observe(footer);
   updateLinks();
   update();
 }

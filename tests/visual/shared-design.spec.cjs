@@ -175,8 +175,10 @@ test('Desktop scroll thresholds and in-page navigation preserve keyboard access'
    }
    if(desktop){
     await page.locator('#navArea .inner a').first().focus();await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});
-    await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden','false');
-    await page.keyboard.press('Tab');await page.evaluate(()=>document.activeElement.blur());
+    const compact=await page.evaluate(()=>scrollY>=innerHeight*0.55);
+    await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden',String(compact));
+    if(compact){await expect(page.locator('.toggle_btn')).toBeFocused();await page.locator('.toggle_btn').click();await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden','false');await page.keyboard.press('Escape');}
+    await page.evaluate(()=>document.activeElement.blur());
     await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden',String(await page.evaluate(()=>scrollY>=innerHeight*0.55)));
     if(withSidebar.includes(route)){
      await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});

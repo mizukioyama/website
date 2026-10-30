@@ -185,3 +185,13 @@ Desktop horizontal navigation uses one shared size role, weight and tracking, wi
 - Mobile title/subtitle, artwork, Reading Nav and text are in normal flow with no fixed height; the artwork remains uncropped. The shared reading gutter is `clamp(24px, 7vw, 32px)`, inside the existing mobile breakpoint. Year/content cells reuse the existing history-table roles.
 - No new CSS variables, CSS files or media-query boundaries. The legacy Statement-only Reading Nav class and repeated inline body/divider declarations are removed. Typography checking follows the shared CSS source rather than requiring duplicate inline rules.
 - Local candidate only. Design review, clean committed-output validation and formal Linux comparison precede publication approval.
+
+
+## 2026-10-30 local navigation UX candidate
+
+- Reuse the single shared Header panel and native button. Desktop primary links remain inline below55vh; from55vh the same panel opens from a compact top-right control. Mobile keeps its64px circle at right5vmin/bottom35vmin. New desktop controls do not move the mobile button.
+- The existing scroll controller owns the compact state and100vh reading navigation. Sidebar center is50% on both axes of its allocated free area; use the shared4vh link gap and bounded scrollable height to avoid artwork/header contact in short viewports. Footer root-margin56px hides the rail before its real element enters the viewport; focus moves to the visible compact button before inert is applied.
+- Discrete controls share a44px target floor in all.css. Existing44px Reading Nav height is reused, with a44px minimum width for its shortest link. Prose inline links and artwork cards retain their semantic layout. Footer uses natural height so enlarged controls cannot collide with copyright.
+- Short mobile first views reserve up to80px of line width beside the restored fixed control. H1 remains at50svh, with unchanged Font Size tokens and no new breakpoint or JavaScript layout measurement.
+- Gallery audit: standard-background.css remains the shared static image/contrast source; Selected Ink Field is the primary WebGL canvas (z=-1), TRUNK is the optional accent (z=0), Organic Flow is the distinct overlay (z=5), and the Gallery reading surface keeps its intentional dark/blur treatment atz=10. Three normal-motion canvases serve different roles; no Ripple/Fog runtime resource remains. Retain these layers. Only inactive legacy background-color comments were removed.
+- Local implementation/review only. No commit, push, publication or Linux baseline update in this task.

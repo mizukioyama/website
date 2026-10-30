@@ -60,10 +60,12 @@
   }
   body:not(.home) .h1-text h1 {
     grid-row: 2;
+    max-width: calc(100% - clamp(0px, calc(100vw - 100svh), 80px));
   }
   body:not(.home) .h1-text .subtext {
     grid-row: 3;
     align-self: start;
+    max-width: calc(100% - clamp(0px, calc(100vw + 320px - 100svh), 80px));
     margin-top: 1.5rem;
   }
   body.art-page .h1-text {

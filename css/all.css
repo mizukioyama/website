@@ -50,6 +50,17 @@ dd {
   list-style: none;
 }
 
+/* Discrete controls share a target floor; prose links and artwork cards keep their own flow. */
+:where(.head a, #langChange label, #navArea .inner a, .toggle_btn, footer > a, #category-header, #category-menu li[data-category], .page-btn, .view-policy-button, .order-cta, .submit-btn, #modalCloseBtn, .modal-close-label, .button-wrap a, .not-found-links a, a.info-link, .info-link > a, .detail-link, .back-link) {
+  min-width: 44px;
+  min-height: 44px;
+}
+:where(.info-link > a) { display: inline-flex; align-items: center; }
+:where(#langChange label, .toggle_btn, footer > a, .page-btn, .view-policy-button, .order-cta, .submit-btn, .not-found-links a, a.info-link, .info-link > a, .detail-link, .back-link):focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+
 a {
   text-decoration: none;
   color: inherit;
