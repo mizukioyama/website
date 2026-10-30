@@ -53,10 +53,10 @@ test('Navigation UX 125 and 200 percent equivalent reflow',async({browser},info)
 });
 
 test('Navigation UX language controls retain click and keyboard behavior',async({page},info)=>{
- test.skip(info.project.name==='tablet-768');await prepare(page);await page.goto('order.html');const ja=page.locator('#langChange label[for="langJa"]'),en=page.locator('#langChange label[for="langEn"]');
+ await prepare(page);await page.goto('order.html');const desktop=page.viewportSize().width>=1024;const ja=page.locator('#langChange label[for="langJa"]'),en=page.locator('#langChange label[for="langEn"]');
  for(const label of [ja,en]){const r=await label.boundingBox();expect(r.width).toBeGreaterThanOrEqual(44);expect(r.height).toBeGreaterThanOrEqual(44);}
  await en.focus();await page.keyboard.press('Enter');await expect(en).toHaveAttribute('aria-pressed','true');expect(await page.evaluate(()=>window.getPortfolioLanguage())).toBe('en');await ja.focus();await page.keyboard.press('Space');await expect(ja).toHaveAttribute('aria-pressed','true');expect(await page.evaluate(()=>window.getPortfolioLanguage())).toBe('ja');
- if(info.project.name==='desktop-1440')await page.evaluate(()=>scrollTo({top:innerHeight*.6,behavior:'instant'}));await page.locator('.toggle_btn').click();if(info.project.name==='desktop-1440')await expect(page.locator('#langChange')).toBeVisible();else await expect(page.locator('#langChange')).toBeHidden();await page.keyboard.press('Escape');await expect(page.locator('#langChange')).toBeVisible();
+ if(desktop)await page.evaluate(()=>scrollTo({top:innerHeight*.6,behavior:'instant'}));await page.locator('.toggle_btn').click();if(desktop)await expect(page.locator('#langChange')).toBeVisible();else await expect(page.locator('#langChange')).toBeHidden();await page.keyboard.press('Escape');await expect(page.locator('#langChange')).toBeVisible();
 });
 
 test('Standalone Information and exhibition links have usable hit areas',async({page},info)=>{
