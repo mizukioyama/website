@@ -257,6 +257,6 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 
 ## Responsive first-view / reading-layout candidate — 2026-10-30
 
-- Local review only: shared smartphone H1 Grid using svh, consolidated reading gutters/paragraph spacing,1200px State Box,800px maximum Content and centered left-area Sidebar with28px/350ms motion. Keep existing Header sizes,55vh/100vh thresholds, content, artwork, backgrounds and Typography values.
+- Owner-approved release candidate: shared smartphone H1 Grid using svh, consolidated reading gutters/paragraph spacing,1200px State Box,800px maximum Content and centered left-area Sidebar with28px/350ms motion. Keep existing Header sizes,55vh/100vh thresholds, content, artwork, backgrounds and Typography values.
 - The existing mobile menu control moves to the upper right only on non-Home pages with an H1 first view, resolving measured short-screen text collisions. Home/404 and tablet behavior remain separate. Long subtitles may expand short landscape flow boxes; a shared visual offset retains the50svh H1 center.
-- No commit/push/deployment or Linux-reference adoption. Local review evidence and private Drive links belong in reports/responsive-layout-20261030 in the formal repository. Design review and later formal Linux release verification remain pending.
+- Design review completed; PR #43 tracks clean repository checks, individual Linux image review and conditional publication. Private review evidence stays outside the release. Physical-device acceptance remains separate.

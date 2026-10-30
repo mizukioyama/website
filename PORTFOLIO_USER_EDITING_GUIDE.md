@@ -81,7 +81,7 @@ Font-size editing stays in `assets/css/user-settings.css` → `USER EDITABLE —
 
 `css/menu.css`: the menu region uses `min(100%, clamp(1080px, calc(25vw + 720px), 1200px))`. At 1920px it is 1200px, at 1440px it is 1080px; the horizontal rule shares that width and meets the viewport right edge. Below the available logo+menu space it shrinks safely. The existing 1299px typography boundary is reused for six equal columns; narrower desktop widths use evenly spaced links. No new viewport breakpoint or Font Size token. Home uses compact header-only vertical spacing to preserve its existing creator label. The left brand/language column stays visible while the primary menu and rule fade after 55vh. The in-page rail still appears after 100vh.
 
-## Responsive layout ownership — local review candidate 2026-10-30
+## Responsive layout ownership — approved design 2026-10-30
 
 - Existing desktop rules in css/menu.css own the explicit PC brand18px / primary links16px exceptions. Shared Footer, language-control and non-PC Typography values remain unchanged. The logo link is relatively positioned with inset:auto so its existing hover decoration uses its own text width.
 - css/gallery.css owns --reading-column-width, capped at800px and allowed to shrink. State Box is capped at1200px; six reading pages right-align the column with4vmin right padding. Scope parent padding to main: Statement has a legacy shared body/main ID.
