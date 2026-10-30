@@ -2267,6 +2267,7 @@ test("Yurayura nested navigation resolves to project root", async ({ page }, tes
   const pageBackLink = page.locator("a.back-link");
   await expect(pageBackLink).toHaveAttribute("href", "../../information.html");
 
+  await toggle.focus();
   await page.keyboard.press("Space");
   await expect(page.locator("#navArea")).not.toHaveClass(/open/);
 

@@ -21,7 +21,13 @@ for(const route of routes)test('Shared desktop navigation / standard background 
    await link.focus();await expect(link).toBeFocused();
   }
   await expect(page.locator('header [aria-current="page"]')).toHaveCount(['information.html','policy.html','exhibitions/yurayura/','404.html'].includes(route)?0:1);
-  if(!route){const header=await page.locator('header').boundingBox();const creator=await page.locator('.back__slide.active .creator').boundingBox();expect(creator.y).toBeGreaterThanOrEqual(header.y+header.height);}
+  if(!route){
+   const creator=await page.locator('.back__slide.active .creator').boundingBox();
+   // The full transparent header spans blank space; test the actual visible regions.
+   for(const region of await page.locator('header .head a:visible,#langChange:visible,#navArea nav:visible').all()){
+    const r=await region.boundingBox();expect(r.x+r.width<=creator.x||creator.x+creator.width<=r.x||r.y+r.height<=creator.y||creator.y+creator.height<=r.y).toBe(true);
+   }
+  }
 
  }else{
   await expect(nav).toHaveAttribute('inert','');await toggle.focus();await page.keyboard.press('Enter');
