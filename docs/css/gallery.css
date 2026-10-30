@@ -687,8 +687,10 @@ main {
 .state-box {
   display: flex;
   width: 100%;
-  max-width: 100%;
+  max-width: 1200px;
   min-width: 0;
+  margin-left: auto;
+  margin-right: 0;
   padding-top: 48vmin;
 }
 
@@ -738,18 +740,18 @@ main {
 
 /* One width also reserves the matching sidebar and artwork space. */
 @media screen and (min-width: 1024px) {
-  :root { --reading-column-width: clamp(800px, calc(6.69642857vw + 731.428571px), 860px); }
+  :root { --reading-column-width: min(800px, calc(100vw - 4vmin - 2rem)); }
   main:is(#state, #policy, .information-page, .order-page, .exhibition-page) { padding-right: 4vmin; }
   #state .content h3 { padding-inline: 0; }
   :is(.information-page, .exhibition-page) > .state-box > .content > :is(.information-intro, .lead) { width: auto; }
   :is(#state, #policy, .information-page, .order-page, .exhibition-page) > .content,
   :is(#state, .information-page, .order-page, .exhibition-page) > .state-box > .content {
     width: var(--reading-column-width);
-    min-width: min(800px, 100%);
-    max-width: min(860px, 100%);
+    min-width: 0;
+    max-width: 100%;
     margin-left: auto;
     margin-right: 0;
-    flex-shrink: 0;
+    flex-shrink: 1;
   }
   .gallery.statement > .state-box { flex-direction: column; }
   .gallery.statement > .state-box > .state-img {

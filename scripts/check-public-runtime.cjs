@@ -66,12 +66,12 @@ async function scroll(page, ratio) {
             await scroll(page, 1.5);
             const columns = await page.locator('main .content:visible').evaluateAll(es => es.map(e => {
               const r=e.getBoundingClientRect(), side=document.querySelector('body > .page-navigation').getBoundingClientRect();
-              return {width:r.width, rightGap:innerWidth-r.right, gap:r.left-side.right, sideLeft:side.left};
+              return {width:r.width, rightGap:innerWidth-r.right, gap:r.left-side.right, sideCenter:side.left+side.width/2, columnLeft:r.left};
             }));
             for (const c of columns) {
-              assert.ok(Math.abs(c.width-Math.max(800,Math.min(860,800+(width-1024)*60/896)))<1, route+' content width');
+              assert.ok(Math.abs(c.width-Math.min(800,width-Math.min(width,900)*0.04-32))<1, route+' content width');
               assert.ok(Math.abs(c.rightGap-Math.min(width,900)*0.04)<1, route+' right gutter');
-              assert.ok(Math.abs(c.sideLeft-Math.min(width,900)*(width<=1299?0.03:0.1))<1, route+' sidebar inset');
+              assert.ok(Math.abs(c.sideCenter-c.columnLeft/2)<1, route+' sidebar centered in the left free area');
               assert.ok(c.gap>=23.9, route+' sidebar clearance');
             }
             const link = side.locator('a').first();

@@ -141,6 +141,19 @@ test('Mobile bilingual reading flow keeps titles artwork and anchors separate',a
  }
 });
 
+test('Mobile first views center the actual H1 and keep bilingual content in flow',async({page},info)=>{
+ test.skip(info.project.name!=='mobile-390','Mobile height matrix runs once.');test.setTimeout(180000);await prepare(page);
+ await page.addInitScript(()=>{Math.random=()=>0.42;document.addEventListener('DOMContentLoaded',()=>{if(typeof TextScramble==='undefined')return;const original=TextScramble.prototype.setText;TextScramble.prototype.setText=function(t){const p=original.call(this,t);p.then(()=>window.__mobileTitleDone=true);return p;};});});
+ const sizes=[...[320,375,390,430].flatMap(width=>[600,844].map(height=>({width,height}))),{width:320,height:480},{width:430,height:390}];
+ for(const {width,height}of sizes)for(const route of ['biography.html','artist-statement.html','information.html','order.html','policy.html','exhibitions/yurayura/','contact.html','gallery.html']){
+  await page.setViewportSize({width,height});await page.goto(route);await page.waitForFunction(()=>window.__mobileTitleDone);
+  const layout=await page.evaluate(()=>{const h=document.querySelector('.h1-text h1').getBoundingClientRect(),s=document.querySelector('.h1-text .subtext').getBoundingClientRect(),controls=[...document.querySelectorAll('.toggle_btn,.head a,#langChange')].filter(e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden').map(e=>e.getBoundingClientRect());const walk=document.createTreeWalker(document.querySelector('.h1-text'),NodeFilter.SHOW_TEXT);let node,collision=false;while(node=walk.nextNode()){if(!node.textContent.trim())continue;const range=document.createRange();range.selectNodeContents(node);for(const r of range.getClientRects())if(controls.some(c=>r.left<c.right&&r.right>c.left&&r.top<c.bottom&&r.bottom>c.top))collision=true;}return {center:h.y+h.height/2,titleBottom:h.bottom,subtitleTop:s.top,subtitleHeight:s.height,collision,overflow:document.documentElement.scrollWidth-innerWidth};});
+  expect(layout.center,route+' '+width+'x'+height+' H1 center').toBeCloseTo(height/2,0);
+  expect(layout.subtitleTop).toBeGreaterThan(layout.titleBottom);expect(layout.collision,route+' first-view control overlap').toBe(false);expect(layout.overflow).toBe(0);
+  for(const language of ['Ja','En']){const label=page.locator('label[for="lang'+language+'"]');if(await label.isVisible())await label.click();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
+ }
+});
+
 // Desktop scroll navigation is threshold based, independent of direction.
 test('Desktop scroll thresholds and in-page navigation preserve keyboard access',async({page},info)=>{
  test.setTimeout(180000);await prepare(page);
@@ -179,9 +192,28 @@ test('Desktop scroll thresholds and in-page navigation preserve keyboard access'
 });
 
 
+test('Sidebar slide completes without moving Content and honors Reduced Motion',async({page},info)=>{
+ test.skip(info.project.name!=='desktop-1440','Motion lifecycle runs once.');await prepare(page);await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('order.html');
+ const side=page.locator('body>.page-navigation');
+ const settled=()=>side.evaluate(async e=>{getComputedStyle(e).opacity;await Promise.all(e.getAnimations().map(a=>a.finished));});
+ const read=()=>side.evaluate(e=>{const r=e.getBoundingClientRect(),c=document.querySelector('main .content').getBoundingClientRect(),s=getComputedStyle(e);return {x:r.x,column:c.left,duration:s.transitionDuration,opacity:s.opacity,visibility:s.visibility,pointer:s.pointerEvents,inert:e.inert};});
+ await expect(side).toHaveAttribute('aria-hidden','true');await settled();const hidden=await read();expect(hidden.inert).toBe(true);expect(hidden.duration.split(',').every(s=>parseFloat(s)===0.35)).toBe(true);
+ await page.evaluate(()=>scrollTo({top:innerHeight,behavior:'instant'}));await expect(side).toHaveAttribute('aria-hidden','false');await settled();const visible=await read();expect(visible.x-hidden.x).toBeCloseTo(28,0);expect(visible.column).toBe(hidden.column);expect(visible.opacity).toBe('1');
+ await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await expect(side).toHaveAttribute('aria-hidden','true');await settled();expect(await read()).toMatchObject({opacity:'0',visibility:'hidden',pointer:'none',inert:true});
+ await page.emulateMedia({reducedMotion:'reduce'});const reducedHidden=await read();expect(reducedHidden.duration).toBe('0s');await page.evaluate(()=>scrollTo({top:innerHeight,behavior:'instant'}));await expect(side).toHaveAttribute('aria-hidden','false');const reducedVisible=await read();expect(reducedVisible.x).toBeCloseTo(reducedHidden.x,0);expect(reducedVisible.duration).toBe('0s');
+});
+
+test('Sidebar centers with visible scrollbar space',async({playwright},info)=>{
+  test.skip(info.project.name!=='desktop-1440','Scrollbar audit runs once.');const browser=await playwright.chromium.launch({ignoreDefaultArgs:['--hide-scrollbars']});try{const context=await browser.newContext({baseURL:info.project.use.baseURL,viewport:{width:1920,height:900},colorScheme:'dark',reducedMotion:'reduce'}),page=await context.newPage();await prepare(page);await page.goto('order.html');
+  for(const width of [1920,1024]){await page.setViewportSize({width,height:900});await page.evaluate(()=>scrollTo({top:innerHeight,behavior:'instant'}));await expect(page.locator('body>.page-navigation')).toHaveAttribute('aria-hidden','false');
+   const r=await page.evaluate(()=>{const c=document.querySelector('main .content').getBoundingClientRect(),s=document.querySelector('body>.page-navigation').getBoundingClientRect();return {bar:innerWidth-document.documentElement.clientWidth,center:s.x+s.width/2,left:c.left,gap:c.left-s.right};});expect(r.bar).toBeGreaterThan(0);expect(r.center).toBeCloseTo(r.left/2,0);expect(r.gap).toBeGreaterThanOrEqual(23.9);
+  }
+  }finally{await browser.close();}
+});
+
 test('PC sidebar and right-aligned reading column share the available width',async({page},info)=>{
  test.skip(info.project.name!=='desktop-1440','Responsive geometry audit runs once.');test.setTimeout(240000);await prepare(page);
- const cases=[... [1920,1600,1440,1300,1299,1280,1024,768,390].map(width=>({width,height:900})),... [600,768,1080,1200].map(height=>({width:1024,height}))];
+ const cases=[... [1920,1600,1440,1300,1299,1280,1024,768,390].map(width=>({width,height:900})),... [600,720,768,1080,1200].map(height=>({width:1024,height})),... [1536,1152,819].map(width=>({width,height:720}))]; // 125% desktop zoom equivalent CSS viewports: 1920/1440/1280/1024 at 900px physical height.
  for(const {width,height} of cases){
   await page.setViewportSize({width,height});
   for(const route of ['biography.html','artist-statement.html','information.html','order.html','policy.html','exhibitions/yurayura/']){
@@ -193,10 +225,11 @@ test('PC sidebar and right-aligned reading column share the available width',asy
     await page.evaluate(async()=>{document.activeElement?.blur();scrollTo({top:innerHeight,behavior:'instant'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))});
     await expect(side).toHaveAttribute('aria-hidden','false');
     const layout=await side.evaluate(n=>{const r=n.getBoundingClientRect(),s=getComputedStyle(n),intersects=b=>r.left<b.right&&r.right>b.left&&r.top<b.bottom&&r.bottom>b.top;
-     return {x:r.x,margin:parseFloat(s.marginLeft),left:s.left,width:r.width,maxWidth:parseFloat(s.maxWidth),overlap:[...document.querySelectorAll('main .content, main .state-img img')].some(e=>e.getClientRects().length&&intersects(e.getBoundingClientRect())),overflow:document.documentElement.scrollWidth>innerWidth+1,clipped:[...n.querySelectorAll('a')].some(e=>e.scrollWidth>e.clientWidth+1)};});
-    expect(layout.x,route+' '+width+' '+lang).toBeCloseTo(Math.min(width,height)*(width<=1299?0.03:0.1),0);expect(layout.margin).toBeCloseTo(layout.x,0);expect(layout.left).toBe('0px');
+     const column=[...document.querySelectorAll('main .content')].find(e=>e.getClientRects().length).getBoundingClientRect();
+     return {x:r.x,center:r.x+r.width/2,columnLeft:column.left,margin:parseFloat(s.marginLeft),width:r.width,maxWidth:parseFloat(s.maxWidth),states:[...document.querySelectorAll('main .state-box')].filter(e=>e.getClientRects().length).map(e=>e.getBoundingClientRect().width),overlap:[...document.querySelectorAll('main .content, main .state-img img')].some(e=>e.getClientRects().length&&intersects(e.getBoundingClientRect())),overflow:document.documentElement.scrollWidth>innerWidth+1,clipped:[...n.querySelectorAll('a')].some(e=>e.scrollWidth>e.clientWidth+1)};});
+    expect(layout.center,route+' '+width+' '+lang).toBeCloseTo(layout.columnLeft/2,0);expect(layout.margin).toBe(0);for(const state of layout.states)expect(state).toBeLessThanOrEqual(1200);
     const columns=await page.locator('main .content:visible').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect(),p=e.parentElement.getBoundingClientRect();return {width:r.width,right:r.right,parentRight:p.right-parseFloat(getComputedStyle(e.parentElement).paddingRight),rightGap:innerWidth-r.right,gap:r.left-document.querySelector('body > .page-navigation').getBoundingClientRect().right,internal:[...e.querySelectorAll('.biography-section > h2,.biography-section > h3,.biography-section > p,.biography-section > table,.statement-section-heading,.work > p.state-txt,.order-lead,.history-table,.information-intro,.lead')].filter(t=>t.getClientRects().length).map(t=>{const q=t.getBoundingClientRect(),ts=getComputedStyle(t);return {left:q.left-r.left,padding:parseFloat(ts.paddingLeft),right:q.right-r.right};})};}));
-    for(const c of columns){expect(c.width).toBeCloseTo(Math.max(800,Math.min(860,800+(width-1024)*60/896)),0);expect(c.right).toBeCloseTo(c.parentRight,0);expect(c.rightGap).toBeCloseTo(Math.min(width,height)*0.04,0);expect(c.gap).toBeGreaterThanOrEqual(23.9);for(const t of c.internal){expect(Math.abs(t.left)).toBeLessThan(1);expect(t.padding).toBe(0);expect(t.right).toBeLessThanOrEqual(1);}}
+    for(const c of columns){expect(c.width).toBeCloseTo(Math.min(800,width-Math.min(width,height)*0.04-32),0);expect(c.right).toBeCloseTo(c.parentRight,0);expect(c.rightGap).toBeCloseTo(Math.min(width,height)*0.04,0);expect(c.gap).toBeGreaterThanOrEqual(23.9);for(const t of c.internal){expect(Math.abs(t.left)).toBeLessThan(1);expect(t.padding).toBe(0);expect(t.right).toBeLessThanOrEqual(1);}}
     expect(layout.width).toBeLessThanOrEqual(layout.maxWidth+1);expect(layout.overlap,route+' '+width+' '+lang).toBe(false);expect(layout.overflow).toBe(false);expect(layout.clipped).toBe(false);
    }
   }
