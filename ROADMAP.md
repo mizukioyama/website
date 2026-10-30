@@ -254,3 +254,9 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 - Both Order pricing-test failures occurred on the subsequent Policy title. Linux software-renderer contention delayed its frame-based scramble past the existing5s budget; local and deployed copies both completed without a production logic error.
 - Observe the real TextScramble completion promise in visual fixtures, retain exact text/no-dud/stability assertions and existing timeout budgets, seed the pricing fixture consistently with visual fixtures, and serialize WebGL-heavy tests. Run the isolated Order regression before the unchanged full suite. No production assets or Linux reference images change.
 - Completion requires zero-failure Linux checks and the deployed public-runtime gate; user-owned physical-device review remains separate.
+
+## Responsive first-view / reading-layout candidate — 2026-10-30
+
+- Owner-approved release candidate: shared smartphone H1 Grid using svh, consolidated reading gutters/paragraph spacing,1200px State Box,800px maximum Content and centered left-area Sidebar with28px/350ms motion. Keep existing Header sizes,55vh/100vh thresholds, content, artwork, backgrounds and Typography values.
+- The existing mobile menu control moves to the upper right only on non-Home pages with an H1 first view, resolving measured short-screen text collisions. Home/404 and tablet behavior remain separate. Long subtitles may expand short landscape flow boxes; a shared visual offset retains the50svh H1 center.
+- Design review completed; PR #43 tracks clean repository checks, individual Linux image review and conditional publication. Private review evidence stays outside the release. Physical-device acceptance remains separate.

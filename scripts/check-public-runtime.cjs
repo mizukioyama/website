@@ -20,7 +20,7 @@ async function scroll(page, ratio) {
 }
 (async () => {
   fs.mkdirSync(output, { recursive: true });
-  for (const route of [...routes, 'css/menu.css', 'css/gallery.css', 'assets/css/user-settings.css', 'js/menu.js']) {
+  for (const route of [...routes, 'css/menu.css', 'css/gallery.css', 'css/mobile.css', 'assets/css/user-settings.css', 'js/menu.js']) {
     const file = !route || route.endsWith('/') ? route + 'index.html' : route;
     const url = new URL(route, base);
     url.searchParams.set('release-check', process.env.GITHUB_SHA || 'local');
@@ -36,6 +36,15 @@ async function scroll(page, ratio) {
     for (const width of [1920, 1440, 1280, 1024, 390]) {
       const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
       const page = await context.newPage();
+      await page.addInitScript(() => document.addEventListener('DOMContentLoaded', () => {
+        if (typeof TextScramble === 'undefined') return;
+        const original = TextScramble.prototype.setText;
+        TextScramble.prototype.setText = function(text) {
+          const completion = original.call(this, text);
+          if (this.el.matches('.h1-text h1')) completion.then(() => { window.__runtimeTitleComplete = true; });
+          return completion;
+        };
+      }, { once: true }));
       page.on('pageerror', error => results.errors.push({ width, url: page.url(), message: error.message }));
       for (const route of routes) {
         await page.goto(new URL(route, base).href);
@@ -66,12 +75,12 @@ async function scroll(page, ratio) {
             await scroll(page, 1.5);
             const columns = await page.locator('main .content:visible').evaluateAll(es => es.map(e => {
               const r=e.getBoundingClientRect(), side=document.querySelector('body > .page-navigation').getBoundingClientRect();
-              return {width:r.width, rightGap:innerWidth-r.right, gap:r.left-side.right, sideLeft:side.left};
+              return {width:r.width, rightGap:innerWidth-r.right, gap:r.left-side.right, sideCenter:side.left+side.width/2, columnLeft:r.left};
             }));
             for (const c of columns) {
-              assert.ok(Math.abs(c.width-Math.max(800,Math.min(860,800+(width-1024)*60/896)))<1, route+' content width');
+              assert.ok(Math.abs(c.width-Math.min(800,width-Math.min(width,900)*0.04-32))<1, route+' content width');
               assert.ok(Math.abs(c.rightGap-Math.min(width,900)*0.04)<1, route+' right gutter');
-              assert.ok(Math.abs(c.sideLeft-Math.min(width,900)*(width<=1299?0.03:0.1))<1, route+' sidebar inset');
+              assert.ok(Math.abs(c.sideCenter-c.columnLeft/2)<1, route+' sidebar centered in the left free area');
               assert.ok(c.gap>=23.9, route+' sidebar clearance');
             }
             const link = side.locator('a').first();
@@ -83,6 +92,11 @@ async function scroll(page, ratio) {
           }
         } else {
           await expect(side).toHaveCount(0);
+          if (route && route !== '404.html') {
+            await page.waitForFunction(() => window.__runtimeTitleComplete);
+            const title = await page.locator('.h1-text h1').boundingBox();
+            assert.ok(Math.abs(title.y + title.height / 2 - 450) < 1, route + ' initial H1 center');
+          }
           await page.locator('.toggle_btn').click();
           await expect(page.locator('#navArea')).toHaveClass(/open/);
           await page.keyboard.press('Escape');

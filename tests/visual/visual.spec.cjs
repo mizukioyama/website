@@ -654,13 +654,13 @@ async function assertResponsivePageGeometry(page, entry) {
       const contentStyle = getComputedStyle(content);
       return {
         marginTop: parseFloat(contentStyle.marginTop) || 0,
-        expectedMarginTop: Math.min(window.innerWidth, window.innerHeight) * 0.6,
+        expectedMarginTop: matchMedia("(max-width: 599px)").matches ? 0 : Math.min(window.innerWidth, window.innerHeight) * 0.6,
         titleBottom: title.getBoundingClientRect().bottom,
         sectionTop: sectionTitle.getBoundingClientRect().top
       };
     });
     expect(layout, "Order layout geometry should be measurable").not.toBeNull();
-    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Order should use the shared 60vmin content offset").toBeLessThanOrEqual(1.5);
+    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Order uses mobile flow without a duplicate offset; wider layouts retain60vmin").toBeLessThanOrEqual(1.5);
     expect(layout.titleBottom, "Order H1 must remain above page content").toBeLessThan(layout.sectionTop);
   }
 
@@ -702,13 +702,13 @@ async function assertResponsivePageGeometry(page, entry) {
       const contentStyle = getComputedStyle(content);
       return {
         marginTop: parseFloat(contentStyle.marginTop) || 0,
-        expectedMarginTop: Math.min(window.innerWidth, window.innerHeight) * 0.6,
+        expectedMarginTop: matchMedia("(max-width: 599px)").matches ? 0 : Math.min(window.innerWidth, window.innerHeight) * 0.6,
         titleBottom: title.getBoundingClientRect().bottom,
         sectionTop: sectionTitle.getBoundingClientRect().top
       };
     });
     expect(layout, "Yurayura layout geometry should be measurable").not.toBeNull();
-    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Yurayura should use the shared 60vmin content offset").toBeLessThanOrEqual(1.5);
+    expect(Math.abs(layout.marginTop - layout.expectedMarginTop), "Yurayura uses mobile flow without a duplicate offset; wider layouts retain60vmin").toBeLessThanOrEqual(1.5);
     expect(layout.titleBottom, "Yurayura H1 must remain above page content").toBeLessThan(layout.sectionTop);
   }
 }
