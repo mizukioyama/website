@@ -20,6 +20,7 @@ async function scroll(page, ratio) {
 }
 async function enterHome(page, language = 'ja') {
   const entry = page.locator('#home-entry');
+  await expect(page.locator('#loading-bg')).toHaveAttribute('data-typing-started', 'true');
   if (await entry.isVisible()) {
     await page.locator('[data-entry-language="' + language + '"]').click();
     await page.locator('#home-start').click();

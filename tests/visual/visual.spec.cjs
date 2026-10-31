@@ -1861,11 +1861,16 @@ async function prepareDeterministicNetwork(page) {
   }));
 }
 
+async function completeHomeEntry(page) {
+  if (!await page.locator('#home-entry').count()) return;
+  await expect(page.locator('#loading-bg')).toHaveAttribute('data-typing-started', 'true');
+  if (await page.locator('#home-entry').isVisible()) await page.locator('#home-start').click();
+  await page.waitForFunction(() => !document.querySelector('main.top-page').inert && document.getElementById('home-entry').hidden);
+  await expect(page.locator('#loading-bg')).toBeHidden();
+}
+
 async function stabilize(page, entry = {}) {
-  if (await page.locator("#home-entry").isVisible()) {
-    await page.locator("#home-start").click();
-    await page.waitForFunction(() => !document.querySelector("main.top-page").inert && document.getElementById("home-entry").hidden);
-  }
+  await completeHomeEntry(page);
   await page.addStyleTag({ path: path.resolve(__dirname, "stabilize.css") });
 
   // These pages run both the primary WebGL field and TRUNK in visual tests.
@@ -2398,7 +2403,7 @@ test("Home carousel still advances automatically outside screenshot stabilizatio
   await observeHomeSlides(page);
 
   const response = await page.goto("", { waitUntil: "domcontentloaded" });
-  await page.locator("#home-start").click();
+  await completeHomeEntry(page);
   expect(response, "Home carousel should return a document response").not.toBeNull();
   expect(response.status(), "Home carousel document status").toBe(200);
   await page.waitForFunction(() => {
@@ -3444,6 +3449,7 @@ test("portfolio copy candidate preserves approved content", async ({ page }, tes
     expect(new Set(paragraphs).size, "approved paragraphs should not be duplicated").toBe(paragraphs.length);
   };
   await page.goto("", { waitUntil: "domcontentloaded" });
+  await completeHomeEntry(page);
   await expect(page.locator("#mainContent .content__slide.active h1")).toHaveText("Mizuki Oyama");
   expect(normalize(await page.locator('#mainContent .content__slide.active .desc[lang="ja"]').textContent()))
     .toBe("抽象アーティスト 1998 — Japan");

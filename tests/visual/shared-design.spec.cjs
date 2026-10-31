@@ -7,9 +7,17 @@ async function prepare(page){
  await page.route('https://code.jquery.com/jquery-3.7.1.min.js',r=>r.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.resolve(__dirname,'../../docs/js/jquery-3.7.1.min.js'),'utf8')}));
  for(const pattern of ['https://fonts.googleapis.com/**','https://fonts.gstatic.com/**','https://use.typekit.net/**','https://p.typekit.net/**'])await page.route(pattern,r=>r.fulfill({contentType:r.request().resourceType()==='stylesheet'?'text/css':'application/octet-stream',body:''}));
 }
+// Complete the real entry sequence before checking controls behind its modal.
+async function completeHomeEntry(page){
+ if(!await page.locator('#home-entry').count())return;
+ await expect(page.locator('#loading-bg')).toHaveAttribute('data-typing-started','true');
+ if(await page.locator('#home-entry').isVisible())await page.locator('#home-start').click();
+ await page.waitForFunction(()=>!document.querySelector('main.top-page').inert&&document.getElementById('home-entry').hidden);
+ await expect(page.locator('#loading-bg')).toBeHidden();
+}
 for(const route of routes)test('Shared desktop navigation / standard background '+(route||'Home'),async({page})=>{
  await prepare(page);await page.emulateMedia({reducedMotion:"reduce"});const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
+ await page.goto(route);await completeHomeEntry(page);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
  await expect(page.locator('#navArea nav')).toBeAttached();
  await expect(page.locator('[data-static-primary-navigation], [data-static-footer]')).toHaveCount(0);
  if(route)await expect(page.locator('#footer-container footer')).toHaveCount(1);
@@ -104,7 +112,7 @@ test('Editorial desktop header keeps six equal columns in a right-aligned fluid 
  const labels=['Top','Art Index','Biography','Artist Statement','Order','Contact'];
  const paths=['/website/','/website/gallery.html','/website/biography.html','/website/artist-statement.html','/website/order.html','/website/contact.html'];
  for(const width of [1024,1280,1440,1600,1800,1920])for(const route of ['','gallery.html']){
-  await page.setViewportSize({width,height:900});await page.goto(route);
+  await page.setViewportSize({width,height:900});await page.goto(route);await completeHomeEntry(page);
   await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
   const links=page.locator('#navArea .inner a');await expect(links).toHaveText(labels);
   const inner=await page.locator('#navArea').boundingBox();expect(inner.width).toBeLessThanOrEqual(1200);expect(inner.x+inner.width).toBeCloseTo(width,0);if(width>=1440)expect(inner.width).toBeCloseTo(Math.min(1200,width*.25+720),0);
@@ -123,7 +131,7 @@ test('Editorial desktop header keeps six equal columns in a right-aligned fluid 
   await logo.hover();
   const ornament=await logo.evaluate(e=>{const r=e.getBoundingClientRect(),p=getComputedStyle(e,'::before');return {anchor:r.width,x:r.x,parentX:e.parentElement.getBoundingClientRect().x,pseudo:parseFloat(p.width),position:getComputedStyle(e).position}});
   expect(ornament.x).toBeCloseTo(ornament.parentX,0);expect(ornament.position).toBe('relative');expect(ornament.pseudo).toBeLessThanOrEqual(ornament.anchor*1.1+1);
-  await logo.focus();expect(await logo.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
+  await page.keyboard.press('Tab');await logo.focus();await expect(logo).toBeFocused();expect(await logo.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
   const first=links.first();await first.focus();expect(await first.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
   await first.hover();expect(await first.evaluate(e=>getComputedStyle(e).textDecorationLine)).toContain('underline');
   expect(lastRight).toBeLessThanOrEqual(inner.x+inner.width);if(route)await expect(page.locator('#footer-container a[href$="information.html"]')).toHaveCount(1);
@@ -132,7 +140,7 @@ test('Editorial desktop header keeps six equal columns in a right-aligned fluid 
 test('Mobile bilingual reading flow keeps titles artwork and anchors separate',async({page},info)=>{
  test.skip(info.project.name!=='mobile-390','Reading width audit runs once.');test.setTimeout(120000);await prepare(page);
  for(const width of [320,375,390,430,768])for(const route of ['biography.html','artist-statement.html']){
-  await page.setViewportSize({width,height:900});await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
+  await page.setViewportSize({width,height:900});await page.goto(route);await completeHomeEntry(page);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
   await page.waitForFunction(()=>{const e=document.querySelector('.h1-text h1.text');return !e||e.innerText.trim()===e.getAttribute('aria-label')&&!e.querySelector('.dud')});
   await page.evaluate(()=>document.fonts.ready);
   await page.locator('.state-img img').evaluate(img=>img.complete?Promise.resolve():new Promise(resolve=>img.addEventListener('load',resolve,{once:true})));
@@ -169,7 +177,7 @@ test('Desktop scroll thresholds and in-page navigation preserve keyboard access'
  for(const width of widths){
   await page.setViewportSize({width,height:900});
   for(const route of routes){
-   await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});await page.evaluate(()=>document.fonts.ready);await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden',desktop?'false':'true');
+   await page.goto(route);await completeHomeEntry(page);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});await page.evaluate(()=>document.fonts.ready);await expect(page.locator('#navArea nav')).toHaveAttribute('aria-hidden',desktop?'false':'true');
    const side=page.locator('body > .page-navigation');
    for(const ratio of [0,0.5,0.6,0.9,1.1,0.6,0]){
     await page.evaluate(async r=>{document.activeElement?.blur();scrollTo({top:innerHeight*r,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))},ratio);
@@ -225,7 +233,7 @@ test('PC sidebar and right-aligned reading column share the available width',asy
  for(const {width,height} of cases){
   await page.setViewportSize({width,height});
   for(const route of ['biography.html','artist-statement.html','information.html','order.html','policy.html','exhibitions/yurayura/']){
-   await page.goto(route);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
+   await page.goto(route);await completeHomeEntry(page);await page.addStyleTag({path:path.resolve(__dirname,'stabilize.css')});
    const side=page.locator('body > .page-navigation');
    if(width<1024){await expect(side).toHaveCount(0);continue;}
    for(const lang of ['Ja','En']){
