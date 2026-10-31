@@ -297,45 +297,90 @@ function initializeCustomCursor() {
  * @returns {void}
  */
 function initializeTyping() {
-  const lines = document.querySelectorAll('.typing-line');
-  const typingSpeed = 55;
-
-  function typeLine(lineEl, text, callback) {
-    let i = 0;
-    function typeChar() {
-      if (i < text.length) {
-        lineEl.textContent += text[i++];
-        setTimeout(typeChar, typingSpeed);
-      } else {
-        callback();
-      }
+  const loading = document.getElementById('loading-bg');
+  if (!loading || loading.dataset.typingStarted) return;
+  loading.dataset.typingStarted = 'true';
+  const entry = document.getElementById('home-entry');
+  const backgrounds = new Map();
+  let fallbackTimer;
+  let completed = false;
+  const release = () => {
+    if (completed) return;
+    completed = true;
+    clearTimeout(fallbackTimer);
+    loading.hidden = true;
+    if (entry) entry.hidden = true;
+    for (const [element, wasInert] of backgrounds) element.inert = wasInert;
+    backgrounds.clear();
+    try { sessionStorage.setItem('portfolioHomeStarted', 'true'); } catch (_) {}
+    document.dispatchEvent(new Event('portfolio:homeready'));
+    if (entry) document.querySelector('.content__slide.active .button')?.focus({ preventScroll: true });
+  };
+  const lock = () => {
+    for (const element of document.body.children) {
+      if (element === entry || element === loading || element.matches('script,style,link,noscript')) continue;
+      backgrounds.set(element, element.inert);
+      element.inert = true;
     }
-    typeChar();
-  }
-
-  function typeAllLines(index = 0) {
-    if (index >= lines.length) {
-      setTimeout(() => {
-        const loadingBg = document.getElementById('loading-bg');
-        if (loadingBg) {
-          loadingBg.style.transition = 'opacity 0.8s';
-          loadingBg.style.opacity = 0;
-          setTimeout(() => {
-            loadingBg.style.display = 'none';
-          }, 650);
-        }
-      }, 500);
-      return;
-    }
-
-    const line = lines[index];
-    const text = line.dataset.text;
-    typeLine(line, text, () => typeAllLines(index + 1));
-  }
-
-  if (lines.length > 0) {
-    typeAllLines();
-  }
+  };
+  const run = () => {
+    if (loading.dataset.running) return;
+    loading.dataset.running = 'true';
+    entry?.setAttribute('hidden', '');
+    loading.hidden = false;
+    const language = getLang();
+    const lines = [...loading.querySelectorAll('.typing-line')];
+    lines.forEach(line => { line.hidden = line.lang !== language; line.style.display = line.hidden ? 'none' : ''; line.textContent = ''; });
+    const selected = lines.filter(line => line.lang === language);
+    loading.setAttribute('aria-label', selected.map(line => line.dataset.text).join(' '));
+    lines.forEach(line => line.setAttribute('aria-hidden', 'true'));
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const textLength = selected.reduce((sum, line) => sum + line.dataset.text.length, 0);
+    fallbackTimer = setTimeout(release, textLength * 55 + 4000);
+    if (reduced) { selected.forEach(line => line.textContent = line.dataset.text); setTimeout(release, 350); return; }
+    let index = 0;
+    const next = () => {
+      if (completed) return;
+      const line = selected[index++];
+      if (!line) { setTimeout(release, 500); return; }
+      let position = 0;
+      const type = () => {
+        if (completed) return;
+        line.textContent = line.dataset.text.slice(0, ++position);
+        if (position < line.dataset.text.length) setTimeout(type, 55);
+        else next();
+      };
+      type();
+    };
+    next();
+  };
+  let visited = false;
+  try { visited = sessionStorage.getItem('portfolioHomeStarted') === 'true'; } catch (_) {}
+  if (!entry || visited) { release(); return; }
+  lock();
+  entry.hidden = false;
+  loading.hidden = true;
+  const languageButtons = [...entry.querySelectorAll('[data-entry-language]')];
+  const sync = () => languageButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.entryLanguage === getLang())));
+  languageButtons.forEach(button => button.addEventListener('click', () => {
+    const input = document.getElementById(button.dataset.entryLanguage === 'en' ? 'langEn' : 'langJa');
+    input.checked = true;
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    sync();
+  }));
+  document.addEventListener('portfolio:languagechange', sync);
+  entry.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const controls = [...entry.querySelectorAll('button')];
+    if (event.shiftKey && document.activeElement === controls[0]) { event.preventDefault(); controls.at(-1).focus(); }
+    else if (!event.shiftKey && document.activeElement === controls.at(-1)) { event.preventDefault(); controls[0].focus(); }
+  });
+  document.getElementById('home-start').addEventListener('click', run, { once: true });
+  // If a runtime error occurs, unblock the existing site rather than trapping visitors.
+  window.addEventListener('error', release, { once: true });
+  window.addEventListener('pageshow', event => { if (event.persisted && completed) { loading.hidden = true; entry.hidden = true; } });
+  sync();
+  languageButtons.find(button => button.getAttribute('aria-pressed') === 'true')?.focus();
 }
 
 function normalizeLanguage(value) {
@@ -466,7 +511,9 @@ function applyLocalizedContent(language) {
 
   if (isBilingualPage()) {
     localizedElements.forEach(element => {
-      if (!showPersistentSubtitle(element)) element.style.display = 'block';
+      if (element.closest('.modal-box') && document.getElementById('policy-modal-content')) {
+        element.style.display = element.lang === selectedLanguage ? '' : 'none';
+      } else if (!showPersistentSubtitle(element)) element.style.display = 'block';
     });
   } else {
     document.querySelector('#langChange .ja')?.classList.toggle('active', selectedLanguage === 'ja');
@@ -667,12 +714,74 @@ function initializeHeader() {
     new multi_language();
 
     initializeMenu();
+    initializePolicyControls();
     requestAnimationFrame(() => {
       if (typeof initializeTyping === 'function') initializeTyping();
     });
   } catch (error) {
     console.error('Error building header:', error);
   }
+}
+
+function initializePolicyControls() {
+  const toggle = document.getElementById('modal-toggle');
+  const opener = document.querySelector('button.modal-open-label');
+  const panel = toggle?.nextElementSibling?.nextElementSibling;
+  const close = panel?.querySelector('button.modal-close-label');
+  if (!toggle || !opener || !close || toggle.dataset.policyControlsBound === 'true') return;
+  toggle.dataset.policyControlsBound = 'true';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-modal', 'true');
+  if (!panel.hasAttribute('aria-labelledby')) panel.setAttribute('aria-label', 'Site Policy');
+  panel.tabIndex = -1;
+  const overlay = toggle.nextElementSibling;
+  const background = new Map();
+  const content = panel.querySelector('[id]');
+  if (content) opener.setAttribute('aria-controls', content.id);
+  const update = (focus = true) => {
+    opener.setAttribute('aria-expanded', String(toggle.checked));
+    if (toggle.checked && !background.size) {
+      for (const child of document.body.children) {
+        if (child === panel || child === overlay || child === toggle || child.contains(panel) || child.matches('script,style,link')) continue;
+        background.set(child, child.inert);
+        child.inert = true;
+      }
+    } else if (!toggle.checked) {
+      for (const [child, inert] of background) child.inert = inert;
+      background.clear();
+    }
+    if (!focus) return;
+    let target = toggle.checked ? panel : opener;
+    if (!toggle.checked && opener.closest('.content__slide:not(.active)')) {
+      const menu = document.querySelector('.toggle_btn');
+      target = menu?.getClientRects().length && !menu.hasAttribute('inert') ? menu : document.querySelector('.head a');
+    }
+    target?.focus({ preventScroll: true });
+  };
+  const setOpen = open => {
+    toggle.checked = open;
+    toggle.dispatchEvent(new Event('change', { bubbles: true }));
+  };
+  opener.addEventListener('click', () => setOpen(true));
+  close.addEventListener('click', () => setOpen(false));
+  overlay?.addEventListener('click', () => setOpen(false));
+  panel.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && toggle.checked) {
+      event.preventDefault();
+      setOpen(false);
+    } else if (event.key === 'Tab' && toggle.checked) {
+      const controls = [...panel.querySelectorAll('a[href],button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')]
+        .filter(element => element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden' && !element.closest('[inert]'));
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (document.activeElement === panel || (event.shiftKey && document.activeElement === first) || (!event.shiftKey && document.activeElement === last)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first)?.focus();
+      }
+    }
+  });
+  toggle.addEventListener('change', () => update());
+  update(false);
 }
 
 function toggleAccordion(element) {

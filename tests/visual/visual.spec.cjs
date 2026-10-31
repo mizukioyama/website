@@ -10,6 +10,245 @@ const localJquery = fs.readFileSync(
 const visualBaselineProjects = new Set(["desktop-1440", "mobile-390"]);
 const fullAudit = process.env.VISUAL_FULL === "1";
 
+test("Navigation cells and pagination retain complete hit areas", async ({ page }) => {
+  await page.goto("gallery.html");
+  const next = page.locator(".next-btn");
+  await expect(next).toBeVisible();
+  const box = await next.boundingBox();
+  expect(box.width).toBeGreaterThanOrEqual(44);
+  expect(box.height).toBeGreaterThanOrEqual(44);
+  if (page.viewportSize().width >= 1299) {
+    for (const link of await page.locator("#navArea .inner li a").all()) {
+      const dimensions = await link.evaluate(el => ({ link: el.getBoundingClientRect().width, cell: el.parentElement.getBoundingClientRect().width }));
+      expect(Math.abs(dimensions.link - dimensions.cell)).toBeLessThan(1);
+    }
+  }
+});
+
+test("Contact policy opener supports native keyboard activation", async ({ page }) => {
+  await page.goto("contact.html");
+  const opener = page.locator("#contactForm button.modal-open-label");
+  await expect(opener).toBeVisible();
+  const box = await opener.boundingBox();
+  expect(box.height).toBeGreaterThanOrEqual(44);
+  await opener.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#modal-toggle")).toBeChecked();
+  await expect(page.locator('.modal-box')).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(page.locator('.modal-close-label')).toBeFocused();
+  expect(await page.locator(".modal-close-label").evaluate(element => getComputedStyle(element).outlineStyle)).not.toBe("none");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#modal-toggle")).not.toBeChecked();
+  await expect(opener).toBeFocused();
+  await page.keyboard.press("Space");
+  await expect(page.locator("#modal-toggle")).toBeChecked();
+  await page.locator(".modal-close-label").press("Space");
+  await expect(page.locator("#modal-toggle")).not.toBeChecked();
+  await page.locator("#radio2").focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.locator("#radio1")).toBeChecked();
+});
+
+test("Gallery controls remain operable after hit-area changes", async ({ page }, testInfo) => {
+  await prepareDeterministicNetwork(page);
+  await page.goto("gallery.html");
+  await stabilize(page, pages.find(entry => entry.key === "gallery"));
+  await exerciseGalleryRuntime(page, testInfo.project.name, testInfo);
+});
+
+test("Contact controls remain operable after hit-area changes", async ({ page }, testInfo) => {
+  await prepareDeterministicNetwork(page);
+  await page.goto("contact.html");
+  await stabilize(page, pages.find(entry => entry.key === "contact"));
+  await exerciseContactRuntime(page, testInfo);
+});
+
+test("Mobile reading-link hover does not move later click targets", async ({ page }) => {
+  await prepareDeterministicNetwork(page);
+  for (const width of [375, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("biography.html");
+    await stabilize(page, pages.find(entry => entry.key === "biography"));
+    const reading = page.locator("main .reading-nav");
+    const height = await reading.evaluate(element => element.getBoundingClientRect().height);
+    await reading.locator("a").last().hover();
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    expect(Math.abs(await reading.evaluate(element => element.getBoundingClientRect().height) - height)).toBeLessThan(1);
+    await page.locator("footer > a").first().hover();
+    expect(Math.abs(await reading.evaluate(element => element.getBoundingClientRect().height) - height)).toBeLessThan(1);
+  }
+});
+
+test("Home Policy controls support native keyboard activation and focus return", async ({ page }) => {
+  await prepareDeterministicNetwork(page);
+  await observeHomeSlides(page);
+  await page.goto("");
+  await page.locator("#home-start").click();
+  await expect(page.locator('#loading-bg')).toBeHidden({ timeout: 25000 });
+  await page.waitForFunction(() => window.__visualHomeSlideHistory.length >= 3 && window.__visualHomeSlideHistory.at(-1) === 0);
+  await expect(page.locator(".content__slide.exit")).toHaveCount(0);
+  const opener = page.locator("button.modal-open-label");
+  const close = page.locator("button.modal-close-label");
+  const ensureOpener = async () => {
+    await expect.poll(async () => {
+      if (await page.locator('.content__slide.active button.modal-open-label').count()) return true;
+      const back = page.getByRole('button', { name: /^works$/i });
+      if (await back.isVisible()) await back.click();
+      return false;
+    }).toBe(true);
+    await expect(opener.locator('..')).toHaveCSS('opacity', '1');
+  };
+  await ensureOpener();
+  await opener.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#modal-toggle")).toBeChecked();
+  await expect(page.locator('.modal-box')).toBeFocused();
+  await expect(page.locator('.modal-box')).toHaveCSS('opacity', '1');
+  await expect(page.locator('.modal-box > a.button')).toBeVisible();
+  await page.keyboard.press('Tab');
+  await expect(page.locator('.modal-box > a.button')).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect(close).toBeFocused();
+  expect(await close.evaluate(element => getComputedStyle(element).outlineStyle)).not.toBe("none");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#modal-toggle")).not.toBeChecked();
+  expect(await page.evaluate(() => document.activeElement.matches('button.modal-open-label,.toggle_btn,.head a') && !document.activeElement.closest('[inert]'))).toBe(true);
+  await ensureOpener();
+  await opener.press("Space");
+  await expect(page.locator("#modal-toggle")).toBeChecked();
+  await close.press("Space");
+  await expect(page.locator("#modal-toggle")).not.toBeChecked();
+});
+
+test("Home entry chooses language before starting the existing loading sequence", async ({ page }) => {
+  await prepareDeterministicNetwork(page);
+  await page.goto("");
+  await expect(page.locator("#home-entry")).toBeVisible();
+  const entryBox = await page.locator("#home-entry").boundingBox();
+  expect(entryBox.width).toBe(page.viewportSize().width);
+  expect(entryBox.height).toBe(page.viewportSize().height);
+  await expect(page.locator("#loading-bg")).toBeHidden();
+  await page.locator('[data-entry-language="en"]').click();
+  await expect(page.locator('[data-entry-language="en"]')).toHaveAttribute("aria-pressed", "true");
+  expect(await page.locator("main").evaluate(element => element.inert)).toBe(true);
+  await page.locator("#home-start").press("Space");
+  await expect(page.locator("#home-entry")).toBeHidden();
+  await expect(page.locator("#loading-bg")).toHaveAttribute("aria-label", /This website/);
+  await expect(page.locator("#loading-bg [lang=ja]").first()).toBeHidden();
+  await expect(page.locator("#loading-bg")).toBeHidden({ timeout: 25000 });
+  expect(await page.evaluate(() => localStorage.getItem("selectedLang"))).toBe("en");
+  await page.goto("order.html");
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await page.goBack();
+  await expect(page.locator("#home-entry")).toBeHidden();
+  await expect(page.locator("#loading-bg")).toBeHidden();
+});
+
+test("Contact policy follows stored language and requires explicit consent", async ({ page }) => {
+  await prepareDeterministicNetwork(page);
+  await page.addInitScript(() => { localStorage.setItem("selectedLang", "en"); localStorage.setItem("lang", "en"); });
+  await page.goto("contact.html");
+  await page.locator("button.modal-open-label").click();
+  await expect(page.locator("#policy-modal-content")).toHaveAttribute("aria-busy", "false");
+  await expect(page.locator('#policy-modal-content > [lang="en"]')).toBeVisible();
+  await expect(page.locator('#policy-modal-content > [lang="ja"]')).toBeHidden();
+  await expect(page.getByRole("dialog", { name: "Site Policy" })).toHaveAttribute("aria-labelledby", "policy-modal-title");
+  await expect(page.locator(".policy-modal-header h2")).toHaveText("Site Policy");
+  await expect(page.locator("#policy-modal-content #policy-ja, #policy-modal-content #policy-en")).toHaveCount(0);
+  const sourceHeadings = await page.evaluate(async () => {
+    const source = new DOMParser().parseFromString(await (await fetch("policy.html")).text(), "text/html");
+    return [source.querySelector("#policy-ja")?.textContent.trim(), source.querySelector("#policy-en")?.textContent.trim()];
+  });
+  expect(sourceHeadings).toEqual(["Policy", "Policy"]);
+  await expect(page.locator("#consent")).toBeEnabled();
+  await expect(page.locator("#consent")).not.toBeChecked();
+  const close = page.locator(".modal-close-label");
+  const before = await close.boundingBox();
+  await page.locator("#policy-modal-content").evaluate(element => element.scrollTop = element.scrollHeight);
+  expect((await close.boundingBox()).y).toBe(before.y);
+  await page.keyboard.press("Escape");
+  await expect(page.locator("button.modal-open-label")).toBeFocused();
+  await expect(page.locator("#consent")).not.toBeChecked();
+  let unconsentedRequests = 0;
+  await page.route("https://script.google.com/macros/s/**", route => { unconsentedRequests++; return route.fulfill({ status: 200, body: "Successfully submitted" }); });
+  await page.locator('label[for="radio2"]').click();
+  await page.locator('#name').fill('Local verification');
+  await page.locator('#email').fill('visual@example.com');
+  await page.locator('#message').fill('Fixture only; no external form submission.');
+  await page.locator('.submit-btn').click();
+  expect(await page.locator('#consent').evaluate(element => element.checkValidity())).toBe(false);
+  expect(unconsentedRequests).toBe(0);
+  await page.locator("#consent").check();
+  await expect(page.locator("#consent")).toBeChecked();
+  await page.route("**/website/policy.html", route => route.fulfill({ status: 500, body: "Unavailable" }));
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.locator("button.modal-open-label").click();
+  await expect(page.locator("#policy-modal-content")).toHaveAttribute("aria-busy", "false");
+  await expect(page.locator("#consent")).toBeDisabled();
+  await expect(page.locator("#consent")).not.toBeChecked();
+});
+
+test("Approved navigation remains safe across release widths and the desktop boundary", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-1440", "One serial breakpoint sweep per run.");
+  testInfo.setTimeout(90000); // Ten resize/scroll/menu/keyboard states, not a longer screenshot wait.
+  await prepareDeterministicNetwork(page);
+  await page.goto("order.html");
+  await stabilize(page, {key:"order"});
+  for (const width of [1920, 1440, 1300, 1299, 1280, 1024, 430, 390, 375, 320]) {
+    await page.setViewportSize({width, height:900});
+    await page.evaluate(() => { document.activeElement?.blur(); scrollTo({top:0, behavior:"instant"}); });
+    const toggle = page.locator('.toggle_btn');
+    if (width >= 1024) {
+      await expect(page.locator('.head a')).toHaveCSS('font-size', '18px');
+      for (const link of await page.locator('#navArea .inner a').all()) await expect(link).toHaveCSS('font-size','16px');
+      const menu = await page.locator('#navArea').boundingBox();
+      if ([1920,1440].includes(width)) expect(Math.abs(menu.width - (width===1920?1200:1080))).toBeLessThan(1);
+      await page.evaluate(() => scrollTo({top:Math.ceil(innerHeight*.55),behavior:"instant"}));
+      await expect(toggle).toBeVisible();
+    }
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded','true');
+    await expect(page.locator('#navArea .inner a')).toHaveCount(6);
+    await page.keyboard.press('Escape');
+    await expect(toggle).toBeFocused();
+    await expect(toggle).toHaveAttribute('aria-expanded','false');
+    if (width >= 1024) {
+      await page.evaluate(() => { document.activeElement?.blur(); scrollTo({top:innerHeight*1.5,behavior:"instant"}); });
+      const side = page.locator('body > .page-navigation');
+      await expect(side).toHaveAttribute('aria-hidden','false');
+      const geometry = await page.locator('main .content:visible').first().evaluate(e=>{const c=e.getBoundingClientRect(),s=document.querySelector('body > .page-navigation').getBoundingClientRect();return {gap:c.left-s.right,sideCenter:s.left+s.width/2,left:c.left,vertical:s.top+s.height/2};});
+      expect(geometry.gap).toBeGreaterThanOrEqual(23.9);
+      expect(Math.abs(geometry.vertical-450)).toBeLessThan(1);
+      expect(Math.abs(geometry.sideCenter-geometry.left/2)).toBeLessThan(1);
+      await side.locator('a').first().focus();
+      await page.evaluate(()=>{const f=document.querySelector('#footer-container');scrollTo({top:scrollY+f.getBoundingClientRect().top-innerHeight-32,behavior:"instant"});});
+      await expect(side).toHaveAttribute('aria-hidden','true');
+      expect(await side.evaluate(e=>e.contains(document.activeElement))).toBe(false);
+    } else {
+      const r=await toggle.boundingBox();
+      expect(r.width).toBe(64); expect(r.height).toBe(64);
+      expect(Math.abs(r.x+r.width-(width-width*.05))).toBeLessThan(1);
+      expect(Math.abs(r.y+r.height-(900-width*.35))).toBeLessThan(1);
+    }
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(2);
+  }
+});
+
+test("Home language selection works without persistent storage", async ({ page }) => {
+  await prepareDeterministicNetwork(page);
+  await page.addInitScript(()=>{Storage.prototype.getItem=()=>{throw new Error('Storage unavailable')};Storage.prototype.setItem=()=>{throw new Error('Storage unavailable')};});
+  await page.goto("");
+  await expect(page.locator('#home-entry')).toBeVisible();
+  await page.locator('[data-entry-language="en"]').click();
+  await expect(page.locator('[data-entry-language="en"]')).toHaveAttribute('aria-pressed','true');
+  await page.locator('#home-start').click();
+  await expect(page.locator('#loading-bg')).toHaveAttribute('aria-label',/This website/);
+  await expect(page.locator('#loading-bg')).toBeHidden({timeout:25000});
+  expect(await page.evaluate(()=>document.querySelector('main').inert)).toBe(false);
+  await expect(page.locator('html')).toHaveAttribute('lang','en');
+});
+
 const pages = [
   { key: "home", path: "", title: /Mizuki|小山瑞樹/i, footer: false },
   {
@@ -675,7 +914,7 @@ async function assertResponsivePageGeometry(page, entry) {
       "Contact form label"
     );
     await expectHorizontalFit(
-      page.locator('#contactForm label[for="modal-toggle"]'),
+      page.locator('#contactForm button.modal-open-label'),
       "Contact SitePolicy control"
     );
   }
@@ -1099,11 +1338,11 @@ async function assertContactFormUiLabels(page, label) {
     .toHaveCount(0);
 
   const consentCopy = page.locator("#consent-text");
-  await expect(consentCopy).toHaveText("I have reviewed the Site Policy.");
+  await expect(consentCopy).toHaveText("I have read and agree to the Site Policy.");
   await expect(consentCopy.locator("[lang]"), label + " consent copy should be a single English UI string")
     .toHaveCount(0);
 
-  const policyLink = page.locator("label.modal-open-label");
+  const policyLink = page.locator("button.modal-open-label");
   await expect(policyLink).toHaveText("Site Policy");
   await expect(policyLink.locator("[lang]"), label + " Policy link should be English-only")
     .toHaveCount(0);
@@ -1194,12 +1433,12 @@ async function exerciseContactLanguage(page, testInfo) {
     });
   }
 
-  await page.locator('label[for="modal-toggle"].modal-open-label').click();
+  await page.locator('button.modal-open-label').click();
   await expect(page.locator("#policy-modal-content")).toHaveAttribute("aria-busy", "false");
-  await expect(page.locator('#policy-modal-content > div[lang="ja"]')).toBeVisible();
-  await expect(page.locator('#policy-modal-content > div[lang="en"]')).toBeVisible();
-  await expect(page.locator("body > .modal-box .modal-close-label [lang=ja]")).toBeVisible();
-  await expect(page.locator("body > .modal-box .modal-close-label [lang=en]")).toBeVisible();
+  const policyLanguage = await page.evaluate(() => window.getPortfolioLanguage());
+  await expect(page.locator('#policy-modal-content > div[lang="' + policyLanguage + '"]')).toBeVisible();
+  await expect(page.locator('#policy-modal-content > div[lang="' + (policyLanguage === 'ja' ? 'en' : 'ja') + '"]')).toBeHidden();
+  await expect(page.locator('body > .modal-box .modal-close-label [lang="' + policyLanguage + '"]')).toBeVisible();
   const modalCloseLanguages = await page.locator("body > .modal-box .modal-close-label").evaluate(element =>
     Array.from(element.children).map(child => child.getAttribute("lang"))
   );
@@ -1264,11 +1503,11 @@ async function exerciseContactRuntime(page, testInfo) {
   await page.locator('label[for="radio1"]').click();
   await page.locator('label[for="request-order"]').click();
 
-  await page.locator('label[for="modal-toggle"].modal-open-label').click();
+  await page.locator('button.modal-open-label').click();
   await expect(page.locator("#modal-toggle")).toBeChecked();
   await expectViewportModalFit(page.locator("body > .modal-box"), "Contact SitePolicy modal");
   await expect(consent).toBeEnabled();
-  await expect(consent).toBeChecked();
+  await expect(consent).not.toBeChecked();
 
   if (fullAudit) {
     await page.screenshot({
@@ -1281,6 +1520,7 @@ async function exerciseContactRuntime(page, testInfo) {
 
   await page.locator("body > .modal-box .modal-close-label").click();
   await expect(page.locator("#modal-toggle")).not.toBeChecked();
+  await consent.check();
 
   await page.route("https://script.google.com/macros/s/**", async route => {
     await route.fulfill({
@@ -1545,6 +1785,31 @@ async function exerciseOrderRuntime(page) {
   await expect(page.locator("#message")).toBeAttached();
 }
 
+async function observeHomeSlides(page) {
+  await page.addInitScript(() => {
+    window.__visualHomeSlideHistory = [];
+    document.addEventListener("DOMContentLoaded", () => {
+      const root = document.querySelector("#mainContent");
+      if (!root) return;
+      const slides = [...root.querySelectorAll(".content__slide")];
+      let lastIndex = -1;
+      const recordActiveSlide = () => {
+        const activeIndex = slides.findIndex(slide => slide.classList.contains("active"));
+        if (activeIndex < 0 || activeIndex === lastIndex) return;
+        lastIndex = activeIndex;
+        window.__visualHomeSlideHistory.push(activeIndex);
+      };
+      recordActiveSlide();
+      new MutationObserver(recordActiveSlide).observe(root, {
+        attributes: true,
+        attributeFilter: ["class"],
+        subtree: true
+      });
+    }, { once: true });
+  });
+
+}
+
 async function prepareDeterministicNetwork(page) {
   // Observe the real animation promise; the initial static heading can already
   // match its label before TextScramble has started replacing its letters.
@@ -1596,7 +1861,16 @@ async function prepareDeterministicNetwork(page) {
   }));
 }
 
+async function completeHomeEntry(page) {
+  if (!await page.locator('#home-entry').count()) return;
+  await expect(page.locator('#loading-bg')).toHaveAttribute('data-typing-started', 'true');
+  if (await page.locator('#home-entry').isVisible()) await page.locator('#home-start').click();
+  await page.waitForFunction(() => !document.querySelector('main.top-page').inert && document.getElementById('home-entry').hidden);
+  await expect(page.locator('#loading-bg')).toBeHidden();
+}
+
 async function stabilize(page, entry = {}) {
+  await completeHomeEntry(page);
   await page.addStyleTag({ path: path.resolve(__dirname, "stabilize.css") });
 
   // These pages run both the primary WebGL field and TRUNK in visual tests.
@@ -1649,10 +1923,10 @@ async function stabilize(page, entry = {}) {
         for (const selector of selectors) {
           const first = document.querySelector(`${selector}:first-child`);
           if (!first) continue;
-          first.classList.add("active");
-          first.classList.remove("exit");
+          if (!first.classList.contains("active")) first.classList.add("active");
+          if (first.classList.contains("exit")) first.classList.remove("exit");
           for (const sibling of first.parentElement.children) {
-            if (sibling !== first) sibling.classList.remove("active", "exit");
+            if (sibling !== first && (sibling.classList.contains('active') || sibling.classList.contains('exit'))) sibling.classList.remove("active", "exit");
           }
         }
       };
@@ -2126,29 +2400,10 @@ test("Home carousel still advances automatically outside screenshot stabilizatio
   await page.emulateMedia({ reducedMotion: "no-preference" });
   const runtime = createRuntimeMonitor(page, { key: "home" });
   await prepareDeterministicNetwork(page);
-  await page.addInitScript(() => {
-    window.__visualHomeSlideHistory = [];
-    document.addEventListener("DOMContentLoaded", () => {
-      const root = document.querySelector("#mainContent");
-      if (!root) return;
-      const slides = [...root.querySelectorAll(".content__slide")];
-      let lastIndex = -1;
-      const recordActiveSlide = () => {
-        const activeIndex = slides.findIndex(slide => slide.classList.contains("active"));
-        if (activeIndex < 0 || activeIndex === lastIndex) return;
-        lastIndex = activeIndex;
-        window.__visualHomeSlideHistory.push(activeIndex);
-      };
-      recordActiveSlide();
-      new MutationObserver(recordActiveSlide).observe(root, {
-        attributes: true,
-        attributeFilter: ["class"],
-        subtree: true
-      });
-    }, { once: true });
-  });
+  await observeHomeSlides(page);
 
   const response = await page.goto("", { waitUntil: "domcontentloaded" });
+  await completeHomeEntry(page);
   expect(response, "Home carousel should return a document response").not.toBeNull();
   expect(response.status(), "Home carousel document status").toBe(200);
   await page.waitForFunction(() => {
@@ -2159,6 +2414,8 @@ test("Home carousel still advances automatically outside screenshot stabilizatio
   const slideHistory = await page.evaluate(() => window.__visualHomeSlideHistory);
   expect(slideHistory[0], "Home should begin on the first slide").toBe(0);
   expect(slideHistory, "Home should automatically advance to the second slide").toContain(1);
+  const selectedLanguage = await page.locator("#langChange input:checked").getAttribute("value");
+  await expect(page.locator("#langChange .lang-button." + selectedLanguage)).toHaveClass(/active/);
   assertRuntimeClean(runtime, { key: "home" });
 });
 
@@ -3192,6 +3449,7 @@ test("portfolio copy candidate preserves approved content", async ({ page }, tes
     expect(new Set(paragraphs).size, "approved paragraphs should not be duplicated").toBe(paragraphs.length);
   };
   await page.goto("", { waitUntil: "domcontentloaded" });
+  await completeHomeEntry(page);
   await expect(page.locator("#mainContent .content__slide.active h1")).toHaveText("Mizuki Oyama");
   expect(normalize(await page.locator('#mainContent .content__slide.active .desc[lang="ja"]').textContent()))
     .toBe("抽象アーティスト 1998 — Japan");

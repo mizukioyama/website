@@ -18,9 +18,23 @@ async function scroll(page, ratio) {
     await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   }, ratio);
 }
+async function enterHome(page, language = 'ja') {
+  const entry = page.locator('#home-entry');
+  await expect(page.locator('#loading-bg')).toHaveAttribute('data-typing-started', 'true');
+  if (await entry.isVisible()) {
+    await page.locator('[data-entry-language="' + language + '"]').click();
+    await page.locator('#home-start').click();
+    await expect(entry).toBeHidden();
+    await expect(page.locator('#loading-bg')).toHaveAttribute('aria-label', language === 'en' ? /This website/ : /当Webサイト/);
+    await expect(page.locator('#loading-bg [lang="' + (language === 'en' ? 'ja' : 'en') + '"]').first()).toBeHidden();
+    await page.waitForFunction(() => !document.querySelector('main.top-page').inert);
+  }
+  await expect(page.locator('#loading-bg')).toBeHidden({ timeout: 90000 });
+}
+
 (async () => {
   fs.mkdirSync(output, { recursive: true });
-  for (const route of [...routes, 'css/menu.css', 'css/gallery.css', 'css/mobile.css', 'assets/css/user-settings.css', 'js/menu.js']) {
+  for (const route of [...routes, 'css/menu.css', 'css/gallery.css', 'css/mobile.css', 'assets/css/user-settings.css', 'js/menu.js', 'js/form.js', 'js/time.js', 'css/all.css', 'css/form.css', 'css/index.css', 'css/index-tablet.css']) {
     const file = !route || route.endsWith('/') ? route + 'index.html' : route;
     const url = new URL(route, base);
     url.searchParams.set('release-check', process.env.GITHUB_SHA || 'local');
@@ -33,7 +47,7 @@ async function scroll(page, ratio) {
   }
   const browser = await chromium.launch();
   try {
-    for (const width of [1920, 1440, 1280, 1024, 390]) {
+    for (const width of [1920, 1440, 1280, 1024, 430, 390, 375, 320]) {
       const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
       const page = await context.newPage();
       await page.addInitScript(() => document.addEventListener('DOMContentLoaded', () => {
@@ -48,6 +62,13 @@ async function scroll(page, ratio) {
       page.on('pageerror', error => results.errors.push({ width, url: page.url(), message: error.message }));
       for (const route of routes) {
         await page.goto(new URL(route, base).href);
+        if (!route) {
+          await enterHome(page);
+          const card = await page.locator('.card').boundingBox();
+          assert.ok(Math.abs(card.width / card.height - (width <= 430 ? 1 / 1.618 : 1.618)) < .01, 'Home golden ratio');
+          assert.ok(card.x >= 0 && card.y >= 0 && card.x + card.width <= width + 1 && card.y + card.height <= 901, 'Home card viewport fit');
+        }
+        for (const heading of await page.locator('h1').all()) await expect(heading).toHaveCSS('font-weight', '100');
         await expect(page.locator('.toggle_btn')).toHaveAttribute('data-menu-bound', 'true');
         await expect(page.locator('#navArea .inner a')).toHaveCount(6);
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 2), false, route + ' horizontal overflow');
@@ -103,11 +124,11 @@ async function scroll(page, ratio) {
           }
         } else {
           await expect(side).toHaveCount(0);
-          if (width === 390) {
+          if (width <= 430) {
             const r = await page.locator('.toggle_btn').boundingBox();
             assert.equal(r.width, 64); assert.equal(r.height, 64);
-            assert.ok(Math.abs(r.x + r.width - (390 - 390 * .05)) < 1);
-            assert.ok(Math.abs(r.y + r.height - (900 - 390 * .35)) < 1);
+            assert.ok(Math.abs(r.x + r.width - (width - width * .05)) < 1);
+            assert.ok(Math.abs(r.y + r.height - (900 - width * .35)) < 1);
           }
           if (route && route !== '404.html') {
             await page.waitForFunction(() => window.__runtimeTitleComplete);
@@ -143,6 +164,24 @@ async function scroll(page, ratio) {
           await page.locator('#modalCloseBtn').click();
           await expect(page.locator('#modalBox')).toBeHidden();
         }
+        if (route === 'contact.html') {
+          await page.locator('button.modal-open-label').click();
+          await expect(page.locator('#policy-modal-content')).toHaveAttribute('aria-busy', 'false');
+          await expect(page.getByRole('dialog', {name:'Site Policy'})).toBeVisible();
+          await expect(page.locator('#policy-modal-content #policy-ja, #policy-modal-content #policy-en')).toHaveCount(0);
+          const language = await page.evaluate(() => window.getPortfolioLanguage());
+          await expect(page.locator('#policy-modal-content > [lang="' + language + '"]')).toBeVisible();
+          await expect(page.locator('#policy-modal-content > [lang="' + (language === 'en' ? 'ja' : 'en') + '"]')).toBeHidden();
+          await expect(page.locator('#consent')).not.toBeChecked();
+          const close = page.locator('.modal-close-label');
+          const position = await close.boundingBox();
+          await page.locator('#policy-modal-content').evaluate(element => element.scrollTop = element.scrollHeight);
+          assert.ok(Math.abs((await close.boundingBox()).y - position.y) < 1, 'Policy close remains fixed');
+          await page.keyboard.press('Escape');
+          await expect(page.locator('button.modal-open-label')).toBeFocused();
+          await expect(page.locator('#consent')).not.toBeChecked();
+          assert.equal(await page.locator('#consent').evaluate(element => element.required && !element.checkValidity()), true);
+        }
         if (route === 'information.html') await expect(page.locator('[data-yurayura-feed]')).toHaveAttribute('data-state', 'ready', { timeout: 20000 });
         if (width === 1920 && ['order.html', 'biography.html', 'artist-statement.html'].includes(route)) {
           await scroll(page, 1.5);
@@ -157,6 +196,7 @@ async function scroll(page, ratio) {
     page.on('pageerror', error => results.errors.push({ url: page.url(), message: error.message }));
     await page.bringToFront();
     await page.goto(base, { waitUntil: 'domcontentloaded' });
+    await enterHome(page, 'en');
     await expect(page.locator('.content__slide').nth(1)).toHaveClass(/active/, { timeout: 5000 });
     await expect(page.locator('.content__slide').first()).toHaveClass(/active/, { timeout: 7000 });
     await scroll(page, 0);
@@ -166,6 +206,13 @@ async function scroll(page, ratio) {
     await expect(page).toHaveURL(/gallery.html$/);
     await page.goBack();
     await expect(page).toHaveURL(base);
+    await expect(page.locator('#home-entry')).toBeHidden();
+    await expect(page.locator('#loading-bg')).toBeHidden();
+    await page.goto(new URL('gallery.html', base).href);
+    await expect(page.locator('canvas')).toHaveCount(3);
+    await page.waitForFunction(() => window.__selectedInkField?.getState().frameCount > 0 && window.__organicFlowProduction?.getState().engine.frameCount > 0);
+    assert.deepEqual(await page.evaluate(() => window.__selectedInkField.getState().webglErrors), []);
+    await expect(page.locator('main')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)');
     await page.goto(new URL('biography.html', base).href);
     await expect(page.locator('#vanta-bg-bio canvas')).toHaveCount(1);
     await page.waitForFunction(() => window.__organicFlowProduction?.getState().engine.frameCount > 0);

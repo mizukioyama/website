@@ -200,7 +200,9 @@ p {
 /* ========== Card Slide ========== */
 .card {
   width: min(93vmin, calc(100% - 1rem));
-  height: 53%;
+  height: auto;
+  aspect-ratio: 1.618 / 1;
+  max-width: calc(90svh * 1.618);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -482,7 +484,7 @@ p {
 
 .top-page .content {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 64px);
   position: absolute;
   left: 0%;
   top: 50%;
@@ -492,7 +494,8 @@ p {
 .content__slide {
   display: grid;
   justify-content: center;
-  align-content: center;
+  align-content: safe center;
+  overflow-y: auto;
   position: relative;
   top: 0;
   width: 50%;
@@ -561,7 +564,6 @@ p {
 .top-page .title {
   position: relative;
   /*font-size: clamp(var(--legacy-px-4), calc(var(--legacy-px-4) + 0.5vw), var(--legacy-px-5));*/
-  font-weight: 400;
   justify-content: flex-start;
   color: #f9fafbb3;
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
@@ -617,6 +619,7 @@ p {
 
 .button {
   display: inline-block;
+  font-weight: inherit;
   font-size: var(--font-ui-size);
   width: 100%;
   text-align: center;
@@ -629,14 +632,12 @@ p {
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: underline;
-  transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 10;
   box-shadow: inset 0 1px 5px 0px rgba(0, 0, 0);
   overflow: hidden;
 }
 
 .button:hover {
-  transform: translateY(-0.3rem);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0);
 }
 
@@ -743,7 +744,9 @@ footer,
   }
   .card {
     width: min(98svw, calc(100% - 1rem));
-    height: 99svh;
+    height: auto;
+    aspect-ratio: 1 / 1.618;
+    max-width: calc(90svh / 1.618);
   }
 
   .back__slide::before {
@@ -828,3 +831,17 @@ footer,
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1550px) {}
+
+/* Home entry uses the existing language preference and loading sequence. */
+#home-entry {
+  position: fixed; inset: 0; width: 100%; height: 100%; box-sizing: border-box; z-index: 10010; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 24px; padding: 24px;
+  background: #101919; color: var(--inv); text-align: center;
+}
+#home-entry[hidden], #loading-bg[hidden] { display: none; }
+#home-entry h2 { font-size: var(--type-home-title-size); font-weight: 100; }
+.home-entry-languages { display: flex; gap: 12px; }
+#home-entry button { min-width: 88px; min-height: 44px; padding: 12px 20px; color: inherit; background: transparent; border: 1px solid currentColor; cursor: pointer; }
+#home-entry button[aria-pressed="true"] { background: rgba(255,255,255,.15); text-decoration: underline; text-underline-offset: 5px; }
+#home-entry button:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+#home-start { width: min(100%, 320px); }

@@ -36,7 +36,9 @@
 
   .home .card {
     width: min(98svw, calc(100% - 1rem));
-    height: 99svh;
+    height: auto;
+    aspect-ratio: 1 / 1.618;
+    max-width: calc(90svh / 1.618);
   }
 
   .home .back__slide::before {

@@ -51,12 +51,12 @@ dd {
 }
 
 /* Discrete controls share a target floor; prose links and artwork cards keep their own flow. */
-:where(.head a, #langChange label, #navArea .inner a, .toggle_btn, footer > a, #category-header, #category-menu li[data-category], .page-btn, .view-policy-button, .order-cta, .submit-btn, #modalCloseBtn, .modal-close-label, .button-wrap a, .not-found-links a, a.info-link, .info-link > a, .detail-link, .back-link) {
+:where(.head a, #langChange label, #navArea .inner a, .toggle_btn, footer > a, #category-header, #category-menu li[data-category], .page-btn, .prev-btn, .next-btn, .view-policy-button, .modal-open-label, .order-cta, .submit-btn, .radio-group label, #contactForm label:has(#consent), #modalBox .modal-text > a, #modalCloseBtn, .modal-close-label, .button, .not-found-links a, a.info-link, .info-link > a, .detail-link, .back-link) {
   min-width: 44px;
   min-height: 44px;
 }
-:where(.info-link > a) { display: inline-flex; align-items: center; }
-:where(#langChange label, .toggle_btn, footer > a, .page-btn, .view-policy-button, .order-cta, .submit-btn, .not-found-links a, a.info-link, .info-link > a, .detail-link, .back-link):focus-visible {
+:where(.info-link > a, #modalBox .modal-text > a) { display: inline-flex; align-items: center; }
+:where(#langChange label, .toggle_btn, footer > a, .page-btn, .prev-btn, .next-btn, .view-policy-button, .modal-open-label, .modal-close-label, #modalCloseBtn, .button, .order-cta, .submit-btn, .not-found-links a, a.info-link, .info-link > a, .detail-link, .back-link):focus-visible {
   outline: 1px solid currentColor;
   outline-offset: 4px;
 }
@@ -315,16 +315,20 @@ body {
 }
 
 #langChange .inner_label {
-  display: flex;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: 44px 12px 44px;
   align-items: center;
-  pointer-events: none;
+  position: relative;
 }
+#langChange .inner_label::before { content: "/"; grid-column: 2; grid-row: 1; text-align: center; pointer-events: none; }
+#langChange label + label { grid-column: 3; }
 
 #langChange label {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  grid-row: 1;
   pointer-events: all;
   transition: opacity 0.3s;
 }
@@ -473,8 +477,9 @@ h1,
   width: 100%;
   font-family: "Shippori Mincho", serif;
   font-optical-sizing: auto;
-  font-weight: 400; /* 好みで変更 */
+  font-weight: 100;
 }
+.creator-title { font-weight: 400; }
 
 p {
   line-height: 2;

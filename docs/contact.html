@@ -10,12 +10,12 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
   <link rel="stylesheet" href="css/modal.css?v=069b2e076f69">
-  <link rel="stylesheet" href="css/all.css?v=ebd4e880ddd6">
-  <link rel="stylesheet" href="css/gallery.css?v=41b22ea584c1">
-  <link rel="stylesheet" href="css/mobile.css?v=5d3fc0f42513">
-  <link rel="stylesheet" href="css/form.css?v=ce941c4ca37a">
+  <link rel="stylesheet" href="css/all.css?v=2ff046282b3e">
+  <link rel="stylesheet" href="css/gallery.css?v=806dc95effcc">
+  <link rel="stylesheet" href="css/mobile.css?v=037c4e1ba363">
+  <link rel="stylesheet" href="css/form.css?v=86b711dc7c3a">
   <link rel="stylesheet" href="css/footer.css?v=a657cfc7e2e3">
-  <link rel="stylesheet" href="css/menu.css?v=c49ca61ee0c3">
+  <link rel="stylesheet" href="css/menu.css?v=b3532fe6fcc7">
   <link rel="stylesheet" href="assets/css/user-settings.css?v=d31de8330669">
 
   <!-- JS -->
@@ -25,8 +25,8 @@
   <script src="js/p5.min.js?v=e6397ff8a293"></script>
   <script src="js/vanta.trunk.min.js?v=185df70654f6"></script>
 
-  <script src="js/menu.js?v=1bd0c48157d6"></script>
-  <script src="js/form.js?v=f006ecb73a15"></script>
+  <script src="js/menu.js?v=7ead17686013"></script>
+  <script src="js/form.js?v=053d22f47649"></script>
 
   <!-- Font -->
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
@@ -192,10 +192,10 @@
             Please review the Site Policy before submitting.
             <br>
             <input type="checkbox" id="consent" name="consent" value="同意する" required disabled>
-            <span id="consent-text" class="consent-text">I have reviewed the Site Policy.</span>
+            <span id="consent-text" class="consent-text">I have read and agree to the Site Policy.</span>
           </p>
         </label>
-        <label for="modal-toggle" class="modal-open-label">Site Policy</label>
+        <button type="button" class="modal-open-label">Site Policy</button>
         <button type="submit" class="submit-btn">SEND</button>
       </div>
 
@@ -227,15 +227,15 @@
     <!-- モーダルオーバーレイ -->
     <div class="modal-overlay"></div>
     <!-- モーダル本体 -->
-    <div class="modal-box">
-      <div id="policy-modal-content" aria-busy="true">
+    <div class="modal-box" aria-labelledby="policy-modal-title">
+      <div class="policy-modal-header">
+        <h2 id="policy-modal-title">Site Policy</h2>
+        <button type="button" class="button modal-close-label"><span lang="ja">閉じる</span><span lang="en">Close</span></button>
+      </div>
+      <div id="policy-modal-content" tabindex="0" aria-busy="true">
         <p lang="ja">サイトポリシーを読み込んでいます...</p>
         <p lang="en">Loading the Site Policy...</p>
       </div>
-
-      <label for="modal-toggle" class="button modal-close-label">
-        <span lang="ja">閉じる</span><span lang="en">Close</span>
-      </label>
     </div>
 
   </main>
@@ -271,7 +271,9 @@
       margin-top: 1vmin;
       opacity: 0.8;
       position: relative;
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      background: transparent;
     }
 
     .modal-open-label:hover,
@@ -310,93 +312,39 @@
       z-index: 10000;
     }
 
-    /* モーダル本体 */
+    /* One viewport dialog; only the reading pane scrolls. */
     .modal-box {
-      font-weight: 300;
       position: fixed;
-      top: 50%;
-      left: 50%;
+      inset: 50% auto auto 50%;
       transform: translate(-50%, -50%);
-      padding: 30px;
-      border-radius: 10px 0 0 10px;
-      width: 40vw;
-      max-width: none;
-      height: 75vh;
-      max-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      width: min(800px, calc(100% - 32px));
+      max-height: 85svh;
       box-sizing: border-box;
-      line-height: 2;
-      letter-spacing: var(--tracking-body-008);
+      padding: 0;
       overflow: hidden;
-      overflow-y: scroll;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(10px);
-      background: rgba(200, 200, 200, 0.15);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 10px;
+      background: rgba(16,24,25,.97);
+      color: var(--inv);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity .3s ease;
       z-index: 10001;
     }
-
-    .modal-box h2 {
-      font-size: var(--type-home-modal-h2-size);
-    }
-
-    .modal-box h3 {
-      font-size: var(--type-home-modal-h3-size);
-      line-height: 1.4;
-      margin-top: 6rem;
-      border-bottom: 1px solid;
-      text-shadow: none;
-    }
-
-    .modal-box p {
-      font-size: var(--type-home-modal-body-size);
-      line-height: 1.8;
-    }
-
-    /* 開いた状態 */
-    #modal-toggle:checked~.modal-overlay {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    #modal-toggle:checked~.modal-box {
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, -50%);
-    }
-
-    h3.modal-en {
-      font-size: var(--type-contact-modal-en-title-size);
-      margin-top: 1vmin;
-      margin-bottom: 0.2vmin;
-    }
-
-    p.modal-en {
-      font-size: var(--type-contact-modal-en-body-size) !important;
-      line-height: 1.5;
-    }
-
-    @media screen and (max-width: 599px) {
-      #modal-toggle:checked~.modal-box {
-        transform: translate(-50%, -50%);
-      }
-
-      .modal-box {
-        width: 85%;
-        height: 80svh;
-        padding: 1.5rem;
-      }
-
-      .modal-box p {
-        letter-spacing: var(--legacy-px-0_05);
-      }
-
-      p.modal-en {
-        line-height: 1.5;
-      }
-    }
+    .policy-modal-header { width: 100%; box-sizing: border-box; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,.2); }
+    .policy-modal-header h2 { font-size: var(--type-home-modal-h2-size); margin: 0; }
+    .policy-modal-header .modal-close-label { margin: 0; padding: 8px; display: inline-flex; gap: 8px; }
+    #policy-modal-content { width: 100%; box-sizing: border-box; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 24px; line-height: 1.8; }
+    #policy-modal-content > .content { width: 100%; min-width: 0; max-width: none; margin: 0; padding: 0; }
+    #policy-modal-content :is(h2, h3) { color: inherit; background: none; background-clip: border-box; -webkit-text-fill-color: currentColor; mask: none; animation: none; text-shadow: none; }
+    #policy-modal-content h2 { font-size: var(--type-home-modal-h2-size); margin: 0 0 24px; }
+    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 40px 0 12px; line-height: 1.4; }
+    #policy-modal-content p { font-size: var(--type-home-modal-body-size); margin: 0 0 24px; line-height: 1.8; }
+    #policy-modal-content .content > :last-child { margin-bottom: 0; }
+    #modal-toggle:checked ~ .modal-overlay,
+    #modal-toggle:checked ~ .modal-box { opacity: 1; visibility: visible; }
   </style>
 
 

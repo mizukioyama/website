@@ -28,13 +28,13 @@ The page-specific language behavior below is the normative specification. The st
 | Artist Statement | Japanese followed by English | Hidden |
 | Information | Japanese / English switch | Shown |
 | Order | Japanese / English switch | Shown |
-| Contact | Japanese followed immediately by the corresponding English; bilingual across the full page, form, and modals | Hidden |
+| Contact | Japanese followed immediately by the corresponding English; bilingual across the page and form; Site Policy dialog follows the stored language | Hidden |
 | Policy | Japanese / English switch | Shown |
 | Yurayura | Japanese / English switch | Shown |
 
 For switchable pages, the shared Header Ja / En control selects the corresponding content, stores the preference, preserves it across page navigation, and synchronizes `document.documentElement.lang`. Only the selected language is displayed in normal page content. Gallery modal titles and captions follow the selected language, including when the language changes while the modal is open.
 
-Biography, Artist Statement, and Contact display Japanese followed immediately by the corresponding English and hide the language control. Contact pairs each text unit in meaning order throughout the page, including form labels, request options, Policy copy, submit/status text, and both modals. Visiting a bilingual page must not overwrite or clear stored `selectedLang` or compatibility `lang`; switchable pages retain the previously selected language. Contact uses the shared bilingual-page behavior and keeps the root `lang` set to Japanese, matching the primary page language. Keep accurate `lang` attributes on language-specific content.
+Biography, Artist Statement, and Contact display Japanese followed immediately by the corresponding English and hide the language control. Contact pairs each text unit in meaning order throughout the page, including form labels, request options, submit/status text, and the thanks modal. The Site Policy dialog is an explicit exception: it displays only the stored Japanese or English preference, including its close control. Opening that dialog enables the consent control after successful loading but must never check it automatically. Visiting a bilingual page must not overwrite or clear stored `selectedLang` or compatibility `lang`; switchable pages retain the previously selected language. Contact uses the shared bilingual-page behavior and keeps the root `lang` set to Japanese, matching the primary page language. Keep accurate `lang` attributes on language-specific content.
 
 Before enabling a language control for any switchable page, complete and review its English content. Do not present an incomplete English page as a complete language option.
 

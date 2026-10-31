@@ -115,17 +115,28 @@
     <!--画像遅延読み込み
   <img data-src="path/to/image.jpg" alt="example">
   -->
+<noscript><style>#home-entry,#loading-bg { display:none; }</style></noscript>
 </head>
 
 <body class="home">
-    <div id="loading-bg">
+    <section id="home-entry" hidden role="dialog" aria-modal="true" aria-labelledby="home-entry-title">
+      <p>Mizuki Oyama.</p>
+      <h2 id="home-entry-title">Nature inspire.</h2>
+      <p>Select Language / 言語選択</p>
+      <div class="home-entry-languages" role="group" aria-label="Language / 言語">
+        <button type="button" data-entry-language="ja" aria-pressed="true">日本語</button>
+        <button type="button" data-entry-language="en" aria-pressed="false">English</button>
+      </div>
+      <button type="button" id="home-start">START →</button>
+    </section>
+    <div id="loading-bg" hidden role="status" aria-live="polite">
     <div class="typing-container">
-        <p class="typing-line" data-text="当Webサイトはアニメーションが常に動作しているため、端末の充電を大幅に消耗します."></p>
-        <p class="typing-line" data-text="外出中での閲覧には十分にご注意ください."></p>
-        <p class="typing-line" data-text="小山より." style="text-align: center; width: 100%;"></p>
-        <p class="typing-line" data-text="This website uses up a lot of battery power due to constant animation."></p>
-        <p class="typing-line" data-text="Please be careful when viewing this website while out and about."></p>
-        <p class="typing-line" data-text="From Oyama." style="text-align: center; width: 100%;"></p>
+        <p lang="ja" class="typing-line" data-text="当Webサイトはアニメーションが常に動作しているため、端末の充電を大幅に消耗します."></p>
+        <p lang="ja" class="typing-line" data-text="外出中での閲覧には十分にご注意ください."></p>
+        <p lang="ja" class="typing-line" data-text="小山より." style="text-align: center; width: 100%;"></p>
+        <p lang="en" class="typing-line" data-text="This website uses up a lot of battery power due to constant animation."></p>
+        <p lang="en" class="typing-line" data-text="Please be careful when viewing this website while out and about."></p>
+        <p lang="en" class="typing-line" data-text="From Oyama." style="text-align: center; width: 100%;"></p>
     </div>
     <div class="noise"
         style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
@@ -225,9 +236,9 @@
                             </a>
 
                             <!-- モーダルを開くボタン -->
-                            <label for="modal-toggle" class="modal-open-label button">
+                            <button type="button" class="modal-open-label button">
                                 view
-                            </label>
+                            </button>
                         </div>
                     </div>
                     <div class="content__slide">
@@ -246,13 +257,13 @@
                             For inquiries, please use the form on the Contact page.
                         </p>
                         <div class="button-wrap">
-                            <a href="#" class="button">
+                            <button type="button" class="button">
                                 works
-                            </a>
+                            </button>
 
-                            <a href="#" class="button view-policy-button" style="pointer-events: none;">
+                            <button type="button" class="button view-policy-button" disabled style="pointer-events: none;">
                                 view
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="content__ping content__ping--noanimation"></div>
@@ -490,9 +501,9 @@
         <a href="./gallery.html" class="button" style="margin-top: 3rem;" target="_blank" rel="noopener noreferrer">
             view
         </a>
-        <label for="modal-toggle" class="button modal-close-label">
+        <button type="button" class="button modal-close-label">
             Close
-        </label>
+        </button>
     </div>
 
 
