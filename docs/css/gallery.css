@@ -12,7 +12,7 @@
 
 #langChange {
   position: fixed;
-  top: 5.5rem;
+  top: max(5.5rem, calc(3rem + 52px));
   left: 8rem;
   z-index: 2002;
   display: flex;
@@ -248,7 +248,6 @@ body.dark-theme .modal-box {
 
 h1 {
   font-size: var(--type-page-h1-size);
-  font-weight: 100;
   width: fit-content;
   line-height: 1.2;
   /*margin-left: 25vmin;
@@ -624,8 +623,6 @@ main {
 
 .art-page main {
   padding: 28vmin 2rem 80rem;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(15px);
 }
 
 /*.art-page main p:nth-child(1) {
@@ -891,7 +888,7 @@ main {
   .art-page main.gallery > .gallery-box > #sidebar-container > #category-menu li {
     flex: 0 0 auto;
     width: auto;
-    min-width: 0;
+    min-width: 44px;
     margin: 0;
     padding: 0.2rem 0.15rem;
     overflow: visible;

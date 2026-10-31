@@ -11,9 +11,17 @@ function waitForJQuery(callback) {
 
 // jQueryがロードされた後にすべて実行
 waitForJQuery(function ($) {
-    $(document).ready(function () {
+    const initializeHomeSlides = () => {
         // スライド処理
         const slideElements = ['.back__slide', '.card__slide', '.content__slide'];
+        const syncContentControls = () => {
+            $('.content__slide').each((_, element) => {
+                const active = element.classList.contains('active');
+                element.inert = !active;
+                element.setAttribute('aria-hidden', String(!active));
+            });
+        };
+        syncContentControls();
         let inProgress = false;
 
         const goToSlide = (slideElements, index) => {
@@ -21,11 +29,12 @@ waitForJQuery(function ($) {
                 inProgress = true;
 
                 $('.active').addClass('exit');
-                $('.active').not('#langChenge .active').removeClass('active');
+                $('.active').not('#langChange .active').removeClass('active');
                 slideElements.forEach(elem => {
                     $(`${elem}:nth-child(${index})`).addClass('active');
                 });
 
+                syncContentControls();
                 const evenSlide = index % 2 === 0;
                 if (evenSlide)
                     $('.content__ping').addClass('content__ping--right');
@@ -79,5 +88,6 @@ waitForJQuery(function ($) {
         // Keep the initial render immediate while reducing background work.
         updateClocks();
         setInterval(updateClocks, CLOCK_UPDATE_INTERVAL);
-    });
+    };
+    document.addEventListener("portfolio:homeready", initializeHomeSlides, { once: true });
 });

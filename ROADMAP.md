@@ -1,5 +1,12 @@
 # Portfolio Improvement Roadmap
 
+## Approved UX / Home release — 2026-11-01
+
+- Published baseline: PR #44, merge `21206c08c0f61b4ec0c31fc240e5b581461184a8`. Owner approved the reviewed hit areas, navigation, Gallery visibility, typography weight, Home entry/card and final Policy modal polish for release.
+- Reuse the existing expanded Grid targets, native controls, shared language state and background engines. Preserve protected WIP, artwork, copy and font-size tokens.
+- Gallery visibility correction removes only the .7/15px main overrides and uses the existing common .05/10px surface. Three background engines remain active in normal motion.
+- Repository checks, individual Linux image review, deployment and public runtime verification remain separate gates; results belong in the release PR and Actions. Physical-device acceptance remains separate.
+
 ## Rule
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
 Only the baseline and current priority queue below define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
@@ -268,3 +275,9 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 - Native shared menu control;55vh desktop compact mode,50% vertical Sidebar,56px Footer proximity gate and scoped44px targets. Restore the mobile64px bottom-right control while retaining50svh H1 centering.
 - Gallery normal-motion layers verified as separate primary/accent/overlay engines rather than duplicate initializations. Preserve active background behavior; remove only inactive old background comments.
 - Owner design review completed; PR #44 tracks the authorized release. Fifteen affected Linux references were reviewed individually; five passing mobile references remain unchanged. Test checks use the actual viewport and focused native control, and Home overlap uses visible component regions. Required green CI and public verification remain release gates; physical-device acceptance is separate.
+
+## 2026-10-31 integrated UX / Home local candidate
+
+- Gallery-only .7/15px reading surface masked active backgrounds: frozen-frame isolation measured mean luminance 8.96 → 28.49 with the existing common .05/10px surface. Preserve all three engines.
+- Restore bounded text-underline motion; align Ja/En; selected-language Contact policy header/scroll pane and explicit consent; common H1 weight; golden-ratio Home card and language/START/typing flow.
+- Owner approved the integrated UX/Home design and final Policy title polish for release on 2026-11-01. Preserve earlier hit-area evidence; formal Linux, Pages and public runtime results are recorded in the release PR/Actions. Protected WIP remains outside the release.

@@ -38,7 +38,18 @@ nav {
   height: 100%;
 }
 #navArea .inner li a::before {
-  bottom: 0;
+  content: none;
+}
+:is(#navArea .inner a, .page-navigation a) {
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 10px;
+  transition: text-decoration-color 300ms ease-out, text-underline-offset 300ms ease-out;
+}
+:is(#navArea .inner a, .page-navigation a):is(:hover, :focus-visible) {
+  text-decoration-color: currentColor;
+  text-underline-offset: 6px;
 }
 #navArea.open .inner li a:hover {
   text-shadow: 1px 1px 2px var(--inv);
@@ -223,7 +234,7 @@ nav .noise {
 @media screen and (min-width: 1299px) {
   #header-container #navArea:not(.is-compact) .inner ul { display: grid; padding-inline: 0; grid-template-columns: repeat(6, minmax(0, 1fr)); }
   #header-container #navArea:not(.is-compact) .inner ul li { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; width: 100%; }
-  #header-container #navArea:not(.is-compact) .inner li a { justify-self: center; }
+  #header-container #navArea:not(.is-compact) .inner li a { justify-self: stretch; width: 100%; }
   .inner ul li:nth-of-type(5) {
     margin-top: 10vmin;
   }
@@ -426,7 +437,7 @@ body:has(#modalBox[style*="display: block"]) {
   }
   .home #header-container header a.noise { color: var(--text); }
   #header-container header .head a::after { display: none; }
-  #navArea .inner a:hover { text-decoration: underline; text-underline-offset: 6px; }
+
   #header-container header .head { display: block; grid-area: brand; }
   #header-container header .head a:focus-visible { outline-offset: 2px; }
   #header-container header .head a {
@@ -488,12 +499,11 @@ body:has(#modalBox[style*="display: block"]) {
   #header-container header #langChange {
     position: static;
     grid-area: language;
-    justify-self: center;
+    justify-self: start;
     align-self: start;
     margin: 0;
   }
-  #header-container #langChange label + label { display: inline-flex; }
-  #header-container #langChange label + label::before { content: "/"; margin-right: 1rem; }
+
   main [id], #state.statement :is(.biography-section, .statement-section-heading) { scroll-margin-top: 180px; }
 
   #navArea nav {
@@ -520,7 +530,7 @@ body:has(#modalBox[style*="display: block"]) {
     transition: opacity 350ms ease-out, transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1), visibility 350ms;
   }
   .page-navigation a { display: flex; align-items: center; border: 0; padding: 0.4rem 0; text-wrap: balance; hyphens: auto; }
-  .page-navigation a:hover, .page-navigation a:focus-visible { text-decoration: underline; text-underline-offset: 5px; }
+
   #navArea nav.is-scroll-hidden, .page-navigation.is-scroll-hidden {
     opacity: 0;
     visibility: hidden;
@@ -533,6 +543,7 @@ body:has(#modalBox[style*="display: block"]) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :is(#navArea .inner a, .page-navigation a) { transition: none; }
   #navArea nav, .page-navigation:not(main .page-navigation) { transition: none; }
   .page-navigation:not(main .page-navigation).is-scroll-hidden { transform: translate(-50%, -50%); }
 }

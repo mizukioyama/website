@@ -19,7 +19,7 @@
     letter-spacing: 0;
   }
   #langChange {
-    top: 12vmin;
+    top: max(12vmin, calc(4vmin + 52px));
     left: 8vmin;
   }
   #vanta-bg {
@@ -104,14 +104,8 @@
     font-size: var(--font-ui-size);
     transition-duration: 0.8s;
   }
-  a::before {
-    content: "-";
-    width: 3px;
-    left: 0;
-  }
-  a::before:hover {
-    width: 5px;
-  }
+  /* Components own their decoration. A global in-flow hyphen made
+     inline-flex reading links rewrap when the hover width expanded. */
   footer a,
   header a {
     font-family: "Jost", sans-serif;

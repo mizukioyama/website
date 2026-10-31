@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const policyOverlay = policyToggle?.nextElementSibling;
   const policyModal = policyOverlay?.nextElementSibling;
   let isSubmitting = false;
-  let policyConfirmed = false;
   let policyContentLoaded = false;
 
   function setLocalizedText(element, japanese, english) {
@@ -68,8 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function openPolicyModal() {
     if (policyToggle) {
       policyToggle.checked = true;
-      updatePolicyScrollLock();
-      applyPolicyViewed();
+      policyToggle.dispatchEvent(new Event("change", { bubbles: true }));
     }
   }
 
@@ -81,9 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function applyPolicyViewed() {
     if (!policyContentLoaded || !policyToggle?.checked || !consentInput) return;
-    policyConfirmed = true;
     consentInput.disabled = false;
-    consentInput.checked = true;
   }
 
   policyToggle?.addEventListener("change", () => {
@@ -108,6 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const policyDocument = new DOMParser().parseFromString(markup, "text/html");
         const policyContents = Array.from(policyDocument.querySelectorAll("#policy > .content"));
         if (!policyContents.length) throw new Error("Policy content not found");
+        // The dialog header supplies the title; omit only each cloned root heading.
+        policyContents.forEach(content => content.querySelector(":scope > h2")?.remove());
         policyModalContent.innerHTML = policyContents.map(content => content.outerHTML).join("");
         policyModalContent.setAttribute("aria-busy", "false");
         window.refreshPortfolioLanguageContent?.();
@@ -191,8 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .request-options legend { margin-bottom: .85rem; font-size: clamp(var(--legacy-px-0_8), calc(var(--legacy-px-0_7) + .35vw), var(--legacy-px-1)); font-weight: 300; letter-spacing: 1px; opacity: .65; }
     .request-options legend span { margin-left: .45rem; letter-spacing: 1px; }
     .request-option-list { display: grid; grid-template-columns: repeat(3, max-content); grid-auto-rows: auto; column-gap: 24px; row-gap: 12px; justify-content: start; align-items: stretch; }
-    .request-option-list input[type="radio"] { display: none; }
-    .request-option-list label { display: flex; flex-direction: column; justify-content: center; width: max-content; max-width: 100%; min-width: 0; min-height: 0; margin: 0 !important; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(var(--legacy-px-0_75), calc(var(--legacy-px-0_68) + .3vw), var(--legacy-px-0_95)); line-height: 1.45; letter-spacing: 1px; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; box-sizing: border-box; }
+    .request-option-list label { display: flex; flex-direction: column; justify-content: center; width: max-content; max-width: 100%; min-width: 44px; min-height: 44px; margin: 0 !important; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; font-size: clamp(var(--legacy-px-0_75), calc(var(--legacy-px-0_68) + .3vw), var(--legacy-px-0_95)); line-height: 1.45; letter-spacing: 1px; font-weight: 300; opacity: .55; cursor: pointer; transition: opacity .25s ease, border-color .25s ease; box-sizing: border-box; }
     .request-option-list label span { font-size: clamp(var(--legacy-px-0_66), calc(var(--legacy-px-0_5984) + .264vw), var(--legacy-px-0_836)); }
     .request-option-list input[type="radio"]:checked + label { opacity: 1; background: transparent; border-bottom-color: currentColor; }
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
@@ -205,12 +202,12 @@ document.addEventListener("DOMContentLoaded", function () {
     @media screen and (min-width: 601px) {
       #thanksModal .modal-content p { font-size: var(--legacy-px-0_9) !important; }
     }
-    #thanksModal .close { position: absolute !important; top: .8rem !important; right: .9rem !important; display: grid !important; place-items: center !important; margin: 0 !important; padding: 0 !important; float: none !important; width: 2.5rem !important; height: 2.5rem !important; line-height: 1 !important; font-family: Arial, sans-serif !important; font-size: var(--legacy-px-1_8) !important; font-weight: 200 !important; color: var(--inv) !important; opacity: .72 !important; cursor: pointer !important; background: transparent !important; border: 0 !important; }
+    #thanksModal .close { position: absolute !important; top: .8rem !important; right: .9rem !important; display: grid !important; place-items: center !important; margin: 0 !important; padding: 0 !important; float: none !important; width: 44px !important; height: 44px !important; line-height: 1 !important; font-family: Arial, sans-serif !important; font-size: var(--legacy-px-1_8) !important; font-weight: 200 !important; color: var(--inv) !important; opacity: .72 !important; cursor: pointer !important; background: transparent !important; border: 0 !important; }
     #thanksModal .close:hover, #thanksModal .close:focus-visible { opacity: 1 !important; outline: 1px solid currentColor; outline-offset: 2px; }
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
       .request-option-list { grid-template-columns: repeat(3, max-content); column-gap: 24px; row-gap: 12px; justify-content: start; }
-      .request-option-list label { min-height: 0; margin: 0 !important; padding: 2px 0; background: transparent; font-size: clamp(var(--legacy-px-0_68), 2.8vw, var(--legacy-px-0_82)); }
+      .request-option-list label { margin: 0 !important; padding: 2px 0; background: transparent; font-size: clamp(var(--legacy-px-0_68), 2.8vw, var(--legacy-px-0_82)); }
       .request-option-list label span { font-size: clamp(var(--legacy-px-0_5984), 2.464vw, var(--legacy-px-0_7216)); }
       #thanksModal { padding: 1rem !important; }
       #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 3rem 1.5rem 1.5rem !important; }
@@ -223,8 +220,8 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     if (isSubmitting) return;
     if (honeypot?.value) return;
-    if (!policyConfirmed) {
-      setLocalizedText(status, "サイトポリシーをご確認ください。", "Please review the Site Policy before submitting.");
+    if (!policyContentLoaded || !consentInput?.checked) {
+      setLocalizedText(status, "サイトポリシーを確認し、同意チェックを選択してください。", "Please review the Site Policy and explicitly agree before submitting.");
       openPolicyModal();
       return;
     }
