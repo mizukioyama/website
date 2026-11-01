@@ -326,10 +326,12 @@
     .policy-modal-header, #policy-modal-content { padding: clamp(20px, 2.8vw, 32px); }
     .policy-modal-header h2 { font-size: var(--type-home-modal-h2-size); margin: 0; }
     .policy-modal-header .modal-close-label { margin: 0; padding: 8px; display: inline-flex; gap: 8px; }
+    /* Policy reading uses the existing 14-16px UI token; artwork/thanks retain their modal token. */
+    #policy-modal-content p { font-size: var(--font-ui-size); line-height: 1.8; margin: 0 0 18px; }
     #policy-modal-content > .content { width: 100%; min-width: 0; max-width: none; margin: 0; padding: 0; }
     #policy-modal-content :is(h2, h3) { color: inherit; background: none; background-clip: border-box; -webkit-text-fill-color: currentColor; mask: none; animation: none; text-shadow: none; }
     #policy-modal-content h2 { font-size: var(--type-home-modal-h2-size); margin: 0 0 24px; }
-    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 32px 0 12px; font-weight: 500; line-height: 1.4; }
+    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 28px 0 12px; font-weight: 500; line-height: 1.4; }
     #policy-modal-content .content > :last-child { margin-bottom: 0; }
     #modal-toggle:checked ~ .modal-overlay,
     #modal-toggle:checked ~ .modal-box { opacity: 1; visibility: visible; }

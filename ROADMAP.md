@@ -291,3 +291,11 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 
 - Owner-approved candidate is tracked in PR #46. PC actual-font resolution, cursor stacking, modal reading flow, native Home View and shared hover are included. Additional Contact language isolation and PC golden-ratio backing/frame were measured locally.
 - Preserve Gallery artwork-modal backgrounds and mobile card/UI sizing. Adopt only individually reviewed Linux Home references. No real Contact submissions; device, native BFCache and browser-UI zoom acceptance remain separate.
+
+## 2026-11-01 Home control / Contact Policy local review
+
+- Local-only refinement after PR #46: move the existing indicator into a bounded native switch control at the PC card corner; use the existing UI type token for Policy-only text and adjust paragraph rhythm. No commit, push or publication authorized for this refinement.
+
+## 2026-11-01 Home controls / Policy release approval
+
+- Owner approved the reviewed 25-file candidate for production. Preserve the design; the existing public-runtime verifier additionally checks card-switch touch/keyboard input, five hit points, fixed placement, Reduced Motion and Policy size/spacing in saved Japanese/English. Merge remains gated on clean checks and individually reviewed Linux screenshots.

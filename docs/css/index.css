@@ -411,28 +411,23 @@ p {
 
 /*== bottm line */
 .content__ping {
-  position: absolute;
-  bottom: calc(5% - 0rem);
-  width: 5%;
-  height: 1px;
-  left: 50%;
-  background: var(--inv);
-  opacity: 0.7;
-  transition: transform 500ms ease-out;
+  position: absolute; right: 24px; bottom: 24px; left: auto;
+  width: 44px; height: 44px; padding: 0; border: 0;
+  background: transparent; color: var(--inv); cursor: pointer;
+  opacity: 0.7; z-index: 11; transition: opacity 350ms ease-out;
 }
-
-.content__ping:after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 0.1em;
-  position: absolute;
-  left: 0;
-  background: var(--text);
-  opacity: 0.7;
+.content__ping::before, .content__ping::after {
+  content: ""; display: block; position: absolute;
+  width: 28px; height: 1px; left: 8px; top: 50%;
+  background: currentColor; pointer-events: none;
+}
+.content__ping::after {
+  background: var(--text); opacity: 0.7;
   transition: background 350ms 800ms linear;
   animation: widenFromLeft 2200ms ease-out;
 }
+.content__ping:is(:hover, :focus-visible) { opacity: 1; }
+.content__ping:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 
 @keyframes widenFromLeft {
   0% {
@@ -441,7 +436,7 @@ p {
   }
 
   20% {
-    transform: scaleX(4);
+    transform: scaleX(1.25);
     transform-origin: 0 50%;
   }
 
@@ -458,7 +453,7 @@ p {
   }
 
   20% {
-    transform: scaleX(4);
+    transform: scaleX(1.25);
     transform-origin: 100% 50%;
   }
 
@@ -469,10 +464,6 @@ p {
 }
 
 /*animation bottom-line*/
-.content__ping--right {
-  transform: translateX(40vmin);
-}
-
 .content__ping--right:after {
   animation: widenFromRight 1200ms ease-out;
 }
@@ -751,6 +742,8 @@ footer,
     aspect-ratio: 1 / 1.618;
     max-width: calc(90svh / 1.618);
   }
+
+  .content__ping { left: calc(50% + 48px); right: auto; bottom: 24px; transform: translateX(-50%); }
 
   .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
