@@ -51,10 +51,13 @@ async function verifyHomeControl(page, width) {
   assert.ok(before.r.x>=before.card.x&&before.r.right<=before.card.right&&before.r.y>=before.card.y&&before.r.bottom<=before.card.bottom,'Home control fits card');
   if(width>=1024){assert.ok(Math.abs(before.card.right-before.r.right-24)<1);assert.ok(Math.abs(before.card.bottom-before.r.bottom-24)<1);}
   assert.equal(before.pulse,'none','Reduced Motion suppresses control pulse');
+  const releases = await page.evaluate(() => window.__runtimeHomeLockReleases || 0);
   if(width<=430)await control.tap();else await control.click();
   await expect(page.locator('.content__slide:nth-child(2)')).toHaveClass(/active/);
   await expect(page.locator('.content__slide.active .button-wrap')).toHaveCSS('opacity','1');
-  await page.waitForTimeout(600); // Existing date rotation completes at 3.3s, after the 2.8s content transition.
+  // Reduced Motion can reveal the content before the existing interaction lock ends.
+  // Observe its real callback; do not infer readiness from visual opacity or change its duration.
+  await page.waitForFunction(previous => window.__runtimeHomeLockPending === false && window.__runtimeHomeLockReleases > previous, releases);
   const second = await sample();assert.ok(second.hits&&!second.overlaps);
   assert.ok(Math.abs(second.r.x-before.r.x)<1&&Math.abs(second.r.y-before.r.y)<1,'Home control stays fixed across cards');
   await control.press('Space');await expect(page.locator('.content__slide:first-child')).toHaveClass(/active/);
@@ -94,6 +97,18 @@ async function verifyPolicyMetrics(page, width) {
       const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce', hasTouch: width <= 430, isMobile: width <= 430 });
       const page = await context.newPage();
       await page.addInitScript(() => {
+        const nativeTimeout = window.setTimeout.bind(window);
+        window.setTimeout = (callback, delay, ...args) => {
+          // The production build minifies the closure variable and false to !1.
+          if (Number(delay) === 3000 && typeof callback === 'function' && /=>\s*[\w$]+\s*=\s*(?:false|!1)\s*$/.test(Function.prototype.toString.call(callback))) {
+            window.__runtimeHomeLockPending = true;
+            return nativeTimeout(() => {
+              try { callback(...args); }
+              finally { window.__runtimeHomeLockPending = false; window.__runtimeHomeLockReleases = (window.__runtimeHomeLockReleases || 0) + 1; }
+            }, delay);
+          }
+          return nativeTimeout(callback, delay, ...args);
+        };
         document.addEventListener('portfolio:homeready',()=>{window.__runtimeHomeReady=performance.now();},{once:true});
         document.addEventListener('DOMContentLoaded', () => {
         if (typeof TextScramble === 'undefined') return;

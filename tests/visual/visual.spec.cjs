@@ -1812,7 +1812,10 @@ async function prepareDeterministicNetwork(page) {
       const setText = TextScramble.prototype.setText;
       TextScramble.prototype.setText = function (text) {
         const isPageTitle = this.el.matches(".h1-text h1.text");
-        if (isPageTitle) this.el.dataset.visualTitleComplete = "false";
+        if (isPageTitle) {
+          this.el.dataset.visualTitleComplete = "false";
+          this.el.__visualTitleAnimation = this;
+        }
         const completion = setText.call(this, text);
         if (isPageTitle) completion.then(() => {
           this.el.dataset.visualTitleComplete = "true";
@@ -1866,25 +1869,38 @@ async function stabilize(page, entry = {}) {
   await completeHomeEntry(page);
   await page.addStyleTag({ path: path.resolve(__dirname, "stabilize.css") });
 
-  // These pages run both the primary WebGL field and TRUNK in visual tests.
-  // Their letter-by-letter H1 reveal advances on RAF, so allow slower CI renderers more time.
+  // RAF-driven text can still be progressing on the software renderer at 5s.
+  // Watch real frame progress, retaining the existing 15s maximum and completion assertions.
   const titleAnimationTimeoutMs = ["biography", "artist-statement", "order"].includes(entry.key) ? 15000 : 5000;
-  await page.evaluate(async timeoutMs => {
+  const titleAnimationEvidence = await page.evaluate(async timeoutMs => {
     const title = document.querySelector(".h1-text h1.text");
     if (!title) return;
     const target = title.getAttribute("aria-label");
     if (!target) return;
 
-    await new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       let stableTimer;
-      const timeoutTimer = setTimeout(() => {
-        observer.disconnect();
-        reject(new Error("Page title did not finish its text animation."));
-      }, timeoutMs);
+      const started = performance.now();
+      let lastProgress = started;
+      let lastFrame = title.__visualTitleAnimation?.frame;
+      const timeoutTimer = setInterval(() => {
+        const now = performance.now();
+        const frame = title.__visualTitleAnimation?.frame;
+        if (Number.isFinite(frame) && frame !== lastFrame) {
+          lastFrame = frame;
+          lastProgress = now;
+        }
+        if (now - lastProgress >= timeoutMs || now - started >= 15000) {
+          observer.disconnect();
+          clearInterval(timeoutTimer);
+          clearTimeout(stableTimer);
+          reject(new Error(`Page title did not finish its text animation: frame=${frame}, elapsed=${Math.round(now-started)}ms, stalled=${Math.round(now-lastProgress)}ms, complete=${title.dataset.visualTitleComplete}.`));
+        }
+      }, 100);
       const finish = () => {
         observer.disconnect();
-        clearTimeout(timeoutTimer);
-        resolve();
+        clearInterval(timeoutTimer);
+        resolve({ elapsedMs: Math.round(performance.now() - started), frame: title.__visualTitleAnimation?.frame, complete: title.dataset.visualTitleComplete });
       };
       const check = () => {
         clearTimeout(stableTimer);
@@ -1901,6 +1917,7 @@ async function stabilize(page, entry = {}) {
       check();
     });
   }, titleAnimationTimeoutMs);
+  if (titleAnimationEvidence?.elapsedMs >= 5000) console.log('[title-animation-progress]', JSON.stringify(titleAnimationEvidence));
 
   await page.evaluate(() => {
     const year = document.querySelector("#year");
