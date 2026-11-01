@@ -286,3 +286,8 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 ### 2026-11-01 — local interaction/typography review candidate
 - PC H1 actual-face alignment, modal cursor layering and shared reading-pane spacing, Home single View CTA/golden-card gutters, and Footer-consistent navigation decoration implemented locally.
 - Owner visual review and later separately authorized clean-commit/Linux release verification remain pending; no publication in this task.
+
+## 2026-11-01 Interaction / Typography release
+
+- Owner-approved candidate is tracked in PR #46. PC actual-font resolution, cursor stacking, modal reading flow, native Home View and shared hover are included. Additional Contact language isolation and PC golden-ratio backing/frame were measured locally.
+- Preserve Gallery artwork-modal backgrounds and mobile card/UI sizing. Adopt only individually reviewed Linux Home references. No real Contact submissions; device, native BFCache and browser-UI zoom acceptance remain separate.

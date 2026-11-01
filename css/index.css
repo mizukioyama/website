@@ -752,7 +752,7 @@ footer,
     max-width: calc(90svh / 1.618);
   }
 
-  .card_line { width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
+  .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
   .back__slide::before {
     width: 100%;
