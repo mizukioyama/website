@@ -3794,13 +3794,15 @@ test("Custom cursor stays above reading dialogs without intercepting their close
     await expect(dialog).toHaveCSS('opacity','1');
     const close = dialog.locator(route==='gallery.html'?'#modalCloseBtn':'.modal-close-label');
     const bounds = await close.boundingBox();
+    await page.evaluate(() => window.addEventListener('mousemove', event => { window.__cursorActualMouse = {x:event.clientX,y:event.clientY}; }, {once:true}));
     await page.mouse.move(bounds.x+bounds.width/2,bounds.y+bounds.height/2);
+    const actualMouse = await page.evaluate(() => window.__cursorActualMouse);
     const cursor = page.locator('#cursor'); await expect(cursor).toHaveCSS('opacity','1');
     await expect(cursor).toHaveCSS('pointer-events','none');
     expect(Number(await cursor.evaluate(e=>getComputedStyle(e).zIndex))).toBeGreaterThan(Number(await dialog.evaluate(e=>getComputedStyle(e).zIndex)));
     const center = await cursor.boundingBox();
-    expect(center.x+center.width/2).toBeCloseTo(bounds.x+bounds.width/2,0);
-    expect(center.y+center.height/2).toBeCloseTo(bounds.y+bounds.height/2,0);
+    expect(center.x+center.width/2).toBeCloseTo(actualMouse.x,0);
+    expect(center.y+center.height/2).toBeCloseTo(actualMouse.y,0);
     await close.click(); await expect(dialog).toBeHidden(); await expect(opener).toBeFocused();
   }
 });
@@ -3820,4 +3822,42 @@ test('Home card layers retain the same measured golden ratio at all PC release w
     expect(parseFloat(await view.evaluate(e=>getComputedStyle(e).fontSize))).toBeLessThanOrEqual(14);
     const r=await view.boundingBox();expect(r.width).toBeGreaterThanOrEqual(44);expect(r.height).toBeGreaterThanOrEqual(44);
   }
+});
+
+test('Contact completion follows saved language and cursor remains non-intercepting during mocked success', async ({page},info) => {
+  test.skip(!['desktop-1440','mobile-390'].includes(info.project.name), 'Completion language and input audits use representative desktop and touch widths.');
+  await prepareDeterministicNetwork(page);
+  let requests=0;
+  await page.route('https://script.google.com/**',route=>{requests++;return route.fulfill({status:200,contentType:'text/plain',body:'Successfully submitted'});});
+  for(const language of ['ja','en']) {
+    await page.goto('contact.html');
+    await page.evaluate(language=>{localStorage.setItem('selectedLang',language);localStorage.setItem('lang',language)},language);
+    await page.reload();
+    await expect(page.locator('#policy-modal-content')).toHaveAttribute('aria-busy','false');
+    await page.locator('label[for="radio2"]').click();
+    await page.locator('.modal-open-label').click();
+    await expect(page.locator('.modal-box')).toHaveCSS('opacity','1');
+    await page.keyboard.press('Escape');
+    await page.locator('#consent').check();
+    await page.locator('#name').fill('Mocked release verification');
+    await page.locator('#email').fill('mock@example.com');
+    await page.locator('#message').fill('Mocked response only; no external form submission.');
+    await page.locator('.submit-btn').click();
+    const dialog=page.locator('#thanksModal'),close=dialog.locator('.close');
+    await expect(dialog).toHaveClass(/show/);
+    await expect(dialog.locator(`p[lang="${language}"]`)).toBeVisible();
+    await expect(dialog.locator(`p[lang="${language==='ja'?'en':'ja'}"]`)).toBeHidden();
+    await expect(close).toBeFocused();
+    if(info.project.name==='desktop-1440') {
+      const r=await close.boundingBox();
+      await page.evaluate(()=>window.addEventListener('mousemove',e=>window.__thanksMouse={x:e.clientX,y:e.clientY},{once:true}));
+      await page.mouse.move(r.x+r.width/2,r.y+r.height/2);
+      const state=await page.evaluate(()=>{const e=document.querySelector('#cursor'),r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2,pointer:getComputedStyle(e).pointerEvents,z:+getComputedStyle(e).zIndex,dialogZ:+getComputedStyle(document.querySelector('#thanksModal')).zIndex,mouse:window.__thanksMouse}});
+      expect(state.pointer).toBe('none');expect(state.z).toBeGreaterThan(state.dialogZ);
+      expect(state.x).toBeCloseTo(state.mouse.x,0);expect(state.y).toBeCloseTo(state.mouse.y,0);
+      await close.click();
+    } else await page.keyboard.press('Escape');
+    await expect(dialog).not.toHaveClass(/show/);await expect(page.locator('.submit-btn')).toBeFocused();
+  }
+  expect(requests).toBe(2);
 });
