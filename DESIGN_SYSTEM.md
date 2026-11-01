@@ -204,3 +204,14 @@ Desktop horizontal navigation uses one shared size role, weight and tracking, wi
 - Home .card uses 1.618 landscape and 1/1.618 portrait ratios, constrained to the viewport. The existing portrait-tablet boundary shares the portrait ratio.
 - Home entry reuses language radios/storage; START invokes initializeTyping for only the selected language, then emits portfolio:homeready once to start the existing slideshow. Same-tab session return skips the entry/typing. No-JS and runtime-error fallbacks leave the site accessible.
 - Local review only; Linux baseline and publication remain pending.
+
+
+## 2026-11-01 local interaction / typography candidate
+
+- PC H1 keeps the same size and weight100, but uses the existing Gallery Regular glyphs through the locally served Portfolio Shippori family. The official Google Fonts Latin subset and OFL license live in css/fonts; the alias prevents a same-name installed ExtraBold font from substituting on pages without the web face. Only the existing1024px PC query references it; mobile H1 is unchanged.
+- Discrete controls keep their full targets. A single nav-label span bounds the shared Footer-style pseudo underline to the text; underline timing is .5s ease and hover opacity/shadow follows the existing shared link rule. The static no-JavaScript generator strips decoration markup and asserts six links.
+- Cursor nodes stay in the normal root stack at12000 above Policy10001 and thanks10099; no active dialog uses the browser Top Layer. Native cursor hiding activates only after mouse input on a fine hover pointer. Touch keeps native behavior without generating cursor nodes.
+- Policy/artwork reading panes share padding20–32px and the existing modal-body token16–18px. Only this explicit modal component token changes; normal page Typography values are preserved. Thanks presentation is consolidated into form.css, replacing competing JavaScript/legacy CSS overrides. Each modal keeps close/Escape/focus return and a bounded independently scrolling body.
+- Home keeps its golden ratios and existing slideshow/START/loading/language persistence. The portrait card has24px side gutters when height permits. View is a native same-tab Gallery link; the former Enter and Home-only Policy DOM/fetch/controller are removed. Only data-home-slide controls receive slide-click handlers; closed-exhibition copy and disabled View stay intact.
+- The owner approved this candidate for release in PR #46. Formal Linux review, clean repository checks and deployed runtime verification remain mandatory release gates.
+- Contact-only reading padding is20–32px (PC32px), without changing artwork-modal backgrounds or padding. Completion text uses the saved language. PC Home card/backing/frame share the existing card dimensions at the exact golden ratio; the fullscreen atmosphere stays viewport-sized. PC View reuses the12–14px table-role token and a44px target; portrait/mobile keeps the previous UI size and decoration dimensions.

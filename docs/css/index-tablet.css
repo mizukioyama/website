@@ -35,11 +35,13 @@
   }
 
   .home .card {
-    width: min(98svw, calc(100% - 1rem));
+    width: calc(100% - 48px);
     height: auto;
     aspect-ratio: 1 / 1.618;
     max-width: calc(90svh / 1.618);
   }
+
+  .home .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
   .home .back__slide::before {
     width: 100%;
@@ -47,8 +49,8 @@
   }
 
   .home .content__slide {
-    width: 80%;
-    gap: 1rem;
+    width: calc(100% - 48px);
+    gap: 16px;
   }
 
   .home .creator {
@@ -100,9 +102,8 @@
   .home .date__time {
     display: block;
     opacity: 0.5;
-    position: absolute;
-    right: 10%;
-    bottom: 0;
+    position: static;
+    text-align: left;
   }
 
   .home .desc {
@@ -115,6 +116,7 @@
   }
 
   .home .button {
+    font-size: var(--font-ui-size);
     padding: 1rem 0.5rem;
   }
 

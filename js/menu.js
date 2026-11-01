@@ -21,12 +21,12 @@ const HEADER_MARKUP = `
     <nav id="primary-navigation" aria-label="Primary navigation">
       <div class="inner">
         <ul>
-          <li><a href="${siteHref("")}" class="noise">Top</a></li>
-          <li><a href="${siteHref("gallery.html")}" class="noise">Art Index</a></li>
-          <li><a href="${siteHref("biography.html")}" class="noise">Biography</a></li>
-          <li><a href="${siteHref("artist-statement.html")}" class="noise">Artist Statement</a></li>
-          <li><a href="${siteHref("order.html")}" class="noise">Order</a></li>
-          <li><a href="${siteHref("contact.html")}" class="noise">Contact</a></li>
+          <li><a href="${siteHref("")}" class="noise"><span class="nav-label">Top</span></a></li>
+          <li><a href="${siteHref("gallery.html")}" class="noise"><span class="nav-label">Art Index</span></a></li>
+          <li><a href="${siteHref("biography.html")}" class="noise"><span class="nav-label">Biography</span></a></li>
+          <li><a href="${siteHref("artist-statement.html")}" class="noise"><span class="nav-label">Artist Statement</span></a></li>
+          <li><a href="${siteHref("order.html")}" class="noise"><span class="nav-label">Order</span></a></li>
+          <li><a href="${siteHref("contact.html")}" class="noise"><span class="nav-label">Contact</span></a></li>
         </ul>
       </div>
       <div id="mask">
@@ -220,6 +220,8 @@ function loadDeferredImages() {
  * @returns {void}
  */
 function initializeCustomCursor() {
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  if (!finePointer.matches) return;
   if (document.getElementById("cursor") || document.getElementById("stalker")) {
     return;
   }
@@ -238,6 +240,8 @@ function initializeCustomCursor() {
   document.addEventListener("mousemove", event => {
     const { clientX: x, clientY: y } = event;
 
+    if (!finePointer.matches) return;
+    document.documentElement.classList.add("custom-cursor-active");
     cursor.style.opacity = "1";
     stalker.style.opacity = "1";
     cursor.style.top = `${y}px`;
@@ -247,6 +251,11 @@ function initializeCustomCursor() {
       stalker.style.top = `${y}px`;
       stalker.style.left = `${x}px`;
     }, 100);
+  });
+
+  finePointer.addEventListener("change", () => {
+    document.documentElement.classList.remove("custom-cursor-active");
+    cursor.style.opacity = stalker.style.opacity = "0";
   });
 
   const hoverSelector = [
@@ -511,7 +520,7 @@ function applyLocalizedContent(language) {
 
   if (isBilingualPage()) {
     localizedElements.forEach(element => {
-      if (element.closest('.modal-box') && document.getElementById('policy-modal-content')) {
+      if (element.closest('#thanksModal') || (element.closest('.modal-box') && document.getElementById('policy-modal-content'))) {
         element.style.display = element.lang === selectedLanguage ? '' : 'none';
       } else if (!showPersistentSubtitle(element)) element.style.display = 'block';
     });
@@ -639,6 +648,16 @@ function initializeDesktopNavigation(desktop, panel, setOpen) {
     reading.setAttribute('aria-label', 'ページ内ナビゲーション / On this page');
   }
   reading?.classList.add('page-navigation');
+  const decorateLinks = () => {
+    for (const link of reading?.querySelectorAll("a") || []) {
+      if (link.querySelector(":scope > .nav-label")) continue;
+      const label = document.createElement("span");
+      label.className = "nav-label";
+      label.append(...link.childNodes);
+      link.append(label);
+    }
+  };
+  decorateLinks();
   const updateLinks = () => {
     if (!reading || existing) return;
     const language = window.getPortfolioLanguage?.() || 'ja';
@@ -649,6 +668,7 @@ function initializeDesktopNavigation(desktop, panel, setOpen) {
       return link;
     });
     reading.replaceChildren(...links);
+    decorateLinks();
   };
   const readingLabels = new Map([...(reading?.querySelectorAll('[data-sidebar-label]') || [])].map(link => [link, link.textContent]));
   const setVisible = (element, visible) => {
@@ -666,7 +686,7 @@ function initializeDesktopNavigation(desktop, panel, setOpen) {
     frame = 0;
     for (const [link, label] of readingLabels) {
       const text = desktop.matches ? link.dataset.sidebarLabel : label;
-      if (link.textContent !== text) link.textContent = text;
+      if (link.textContent !== text) link.querySelector(".nav-label").textContent = text;
       if (desktop.matches) link.setAttribute('aria-label', label);
       else link.removeAttribute('aria-label');
     }
@@ -736,7 +756,7 @@ function initializePolicyControls() {
   panel.tabIndex = -1;
   const overlay = toggle.nextElementSibling;
   const background = new Map();
-  const content = panel.querySelector('[id]');
+  const content = panel.querySelector('#policy-modal-content');
   if (content) opener.setAttribute('aria-controls', content.id);
   const update = (focus = true) => {
     opener.setAttribute('aria-expanded', String(toggle.checked));
@@ -751,11 +771,7 @@ function initializePolicyControls() {
       background.clear();
     }
     if (!focus) return;
-    let target = toggle.checked ? panel : opener;
-    if (!toggle.checked && opener.closest('.content__slide:not(.active)')) {
-      const menu = document.querySelector('.toggle_btn');
-      target = menu?.getClientRects().length && !menu.hasAttribute('inert') ? menu : document.querySelector('.head a');
-    }
+    const target = toggle.checked ? panel : opener;
     target?.focus({ preventScroll: true });
   };
   const setOpen = open => {

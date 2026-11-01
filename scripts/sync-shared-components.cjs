@@ -40,9 +40,10 @@ function renderSegment(target) {
 
 const pageSources = ["index.html", "gallery.html", "biography.html", "artist-statement.html", "order.html", "contact.html", "policy.html", "src/information.html", "src/exhibitions/yurayura/index.html", "src/404.html"];
 const headerSource = fs.readFileSync(path.join(root, "src/components/header.html"), "utf8");
-const primaryLinks = [...headerSource.matchAll(/<li><a href="@@SITE:([^@]*)@@"[^>]*>([^<]+)<\/a>/g)];
+const primaryLinks = [...headerSource.matchAll(/<li><a href="@@SITE:([^@]*)@@"[^>]*>([\s\S]*?)<\/a>/g)];
+if (primaryLinks.length !== 6) throw new Error('Shared Header must provide exactly six primary links.');
 const fallback = '<nav class="static-primary-navigation" data-static-primary-navigation aria-label="Primary navigation">\n' +
-  primaryLinks.map(match => '  <a href="/website/' + match[1] + '">' + match[2] + '</a>').join('\n') + '\n</nav>';
+  primaryLinks.map(match => '  <a href="/website/' + match[1] + '">' + match[2].replace(/<[^>]+>/g, '').trim() + '</a>').join('\n') + '\n</nav>';
 const footerFallback = fs.readFileSync(path.join(root, "src/components/footer.html"), "utf8")
   .trim().replace("<footer>", '<footer data-static-footer>')
   .replace(/@@SITE:([^@]*)@@/g, (_match, sitePath) => "/website/" + sitePath);

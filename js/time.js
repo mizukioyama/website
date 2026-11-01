@@ -47,8 +47,9 @@ waitForJQuery(function ($) {
             }
         };
 
-        $('.content__slide:nth-child(1) .button').on('click', () => goToSlide(slideElements, 2));
-        $('.content__slide:nth-child(2) .button').on('click', () => goToSlide(slideElements, 1));
+        $('.content__slide [data-home-slide]').on('click', function () {
+            goToSlide(slideElements, Number(this.dataset.homeSlide));
+        });
 
         setTimeout(() => goToSlide(slideElements, 2), 2000);
         setTimeout(() => goToSlide(slideElements, 1), 6000);

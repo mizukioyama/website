@@ -40,25 +40,14 @@ nav {
 #navArea .inner li a::before {
   content: none;
 }
-:is(#navArea .inner a, .page-navigation a) {
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 10px;
-  transition: text-decoration-color 300ms ease-out, text-underline-offset 300ms ease-out;
-}
-:is(#navArea .inner a, .page-navigation a):is(:hover, :focus-visible) {
-  text-decoration-color: currentColor;
-  text-underline-offset: 6px;
-}
-#navArea.open .inner li a:hover {
-  text-shadow: 1px 1px 2px var(--inv);
-}
-.home #navArea .inner li a::before:hover {
-  background: var(--text);
-}
-.home #navArea.open .inner li a:hover {
-  text-shadow: 0 0 0 var(--text);
+.nav-label {
+  display: inline-block;
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  font: inherit;
+  letter-spacing: inherit;
+  pointer-events: none;
 }
 nav .noise {
   display: block;
@@ -396,14 +385,12 @@ body:has(#modalBox[style*="display: block"]) {
 }
 #navArea .inner a[aria-current="page"] {
   opacity: 1;
-  text-decoration: underline;
-  text-underline-offset: 6px;
-  text-decoration-thickness: 1px;
 }
 /* One shared bounded header; overlay and body-typography breakpoints stay unchanged. */
 .header-inner { display: contents; }
 .page-navigation:not(main .page-navigation) { display: none; }
 @media screen and (min-width: 1024px) {
+  h1 { font-family: "Portfolio Shippori", "Shippori Mincho", serif; font-synthesis: none; }
   #header-container header {
     position: fixed;
     inset: 0 0 auto;
@@ -543,7 +530,8 @@ body:has(#modalBox[style*="display: block"]) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :is(#navArea .inner a, .page-navigation a) { transition: none; }
+  :is(#navArea .inner a, .page-navigation a, footer a, .nav-label::before, footer a::before) { transition: none; }
+  #stalker { animation: none; transition: none; }
   #navArea nav, .page-navigation:not(main .page-navigation) { transition: none; }
   .page-navigation:not(main .page-navigation).is-scroll-hidden { transform: translate(-50%, -50%); }
 }

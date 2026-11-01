@@ -9,18 +9,18 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
-  <link rel="stylesheet" href="css/all.css?v=2ff046282b3e">
+  <link rel="stylesheet" href="css/all.css?v=9bc312ff2c95">
   <link rel="stylesheet" href="css/gallery.css?v=806dc95effcc">
   <link rel="stylesheet" href="css/mobile.css?v=037c4e1ba363">
   <link rel="stylesheet" href="css/footer.css?v=a657cfc7e2e3">
-  <link rel="stylesheet" href="css/menu.css?v=b3532fe6fcc7">
-  <link rel="stylesheet" href="assets/css/user-settings.css?v=d31de8330669">
+  <link rel="stylesheet" href="css/menu.css?v=140a3771a03e">
+  <link rel="stylesheet" href="assets/css/user-settings.css?v=159475157956">
 
   <!-- JS -->
 
-  <script src="js/page-nation.js?v=f21628849b2d"></script>
+  <script src="js/page-nation.js?v=58b70ee8cd7d"></script>
   <script src="js/gallery-captions.js?v=5249cd95a460"></script>
-  <script src="js/menu.js?v=7ead17686013"></script>
+  <script src="js/menu.js?v=6ea75a81670b"></script>
 
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
@@ -98,153 +98,33 @@
         ">
 
   <style>
-    .modal-overlay {
-      position: fixed !important;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 2000;
-    }
-
     .modal-box {
-      position: fixed !important;
-      top: 50%;
-      left: 50%;
+      position: fixed;
+      inset: 50% auto auto 50%;
       transform: translate(-50%, -50%);
-      padding: clamp(3rem, calc(1rem + 5vw), 5rem) clamp(2rem, calc(52.65vw - 17.75rem), 25rem) clamp(7rem, calc(29.75vw - 4.15rem), 20rem);
-      width: min(95vw, calc(100% - 1rem));
-      min-height: 90vh;
-      height: 95dvh;
-      overflow-y: auto;
-      box-shadow: 0 0px 20px #000;
-      z-index: 2001;
+      padding: 0;
+      width: min(960px, calc(100% - 32px));
+      height: 90svh;
+      overflow: hidden;
+      box-shadow: 0 0 20px #000;
       backdrop-filter: blur(20px);
-      background: rgba(100, 100, 100, 0.1);
+      background: rgba(16, 24, 25, .97);
     }
-
-    .modal-box .work-img .works {
-      display: grid;
-      align-content: space-between;
-      justify-items: end;
-      height: auto;
-      width: auto;
-    }
-
-    .modal-box .work-img .works p {
-      text-align: end;
-    }
-
-    .modal-box .work-img {
-      width: min(100%, 820px);
-      max-width: 820px;
-      margin: 0 auto;
-    }
-
-    .modal-box .dli-external-link {
-      top: 1%;
-    }
-
-    .modal-box h2 {
-      font-weight: 300;
-    }
-
-    .modal-text {
-      position: relative;
-    }
-
-    .modal-text p {
-      margin-top: 8vmin;
-      text-shadow: 0 2px 2px var(--text);
-      line-height: 2.4;
-      margin-bottom: 2vmin;
-    }
-
-    .modal-text p:nth-child(1) {
-      margin: 0;
-      margin-top: 5vmin;
-    }
-
-    .text-content {
-      font-size: var(--type-caption-size);
-    }
-
-    #modalCloseBtn {
-      font-size: var(--type-modal-close-size);
-      position: absolute;
-      bottom: -5rem;
-      right: 0;
-      cursor: pointer;
-    }
-
-    #modalCloseBtn:hover {
-      mix-blend-mode: difference;
-    }
-
-    .modal-box a::before {
-      display: none;
-    }
-
-    @keyframes slideInBottom {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -40%);
-      }
-
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    .modal-box.animate-bottom {
-      animation: slideInBottom 0.4s ease-out forwards;
-    }
-
-    @media screen and (max-width: 599px) {
-      .modal-box {
-        height: 98svh;
-        min-height: 90svh;
-        padding: 8rem 2rem 7rem;
-      }
-
-      .noise.cg-text {
-        font-size: var(--type-gallery-ol-size) !important;
-      }
-
-      .modal-box p {
-        font-size: var(--type-caption-size);
-        letter-spacing: var(--legacy-px-0_05);
-      }
-
-      .modal-text p {
-        margin-top: 15vmin;
-      }
-
-      .modal-text a {
-        margin-top: 5vmin !important;
-      }
-
-      .modal-box .text-content {
-        font-size: var(--type-caption-size);
-      }
-
-      .modal-box .work-img {
-        width: 100%;
-      }
-
-      #modalCloseBtn {
-        font-size: var(--type-modal-mobile-close-size);
-        bottom: -2.5rem;
-      }
-
-      .modal-box .work-img img {
-        height: auto;
-        clip-path: polygon(0% 5%, 100% 5%, 100% 100%, 100% 95%, 0% 95%, 0% 100%, 0 0%);
-      }
-
-
-    }
+    .modal-box .work-img { width: 100%; max-width: none; height: 100%; margin: 0; display: flex; flex-direction: column; }
+    .modal-box .works { display: block; width: auto; min-width: 0; height: auto; }
+    .modal-box .works :is(h2, p) { text-align: left; margin: 0; }
+    .modal-box .works h2 { font-size: var(--type-home-modal-h2-size); font-weight: 300; line-height: 1.4; }
+    .modal-box .works p, .text-content { font-size: var(--font-metadata-size); line-height: 1.6; }
+    .gallery-modal-body > img { display: block; width: auto; max-width: 100%; height: auto; max-height: 65svh; object-fit: contain; margin: 0 auto 24px; opacity: .85; clip-path: none; }
+    .modal-box .cg-text { font-size: var(--font-metadata-size); margin: 0 0 16px; }
+    .modal-text p { text-shadow: none; }
+    .modal-text a { font-size: var(--font-ui-size); margin: 0 0 24px; width: fit-content; }
+    #modalCloseBtn { flex-shrink: 0; position: static; font-size: var(--type-modal-mobile-close-size); padding: 8px; color: inherit; background: transparent; border: 0; }
+    #modalCloseBtn:hover { mix-blend-mode: difference; }
+    .modal-box a::before { display: none; }
+    @keyframes slideInBottom { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+    .modal-box.animate-bottom { animation: slideInBottom .4s ease-out forwards; }
+    @media (prefers-reduced-motion: reduce) { .modal-box.animate-bottom { animation: none; } }
   </style>
   <link rel="stylesheet" href="css/background-overlay.css?v=689606cc3631">
   <link rel="stylesheet" href="css/organic-flow.css?v=afb7d113fa42">

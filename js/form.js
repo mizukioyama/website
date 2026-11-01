@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const policyModal = policyOverlay?.nextElementSibling;
   let isSubmitting = false;
   let policyContentLoaded = false;
+  let thanksOpener;
+  const thanksBackground = new Map();
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-label", "お問い合わせありがとうございます / Thank you for your inquiry");
 
   function setLocalizedText(element, japanese, english) {
     const ja = document.createElement("span");
@@ -47,11 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (closeButton) {
     closeButton.textContent = "×";
-    closeButton.setAttribute("role", "button");
-    closeButton.setAttribute("tabindex", "0");
     const updateCloseButtonLabel = event => {
       const language = event?.detail?.language || window.getPortfolioLanguage?.() || document.documentElement.lang;
       closeButton.setAttribute("aria-label", language === "en" ? "Close" : "閉じる");
+      modal.setAttribute("aria-label", language === "en" ? "Thank you for your inquiry" : "お問い合わせありがとうございます");
     };
     document.addEventListener("portfolio:languagechange", updateCloseButtonLabel);
     updateCloseButtonLabel();
@@ -195,23 +199,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .contact-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
     .form-status { min-height: 1.5em; margin: 1rem 0 0; font-size: clamp(var(--legacy-px-0_7), calc(var(--legacy-px-0_62) + .3vw), var(--legacy-px-0_85)); opacity: .7; }
     .submit-btn[disabled] { opacity: .4; cursor: wait; }
-    #thanksModal { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100dvh !important; min-height: 100dvh !important; padding: 1rem !important; margin: 0 !important; transform: none !important; background: rgba(0, 0, 0, .62) !important; -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important; align-items: center !important; justify-content: center !important; overflow: hidden !important; box-sizing: border-box !important; z-index: 2147483000 !important; }
-    #thanksModal.show { display: flex !important; opacity: 1 !important; transform: none !important; }
-    #thanksModal .modal-content { position: relative !important; inset: auto !important; width: min(90vw, 680px) !important; height: auto !important; max-height: min(74dvh, 680px) !important; margin: 0 !important; padding: clamp(2.5rem, 6vw, 3.25rem) clamp(1.75rem, 5vw, 3rem) clamp(1.75rem, 5vw, 3rem) !important; transform: none !important; overflow-y: auto !important; background: rgba(0, 0, 0, .94) !important; border: 1px solid rgba(255,255,255,.14) !important; box-sizing: border-box !important; }
-    #thanksModal .modal-content p { width: 100% !important; min-width: 0 !important; margin-inline: 0 !important; }
-    @media screen and (min-width: 601px) {
-      #thanksModal .modal-content p { font-size: var(--legacy-px-0_9) !important; }
-    }
-    #thanksModal .close { position: absolute !important; top: .8rem !important; right: .9rem !important; display: grid !important; place-items: center !important; margin: 0 !important; padding: 0 !important; float: none !important; width: 44px !important; height: 44px !important; line-height: 1 !important; font-family: Arial, sans-serif !important; font-size: var(--legacy-px-1_8) !important; font-weight: 200 !important; color: var(--inv) !important; opacity: .72 !important; cursor: pointer !important; background: transparent !important; border: 0 !important; }
-    #thanksModal .close:hover, #thanksModal .close:focus-visible { opacity: 1 !important; outline: 1px solid currentColor; outline-offset: 2px; }
     @media screen and (max-width: 600px) {
       .request-options { margin-top: 1.35rem; }
       .request-option-list { grid-template-columns: repeat(3, max-content); column-gap: 24px; row-gap: 12px; justify-content: start; }
       .request-option-list label { margin: 0 !important; padding: 2px 0; background: transparent; font-size: clamp(var(--legacy-px-0_68), 2.8vw, var(--legacy-px-0_82)); }
       .request-option-list label span { font-size: clamp(var(--legacy-px-0_5984), 2.464vw, var(--legacy-px-0_7216)); }
-      #thanksModal { padding: 1rem !important; }
-      #thanksModal .modal-content { width: min(92vw, 34rem) !important; max-height: 76dvh !important; padding: 3rem 1.5rem 1.5rem !important; }
-      #thanksModal .close { top: .55rem !important; right: .6rem !important; }
     }
   `;
   document.head.appendChild(style);
@@ -244,6 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.set("text", "問い合わせ");
     }
     formData.set("formStartedAt", formStartedAt?.value || String(Date.now()));
+    thanksOpener = document.activeElement !== document.body ? document.activeElement : submitButton;
     isSubmitting = true;
     if (submitButton) submitButton.disabled = true;
     setLocalizedText(status, "送信中...", "Sending...");
@@ -251,8 +244,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(contactForm.action, { method: "POST", body: formData });
       const result = await response.text();
       if (!response.ok || !result.includes("Successfully submitted")) throw new Error(result || `HTTP ${response.status}`);
+      for (const child of document.body.children) {
+        if (child === modal || child.matches("script,style,link,#cursor,#stalker")) continue;
+        thanksBackground.set(child, child.inert); child.inert = true;
+      }
       modal.style.display = "flex";
       modal.classList.add("show");
+      closeButton?.focus({ preventScroll: true });
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
       contactForm.reset();
@@ -270,16 +268,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function closeThanksModal() {
     modal.classList.remove("show");
+    for (const [child, inert] of thanksBackground) child.inert = inert;
+    thanksBackground.clear();
+    thanksOpener?.focus({ preventScroll: true });
     document.documentElement.style.overflow = "";
     document.body.style.overflow = "";
     setTimeout(() => (modal.style.display = "none"), 300);
   }
   closeButton?.addEventListener("click", closeThanksModal);
-  closeButton?.addEventListener("keydown", event => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      closeThanksModal();
-    }
+  modal.addEventListener("keydown", event => {
+    if (event.key === "Escape") { event.preventDefault(); closeThanksModal(); }
+    if (event.key === "Tab") { event.preventDefault(); closeButton?.focus(); }
   });
   window.addEventListener("click", event => { if (event.target === modal) closeThanksModal(); });
 });

@@ -133,7 +133,7 @@ test('Editorial desktop header keeps six equal columns in a right-aligned fluid 
   expect(ornament.x).toBeCloseTo(ornament.parentX,0);expect(ornament.position).toBe('relative');expect(ornament.pseudo).toBeLessThanOrEqual(ornament.anchor*1.1+1);
   await page.keyboard.press('Tab');await logo.focus();await expect(logo).toBeFocused();expect(await logo.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
   const first=links.first();await first.focus();expect(await first.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
-  await first.hover();expect(await first.evaluate(e=>getComputedStyle(e).textDecorationLine)).toContain('underline');
+  await first.hover();const label=first.locator('.nav-label');expect(await label.evaluate(e=>parseFloat(getComputedStyle(e,'::before').width))).toBeCloseTo((await label.boundingBox()).width*1.1,0);
   expect(lastRight).toBeLessThanOrEqual(inner.x+inner.width);if(route)await expect(page.locator('#footer-container a[href$="information.html"]')).toHaveCount(1);
  }
 });

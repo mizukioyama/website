@@ -203,7 +203,8 @@
     <!-- modal -->
     <div id="thanksModal" class="modal">
       <div class="modal-content">
-        <span class="close">Close</span>
+        <button type="button" class="close">Close</button>
+        <div class="thanks-modal-body">
         <p lang="ja">
           お問い合わせありがとうございます。
           <br>
@@ -218,6 +219,7 @@
           <br>
           * It may take about one week to receive a response.
         </p>
+        </div>
       </div>
     </div>
     </form>
@@ -298,19 +300,7 @@
     }
 
     /* オーバーレイ */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease;
-      z-index: 10000;
-    }
+    .modal-overlay { opacity: 0; visibility: hidden; transition: opacity .3s ease; }
 
     /* One viewport dialog; only the reading pane scrolls. */
     .modal-box {
@@ -331,17 +321,15 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity .3s ease;
-      z-index: 10001;
     }
-    .policy-modal-header { width: 100%; box-sizing: border-box; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,.2); }
+    .policy-modal-header { align-items: center; }
+    .policy-modal-header, #policy-modal-content { padding: clamp(20px, 2.8vw, 32px); }
     .policy-modal-header h2 { font-size: var(--type-home-modal-h2-size); margin: 0; }
     .policy-modal-header .modal-close-label { margin: 0; padding: 8px; display: inline-flex; gap: 8px; }
-    #policy-modal-content { width: 100%; box-sizing: border-box; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 24px; line-height: 1.8; }
     #policy-modal-content > .content { width: 100%; min-width: 0; max-width: none; margin: 0; padding: 0; }
     #policy-modal-content :is(h2, h3) { color: inherit; background: none; background-clip: border-box; -webkit-text-fill-color: currentColor; mask: none; animation: none; text-shadow: none; }
     #policy-modal-content h2 { font-size: var(--type-home-modal-h2-size); margin: 0 0 24px; }
-    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 40px 0 12px; line-height: 1.4; }
-    #policy-modal-content p { font-size: var(--type-home-modal-body-size); margin: 0 0 24px; line-height: 1.8; }
+    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 32px 0 12px; font-weight: 500; line-height: 1.4; }
     #policy-modal-content .content > :last-child { margin-bottom: 0; }
     #modal-toggle:checked ~ .modal-overlay,
     #modal-toggle:checked ~ .modal-box { opacity: 1; visibility: visible; }
