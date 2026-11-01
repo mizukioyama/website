@@ -531,7 +531,7 @@ body:has(#modalBox[style*="display: block"]) {
 
 @media (prefers-reduced-motion: reduce) {
   :is(#navArea .inner a, .page-navigation a, footer a, .nav-label::before, footer a::before) { transition: none; }
-  #stalker { animation: none; transition: none; }
+  #stalker, .home .content__ping, .home .content__ping::after { animation: none; transition: none; }
   #navArea nav, .page-navigation:not(main .page-navigation) { transition: none; }
   .page-navigation:not(main .page-navigation).is-scroll-hidden { transform: translate(-50%, -50%); }
 }

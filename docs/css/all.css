@@ -172,7 +172,7 @@ body {
   overscroll-behavior: contain; line-height: 1.8;
 }
 .gallery-modal-header, .gallery-modal-body { padding: clamp(20px, 2vw, 32px); }
-#modalBox .modal-text p, #policy-modal-content p {
+#modalBox .modal-text p {
   font-size: var(--type-home-modal-body-size); margin: 0 0 24px; line-height: 1.8;
 }
 

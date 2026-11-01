@@ -3861,3 +3861,45 @@ test('Contact completion follows saved language and cursor remains non-intercept
   }
   expect(requests).toBe(2);
 });
+
+test('Home card switch is a stable card-corner button independent of native View', async ({page},info) => {
+  test.skip(info.project.name!=='desktop-1440', 'One desktop case covers the four PC geometry widths.');
+  await prepareDeterministicNetwork(page); await observeHomeSlides(page);
+  await page.goto('');await completeHomeEntry(page);
+  await page.waitForFunction(()=>window.__visualHomeSlideHistory.length>=3&&window.__visualHomeSlideHistory.at(-1)===0);
+  const control=page.locator('.card > button.content__ping');
+  await expect(control).toHaveCount(1);await expect(control).toHaveAttribute('data-home-slide','2');
+  for(const width of [1920,1440,1280,1024]){
+    await page.setViewportSize({width,height:900});
+    const box=await control.boundingBox(),card=await page.locator('.card').boundingBox();
+    expect(box.width).toBeGreaterThanOrEqual(44);expect(box.height).toBeGreaterThanOrEqual(44);
+    expect(card.x+card.width-box.x-box.width).toBeCloseTo(24,0);
+    expect(card.y+card.height-box.y-box.height).toBeCloseTo(24,0);
+    const hits=await control.evaluate(e=>{const r=e.getBoundingClientRect();return [[r.x+r.width/2,r.y+r.height/2],[r.x+4,r.y+r.height/2],[r.right-4,r.y+r.height/2],[r.x+r.width/2,r.y+4],[r.x+r.width/2,r.bottom-4]].every(([x,y])=>e.contains(document.elementFromPoint(x,y)))});
+    expect(hits).toBe(true);
+  }
+  await page.waitForTimeout(3100); // The automatic return retains the existing 3000ms slide lock.
+  const before=await control.boundingBox();await control.press('Enter');
+  await expect(page.locator('.content__slide:nth-child(2)')).toHaveClass(/active/);
+  await expect(control).toHaveAttribute('data-home-slide','1');
+  const after=await control.boundingBox();expect(after.x).toBeCloseTo(before.x,0);expect(after.y).toBeCloseTo(before.y,0);
+  await page.waitForTimeout(3100); // Existing slide lock releases after exactly 3000ms.
+  await control.press('Space');await expect(page.locator('.content__slide:first-child')).toHaveClass(/active/);
+  await expect(control).toHaveAttribute('data-home-slide','2');
+  await expect(page.locator('.content__slide.active a.button')).toHaveAttribute('href','/website/gallery.html');
+});
+
+test('Contact Policy uses compact existing typography without changing reading-frame padding', async ({page},info) => {
+  test.skip(!['desktop-1440','mobile-390'].includes(info.project.name),'Representative PC and phone component sizes.');
+  await prepareDeterministicNetwork(page);await page.goto('contact.html');
+  await page.locator('.modal-open-label').click();await expect(page.locator('.modal-box')).toHaveCSS('opacity','1');
+  const measurements=await page.locator('#policy-modal-content').evaluate(e=>{
+    const p=[...e.querySelectorAll('p')].find(p=>p.getBoundingClientRect().height>0),h=[...e.querySelectorAll('h3')].find(h=>h.getBoundingClientRect().height>0),s=getComputedStyle(p),hs=getComputedStyle(h),body=getComputedStyle(e);
+    return{size:parseFloat(s.fontSize),leading:parseFloat(s.lineHeight)/parseFloat(s.fontSize),paragraph:s.marginBottom,section:hs.marginTop,padding:body.paddingLeft};
+  });
+  expect(measurements.size).toBeGreaterThanOrEqual(14);expect(measurements.size).toBeLessThanOrEqual(16);
+  expect(measurements.leading).toBeCloseTo(1.8,2);expect(measurements.paragraph).toBe('18px');expect(measurements.section).toBe('28px');
+  expect(measurements.padding).toBe(info.project.name==='desktop-1440'?'32px':'20px');
+  await page.keyboard.press('Escape');await expect(page.locator('.modal-open-label')).toBeFocused();
+  await expect(page.locator('#consent')).not.toBeChecked();
+});

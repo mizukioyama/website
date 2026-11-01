@@ -15,6 +15,7 @@ waitForJQuery(function ($) {
         // スライド処理
         const slideElements = ['.back__slide', '.card__slide', '.content__slide'];
         const syncContentControls = () => {
+            $('.content__ping').attr('data-home-slide', $('.content__slide').first().hasClass('active') ? '2' : '1');
             $('.content__slide').each((_, element) => {
                 const active = element.classList.contains('active');
                 element.inert = !active;
@@ -47,7 +48,7 @@ waitForJQuery(function ($) {
             }
         };
 
-        $('.content__slide [data-home-slide]').on('click', function () {
+        $('.card [data-home-slide]').on('click', function () {
             goToSlide(slideElements, Number(this.dataset.homeSlide));
         });
 

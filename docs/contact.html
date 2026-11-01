@@ -10,12 +10,12 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
   <link rel="stylesheet" href="css/modal.css?v=069b2e076f69">
-  <link rel="stylesheet" href="css/all.css?v=9bc312ff2c95">
+  <link rel="stylesheet" href="css/all.css?v=2e36c5bedc0b">
   <link rel="stylesheet" href="css/gallery.css?v=806dc95effcc">
   <link rel="stylesheet" href="css/mobile.css?v=037c4e1ba363">
   <link rel="stylesheet" href="css/form.css?v=543b550f06e4">
   <link rel="stylesheet" href="css/footer.css?v=a657cfc7e2e3">
-  <link rel="stylesheet" href="css/menu.css?v=140a3771a03e">
+  <link rel="stylesheet" href="css/menu.css?v=d4d40b2e18db">
   <link rel="stylesheet" href="assets/css/user-settings.css?v=159475157956">
 
   <!-- JS -->
@@ -326,10 +326,12 @@
     .policy-modal-header, #policy-modal-content { padding: clamp(20px, 2.8vw, 32px); }
     .policy-modal-header h2 { font-size: var(--type-home-modal-h2-size); margin: 0; }
     .policy-modal-header .modal-close-label { margin: 0; padding: 8px; display: inline-flex; gap: 8px; }
+    /* Policy reading uses the existing 14-16px UI token; artwork/thanks retain their modal token. */
+    #policy-modal-content p { font-size: var(--font-ui-size); line-height: 1.8; margin: 0 0 18px; }
     #policy-modal-content > .content { width: 100%; min-width: 0; max-width: none; margin: 0; padding: 0; }
     #policy-modal-content :is(h2, h3) { color: inherit; background: none; background-clip: border-box; -webkit-text-fill-color: currentColor; mask: none; animation: none; text-shadow: none; }
     #policy-modal-content h2 { font-size: var(--type-home-modal-h2-size); margin: 0 0 24px; }
-    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 32px 0 12px; font-weight: 500; line-height: 1.4; }
+    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 28px 0 12px; font-weight: 500; line-height: 1.4; }
     #policy-modal-content .content > :last-child { margin-bottom: 0; }
     #modal-toggle:checked ~ .modal-overlay,
     #modal-toggle:checked ~ .modal-box { opacity: 1; visibility: visible; }

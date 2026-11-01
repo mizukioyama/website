@@ -10,7 +10,7 @@ const output = path.resolve('test-results/public-runtime');
 const routes = ['', 'gallery.html', 'biography.html', 'artist-statement.html', 'information.html', 'order.html', 'contact.html', 'policy.html', 'exhibitions/yurayura/', '404.html'];
 const sidebarRoutes = new Set(['biography.html', 'artist-statement.html', 'information.html', 'order.html', 'policy.html', 'exhibitions/yurayura/']);
 const digest = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
-const results = { revision: process.env.GITHUB_SHA || null, base, bytes: [], cases: [], errors: [] };
+const results = { revision: process.env.GITHUB_SHA || null, base, bytes: [], cases: [], errors: [], homeControls: [], policyMetrics: [] };
 async function scroll(page, ratio) {
   await page.evaluate(async ratio => {
     document.activeElement?.blur();
@@ -32,6 +32,49 @@ async function enterHome(page, language = 'ja') {
   await expect(page.locator('#loading-bg')).toBeHidden({ timeout: 90000 });
 }
 
+async function verifyHomeControl(page, width) {
+  // Let the existing 2s/6s intro and its 3s return lock finish naturally.
+  await page.waitForFunction(() => Number.isFinite(window.__runtimeHomeReady) && performance.now() - window.__runtimeHomeReady >= 9100);
+  const control = page.locator('.card > button.content__ping');
+  await expect(control).toHaveCount(1);
+  await expect(control).toHaveAttribute('data-home-slide', '2');
+  const sample = async () => control.evaluate(element => {
+    const rect = element => { const r = element.getBoundingClientRect(); return { x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height }; };
+    const r = rect(element), card = rect(element.closest('.card'));
+    const points = [[r.x+r.width/2,r.y+r.height/2],[r.x+4,r.y+r.height/2],[r.right-4,r.y+r.height/2],[r.x+r.width/2,r.y+4],[r.x+r.width/2,r.bottom-4]];
+    const targets = [...document.querySelectorAll('.content__slide.active .button-wrap > *, .toggle_btn')].filter(e => getComputedStyle(e).display !== 'none' && getComputedStyle(e).visibility !== 'hidden').map(rect);
+    return { r,card,hits:points.every(([x,y])=>element.contains(document.elementFromPoint(x,y))),overlaps:targets.some(q=>Math.min(q.right,r.right)-Math.max(q.x,r.x)>1&&Math.min(q.bottom,r.bottom)-Math.max(q.y,r.y)>1),pulse:getComputedStyle(element,'::after').animationName };
+  });
+  const before = await sample();
+  assert.ok(before.r.width >= 44 && before.r.height >= 44 && before.hits, 'Home control full hit area');
+  assert.equal(before.overlaps,false,'Home control clears native menu and card actions');
+  assert.ok(before.r.x>=before.card.x&&before.r.right<=before.card.right&&before.r.y>=before.card.y&&before.r.bottom<=before.card.bottom,'Home control fits card');
+  if(width>=1024){assert.ok(Math.abs(before.card.right-before.r.right-24)<1);assert.ok(Math.abs(before.card.bottom-before.r.bottom-24)<1);}
+  assert.equal(before.pulse,'none','Reduced Motion suppresses control pulse');
+  if(width<=430)await control.tap();else await control.click();
+  await expect(page.locator('.content__slide:nth-child(2)')).toHaveClass(/active/);
+  await expect(page.locator('.content__slide.active .button-wrap')).toHaveCSS('opacity','1');
+  await page.waitForTimeout(600); // Existing date rotation completes at 3.3s, after the 2.8s content transition.
+  const second = await sample();assert.ok(second.hits&&!second.overlaps);
+  assert.ok(Math.abs(second.r.x-before.r.x)<1&&Math.abs(second.r.y-before.r.y)<1,'Home control stays fixed across cards');
+  await control.press('Space');await expect(page.locator('.content__slide:first-child')).toHaveClass(/active/);
+  await expect(page.locator('.content__slide.active a.button')).toHaveAttribute('href','/website/gallery.html');
+  results.homeControls.push({width,before,second,pass:true});
+}
+
+async function verifyPolicyMetrics(page, width) {
+  const metrics = await page.locator('#policy-modal-content').evaluate(element => {
+    const p=[...element.querySelectorAll('p')].find(e=>e.getBoundingClientRect().height>0),h=[...element.querySelectorAll('h3')].find(e=>e.getBoundingClientRect().height>0);
+    const s=getComputedStyle(p),hs=getComputedStyle(h),pane=getComputedStyle(element);
+    return {language:window.getPortfolioLanguage(),size:parseFloat(s.fontSize),lineHeight:parseFloat(s.lineHeight),paragraph:s.marginBottom,section:hs.marginTop,padding:parseFloat(pane.paddingLeft)};
+  });
+  assert.ok(metrics.size>=14&&metrics.size<=16);assert.ok(Math.abs(metrics.lineHeight/metrics.size-1.8)<.01);
+  assert.equal(metrics.paragraph,'18px');assert.equal(metrics.section,'28px');
+  if(width>=1440){assert.equal(metrics.size,16);assert.equal(metrics.padding,32);}
+  if(width<=430){assert.ok(metrics.size<15);assert.equal(metrics.padding,20);}
+  results.policyMetrics.push({width,...metrics,pass:true});
+}
+
 (async () => {
   fs.mkdirSync(output, { recursive: true });
   for (const route of [...routes, 'css/menu.css', 'css/gallery.css', 'css/mobile.css', 'assets/css/user-settings.css', 'js/menu.js', 'js/form.js', 'js/time.js', 'css/all.css', 'css/form.css', 'css/index.css', 'css/index-tablet.css']) {
@@ -48,9 +91,11 @@ async function enterHome(page, language = 'ja') {
   const browser = await chromium.launch();
   try {
     for (const width of [1920, 1440, 1280, 1024, 430, 390, 375, 320]) {
-      const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
+      const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce', hasTouch: width <= 430, isMobile: width <= 430 });
       const page = await context.newPage();
-      await page.addInitScript(() => document.addEventListener('DOMContentLoaded', () => {
+      await page.addInitScript(() => {
+        document.addEventListener('portfolio:homeready',()=>{window.__runtimeHomeReady=performance.now();},{once:true});
+        document.addEventListener('DOMContentLoaded', () => {
         if (typeof TextScramble === 'undefined') return;
         const original = TextScramble.prototype.setText;
         TextScramble.prototype.setText = function(text) {
@@ -58,12 +103,13 @@ async function enterHome(page, language = 'ja') {
           if (this.el.matches('.h1-text h1')) completion.then(() => { window.__runtimeTitleComplete = true; });
           return completion;
         };
-      }, { once: true }));
+      }, { once: true }); });
       page.on('pageerror', error => results.errors.push({ width, url: page.url(), message: error.message }));
       for (const route of routes) {
         await page.goto(new URL(route, base).href);
         if (!route) {
           await enterHome(page);
+          await verifyHomeControl(page, width);
           const card = await page.locator('.card').boundingBox();
           assert.ok(Math.abs(card.width / card.height - (width <= 430 ? 1 / 1.618 : 1.618)) < .01, 'Home golden ratio');
           assert.ok(card.x >= 0 && card.y >= 0 && card.x + card.width <= width + 1 && card.y + card.height <= 901, 'Home card viewport fit');
@@ -173,6 +219,7 @@ async function enterHome(page, language = 'ja') {
           await expect(page.locator('#policy-modal-content > [lang="' + language + '"]')).toBeVisible();
           await expect(page.locator('#policy-modal-content > [lang="' + (language === 'en' ? 'ja' : 'en') + '"]')).toBeHidden();
           await expect(page.locator('#consent')).not.toBeChecked();
+          await verifyPolicyMetrics(page, width);
           const close = page.locator('.modal-close-label');
           const position = await close.boundingBox();
           await page.locator('#policy-modal-content').evaluate(element => element.scrollTop = element.scrollHeight);
@@ -218,6 +265,13 @@ async function enterHome(page, language = 'ja') {
     await page.waitForFunction(() => window.__organicFlowProduction?.getState().engine.frameCount > 0);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await expect(page.locator('#vanta-bg-bio canvas')).toHaveCount(0);
+    await page.goto(new URL('contact.html',base).href);
+    await page.locator('button.modal-open-label').click();
+    await expect(page.getByRole('dialog',{name:'Site Policy'})).toBeVisible();
+    await expect(page.locator('#policy-modal-content > [lang="en"]')).toBeVisible();
+    await verifyPolicyMetrics(page,1440);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('button.modal-open-label')).toBeFocused();
     const missing = await page.goto(new URL('__release-missing__/', base).href);
     assert.equal(missing.status(), 404);
     assert.match(await page.title(), /404/);

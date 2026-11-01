@@ -215,3 +215,8 @@ Desktop horizontal navigation uses one shared size role, weight and tracking, wi
 - Home keeps its golden ratios and existing slideshow/START/loading/language persistence. The portrait card has24px side gutters when height permits. View is a native same-tab Gallery link; the former Enter and Home-only Policy DOM/fetch/controller are removed. Only data-home-slide controls receive slide-click handlers; closed-exhibition copy and disabled View stay intact.
 - The owner approved this candidate for release in PR #46. Formal Linux review, clean repository checks and deployed runtime verification remain mandatory release gates.
 - Contact-only reading padding is20–32px (PC32px), without changing artwork-modal backgrounds or padding. Completion text uses the saved language. PC Home card/backing/frame share the existing card dimensions at the exact golden ratio; the fullscreen atmosphere stays viewport-sized. PC View reuses the12–14px table-role token and a44px target; portrait/mobile keeps the previous UI size and decoration dimensions.
+
+## Home control / Contact Policy local refinement
+
+- The existing content__ping indicator is the single native card switch button. Its 44px target is anchored to the card at right/bottom24px on PC; portrait/mobile keeps a lower-card location48px right of center and24px from the bottom to clear dates, Works and the existing circular menu. Existing slide state/cooldown/automatic timing and Works return are reused.
+- Contact Policy paragraphs reuse the existing14–16px UI token rather than changing normal page Typography or the shared16–18px artwork/thanks token. Policy paragraph margin is18px and section-heading margin28px/12px; frame padding and dimensions remain unchanged.
