@@ -281,3 +281,8 @@ This queue records the Organic Flow local candidate and Gallery release candidat
 - Gallery-only .7/15px reading surface masked active backgrounds: frozen-frame isolation measured mean luminance 8.96 → 28.49 with the existing common .05/10px surface. Preserve all three engines.
 - Restore bounded text-underline motion; align Ja/En; selected-language Contact policy header/scroll pane and explicit consent; common H1 weight; golden-ratio Home card and language/START/typing flow.
 - Owner approved the integrated UX/Home design and final Policy title polish for release on 2026-11-01. Preserve earlier hit-area evidence; formal Linux, Pages and public runtime results are recorded in the release PR/Actions. Protected WIP remains outside the release.
+
+
+### 2026-11-01 — local interaction/typography review candidate
+- PC H1 actual-face alignment, modal cursor layering and shared reading-pane spacing, Home single View CTA/golden-card gutters, and Footer-consistent navigation decoration implemented locally.
+- Owner visual review and later separately authorized clean-commit/Linux release verification remain pending; no publication in this task.

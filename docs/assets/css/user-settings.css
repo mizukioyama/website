@@ -134,8 +134,8 @@
   --type-home-modal-h2-size: clamp(22.4px, calc(20.1465px + 0.6009vw), 28.8px);
   /* Home modal H3: 16px → 19.2px */
   --type-home-modal-h3-size: clamp(16px, calc(14.8732px + 0.3005vw), 19.2px);
-  /* Home modal body: 12.8px → 16px */
-  --type-home-modal-body-size: clamp(12.8px, calc(11.6732px + 0.3005vw), 16px);
+  /* Modal reading body (Policy/artwork/thanks): 16px → 18px */
+  --type-home-modal-body-size: clamp(16px, calc(15.2958px + 0.1878vw), 18px);
   /* Modal title: 32px → 38.4px */
   --type-modal-title-size: clamp(32px, calc(29.7465px + 0.6009vw), 38.4px);
   /* Modal close: 22.4px → 27.84px */

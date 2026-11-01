@@ -676,6 +676,8 @@ function setupCategoryFilter() {
     let currentPage = 1;
     let filtered = [];
     let activeModalItem = null;
+    let modalOpener;
+    const modalBackground = new Map();
 
     function getLang() {
         return document.documentElement.lang === "ja" ? "ja" : "en";
@@ -814,6 +816,8 @@ function setupCategoryFilter() {
 
 function showModal(item) {
     if (!item) return;
+    const alreadyOpen = Boolean(activeModalItem);
+    if (!alreadyOpen) modalOpener = document.activeElement;
     activeModalItem = item;
 
     const lang = getLang();
@@ -832,8 +836,8 @@ function showModal(item) {
 
     modalBox.innerHTML = `
         <div class="work-img">
-            <div class="works">
-                <p>${item.title[lang]}</p>
+            <div class="gallery-modal-header"><div class="works">
+                <h2 id="gallery-modal-title">${item.title[lang]}</h2>
                 <p>
                     ${firstLine}
                     <br>
@@ -842,18 +846,21 @@ function showModal(item) {
                     ${truncateText(item.caption[lang])}
                 </p>
             </div>
-            <img src="${item.ImageData || item.img}" alt="${item.title[lang]}" style="margin: 10vmin auto; opacity: 0.85;">
-            <p class="noise cg-text" style="font-weight: 400; position: relative; top: 0rem; left: 0; width: fit-content; border-bottom: 1px solid;">
+            <button type="button" id="modalCloseBtn">${lang === "ja" ? "閉じる" : "Close"}</button></div>
+            <div class="gallery-modal-body" tabindex="0">
+            <img src="${item.ImageData || item.img}" alt="${item.title[lang]}">
+            <p class="noise cg-text">
                 Category | ${secondLine}
             </p>
             <div class="modal-text">
                 <p>${truncateText(item.text[lang])}</p>
                 ${hasLink ? `
-                <a href="${item.link}" class="noise" style="font-size: var(--legacy-px-1_6); margin-top: 1vmin; border-bottom: 3px solid;" rel="noopener" target="_blank">${buttonLabel} More</a>
+                <a href="${item.link}" class="noise" rel="noopener" target="_blank">${buttonLabel} More</a>
                 ` : ""}
                 <p>${inquiryMessage}</p>
-                <a href="contact.html" class="noise" style="font-size: var(--legacy-px-1_6); margin-top: 1vmin; border-bottom: 3px solid;">Contact</a>
-                <button type="button" id="modalCloseBtn">Close</button>
+                <a href="contact.html" class="noise">Contact</a>
+
+            </div>
             </div>
         </div>
     `;
@@ -862,15 +869,37 @@ function showModal(item) {
         const modalOverlay = document.getElementById("modalOverlay");
         modalOverlay?.style.setProperty("display", "block");
         modalBox.style.display = "block";
+        modalBox.setAttribute("role", "dialog");
+        modalBox.setAttribute("aria-modal", "true");
+        modalBox.setAttribute("aria-labelledby", "gallery-modal-title");
+        if (!alreadyOpen) {
+            for (const child of document.body.children) {
+                if (child === modalBox || child === modalOverlay || child.matches("script,style,link,#cursor,#stalker")) continue;
+                modalBackground.set(child, child.inert); child.inert = true;
+            }
+        }
+        document.getElementById("modalCloseBtn")?.focus({ preventScroll: true });
+        modalBox.onkeydown = event => {
+            if (event.key === "Escape") { event.preventDefault(); closeModal(); }
+            if (event.key === "Tab") {
+                const controls = [...modalBox.querySelectorAll("a[href],button,[tabindex='0']")].filter(e => e.getClientRects().length);
+                const first = controls[0], last = controls.at(-1);
+                if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+                else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+            }
+        };
 
         document.getElementById("modalCloseBtn")?.addEventListener("click", closeModal, { once: true });
-        modalOverlay?.addEventListener("click", closeModal, { once: true });
+        if (modalOverlay) modalOverlay.onclick = closeModal;
 
         function closeModal() {
             modalBox.style.display = "none";
             modalOverlay?.style.setProperty("display", "none");
             modalBox.className = "modal-box";
             activeModalItem = null;
+            for (const [child, inert] of modalBackground) child.inert = inert;
+            modalBackground.clear();
+            modalOpener?.focus({ preventScroll: true });
         }
     }
 

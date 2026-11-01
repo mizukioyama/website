@@ -119,8 +119,8 @@ p {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  width: 95vmin;
-  height: 55%;
+  width: var(--card-width);
+  height: var(--card-height);
   background-position: center;
   background-size: cover;
   filter: grayscale(30%);
@@ -199,10 +199,9 @@ p {
 
 /* ========== Card Slide ========== */
 .card {
-  width: min(93vmin, calc(100% - 1rem));
+  width: var(--card-width);
   height: auto;
-  aspect-ratio: 1.618 / 1;
-  max-width: calc(90svh * 1.618);
+  aspect-ratio: 1.61803398875 / 1;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -237,9 +236,9 @@ p {
 }
 
 .card__slide:nth-child(even)::after {
-  transform: scaleX(0);
+  opacity: 0;
   transform-origin: 100% 50%;
-  transition: transform 850ms 970ms ease-in-out;
+  transition: opacity 850ms 970ms ease-in-out;
 }
 
 .card__slide.active {
@@ -250,7 +249,7 @@ p {
 
 
 .card__slide:nth-child(even).active:after {
-  transform: scaleX(1);
+  opacity: 1;
   transform-origin: 0% 50%;
 }
 
@@ -437,7 +436,7 @@ p {
 
 @keyframes widenFromLeft {
   0% {
-    transform: scaleX(1);
+    opacity: 1;
     transform-origin: 0 50%;
   }
 
@@ -447,14 +446,14 @@ p {
   }
 
   100% {
-    transform: scaleX(1);
+    opacity: 1;
     transform-origin: 0 50%;
   }
 }
 
 @keyframes widenFromRight {
   0% {
-    transform: scaleX(1);
+    opacity: 1;
     transform-origin: 100% 50%;
   }
 
@@ -464,7 +463,7 @@ p {
   }
 
   100% {
-    transform: scaleX(1);
+    opacity: 1;
     transform-origin: 100% 50%;
   }
 }
@@ -484,7 +483,7 @@ p {
 
 .top-page .content {
   width: 100%;
-  height: calc(100% - 64px);
+  height: calc(100% - 112px);
   position: absolute;
   left: 0%;
   top: 50%;
@@ -494,11 +493,13 @@ p {
 .content__slide {
   display: grid;
   justify-content: center;
+  justify-items: center;
+  gap: 16px;
   align-content: safe center;
   overflow-y: auto;
   position: relative;
   top: 0;
-  width: 50%;
+  width: min(560px, calc(100% - 48px));
   height: 100%;
   margin: 0 auto;
   pointer-events: none;
@@ -582,7 +583,7 @@ p {
 .desc {
   color: #f9fafbb3;
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
-  margin: 1rem auto 0;
+  margin: 0 auto;
   font-size: var(--type-home-p-size);
   line-height: 1.8;
 }
@@ -606,10 +607,11 @@ p {
   justify-content: center;
   text-align: center;
   margin-top: 1rem;
-  gap: 1rem;
+  gap: 0;
 }
 
 .content__slide:nth-child(even) .button-wrap {
+  gap: 16px;
   text-align: center;
 }
 
@@ -620,14 +622,16 @@ p {
 .button {
   display: inline-block;
   font-weight: inherit;
-  font-size: var(--font-ui-size);
-  width: 100%;
+  font-size: var(--type-table-size);
+  min-height: 44px;
+  box-sizing: border-box;
+  width: min(100%, 240px);
   text-align: center;
   color: var(--inv);
   line-height: 1;
   letter-spacing: var(--tracking-ui-015);
-  padding: 1.4rem 0.5em;
-  margin: 1rem auto 0;
+  padding: 15px 20px;
+  margin: 0 auto;
   position: relative;
   cursor: pointer;
   text-transform: uppercase;
@@ -669,16 +673,15 @@ footer,
 }
 
 :root {
-  --card-height: 65vh;
-  --card-width: calc(var(--card-height) / 1.5);
+  --card-width: min(93vmin, calc(100vw - 48px), calc(90svh * 1.61803398875));
+  --card-height: calc(var(--card-width) / 1.61803398875);
 }
 
 
 .card_line {
   width: var(--card-width);
   cursor: pointer;
-  width: min(100vmin, calc(100vw - 1rem));
-  height: 50%;
+  height: var(--card-height);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -704,7 +707,7 @@ footer,
 .card_line::after {
   content: "";
   position: absolute;
-  top: 1rem;
+  top: 0;
   left: 0;
   right: 0;
   z-index: -1;
@@ -743,7 +746,7 @@ footer,
     line-height: 1;
   }
   .card {
-    width: min(98svw, calc(100% - 1rem));
+    width: calc(100% - 48px);
     height: auto;
     aspect-ratio: 1 / 1.618;
     max-width: calc(90svh / 1.618);
@@ -755,8 +758,8 @@ footer,
   }
 
   .content__slide {
-    width: 80%;
-    gap: 1rem;
+    width: calc(100% - 48px);
+    gap: 16px;
   }
 
   .creator {
@@ -806,9 +809,8 @@ footer,
   .date__time {
     display: block;
     opacity: 0.5;
-    position: absolute;
-    right: 10%;
-    bottom: 0;
+    position: static;
+    text-align: left;
   }
 
   .desc {

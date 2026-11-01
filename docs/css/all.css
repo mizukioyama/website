@@ -1,6 +1,16 @@
 @charset "utf-8";
 @import url("./selected-ink-field.css");
 
+/* The Gallery Regular glyphs, locally served to avoid installed ExtraBold substitution.
+   OFL license accompanies this official Google Fonts Latin subset. PC H1 only. */
+@font-face {
+  font-family: "Portfolio Shippori";
+  src: url("fonts/ShipporiMincho-Regular-latin.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .sp {
   display: none;
 }
@@ -145,51 +155,30 @@ body {
   font-size: var(--font-body-size);
 }
 
-/* ========== Custom Cursor ==========
-* {
-  cursor: none !important;
-}
 
-#cursor,
-#stalker {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-  z-index: 9999;
+.modal-overlay {
+  position: fixed; inset: 0; width: 100%; height: 100dvh; z-index: 10000;
+  background-color: rgba(0,0,0,.6); backdrop-filter: blur(10px);
 }
-
-#cursor {
-  width: 8px;
-  height: 8px;
-  background-color: rgba(255, 255, 255);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+.modal-box { z-index: 10001; }
+/* Shared reading-modal frame; page files retain only their structural differences. */
+:is(.gallery-modal-header, .policy-modal-header) {
+  width: 100%; box-sizing: border-box; flex-shrink: 0;
+  display: flex; align-items: start; justify-content: space-between; gap: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.2);
 }
-
-#stalker {
-  width: 15px;
-  height: 15px;
-  border: 2px solid rgba(255, 255, 255);
-  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+:is(.gallery-modal-body, #policy-modal-content) {
+  width: 100%; box-sizing: border-box; min-height: 0; overflow-y: auto;
+  overscroll-behavior: contain; line-height: 1.8;
 }
-
-.cursor--hover {
-  width: 40px !important;
-  height: 40px !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+.gallery-modal-header, .gallery-modal-body { padding: clamp(20px, 2vw, 32px); }
+#modalBox .modal-text p, #policy-modal-content p {
+  font-size: var(--type-home-modal-body-size); margin: 0 0 24px; line-height: 1.8;
 }
-
-.stalker--hover {
-  width: 50px !important;
-  height: 50px !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-*/
 
 /* ========== Custom Cursor ========== */
-* {
+.custom-cursor-active,
+.custom-cursor-active * {
   cursor: none !important;
 }
 
@@ -200,7 +189,7 @@ body {
   pointer-events: none;
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
-  z-index: 9999;
+  z-index: 12000;
 }
 
 /* ====== 光のグラデーションアニメーション ====== */
@@ -511,6 +500,7 @@ header a,
 }
 
 footer a::before,
+.nav-label::before,
 header a::before,
 #contact .modal-open-label::before,
 #category-menu li::before {
@@ -526,17 +516,24 @@ header a::before,
   transition: all 0.5s ease;
 }
 
-.home header a::before {
+.home header a::before,
+.home header .nav-label::before {
   background-color: var(--text);
 }
 
 a:hover::before,
+footer a:focus-visible::before,
+a:is(:hover, :focus-visible) > .nav-label::before,
+a[aria-current="page"] > .nav-label::before,
 #category-menu li:hover::before {
   width: 110%;
 }
 
 a:hover,
 a:active,
+a:focus-visible,
+#navArea .inner a:is(:hover, :focus-visible),
+.page-navigation a:is(:hover, :focus-visible),
 #category-menu li:hover,
 #category-menu li.active {
   /*background-position: -100% 0; 背景色の位置 */
@@ -544,7 +541,8 @@ a:active,
   opacity: 1;
 }
 
-.home header a::before {
+.home header a::before,
+.home header .nav-label::before {
   color: var(--text);
 }
 

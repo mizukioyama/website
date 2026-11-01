@@ -200,7 +200,7 @@ async function enterHome(page, language = 'ja') {
     await expect(page.locator('.content__slide').nth(1)).toHaveClass(/active/, { timeout: 5000 });
     await expect(page.locator('.content__slide').first()).toHaveClass(/active/, { timeout: 7000 });
     await scroll(page, 0);
-    // Observe the real intro ending before using the existing Enter path.
+    // Observe the real intro ending before using the native View path.
     await expect(page.locator('#loading-bg')).toBeHidden({ timeout: 90000 });
     await page.locator('#mainContent .content__slide.active .button-wrap a.button').click();
     await expect(page).toHaveURL(/gallery.html$/);
