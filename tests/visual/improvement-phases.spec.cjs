@@ -33,9 +33,13 @@ test('Phase 1 concluded exhibition remains consistent in both languages',async({
 
 test('Phase 2 overview, original story and records are accessible and intact',async({page})=>{
  await page.goto('biography.html');
- const summary=await page.locator('#biography-overview > p[lang="ja"]').textContent();
+ const summaryJapanese=page.locator('#biography-overview > p[lang="ja"]');
+ const summaryEnglish=page.locator('#biography-overview > p.text[lang="en"]');
+ await expect(summaryJapanese).toHaveCount(6);
+ await expect(summaryEnglish).toHaveCount(6);
+ const summary=(await summaryJapanese.allTextContents()).join('');
  expect(summary.length).toBeGreaterThanOrEqual(400);expect(summary.length).toBeLessThanOrEqual(600);
- await expect(page.locator('#biography-overview > p[lang="en"]')).toBeVisible();
+ await expect(summaryEnglish.first()).toBeVisible();
  expect((await page.locator('#full-biography .work > p').allTextContents()).map(hash)).toEqual(approved.biography);
  expect((await page.locator('#biography-records table').allTextContents()).map(hash)).toEqual(approved.records);
  await expect(page.locator('#career-timeline tbody tr')).toHaveCount(5);
@@ -53,7 +57,7 @@ test('Phase 3 statement and five questions preserve the approved wording',async(
  expect((await page.locator('main .work > p').allTextContents()).map(hash)).toEqual(approved['artist-statement']);
  expect(hash(await page.locator('main .timeline').textContent())).toBe(approved.questions);
  await expect(page.locator('.timeline-item')).toHaveCount(5);
- await expect(page.locator('.h1-text')).toHaveAttribute('data-subtitle','揺らぎ、感覚、記憶<br>色と余白、<br>見えないもの<br>固定された視点を緩めること');
+ await expect(page.locator('.h1-text')).toHaveAttribute('data-subtitle','自然、感覚、創造。<br>変わり続けるものと向き合い、<br>色と形を生み出す。<br>受け取る意味は、自由に。');
  for(const href of ['#main-statement','#statement-questions']){
   if(page.viewportSize().width>=1024)await page.evaluate(async()=>{scrollTo({top:innerHeight*1.1,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))});
   await expect(page.locator(`.reading-nav a[href="${href}"]`)).toBeVisible();
