@@ -15,6 +15,13 @@
 - Complete the public rendered-page acceptance when browser access is available.
 - Continue shared same-tag typography-role checker coverage as a separate follow-up. Final value selection remains with the owner.
 
+## 2026-11-12 PR #49 intermittent Artist Statement heading capture
+
+- Linux Visual Regression [#514](https://github.com/mizukioyama/website/actions/runs/43206095569) captured Artist Statement at 390px with Reduced Motion enabled. The comparison image omitted the H1, while the DOM contained the heading and the subsequent review image displayed it.
+- The [48-case diagnostic](https://github.com/mizukioyama/website/actions/runs/43213924450) did not reproduce the omission. The [final Linux repeat](https://github.com/mizukioyama/website/actions/runs/43222367507) compared main and PR #49 at 390px, three times per motion setting. With the extra pre-capture instrumentation removed, the H1 appeared in all full-page and viewport evidence inspected.
+- The root cause is undetermined. A transient capture/compositing issue involving the H1 mask or background clip remains possible. User-facing reproduction has not been established.
+- If it recurs, retain the original comparison image and the next viewport/full-page captures, record the motion setting and Chromium version, then compare the H1 pixels with its DOM text, font readiness and mask/clip state. Run an uninstrumented repeat before adding timing probes.
+
 ## 2026-09-22 Min-Max Calculator typography settings
 
 - `npm run build` is pending: this checkout has no `node_modules`, so `webpack` is unavailable.
