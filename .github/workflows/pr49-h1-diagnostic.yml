@@ -1,0 +1,53 @@
+name: PR49 H1 diagnostic
+on:
+  push:
+    branches: [codex/pr49-h1-diagnostics]
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      VISUAL_FULL: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Capture both source revisions with the existing Playwright comparator
+        shell: bash
+        run: |
+          cp pr49-h1-diagnostic.cjs "$RUNNER_TEMP/instrument.cjs"
+          mkdir "$RUNNER_TEMP/evidence"
+          git fetch origin main
+          for source in main pr49; do
+            if [ "$source" = main ]; then ref=origin/main; else ref=2b2d9506002f14c67c6e577d0abceb4054be47eb; fi
+            git switch --detach "$ref"
+            npm ci
+            npm run check
+            npm install --no-save --package-lock=false @playwright/test@1.63.0
+            if [ "$source" = main ]; then npx playwright install --with-deps chromium; fi
+            cp tests/visual/visual.spec.cjs "$RUNNER_TEMP/original.cjs"
+            node "$RUNNER_TEMP/instrument.cjs"
+            for motion in reduce no-preference; do
+              folder="$RUNNER_TEMP/evidence/$source/$motion"
+              mkdir -p "$folder"
+              git rev-parse HEAD > "$folder/revision.txt"
+              set +e
+              DIAG_MOTION="$motion" npx playwright test --project=mobile-390 --project=desktop-1440 --grep '^(artist-statement|biography) visual and layout regression$' --repeat-each=3 > "$folder/playwright.log" 2>&1
+              result=$?
+              set -e
+              echo "$result" > "$folder/exit-code.txt"
+              cat "$folder/playwright.log"
+              cp -R test-results/visual "$folder/results"
+            done
+            cp "$RUNNER_TEMP/original.cjs" tests/visual/visual.spec.cjs
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr49-h1-comparison
+          path: ${{ runner.temp }}/evidence
