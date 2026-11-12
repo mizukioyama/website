@@ -252,11 +252,11 @@ const pages = [
     key: "artist-statement", path: "artist-statement.html", title: /Statement|Mizuki|小山瑞樹/i,
     subtitle: {
       mode: "bilingual",
-      ja: "揺らぎ、感覚、記憶 色と余白、 見えないもの 固定された視点を緩めること",
-      en: "Fluctuation, Sensation, Memory Color and Space, the Invisible Loosening Fixed Ways of Seeing",
-      jaLines: ["揺らぎ、感覚、記憶", "色と余白、", "見えないもの", "固定された視点を緩めること"],
-      enLines: ["Fluctuation, Sensation, Memory", "Color and Space,", "the Invisible", "Loosening Fixed Ways of Seeing"],
-      dataSubtitle: "揺らぎ、感覚、記憶<br>色と余白、<br>見えないもの<br>固定された視点を緩めること"
+      ja: "自然、感覚、創造。 変わり続けるものと向き合い、 色と形を生み出す。 受け取る意味は、自由に。",
+      en: "Nature, Sensation, Creation. Engaging with what keeps changing, I create with color and form. What you take from it is yours to decide.",
+      jaLines: ["自然、感覚、創造。", "変わり続けるものと向き合い、", "色と形を生み出す。", "受け取る意味は、自由に。"],
+      enLines: ["Nature, Sensation, Creation.", "Engaging with what keeps changing,", "I create with color and form.", "What you take from it is yours to decide."],
+      dataSubtitle: "自然、感覚、創造。<br>変わり続けるものと向き合い、<br>色と形を生み出す。<br>受け取る意味は、自由に。"
     }
   },
   {
@@ -3474,21 +3474,21 @@ test("portfolio copy candidate preserves approved content", async ({ page }, tes
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
   const biographyJapanese = page.locator("main .work > p.state-txt");
   const biographyEnglish = page.locator('main .work > p.text[lang="en"]');
-  await expect(biographyJapanese).toHaveCount(35);
-  await expect(biographyEnglish).toHaveCount(35);
+  await expect(biographyJapanese).toHaveCount(36);
+  await expect(biographyEnglish).toHaveCount(36);
   await expectUniqueParagraphs(biographyJapanese);
   await expectUniqueParagraphs(biographyEnglish);
-  await expect(biographyJapanese.first()).toHaveText("抽象アーティスト。1998年、宮城県仙台市生まれ。");
-  await expect(biographyEnglish.first()).toHaveText("Mizuki Oyama is an abstract artist born in 1998 in Sendai, Miyagi Prefecture, Japan.");
-  await expect(biographyJapanese.last()).toContainText("幼い頃から続けてきた「つくる」という行為を起点に");
-  await expect(biographyEnglish.last()).toContainText("shape both his own expression and the environment around it.");
+  await expect(biographyJapanese.first()).toHaveText("小山瑞樹。1998年、宮城県仙台市生まれ。");
+  await expect(biographyEnglish.first()).toHaveText("Mizuki Oyama was born in Sendai, Miyagi Prefecture, Japan, in 1998.");
+  await expect(biographyJapanese.last()).toContainText("幼い頃から変わらない創造への思いを原点に");
+  await expect(biographyEnglish.last()).toContainText("as he develops both his own expression and opportunities for people to encounter art.");
   await expect(page.locator("main .portfolio-history-table").first()).toBeAttached();
 
   await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
-  await expect(page.locator('main .h1-text .subtext [lang="ja"]')).toContainText("揺らぎ、感覚、記憶");
-  await expect(page.locator('main .h1-text .subtext [lang="en"]')).toContainText("Fluctuation, Sensation, Memory");
-  await expect(page.locator("main .work > p.state-txt")).toHaveCount(7);
-  await expect(page.locator("main .work > p.text")).toHaveCount(7);
+  await expect(page.locator('main .h1-text .subtext [lang="ja"]')).toContainText("自然、感覚、創造。");
+  await expect(page.locator('main .h1-text .subtext [lang="en"]')).toContainText("Nature, Sensation, Creation.");
+  await expect(page.locator("main .work > p.state-txt")).toHaveCount(18);
+  await expect(page.locator("main .work > p.text")).toHaveCount(18);
   await expectUniqueParagraphs(page.locator("main .work > p.state-txt"));
   await expectUniqueParagraphs(page.locator("main .work > p.text"));
   await expect(page.locator("main .timeline > .timeline-item > p.timeline-title")).toHaveText([
@@ -3502,13 +3502,13 @@ test("portfolio copy candidate preserves approved content", async ({ page }, tes
     "01 Why Abstraction",
     "02 What I Express",
     "03 How I Create",
-    "04 What Art Means to Me",
+    "04 What Is Art?",
     "05 The Work and the Viewer"
   ]);
   await expect(page.locator("main .timeline-item").first().locator(".timeline-copy > p").first())
-    .toContainText("抽象には、ひとつの正解がない。");
+    .toContainText("抽象には、ひとつの正解を必要としない自由がある。");
   await expect(page.locator("main .timeline-item").last().locator(".timeline-copy > p.text"))
-    .toContainText("I hope each viewer can receive it freely");
+    .toContainText("I want to leave room for each person to encounter a work freely");
 });
 
 test("switchable pages preserve language through navigation and reload", async ({ page }, testInfo) => {
