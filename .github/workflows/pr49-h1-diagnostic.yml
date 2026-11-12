@@ -37,11 +37,12 @@ jobs:
               mkdir -p "$folder"
               git rev-parse HEAD > "$folder/revision.txt"
               set +e
-              DIAG_MOTION="$motion" npx playwright test --project=mobile-390 --project=desktop-1440 --grep '^(artist-statement|biography) visual and layout regression$' --repeat-each=3 > "$folder/playwright.log" 2>&1
+              DIAG_MOTION="$motion" npx playwright test --project=mobile-390 --project=desktop-1440 --grep '(artist-statement|biography) visual and layout regression$' --repeat-each=3 > "$folder/playwright.log" 2>&1
               result=$?
               set -e
               echo "$result" > "$folder/exit-code.txt"
               cat "$folder/playwright.log"
+              if ! grep -Eq "Running 12 tests" "$folder/playwright.log"; then exit 1; fi
               cp -R test-results/visual "$folder/results"
             done
             cp "$RUNNER_TEMP/original.cjs" tests/visual/visual.spec.cjs
