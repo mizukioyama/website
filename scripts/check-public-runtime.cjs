@@ -208,12 +208,34 @@ async function verifyPolicyMetrics(page, width) {
           await page.locator('label[for="langJa"]').click();
         }
         if (width >= 1024 && sidebarRoutes.has(route)) {
+          if (route === 'biography.html') {
+            const artwork = page.locator('figure img[src="img/uraura-web.webp"]');
+            // The lazy image can have a zero-sized box until it loads.
+            await artwork.locator('..').scrollIntoViewIfNeeded();
+            await artwork.evaluate(img => img.decode());
+            assert.ok(await artwork.evaluate(img => img.complete && img.naturalWidth > 0),
+              'Biography artwork loaded and decoded');
+            await expect(artwork).toBeVisible();
+          }
           await scroll(page, 1.2);
           await expect(side).toHaveAttribute('aria-hidden', 'false');
           const r = await side.boundingBox(); assert.ok(Math.abs(r.y + r.height / 2 - 450) < 1);
-          await page.evaluate(() => { const f = document.querySelector('#footer-container'); scrollTo({top:scrollY + f.getBoundingClientRect().top - innerHeight - 32,behavior:'instant'}); });
+          const footer = page.locator('#footer-container');
+          const sidebarLink = side.locator('a').first();
+          await sidebarLink.focus();
+          await expect(sidebarLink).toBeFocused();
+          await footer.evaluate(element => {
+            scrollTo({ top: scrollY + element.getBoundingClientRect().top - innerHeight - 24, behavior: 'instant' });
+          });
+          await expect.poll(() => footer.evaluate(element =>
+            scrollY >= innerHeight && element.getBoundingClientRect().top <= innerHeight + 56
+          ), { message: 'Footer is within the sidebar hide threshold' }).toBe(true);
           await expect(side).toHaveAttribute('aria-hidden', 'true');
-          await scroll(page, 1.2); await expect(side).toHaveAttribute('aria-hidden', 'false');
+          await expect(side).toHaveJSProperty('inert', true);
+          await expect(page.locator('#navArea .toggle_btn')).toBeFocused();
+          await scroll(page, 1.2);
+          await expect(side).toHaveAttribute('aria-hidden', 'false');
+          await expect(side).toHaveJSProperty('inert', false);
         }
         if (route === 'gallery.html') {
           await expect(page.locator('#gallery-container > .work').first()).toBeVisible();
