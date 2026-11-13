@@ -2159,7 +2159,30 @@ for (const entry of pages) {
       await exerciseSharedRuntimeInteractions(page);
     }
 
-    if (process.env.VISUAL_SKIP_SNAPSHOTS !== "1" && entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
+    const compareScreenshot = process.env.VISUAL_SKIP_SNAPSHOTS !== "1"
+      && entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name);
+
+    if (entry.key === "biography" && (compareScreenshot || fullAudit)) {
+      await test.step("Load the Biography artwork before full-page capture", async () => {
+        const artwork = page.locator('figure img[src="img/uraura-web.webp"]');
+        const artworkUrl = await artwork.evaluate(img => img.src);
+        // The lazy image can have a zero-sized box until loaded. Scroll its figure.
+        const [artworkResponse] = await Promise.all([
+          page.waitForResponse(response => response.url() === artworkUrl, { timeout: 10000 }),
+          artwork.locator("..").scrollIntoViewIfNeeded()
+        ]);
+        expect(artworkResponse.ok(), "Biography artwork returned HTTP " + artworkResponse.status()).toBe(true);
+        await expect.poll(() => artwork.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+        await artwork.evaluate(img => img.decode());
+        const { width, height } = await artwork.evaluate(img => img.getBoundingClientRect().toJSON());
+        expect(width, "Biography artwork width").toBeGreaterThan(0);
+        expect(height, "Biography artwork height").toBeGreaterThan(0);
+        await page.evaluate(() => scrollTo({ top: 0, left: 0, behavior: "instant" }));
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+      });
+    }
+
+    if (compareScreenshot) {
       if (["biography", "artist-statement"].includes(entry.key)) {
         // Keep established page-layout baselines deterministic. Organic Flow is
         // checked separately by the production-runtime lifecycle assertions.
