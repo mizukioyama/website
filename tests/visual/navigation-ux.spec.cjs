@@ -20,12 +20,59 @@ for(const width of [1920,1600,1440,1300,1299,1280,1024])test('Navigation UX desk
  await page.evaluate(()=>scrollTo({top:innerHeight*1.2,behavior:'instant'}));await expect(side).toHaveAttribute('aria-hidden','false');await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await expect(button).toBeHidden();await expect(panel).toHaveAttribute('aria-hidden','false');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
-test('Navigation UX all six sidebars center vertically and clear Footer',async({page},info)=>{
- test.skip(info.project.name!=='desktop-1440');test.setTimeout(120000);await prepare(page);
- for(const height of [450,600,900])for(const route of ['biography.html','artist-statement.html','information.html','order.html','policy.html','exhibitions/yurayura/']){
-  await page.setViewportSize({width:1024,height});await page.goto(route);await page.evaluate(()=>scrollTo({top:innerHeight,behavior:'instant'}));const side=page.locator('body>.page-navigation');await expect(side).toHaveAttribute('aria-hidden','false');const r=await side.boundingBox();expect(r.y+r.height/2).toBeCloseTo(height/2,0);expect(r.y).toBeGreaterThanOrEqual(0);expect(r.y+r.height).toBeLessThanOrEqual(height);
-  await page.evaluate(()=>{const f=document.querySelector('#footer-container');scrollTo({top:scrollY+f.getBoundingClientRect().top-innerHeight-24,behavior:'instant'});});await expect(side).toHaveAttribute('aria-hidden','true');
- }
+test('Navigation UX all six sidebars center vertically and clear Footer', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop-1440', 'One dedicated responsive matrix.');
+  test.setTimeout(120000);
+  await prepare(page);
+
+  for (const height of [450, 600, 900]) {
+    for (const route of ['biography.html', 'artist-statement.html', 'information.html', 'order.html', 'policy.html', 'exhibitions/yurayura/']) {
+      await test.step(`${route} at 1024 × ${height}`, async () => {
+        await page.setViewportSize({ width: 1024, height });
+        await page.goto(route);
+
+        if (route === 'biography.html') {
+          const artwork = page.locator('figure img[src="img/uraura-web.webp"]');
+          // Reserve the final scroll target by letting the lazy image load normally.
+          // Its image box can be zero-sized until then, so scroll to the figure.
+          await artwork.locator('..').scrollIntoViewIfNeeded();
+          await artwork.evaluate(img => img.decode());
+          await expect(artwork).toBeVisible();
+        }
+
+        const sidebar = page.locator('body>.page-navigation');
+        const footer = page.locator('#footer-container');
+        const sidebarLink = sidebar.locator('a').first();
+        const menuButton = page.locator('#navArea .toggle_btn');
+        const scrollToReadingPosition = () => page.evaluate(() =>
+          scrollTo({ top: innerHeight, behavior: 'instant' })
+        );
+
+        await scrollToReadingPosition();
+        await expect(sidebar).toHaveAttribute('aria-hidden', 'false');
+        const box = await sidebar.boundingBox();
+        expect(box.y + box.height / 2).toBeCloseTo(height / 2, 0);
+        expect(box.y).toBeGreaterThanOrEqual(0);
+        expect(box.y + box.height).toBeLessThanOrEqual(height);
+
+        await sidebarLink.focus();
+        await expect(sidebarLink).toBeFocused();
+        await footer.evaluate(element => {
+          scrollTo({ top: scrollY + element.getBoundingClientRect().top - innerHeight - 24, behavior: 'instant' });
+        });
+        await expect.poll(() => footer.evaluate(element =>
+          scrollY >= innerHeight && element.getBoundingClientRect().top <= innerHeight + 56
+        ), { message: 'Footer is within the sidebar hide threshold' }).toBe(true);
+        await expect(sidebar).toHaveAttribute('aria-hidden', 'true');
+        await expect(sidebar).toHaveJSProperty('inert', true);
+        await expect(menuButton).toBeFocused();
+
+        await scrollToReadingPosition();
+        await expect(sidebar).toHaveAttribute('aria-hidden', 'false');
+        await expect(sidebar).toHaveJSProperty('inert', false);
+      });
+    }
+  }
 });
 
 test('Navigation UX responsive button semantics and target dimensions',async({page},info)=>{
