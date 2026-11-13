@@ -2159,7 +2159,30 @@ for (const entry of pages) {
       await exerciseSharedRuntimeInteractions(page);
     }
 
-    if (process.env.VISUAL_SKIP_SNAPSHOTS !== "1" && entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name)) {
+    const compareScreenshot = process.env.VISUAL_SKIP_SNAPSHOTS !== "1"
+      && entry.baseline !== false && visualBaselineProjects.has(testInfo.project.name);
+
+    if (entry.key === "biography" && (compareScreenshot || fullAudit)) {
+      await test.step("Load the Biography artwork before full-page capture", async () => {
+        const artwork = page.locator('figure img[src="img/uraura-web.webp"]');
+        const artworkUrl = await artwork.evaluate(img => img.src);
+        // The lazy image can have a zero-sized box until loaded. Scroll its figure.
+        const [artworkResponse] = await Promise.all([
+          page.waitForResponse(response => response.url() === artworkUrl, { timeout: 10000 }),
+          artwork.locator("..").scrollIntoViewIfNeeded()
+        ]);
+        expect(artworkResponse.ok(), "Biography artwork returned HTTP " + artworkResponse.status()).toBe(true);
+        await expect.poll(() => artwork.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+        await artwork.evaluate(img => img.decode());
+        const { width, height } = await artwork.evaluate(img => img.getBoundingClientRect().toJSON());
+        expect(width, "Biography artwork width").toBeGreaterThan(0);
+        expect(height, "Biography artwork height").toBeGreaterThan(0);
+        await page.evaluate(() => scrollTo({ top: 0, left: 0, behavior: "instant" }));
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+      });
+    }
+
+    if (compareScreenshot) {
       if (["biography", "artist-statement"].includes(entry.key)) {
         // Keep established page-layout baselines deterministic. Organic Flow is
         // checked separately by the production-runtime lifecycle assertions.
@@ -3474,21 +3497,21 @@ test("portfolio copy candidate preserves approved content", async ({ page }, tes
   await page.goto("biography.html", { waitUntil: "domcontentloaded" });
   const biographyJapanese = page.locator("main .work > p.state-txt");
   const biographyEnglish = page.locator('main .work > p.text[lang="en"]');
-  await expect(biographyJapanese).toHaveCount(36);
-  await expect(biographyEnglish).toHaveCount(36);
+  await expect(biographyJapanese).toHaveCount(34);
+  await expect(biographyEnglish).toHaveCount(34);
   await expectUniqueParagraphs(biographyJapanese);
   await expectUniqueParagraphs(biographyEnglish);
   await expect(biographyJapanese.first()).toHaveText("小山瑞樹。1998年、宮城県仙台市生まれ。");
   await expect(biographyEnglish.first()).toHaveText("Mizuki Oyama was born in Sendai, Miyagi Prefecture, Japan, in 1998.");
   await expect(biographyJapanese.last()).toContainText("幼い頃から変わらない創造への思いを原点に");
-  await expect(biographyEnglish.last()).toContainText("as he develops both his own expression and opportunities for people to encounter art.");
+  await expect(biographyEnglish.last()).toContainText("develops places where people can encounter art on their own terms.");
   await expect(page.locator("main .portfolio-history-table").first()).toBeAttached();
 
   await page.goto("artist-statement.html", { waitUntil: "domcontentloaded" });
   await expect(page.locator('main .h1-text .subtext [lang="ja"]')).toContainText("自然、感覚、創造。");
   await expect(page.locator('main .h1-text .subtext [lang="en"]')).toContainText("Nature, Sensation, Creation.");
-  await expect(page.locator("main .work > p.state-txt")).toHaveCount(18);
-  await expect(page.locator("main .work > p.text")).toHaveCount(18);
+  await expect(page.locator("main .work > p.state-txt")).toHaveCount(29);
+  await expect(page.locator("main .work > p.text")).toHaveCount(29);
   await expectUniqueParagraphs(page.locator("main .work > p.state-txt"));
   await expectUniqueParagraphs(page.locator("main .work > p.text"));
   await expect(page.locator("main .timeline > .timeline-item > p.timeline-title")).toHaveText([
@@ -3506,7 +3529,7 @@ test("portfolio copy candidate preserves approved content", async ({ page }, tes
     "05 The Work and the Viewer"
   ]);
   await expect(page.locator("main .timeline-item").first().locator(".timeline-copy > p").first())
-    .toContainText("抽象には、ひとつの正解を必要としない自由がある。");
+    .toContainText("抽象表現には、具体的な対象や物語を示さなくても、");
   await expect(page.locator("main .timeline-item").last().locator(".timeline-copy > p.text"))
     .toContainText("I want to leave room for each person to encounter a work freely");
 });
