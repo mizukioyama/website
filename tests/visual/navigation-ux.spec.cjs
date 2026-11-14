@@ -121,3 +121,52 @@ test('Standalone Information and exhibition links have usable hit areas',async({
   }
  }
 });
+
+test('Biography reserves artwork space while its lazy image is pending', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop-1440', 'Check representative desktop and mobile sizes in one test.');
+  await prepare(page);
+
+  for (const width of [1440, 390]) {
+    await test.step(`Artwork at ${width}px`, async () => {
+      await page.setViewportSize({ width, height: 900 });
+      let release;
+      const responseGate = new Promise(resolve => { release = resolve; });
+      const pattern = '**/uraura-web.webp';
+      let requested = false;
+      const holdImage = async route => {
+        requested = true;
+        await responseGate;
+        await route.continue();
+      };
+      await page.route(pattern, holdImage);
+      try {
+        await page.goto('biography.html', { waitUntil: 'domcontentloaded' });
+        await page.evaluate(() => document.fonts.ready);
+        const image = page.locator('figure img[src="img/uraura-web.webp"]');
+        const measure = () => image.evaluate(img => {
+          const figure = img.parentElement;
+          const { width, height } = img.getBoundingClientRect();
+          return {
+            width, height,
+            figureHeight: figure.getBoundingClientRect().height,
+            footerTop: document.querySelector('#footer-container').getBoundingClientRect().top + scrollY
+          };
+        });
+        await image.locator('..').evaluate(figure => figure.scrollIntoView({ block: 'center', behavior: 'instant' }));
+        await expect.poll(() => requested).toBe(true);
+        await expect(image).toHaveJSProperty('naturalWidth', 0);
+        const before = await measure();
+        expect(before.width).toBeCloseTo(238, 1);
+        expect(before.height).toBeCloseTo(280, 1);
+
+        release();
+        await image.evaluate(img => img.decode());
+        const after = await measure();
+        for (const key of Object.keys(before)) expect(after[key], key).toBeCloseTo(before[key], 1);
+      } finally {
+        release();
+        await page.unroute(pattern, holdImage);
+      }
+    });
+  }
+});
