@@ -457,8 +457,7 @@ async function assertBilingualPage(page, label) {
           language: element.lang,
           divider,
           dividerStyle: style.borderTopStyle,
-          width: rect.width,
-          previousWidth: previous?.getBoundingClientRect().width,
+          dividerSpansColumn: Math.abs(rect.width - container.getBoundingClientRect().width) < 1,
           padding,
           gap: previous?.matches("p") ? rect.top - previous.getBoundingClientRect().bottom + divider + padding : null
         };
@@ -517,7 +516,7 @@ async function assertBilingualPage(page, label) {
       expect(paragraph.padding).toBe(languageBoundary ? 11 : 0);
       if (languageBoundary) {
         expect(paragraph.dividerStyle).toBe("solid");
-        expect(paragraph.width).toBeCloseTo(paragraph.previousWidth, 1);
+        expect(paragraph.dividerSpansColumn).toBe(true);
       }
       if (previous === null) continue;
       const gap = previous === paragraph.language ? 16 : paragraph.language === "en" ? 24 : 40;
