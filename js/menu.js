@@ -914,8 +914,18 @@ function initializeSidebar() {
     if (categoryHeader.dataset.categoryToggleBound !== "true") {
       categoryHeader.addEventListener("click", toggleCategory);
       categoryHeader.addEventListener("keydown", toggleCategory);
+      categoryMenu.addEventListener("keydown", event => {
+        if (event.key !== "Escape" || !categoryMenu.classList.contains("mobile-open")) return;
+        event.preventDefault();
+        setCategoryOpen(false);
+        categoryHeader.focus({ preventScroll: true });
+      });
       categoryMenu.querySelectorAll("li[data-category]").forEach(item => {
-        item.addEventListener("click", () => setCategoryOpen(false));
+        item.addEventListener("click", () => {
+          const restoreFocus = categoryMenu.contains(document.activeElement);
+          setCategoryOpen(false);
+          if (restoreFocus) categoryHeader.focus({ preventScroll: true });
+        });
       });
 
       categoryHeader.dataset.categoryToggleBound = "true";
