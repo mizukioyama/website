@@ -450,10 +450,17 @@ async function assertBilingualPage(page, label) {
       [...container.querySelectorAll(":scope > p")].map(element => {
         const previous = element.previousElementSibling;
         const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        const divider = parseFloat(style.borderTopWidth);
+        const padding = parseFloat(style.paddingTop);
         return {
           language: element.lang,
-          divider: parseFloat(getComputedStyle(element).borderTopWidth),
-          gap: previous?.matches("p") ? rect.top - previous.getBoundingClientRect().bottom : null
+          divider,
+          dividerStyle: style.borderTopStyle,
+          width: rect.width,
+          previousWidth: previous?.getBoundingClientRect().width,
+          padding,
+          gap: previous?.matches("p") ? rect.top - previous.getBoundingClientRect().bottom + divider + padding : null
         };
       })
     );
@@ -504,9 +511,15 @@ async function assertBilingualPage(page, label) {
     const languages = sizes.flatMap(size => [...Array(size).fill("ja"), ...Array(size).fill("en")]);
     expect(paragraphs.map(paragraph => paragraph.language), label + " topic reading order").toEqual(languages);
     for (const [position, paragraph] of paragraphs.entries()) {
-      expect(paragraph.divider).toBe(0);
-      if (paragraph.gap === null) continue;
-      const previous = languages[position - 1];
+      const previous = paragraph.gap === null ? null : languages[position - 1];
+      const languageBoundary = previous === "ja" && paragraph.language === "en";
+      expect(paragraph.divider).toBe(languageBoundary ? 1 : 0);
+      expect(paragraph.padding).toBe(languageBoundary ? 11 : 0);
+      if (languageBoundary) {
+        expect(paragraph.dividerStyle).toBe("solid");
+        expect(paragraph.width).toBeCloseTo(paragraph.previousWidth, 1);
+      }
+      if (previous === null) continue;
       const gap = previous === paragraph.language ? 16 : paragraph.language === "en" ? 24 : 40;
       expect(paragraph.gap, label + " prose gap").toBeCloseTo(gap, 0);
     }

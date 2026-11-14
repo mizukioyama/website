@@ -4,5 +4,10 @@
   border-top: 0;
 }
 #state.statement .bilingual-prose > p[lang] + p[lang] { margin-top: 16px; }
-#state.statement .bilingual-prose > p[lang="ja"] + p[lang="en"] { margin-top: 24px; }
+#state.statement .bilingual-prose > p[lang="ja"] + p[lang="en"] {
+  /* 12px above the rule + 1px rule + 11px below = 24px. */
+  margin-top: 12px;
+  border-top: 1px solid var(--text);
+  padding-top: 11px;
+}
 #state.statement .bilingual-prose > p[lang="en"] + p[lang="ja"] { margin-top: 40px; }
