@@ -40,7 +40,10 @@ test('Phase 2 overview, original story and records are accessible and intact',as
  const summary=(await summaryJapanese.allTextContents()).join('');
  expect(summary.length).toBeGreaterThanOrEqual(400);expect(summary.length).toBeLessThanOrEqual(600);
  await expect(summaryEnglish.first()).toBeVisible();
- expect((await page.locator('#full-biography .work > p').allTextContents()).map(hash)).toEqual(approved.biography);
+ for (const [index, lang] of ['ja', 'en'].entries()) {
+  const paragraphs = await page.locator('#full-biography .work > p[lang="' + lang + '"]').allTextContents();
+  expect(paragraphs.map(hash)).toEqual(approved['biography'].filter((_, position) => position % 2 === index));
+ }
  expect((await page.locator('#biography-records table').allTextContents()).map(hash)).toEqual(approved.records);
  await expect(page.locator('#career-timeline tbody tr')).toHaveCount(5);
  for(const href of ['#biography-overview','#career-timeline','#biography-records','#full-biography']){
@@ -54,7 +57,10 @@ test('Phase 2 overview, original story and records are accessible and intact',as
 
 test('Phase 3 statement and five questions preserve the approved wording',async({page})=>{
  await page.goto('artist-statement.html');
- expect((await page.locator('main .work > p').allTextContents()).map(hash)).toEqual(approved['artist-statement']);
+ for (const [index, lang] of ['ja', 'en'].entries()) {
+  const paragraphs = await page.locator('main .work > p[lang="' + lang + '"]').allTextContents();
+  expect(paragraphs.map(hash)).toEqual(approved['artist-statement'].filter((_, position) => position % 2 === index));
+ }
  expect(hash(await page.locator('main .timeline').textContent())).toBe(approved.questions);
  await expect(page.locator('.timeline-item')).toHaveCount(5);
  await expect(page.locator('.h1-text')).toHaveAttribute('data-subtitle','自然、感覚、創造。<br>変わり続けるものと向き合い、<br>色と形を生み出す。<br>受け取る意味は、自由に。');

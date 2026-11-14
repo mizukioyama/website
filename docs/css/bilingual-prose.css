@@ -1,0 +1,8 @@
+/* Biography and Statement prose reads by topic, with one language break per topic. */
+#state.statement .bilingual-prose > p[lang] {
+  padding-block: 0;
+  border-top: 0;
+}
+#state.statement .bilingual-prose > p[lang] + p[lang] { margin-top: 16px; }
+#state.statement .bilingual-prose > p[lang="ja"] + p[lang="en"] { margin-top: 24px; }
+#state.statement .bilingual-prose > p[lang="en"] + p[lang="ja"] { margin-top: 40px; }
