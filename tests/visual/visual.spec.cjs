@@ -595,6 +595,12 @@ async function assertOrderPricingContent(page, language, label) {
   ));
   expect(groups, label + " five rows with the prescribed left/right size pairs").toEqual(expectedPairs);
 
+  const f4Cell = table.locator("tbody tr").first().locator("td").first();
+  await expect(f4Cell).toContainText(language === "ja"
+    ? "（個別相談・参考価格）"
+    : "(By consultation · guide price)");
+  await expectHorizontalFit(f4Cell, label + " F4 consultation and guide price note");
+
   const cellLayout = await table.locator("tbody tr").evaluateAll(rows => rows.map(row => {
     const [left, right] = row.cells;
     const leftStyle = getComputedStyle(left);
