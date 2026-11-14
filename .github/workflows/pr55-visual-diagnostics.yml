@@ -1,4 +1,4 @@
-name: PR55 Linux visual diagnostics
+name: PR55 F4 screenshot comparison
 on:
   push:
     branches: [codex/pr55-visual-diagnostics]
@@ -7,47 +7,19 @@ permissions:
 jobs:
   compare:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        revision: [main, pr]
-        motion: [reduce, no-preference]
-        settle: ['0', '1']
-        exclude:
-          - motion: no-preference
-            settle: '1'
-    env:
-      PR55_MOTION: ${{ matrix.motion }}
-      PR55_SETTLE: ${{ matrix.settle }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: 02df170212094ab33e34390817ff804ff889497c
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: |
-          cp pr55-probe.cjs "$RUNNER_TEMP/probe.cjs"
-          if [ "${{ matrix.revision }}" = main ]; then
-            git fetch --depth 1 origin 4d453ab97d8514e11bf91e09b1c4903cb1611743
-            git switch --detach FETCH_HEAD
-          fi
-          git rev-parse HEAD
-          npm ci
-          npm run check
-          npm install --no-save --package-lock=false @playwright/test@1.63.0
-          npx playwright install --with-deps chromium
-          node "$RUNNER_TEMP/probe.cjs"
-      - name: Repeat existing comparisons
-        run: |
-          status=0
-          npx playwright test --project=desktop-1440 --grep '(order|yurayura) visual and layout regression$' --repeat-each=3 > "$RUNNER_TEMP/results.log" 2>&1 || status=$?
-          cat "$RUNNER_TEMP/results.log"
-          test "$(find test-results/visual -name h1-state.json | wc -l)" -eq 6
-          exit "$status"
+      - run: npm ci && npm run check
+      - run: npm install --no-save --package-lock=false @playwright/test@1.63.0
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=desktop-1440 --project=mobile-390 --grep '^.*order visual and layout regression$' --repeat-each=2
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: pr55-${{ matrix.revision }}-${{ matrix.motion }}-${{ matrix.settle }}
-          path: |
-            test-results/visual
-            ${{ runner.temp }}/results.log
+          name: f4-order-linux
+          path: test-results/visual
