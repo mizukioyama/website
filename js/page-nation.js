@@ -106,7 +106,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "幽昧", en: "#2344" },
             caption: { ja: "未発表", en: "Unpublished" },
-            text: { ja: "白と黒の境界が溶け合い、煙のように漂う曖昧な意識。形を持たない影が交わり、視覚では掴みきれない“感覚”が静かに揺らめく。本作は、まがまがしさと抽象の間を往還する「思考の断片」を可視化した存在である。言葉では定義できない何かが、あなたの奥底に触れるかもしれない。見えるものと、見えないもの。語られるものと、語られないもの。心に残るのはどちらなのか――", en: "The boundaries of black and white melt away, drifting like smoke in an ambiguous consciousness. Formless shadows intertwine, and a 'sensation' that cannot be grasped by sight quietly flickers. This work is a visual representation of 'fragments of thought' that oscillate between the eerie and the abstract. Something that cannot be defined by words may touch the depths of you. What is visible and what is unseen. What is spoken and what is unsaid. Which one lingers in the heart?" },
+            text: { ja: "白と黒の境目が溶け合い、形のない影が煙のように漂う。まがまがしさと抽象の間を行き来する思考の断片を、目だけでは捉えきれない感覚として描いた。目に見えるものと見えないもののうち、何が心に残るのだろう。", en: "The boundary between black and white dissolves, and shapeless shadows drift like smoke. I rendered fragments of thought that move between the uncanny and the abstract as a sensation the eye alone cannot grasp. Of what is seen and what is unseen, what stays with us?" },
             category: ["2023", "Digital"],
             textContent: { ja: "生成AI, 加工", en: "Generative AI, processing" },
             img: "img/202344-1-web.jpg",
@@ -490,7 +490,7 @@ function setupCategoryFilter() {
         {
             title: { ja: "金雲", en: "Kin’un" },
             caption: { ja: "展示作品", en: "Exhibited works" },
-            text: { ja: "幸福を呼ぶ、輝きたなびく雲をイメージ。金色の中に、静けさと力強さが同居する。人は、たった一つの色から何を感じ、何を思い出すのか。この作品は、見る人の記憶や感情にそっと問いかける。", en: "The image is of sparkling, fluttering clouds that bring happiness. Calmness and strength coexist in the gold color. What do people feel and remember from just one color? This work gently questions the memories and emotions of the viewer." },
+            text: { ja: "幸福を呼ぶように輝き、たなびく雲をイメージした。金色の中に、静けさと力強さが同居する。ひとつの色が、どんな感覚や記憶を呼び起こすのだろう。", en: "I pictured gleaming, drifting clouds that seem to bring happiness. Stillness and strength coexist in the gold. What feelings and memories might a single color evoke?" },
             category: ["2021", "Paint"],
             textContent: { ja: "Paint", en: "Paint" },
             img: "img/kinun-web.jpg",
@@ -537,7 +537,7 @@ function setupCategoryFilter() {
             title: { ja: "海底", en: "Kaitei" },
             caption: { ja: "未発表 Certified", en: "Unpublished" },
             textContent: { ja: "Paint, 抽象画, 画用紙", en: "Paint, abstract painting, Drawing paper" },
-            text: { ja: "高校3年次制作。<br>当初は「冬」をテーマに描き始めたが、完成した作品を改めて見つめたとき、深海を連想させるような印象を受けたため「海底」と改題。深海に差し込むような白い光や、感情が色彩として混ざり合うような表現を通して、内面の静けさや揺らぎを描いた一枚。見る者によって異なる景色が立ち現れる、抽象的な感覚表現を目指した。<br>本作は、日本・モンゴル外交関係樹立50周年記念事業認定より公式認定を受けています。", en: "Created in the third year of high school. <br>Initially, he started painting with the theme of 'winter', but when he looked at the finished work again, he was reminded of the deep sea, so he renamed it 'Undersea'. This piece depicts inner tranquility and fluctuation through the expression of white light shining into the deep sea and emotions mixed together as colors. He aimed for an abstract sensory expression that will reveal different scenes depending on the viewer. <br>This work has been officially certified as part of the 50th anniversary of the establishment of diplomatic relations between Japan and Mongolia." },
+            text: { ja: "高校3年次の制作。最初は「冬」をテーマに描き始めたが、完成した作品から深海を連想し、「海底」に改題した。深海に差し込むような白い光と、感情が色として混ざり合うような表現で、内面の静けさや揺らぎを描いた。見る人によって異なる景色が現れる、抽象的な表現を目指した。<br>本作は、日本・モンゴル外交関係樹立50周年記念事業認定より公式認定を受けています。", en: "I made this work in my final year of high school. I began with winter as the subject, then renamed it after the finished painting reminded me of the deep sea. White light that seems to reach into the depths and colors that mingle like feelings express an inner stillness and unrest. I wanted to make an abstract work in which different viewers might see different landscapes.<br>This work was officially certified as part of the project commemorating the 50th anniversary of diplomatic relations between Japan and Mongolia." },
             category: ["2010-2017", "Paint"],
             img: "img/kaitei-web.jpg",
             ImageData: "img/kaitei.jpg"

@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const captions = [
     {
       jaTitle: "蒼縁", enTitle: "sōen",
-      ja: "青の奥に広がる、まだ言葉にならないつながり。人と自然、記憶と感情、現在と未来のあいだに生まれる見えない縁を、ひとつの感覚として捉えた作品。境界を決めるのではなく、静かに重なり合う関係性そのものを見つめている。",
-      en: "A connection that has not yet become language spreads through the depth of blue. This work considers the invisible ties between people and nature, memory and emotion, the present and the future. Rather than defining boundaries, it looks quietly at relationships as they overlap and continue to change."
+      ja: "青の奥に、人と自然、記憶と感情、現在と未来のあいだに生まれる、まだ言葉にならないつながりを捉えた。それらが静かに重なり合う関係を見つめている。",
+      en: "In the depths of blue, this work traces connections that are still beyond words: between people and nature, memory and emotion, and the present and the future. It looks at how these relationships quietly overlap."
     },
     {
       jaTitle: "海淵", enTitle: "Kaien",
@@ -15,18 +15,18 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       jaTitle: "#2504", enTitle: "#2504",
-      ja: "生成と加工を往復しながら、偶然に現れた形と自分の感覚との距離を探った。意図してつくる部分と、予期せず生まれる部分。その境界を残すことで、完成を固定せず、見る側の想像が入り込む余白をつくっている。",
-      en: "Moving back and forth between generation and processing, this work explores the distance between accidental forms and personal perception. By keeping both intentional and unexpected elements visible, the image remains open rather than fixed, leaving room for the viewer's imagination."
+      ja: "生成と加工を行き来しながら、偶然に現れた形と自分の感覚との距離を探った。意図してつくる部分と予期せず生まれる部分の境界を残し、見る人が想像を重ねられる余白をつくっている。",
+      en: "Moving between generation and editing, I explored the distance between forms that appeared by chance and my own perceptions. I kept the boundary between deliberate and unexpected elements, leaving room for viewers to bring their own imagination to the work."
     },
     {
       jaTitle: "#2503", enTitle: "#2503",
-      ja: "ひとつのイメージが生まれ、加工によって別の表情へ移り変わっていく過程に着目した作品。最初に与えられた形を完成形とせず、変化の途中に現れる違和感や揺らぎを、新しい像として受け取っている。",
-      en: "This work focuses on the process in which one image is born and then changes through editing. Instead of treating the initial form as complete, it accepts the discomfort and fluctuation that appear during transformation as a new image in themselves."
+      ja: "生成された像が、加工を経て別の表情に変わる過程に着目した。途中で生まれた違和感や揺らぎを、新しい像として受け取っている。",
+      en: "This work follows how a generated image takes on a different character through editing. The dissonance and shifts that emerge along the way become a new image in their own right."
     },
     {
       jaTitle: "#2501", enTitle: "#2501",
-      ja: "生成された像を出発点に、自分の感覚へ近づけるための加工を重ねた。AIが示す可能性をそのまま受け入れるのではなく、選択と修正を繰り返すことで、作者と生成技術のあいだに生まれる表現の輪郭を探っている。",
-      en: "Beginning with a generated image, repeated processing brings it closer to the artist's own perception. Rather than accepting the possibilities proposed by AI as they are, the work explores the outline of expression that emerges through repeated selection and revision."
+      ja: "生成された像を出発点に、選択と修正を重ね、自分の感覚に近づけた。生成技術と作者の判断が交わるところに生まれる表現を探っている。",
+      en: "Starting with a generated image, I made a series of choices and adjustments to bring it closer to what I sensed. The work explores what can emerge where generative technology meets the artist’s judgment."
     },
     {
       jaTitle: "時間と変化", enTitle: "Time and change",
@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       jaTitle: "#2402", enTitle: "#2402",
-      ja: "生成AIによる偶然性と、作者による選択・加工を重ねて構成した。どこまでが機械による生成で、どこからが人の意思なのか。その境界を曖昧に保ちながら、新しいイメージの生まれ方を考えている。",
-      en: "This work combines the chance produced by generative AI with the artist's selection and processing. By keeping the boundary between machine generation and human intention deliberately uncertain, it considers how new images can come into being."
+      ja: "生成AIによる偶然性に、作者の選択と加工を重ねて構成した。どこまでが機械による生成で、どこからが人の意思なのか。その境界を曖昧に残し、新しい像がどう生まれるかを探っている。",
+      en: "I brought the chance effects of generative AI together with my own choices and editing. Where does machine generation end and human intention begin? The work leaves that boundary unclear and explores how a new image comes into being."
     },
     {
       jaTitle: "#2401", enTitle: "#2401",
@@ -50,8 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       jaTitle: "#2342", enTitle: "#2342",
-      ja: "形を決めすぎず、見る側の想像によって意味が変わる状態を残した。生成された像に加工を重ねることで、現実と非現実の境目をぼかし、ひとつの答えに収束しない視覚体験をつくっている。",
-      en: "The image avoids becoming too fixed, allowing its meaning to change through the viewer's imagination. By repeatedly processing a generated form, the work blurs the boundary between reality and unreality and resists settling into a single interpretation."
+      ja: "生成された像に加工を重ね、現実と非現実の境目をぼかした。形を決めすぎず、見る人の想像によって意味が変わる余地を残している。",
+      en: "I edited a generated image to blur the boundary between the real and the unreal. I left the forms open enough for their meaning to shift with the viewer’s imagination."
     },
     {
       jaTitle: "#2341", enTitle: "#2341",
@@ -105,13 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       jaTitle: "#23,000,03", enTitle: "#23,000,03",
-      ja: "現実を写す写真に、作者の感覚を重ねるための加工を施した。目に見えたものを正確に伝えることよりも、その場で受け取った空気や余韻を、別のかたちで残すことを試みている。",
-      en: "Processing is applied to a photograph of reality in order to layer the artist's perception onto it. Rather than communicating exactly what was visible, the work attempts to preserve the atmosphere and lingering impression of the moment in another form."
+      ja: "写真に加工を施し、その場で受け取った空気や余韻を、別のかたちで残すことを試みた。",
+      en: "Through editing, I tried to preserve the atmosphere I sensed when taking the photograph and what lingered afterward, giving both another form."
     },
     {
       jaTitle: "#2336", enTitle: "#2336",
-      ja: "生成された像をそのまま完成とせず、加工を通して意味を少しずつ解体した。具体と抽象の間を行き来しながら、見る人が自分自身の感覚を重ねられる余白をつくっている。",
-      en: "The generated image is not treated as finished; processing gradually breaks apart its original meaning. Moving between the concrete and the abstract, the work creates room for viewers to layer their own perceptions onto the image."
+      ja: "生成された像に加工を重ね、元の意味を少しずつほどいていった。具体と抽象の間を行き来しながら、見る人が自分の感覚を重ねられる余白を残している。",
+      en: "I edited the generated image to gradually loosen its original meaning. Moving between the concrete and the abstract, I left room for viewers to bring their own perceptions to it."
     },
     {
       jaTitle: "#2334", enTitle: "#2334",
