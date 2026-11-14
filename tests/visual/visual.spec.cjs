@@ -1698,7 +1698,7 @@ async function exerciseInformationLanguage(page, testInfo) {
   await expect(page.locator('.info-section[aria-labelledby="upcoming-title"] [data-yurayura-feed-status][lang="en"]')).toBeVisible();
   await expect(page.locator(".information-intro p[lang=ja]")).toBeHidden();
   await expect(page.locator(".information-intro p[lang=en]")).toBeVisible();
-  await expect(page.locator(".information-intro p[lang=en]")).toContainText("Current and upcoming exhibitions");
+  await expect(page.locator(".information-intro p[lang=en]")).toContainText("Current and upcoming events are listed separately from the archive of past activities.");
   await expect(page.locator("#upcoming-title [lang=en]")).toBeVisible();
   await expect(page.locator("#past-title [lang=en]")).toBeVisible();
   await expect(page.locator('.past-activities-table span[lang="en"]').filter({ hasText: "Group Exhibition" })).toBeVisible();
@@ -2666,16 +2666,18 @@ test("Yurayura language content switches at all seven viewport widths", async ({
     })));
     expect(state.leadSelectedVisible).toBe(true);
     expect(state.leadOtherVisible).toBe(false);
-    expect(state.rowHeaderCount).toBe(6);
-    expect(state.selectedRowLabels).toBe(6);
+    expect(state.rowHeaderCount).toBe(8);
+    expect(state.selectedRowLabels).toBe(8);
     expect(state.otherRowLabelsVisible).toBe(false);
-    expect(state.artistNames).toEqual(["Mizuki", "かおる", "咲", "クリカン"]);
+    expect(state.artistNames).toEqual(["KAoRU", "森元 咲喜", "Quriqan", "Mizuki"]);
     expect(state.detailLinkSelectedVisible).toBe(true);
     expect(state.backLinkSelectedVisible).toBe(true);
     expect(state.storedLanguage).toBe(language);
     expect(state.compatibilityLanguage).toBe(language);
     expect(state.overflow, "Yurayura has horizontal overflow in " + language).toBeLessThanOrEqual(2);
-    expect(state.mainText).toContain(language === "ja" ? "2026年10月6日 — 10月12日" : "October 6–12, 2026");
+    expect(state.mainText).toContain(language === "ja" ? "2026年10月6日〜12日（開催終了）" : "October 6–12, 2026 (concluded)");
+    expect(state.mainText).toContain(language === "ja" ? "Gallery Charlotte.Usagi（横浜）" : "Gallery Charlotte.Usagi (Yokohama)");
+    expect(state.mainText).toContain(language === "ja" ? "18点" : "18 works");
   };
 
   for (const width of viewportWidths) {
