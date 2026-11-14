@@ -31,6 +31,8 @@ Only the baseline and current priority queue below define active status. Dated p
 
 ## Current priority queue
 
+- Startup layout candidate on `codex/startup-layout-study`: keep the static navigation out of document flow when scripting is enabled, and reserve the Gallery FV spacing on its wrapper before the result count is inserted. Review desktop/mobile comparisons and Linux snapshots before any release. Home title contrast is a separate visual proposal.
+
 - Cross-site Yurayura event feed: the release candidate uses the official JSON as the single edit source and serves bilingual Portfolio copy. After publication, routine event updates go through the Yurayura data edit and Pages release; Portfolio reads the public feed without a redeploy.
 
 1. Owner review of the deployed Biography / Artist Statement background composition and sphere placement; real-GPU and physical-device performance acceptance remains pending.

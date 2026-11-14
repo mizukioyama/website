@@ -367,7 +367,7 @@ body:has(#modalBox[style*="display: block"]) {
 
 /* No-JavaScript navigation is replaced, not duplicated, by buildHeader(). */
 #header-container > .static-primary-navigation {
-  position: relative;
+  position: absolute;
   z-index: 10000;
   background: var(--text);
   inset: auto;
@@ -377,6 +377,11 @@ body:has(#modalBox[style*="display: block"]) {
   flex-wrap: wrap;
   gap: 12px 24px;
   overflow: visible;
+}
+@media (scripting: none) {
+  #header-container > .static-primary-navigation {
+    position: relative;
+  }
 }
 #navArea .inner a:focus-visible,
 .head a:focus-visible {
