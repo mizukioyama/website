@@ -446,23 +446,17 @@ async function assertBilingualPage(page, label) {
       return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
     };
     const languageControl = document.querySelector("#langChange");
-    const proseLanguages = [
-      ...document.querySelectorAll("main .work > p.state-txt, main .work > p.text")
-    ].map(element => element.classList.contains("state-txt") ? "ja" : "en");
-    const proseElements = [...document.querySelectorAll("main .work > p.state-txt, main .work > p.text")];
-    const englishPairVisuals = proseElements
-      .filter(element => element.classList.contains("text"))
-      .map(element => {
-        const style = getComputedStyle(element);
-        const next = element.nextElementSibling;
-        const nextStyle = next ? getComputedStyle(next) : null;
+    const prose = [...document.querySelectorAll(".bilingual-prose")].map(container =>
+      [...container.querySelectorAll(":scope > p")].map(element => {
+        const previous = element.previousElementSibling;
+        const rect = element.getBoundingClientRect();
         return {
-          borderTopWidth: parseFloat(style.borderTopWidth) || 0,
-          borderTopStyle: style.borderTopStyle,
-          nextLanguage: next?.classList.contains("state-txt") ? "ja" : null,
-          nextMarginTop: nextStyle ? parseFloat(nextStyle.marginTop) || 0 : null
+          language: element.lang,
+          divider: parseFloat(getComputedStyle(element).borderTopWidth),
+          gap: previous?.matches("p") ? rect.top - previous.getBoundingClientRect().bottom : null
         };
-      });
+      })
+    );
     const statementTimelineItems = [...document.querySelectorAll("main .timeline > .timeline-item")].map(item => {
       const japaneseTitle = item.querySelector(":scope > .timeline-title");
       const japaneseBody = item.querySelector(".timeline-copy > p:not(.text)");
@@ -493,8 +487,7 @@ async function assertBilingualPage(page, label) {
       ].filter(visible).length,
       languageControlVisible: Boolean(languageControl && visible(languageControl) && !languageControl.hidden),
       standaloneEnglishContent: document.querySelectorAll('main .state-box > .content[lang="en"]').length,
-      proseLanguages,
-      englishPairVisuals,
+      prose,
       statementTimelineItems
     };
   });
@@ -503,21 +496,22 @@ async function assertBilingualPage(page, label) {
   expect(state.englishRegions, label + " should show English regions").toBeGreaterThan(0);
   expect(state.languageControlVisible, label + " should hide the language switch UI").toBe(false);
   expect(state.standaloneEnglishContent, label + " should not keep a separate English content block").toBe(0);
-  expect(state.proseLanguages.length % 2, label + " prose should contain Japanese/English pairs").toBe(0);
-  for (let index = 0; index < state.proseLanguages.length; index += 2) {
-    expect(state.proseLanguages[index], label + " prose pair should start in Japanese").toBe("ja");
-    expect(state.proseLanguages[index + 1], label + " prose pair should place English directly after Japanese").toBe("en");
-  }
-  for (let index = 0; index < state.englishPairVisuals.length; index += 1) {
-    const pair = state.englishPairVisuals[index];
-    expect(pair.borderTopWidth, label + " English translation should have a divider").toBeGreaterThanOrEqual(1);
-    expect(pair.borderTopStyle, label + " English divider should be visible").not.toBe("none");
-    if (pair.nextLanguage !== null) {
-      expect(pair.nextLanguage, label + " next bilingual pair should restart in Japanese").toBe("ja");
-      expect(pair.nextMarginTop, label + " bilingual pairs should keep a readable gap").toBeGreaterThan(0);
+  const statement = label === "artist-statement" || label === "artist-statement.html";
+  const topicSizes = statement ? [[3, 4, 4, 3, 4, 4, 3, 4]] : [[3, 3], [3, 3, 4, 5, 2, 3, 4, 5, 3, 2]];
+  expect(state.prose).toHaveLength(topicSizes.length);
+  for (const [index, sizes] of topicSizes.entries()) {
+    const paragraphs = state.prose[index];
+    const languages = sizes.flatMap(size => [...Array(size).fill("ja"), ...Array(size).fill("en")]);
+    expect(paragraphs.map(paragraph => paragraph.language), label + " topic reading order").toEqual(languages);
+    for (const [position, paragraph] of paragraphs.entries()) {
+      expect(paragraph.divider).toBe(0);
+      if (paragraph.gap === null) continue;
+      const previous = languages[position - 1];
+      const gap = previous === paragraph.language ? 16 : paragraph.language === "en" ? 24 : 40;
+      expect(paragraph.gap, label + " prose gap").toBeCloseTo(gap, 0);
     }
   }
-  if (label === "artist-statement") {
+  if (statement) {
     expect(state.statementTimelineItems).toHaveLength(5);
     for (const item of state.statementTimelineItems) {
       expect(item.japaneseTitle, "Artist Statement timeline should keep its Japanese numbered heading").toBe(true);
