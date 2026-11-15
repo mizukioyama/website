@@ -742,7 +742,8 @@ function setupCategoryFilter() {
     function updateResultCount(total) {
         const gallery = document.getElementById("gallery-container");
         const galleryBox = gallery?.parentElement;
-        if (!gallery || !galleryBox) return;
+        const sidebar = document.getElementById("sidebar-container");
+        if (!gallery || !galleryBox || !sidebar) return;
 
         let resultCount = document.getElementById("gallery-result-count");
         if (!resultCount) {
@@ -751,7 +752,7 @@ function setupCategoryFilter() {
             resultCount.className = "gallery-result-count";
             resultCount.setAttribute("role", "status");
             resultCount.setAttribute("aria-live", "polite");
-            galleryBox.insertBefore(resultCount, gallery);
+            sidebar.appendChild(resultCount);
         }
 
         let emptyState = document.getElementById("gallery-empty-state");
@@ -771,6 +772,14 @@ function setupCategoryFilter() {
         resultCount.textContent = language === "ja"
             ? "該当作品 " + total + "件"
             : total + " works";
+
+        let selection = document.getElementById("gallery-filter-selection");
+        if (!selection) {
+            selection = document.createElement("p");
+            selection.id = "gallery-filter-selection";
+            galleryBox.insertBefore(selection, emptyState);
+        }
+        selection.textContent = (language === "ja" ? "選択中 | " : "Filters | ") + getSelectedFilterLabel();
 
         emptyState.textContent = language === "ja"
             ? "該当作品なし。"
@@ -795,24 +804,19 @@ function setupCategoryFilter() {
         const start = (currentPage - 1) * itemsPerPage;
         const pageItems = filtered.slice(start, start + itemsPerPage);
 
-        const selectedCategoryLabel = getSelectedFilterLabel();
-
         container.innerHTML = "";
         pageItems.forEach(item => {
-            const firstLine = item.category[0] || "";
-            const secondLine = item.category.slice(1).join(" ") || "";
+            const year = item.category.find(value => /^\d{4}$/.test(value));
+            const category = item.category.filter(value => !isYearFilter(value)).join(" · ");
 
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-            <p class="noise cg-text" style="font-size: var(--legacy-px-1_4); font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
-                Category | ${selectedCategoryLabel}
-            </p>
             <div class="work-img">
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
-                    <p>${item.title[lang]}</p>
-                    <p>${firstLine}<br>${secondLine}</p>
+                    <p class="gallery-work-heading"><span>${item.title[lang]}</span>${year ? ` <time datetime="${year}">${year}</time>` : ""}</p>
+                    <p class="gallery-work-category">${category}</p>
                 </a>
             </div>
         `;
@@ -839,8 +843,8 @@ function showModal(item) {
     activeModalItem = item;
 
     const lang = getLang();
-    const firstLine = item.category[0] || "";
-    const secondLine = item.category.slice(1).join(" ") || "";
+    const year = item.category.find(value => /^\d{4}$/.test(value));
+    const categories = item.category.filter(value => !isYearFilter(value));
     const hasLink = !!item.link;
     const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
 
@@ -856,27 +860,22 @@ function showModal(item) {
         <div class="work-img">
             <div class="gallery-modal-header"><div class="works">
                 <h2 id="gallery-modal-title">${item.title[lang]}</h2>
-                <p>
-                    ${firstLine}
-                    <br>
-                    Media：${secondLine} <span class="text-content">(${truncateText(item.textContent[lang])})</span>
-                    <br>
-                    ${truncateText(item.caption[lang])}
-                </p>
+                <p>${[year, ...categories].filter(Boolean).join(" · ")}</p>
             </div>
             <button type="button" id="modalCloseBtn">${lang === "ja" ? "閉じる" : "Close"}</button></div>
             <div class="gallery-modal-body" tabindex="0">
             <img src="${item.ImageData || item.img}" alt="${item.title[lang]}">
-            <p class="noise cg-text">
-                Category | ${secondLine}
-            </p>
+            <div class="gallery-modal-metadata">
+                <p>${truncateText(item.caption[lang])}</p>
+                <p>${truncateText(item.textContent[lang])}</p>
+            </div>
             <div class="modal-text">
                 <p>${truncateText(item.text[lang])}</p>
                 ${hasLink ? `
                 <a href="${item.link}" class="noise" rel="noopener" target="_blank">${buttonLabel} More</a>
                 ` : ""}
-                <p>${inquiryMessage}</p>
-                <a href="contact.html" class="noise">Contact</a>
+                <p class="gallery-modal-inquiry">${inquiryMessage}</p>
+                <a href="contact.html" class="noise gallery-modal-contact">Contact</a>
 
             </div>
             </div>

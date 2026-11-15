@@ -974,10 +974,35 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   const categoryHeader = page.locator("#category-header");
   const categoryMenu = page.locator("#category-menu");
   const resultCount = page.locator("#gallery-result-count");
+  const filterSelection = page.locator(".gallery-box > #gallery-filter-selection");
   const emptyState = page.locator("#gallery-empty-state");
   const gallery = page.locator("#gallery-container");
   const pagination = page.locator("#pagination");
   const initialLanguage = await page.locator("html").getAttribute("lang");
+
+  await expect(filterSelection).toBeVisible();
+  await expect(gallery.locator(".cg-text")).toHaveCount(0);
+  const toolbar = await page.evaluate(() => {
+    const category = document.querySelector("#category-header").getBoundingClientRect();
+    const count = document.querySelector("#gallery-result-count").getBoundingClientRect();
+    const sidebar = document.querySelector("#sidebar-container").getBoundingClientRect();
+    const selection = document.querySelector("#gallery-filter-selection").getBoundingClientRect();
+    return {
+      categoryRight: category.right,
+      categoryTop: category.top,
+      categoryBottom: category.bottom,
+      countLeft: count.left,
+      countRight: count.right,
+      countCenter: (count.top + count.bottom) / 2,
+      sidebarRight: sidebar.right,
+      selectionTop: selection.top
+    };
+  });
+  expect(toolbar.countLeft, "Result Count should sit to the right of Category").toBeGreaterThanOrEqual(toolbar.categoryRight - 1);
+  expect(toolbar.countRight, "Result Count should remain within the toolbar").toBeLessThanOrEqual(toolbar.sidebarRight + 1);
+  expect(toolbar.countCenter, "Result Count should share the Category row").toBeGreaterThan(toolbar.categoryTop);
+  expect(toolbar.countCenter, "Result Count should share the Category row").toBeLessThan(toolbar.categoryBottom);
+  expect(toolbar.selectionTop, "Selected filters should flow below Category").toBeGreaterThanOrEqual(toolbar.categoryBottom - 1);
 
   const initialGeometry = await page.evaluate(() => {
     const box = document.querySelector(".gallery-box");
@@ -1031,7 +1056,7 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
       .toBeCloseTo(initialGeometry.boxWidth, 1);
     expect(geometry.countLeft, "Result Count must keep its aligned horizontal position")
       .toBeCloseTo(initialGeometry.countLeft, 1);
-    expect(geometry.countWidth, "Result Count must keep the Gallery width")
+    expect(geometry.countWidth, "Result Count width must stay stable when the filters change")
       .toBeCloseTo(initialGeometry.countWidth, 1);
     if (!empty) {
       expect(geometry.columns, "Filter state must preserve the responsive column count")
@@ -1040,10 +1065,6 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
         .toBeCloseTo(initialGeometry.gridLeft, 1);
       expect(geometry.gridWidth, "Filter state must not resize the artwork grid")
         .toBeCloseTo(initialGeometry.gridWidth, 1);
-      expect(geometry.countLeft, "Result Count must align to the artwork grid")
-        .toBeCloseTo(geometry.gridLeft, 1);
-      expect(geometry.countWidth, "Result Count must match the artwork grid width")
-        .toBeCloseTo(geometry.gridWidth, 1);
       expect(geometry.cardLeft, "Filtered works should start in the first grid column")
         .toBeCloseTo(initialGeometry.cardLeft, 1);
     }
@@ -1134,9 +1155,11 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await selectFilter("2026");
   await assertTotal(2);
   await assertFilterState("all", "2026");
+  await expect(filterSelection).toContainText("2026");
   for (const [ja, en, image] of [["裏裏", "uraura", "uraura-web.webp"], ["表表", "hyouhyou", "hyouhyou-web.webp"]]) {
     const card = gallery.locator(":scope > .work").filter({ has: page.locator('img[src="img/' + image + '"]') });
     await expect(card.locator("img").first()).toHaveAttribute("alt", initialLanguage === "en" ? en : ja);
+    await expect(card.locator('time[datetime="2026"]')).toHaveText("2026");
     expect((await page.request.get("img/" + image)).ok()).toBe(true);
   }
   await selectFilter("2026");
@@ -1222,7 +1245,7 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
 
   const firstWork = gallery.locator(":scope > .work").first();
   const firstThumbnail = firstWork.locator(".work-img > img");
-  const firstTitle = firstWork.locator(".view-policy-button p").first();
+  const firstTitle = firstWork.locator(".gallery-work-heading > span");
   await expect(firstThumbnail).toHaveAttribute("alt", await firstTitle.textContent());
 
   await setLanguage("en");
@@ -1263,6 +1286,12 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
 
   await page.locator("#modalCloseBtn").click();
   await expect(page.locator("#modalBox")).toBeHidden();
+
+  await selectFilter("2010-2017");
+  await expect(filterSelection).toContainText("2010~2017");
+  await expect(gallery.locator(".gallery-work-heading time")).toHaveCount(0);
+  await selectFilter("2010-2017");
+  await assertTotal(71);
 }
 async function assertContactFormUiLabels(page, label) {
   const fieldLabels = [
