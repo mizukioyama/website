@@ -1126,16 +1126,28 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   };
 
 
-  await expect(resultCount).toHaveAttribute("data-result-count", "69");
-  await assertTotal(69);
+  await expect(resultCount).toHaveAttribute("data-result-count", "71");
+  await assertTotal(71);
   await assertFilterState("all", "all");
   await expect(pagination.locator('button[aria-label="Page 9"]')).toBeVisible();
+
+  await selectFilter("2026");
+  await assertTotal(2);
+  await assertFilterState("all", "2026");
+  for (const [ja, en, image] of [["裏裏", "uraura", "uraura-web.webp"], ["表表", "hyouhyou", "hyouhyou-web.webp"]]) {
+    const card = gallery.locator(":scope > .work").filter({ has: page.locator('img[src="img/' + image + '"]') });
+    await expect(card.locator("img").first()).toHaveAttribute("alt", initialLanguage === "en" ? en : ja);
+    expect((await page.request.get("img/" + image)).ok()).toBe(true);
+  }
+  await selectFilter("2026");
+  await assertTotal(71);
+
 
   await pagination.locator('button[aria-label="Page 2"]').click();
   await expect(pagination.locator('[aria-current="page"]')).toHaveAttribute("aria-label", "Page 2");
   await expect(gallery.locator(":scope > .work")).toHaveCount(8);
   await selectFilter("Paint");
-  await assertTotal(25);
+  await assertTotal(27);
   await assertFilterState("Paint", "all");
   await expect(pagination.locator('[aria-current="page"]')).toHaveAttribute("aria-label", "Page 1");
   await expect(pagination.locator('button[aria-label="Page 4"]')).toBeVisible();
@@ -1147,10 +1159,10 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
 
   // Clearing only Year keeps Genre; clearing only Genre keeps Year.
   await selectFilter("2024");
-  await assertTotal(25);
+  await assertTotal(27);
   await assertFilterState("Paint", "all");
   await selectFilter("Paint");
-  await assertTotal(69);
+  await assertTotal(71);
   await assertFilterState("all", "all");
   await selectFilter("2024");
   await assertTotal(4);
@@ -1191,21 +1203,21 @@ async function exerciseGalleryRuntime(page, projectName, testInfo) {
   await assertFilterState("all", "2024");
 
   await selectFilter("all");
-  await assertTotal(69);
+  await assertTotal(71);
   await assertFilterState("all", "all");
 
   // Filter controls support Enter and Space and expose matching pressed state.
   await selectFilter("Paint", "Enter");
-  await assertTotal(25);
+  await assertTotal(27);
   await assertFilterState("Paint", "all");
   await selectFilter("2024", "Space");
   await assertTotal(1);
   await assertFilterState("Paint", "2024");
   await selectFilter("2024", "Space");
-  await assertTotal(25);
+  await assertTotal(27);
   await assertFilterState("Paint", "all");
   await selectFilter("Paint", "Enter");
-  await assertTotal(69);
+  await assertTotal(71);
   await assertFilterState("all", "all");
 
   const firstWork = gallery.locator(":scope > .work").first();

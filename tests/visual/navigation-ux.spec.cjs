@@ -183,9 +183,9 @@ for (const reducedMotion of ['no-preference', 'reduce']) {
       const result = page.locator('#gallery-result-count');
       const cards = page.locator('#gallery-container > .work');
 
-      await expect(result).toHaveAttribute('data-result-count', '69');
+      await expect(result).toHaveAttribute('data-result-count', '71');
       await category.focus();
-      for (const [filter, key, count] of [['Paint', 'Enter', '25'], ['2024', 'Space', '1']]) {
+      for (const [filter, key, count] of [['Paint', 'Enter', '27'], ['2024', 'Space', '1']]) {
         await page.keyboard.press('Enter');
         await expect(category).toHaveAttribute('aria-expanded', 'true');
         await expect(options.first()).toBeVisible();
@@ -231,7 +231,7 @@ test.describe('Gallery Category on touch screens', () => {
     await page.goto('gallery.html');
     const category = page.getByRole('button', { name: 'Category', exact: true });
     const result = page.locator('#gallery-result-count');
-    await expect(result).toHaveAttribute('data-result-count', '69');
+    await expect(result).toHaveAttribute('data-result-count', '71');
     await category.tap();
     await expect(category).toHaveAttribute('aria-expanded', 'true');
     await page.locator('#category-menu [data-category="2024"]').tap();
