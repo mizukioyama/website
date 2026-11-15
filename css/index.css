@@ -551,6 +551,9 @@ p {
 .top-page h1.title {
   width: fit-content;
   font-size: var(--type-home-title-size);
+  -webkit-text-fill-color: #fff;
+  text-shadow: 0 0 2px #101918, 0 0 6px #101918;
+  filter: drop-shadow(0 0 2px #101918) drop-shadow(0 0 4px #101918);
 }
 
 .top-page .title {
