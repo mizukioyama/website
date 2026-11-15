@@ -170,3 +170,73 @@ test('Biography reserves artwork space while its lazy image is pending', async (
     });
   }
 });
+
+for (const reducedMotion of ['no-preference', 'reduce']) {
+  test.describe('Gallery Category with motion ' + reducedMotion, () => {
+    test.use({ reducedMotion });
+
+    test('keyboard selection and Escape restore visible focus in tab order', async ({ page }) => {
+      await prepare(page);
+      await page.goto('gallery.html');
+      const category = page.getByRole('button', { name: 'Category', exact: true });
+      const options = page.locator('#category-menu [data-category]');
+      const result = page.locator('#gallery-result-count');
+      const cards = page.locator('#gallery-container > .work');
+
+      await expect(result).toHaveAttribute('data-result-count', '69');
+      await category.focus();
+      for (const [filter, key, count] of [['Paint', 'Enter', '25'], ['2024', 'Space', '1']]) {
+        await page.keyboard.press('Enter');
+        await expect(category).toHaveAttribute('aria-expanded', 'true');
+        await expect(options.first()).toBeVisible();
+        await page.keyboard.press('Tab');
+        await expect(options.first()).toBeFocused();
+        await page.keyboard.press('Shift+Tab');
+        await expect(category).toBeFocused();
+
+        await page.locator(`#category-menu [data-category=${JSON.stringify(filter)}]`).press(key);
+        await expect(result).toHaveAttribute('data-result-count', count);
+        await expect(cards).toHaveCount(Math.min(Number(count), 8));
+        await expect(category).toHaveAttribute('aria-expanded', 'false');
+        await expect(category).toBeFocused();
+        await expect(category).toHaveCSS('outline-style', 'solid');
+        await expect(category).toHaveCSS('outline-width', '1px');
+        await expect(category).toHaveCSS('outline-offset', '4px');
+        expect(await category.evaluate(button =>
+          getComputedStyle(button).outlineColor === getComputedStyle(button).color
+        )).toBe(true);
+      }
+
+      await page.keyboard.press('Enter');
+      await expect(category).toHaveAttribute('aria-expanded', 'true');
+      await expect(options.first()).toBeVisible();
+      await page.keyboard.press('Tab');
+      await expect(options.first()).toBeFocused();
+      await page.keyboard.press('Escape');
+      await expect(category).toHaveAttribute('aria-expanded', 'false');
+      await expect(category).toBeFocused();
+      await expect(result).toHaveAttribute('data-result-count', '1');
+      await expect(options.first()).toBeHidden();
+      await page.keyboard.press('Tab');
+      await expect(cards.first().locator('.view-policy-button')).toBeFocused();
+    });
+  });
+}
+
+test.describe('Gallery Category on touch screens', () => {
+  test.use({ hasTouch: true });
+
+  test('tapping a filter closes Category and updates the artwork results', async ({ page }) => {
+    await prepare(page);
+    await page.goto('gallery.html');
+    const category = page.getByRole('button', { name: 'Category', exact: true });
+    const result = page.locator('#gallery-result-count');
+    await expect(result).toHaveAttribute('data-result-count', '69');
+    await category.tap();
+    await expect(category).toHaveAttribute('aria-expanded', 'true');
+    await page.locator('#category-menu [data-category="2024"]').tap();
+    await expect(category).toHaveAttribute('aria-expanded', 'false');
+    await expect(result).toHaveAttribute('data-result-count', '4');
+    await expect(page.locator('#gallery-container > .work')).toHaveCount(4);
+  });
+});
