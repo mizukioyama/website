@@ -1,5 +1,20 @@
 # Portfolio Improvement Roadmap
 
+## Current status — 2026-11-15
+
+The main design improvement cycle is complete. The verified production revision is `da95dc511a5ea5b8f0b1c7c4ac95467a23fc07be`, Tree `fcbd035c126886d53cc1b7b6f06bffca12cb8051`. The [published site](https://mizukioyama.github.io/website/) matches the approved tree. Pages [build and deploy](https://github.com/mizukioyama/website/actions/runs/43704744144) and [post-deploy Linux CI](https://github.com/mizukioyama/website/actions/runs/43704806621) passed. The latter reported 191 passed, zero failures and 88 expected skips, plus the separate Order and public runtime checks. Public verification covered nine routes at seven widths and the 404 response. Public HTML and referenced CSS/JS matched all 41 approved responses.
+
+- [PR #57](https://github.com/mizukioyama/website/pull/57) shipped Gallery keyboard filtering and focus restoration.
+- [PR #58](https://github.com/mizukioyama/website/pull/58) shipped Gallery and Site Policy startup layout stabilization. These releases reached the verified combined tree `5e7b3d61f817775f856f6937e99101eb31e3ac17` before PR #61.
+- [PR #61](https://github.com/mizukioyama/website/pull/61) shipped Home title contrast C, shared heading sizing across nine pages and ten reviewed Linux snapshots. GitHub recorded #59 and #60 as merged through the integration history. No separate main merge was needed.
+- Earlier dated entries are historical checkpoints. See [Known Issues](reports/known-issues.md) for open verification and maintenance limits. Keep the existing release gates, WIP protections and rollback guidance.
+
+## Current priority queue
+
+1. Obtain owner answers for the [21 Gallery records](reports/gallery-21-owner-review.md), starting with award attribution and the repeated large-format claim. Keep public artwork data unchanged until confirmed.
+2. Retain separate verification tasks for Home on very bright backgrounds and physical Android/PC display and performance.
+3. Track GitHub Actions Node.js deprecation as CI maintenance. Follow the existing [Known Issues](reports/known-issues.md) guidance.
+
 ## Approved UX / Home release — 2026-11-01
 
 - Published baseline: PR #44, merge `21206c08c0f61b4ec0c31fc240e5b581461184a8`. Owner approved the reviewed hit areas, navigation, Gallery visibility, typography weight, Home entry/card and final Policy modal polish for release.
@@ -9,16 +24,16 @@
 
 ## Rule
 Prioritize evidence-backed improvements. Keep this short/current. Do not accumulate speculative tasks.
-Only the baseline and current priority queue below define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
+Only Current status and Current priority queue define active status. Dated phase entries later in this file are historical records; unchecked historical items are not automatically current tasks.
 
-## Current production baseline — 2026-10-04
+## Historical production baseline — 2026-10-04
 
-- Production HEAD / origin/main: a246a20eed526013c43a5e40c3b3024bc06e7884. The Selected Ink + TRUNK implementation and rollback policy remain unchanged.
+- Production HEAD at this checkpoint: a246a20eed526013c43a5e40c3b3024bc06e7884. The Selected Ink + TRUNK implementation and rollback policy remain unchanged.
 - Primary background is Selected Ink Field on all nine routes. The original VANTA.TRUNK sphere is an optional accent only on Biography and Artist Statement. Ripple is disabled and VANTA.FOG stays disabled in Selected Ink mode; legacy rollback remains available.
 - Biography / Artist Statement preserve the user-approved 5500 layout refinements, scoped to those two pages. No Selected Ink visual parameters or Linux baselines changed in the sphere restoration.
 - Pages #419 passed. Visual Regression #446 passed (user-confirmed).
 
-## Current priority queue — 2026-10-05
+## Historical priority queue — 2026-10-05
 
 - Background system: Selected Ink Field is the primary background on all nine site routes. The original VANTA.TRUNK sphere runs as an optional accent only on Biography and Artist Statement. Ripple remains disabled, VANTA.FOG remains disabled in Selected Ink mode, and the legacy rollback path is retained.
 - Biography / Artist Statement layout refinements remain scoped to those two pages. Their approved 5500 composition and the shared page spacing are unchanged by the sphere restoration.
@@ -29,7 +44,7 @@ Only the baseline and current priority queue below define active status. Dated p
 - Gallery Phase H-1: the seven-viewport Gallery candidate is committed on codex/selected-ink-field-background-system. Linux Visual Regression full_audit=true is the next gate; do not push to main, deploy Pages, or update baselines before artifact review.
 - Owner visual review in a headed browser and physical iOS / Android performance acceptance remain pending.
 
-## Current priority queue
+## Historical candidate queue — prior to PR #57–#61
 
 - Startup layout candidate on `codex/startup-layout-study`: keep the static navigation out of document flow when scripting is enabled, and reserve the Gallery FV spacing on its wrapper before the result count is inserted. Review desktop/mobile comparisons and Linux snapshots before any release. Home title contrast is a separate visual proposal.
 

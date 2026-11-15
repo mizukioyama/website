@@ -1,8 +1,16 @@
 # Known Issues
 
-> The current register below is authoritative as of 2026-10-01. Dated entries that follow record the status at that time and are historical where they conflict with this summary.
+> The open follow-ups below reflect the verified PR #61 release. The dated records that follow preserve earlier observations and diagnostics.
 
-## Current production baseline
+## Open follow-ups — 2026-11-15
+
+- Home C: very bright background frames still need a controlled readability comparison. Physical Android and PC display and performance acceptance are NOT_TESTED.
+- GitHub Actions: the [post-deploy job](https://github.com/mizukioyama/website/actions/runs/43704806621/job/132783479345) warned that `actions/cache@v4`, `actions/checkout@v4`, `actions/setup-node@v4` and `actions/upload-artifact@v4` target deprecated Node.js 20 and ran on Node.js 24. Review action upgrades separately. Deployment and the post-deploy job passed.
+- Gallery: two records have source inconsistencies; 19 require owner confirmation. Use the [21-work review](gallery-21-owner-review.md) before editing public captions, dates or awards.
+
+See [ROADMAP Current status](../ROADMAP.md#current-status--2026-11-15) for release evidence.
+
+## Historical production baseline — 2026-10-01
 
 - Contact bilingual implementation `0b6a4b4c8d9bba9435dafd6789e2290749d7af4f`, targeted timeout adjustment `25be9c5b51d0345e0cf5ca23f92ce562534af14b`, and two-image Linux baseline update `17b97a8991832837ea0bd991b125df6049ede51e` are on `main` and `origin/main`. Pages deploys #399–#401 passed; Visual Regression #428 passed (55 passed / 17 skipped).
 - Current language matrix: switchable — Home, Gallery, Information, Order, Policy, Yurayura; bilingual — Biography, Artist Statement, Contact. Contact labels, request choices, policy copy, submit/status text, and both modals display Japanese followed by English. The shared bilingual logic hides the language control and preserves stored language preference.
@@ -10,7 +18,7 @@
 - Visual Regression #398 remains resolved historical. The #426 Contact tablet-768 timeout was test-budget related: the test hit the 30-second global limit during geometry checks. A targeted 60-second Contact timeout removed it; #427 had no timeout and #428 passed.
 - Public browser acceptance for the published Contact bilingual layout and the other eight pages remains pending because the admin-enforced browser policy denied access. Final design handoff readiness is therefore open.
 
-## Remaining handoff gate and follow-ups
+## Historical handoff gate and follow-ups — 2026-10-01
 
 - Complete the public rendered-page acceptance when browser access is available.
 - Continue shared same-tag typography-role checker coverage as a separate follow-up. Final value selection remains with the owner.

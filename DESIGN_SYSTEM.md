@@ -196,7 +196,7 @@ Desktop horizontal navigation uses one shared size role, weight and tracking, wi
 - Gallery audit: standard-background.css remains the shared static image/contrast source; Selected Ink Field is the primary WebGL canvas (z=-1), TRUNK is the optional accent (z=0), Organic Flow is the distinct overlay (z=5), and the Gallery reading surface uses the common rgba(0,0,0,.05)/blur(10px) at z=10 (2026-10-31 visibility correction: removed Gallery-only .7/15px overrides). Three normal-motion canvases serve different roles; no Ripple/Fog runtime resource remains. Retain these layers. Only inactive legacy background-color comments were removed.
 - Owner design review completed. Navigation UX release verification, individually reviewed Linux references and deployment evidence are tracked in PR #44; physical-device acceptance remains separate.
 
-## 2026-10-31 local UX / Home review candidate
+## 2026-10-31 local UX / Home review candidate (historical)
 
 - All page H1 weight is 100 in css/all.css, matching Art Index. Existing size tokens stay unchanged; Home creator and exhibition H2 roles keep their existing weights.
 - Navigation underline transitions affect text decoration only, retaining full-cell targets. Ja/En uses a 44px / 12px separator / 44px grid.
@@ -206,7 +206,7 @@ Desktop horizontal navigation uses one shared size role, weight and tracking, wi
 - Local review only; Linux baseline and publication remain pending.
 
 
-## 2026-11-01 local interaction / typography candidate
+## 2026-11-01 local interaction / typography candidate (historical)
 
 - PC H1 keeps the same size and weight100, but uses the existing Gallery Regular glyphs through the locally served Portfolio Shippori family. The official Google Fonts Latin subset and OFL license live in css/fonts; the alias prevents a same-name installed ExtraBold font from substituting on pages without the web face. Only the existing1024px PC query references it; mobile H1 is unchanged.
 - Discrete controls keep their full targets. A single nav-label span bounds the shared Footer-style pseudo underline to the text; underline timing is .5s ease and hover opacity/shadow follows the existing shared link rule. The static no-JavaScript generator strips decoration markup and asserts six links.
@@ -220,3 +220,7 @@ Desktop horizontal navigation uses one shared size role, weight and tracking, wi
 
 - The existing content__ping indicator is the single native card switch button. Its 44px target is anchored to the card at right/bottom24px on PC; portrait/mobile keeps a lower-card location48px right of center and24px from the bottom to clear dates, Works and the existing circular menu. Existing slide state/cooldown/automatic timing and Works return are reused.
 - Contact Policy paragraphs reuse the existing14–16px UI token rather than changing normal page Typography or the shared16–18px artwork/thanks token. Policy paragraph margin is18px and section-heading margin28px/12px; frame padding and dimensions remain unchanged.
+
+## Published Home and heading treatment — PR #61
+
+Home C and the shared heading scale are published. Use the existing Home treatment in `css/index.css` and heading tokens in `assets/css/user-settings.css`. The [ROADMAP Current status](ROADMAP.md#current-status--2026-11-15) records the release checks. The earlier candidate notes describe their original review stages.

@@ -1,8 +1,8 @@
 # Next Actions
 
-> The ordered queue below is current as of 2026-10-05. Dated sections after it are historical task notes, not additional active priorities unless promoted here.
+> The [ROADMAP Current priority queue](../ROADMAP.md#current-priority-queue) is the active queue. The entries below preserve earlier task decisions and release gates.
 
-## Current queue
+## Historical queue — 2026-10-05
 
 1. Complete Gallery Phase H-1 Linux preflight on the feature branch: dispatch Visual regression with full_audit=true, review all seven viewport results and the expected / actual / diff artifacts, and keep main, Pages, and baselines unchanged.
 2. When browser access is available, verify the published Contact bilingual layout and the other eight pages at 1440px / 390px; this remains pending because the admin-enforced browser check denied access.

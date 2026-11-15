@@ -18,7 +18,7 @@ The canonical public event source is `assets/data/exhibitions.json` in the Yuray
 
 ## Language presentation
 
-The page-specific language behavior below is the normative specification. The status section records how current production maps to it.
+The page-specific language behavior below is the normative specification. See [ROADMAP Current status](ROADMAP.md#current-status--2026-11-15) for deployment and verification evidence.
 
 | Page | Required presentation | Language control |
 | --- | --- | --- |
@@ -38,7 +38,9 @@ Biography, Artist Statement, and Contact display Japanese followed immediately b
 
 Before enabling a language control for any switchable page, complete and review its English content. Do not present an incomplete English page as a complete language option.
 
-### Current implementation status — 2026-10-01
+### Implementation history — 2026-10-01
+
+For the current deployment and verification status, see [ROADMAP Current status](ROADMAP.md#current-status--2026-11-15).
 
 Contact's Japanese-first bilingual layout was restored in implementation commit `0b6a4b4c8d9bba9435dafd6789e2290749d7af4f`. The shared bilingual behavior hides its language control while preserving stored language preferences. Its long visual test received a targeted 60-second timeout in `25be9c5b51d0345e0cf5ca23f92ce562534af14b`; only the reviewed Contact desktop-1440 and mobile-390 Linux baselines were updated in `17b97a8991832837ea0bd991b125df6049ede51e`. Pages deploys #399–#401 passed. Visual Regression #428 passed (55 passed / 17 skipped), and `npm run check` passed. Public browser confirmation for this handoff was blocked by the admin-enforced browser policy, so final design handoff readiness remains pending. Yurayura's complete English content and switch were implemented in `8e61d22`; its reviewed Linux visual baselines were recorded separately in `123073c`.
 
