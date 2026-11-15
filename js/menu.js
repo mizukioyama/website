@@ -149,6 +149,7 @@ const SIDEBAR_MARKUP = `
   <li data-category="Photo" class="noise">Photo</li>
   <li data-category="Unreleased" class="noise">Unreleased</li>
   <li class="filter-group-title" role="presentation">Year</li>
+  <li data-category="2026" class="noise">2026</li>
   <li data-category="2025" class="noise">2025</li>
   <li data-category="2024" class="noise">2024</li>
   <li data-category="2023" class="noise">2023</li>

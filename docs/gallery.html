@@ -10,17 +10,17 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
   <link rel="stylesheet" href="css/all.css?v=8d89e26a196f">
-  <link rel="stylesheet" href="css/gallery.css?v=806dc95effcc">
-  <link rel="stylesheet" href="css/mobile.css?v=9d0163abed6b">
+  <link rel="stylesheet" href="css/gallery.css?v=7acb59c300be">
+  <link rel="stylesheet" href="css/mobile.css?v=745d2102b68d">
   <link rel="stylesheet" href="css/footer.css?v=a657cfc7e2e3">
   <link rel="stylesheet" href="css/menu.css?v=aea337e821c9">
   <link rel="stylesheet" href="assets/css/user-settings.css?v=1e90003db811">
 
   <!-- JS -->
 
-  <script src="js/page-nation.js?v=bee431b00db6"></script>
+  <script src="js/page-nation.js?v=3c89b0eca118"></script>
   <script src="js/gallery-captions.js?v=5249cd95a460"></script>
-  <script src="js/menu.js?v=b03ff59054c1"></script>
+  <script src="js/menu.js?v=03b776fc152e"></script>
 
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
@@ -116,7 +116,12 @@
     .modal-box .works h2 { font-size: var(--type-home-modal-h2-size); font-weight: 300; line-height: 1.4; }
     .modal-box .works p, .text-content { font-size: var(--font-metadata-size); line-height: 1.6; }
     .gallery-modal-body > img { display: block; width: auto; max-width: 100%; height: auto; max-height: 65svh; object-fit: contain; margin: 0 auto 24px; opacity: .85; clip-path: none; }
-    .modal-box .cg-text { font-size: var(--font-metadata-size); margin: 0 0 16px; }
+    .gallery-modal-metadata { inline-size: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-block-end: 16px; }
+    .gallery-modal-metadata p { max-inline-size: 100%; font-size: var(--font-metadata-size); line-height: 1.6; margin: 0; overflow-wrap: anywhere; }
+    .gallery-modal-metadata p:last-child { margin-inline-start: auto; text-align: right; }
+    .gallery-modal-header .works { overflow-wrap: anywhere; }
+    #modalBox .gallery-modal-inquiry { margin-block-start: 12px; }
+    #modalBox .gallery-modal-contact { display: flex; margin-inline-start: auto; }
     .modal-text p { text-shadow: none; }
     .modal-text a { font-size: var(--font-ui-size); margin: 0 0 24px; width: fit-content; }
     #modalCloseBtn { flex-shrink: 0; position: static; font-size: var(--type-modal-mobile-close-size); padding: 8px; color: inherit; background: transparent; border: 0; }

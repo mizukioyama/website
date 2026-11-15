@@ -4,6 +4,24 @@ function setupCategoryFilter() {
 
     const artworks = [
         {
+            title: { ja: "裏裏", en: "uraura" },
+            caption: { ja: "展示作品：アナログ", en: "Exhibited work: Analog" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2026", "Paint"],
+            textContent: { ja: "アクリル, キャンバス", en: "acrylic, canvas" },
+            img: "img/uraura-web.webp",
+            ImageData: "img/uraura-web.webp"
+        },
+        {
+            title: { ja: "表表", en: "hyouhyou" },
+            caption: { ja: "展示作品：アナログ", en: "Exhibited work: Analog" },
+            text: { ja: "準備中...", en: "Preparing…" },
+            category: ["2026", "Paint"],
+            textContent: { ja: "アクリル, キャンバス", en: "acrylic, canvas" },
+            img: "img/hyouhyou-web.webp",
+            ImageData: "img/hyouhyou-web.webp"
+        },
+        {
             title: { ja: "蒼縁", en: "sōen" },
             caption: { ja: "未発表", en: "Unpublished" },
             text: { ja: "準備中...", en: "Preparing…" },
@@ -573,7 +591,7 @@ function setupCategoryFilter() {
             title: { ja: "#1502", en: "#1502" },
             caption: { ja: "未発表", en: "Unpublished" },
             textContent: { ja: "Paint, イラスト, 画用紙", en: "Paint, Illustration, Drawing paper" },
-            text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
+            text: { ja: "準備中...", en: "Preparing…" },
             category: ["2010-2017", "Paint"],
             img: "img/201502-web.jpg",
             ImageData: "img/201502-web.jpg"
@@ -582,7 +600,7 @@ function setupCategoryFilter() {
             title: { ja: "#1501", en: "#1501" },
             caption: { ja: "未発表", en: "Unpublished" },
             textContent: { ja: "Paint, イラスト, 画用紙", en: "Paint, Illustration, Drawing paper" },
-            text: { ja: "高校2年次制作。<br>溜め込んだ感情は、時間とともに濃度を増す。創作を離れた1年間の静けさは、やがて嵐のように筆先へと現れた。日々の放課後、美術室の片隅で生まれた「無題」のこの作品は、自分の奥に沈んでいたものたちを、初めて他者に見せるための入り口だった。<br>2016年｜第67回宮城県高等学校美術展（優秀賞）賞", en: "Created in the third year of high school. <br>Packed-up emotions become more intense with time. The calm of a year away from creating eventually emerged like a storm on the tip of the brush. This 'Untitled' work, born in a corner of the art room every day after school, was the gateway for the artist to show others for the first time the things that had been buried deep inside him. <br>2016 | Awarded the Excellence Award at the 67th Miyagi Prefectural High School Art Exhibition" },
+            text: { ja: "準備中...", en: "Preparing…" },
             category: ["2010-2017", "Paint"],
             img: "img/201501-web.jpg",
             ImageData: "img/201501-web.jpg"
@@ -600,7 +618,7 @@ function setupCategoryFilter() {
             title: { ja: "#1401", en: "#1401" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201401-web.jpg",
             ImageData: "img/201401.jpg"
@@ -609,7 +627,7 @@ function setupCategoryFilter() {
             title: { ja: "#1307", en: "#1307" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201307-web.jpg",
             ImageData: "img/201307.jpg"
@@ -618,7 +636,7 @@ function setupCategoryFilter() {
             title: { ja: "#1306", en: "#1306" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201306-web.jpg",
             ImageData: "img/201306.jpg"
@@ -627,7 +645,7 @@ function setupCategoryFilter() {
             title: { ja: "#1305", en: "#1305" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201305-web.jpg",
             ImageData: "img/201305.jpg"
@@ -636,7 +654,7 @@ function setupCategoryFilter() {
             title: { ja: "#1304", en: "#1304" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201304-web.jpg",
             ImageData: "img/201304.jpg"
@@ -645,7 +663,7 @@ function setupCategoryFilter() {
             title: { ja: "#1303", en: "#1303" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201303-web.jpg",
             ImageData: "img/201303.jpg"
@@ -654,7 +672,7 @@ function setupCategoryFilter() {
             title: { ja: "#1302", en: "#1302" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201302-web.jpg",
             ImageData: "img/201302.jpg"
@@ -663,7 +681,7 @@ function setupCategoryFilter() {
             title: { ja: "#1301", en: "#1301" },
             caption: { ja: "展示作品", en: "Exhibited works" },
             textContent: { ja: "Paint, 画用紙", en: "Paint, Drawing paper" },
-            text: { ja: "高校1年次に制作した初めての大判作品。<br>スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "This was the first large-format work I created in my first year of high school. <br>In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the canvas." },
+            text: { ja: "スケッチブックとは異なるスケールの中で、構図のバランスや余白の扱いを模索しながら、空間に対する意識を広げていった。初期衝動や試行錯誤の痕跡がそのまま画面に残っている。", en: "In a scale different from that of a sketchbook, I expanded my awareness of space while exploring the balance of the composition and how to use the white space. Traces of my initial impulses and trial and error remain on the surface." },
             category: ["2010-2017", "Paint"],
             img: "img/201301-web.jpg",
             ImageData: "img/201301.jpg"
@@ -724,7 +742,8 @@ function setupCategoryFilter() {
     function updateResultCount(total) {
         const gallery = document.getElementById("gallery-container");
         const galleryBox = gallery?.parentElement;
-        if (!gallery || !galleryBox) return;
+        const sidebar = document.getElementById("sidebar-container");
+        if (!gallery || !galleryBox || !sidebar) return;
 
         let resultCount = document.getElementById("gallery-result-count");
         if (!resultCount) {
@@ -733,7 +752,7 @@ function setupCategoryFilter() {
             resultCount.className = "gallery-result-count";
             resultCount.setAttribute("role", "status");
             resultCount.setAttribute("aria-live", "polite");
-            galleryBox.insertBefore(resultCount, gallery);
+            sidebar.appendChild(resultCount);
         }
 
         let emptyState = document.getElementById("gallery-empty-state");
@@ -753,6 +772,14 @@ function setupCategoryFilter() {
         resultCount.textContent = language === "ja"
             ? "該当作品 " + total + "件"
             : total + " works";
+
+        let selection = document.getElementById("gallery-filter-selection");
+        if (!selection) {
+            selection = document.createElement("p");
+            selection.id = "gallery-filter-selection";
+            galleryBox.insertBefore(selection, emptyState);
+        }
+        selection.textContent = (language === "ja" ? "選択中 | " : "Filters | ") + getSelectedFilterLabel();
 
         emptyState.textContent = language === "ja"
             ? "該当作品なし。"
@@ -777,24 +804,19 @@ function setupCategoryFilter() {
         const start = (currentPage - 1) * itemsPerPage;
         const pageItems = filtered.slice(start, start + itemsPerPage);
 
-        const selectedCategoryLabel = getSelectedFilterLabel();
-
         container.innerHTML = "";
         pageItems.forEach(item => {
-            const firstLine = item.category[0] || "";
-            const secondLine = item.category.slice(1).join(" ") || "";
+            const year = item.category.find(value => /^\d{4}$/.test(value));
+            const category = item.category.filter(value => !isYearFilter(value)).join(" · ");
 
             const div = document.createElement("div");
             div.className = "work";
             div.innerHTML = `
-            <p class="noise cg-text" style="font-size: var(--legacy-px-1_4); font-weight: 500; position: absolute; top: -5rem; left: 1%; width: max-content; letter-spacing: 0; justify-content: flex-start; padding: 0; margin: 0 !important; border-bottom: 1px solid; line-height: 2;">
-                Category | ${selectedCategoryLabel}
-            </p>
             <div class="work-img">
                 <img src="${item.img}" alt="${item.title[lang]}">
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
-                    <p>${item.title[lang]}</p>
-                    <p>${firstLine}<br>${secondLine}</p>
+                    <p class="gallery-work-heading"><span>${item.title[lang]}</span>${year ? ` <time datetime="${year}">${year}</time>` : ""}</p>
+                    <p class="gallery-work-category">${category}</p>
                 </a>
             </div>
         `;
@@ -821,8 +843,8 @@ function showModal(item) {
     activeModalItem = item;
 
     const lang = getLang();
-    const firstLine = item.category[0] || "";
-    const secondLine = item.category.slice(1).join(" ") || "";
+    const year = item.category.find(value => /^\d{4}$/.test(value));
+    const categories = item.category.filter(value => !isYearFilter(value));
     const hasLink = !!item.link;
     const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
 
@@ -838,27 +860,22 @@ function showModal(item) {
         <div class="work-img">
             <div class="gallery-modal-header"><div class="works">
                 <h2 id="gallery-modal-title">${item.title[lang]}</h2>
-                <p>
-                    ${firstLine}
-                    <br>
-                    Media：${secondLine} <span class="text-content">(${truncateText(item.textContent[lang])})</span>
-                    <br>
-                    ${truncateText(item.caption[lang])}
-                </p>
+                <p>${[year, ...categories].filter(Boolean).join(" · ")}</p>
             </div>
             <button type="button" id="modalCloseBtn">${lang === "ja" ? "閉じる" : "Close"}</button></div>
             <div class="gallery-modal-body" tabindex="0">
             <img src="${item.ImageData || item.img}" alt="${item.title[lang]}">
-            <p class="noise cg-text">
-                Category | ${secondLine}
-            </p>
+            <div class="gallery-modal-metadata">
+                <p>${truncateText(item.caption[lang])}</p>
+                <p>${truncateText(item.textContent[lang])}</p>
+            </div>
             <div class="modal-text">
                 <p>${truncateText(item.text[lang])}</p>
                 ${hasLink ? `
                 <a href="${item.link}" class="noise" rel="noopener" target="_blank">${buttonLabel} More</a>
                 ` : ""}
-                <p>${inquiryMessage}</p>
-                <a href="contact.html" class="noise">Contact</a>
+                <p class="gallery-modal-inquiry">${inquiryMessage}</p>
+                <a href="contact.html" class="noise gallery-modal-contact">Contact</a>
 
             </div>
             </div>

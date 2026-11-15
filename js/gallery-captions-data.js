@@ -4,6 +4,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const captions = [
     {
+      jaTitle: "裏裏", enTitle: "uraura",
+      ja: "作品説明は準備中です。",
+      en: "Artwork description forthcoming."
+    },
+    {
+      jaTitle: "表表", enTitle: "hyouhyou",
+      ja: "作品説明は準備中です。",
+      en: "Artwork description forthcoming."
+    },
+    {
+      jaTitle: "#1501", enTitle: "#1501",
+      ja: "作品説明は準備中です。",
+      en: "Artwork description forthcoming."
+    },
+    {
+      jaTitle: "#1502", enTitle: "#1502",
+      ja: "作品説明は準備中です。",
+      en: "Artwork description forthcoming."
+    },
+    {
       jaTitle: "蒼縁", enTitle: "sōen",
       ja: "青の奥に、人と自然、記憶と感情、現在と未来のあいだに生まれる、まだ言葉にならないつながりを捉えた。それらが静かに重なり合う関係を見つめている。",
       en: "In the depths of blue, this work traces connections that are still beyond words: between people and nature, memory and emotion, and the present and the future. It looks at how these relationships quietly overlap."
