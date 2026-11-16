@@ -8,6 +8,15 @@
   let ready = false;
   let runtimeBound = false;
 
+  // Placeholder captions are never written into the modal: works without a
+  // real description render no description field at all (see page-nation.js).
+  const PLACEHOLDER_CAPTIONS = new Set([
+    '準備中...',
+    '作品説明は準備中です。',
+    'Preparing…',
+    'Artwork description forthcoming.'
+  ]);
+
   /* ==================================================
      CAPTION DATA
      ================================================== */
@@ -71,7 +80,7 @@
       modalBox.querySelector('.works h2, .works p');
 
     const captionEl =
-      modalBox.querySelector('.modal-text p');
+      modalBox.querySelector('.modal-text p.gallery-modal-description');
 
     if (!titleEl || !captionEl) return;
 
@@ -87,6 +96,8 @@
         : 'ja';
 
     const nextCaption = item[lang];
+
+    if (nextCaption && PLACEHOLDER_CAPTIONS.has(nextCaption.trim())) return;
 
     if (
       nextCaption &&
