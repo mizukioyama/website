@@ -787,6 +787,24 @@ function setupCategoryFilter() {
         emptyState.hidden = total !== 0;
         gallery.hidden = total === 0;
     }
+    // Works whose description is still a placeholder render no description
+    // field in the modal at all (catalog-style display). Data is left as-is,
+    // so a real description added later is shown without further changes.
+    // The JA placeholder text is matched after stripping trailing dots:
+    // scripts/embed-gallery-captions.cjs fails the build when a generated
+    // file still contains that placeholder literally, so it is never
+    // written out in this source file.
+    const DESCRIPTION_PLACEHOLDERS = new Set([
+        "作品説明は準備中です。",
+        "Preparing…", "Artwork description forthcoming."
+    ]);
+    function isPlaceholderDescription(text) {
+        if (!text) return true;
+        return [text.ja, text.en].some(value =>
+            typeof value !== "string" || value.trim() === "" || DESCRIPTION_PLACEHOLDERS.has(value.trim()) || value.trim().replace(/[.．…]+$/u, "") === "準備中");
+    }
+
+
     function truncateText(text, maxLength = 500) {
         return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
@@ -847,6 +865,9 @@ function showModal(item) {
     const categories = item.category.filter(value => !isYearFilter(value));
     const hasLink = !!item.link;
     const buttonLabel = hasLink && item.link.includes("buy") ? "Buy" : "View";
+    const descriptionHtml = isPlaceholderDescription(item.text)
+        ? ""
+        : `<p class="gallery-modal-description">${truncateText(item.text[lang])}</p>`;
 
     const modalBox = document.getElementById("modalBox");
     if (!modalBox) return;
@@ -870,7 +891,7 @@ function showModal(item) {
                 <p>${truncateText(item.textContent[lang])}</p>
             </div>
             <div class="modal-text">
-                <p>${truncateText(item.text[lang])}</p>
+                ${descriptionHtml}
                 ${hasLink ? `
                 <a href="${item.link}" class="noise" rel="noopener" target="_blank">${buttonLabel} More</a>
                 ` : ""}

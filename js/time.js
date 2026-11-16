@@ -63,9 +63,8 @@ waitForJQuery(function ($) {
 
             var hours = parisTime.getHours().toString().padStart(2, '0');
             var minutes = parisTime.getMinutes().toString().padStart(2, '0');
-            var seconds = parisTime.getSeconds().toString().padStart(2, '0');
 
-            $('#paris-time').text(`${hours}:${minutes}:${seconds}`);
+            $('#paris-time').text(`${hours}:${minutes}`);
         }
 
         function updateTokyoTime() {
@@ -75,9 +74,8 @@ waitForJQuery(function ($) {
 
             var hours = tokyoTime.getHours().toString().padStart(2, '0');
             var minutes = tokyoTime.getMinutes().toString().padStart(2, '0');
-            var seconds = tokyoTime.getSeconds().toString().padStart(2, '0');
 
-            $('#tokyo-time').text(`${hours}:${minutes}:${seconds}`);
+            $('#tokyo-time').text(`${hours}:${minutes}`);
         }
 
         // Update both clocks together once per minute.
