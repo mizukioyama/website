@@ -25,6 +25,7 @@ const rootVisualScripts = [
   "mobile.js",
   "p5.min.js",
   "page-nation.js",
+  "page-transition.js",
   "three.r134.min.js",
   "time.js",
   "portfolio-yurayura-events.js",
