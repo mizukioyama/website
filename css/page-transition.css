@@ -1,7 +1,10 @@
-/* Page transition overlay (fog fade).
-   A plain opaque layer in the site background colour. It only appears
-   around an in-site navigation: it fades in on the page being left and
-   fades out on the page being entered. It carries no text or logo.
+/* Page transition overlay (liquid).
+   Around an in-site navigation a liquid layer spreads from the
+   click point and drains away on the destination page. The liquid
+   itself is drawn on a canvas by js/page-transition.js (WebGL); the
+   flat background below is the fallback used when WebGL is
+   unavailable, and then this file's opacity fades do the whole
+   transition. The layer carries no text or logo.
    z-index 13000: above the custom cursor (12000), modals (10000/10001)
    and the Home loading layer (9998), so the whole screen — including
    any open dialog — is covered evenly while the next page loads. */
@@ -16,6 +19,20 @@
   z-index: 13000;
 }
 
+/* Liquid mode: the canvas paints everything (including its own
+   transparency), so the flat background and opacity fades step aside. */
+.page-transition-overlay.is-liquid {
+  background: transparent;
+  opacity: 1;
+  transition: none;
+}
+
+.page-transition-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* Destination page, arrived via a transition: start fully covered,
    with no transition, so the page is never seen uncovered first. */
 .page-transition-overlay.is-covered {
@@ -23,14 +40,14 @@
   pointer-events: all;
 }
 
-/* Leaving page: fade in to cover the screen. */
+/* Leaving page (flat fallback): fade in to cover the screen. */
 .page-transition-overlay.is-fading-in {
   transition: opacity 380ms ease;
   opacity: 1;
   pointer-events: all;
 }
 
-/* Destination page: fade out to reveal the page. */
+/* Destination page (flat fallback): fade out to reveal the page. */
 .page-transition-overlay.is-fading-out {
   transition: opacity 500ms ease;
   opacity: 0;
