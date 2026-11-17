@@ -40,16 +40,18 @@
   pointer-events: all;
 }
 
-/* Leaving page (flat fallback): fade in to cover the screen. */
+/* Leaving page (flat fallback): fade in to cover the screen.
+   Lengthened in the same ratio as the liquid cover (1250ms). */
 .page-transition-overlay.is-fading-in {
-  transition: opacity 380ms ease;
+  transition: opacity 680ms ease-in-out;
   opacity: 1;
   pointer-events: all;
 }
 
-/* Destination page (flat fallback): fade out to reveal the page. */
+/* Destination page (flat fallback): fade out to reveal the page.
+   Lengthened in the same ratio as the liquid reveal (1400ms). */
 .page-transition-overlay.is-fading-out {
-  transition: opacity 500ms ease;
+  transition: opacity 930ms ease-in-out;
   opacity: 0;
   pointer-events: none;
 }

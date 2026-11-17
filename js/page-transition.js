@@ -3,11 +3,17 @@
  * Plain browser navigation is kept as-is; this script only puts a
  * liquid layer over the screen around it:
  *  - on an in-site link click, liquid spreads radially from the click
- *    point (about 700ms) and the browser then navigates normally;
+ *    point (about 1250ms) and the browser then navigates normally;
  *  - on the destination page, when (and only when) a sessionStorage
  *    flag says the visit came through that cover, the page starts
  *    covered in still-flowing liquid, which then drains downward
- *    (about 750ms) and is gone.
+ *    (about 1400ms) and is gone.
+ * The pace is deliberately slow and viscous (modelled on the heavy,
+ * unhurried motion of kazukinoda.com/works/nouwell): a smooth
+ * ease-in-out progression with no bounce, a fine animated grain over
+ * the liquid surface, and a thin-film wash that lets the page below
+ * show through faintly — most strongly near the front and at the end
+ * of the drain, so the reveal feels like a crossfade.
  * Direct landings, reloads and external arrivals never get a layer.
  * No SPA-style content swapping is performed.
  *
@@ -27,11 +33,13 @@
   "use strict";
 
   var STORAGE_KEY = "portfolio-page-transition";
-  var COVER_MS = 700;
-  var REVEAL_MS = 750;
-  /* Flat-fallback timings (used only when WebGL is unavailable). */
-  var FADE_IN_MS = 380;
-  var FADE_OUT_MS = 500;
+  var COVER_MS = 1250;
+  var REVEAL_MS = 1400;
+  /* Flat-fallback timings (used only when WebGL is unavailable),
+     lengthened by the same ratio as the liquid timings
+     (380 * 1250/700 ≈ 680, 500 * 1400/750 ≈ 930). */
+  var FADE_IN_MS = 680;
+  var FADE_OUT_MS = 930;
   /* If navigation has still not happened this long after the cover
      finished, uncover the page again so it can never be left unusable. */
   var FALLBACK_MS = 3000;
@@ -141,10 +149,12 @@
     "  vec2 p = vec2(uv.x * aspect, uv.y);",
     "  float t = u_time;",
     "",
-    "  /* Internal flow: domain-warped fbm, always moving slowly. */",
+    "  /* Internal flow: domain-warped fbm, always moving slowly.",
+    "     Time factors are about 0.6x the original pace, matching the",
+    "     slower cover/reveal durations. */",
     "  vec2 flowP = p * 2.2;",
-    "  float warp = fbm(flowP + vec2(t * 0.05, -t * 0.03));",
-    "  float flow = fbm(flowP + warp * 1.4 + vec2(-t * 0.04, t * 0.02));",
+    "  float warp = fbm(flowP + vec2(t * 0.03, -t * 0.018));",
+    "  float flow = fbm(flowP + warp * 1.4 + vec2(-t * 0.024, t * 0.012));",
     "",
     "  float d = 1.0; /* signed distance-ish: negative inside the liquid */",
     "  if (u_mode < 0.5) {",
@@ -152,8 +162,8 @@
     "    vec2 o = vec2(u_origin.x * aspect, u_origin.y);",
     "    float dist = length(p - o);",
     "    float ang = atan(p.y - o.y, p.x - o.x);",
-    "    float edge = (fbm(vec2(cos(ang), sin(ang)) * 1.6 + vec2(t * 0.06, 0.0)) - 0.5) * 0.16",
-    "               + (noise(p * 5.0 + t * 0.15) - 0.5) * 0.05;",
+    "    float edge = (fbm(vec2(cos(ang), sin(ang)) * 1.6 + vec2(t * 0.036, 0.0)) - 0.5) * 0.16",
+    "               + (noise(p * 5.0 + t * 0.09) - 0.5) * 0.05;",
     "    float radius = u_progress * (u_maxdist + 0.25);",
     "    /* Edge noise lives only near the front, so the interior",
     "       thickness does not turn into radial spokes. */",
@@ -163,8 +173,8 @@
     "    for (int i = 0; i < 6; i++) {",
     "      float fi = float(i);",
     "      float seed = hash(vec2(fi, 7.0));",
-    "      float a2 = seed * 6.2831 + fi * 1.047 + sin(t * 0.4 + fi) * 0.15;",
-    "      float lead = radius * (1.02 + 0.05 * sin(t * 0.7 + fi * 1.7)) + 0.03 * seed;",
+    "      float a2 = seed * 6.2831 + fi * 1.047 + sin(t * 0.24 + fi) * 0.15;",
+    "      float lead = radius * (1.02 + 0.05 * sin(t * 0.42 + fi * 1.7)) + 0.03 * seed;",
     "      vec2 c = o + vec2(cos(a2), sin(a2)) * lead;",
     "      float dr = (0.018 + 0.02 * hash(vec2(fi, 3.0)))",
     "               * (1.0 - smoothstep(0.92, 1.0, u_progress));",
@@ -175,8 +185,8 @@
     "  } else {",
     "    /* Reveal: the surface level sinks, draining the liquid down. */",
     "    float level = mix(1.25, -0.3, u_progress);",
-    "    float wob = (fbm(vec2(p.x * 2.4, t * 0.08)) - 0.5) * 0.14",
-    "              + (noise(vec2(p.x * 9.0, t * 0.25)) - 0.5) * 0.03;",
+    "    float wob = (fbm(vec2(p.x * 2.4, t * 0.048)) - 0.5) * 0.14",
+    "              + (noise(vec2(p.x * 9.0, t * 0.15)) - 0.5) * 0.03;",
     "    d = uv.y - (level + wob);",
     "    /* Drops detach from the front and fall ahead of it. */",
     "    float dropGate = smoothstep(0.01, 0.06, u_progress)",
@@ -186,8 +196,10 @@
     "        float fi = float(i);",
     "        float seed = hash(vec2(fi, 11.0));",
     "        float seed2 = hash(vec2(fi, 23.0));",
-    "        float cycle = fract(u_progress * (1.0 + 0.3 * seed) + seed * 7.0);",
-    "        float x = (0.08 + 0.84 * seed2) * aspect + sin(t * 0.8 + fi * 2.1) * 0.006;",
+    "        /* Fewer, slower fall cycles than a progress-locked rate",
+    "           would give, so drops drift down with the slower pace. */",
+    "        float cycle = fract(u_progress * (0.8 + 0.25 * seed) + seed * 7.0);",
+    "        float x = (0.08 + 0.84 * seed2) * aspect + sin(t * 0.48 + fi * 2.1) * 0.006;",
     "        /* Drops sit on the revealed side above the surface,",
     "           fall toward it and merge back into the body. */",
     "        float y = level + 0.02 + (1.0 - cycle) * (1.0 - cycle) * (0.12 + 0.18 * seed);",
@@ -219,20 +231,38 @@
     "  vec3 col = mix(thinCol, deepCol, thickness);",
     "",
     "  /* Caustic-like shimmer drifting with the flow. */",
-    "  float caust = pow(fbm(p * 5.0 + flow * 2.0 - t * 0.06), 3.0);",
+    "  float caust = pow(fbm(p * 5.0 + flow * 2.0 - t * 0.036), 3.0);",
     "  col += vec3(0.90, 0.97, 1.00) * caust * (0.10 + 0.30 * thickness);",
     "",
     "  /* Specular streaks sliding along the flow. */",
     "  float spec = smoothstep(0.75, 0.95,",
-    "    noise(vec2(p.x * 3.0 + flow * 3.0 - t * 0.12, p.y * 14.0)));",
+    "    noise(vec2(p.x * 3.0 + flow * 3.0 - t * 0.072, p.y * 14.0)));",
     "  col += vec3(1.0) * spec * 0.12;",
+    "",
+    "  /* Whitish wash: the thinnest film lightens toward white, so",
+    "     the page below reads through it like a translucent wash",
+    "     rather than a flat colour. */",
+    "  col = mix(col, vec3(0.933, 0.953, 0.969), (1.0 - thickness) * 0.18);",
+    "",
+    "  /* Fine animated grain over the surface (paper-like texture),",
+    "     kept subtle so it never competes with the artwork. */",
+    "  float grain = hash(gl_FragCoord.xy",
+    "    + vec2(fract(t * 0.61) * 311.0, fract(t * 0.43) * 217.0)) - 0.5;",
+    "  col += vec3(grain * 0.05);",
     "",
     "  /* Meniscus: a bright rim just inside the edge (surface tension). */",
     "  float meniscus = smoothstep(-0.060, -0.015, d)",
     "                 * (1.0 - smoothstep(-0.015, 0.0, d));",
     "  col = mix(col, vec3(0.957, 0.965, 0.976), meniscus * 0.45);",
     "",
-    "  float alpha = cover * mix(0.86, 1.0, thickness) * mix(0.80, 1.0, thickness);",
+    "  /* Thin film is now clearly translucent (0.55) so the page",
+    "     shows through the wash; thick liquid stays opaque. */",
+    "  float alpha = cover * mix(0.55, 1.0, thickness);",
+    "  if (u_mode > 0.5) {",
+    "    /* At the very end of the drain the remaining liquid thins",
+    "       out globally, crossfading into the revealed page. */",
+    "    alpha *= 1.0 - 0.30 * smoothstep(0.82, 1.0, u_progress);",
+    "  }",
     "  gl_FragColor = vec4(col, alpha);",
     "}"
   ].join("\n");
@@ -375,16 +405,12 @@
     liquid = null;
   }
 
-  /* Viscous ease-out: fast spread, then a slight overshoot that
-     settles back — no visible bounce. */
-  function easeOutViscous(t) {
-    var base = 1 - Math.pow(1 - t, 3);
-    var overshoot = Math.sin(Math.PI * Math.min(t * 1.12, 1)) * 0.025 * (1 - t);
-    return base + overshoot;
-  }
-
-  function easeInOutCubic(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  /* Heavy, viscous ease-in-out (smootherstep): a slow start, a
+     smooth middle and a soft settle, with no overshoot and no
+     bounce — the unhurried glide of the reference site. Used for
+     both the cover and the drain so the two halves feel alike. */
+  function easeInOutViscous(t) {
+    return t * t * t * (t * (t * 6 - 15) + 10);
   }
 
   /* Runs a liquid animation; onDone fires once at the end. The
@@ -447,7 +473,7 @@
     if (overlay.classList.contains("is-liquid")) {
       revealStarted = true;
       liquidOrigin = { x: 0.5, y: 0.5 };
-      animateLiquid(1, REVEAL_MS, easeInOutCubic, function () {
+      animateLiquid(1, REVEAL_MS, easeInOutViscous, function () {
         removeOverlay();
       });
       /* Absolute safety net: never stay covered. */
@@ -598,9 +624,10 @@
         navigated = true;
         window.location.href = destination;
       };
-      animateLiquid(0, COVER_MS, easeOutViscous, go);
-      /* If rAF stalls, still navigate shortly after the cover time. */
-      window.setTimeout(go, COVER_MS + 400);
+      animateLiquid(0, COVER_MS, easeInOutViscous, go);
+      /* If rAF stalls, still navigate shortly after the cover time
+         (grace kept proportional to the longer cover). */
+      window.setTimeout(go, COVER_MS + 500);
       /* Fallback: if the navigation did not happen, uncover again. */
       window.setTimeout(function () {
         if (!navigating || navigated) {
