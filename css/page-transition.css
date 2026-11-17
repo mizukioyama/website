@@ -1,9 +1,10 @@
-/* Page transition overlay (liquid).
-   Around an in-site navigation a liquid layer spreads from the
-   click point and drains away on the destination page. The liquid
-   itself is drawn on a canvas by js/page-transition.js (WebGL); the
-   flat background below is the fallback used when WebGL is
-   unavailable, and then this file's opacity fades do the whole
+/* Page transition overlay (fog).
+   Around an in-site navigation a neutral grey fog gathers over
+   the screen and drifts away on the destination page. The fog
+   itself is drawn on a canvas by js/page-transition.js (Canvas 2D
+   sprites from a photographic cloud texture, kept colourless);
+   the flat background below is the fallback used when the fog
+   cannot run, and then this file's opacity fades do the whole
    transition. The layer carries no text or logo.
    z-index 13000: above the custom cursor (12000), modals (10000/10001)
    and the Home loading layer (9998), so the whole screen — including
@@ -13,15 +14,15 @@
   inset: 0;
   width: 100%;
   height: 100dvh;
-  background: var(--bg, #cedde6);
+  background: #e9e9e9;
   opacity: 0;
   pointer-events: none;
   z-index: 13000;
 }
 
-/* Liquid mode: the canvas paints everything (including its own
+/* Fog mode: the canvas paints everything (including its own
    transparency), so the flat background and opacity fades step aside. */
-.page-transition-overlay.is-liquid {
+.page-transition-overlay.is-fog {
   background: transparent;
   opacity: 1;
   transition: none;
@@ -40,16 +41,14 @@
   pointer-events: all;
 }
 
-/* Leaving page (flat fallback): fade in to cover the screen.
-   Lengthened in the same ratio as the liquid cover (1250ms). */
+/* Leaving page (flat fallback): fade in to cover the screen. */
 .page-transition-overlay.is-fading-in {
   transition: opacity 680ms ease-in-out;
   opacity: 1;
   pointer-events: all;
 }
 
-/* Destination page (flat fallback): fade out to reveal the page.
-   Lengthened in the same ratio as the liquid reveal (1400ms). */
+/* Destination page (flat fallback): fade out to reveal the page. */
 .page-transition-overlay.is-fading-out {
   transition: opacity 930ms ease-in-out;
   opacity: 0;
