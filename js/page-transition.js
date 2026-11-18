@@ -32,10 +32,10 @@
   var STORAGE_KEY = "portfolio-page-transition";
 
   /* Motion (approved values; durations are for one panel). */
-  var IN_MS = 560;
+  var IN_MS = 540;
   var OUT_MS = 540;
   var STAGGER_MS = 55;
-  var OUT_STAGGER_MS = 44;
+  var OUT_STAGGER_MS = 43;
   var HOLD_MS = 430;
   /* If navigation has still not happened this long after the
      cover should have finished, navigate anyway. */
@@ -53,6 +53,28 @@
   var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1];
   var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1];
   var EXIT_BACK = true;
+  /* The destination page's own tab is emphasised (decided
+     2026-11-18): it moves to the top of its panel and is enlarged.
+     Landscape: tab position near the spine's top, longer tab,
+     larger title. Portrait: the tab flips to the band's top edge,
+     longer, with a larger title, and the band comes to the front. */
+  var DEST_TAB_TOP = 4; /* % */
+  var DEST_TAB_LEN = 42; /* % */
+  var DEST_NUM_SIZE = 15; /* px */
+  var TAB_INDEX_BY_PAGE = {
+    "gallery.html": 0,
+    "artist-statement.html": 1,
+    "biography.html": 2,
+    "information.html": 3,
+    "order.html": 4,
+    "contact.html": 5
+  };
+  function tabIndexFor(pathname) {
+    var name = (pathname || "").split("/").pop() || "";
+    return TAB_INDEX_BY_PAGE.hasOwnProperty(name)
+      ? TAB_INDEX_BY_PAGE[name]
+      : -1;
+  }
 
   /* Composition (approved values). */
   var WIDTHS = [20.5, 14, 14, 14, 14, 14, 14];
@@ -171,6 +193,23 @@
     );
   }
 
+  /* Top-edge variant of the portrait spine outline: the tab
+     protrudes upward from the band's top edge. */
+  function spineClipHTop(zt, zr) {
+    var by = (BODY_W / (BODY_W + TAB_W)) * 100;
+    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
+    var pts = [];
+    pts.push("0% 100%");
+    pts.push("100% 100%");
+    pts.push("100% " + (100 - by).toFixed(1) + "%");
+    pts.push(zr.toFixed(1) + "% " + (100 - by).toFixed(1) + "%");
+    pts.push(zr.toFixed(1) + "% 0%");
+    pts.push(zt.toFixed(1) + "% 0%");
+    pts.push((zt - sh).toFixed(1) + "% " + (100 - by).toFixed(1) + "%");
+    pts.push("0% " + (100 - by).toFixed(1) + "%");
+    return "polygon(" + pts.join(", ") + ")";
+  }
+
   /* Spine outline for the stacked (portrait) layout: the desktop
      outline transposed — the spine runs along the bottom edge of
      each band, the tab protrudes downward, its left edge is the
@@ -247,6 +286,11 @@
   var inners = [];
   var motionX = false; /* true: panels travel along X (unused now) */
   var curDirs = DIRS_LAND;
+  /* Portrait bands are short, so a percentage of their own height
+     cannot carry them off-screen. In portrait, panel offsets are
+     converted to pixels: the distance that puts each band fully
+     below the viewport's bottom edge. */
+  var portOffsets = null;
   var destEl = null;
   var destTextEl = null;
   var rafId = 0;
@@ -264,7 +308,7 @@
     safetyTimers = [];
   }
 
-  function buildOverlay(destTitle) {
+  function buildOverlay(destTitle, destIdx) {
     removeOverlay();
     var overlay = document.createElement("div");
     overlay.id = "page-transition-overlay";
@@ -295,6 +339,7 @@
     var sumPx = wrapW + OVERLAP_PX * (WIDTHS.length - 1);
     panels = [];
     inners = [];
+    portOffsets = portrait ? [] : null;
     var left = 0;
     var photoIdx = 0;
 
@@ -353,8 +398,9 @@
         img.appendChild(inner);
         inners.push(inner);
 
-        var zt = TAB_TOPS[photoIdx];
-        var zb = Math.min(96, zt + TAB_LEN);
+        var isDest = photoIdx === destIdx;
+        var zt = isDest ? DEST_TAB_TOP : TAB_TOPS[photoIdx];
+        var zb = Math.min(96, zt + (isDest ? DEST_TAB_LEN : TAB_LEN));
         var title = TAB_TITLES[photoIdx] || "";
         var spine = document.createElement("div");
         var stex = document.createElement("div");
@@ -363,22 +409,28 @@
         stex.style.opacity = "1";
         var num = document.createElement("div");
         if (portrait) {
-          spine.className = "pt-spine-h";
+          spine.className = isDest ? "pt-spine-h pt-spine-top" : "pt-spine-h";
           spine.style.height = BODY_W + TAB_W + "px";
-          spine.style.bottom = -TAB_W + "px";
+          if (isDest) {
+            spine.style.top = -TAB_W + "px";
+            spine.style.clipPath = spineClipHTop(zt, zb);
+          } else {
+            spine.style.bottom = -TAB_W + "px";
+            spine.style.clipPath = spineClipH(zt, zb);
+          }
           spine.style.left = "0px";
           spine.style.width = "100%";
           spine.style.zIndex = 2;
           spine.style.background = grad;
-          spine.style.clipPath = spineClipH(zt, zb);
           spine.appendChild(stex);
           num.className = "pt-num-h";
           num.textContent = title;
           num.style.left = "calc(" + zt + "% + 8px)";
-          num.style.top = BODY_W - 2 + "px";
-          num.style.fontSize = NUM_SIZE + "px";
+          num.style.top = (isDest ? 2 : BODY_W - 2) + "px";
+          num.style.fontSize = (isDest ? DEST_NUM_SIZE : NUM_SIZE) + "px";
           num.style.color = NUM_COLOR;
           spine.appendChild(num);
+          if (isDest) d.style.zIndex = WIDTHS.length + 2;
         } else {
           spine.className = "pt-spine";
           spine.style.width = BODY_W + TAB_W + "px";
@@ -391,9 +443,10 @@
           num.textContent = title;
           num.style.left = BODY_W - 1 + "px";
           num.style.width = Math.max(TAB_W + 2, 18) + "px";
-          num.style.fontSize = NUM_SIZE + "px";
+          var numSize = isDest ? DEST_NUM_SIZE : NUM_SIZE;
+          num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
-          var titleH = title.length * NUM_SIZE * 1.18;
+          var titleH = title.length * numSize * 1.18;
           var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
           num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
           spine.appendChild(num);
@@ -415,6 +468,7 @@
       }
       wrap.appendChild(d);
       panels.push(d);
+      if (portrait) portOffsets.push(H - left + 24);
       left += colW - OVERLAP_PX;
     }
 
@@ -440,7 +494,12 @@
   function setPanel(i, offsetPercent, innerOffset) {
     var fn = motionX ? "translateX" : "translateY";
     if (panels[i]) {
-      panels[i].style.transform = fn + "(" + offsetPercent + "%)";
+      if (portOffsets) {
+        panels[i].style.transform =
+          fn + "(" + ((offsetPercent / 106) * portOffsets[i]).toFixed(1) + "px)";
+      } else {
+        panels[i].style.transform = fn + "(" + offsetPercent + "%)";
+      }
     }
     if (inners[i]) {
       inners[i].style.transform = fn + "(" + innerOffset + "px)";
@@ -475,8 +534,12 @@
       setFlag();
       window.location.href = targetHref;
     }
+    var destIdx = -1;
     try {
-      buildOverlay(destTitle);
+      destIdx = tabIndexFor(new URL(targetHref).pathname);
+    } catch (e2) {}
+    try {
+      buildOverlay(destTitle, destIdx);
     } catch (error) {
       go();
       return;
@@ -631,7 +694,7 @@
     clearFlag();
     try {
       var here = window.location.pathname.split("/").pop() || "";
-      buildOverlay(PAGE_TITLES.hasOwnProperty(here) ? PAGE_TITLES[here] : "");
+      buildOverlay(PAGE_TITLES.hasOwnProperty(here) ? PAGE_TITLES[here] : "", tabIndexFor(window.location.pathname));
       var i;
       for (i = 0; i < panels.length; i++) setPanel(i, 0, 0);
       if (destEl) destEl.style.opacity = "1";
