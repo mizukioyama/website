@@ -113,6 +113,46 @@ footer a:nth-of-type(n+5) { font-size: var(--font-header-footer-size) !important
    container, not the footer: the footer's backdrop-filter
    clips children that stick out above its box (verified). */
 #footer-container { position: relative; }
+
+/* === Footer previous-page link + two-row nav (2026-11-18) ===
+   The shared footer starts with a "previous page" link: a
+   PREV tag and the name of the page before this one in the
+   site order. page-transition.js fills in its href and name
+   and unhides it; the first page and unknown pages keep it
+   hidden. The footer nav below it is laid out in two rows
+   (4 + 3) on tablet/desktop; phones keep the stacked list. */
+footer a.foot-prev {
+    display: block;
+    width: fit-content;
+    margin: 0 0 5vmin;
+    color: var(--inv, #f2f2f2);
+    text-decoration: none;
+}
+footer a.foot-prev[hidden] { display: none; }
+.foot-prev-tag {
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    margin-right: 0.9em;
+}
+.foot-prev-name { font-size: 20px; letter-spacing: 0.04em; }
+.foot-prev small {
+    display: block;
+    font-size: 11px;
+    color: #aeb6bb;
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-shadow: none;
+}
+@media only screen and (min-width: 601px) {
+    .foot-nav {
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        justify-content: start;
+        column-gap: 3.2rem;
+        row-gap: 2.2vmin;
+    }
+    footer .foot-nav a { margin-top: 0; }
+}
 #footer-container::before {
     content: "";
     position: absolute;

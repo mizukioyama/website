@@ -181,13 +181,21 @@ const HEADER_MARKUP = `
 // BEGIN GENERATED FOOTER_MARKUP — source: src/components/footer.html
 const FOOTER_MARKUP = `
 <footer>
-   <a class="noise" href="${siteHref("gallery.html")}">Art Index</a>
-   <a class="noise" href="${siteHref("artist-statement.html")}">Artist Statement</a>
-   <a class="noise" href="${siteHref("biography.html")}">Biography</a>
-   <a class="noise" href="${siteHref("information.html")}">Information</a>
-   <a class="noise" href="${siteHref("contact.html")}">Contact Us</a>
-   <a class="noise" href="${siteHref("order.html")}">Order</a>
-   <a class="noise" href="${siteHref("policy.html")}">Site Policy</a>
+   <a class="foot-prev noise" id="footPrev" href="#" hidden>
+      <span class="foot-prev-tag" aria-hidden="true">PREV</span>
+      <span class="foot-prev-name"></span>
+      <small>前のページへ</small>
+   </a>
+
+   <div class="foot-nav">
+      <a class="noise" href="${siteHref("gallery.html")}">Art Index</a>
+      <a class="noise" href="${siteHref("artist-statement.html")}">Artist Statement</a>
+      <a class="noise" href="${siteHref("biography.html")}">Biography</a>
+      <a class="noise" href="${siteHref("information.html")}">Information</a>
+      <a class="noise" href="${siteHref("contact.html")}">Contact Us</a>
+      <a class="noise" href="${siteHref("order.html")}">Order</a>
+      <a class="noise" href="${siteHref("policy.html")}">Site Policy</a>
+   </div>
 
    <div class="foot">&copy; <span id="year"></span>
       Mizuki Oyama
@@ -868,11 +876,70 @@ function toggleAccordion(element) {
   element?.classList.toggle("active");
 }
 
+/* Footer "previous page" link: the shared footer carries an
+   empty #footPrev anchor; fill it with the page that precedes
+   this one in the site order (the same order as the
+   page-transition tabs) and unhide it. The first page and
+   unknown pages keep it hidden. */
+const FOOTER_PAGE_ORDER = [
+  "index.html",
+  "gallery.html",
+  "artist-statement.html",
+  "biography.html",
+  "information.html",
+  "exhibitions/yurayura/index.html",
+  "order.html",
+  "contact.html",
+  "policy.html"
+];
+const FOOTER_PREV_LABELS = [
+  "Top",
+  "Art Index",
+  "Artist Statement",
+  "Biography",
+  "Information",
+  "Yurayura",
+  "Order",
+  "Contact Us",
+  "Site Policy"
+];
+const FOOTER_PAGE_INDEX = {
+  "index.html": 0,
+  "gallery.html": 1,
+  "artist-statement.html": 2,
+  "biography.html": 3,
+  "information.html": 4,
+  "order.html": 6,
+  "contact.html": 7,
+  "policy.html": 8
+};
+function footerPageIndex(pathname) {
+  if (pathname.indexOf("/exhibitions/yurayura/") !== -1) return 5;
+  const name = pathname.split("/").pop() || "";
+  if (name === "") return 0;
+  return Object.prototype.hasOwnProperty.call(FOOTER_PAGE_INDEX, name)
+    ? FOOTER_PAGE_INDEX[name]
+    : -1;
+}
+function setupFooterPrev(container) {
+  const el = container.querySelector("#footPrev");
+  if (!el) return;
+  const idx = footerPageIndex(window.location.pathname);
+  if (idx <= 0) return;
+  const nameEl = el.querySelector(".foot-prev-name");
+  if (nameEl) nameEl.textContent = FOOTER_PREV_LABELS[idx - 1];
+  el.setAttribute("href", siteHref(FOOTER_PAGE_ORDER[idx - 1]));
+  el.hidden = false;
+}
+
 function initializeFooter() {
   try {
     const container = document.getElementById("footer-container");
     if (!container || container.dataset.footerInitialized === "true") return;
-    if (buildFooter()) container.dataset.footerInitialized = "true";
+    if (buildFooter()) {
+      container.dataset.footerInitialized = "true";
+      setupFooterPrev(container);
+    }
   } catch (error) {
     console.error("Error building footer:", error);
   }
