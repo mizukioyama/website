@@ -594,3 +594,167 @@ body:has(#modalBox[style*="display: block"]) {
   #langChange .ja, #langChange .en { color: var(--inv); }
   .home #langChange .ja, .home #langChange .en { color: var(--text); }
 }
+
+/* === Site frame header (PC only, 2026-11-18) ===
+   At >=1024px the top bar is replaced by a fixed frame
+   around the whole viewport (inline SVG .site-frame in the
+   shared header component): a thin edge everywhere, a
+   rectangle at the top-left wrapping the brand and the
+   language switch, and a rectangle on the right wrapping
+   the global menu. The menu shows initials; the hovered or
+   focused row switches to its full label. Below 1024px
+   nothing changes. The frame menu is permanent, so the
+   desktop scroll-compact behaviour is disabled in menu.js
+   and its styles are neutralised below. */
+.site-frame { display: none; }
+@media screen and (min-width: 1024px) {
+  .header-bar { display: none; }
+  .site-frame {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .site-frame .frame-light { display: none; }
+  .home .site-frame .frame-light { display: block; }
+  .home .site-frame .frame-dark { display: none; }
+
+  /* The nav moves into the frame's right rectangle. Its
+     position and size use the same ratios as the frame SVG
+     (block: x 1320-1440 of 1440, y 140-760 of 900), so the
+     two stay aligned at any viewport size. */
+  #navArea {
+    position: fixed;
+    top: 15.6dvh;
+    right: 0;
+    width: 8.33vw;
+    height: 68.9dvh;
+  }
+  #navArea nav { height: 100%; }
+  #navArea .inner { height: 100%; padding: 0; }
+  /* The >=1299px six-column grid for the old horizontal nav
+     must not leak into the frame's vertical menu. */
+  #header-container #navArea:not(.is-compact) .inner ul {
+    display: flex;
+    grid-template-columns: none;
+  }
+  #header-container #navArea:not(.is-compact) .inner ul li { display: block; }
+  #header-container #navArea .inner ul li:nth-of-type(5) { margin-top: 0; }
+  #navArea .inner ul {
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+    gap: 0;
+  }
+  #navArea .inner li { position: relative; width: 100%; }
+  #navArea .inner li a {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 6px 0;
+    /* Fixed height so the anchor box does not collapse when
+       the initial hides on hover (which would drop the hover
+       state and restart the tab animation in a loop). */
+    min-height: 27px;
+    box-sizing: border-box;
+  }
+  #navArea .nav-initial {
+    display: block;
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+  /* The full label stays available to assistive tech and
+     appears on hover/focus, right-aligned in the row and
+     extending left past the rectangle when longer. */
+  #navArea .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  #navArea .inner li a:hover .nav-initial,
+  #navArea .inner li a:focus-visible .nav-initial { display: none; }
+  /* On hover/focus the band widens at that row only: the
+     full label sits in a tab of the frame colour extending
+     left from the band, with the frame's inset shadow
+     reproduced on its exposed edges. */
+  #navArea .inner li a:hover .nav-label,
+  #navArea .inner li a:focus-visible .nav-label {
+    left: auto;
+    right: 0;
+    max-width: none;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    padding: 18px 36px;
+    /* Every tab widens to at least 200px (the band is 120px),
+       so even short labels extend past the band. */
+    min-width: 200px;
+    box-sizing: border-box;
+    text-align: right;
+    background: #222527;
+    box-shadow:
+      inset 10px 0 14px -8px rgba(0, 0, 0, 0.6),
+      inset 0 10px 12px -10px rgba(0, 0, 0, 0.55),
+      inset 0 -10px 12px -10px rgba(0, 0, 0, 0.55);
+    animation: frame-tab-in 0.25s ease;
+    z-index: 5;
+  }
+  .home #navArea .inner li a:hover .nav-label,
+  .home #navArea .inner li a:focus-visible .nav-label {
+    background: #e1e1dc;
+    box-shadow:
+      inset 10px 0 14px -8px rgba(0, 0, 0, 0.28),
+      inset 0 10px 12px -10px rgba(0, 0, 0, 0.22),
+      inset 0 -10px 12px -10px rgba(0, 0, 0, 0.22);
+  }
+  @keyframes frame-tab-in {
+    from { opacity: 0; transform: translateY(-50%) translateX(12px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #navArea .inner li a:hover .nav-label,
+    #navArea .inner li a:focus-visible .nav-label { animation: none; }
+  }
+
+  /* Scroll-compact is disabled for the frame menu. */
+  #navArea.is-compact .toggle_btn { display: none; }
+  #navArea.is-compact nav {
+    position: static;
+    inset: auto;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    background: none;
+    backdrop-filter: none;
+  }
+  .home #navArea.is-compact nav { background: none; }
+  #navArea.is-compact .inner { padding: 0; border: 0; }
+  #navArea.is-compact .inner ul {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+  #navArea.is-compact .inner a {
+    justify-content: center;
+    width: 100%;
+    padding: 6px 0;
+  }
+  #navArea nav.is-scroll-hidden {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
