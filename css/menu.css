@@ -586,3 +586,17 @@ body:has(#modalBox[style*="display: block"]) {
   }
   #header-container .head a { z-index: 1001; }
 }
+
+/* === Language switch under the brand (2026-11-18) === */
+@media screen and (min-width: 1024px) {
+  #header-container header #langChange .ja,
+  #header-container header #langChange .en { color: var(--inv); }
+  .home #header-container header #langChange .ja,
+  .home #header-container header #langChange .en { color: var(--text); }
+}
+@media screen and (max-width: 1023px) {
+  /* Directly below the fixed brand link (top 16px + height 44px). */
+  #langChange { top: 66px; left: 27px; }
+  #langChange .ja, #langChange .en { color: var(--inv); }
+  .home #langChange .ja, .home #langChange .en { color: var(--text); }
+}
