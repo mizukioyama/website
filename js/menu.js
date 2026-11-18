@@ -57,20 +57,20 @@ const HEADER_MARKUP = `
        inner contour stroked and clipped inside the frame. -->
   <svg class="site-frame" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <defs>
-      <clipPath id="frameClip"><path fill-rule="evenodd" d="M0 0H1440V900H0Z M14 886H1426V760H1320V140H1426V14H240V118H14Z"/></clipPath>
+      <clipPath id="frameClip"><path fill-rule="evenodd" d="M0 0H1440V900H0Z M40 860H1400V780H1350V60H1400V40H342V128H40Z"/></clipPath>
     </defs>
     <g class="frame-dark">
-      <path fill-rule="evenodd" fill="#222527" d="M0 0H1440V900H0Z M14 886H1426V760H1320V140H1426V14H240V118H14Z"/>
+      <path fill-rule="evenodd" fill="#222527" d="M0 0H1440V900H0Z M40 860H1400V780H1350V60H1400V40H342V128H40Z"/>
       <g clip-path="url(#frameClip)">
-        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.18" style="filter: blur(10px)"/>
-        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.50" style="filter: blur(5px)"/>
+        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.18" style="filter: blur(10px)"/>
+        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.48" style="filter: blur(5px)"/>
       </g>
     </g>
     <g class="frame-light">
-      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H1440V900H0Z M14 886H1426V760H1320V140H1426V14H240V118H14Z"/>
+      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H1440V900H0Z M40 860H1400V780H1350V60H1400V40H342V128H40Z"/>
       <g clip-path="url(#frameClip)">
-        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.08" style="filter: blur(10px)"/>
-        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.25" style="filter: blur(5px)"/>
+        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.08" style="filter: blur(10px)"/>
+        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.25" style="filter: blur(5px)"/>
       </g>
     </g>
   </svg>
