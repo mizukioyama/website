@@ -135,15 +135,14 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   white-space: nowrap;
-  /* Engraved into the leather (decided 2026-11-18): dark,
-     translucent ink multiplied into the grain, a shadowed
-     upper edge and a faint lit lower edge, like a stamp
-     pressed into the surface. */
-  color: rgba(22, 16, 12, 0.88);
-  mix-blend-mode: multiply;
+  /* Engraved into the leather, faintly visible (decided
+     2026-11-18): translucent dark ink with a shadowed upper
+     edge and a faint lit lower edge, like a stamp pressed
+     lightly into the surface. */
+  color: rgba(22, 16, 12, 0.5);
   text-shadow:
-    0 -1px 2px rgba(0, 0, 0, 0.55),
-    0 1px 0 rgba(255, 240, 210, 0.22);
+    0 -1px 2px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 240, 210, 0.18);
 }
 .pt-h .pt-cover-title {
   writing-mode: horizontal-tb;
