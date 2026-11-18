@@ -45,6 +45,14 @@
   var REVEAL_FALLBACK_MS = 1500;
   /* Hard cap: the landing layer is removed by then at the latest. */
   var EXIT_SAFETY_MS = 4500;
+  /* Slide directions (decided 2026-11-18): every panel enters from
+     the bottom and exits back to the bottom, in both layouts.
+     Sign per panel: -1 = from top (landscape) / left (portrait),
+     +1 = from bottom / right. EXIT_BACK: exit returns to the entry
+     side instead of passing through to the opposite side. */
+  var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1];
+  var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1];
+  var EXIT_BACK = true;
 
   /* Composition (approved values). */
   var WIDTHS = [20.5, 14, 14, 14, 14, 14, 14];
@@ -237,7 +245,8 @@
   /* ---- Overlay construction ---- */
   var panels = [];
   var inners = [];
-  var motionX = false; /* portrait: panels travel along X */
+  var motionX = false; /* true: panels travel along X (unused now) */
+  var curDirs = DIRS_LAND;
   var destEl = null;
   var destTextEl = null;
   var rafId = 0;
@@ -269,7 +278,8 @@
     var W = window.innerWidth || 1024;
     var H = window.innerHeight || 768;
     var portrait = W <= 768;
-    motionX = portrait;
+    motionX = false; /* both layouts travel along Y */
+    curDirs = portrait ? DIRS_PORT : DIRS_LAND;
     if (portrait) overlay.className += " pt-h";
 
     var wrap = document.createElement("div");
@@ -475,7 +485,7 @@
     var inTotal = IN_MS + (n - 1) * STAGGER_MS;
     var i;
     for (i = 0; i < n; i++) {
-      setPanel(i, i % 2 === 0 ? -106 : 106, i % 2 === 0 ? 14 : -14);
+      setPanel(i, curDirs[i] * 106, -curDirs[i] * 14);
     }
     if (destEl) destEl.style.opacity = "0";
     var t0 = null;
@@ -483,7 +493,7 @@
       if (t0 === null) t0 = now;
       var el = now - t0;
       for (var j = 0; j < n; j++) {
-        var dir = j % 2 === 0 ? -1 : 1;
+        var dir = curDirs[j];
         var local = el - j * STAGGER_MS;
         if (local < 0) {
           setPanel(j, dir * 106, -dir * 14);
@@ -508,7 +518,7 @@
     later(go, NAV_FALLBACK_MS);
   }
 
-  /* ---- Exit (destination page): hold, then panels pass through ---- */
+  /* ---- Exit (destination page): hold, then panels return ---- */
   function startExit() {
     var n = panels.length;
     if (!n) {
@@ -527,15 +537,16 @@
       var el = now - startAt;
       if (el >= 0) {
         for (var j = 0; j < n; j++) {
-          var dir = j % 2 === 0 ? -1 : 1;
+          var dir = curDirs[j];
+          var es = EXIT_BACK ? dir : -dir;
           var lo = el - j * OUT_STAGGER_MS;
           if (lo < 0) {
             setPanel(j, 0, 0);
           } else if (lo < OUT_MS) {
             var q = easeInCubic(lo / OUT_MS);
-            setPanel(j, -dir * 106 * q, dir * 12 * q);
+            setPanel(j, es * 106 * q, -es * 12 * q);
           } else {
-            setPanel(j, -dir * 106, dir * 12);
+            setPanel(j, es * 106, -es * 12);
           }
         }
         if (destEl) {
