@@ -538,9 +538,11 @@
           spine.style.right = -tabW + "px";
           spine.style.clipPath = spineClip(zt, zb, tabW, bodyW, tabLen);
           num.style.width = numSize + "px";
-          var titleH = tabText.length * numSize * 0.62;
-          var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
-          num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
+          /* The label sits at the centre of the tab's length
+             (decided 2026-11-18). */
+          var titleH = tabText.length * numSize * 0.68;
+          var tabCentre = (((zt + zb) / 2) / 100) * H;
+          num.style.top = Math.max(4, Math.round(tabCentre - titleH / 2)) + "px";
         }
         d.appendChild(spine);
       }
