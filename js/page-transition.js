@@ -57,11 +57,12 @@
      it sits directly after the brand panel; its print becomes a
      leather cover (img/leather.svg, a photo the artist supplied)
      carrying the page title, so the centred destination title is
-     suppressed for tabbed pages; and its tab shows the page number
-     (not enlarged) and, right after landing, snaps downward to
-     1.75x with a short overshoot ("kachi"). Every one of the nine
+     suppressed for tabbed pages; and right after landing, the
+     panel itself — plate and image together as one set — snaps
+     wider to 1.5x while the other panels make room. The tab is
+     NOT enlarged; it reads "No.01 - Top". Every one of the nine
      pages has a tab and a panel. */
-  var DEST_TAB_SCALE = 1.75;
+  var DEST_PANEL_SCALE = 1.5;
   var SNAP_MS = 260;
   var TAB_INDEX_BY_PAGE = {
     "index.html": 0,
@@ -103,6 +104,17 @@
     "ORDER",
     "CONTACT",
     "POLICY"
+  ];
+  var TAB_TITLES_NICE = [
+    "Top",
+    "Art Index",
+    "Artist Statement",
+    "Biography",
+    "Information",
+    "Yurayura",
+    "Order",
+    "Contact",
+    "Policy"
   ];
   var ARTWORKS = [
     "kinun-web.jpg",
@@ -225,9 +237,8 @@
      outline transposed — the spine runs along the bottom edge of
      each band, the tab protrudes downward, its left edge is the
      straight sloped shoulder and its right edge returns flat. */
-  function spineClipH(zt, zr, tabW, bodyW) {
-    var bw = bodyW || BODY_W;
-    var by = (bw / (bw + (tabW || TAB_W))) * 100;
+  function spineClipH(zt, zr, tabW) {
+    var by = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
     var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
     var pts = [];
     pts.push("0% 0%");
@@ -262,9 +273,8 @@
      horizontal, and a concave fillet (depth TAB_NOTCH, 0 in the
      approved design) returns it to the body. Percentages are of
      the spine element (body + tab width, full height). */
-  function spineClip(zt, zb, tabW, bodyW) {
-    var bw = bodyW || BODY_W;
-    var bx = (bw / (bw + (tabW || TAB_W))) * 100;
+  function spineClip(zt, zb, tabW) {
+    var bx = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
     var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
     var notchX = bx + TAB_NOTCH * 4;
     function pt(p) {
@@ -305,31 +315,27 @@
      converted to pixels: the distance that puts each band fully
      below the viewport's bottom edge. */
   var portOffsets = null;
-  var destTab = null;
-  function applyDestTabScale(sc) {
-    if (!destTab) return;
-    /* The whole tab scales (decided 2026-11-18): the spine strip
-       and the protrusion grow by the same factor, so the tab gets
-       bigger as one piece. The number itself stays 10px. */
-    var bodyW2 = BODY_W * sc;
-    var tabW2 = TAB_W * sc;
-    var zb = Math.min(96, destTab.zt + TAB_LEN * sc);
-    var spine = destTab.spine;
-    var num = destTab.num;
-    if (destTab.portrait) {
-      spine.style.height = bodyW2 + tabW2 + "px";
-      spine.style.bottom = -tabW2 + "px";
-      spine.style.clipPath = spineClipH(destTab.zt, zb, tabW2, bodyW2);
-      num.style.top = bodyW2 + (tabW2 - NUM_SIZE) / 2 + "px";
-    } else {
-      spine.style.width = bodyW2 + tabW2 + "px";
-      spine.style.right = -tabW2 + "px";
-      spine.style.clipPath = spineClip(destTab.zt, zb, tabW2, bodyW2);
-      num.style.left = bodyW2 - 1 + "px";
-      num.style.width = Math.max(tabW2 + 2, 18) + "px";
-      var titleH = 2 * NUM_SIZE * 0.72;
-      var titleBottom = (zb / 100) * destTab.H - Math.max(4, NUM_POS - 43);
-      num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
+  var layoutState = null;
+  function relayout(destScale) {
+    if (!layoutState || !panels.length) return;
+    var st = layoutState;
+    var sumW = 0;
+    var i;
+    for (i = 0; i < st.shares.length; i++) {
+      sumW += st.shares[i] * (i === st.destPos ? destScale : 1);
+    }
+    var left = 0;
+    for (i = 0; i < panels.length; i++) {
+      var colW =
+        (st.sumPx * st.shares[i] * (i === st.destPos ? destScale : 1)) / sumW;
+      if (st.portrait) {
+        panels[i].style.top = left + "px";
+        panels[i].style.height = colW + "px";
+      } else {
+        panels[i].style.left = left + "px";
+        panels[i].style.width = colW + "px";
+      }
+      left += colW - OVERLAP_PX;
     }
   }
   var destEl = null;
@@ -396,9 +402,16 @@
     var i;
     for (i = 0; i < items.length; i++) sumW += items[i].share;
     var sumPx = wrapW + OVERLAP_PX * (items.length - 1);
+    layoutState = {
+      portrait: portrait,
+      sumPx: sumPx,
+      shares: items.map(function (it) {
+        return it.share;
+      }),
+      destPos: destIdx >= 0 ? 1 : -1
+    };
     panels = [];
     inners = [];
-    destTab = null;
     portOffsets = portrait ? [] : null;
     var left = 0;
 
@@ -478,7 +491,11 @@
         var zt = TAB_TOPS[photoIdx];
         var zb = Math.min(96, zt + TAB_LEN);
         var tabText = isDest
-          ? (photoIdx + 1 < 10 ? "0" : "") + (photoIdx + 1)
+          ? "No." +
+            (photoIdx + 1 < 10 ? "0" : "") +
+            (photoIdx + 1) +
+            " - " +
+            TAB_TITLES_NICE[photoIdx]
           : title;
         var spine = document.createElement("div");
         var stex = document.createElement("div");
@@ -498,15 +515,20 @@
           num.style.left = "calc(" + zt + "% + 8px)";
           num.style.fontSize = NUM_SIZE + "px";
           num.style.color = NUM_COLOR;
-          spine.appendChild(num);
           if (isDest) {
-            destTab = { spine: spine, num: num, zt: zt, portrait: true, H: H };
+            /* The destination text ("No.04 - Biography") is longer
+               than the tab tongue; as a child of the panel instead
+               of the clipped spine it stays fully readable. */
+            num.style.top = "calc(100% - 2px)";
+            num.style.zIndex = 3;
+            d.appendChild(num);
           } else {
-            spine.style.height = BODY_W + TAB_W + "px";
-            spine.style.bottom = -TAB_W + "px";
-            spine.style.clipPath = spineClipH(zt, zb, TAB_W);
-            num.style.top = BODY_W - 2 + "px";
+            spine.appendChild(num);
           }
+          spine.style.height = BODY_W + TAB_W + "px";
+          spine.style.bottom = -TAB_W + "px";
+          spine.style.clipPath = spineClipH(zt, zb, TAB_W);
+          num.style.top = BODY_W - 2 + "px";
         } else {
           spine.className = "pt-spine";
           spine.style.zIndex = 2;
@@ -518,20 +540,15 @@
           num.style.fontSize = NUM_SIZE + "px";
           num.style.color = NUM_COLOR;
           spine.appendChild(num);
-          if (isDest) {
-            destTab = { spine: spine, num: num, zt: zt, portrait: false, H: H };
-          } else {
-            spine.style.width = BODY_W + TAB_W + "px";
-            spine.style.right = -TAB_W + "px";
-            spine.style.clipPath = spineClip(zt, zb, TAB_W);
-            num.style.width = Math.max(TAB_W + 2, 18) + "px";
-            var titleH = tabText.length * NUM_SIZE * 1.18;
-            var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
-            num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
-          }
+          spine.style.width = BODY_W + TAB_W + "px";
+          spine.style.right = -TAB_W + "px";
+          spine.style.clipPath = spineClip(zt, zb, TAB_W);
+          num.style.width = Math.max(TAB_W + 2, 18) + "px";
+          var titleH = tabText.length * NUM_SIZE * (isDest ? 0.62 : 1.18);
+          var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
+          num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
         }
         d.appendChild(spine);
-        if (isDest) applyDestTabScale(1);
       }
       d.appendChild(img);
       if (i > 0) {
@@ -673,12 +690,13 @@
     function step(now) {
       if (t0 === null) t0 = now;
       var el = now - t0;
-      /* Right after landing, the destination tab snaps wider
-         (decided 2026-11-18): it grows downward to 1.75x with a
-         short overshoot, then settles during the hold. */
-      if (destTab) {
+      /* Right after landing, the destination panel (plate and
+         image as one set) snaps wider (decided 2026-11-18) with
+         a short overshoot, then settles during the hold. The
+         tab itself is not enlarged. */
+      if (layoutState && layoutState.destPos >= 0) {
         var sp = clamp01(el / SNAP_MS);
-        applyDestTabScale(1 + (DEST_TAB_SCALE - 1) * easeOutBack(sp));
+        relayout(1 + (DEST_PANEL_SCALE - 1) * easeOutBack(sp));
       }
       var outEl = el - SNAP_MS - HOLD_MS;
       if (outEl >= 0) {
