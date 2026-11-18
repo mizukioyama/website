@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/all.css?v=8d89e26a196f">
   <link rel="stylesheet" href="css/gallery.css?v=144738d11aa1">
   <link rel="stylesheet" href="css/mobile.css?v=745d2102b68d">
-  <link rel="stylesheet" href="css/footer.css?v=713c89c4cccf">
+  <link rel="stylesheet" href="css/footer.css?v=fcde8536cda8">
   <link rel="stylesheet" href="css/menu.css?v=a39fecd8e652">
   <link rel="stylesheet" href="assets/css/user-settings.css?v=1e90003db811">
   <link rel="stylesheet" href="css/page-transition.css?v=c7501e1208f9">
@@ -22,7 +22,7 @@
 
   <script src="js/page-nation.js?v=e123e589d616"></script>
   <script src="js/gallery-captions.js?v=b985713fe77a"></script>
-  <script src="js/menu.js?v=bbec58ac3c7d"></script>
+  <script src="js/menu.js?v=2501f46dbefe"></script>
 
   <link rel="stylesheet" href="https://use.typekit.net/meg7mel.css">
 
@@ -173,13 +173,21 @@
   <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
   <div class="modal-box" id="modalBox" style="display: none;"></div>
   <div id="footer-container"><footer data-static-footer>
-   <a class="noise" href="/website/gallery.html">Art Index</a>
-   <a class="noise" href="/website/artist-statement.html">Artist Statement</a>
-   <a class="noise" href="/website/biography.html">Biography</a>
-   <a class="noise" href="/website/information.html">Information</a>
-   <a class="noise" href="/website/contact.html">Contact Us</a>
-   <a class="noise" href="/website/order.html">Order</a>
-   <a class="noise" href="/website/policy.html">Site Policy</a>
+   <a class="foot-prev noise" id="footPrev" href="#" hidden>
+      <span class="foot-prev-tag" aria-hidden="true">PREV</span>
+      <span class="foot-prev-name"></span>
+      <small>前のページへ</small>
+   </a>
+
+   <div class="foot-nav">
+      <a class="noise" href="/website/gallery.html">Art Index</a>
+      <a class="noise" href="/website/artist-statement.html">Artist Statement</a>
+      <a class="noise" href="/website/biography.html">Biography</a>
+      <a class="noise" href="/website/information.html">Information</a>
+      <a class="noise" href="/website/contact.html">Contact Us</a>
+      <a class="noise" href="/website/order.html">Order</a>
+      <a class="noise" href="/website/policy.html">Site Policy</a>
+   </div>
 
    <div class="foot">&copy; <span id="year"></span>
       Mizuki Oyama
