@@ -540,3 +540,66 @@ body:has(#modalBox[style*="display: block"]) {
   #navArea nav, .page-navigation:not(main .page-navigation) { transition: none; }
   .page-navigation:not(main .page-navigation).is-scroll-hidden { transform: translate(-50%, -50%); }
 }
+
+/* === Curved header bar (2026-11-18, design A: deep curve) ===
+   The bar's bottom edge dips down on the left and sweeps up in
+   a smooth curve, painted as an SVG layer behind the content.
+   It replaces the straight gradient and the nav hairline. */
+#header-container header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 118px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%230a1213'/%3E%3C/svg%3E") no-repeat left top / 100% 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+.home #header-container header::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
+}
+@media screen and (min-width: 1024px) {
+  #header-container header { background: none; }
+  .home #header-container header { background: none; }
+  #navArea .inner { border-bottom: 0; }
+}
+@media screen and (max-width: 1023px) {
+  /* On small screens the header box itself has no size, so the
+     bar is a fixed layer on the wrapper instead. It sits below
+     the language switch (999), the menu overlay (1000) and the
+     toggle button (1002); the brand link is lifted above it. */
+  #header-container header::before { display: none; }
+  #header-container::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 96px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%230a1213'/%3E%3C/svg%3E") no-repeat left top / 100% 100%;
+    z-index: 998;
+    pointer-events: none;
+  }
+  .home #header-container::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
+  }
+  #header-container .head a { z-index: 1001; }
+}
+
+/* === Language switch under the brand (2026-11-18) === */
+@media screen and (min-width: 1024px) {
+  #header-container header #langChange .ja,
+  #header-container header #langChange .en { color: var(--inv); }
+  .home #header-container header #langChange .ja,
+  .home #header-container header #langChange .en { color: var(--text); }
+}
+@media screen and (max-width: 1023px) {
+  /* The Ja glyph aligned with the M of the brand (x 27 on
+     SP): the glyph starts 15px inside the switch box, so the
+     box sits at left 12. Vertically centred in the lobe. */
+  #langChange { top: 56px; left: 12px; transform: none; }
+  .home #langChange { top: 56px; left: 12px; transform: none; }
+  #langChange .ja, #langChange .en { color: var(--inv); }
+  .home #langChange .ja, .home #langChange .en { color: var(--text); }
+}

@@ -106,3 +106,25 @@
 /* Keep footer navigation aligned with the header brand at every viewport. */
 footer a { font-size: var(--font-header-footer-size); }
 footer a:nth-of-type(n+5) { font-size: var(--font-header-footer-size) !important; }
+
+/* === Curved footer top edge (2026-11-18, design A) ===
+   The footer's top edge rises on the left and sweeps down in
+   the same curve as the header bar. The strip lives on the
+   container, not the footer: the footer's backdrop-filter
+   clips children that stick out above its box (verified). */
+#footer-container { position: relative; }
+#footer-container::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    /* Explicit width: the site reset otherwise collapses the
+       strip to width 0 (verified 2026-11-18). */
+    width: 100%;
+    top: -46px;
+    height: 46px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 46' preserveAspectRatio='none'%3E%3Cpath d='M0 0H336C472 0 505 46 612 46H1440V46H0Z' fill='%23000f0f' fill-opacity='0.7'/%3E%3C/svg%3E") no-repeat left top / 100% 100%;
+    /* Above main (z-index 10), below the footer itself (100):
+       the strip reaches into main's territory. */
+    z-index: 99;
+    pointer-events: none;
+}
