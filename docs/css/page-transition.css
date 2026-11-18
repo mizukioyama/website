@@ -44,6 +44,16 @@
   right: 66px;
 }
 
+/* Stacked layout (portrait / narrow screens): the composition is
+   rotated — bands stack vertically, the black band moves to the
+   bottom, spines run along each band's bottom edge. */
+.pt-wrap-h {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 66px;
+}
+
 .pt-panel {
   position: absolute;
   top: 0;
@@ -177,10 +187,73 @@
   white-space: nowrap;
 }
 
+.pt-spine-h {
+  position: absolute;
+  width: auto;
+  filter: drop-shadow(0 4px 5px rgba(8, 9, 11, 0.7));
+}
+
+.pt-spine-h::after {
+  content: "";
+  position: absolute;
+  width: auto;
+  inset: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(0, 0, 0, 0.05) 1px 2px, transparent 2px 5px);
+}
+
+.pt-num-h {
+  position: absolute;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.pt-shade-h {
+  position: absolute;
+  width: auto;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Brand band in the stacked layout: horizontal text. */
+.pt-brand-h .pt-sub {
+  writing-mode: horizontal-tb;
+  transform: none;
+  top: 10px;
+  left: 14px;
+}
+
+.pt-brand-h .pt-name {
+  writing-mode: horizontal-tb;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.pt-brand-h .pt-foot {
+  writing-mode: horizontal-tb;
+  transform: none;
+  left: auto;
+  right: 14px;
+  bottom: 48px;
+}
+
 /* Thin fog film over the panels, under the destination title.
    (The preview also blurred the panels by 1px through this film;
    a full-screen backdrop blur over the animation is too costly
    on phones, so the film is gradients and noise only.) */
+.pt-h .pt-plate::after {
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(0, 0, 0, 0.05) 1px 2px, transparent 2px 5px);
+}
+
 .pt-fog {
   position: absolute;
   width: auto;
