@@ -49,6 +49,31 @@ const HEADER_MARKUP = `
       </g>
     </g>
   </svg>
+  <!-- Site frame (PC only; CSS in menu.css shows it at
+       >=1024px and hides the top bar there). A thin frame
+       around the whole viewport; the top-left rectangle wraps
+       the brand and language switch, and a rectangle on the
+       right wraps the global menu. The inset shadow is the
+       inner contour stroked and clipped inside the frame. -->
+  <svg class="site-frame" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="frameClip"><path fill-rule="evenodd" d="M0 0H1440V900H0Z M14 886H1426V760H1320V140H1426V14H240V118H14Z"/></clipPath>
+    </defs>
+    <g class="frame-dark">
+      <path fill-rule="evenodd" fill="#222527" d="M0 0H1440V900H0Z M14 886H1426V760H1320V140H1426V14H240V118H14Z"/>
+      <g clip-path="url(#frameClip)">
+        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.18" style="filter: blur(10px)"/>
+        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.50" style="filter: blur(5px)"/>
+      </g>
+    </g>
+    <g class="frame-light">
+      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H1440V900H0Z M14 886H1426V760H1320V140H1426V14H240V118H14Z"/>
+      <g clip-path="url(#frameClip)">
+        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.08" style="filter: blur(10px)"/>
+        <path d="M14 886H1426V760H1320V140H1426V14H240V118H14Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.25" style="filter: blur(5px)"/>
+      </g>
+    </g>
+  </svg>
   <div class="header-inner">
   <div class="head">
     <a class="noise" href="${siteHref("index.html")}">
@@ -62,12 +87,12 @@ const HEADER_MARKUP = `
     <nav id="primary-navigation" aria-label="Primary navigation">
       <div class="inner">
         <ul>
-          <li><a href="${siteHref("")}" class="noise"><span class="nav-label">Top</span></a></li>
-          <li><a href="${siteHref("gallery.html")}" class="noise"><span class="nav-label">Art Index</span></a></li>
-          <li><a href="${siteHref("biography.html")}" class="noise"><span class="nav-label">Biography</span></a></li>
-          <li><a href="${siteHref("artist-statement.html")}" class="noise"><span class="nav-label">Artist Statement</span></a></li>
-          <li><a href="${siteHref("order.html")}" class="noise"><span class="nav-label">Order</span></a></li>
-          <li><a href="${siteHref("contact.html")}" class="noise"><span class="nav-label">Contact</span></a></li>
+          <li><a href="${siteHref("")}" class="noise"><span class="nav-initial" aria-hidden="true">T</span><span class="nav-label">Top</span></a></li>
+          <li><a href="${siteHref("gallery.html")}" class="noise"><span class="nav-initial" aria-hidden="true">A</span><span class="nav-label">Art Index</span></a></li>
+          <li><a href="${siteHref("biography.html")}" class="noise"><span class="nav-initial" aria-hidden="true">B</span><span class="nav-label">Biography</span></a></li>
+          <li><a href="${siteHref("artist-statement.html")}" class="noise"><span class="nav-initial" aria-hidden="true">S</span><span class="nav-label">Artist Statement</span></a></li>
+          <li><a href="${siteHref("order.html")}" class="noise"><span class="nav-initial" aria-hidden="true">O</span><span class="nav-label">Order</span></a></li>
+          <li><a href="${siteHref("contact.html")}" class="noise"><span class="nav-initial" aria-hidden="true">C</span><span class="nav-label">Contact</span></a></li>
         </ul>
       </div>
       <div id="mask">
@@ -734,7 +759,11 @@ function initializeDesktopNavigation(desktop, panel, setOpen) {
     }
     if (desktop.matches) {
       if (reading && reading.parentElement !== document.body) document.body.append(reading);
-      const compact = scrollY >= innerHeight * 0.55;
+      /* The PC frame design keeps the global menu permanently
+         visible in the frame's right rectangle, so the primary
+         nav no longer collapses into the toggle button on
+         scroll (2026-11-18). */
+      const compact = false;
       nav.classList.toggle('is-compact', compact);
       button.toggleAttribute('inert', !compact);
       button.setAttribute('aria-hidden', String(!compact));
