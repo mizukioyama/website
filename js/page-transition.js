@@ -306,6 +306,7 @@
      converted to pixels: the distance that puts each band fully
      below the viewport's bottom edge. */
   var portOffsets = null;
+  var centerJobs = [];
   var layoutState = null;
   function relayout(destScale) {
     if (!layoutState || !panels.length) return;
@@ -403,6 +404,7 @@
     };
     panels = [];
     inners = [];
+    centerJobs = [];
     portOffsets = portrait ? [] : null;
     var left = 0;
 
@@ -512,15 +514,13 @@
           num.className = "pt-num-h";
           num.textContent = tabText;
           /* Centred in the tab on both axes (decided 2026-11-18):
-             horizontally at the middle of the tab's length,
-             vertically at the middle of the spine strip. As a
-             child of the panel instead of the clipped spine,
-             long labels stay fully readable. */
-          num.style.left =
-            Math.round(
-              (((zt + zb) / 2) / 100) * W -
-                (tabText.length * numSize * 0.73) / 2
-            ) + "px";
+             the horizontal centre is set exactly after layout
+             (see centerJobs below); vertically it sits at the
+             middle of the spine strip. As a child of the panel
+             instead of the clipped spine, long labels stay
+             fully readable. */
+          num.style.left = "calc(" + zt + "% + 8px)";
+          centerJobs.push({ num: num, zt: zt, zb: zb, portrait: true });
           num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
           num.style.top = "calc(100% - 5px)";
@@ -544,11 +544,10 @@
           spine.style.right = -tabW + "px";
           spine.style.clipPath = spineClip(zt, zb, tabW, bodyW, tabLen);
           num.style.width = numSize + "px";
-          /* The label sits at the centre of the tab's length
-             (decided 2026-11-18). */
-          var titleH = tabText.length * numSize * 0.68;
-          var tabCentre = (((zt + zb) / 2) / 100) * H;
-          num.style.top = Math.max(4, Math.round(tabCentre - titleH / 2)) + "px";
+          /* The label is centred in the tab on both axes
+             (decided 2026-11-18); its exact position is set
+             after layout via centerJobs below. */
+          centerJobs.push({ num: num, zt: zt, zb: zb, portrait: false });
         }
         d.appendChild(spine);
       }
@@ -586,6 +585,20 @@
     overlay.appendChild(destEl);
 
     document.documentElement.appendChild(overlay);
+    /* Centre each tab label exactly, using its measured size:
+       horizontally/vertically at the middle of the tab. */
+    centerJobs.forEach(function (job) {
+      if (job.portrait) {
+        var nw = job.num.getBoundingClientRect().width;
+        job.num.style.left =
+          Math.round((((job.zt + job.zb) / 2) / 100) * W - nw / 2) + "px";
+      } else {
+        var nh = job.num.getBoundingClientRect().height;
+        var tabCentre = (((job.zt + job.zb) / 2) / 100) * H;
+        job.num.style.top =
+          Math.max(4, Math.round(tabCentre - nh / 2)) + "px";
+      }
+    });
     return overlay;
   }
 
