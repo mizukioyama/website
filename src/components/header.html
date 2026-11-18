@@ -1,4 +1,49 @@
 <header>
+  <!-- Curved bar background (inline SVG; CSS only positions it).
+       The inset shadow is clipped to the bar shape inside the
+       filter, so no shadow spills onto the page. -->
+  <svg class="header-bar" viewBox="0 0 1440 118" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="hdrInkD" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+        <feOffset in="SourceAlpha" dx="0" dy="-10" result="u1"/>
+        <feComposite in="SourceAlpha" in2="u1" operator="out" result="b1"/>
+        <feGaussianBlur in="b1" stdDeviation="5" result="bb1"/>
+        <feFlood flood-color="#000000" flood-opacity="0.85" result="f1"/>
+        <feComposite in="f1" in2="bb1" operator="in" result="rim"/>
+        <feOffset in="SourceAlpha" dx="0" dy="-22" result="u2"/>
+        <feComposite in="SourceAlpha" in2="u2" operator="out" result="b2"/>
+        <feGaussianBlur in="b2" stdDeviation="12" result="bb2"/>
+        <feFlood flood-color="#000000" flood-opacity="0.45" result="f2"/>
+        <feComposite in="f2" in2="bb2" operator="in" result="shd"/>
+        <feMerge result="merged">
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="shd"/>
+          <feMergeNode in="rim"/>
+        </feMerge>
+        <feComposite in="merged" in2="SourceAlpha" operator="in"/>
+      </filter>
+      <filter id="hdrInkL" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+        <feOffset in="SourceAlpha" dx="0" dy="-7" result="u1"/>
+        <feComposite in="SourceAlpha" in2="u1" operator="out" result="b1"/>
+        <feGaussianBlur in="b1" stdDeviation="4" result="bb1"/>
+        <feFlood flood-color="#000000" flood-opacity="0.30" result="f1"/>
+        <feComposite in="f1" in2="bb1" operator="in" result="rim"/>
+        <feOffset in="SourceAlpha" dx="0" dy="-18" result="u2"/>
+        <feComposite in="SourceAlpha" in2="u2" operator="out" result="b2"/>
+        <feGaussianBlur in="b2" stdDeviation="10" result="bb2"/>
+        <feFlood flood-color="#000000" flood-opacity="0.14" result="f2"/>
+        <feComposite in="f2" in2="bb2" operator="in" result="shd"/>
+        <feMerge result="merged">
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="shd"/>
+          <feMergeNode in="rim"/>
+        </feMerge>
+        <feComposite in="merged" in2="SourceAlpha" operator="in"/>
+      </filter>
+    </defs>
+    <path class="header-bar-dark" d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#222527" filter="url(#hdrInkD)"/>
+    <path class="header-bar-light" d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#e1e1dc" filter="url(#hdrInkL)"/>
+  </svg>
   <div class="header-inner">
   <div class="head">
     <a class="noise" href="@@SITE:index.html@@">
