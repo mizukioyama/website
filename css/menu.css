@@ -604,21 +604,21 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 
 /* === Site frame header (2026-11-18; all widths since 2026-11-19) ===
    The top bar is replaced by a fixed frame around the whole
-   viewport (inline SVGs in the shared header component): a
-   thin edge everywhere, a rectangle at the top-left wrapping
-   the brand and the language switch, and a rectangle on the
-   right wrapping the global menu. The menu shows initials;
-   the hovered or focused row switches to its full label.
-   At >=768px the frame is .site-frame (1440x900 space, the
-   original PC geometry, so tablets match the PC look); below
-   768px it is .site-frame-sp (390x844 space, wider top-left
-   rectangle so the brand stays on one line, narrower right
-   rectangle with initials only and no label tabs). The frame
+   viewport (inline SVG .site-frame in the shared header
+   component): a thin edge everywhere, a rectangle at the
+   top-left wrapping the brand and the language switch, and
+   a rectangle on the right wrapping the global menu. The
+   menu shows initials; the hovered or focused row switches
+   to its full label. One geometry at every width (1440x900
+   space, stretched): tablets and phones use the same ratios
+   as PC, so on small screens the brand is set smaller to
+   stay on one line inside the narrower rectangle (see the
+   small-screen adjustments after this block). The frame
    menu is permanent at every width, so the drawer and the
    scroll-compact behaviour are retired: menu.js treats every
    width as the desktop (permanent) navigation. */
-.site-frame, .site-frame-sp { display: none; }
-@media screen and (min-width: 768px) {
+.site-frame { display: none; }
+@media screen {
   .header-bar { display: none; }
   .site-frame {
     display: block;
@@ -854,144 +854,25 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   }
 }
 
-/* Tablets (768-1023px) use the frame layout above but not
-   the >=1024px header grid, so the header needs its paint
-   order above main stated explicitly, like the small-screen
-   block below. */
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+/* Below 1024px the header has no fixed positioning from
+   the old layouts, so its paint order above main (whose
+   positioned layers would otherwise cover the band menu
+   and make it unclickable) is stated explicitly; at
+   >=1024px the fixed header's z-index already does this. */
+@media screen and (max-width: 1023px) {
   #header-container header { position: relative; z-index: 2001; }
 }
 
-/* === Site frame header, small screens (2026-11-19) ===
-   Below 768px the same frame idea runs in a 390x844 space
-   (.site-frame-sp in the header component): edge 10, the
-   top-left rectangle 160x100 (wide enough for the brand on
-   one line, deep enough for the brand and language rows), the right rectangle 36 wide from y44 to y800.
-   Positions and sizes below are those ratios as vw/dvh, so
-   the header pieces stay inside the frame at any size. The
-   menu is initials only: the label stays for assistive tech
-   as a transparent tab, but there is no hover expansion. */
+/* Small-screen frame adjustments (2026-11-19): the frame
+   keeps the PC ratios, so the top-left rectangle is only
+   23.75vw wide. The brand is set smaller to stay on one
+   line inside it (a header-component size, chosen by the
+   user over wrapping to two lines), and the language
+   switch's grid is narrowed to fit the same rectangle. */
 @media screen and (max-width: 767px) {
-  .header-bar { display: none; }
-  /* The header must paint above main (whose positioned
-     layers would otherwise cover the band menu and make it
-     unclickable); at >=1024px the fixed header's z-index
-     does this, here it is explicit. */
-  #header-container header { position: relative; z-index: 2001; }
-  .site-frame-sp {
-    display: block;
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100dvh;
-    z-index: -1;
-    pointer-events: none;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));
-  }
-  .site-frame-sp .frame-light { display: none; }
-  .home .site-frame-sp { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5)); }
-  .home .site-frame-sp .frame-light { display: block; }
-  .home .site-frame-sp .frame-dark { display: none; }
-
-  /* Brand and language switch centred in the top-left
-     rectangle (160x100 of 390x844). */
-  #header-container .header-inner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 41.03vw;
-    height: 11.85dvh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
-  #header-container header #langChange { position: static; align-self: center; }
-  #header-container header .head a {
-    position: relative;
-    inset: auto;
-    top: auto;
-    left: auto;
-    width: fit-content;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-  }
-  #header-container header .head a::after { display: none; }
-
-  /* The nav stands in the right rectangle (x 354-390,
-     y 44-800 of 390x844). */
-  #navArea {
-    position: fixed;
-    top: 5.21dvh;
-    right: 0;
-    width: 9.23vw;
-    height: 89.57dvh;
-  }
-  #navArea nav {
-    position: static;
-    inset: auto;
-    width: 100%;
-    height: 100%;
-    display: block;
-    overflow: visible;
-    background: none;
-    backdrop-filter: none;
-  }
-  #navArea #mask, #navArea .toggle_btn { display: none; }
-  #navArea .inner { width: 100%; height: 100%; min-height: 0; padding: 0; }
-  #navArea .inner ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100%;
-    padding: 0;
-    gap: 0;
-  }
-  #navArea .inner li { position: relative; width: 100%; border: 0; }
-  #header-container #navArea .inner ul li:nth-of-type(5) { margin-top: 0; }
-  #navArea .inner li a {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 0;
-    padding: 6px 0;
-    min-height: 27px;
-    box-sizing: border-box;
-    overflow: visible;
-  }
-  #navArea .nav-initial { display: block; font-size: 13px; letter-spacing: 0; }
-  #navArea .nav-label {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 9.23vw;
-    max-width: none;
-    height: auto;
-    overflow: hidden;
-    clip-path: none;
-    padding: 14px 6px;
-    box-sizing: border-box;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    white-space: nowrap;
-    text-align: right;
-    color: transparent;
-    background-color: transparent;
-    box-shadow: none;
-    pointer-events: none;
-    z-index: 5;
-  }
-  #navArea .nav-label::before { left: auto; right: 0; }
-  #navArea a:is(:focus-visible) > .nav-label::before,
-  #navArea a[aria-current="page"] > .nav-label::before { width: 100%; }
-  #navArea nav.is-scroll-hidden {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
+  #header-container .header-inner { gap: 4px; }
+  #header-container header .head a { font-size: 11.5px; }
+  #header-container header #langChange .inner_label { grid-template-columns: 34px 10px 34px; }
+  #header-container header #langChange .ja,
+  #header-container header #langChange .en { font-size: 11px; }
 }

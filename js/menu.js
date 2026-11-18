@@ -49,19 +49,6 @@ const HEADER_MARKUP = `
       </g>
     </g>
   </svg>
-  <!-- Site frame for small screens (under 768px; shown by
-       css/menu.css in place of the curved bar). Same idea as
-       the PC frame in a 390x844 space: a thin edge, a wider
-       top-left rectangle for the brand and language switch,
-       and a right rectangle holding the initial menu. -->
-  <svg class="site-frame-sp" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <g class="frame-dark">
-      <path fill-rule="evenodd" fill="#222527" d="M0 0H390V844H0Z M10.0 820.0 L10.5 823.6 L11.9 827.0 L14.1 829.9 L17.0 832.1 L20.4 833.5 L24.0 834.0 L366.0 834.0 L369.6 833.5 L373.0 832.1 L375.9 829.9 L378.1 827.0 L379.5 823.6 L380.0 820.0 L380.0 810.0 L379.7 807.4 L378.7 805.0 L377.1 802.9 L375.0 801.3 L372.6 800.3 L370.0 800.0 L370.0 800.0 L368.8 800.0 L367.5 800.2 L366.3 800.4 L365.1 800.8 L364.0 801.2 L362.8 801.7 L354.0 60.0 L354.0 58.8 L353.8 57.5 L353.6 56.3 L353.2 55.1 L352.8 54.0 L352.3 52.8 L376.0 44.0 L377.0 43.9 L378.0 43.5 L378.8 42.8 L379.5 42.0 L379.9 41.0 L380.0 40.0 L380.0 14.0 L379.9 13.0 L379.5 12.0 L378.8 11.2 L378.0 10.5 L377.0 10.1 L376.0 10.0 L174.0 10.0 L170.4 10.5 L167.0 11.9 L164.1 14.1 L161.9 17.0 L160.5 20.4 L160.0 24.0 L160.0 72.0 L160.1 74.2 L160.3 76.3 L160.7 78.4 L161.3 80.5 L162.1 82.6 L163.0 84.5 L24.0 100.0 L20.4 100.5 L17.0 101.9 L14.1 104.1 L11.9 107.0 L10.5 110.4 L10.0 114.0 Z"/>
-    </g>
-    <g class="frame-light">
-      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H390V844H0Z M10.0 820.0 L10.5 823.6 L11.9 827.0 L14.1 829.9 L17.0 832.1 L20.4 833.5 L24.0 834.0 L366.0 834.0 L369.6 833.5 L373.0 832.1 L375.9 829.9 L378.1 827.0 L379.5 823.6 L380.0 820.0 L380.0 810.0 L379.7 807.4 L378.7 805.0 L377.1 802.9 L375.0 801.3 L372.6 800.3 L370.0 800.0 L370.0 800.0 L368.8 800.0 L367.5 800.2 L366.3 800.4 L365.1 800.8 L364.0 801.2 L362.8 801.7 L354.0 60.0 L354.0 58.8 L353.8 57.5 L353.6 56.3 L353.2 55.1 L352.8 54.0 L352.3 52.8 L376.0 44.0 L377.0 43.9 L378.0 43.5 L378.8 42.8 L379.5 42.0 L379.9 41.0 L380.0 40.0 L380.0 14.0 L379.9 13.0 L379.5 12.0 L378.8 11.2 L378.0 10.5 L377.0 10.1 L376.0 10.0 L174.0 10.0 L170.4 10.5 L167.0 11.9 L164.1 14.1 L161.9 17.0 L160.5 20.4 L160.0 24.0 L160.0 72.0 L160.1 74.2 L160.3 76.3 L160.7 78.4 L161.3 80.5 L162.1 82.6 L163.0 84.5 L24.0 100.0 L20.4 100.5 L17.0 101.9 L14.1 104.1 L11.9 107.0 L10.5 110.4 L10.0 114.0 Z"/>
-    </g>
-  </svg>
   <!-- Site frame (PC only; CSS in menu.css shows it at
        >=1024px and hides the top bar there). A thin frame
        around the whole viewport; the top-left rectangle wraps

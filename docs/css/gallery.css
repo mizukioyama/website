@@ -1241,18 +1241,8 @@ main {
    overlaps at the top-left zone and the right band.
    Placed last so it also overrides the width:100% on
    .art-page main.gallery in the >=600px block above. */
-@media screen and (min-width: 768px) {
-  main,
-  .art-page main.gallery {
-    width: auto;
-    margin: 4.44dvh 2.78vw;
-  }
-}
-/* Small screens: the SP frame's edge (10 of 390x844). */
-@media screen and (max-width: 767px) {
-  main,
-  .art-page main.gallery {
-    width: auto;
-    margin: 1.18dvh 2.56vw;
-  }
+main,
+.art-page main.gallery {
+  width: auto;
+  margin: 4.44dvh 2.78vw;
 }
