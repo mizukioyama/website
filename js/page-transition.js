@@ -36,7 +36,7 @@
   var OUT_MS = 540;
   var STAGGER_MS = 55;
   var OUT_STAGGER_MS = 43;
-  var HOLD_MS = 430;
+  var HOLD_MS = 500; /* pause after the snap, ~0.5s (2026-11-18) */
   /* If navigation has still not happened this long after the
      cover should have finished, navigate anyway. */
   var NAV_FALLBACK_MS = 2800;
