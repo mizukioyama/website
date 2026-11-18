@@ -225,8 +225,9 @@
      outline transposed — the spine runs along the bottom edge of
      each band, the tab protrudes downward, its left edge is the
      straight sloped shoulder and its right edge returns flat. */
-  function spineClipH(zt, zr, tabW) {
-    var by = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
+  function spineClipH(zt, zr, tabW, bodyW) {
+    var bw = bodyW || BODY_W;
+    var by = (bw / (bw + (tabW || TAB_W))) * 100;
     var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
     var pts = [];
     pts.push("0% 0%");
@@ -261,8 +262,9 @@
      horizontal, and a concave fillet (depth TAB_NOTCH, 0 in the
      approved design) returns it to the body. Percentages are of
      the spine element (body + tab width, full height). */
-  function spineClip(zt, zb, tabW) {
-    var bx = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
+  function spineClip(zt, zb, tabW, bodyW) {
+    var bw = bodyW || BODY_W;
+    var bx = (bw / (bw + (tabW || TAB_W))) * 100;
     var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
     var notchX = bx + TAB_NOTCH * 4;
     function pt(p) {
@@ -306,19 +308,24 @@
   var destTab = null;
   function applyDestTabScale(sc) {
     if (!destTab) return;
+    /* The whole tab scales (decided 2026-11-18): the spine strip
+       and the protrusion grow by the same factor, so the tab gets
+       bigger as one piece. The number itself stays 10px. */
+    var bodyW2 = BODY_W * sc;
     var tabW2 = TAB_W * sc;
     var zb = Math.min(96, destTab.zt + TAB_LEN * sc);
     var spine = destTab.spine;
     var num = destTab.num;
     if (destTab.portrait) {
-      spine.style.height = BODY_W + tabW2 + "px";
+      spine.style.height = bodyW2 + tabW2 + "px";
       spine.style.bottom = -tabW2 + "px";
-      spine.style.clipPath = spineClipH(destTab.zt, zb, tabW2);
-      num.style.top = BODY_W + (tabW2 - NUM_SIZE) / 2 + "px";
+      spine.style.clipPath = spineClipH(destTab.zt, zb, tabW2, bodyW2);
+      num.style.top = bodyW2 + (tabW2 - NUM_SIZE) / 2 + "px";
     } else {
-      spine.style.width = BODY_W + tabW2 + "px";
+      spine.style.width = bodyW2 + tabW2 + "px";
       spine.style.right = -tabW2 + "px";
-      spine.style.clipPath = spineClip(destTab.zt, zb, tabW2);
+      spine.style.clipPath = spineClip(destTab.zt, zb, tabW2, bodyW2);
+      num.style.left = bodyW2 - 1 + "px";
       num.style.width = Math.max(tabW2 + 2, 18) + "px";
       var titleH = 2 * NUM_SIZE * 0.72;
       var titleBottom = (zb / 100) * destTab.H - Math.max(4, NUM_POS - 43);
