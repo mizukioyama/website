@@ -595,9 +595,12 @@ body:has(#modalBox[style*="display: block"]) {
   .home #header-container header #langChange .en { color: var(--text); }
 }
 @media screen and (max-width: 1023px) {
-  /* Below the brand line, centred in the bar (2026-11-18). */
-  #langChange { top: 66px; left: 50%; transform: translateX(-50%); }
-  .home #langChange { top: 66px; left: 50%; transform: translateX(-50%); }
+  /* Centre of the space directly under the brand text: the
+     brand spans x 27..160 / y 16..60 and the bar is 96px tall,
+     so the space below it centres at (93, 78); the 100x44
+     switch therefore sits at (43, 56). */
+  #langChange { top: 56px; left: 43px; transform: none; }
+  .home #langChange { top: 56px; left: 43px; transform: none; }
   #langChange .ja, #langChange .en { color: var(--inv); }
   .home #langChange .ja, .home #langChange .en { color: var(--text); }
 }
