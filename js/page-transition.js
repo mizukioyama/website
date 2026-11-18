@@ -50,34 +50,41 @@
      Sign per panel: -1 = from top (landscape) / left (portrait),
      +1 = from bottom / right. EXIT_BACK: exit returns to the entry
      side instead of passing through to the opposite side. */
-  var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1];
-  var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1];
+  var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   var EXIT_BACK = true;
   /* The destination page's panel is special (decided 2026-11-18):
-     it comes first in the panel order; its tab keeps its usual
-     position but is enlarged 1.75x and shows the page number
-     instead of the title; and its print becomes a leather cover
-     carrying the page title, so the centred destination title
-     is suppressed for tabbed pages. */
+     it sits directly after the brand panel; its print becomes a
+     leather cover (img/leather.svg, a photo the artist supplied)
+     carrying the page title, so the centred destination title is
+     suppressed for tabbed pages; and its tab shows the page number
+     (not enlarged) and, right after landing, snaps downward to
+     1.75x with a short overshoot ("kachi"). Every one of the nine
+     pages has a tab and a panel. */
   var DEST_TAB_SCALE = 1.75;
-  var DEST_NUM_SIZE = 17.5; /* px */
+  var SNAP_MS = 260;
   var TAB_INDEX_BY_PAGE = {
-    "gallery.html": 0,
-    "artist-statement.html": 1,
-    "biography.html": 2,
-    "information.html": 3,
-    "order.html": 4,
-    "contact.html": 5
+    "index.html": 0,
+    "gallery.html": 1,
+    "artist-statement.html": 2,
+    "biography.html": 3,
+    "information.html": 4,
+    "order.html": 6,
+    "contact.html": 7,
+    "policy.html": 8
   };
   function tabIndexFor(pathname) {
-    var name = (pathname || "").split("/").pop() || "";
+    var p = pathname || "";
+    if (p.indexOf("/exhibitions/yurayura/") !== -1) return 5;
+    var name = p.split("/").pop() || "";
+    if (name === "") return 0;
     return TAB_INDEX_BY_PAGE.hasOwnProperty(name)
       ? TAB_INDEX_BY_PAGE[name]
       : -1;
   }
 
   /* Composition (approved values). */
-  var WIDTHS = [20.5, 14, 14, 14, 14, 14, 14];
+  var WIDTHS = [20.5, 14, 14, 14, 14, 14, 14, 14, 14, 14];
   var OVERLAP_PX = 40;
   var RIGHT_BAND_PX = 66;
   var BODY_W = 10; /* spine body width, px */
@@ -85,16 +92,29 @@
   var TAB_LEN = 25; /* tab length, % of panel height */
   var TAB_SHOULDER = 1.5; /* straight shoulder slope, % */
   var TAB_NOTCH = 0; /* concave fillet depth, % (0 = none) */
-  var TAB_TOPS = [5, 15, 5, 15, 5, 15];
+  var TAB_TOPS = [5, 15, 5, 15, 5, 15, 5, 15, 5];
   var TAB_TITLES = [
+    "TOP",
     "ART INDEX",
     "ARTIST STATEMENT",
     "BIOGRAPHY",
     "INFORMATION",
+    "YURAYURA",
     "ORDER",
-    "CONTACT"
+    "CONTACT",
+    "POLICY"
   ];
-  var ARTWORKS = ["kagayaki", "kaien", "kouen", "kouka", "shinju", "souen"];
+  var ARTWORKS = [
+    "kinun-web.jpg",
+    "kagayaki-web.jpg",
+    "kaien-web.jpg",
+    "kouen-web.jpg",
+    "kouka-web.jpg",
+    "uraura-web.webp",
+    "shinju-web.jpg",
+    "souen-web.jpg",
+    "sensou-web.jpg"
+  ];
   var CHEKI_PX = 8; /* plate margin around the print */
   var NUM_SIZE = 10;
   var NUM_POS = 55; /* tab title anchor, px from the panel bottom area */
@@ -138,7 +158,7 @@
     basePath = "/";
   }
   function artURL(name) {
-    return base + "img/" + name + "-web.jpg";
+    return base + "img/" + name;
   }
 
   /* ---- Session flag ---- */
@@ -167,6 +187,11 @@
   /* ---- Small helpers ---- */
   function clamp01(x) {
     return x < 0 ? 0 : x > 1 ? 1 : x;
+  }
+  function easeOutBack(x) {
+    var c1 = 1.4;
+    var c3 = c1 + 1;
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
   }
   function easeOutExpo(x) {
     return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
@@ -230,23 +255,6 @@
     return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
   }
 
-  /* Procedural leather texture for the destination panel's cover:
-     fine grain + broad mottling over a dark brown base. A data URI
-     keeps it text-only so it can ship through the connector. */
-  function leatherURI() {
-    var grain =
-      "<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.30 0'/></filter><rect width='240' height='240' filter='url(#g)'/></svg>";
-    var mottle =
-      "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.016' numOctaves='3' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10 0 0 0 0 0.07 0 0 0 0 0.03 0 0 0 0.38 0'/></filter><rect width='300' height='300' filter='url(#m)'/></svg>";
-    return (
-      "linear-gradient(160deg, rgba(255,240,214,0.10), rgba(0,0,0,0.30) 72%), " +
-      'url("data:image/svg+xml,' +
-      encodeURIComponent(mottle) +
-      '"), url("data:image/svg+xml,' +
-      encodeURIComponent(grain) +
-      '"), linear-gradient(#2c241c, #231c15)'
-    );
-  }
 
   /* Spine outline: the tab leaves the body's right edge with a
      straight sloped shoulder at the top, its bottom edge is
@@ -295,6 +303,28 @@
      converted to pixels: the distance that puts each band fully
      below the viewport's bottom edge. */
   var portOffsets = null;
+  var destTab = null;
+  function applyDestTabScale(sc) {
+    if (!destTab) return;
+    var tabW2 = TAB_W * sc;
+    var zb = Math.min(96, destTab.zt + TAB_LEN * sc);
+    var spine = destTab.spine;
+    var num = destTab.num;
+    if (destTab.portrait) {
+      spine.style.height = BODY_W + tabW2 + "px";
+      spine.style.bottom = -tabW2 + "px";
+      spine.style.clipPath = spineClipH(destTab.zt, zb, tabW2);
+      num.style.top = BODY_W + (tabW2 - NUM_SIZE) / 2 + "px";
+    } else {
+      spine.style.width = BODY_W + tabW2 + "px";
+      spine.style.right = -tabW2 + "px";
+      spine.style.clipPath = spineClip(destTab.zt, zb, tabW2);
+      num.style.width = Math.max(tabW2 + 2, 18) + "px";
+      var titleH = 2 * NUM_SIZE * 0.72;
+      var titleBottom = (zb / 100) * destTab.H - Math.max(4, NUM_POS - 43);
+      num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
+    }
+  }
   var destEl = null;
   var destTextEl = null;
   var rafId = 0;
@@ -336,10 +366,9 @@
 
     var grad = ironGradient(portrait);
     var tex = noiseURI();
-    var leather = leatherURI();
     var wrapW = portrait ? H - RIGHT_BAND_PX : W - RIGHT_BAND_PX;
-    /* Panel order: the destination page's panel comes first,
-       then the brand panel, then the rest (decided 2026-11-18). */
+    /* Panel order: brand panel first, the destination page's
+       panel directly after it, then the rest (decided 2026-11-18). */
     var items = [{ kind: "brand", idx: -1, share: WIDTHS[0] }];
     var kk;
     for (kk = 0; kk < TAB_TITLES.length; kk++) {
@@ -352,7 +381,9 @@
         if (it.kind === "art" && it.idx === destIdx) destItem = it;
         else restItems.push(it);
       });
-      if (destItem) items = [destItem].concat(restItems);
+      if (destItem && restItems.length) {
+        items = [restItems[0], destItem].concat(restItems.slice(1));
+      }
     }
     var sumW = 0;
     var i;
@@ -360,6 +391,7 @@
     var sumPx = wrapW + OVERLAP_PX * (items.length - 1);
     panels = [];
     inners = [];
+    destTab = null;
     portOffsets = portrait ? [] : null;
     var left = 0;
 
@@ -416,13 +448,12 @@
         var photoIdx = item.idx;
         var isDest = photoIdx === destIdx;
         var title = TAB_TITLES[photoIdx] || "";
+        if (isDest) img.style.borderRadius = "0px";
         var inner = document.createElement("div");
         if (isDest) {
           inner.className = "pt-inner pt-cover";
-          inner.style.backgroundImage = leather;
-          inner.style.backgroundSize = "cover, 300px 300px, 240px 240px, cover";
-          inner.style.backgroundRepeat = "no-repeat, repeat, repeat, no-repeat";
-          inner.style.backgroundColor = "#261f19";
+          inner.style.backgroundImage = 'url("' + artURL("leather.svg") + '")';
+          inner.style.backgroundColor = "#17130f";
           var coverTitle = document.createElement("div");
           coverTitle.className = "pt-cover-title";
           coverTitle.textContent = title;
@@ -434,10 +465,8 @@
         img.appendChild(inner);
         inners.push(inner);
 
-        var tabScale = isDest ? DEST_TAB_SCALE : 1;
-        var tabW2 = TAB_W * tabScale;
         var zt = TAB_TOPS[photoIdx];
-        var zb = Math.min(96, zt + TAB_LEN * tabScale);
+        var zb = Math.min(96, zt + TAB_LEN);
         var tabText = isDest
           ? (photoIdx + 1 < 10 ? "0" : "") + (photoIdx + 1)
           : title;
@@ -449,9 +478,6 @@
         var num = document.createElement("div");
         if (portrait) {
           spine.className = "pt-spine-h";
-          spine.style.height = BODY_W + tabW2 + "px";
-          spine.style.bottom = -tabW2 + "px";
-          spine.style.clipPath = spineClipH(zt, zb, tabW2);
           spine.style.left = "0px";
           spine.style.width = "100%";
           spine.style.zIndex = 2;
@@ -460,31 +486,42 @@
           num.className = "pt-num-h";
           num.textContent = tabText;
           num.style.left = "calc(" + zt + "% + 8px)";
-          num.style.top = (isDest ? BODY_W : BODY_W - 2) + "px";
-          num.style.fontSize = (isDest ? DEST_NUM_SIZE : NUM_SIZE) + "px";
+          num.style.fontSize = NUM_SIZE + "px";
           num.style.color = NUM_COLOR;
           spine.appendChild(num);
+          if (isDest) {
+            destTab = { spine: spine, num: num, zt: zt, portrait: true, H: H };
+          } else {
+            spine.style.height = BODY_W + TAB_W + "px";
+            spine.style.bottom = -TAB_W + "px";
+            spine.style.clipPath = spineClipH(zt, zb, TAB_W);
+            num.style.top = BODY_W - 2 + "px";
+          }
         } else {
           spine.className = "pt-spine";
-          spine.style.width = BODY_W + tabW2 + "px";
-          spine.style.right = -tabW2 + "px";
           spine.style.zIndex = 2;
           spine.style.background = grad;
-          spine.style.clipPath = spineClip(zt, zb, tabW2);
           spine.appendChild(stex);
           num.className = "pt-num";
           num.textContent = tabText;
-          num.style.left = (isDest ? BODY_W - 6 : BODY_W - 1) + "px";
-          num.style.width = Math.max(tabW2 + 2, 18) + "px";
-          var numSize = isDest ? DEST_NUM_SIZE : NUM_SIZE;
-          num.style.fontSize = numSize + "px";
+          num.style.left = BODY_W - 1 + "px";
+          num.style.fontSize = NUM_SIZE + "px";
           num.style.color = NUM_COLOR;
-          var titleH = tabText.length * numSize * (isDest ? 0.72 : 1.18);
-          var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
-          num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
           spine.appendChild(num);
+          if (isDest) {
+            destTab = { spine: spine, num: num, zt: zt, portrait: false, H: H };
+          } else {
+            spine.style.width = BODY_W + TAB_W + "px";
+            spine.style.right = -TAB_W + "px";
+            spine.style.clipPath = spineClip(zt, zb, TAB_W);
+            num.style.width = Math.max(TAB_W + 2, 18) + "px";
+            var titleH = tabText.length * NUM_SIZE * 1.18;
+            var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
+            num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
+          }
         }
         d.appendChild(spine);
+        if (isDest) applyDestTabScale(1);
       }
       d.appendChild(img);
       if (i > 0) {
@@ -623,18 +660,22 @@
     if (destEl) destEl.style.opacity = "1";
     var outTotal = OUT_MS + (n - 1) * OUT_STAGGER_MS;
     var t0 = null;
-    var startAt = null;
     function step(now) {
       if (t0 === null) t0 = now;
-      if (startAt === null) {
-        startAt = now + HOLD_MS;
+      var el = now - t0;
+      /* Right after landing, the destination tab snaps wider
+         (decided 2026-11-18): it grows downward to 1.75x with a
+         short overshoot, then settles during the hold. */
+      if (destTab) {
+        var sp = clamp01(el / SNAP_MS);
+        applyDestTabScale(1 + (DEST_TAB_SCALE - 1) * easeOutBack(sp));
       }
-      var el = now - startAt;
-      if (el >= 0) {
+      var outEl = el - SNAP_MS - HOLD_MS;
+      if (outEl >= 0) {
         for (var j = 0; j < n; j++) {
           var dir = curDirs[j];
           var es = EXIT_BACK ? dir : -dir;
-          var lo = el - j * OUT_STAGGER_MS;
+          var lo = outEl - j * OUT_STAGGER_MS;
           if (lo < 0) {
             setPanel(j, 0, 0);
           } else if (lo < OUT_MS) {
@@ -645,10 +686,10 @@
           }
         }
         if (destEl) {
-          destEl.style.opacity = 1 - clamp01((el + 40) / 200);
+          destEl.style.opacity = 1 - clamp01((outEl + 40) / 200);
         }
       }
-      if (el >= outTotal) {
+      if (outEl >= outTotal) {
         rafId = 0;
         removeOverlay();
         return;
@@ -718,6 +759,8 @@
         var im = new Image();
         im.src = artURL(name);
       });
+      var lim = new Image();
+      lim.src = artURL("leather.svg");
     }, 1600);
   });
 

@@ -141,6 +141,7 @@
 .pt-h .pt-cover-title {
   writing-mode: horizontal-tb;
   font-size: 18px;
+  transform: translateY(14px);
 }
 
 .pt-spine {
