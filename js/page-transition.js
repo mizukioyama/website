@@ -524,11 +524,11 @@
             d.appendChild(num);
           } else {
             spine.appendChild(num);
+            num.style.top = BODY_W - 2 + "px";
           }
           spine.style.height = BODY_W + TAB_W + "px";
           spine.style.bottom = -TAB_W + "px";
           spine.style.clipPath = spineClipH(zt, zb, TAB_W);
-          num.style.top = BODY_W - 2 + "px";
         } else {
           spine.className = "pt-spine";
           spine.style.zIndex = 2;
