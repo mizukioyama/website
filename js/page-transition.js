@@ -445,6 +445,9 @@
         img.style.left = CHEKI_PX + "px";
         img.style.right = (portrait ? CHEKI_PX : BODY_W + CHEKI_PX) + "px";
         img.style.bottom = (portrait ? BODY_W + CHEKI_PX : CHEKI_PX) + "px";
+        if (portrait) {
+          img.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.35)";
+        }
         var photoIdx = item.idx;
         var isDest = photoIdx === destIdx;
         var title = TAB_TITLES[photoIdx] || "";
@@ -528,7 +531,7 @@
         var shade = document.createElement("div");
         if (portrait) {
           shade.className = "pt-shade-h";
-          shade.style.top = OVERLAP_PX + TAB_W + "px";
+          shade.style.top = OVERLAP_PX + "px";
         } else {
           shade.className = "pt-shade";
           shade.style.left = OVERLAP_PX + "px";
