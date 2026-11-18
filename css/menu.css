@@ -595,8 +595,9 @@ body:has(#modalBox[style*="display: block"]) {
   .home #header-container header #langChange .en { color: var(--text); }
 }
 @media screen and (max-width: 1023px) {
-  /* Directly below the fixed brand link (top 16px + height 44px). */
-  #langChange { top: 66px; left: 27px; }
+  /* Below the brand line, centred in the bar (2026-11-18). */
+  #langChange { top: 66px; left: 50%; transform: translateX(-50%); }
+  .home #langChange { top: 66px; left: 50%; transform: translateX(-50%); }
   #langChange .ja, #langChange .en { color: var(--inv); }
   .home #langChange .ja, .home #langChange .en { color: var(--text); }
 }
