@@ -13,45 +13,41 @@ const HEADER_MARKUP = `
        filter, so no shadow spills onto the page. -->
   <svg class="header-bar" viewBox="0 0 1440 118" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <defs>
-      <filter id="hdrInkD" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-        <feOffset in="SourceAlpha" dx="0" dy="-10" result="u1"/>
-        <feComposite in="SourceAlpha" in2="u1" operator="out" result="b1"/>
-        <feGaussianBlur in="b1" stdDeviation="5" result="bb1"/>
-        <feFlood flood-color="#000000" flood-opacity="0.85" result="f1"/>
-        <feComposite in="f1" in2="bb1" operator="in" result="rim"/>
-        <feOffset in="SourceAlpha" dx="0" dy="-22" result="u2"/>
-        <feComposite in="SourceAlpha" in2="u2" operator="out" result="b2"/>
-        <feGaussianBlur in="b2" stdDeviation="12" result="bb2"/>
-        <feFlood flood-color="#000000" flood-opacity="0.45" result="f2"/>
-        <feComposite in="f2" in2="bb2" operator="in" result="shd"/>
-        <feMerge result="merged">
-          <feMergeNode in="SourceGraphic"/>
-          <feMergeNode in="shd"/>
-          <feMergeNode in="rim"/>
-        </feMerge>
-        <feComposite in="merged" in2="SourceAlpha" operator="in"/>
-      </filter>
-      <filter id="hdrInkL" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-        <feOffset in="SourceAlpha" dx="0" dy="-7" result="u1"/>
-        <feComposite in="SourceAlpha" in2="u1" operator="out" result="b1"/>
-        <feGaussianBlur in="b1" stdDeviation="4" result="bb1"/>
-        <feFlood flood-color="#000000" flood-opacity="0.30" result="f1"/>
-        <feComposite in="f1" in2="bb1" operator="in" result="rim"/>
-        <feOffset in="SourceAlpha" dx="0" dy="-18" result="u2"/>
-        <feComposite in="SourceAlpha" in2="u2" operator="out" result="b2"/>
-        <feGaussianBlur in="b2" stdDeviation="10" result="bb2"/>
-        <feFlood flood-color="#000000" flood-opacity="0.14" result="f2"/>
-        <feComposite in="f2" in2="bb2" operator="in" result="shd"/>
-        <feMerge result="merged">
-          <feMergeNode in="SourceGraphic"/>
-          <feMergeNode in="shd"/>
-          <feMergeNode in="rim"/>
-        </feMerge>
-        <feComposite in="merged" in2="SourceAlpha" operator="in"/>
-      </filter>
+      <clipPath id="hdrClip"><path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z"/></clipPath>
+      <mask id="hdrBandD1">
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#ffffff"/>
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" transform="translate(0 -10)"/>
+      </mask>
+      <mask id="hdrBandD2">
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#ffffff"/>
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" transform="translate(0 -24)"/>
+      </mask>
+      <mask id="hdrBandL1">
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#ffffff"/>
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" transform="translate(0 -8)"/>
+      </mask>
+      <mask id="hdrBandL2">
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#ffffff"/>
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" transform="translate(0 -18)"/>
+      </mask>
     </defs>
-    <path class="header-bar-dark" d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#222527" filter="url(#hdrInkD)"/>
-    <path class="header-bar-light" d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#e1e1dc" filter="url(#hdrInkL)"/>
+    <!-- The base fill stays unfiltered and crisp; the inset
+         shadow is a separate masked band along the curve,
+         blurred on its own and clipped inside the bar. -->
+    <g class="header-bar-dark">
+      <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#222527"/>
+      <g clip-path="url(#hdrClip)">
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" opacity="0.22" mask="url(#hdrBandD2)" style="filter: blur(8px)"/>
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" opacity="0.60" mask="url(#hdrBandD1)" style="filter: blur(4px)"/>
+      </g>
+    </g>
+    <g class="header-bar-light">
+      <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#e1e1dc"/>
+      <g clip-path="url(#hdrClip)">
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" opacity="0.12" mask="url(#hdrBandL2)" style="filter: blur(7px)"/>
+        <path d="M0 0H1440V72H612C505 72 472 118 336 118H0Z" fill="#000000" opacity="0.30" mask="url(#hdrBandL1)" style="filter: blur(3px)"/>
+      </g>
+    </g>
   </svg>
   <div class="header-inner">
   <div class="head">
