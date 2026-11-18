@@ -53,14 +53,14 @@
   var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1];
   var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1];
   var EXIT_BACK = true;
-  /* The destination page's own tab is emphasised (decided
-     2026-11-18): it moves to the top of its panel and is enlarged.
-     Landscape: tab position near the spine's top, longer tab,
-     larger title. Portrait: the tab flips to the band's top edge,
-     longer, with a larger title, and the band comes to the front. */
-  var DEST_TAB_TOP = 4; /* % */
-  var DEST_TAB_LEN = 42; /* % */
-  var DEST_NUM_SIZE = 15; /* px */
+  /* The destination page's panel is special (decided 2026-11-18):
+     it comes first in the panel order; its tab keeps its usual
+     position but is enlarged 1.75x and shows the page number
+     instead of the title; and its print becomes a leather cover
+     carrying the page title, so the centred destination title
+     is suppressed for tabbed pages. */
+  var DEST_TAB_SCALE = 1.75;
+  var DEST_NUM_SIZE = 17.5; /* px */
   var TAB_INDEX_BY_PAGE = {
     "gallery.html": 0,
     "artist-statement.html": 1,
@@ -195,27 +195,13 @@
 
   /* Top-edge variant of the portrait spine outline: the tab
      protrudes upward from the band's top edge. */
-  function spineClipHTop(zt, zr) {
-    var by = (BODY_W / (BODY_W + TAB_W)) * 100;
-    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
-    var pts = [];
-    pts.push("0% 100%");
-    pts.push("100% 100%");
-    pts.push("100% " + (100 - by).toFixed(1) + "%");
-    pts.push(zr.toFixed(1) + "% " + (100 - by).toFixed(1) + "%");
-    pts.push(zr.toFixed(1) + "% 0%");
-    pts.push(zt.toFixed(1) + "% 0%");
-    pts.push((zt - sh).toFixed(1) + "% " + (100 - by).toFixed(1) + "%");
-    pts.push("0% " + (100 - by).toFixed(1) + "%");
-    return "polygon(" + pts.join(", ") + ")";
-  }
 
   /* Spine outline for the stacked (portrait) layout: the desktop
      outline transposed — the spine runs along the bottom edge of
      each band, the tab protrudes downward, its left edge is the
      straight sloped shoulder and its right edge returns flat. */
-  function spineClipH(zt, zr) {
-    var by = (BODY_W / (BODY_W + TAB_W)) * 100;
+  function spineClipH(zt, zr, tabW) {
+    var by = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
     var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
     var pts = [];
     pts.push("0% 0%");
@@ -244,13 +230,31 @@
     return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
   }
 
+  /* Procedural leather texture for the destination panel's cover:
+     fine grain + broad mottling over a dark brown base. A data URI
+     keeps it text-only so it can ship through the connector. */
+  function leatherURI() {
+    var grain =
+      "<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.30 0'/></filter><rect width='240' height='240' filter='url(#g)'/></svg>";
+    var mottle =
+      "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.016' numOctaves='3' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10 0 0 0 0 0.07 0 0 0 0 0.03 0 0 0 0.38 0'/></filter><rect width='300' height='300' filter='url(#m)'/></svg>";
+    return (
+      "linear-gradient(160deg, rgba(255,240,214,0.10), rgba(0,0,0,0.30) 72%), " +
+      'url("data:image/svg+xml,' +
+      encodeURIComponent(mottle) +
+      '"), url("data:image/svg+xml,' +
+      encodeURIComponent(grain) +
+      '"), linear-gradient(#2c241c, #231c15)'
+    );
+  }
+
   /* Spine outline: the tab leaves the body's right edge with a
      straight sloped shoulder at the top, its bottom edge is
      horizontal, and a concave fillet (depth TAB_NOTCH, 0 in the
      approved design) returns it to the body. Percentages are of
      the spine element (body + tab width, full height). */
-  function spineClip(zt, zb) {
-    var bx = (BODY_W / (BODY_W + TAB_W)) * 100;
+  function spineClip(zt, zb, tabW) {
+    var bx = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
     var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
     var notchX = bx + TAB_NOTCH * 4;
     function pt(p) {
@@ -332,19 +336,36 @@
 
     var grad = ironGradient(portrait);
     var tex = noiseURI();
+    var leather = leatherURI();
     var wrapW = portrait ? H - RIGHT_BAND_PX : W - RIGHT_BAND_PX;
+    /* Panel order: the destination page's panel comes first,
+       then the brand panel, then the rest (decided 2026-11-18). */
+    var items = [{ kind: "brand", idx: -1, share: WIDTHS[0] }];
+    var kk;
+    for (kk = 0; kk < TAB_TITLES.length; kk++) {
+      items.push({ kind: "art", idx: kk, share: WIDTHS[kk + 1] });
+    }
+    if (destIdx >= 0) {
+      var destItem = null;
+      var restItems = [];
+      items.forEach(function (it) {
+        if (it.kind === "art" && it.idx === destIdx) destItem = it;
+        else restItems.push(it);
+      });
+      if (destItem) items = [destItem].concat(restItems);
+    }
     var sumW = 0;
     var i;
-    for (i = 0; i < WIDTHS.length; i++) sumW += WIDTHS[i];
-    var sumPx = wrapW + OVERLAP_PX * (WIDTHS.length - 1);
+    for (i = 0; i < items.length; i++) sumW += items[i].share;
+    var sumPx = wrapW + OVERLAP_PX * (items.length - 1);
     panels = [];
     inners = [];
     portOffsets = portrait ? [] : null;
     var left = 0;
-    var photoIdx = 0;
 
-    for (i = 0; i < WIDTHS.length; i++) {
-      var colW = (sumPx * WIDTHS[i]) / sumW;
+    for (i = 0; i < items.length; i++) {
+      var item = items[i];
+      var colW = (sumPx * item.share) / sumW;
       var d = document.createElement("div");
       d.className = "pt-panel";
       if (portrait) {
@@ -356,7 +377,7 @@
         d.style.left = left + "px";
         d.style.width = colW + "px";
       }
-      d.style.zIndex = WIDTHS.length - i; /* earlier panels on top */
+      d.style.zIndex = items.length - i; /* earlier panels on top */
 
       var plate = document.createElement("div");
       plate.className = "pt-plate";
@@ -370,7 +391,7 @@
 
       var img = document.createElement("div");
       img.className = "pt-img";
-      if (i === 0) {
+      if (item.kind === "brand") {
         img.style.top = "0px";
         img.style.left = "0px";
         img.style.right = "0px";
@@ -392,16 +413,34 @@
         img.style.left = CHEKI_PX + "px";
         img.style.right = (portrait ? CHEKI_PX : BODY_W + CHEKI_PX) + "px";
         img.style.bottom = (portrait ? BODY_W + CHEKI_PX : CHEKI_PX) + "px";
+        var photoIdx = item.idx;
+        var isDest = photoIdx === destIdx;
+        var title = TAB_TITLES[photoIdx] || "";
         var inner = document.createElement("div");
-        inner.className = "pt-inner";
-        inner.style.backgroundImage = 'url("' + artURL(ARTWORKS[photoIdx]) + '")';
+        if (isDest) {
+          inner.className = "pt-inner pt-cover";
+          inner.style.backgroundImage = leather;
+          inner.style.backgroundSize = "cover, 300px 300px, 240px 240px, cover";
+          inner.style.backgroundRepeat = "no-repeat, repeat, repeat, no-repeat";
+          inner.style.backgroundColor = "#261f19";
+          var coverTitle = document.createElement("div");
+          coverTitle.className = "pt-cover-title";
+          coverTitle.textContent = title;
+          inner.appendChild(coverTitle);
+        } else {
+          inner.className = "pt-inner";
+          inner.style.backgroundImage = 'url("' + artURL(ARTWORKS[photoIdx]) + '")';
+        }
         img.appendChild(inner);
         inners.push(inner);
 
-        var isDest = photoIdx === destIdx;
-        var zt = isDest ? DEST_TAB_TOP : TAB_TOPS[photoIdx];
-        var zb = Math.min(96, zt + (isDest ? DEST_TAB_LEN : TAB_LEN));
-        var title = TAB_TITLES[photoIdx] || "";
+        var tabScale = isDest ? DEST_TAB_SCALE : 1;
+        var tabW2 = TAB_W * tabScale;
+        var zt = TAB_TOPS[photoIdx];
+        var zb = Math.min(96, zt + TAB_LEN * tabScale);
+        var tabText = isDest
+          ? (photoIdx + 1 < 10 ? "0" : "") + (photoIdx + 1)
+          : title;
         var spine = document.createElement("div");
         var stex = document.createElement("div");
         stex.className = "pt-tex";
@@ -409,50 +448,43 @@
         stex.style.opacity = "1";
         var num = document.createElement("div");
         if (portrait) {
-          spine.className = isDest ? "pt-spine-h pt-spine-top" : "pt-spine-h";
-          spine.style.height = BODY_W + TAB_W + "px";
-          if (isDest) {
-            spine.style.top = -TAB_W + "px";
-            spine.style.clipPath = spineClipHTop(zt, zb);
-          } else {
-            spine.style.bottom = -TAB_W + "px";
-            spine.style.clipPath = spineClipH(zt, zb);
-          }
+          spine.className = "pt-spine-h";
+          spine.style.height = BODY_W + tabW2 + "px";
+          spine.style.bottom = -tabW2 + "px";
+          spine.style.clipPath = spineClipH(zt, zb, tabW2);
           spine.style.left = "0px";
           spine.style.width = "100%";
           spine.style.zIndex = 2;
           spine.style.background = grad;
           spine.appendChild(stex);
           num.className = "pt-num-h";
-          num.textContent = title;
+          num.textContent = tabText;
           num.style.left = "calc(" + zt + "% + 8px)";
-          num.style.top = (isDest ? 2 : BODY_W - 2) + "px";
+          num.style.top = (isDest ? BODY_W : BODY_W - 2) + "px";
           num.style.fontSize = (isDest ? DEST_NUM_SIZE : NUM_SIZE) + "px";
           num.style.color = NUM_COLOR;
           spine.appendChild(num);
-          if (isDest) d.style.zIndex = WIDTHS.length + 2;
         } else {
           spine.className = "pt-spine";
-          spine.style.width = BODY_W + TAB_W + "px";
-          spine.style.right = -TAB_W + "px";
+          spine.style.width = BODY_W + tabW2 + "px";
+          spine.style.right = -tabW2 + "px";
           spine.style.zIndex = 2;
           spine.style.background = grad;
-          spine.style.clipPath = spineClip(zt, zb);
+          spine.style.clipPath = spineClip(zt, zb, tabW2);
           spine.appendChild(stex);
           num.className = "pt-num";
-          num.textContent = title;
-          num.style.left = BODY_W - 1 + "px";
-          num.style.width = Math.max(TAB_W + 2, 18) + "px";
+          num.textContent = tabText;
+          num.style.left = (isDest ? BODY_W - 6 : BODY_W - 1) + "px";
+          num.style.width = Math.max(tabW2 + 2, 18) + "px";
           var numSize = isDest ? DEST_NUM_SIZE : NUM_SIZE;
           num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
-          var titleH = title.length * numSize * 1.18;
+          var titleH = tabText.length * numSize * (isDest ? 0.72 : 1.18);
           var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
           num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
           spine.appendChild(num);
         }
         d.appendChild(spine);
-        photoIdx++;
       }
       d.appendChild(img);
       if (i > 0) {
@@ -483,7 +515,7 @@
     destEl = document.createElement("div");
     destEl.className = "pt-dest";
     destTextEl = document.createElement("div");
-    destTextEl.textContent = destTitle || "";
+    destTextEl.textContent = destIdx >= 0 ? "" : destTitle || "";
     destEl.appendChild(destTextEl);
     overlay.appendChild(destEl);
 
