@@ -116,17 +116,6 @@
     "Contact",
     "Policy"
   ];
-  var ARTWORKS = [
-    "kinun-web.jpg",
-    "kagayaki-web.jpg",
-    "kaien-web.jpg",
-    "kouen-web.jpg",
-    "kouka-web.jpg",
-    "uraura-web.webp",
-    "shinju-web.jpg",
-    "souen-web.jpg",
-    "sensou-web.jpg"
-  ];
   var CHEKI_PX = 8; /* plate margin around the print */
   var NUM_SIZE = 10;
   var NUM_POS = 55; /* tab title anchor, px from the panel bottom area */
@@ -473,18 +462,15 @@
         var title = TAB_TITLES[photoIdx] || "";
         if (isDest) img.style.borderRadius = "0px";
         var inner = document.createElement("div");
-        if (isDest) {
-          inner.className = "pt-inner pt-cover";
-          inner.style.backgroundImage = 'url("' + artURL("leather.svg") + '")';
-          inner.style.backgroundColor = "#17130f";
-          var coverTitle = document.createElement("div");
-          coverTitle.className = "pt-cover-title";
-          coverTitle.textContent = title;
-          inner.appendChild(coverTitle);
-        } else {
-          inner.className = "pt-inner";
-          inner.style.backgroundImage = 'url("' + artURL(ARTWORKS[photoIdx]) + '")';
-        }
+        /* Every panel uses the same leather image (decided
+           2026-11-18), with its page title engraved on it. */
+        inner.className = "pt-inner pt-cover";
+        inner.style.backgroundImage = 'url("' + artURL("leather.svg") + '")';
+        inner.style.backgroundColor = "#17130f";
+        var coverTitle = document.createElement("div");
+        coverTitle.className = "pt-cover-title";
+        coverTitle.textContent = title;
+        inner.appendChild(coverTitle);
         img.appendChild(inner);
         inners.push(inner);
 
@@ -783,10 +769,6 @@
      so a later click finds it in cache. */
   window.addEventListener("load", function () {
     window.setTimeout(function () {
-      ARTWORKS.forEach(function (name) {
-        var im = new Image();
-        im.src = artURL(name);
-      });
       var lim = new Image();
       lim.src = artURL("leather.svg");
     }, 1600);
