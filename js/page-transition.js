@@ -511,13 +511,19 @@
           spine.appendChild(stex);
           num.className = "pt-num-h";
           num.textContent = tabText;
-          num.style.left = "calc(" + zt + "% + 8px)";
+          /* Centred in the tab on both axes (decided 2026-11-18):
+             horizontally at the middle of the tab's length,
+             vertically at the middle of the spine strip. As a
+             child of the panel instead of the clipped spine,
+             long labels stay fully readable. */
+          num.style.left =
+            Math.round(
+              (((zt + zb) / 2) / 100) * W -
+                (tabText.length * numSize * 0.73) / 2
+            ) + "px";
           num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
-          /* The "No.XX - Title" labels are longer than the tab
-             tongue; as a child of the panel instead of the
-             clipped spine the text stays fully readable. */
-          num.style.top = "calc(100% - 2px)";
+          num.style.top = "calc(100% - 5px)";
           num.style.zIndex = 3;
           d.appendChild(num);
           spine.style.height = bodyW + tabW + "px";
@@ -530,7 +536,7 @@
           spine.appendChild(stex);
           num.className = "pt-num";
           num.textContent = tabText;
-          num.style.left = bodyW + Math.max(0, (tabW - numSize) / 2) + "px";
+          num.style.left = (bodyW + tabW - numSize) / 2 + "px";
           num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
           spine.appendChild(num);
