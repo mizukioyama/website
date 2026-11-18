@@ -148,10 +148,12 @@
   /* Matte iron: one horizontal gradient shared by every plate and
      spine, so the tab and its plate always read as one material.
      Lightness follows the approved brightness (0.81). */
-  function ironGradient() {
+  function ironGradient(vertical) {
     var l = 0.6 * 0.81 * 100;
     return (
-      "linear-gradient(90deg, hsl(220, 4%, " +
+      "linear-gradient(" +
+      (vertical ? "180deg" : "90deg") +
+      ", hsl(220, 4%, " +
       (l + 4).toFixed(1) +
       "%) 0%, hsl(220, 4%, " +
       l.toFixed(1) +
@@ -159,6 +161,25 @@
       (l - 5).toFixed(1) +
       "%) 100%)"
     );
+  }
+
+  /* Spine outline for the stacked (portrait) layout: the desktop
+     outline transposed — the spine runs along the bottom edge of
+     each band, the tab protrudes downward, its left edge is the
+     straight sloped shoulder and its right edge returns flat. */
+  function spineClipH(zt, zr) {
+    var by = (BODY_W / (BODY_W + TAB_W)) * 100;
+    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
+    var pts = [];
+    pts.push("0% 0%");
+    pts.push("100% 0%");
+    pts.push("100% " + by.toFixed(1) + "%");
+    pts.push(zr.toFixed(1) + "% " + by.toFixed(1) + "%");
+    pts.push(zr.toFixed(1) + "% 100%");
+    pts.push(zt.toFixed(1) + "% 100%");
+    pts.push((zt - sh).toFixed(1) + "% " + by.toFixed(1) + "%");
+    pts.push("0% " + by.toFixed(1) + "%");
+    return "polygon(" + pts.join(", ") + ")";
   }
 
   /* Iron texture: large soft blotches plus a fine grain, drawn as
@@ -183,6 +204,7 @@
      the spine element (body + tab width, full height). */
   function spineClip(zt, zb) {
     var bx = (BODY_W / (BODY_W + TAB_W)) * 100;
+    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
     var notchX = bx + TAB_NOTCH * 4;
     function pt(p) {
       return p[0].toFixed(1) + "% " + p[1].toFixed(1) + "%";
@@ -197,7 +219,7 @@
     var pts = [];
     pts.push("0% 0%");
     pts.push(bx.toFixed(1) + "% 0%");
-    pts.push(bx.toFixed(1) + "% " + (zt + TAB_SHOULDER).toFixed(1) + "%");
+    pts.push(bx.toFixed(1) + "% " + (zt - sh).toFixed(1) + "%");
     pts.push("100% " + zt + "%");
     pts.push("100% " + zb + "%");
     pts.push(notchX.toFixed(1) + "% " + zb + "%");
@@ -215,6 +237,7 @@
   /* ---- Overlay construction ---- */
   var panels = [];
   var inners = [];
+  var motionX = false; /* portrait: panels travel along X */
   var destEl = null;
   var destTextEl = null;
   var rafId = 0;
@@ -243,15 +266,19 @@
     frameBg.className = "pt-framebg";
     overlay.appendChild(frameBg);
 
-    var wrap = document.createElement("div");
-    wrap.className = "pt-wrap";
-    overlay.appendChild(wrap);
-
-    var grad = ironGradient();
-    var tex = noiseURI();
     var W = window.innerWidth || 1024;
     var H = window.innerHeight || 768;
-    var wrapW = W - RIGHT_BAND_PX;
+    var portrait = W <= 768;
+    motionX = portrait;
+    if (portrait) overlay.className += " pt-h";
+
+    var wrap = document.createElement("div");
+    wrap.className = portrait ? "pt-wrap pt-wrap-h" : "pt-wrap";
+    overlay.appendChild(wrap);
+
+    var grad = ironGradient(portrait);
+    var tex = noiseURI();
+    var wrapW = portrait ? H - RIGHT_BAND_PX : W - RIGHT_BAND_PX;
     var sumW = 0;
     var i;
     for (i = 0; i < WIDTHS.length; i++) sumW += WIDTHS[i];
@@ -265,8 +292,15 @@
       var colW = (sumPx * WIDTHS[i]) / sumW;
       var d = document.createElement("div");
       d.className = "pt-panel";
-      d.style.left = left + "px";
-      d.style.width = colW + "px";
+      if (portrait) {
+        d.style.top = left + "px";
+        d.style.height = colW + "px";
+        d.style.left = "0px";
+        d.style.width = "100%";
+      } else {
+        d.style.left = left + "px";
+        d.style.width = colW + "px";
+      }
       d.style.zIndex = WIDTHS.length - i; /* earlier panels on top */
 
       var plate = document.createElement("div");
@@ -289,7 +323,7 @@
         img.style.borderRadius = "0px";
         img.style.boxShadow = "none";
         var brand = document.createElement("div");
-        brand.className = "pt-brand";
+        brand.className = portrait ? "pt-brand pt-brand-h" : "pt-brand";
         brand.innerHTML =
           '<div class="pt-sub">From Nature, To Inspiration</div>' +
           '<div class="pt-name" style="font-size:' +
@@ -301,49 +335,72 @@
       } else {
         img.style.top = CHEKI_PX + "px";
         img.style.left = CHEKI_PX + "px";
-        img.style.right = BODY_W + CHEKI_PX + "px";
-        img.style.bottom = CHEKI_PX + "px";
+        img.style.right = (portrait ? CHEKI_PX : BODY_W + CHEKI_PX) + "px";
+        img.style.bottom = (portrait ? BODY_W + CHEKI_PX : CHEKI_PX) + "px";
         var inner = document.createElement("div");
         inner.className = "pt-inner";
         inner.style.backgroundImage = 'url("' + artURL(ARTWORKS[photoIdx]) + '")';
         img.appendChild(inner);
         inners.push(inner);
 
-        var spine = document.createElement("div");
-        spine.className = "pt-spine";
         var zt = TAB_TOPS[photoIdx];
         var zb = Math.min(96, zt + TAB_LEN);
-        spine.style.width = BODY_W + TAB_W + "px";
-        spine.style.right = -TAB_W + "px";
-        spine.style.zIndex = 2;
-        spine.style.background = grad;
-        spine.style.clipPath = spineClip(zt, zb);
+        var title = TAB_TITLES[photoIdx] || "";
+        var spine = document.createElement("div");
         var stex = document.createElement("div");
         stex.className = "pt-tex";
         stex.style.backgroundImage = tex;
         stex.style.opacity = "1";
-        spine.appendChild(stex);
-
         var num = document.createElement("div");
-        num.className = "pt-num";
-        var title = TAB_TITLES[photoIdx] || "";
-        num.textContent = title;
-        num.style.left = BODY_W - 1 + "px";
-        num.style.width = Math.max(TAB_W + 2, 18) + "px";
-        num.style.fontSize = NUM_SIZE + "px";
-        num.style.color = NUM_COLOR;
-        var titleH = title.length * NUM_SIZE * 1.18;
-        var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
-        num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
-        spine.appendChild(num);
+        if (portrait) {
+          spine.className = "pt-spine-h";
+          spine.style.height = BODY_W + TAB_W + "px";
+          spine.style.bottom = -TAB_W + "px";
+          spine.style.left = "0px";
+          spine.style.width = "100%";
+          spine.style.zIndex = 2;
+          spine.style.background = grad;
+          spine.style.clipPath = spineClipH(zt, zb);
+          spine.appendChild(stex);
+          num.className = "pt-num-h";
+          num.textContent = title;
+          num.style.left = "calc(" + zt + "% + 8px)";
+          num.style.top = BODY_W - 2 + "px";
+          num.style.fontSize = NUM_SIZE + "px";
+          num.style.color = NUM_COLOR;
+          spine.appendChild(num);
+        } else {
+          spine.className = "pt-spine";
+          spine.style.width = BODY_W + TAB_W + "px";
+          spine.style.right = -TAB_W + "px";
+          spine.style.zIndex = 2;
+          spine.style.background = grad;
+          spine.style.clipPath = spineClip(zt, zb);
+          spine.appendChild(stex);
+          num.className = "pt-num";
+          num.textContent = title;
+          num.style.left = BODY_W - 1 + "px";
+          num.style.width = Math.max(TAB_W + 2, 18) + "px";
+          num.style.fontSize = NUM_SIZE + "px";
+          num.style.color = NUM_COLOR;
+          var titleH = title.length * NUM_SIZE * 1.18;
+          var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
+          num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
+          spine.appendChild(num);
+        }
         d.appendChild(spine);
         photoIdx++;
       }
       d.appendChild(img);
       if (i > 0) {
         var shade = document.createElement("div");
-        shade.className = "pt-shade";
-        shade.style.left = OVERLAP_PX + "px";
+        if (portrait) {
+          shade.className = "pt-shade-h";
+          shade.style.top = OVERLAP_PX + TAB_W + "px";
+        } else {
+          shade.className = "pt-shade";
+          shade.style.left = OVERLAP_PX + "px";
+        }
         d.appendChild(shade);
       }
       wrap.appendChild(d);
@@ -370,12 +427,13 @@
     return overlay;
   }
 
-  function setPanel(i, tyPercent, innerY) {
+  function setPanel(i, offsetPercent, innerOffset) {
+    var fn = motionX ? "translateX" : "translateY";
     if (panels[i]) {
-      panels[i].style.transform = "translateY(" + tyPercent + "%)";
+      panels[i].style.transform = fn + "(" + offsetPercent + "%)";
     }
     if (inners[i]) {
-      inners[i].style.transform = "translateY(" + innerY + "px)";
+      inners[i].style.transform = fn + "(" + innerOffset + "px)";
     }
   }
 
