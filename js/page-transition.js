@@ -36,7 +36,7 @@
   var OUT_MS = 540;
   var STAGGER_MS = 55;
   var OUT_STAGGER_MS = 43;
-  var HOLD_MS = 430;
+  var HOLD_MS = 500; /* pause after the snap, ~0.5s (2026-11-18) */
   /* If navigation has still not happened this long after the
      cover should have finished, navigate anyway. */
   var NAV_FALLBACK_MS = 2800;
@@ -463,7 +463,9 @@
         img.style.right = (portrait ? CHEKI_PX : bodyW + CHEKI_PX) + "px";
         img.style.bottom = (portrait ? bodyW + CHEKI_PX : CHEKI_PX) + "px";
         if (portrait) {
-          img.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.35)";
+          /* No print shadow in the stacked layout: the spill
+             onto the dark gap read as a step (2026-11-18). */
+          img.style.boxShadow = "none";
         }
         var photoIdx = item.idx;
         var isDest = photoIdx === destIdx;
