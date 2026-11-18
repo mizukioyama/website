@@ -226,9 +226,10 @@
      outline transposed — the spine runs along the bottom edge of
      each band, the tab protrudes downward, its left edge is the
      straight sloped shoulder and its right edge returns flat. */
-  function spineClipH(zt, zr, tabW) {
-    var by = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
-    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
+  function spineClipH(zt, zr, tabW, bodyW, tabLen) {
+    var bw = bodyW || BODY_W;
+    var by = (bw / (bw + (tabW || TAB_W))) * 100;
+    var sh = Math.min(TAB_SHOULDER, (tabLen || TAB_LEN) / 3);
     var pts = [];
     pts.push("0% 0%");
     pts.push("100% 0%");
@@ -262,9 +263,10 @@
      horizontal, and a concave fillet (depth TAB_NOTCH, 0 in the
      approved design) returns it to the body. Percentages are of
      the spine element (body + tab width, full height). */
-  function spineClip(zt, zb, tabW) {
-    var bx = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
-    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
+  function spineClip(zt, zb, tabW, bodyW, tabLen) {
+    var bw = bodyW || BODY_W;
+    var bx = (bw / (bw + (tabW || TAB_W))) * 100;
+    var sh = Math.min(TAB_SHOULDER, (tabLen || TAB_LEN) / 3);
     var notchX = bx + TAB_NOTCH * 4;
     function pt(p) {
       return p[0].toFixed(1) + "% " + p[1].toFixed(1) + "%";
@@ -452,8 +454,12 @@
       } else {
         img.style.top = CHEKI_PX + "px";
         img.style.left = CHEKI_PX + "px";
-        img.style.right = (portrait ? CHEKI_PX : BODY_W + CHEKI_PX) + "px";
-        img.style.bottom = (portrait ? BODY_W + CHEKI_PX : CHEKI_PX) + "px";
+        /* PC tabs run a little larger (decided 2026-11-18). */
+        var bodyW = portrait ? BODY_W : 12;
+        var tabW = portrait ? TAB_W : 14;
+        var numSize = portrait ? NUM_SIZE : 12;
+        img.style.right = (portrait ? CHEKI_PX : bodyW + CHEKI_PX) + "px";
+        img.style.bottom = (portrait ? bodyW + CHEKI_PX : CHEKI_PX) + "px";
         if (portrait) {
           img.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.35)";
         }
@@ -475,14 +481,21 @@
         inners.push(inner);
 
         var zt = TAB_TOPS[photoIdx];
-        var zb = Math.min(96, zt + TAB_LEN);
-        var tabText = isDest
-          ? "No." +
-            (photoIdx + 1 < 10 ? "0" : "") +
-            (photoIdx + 1) +
-            " - " +
-            TAB_TITLES_NICE[photoIdx]
-          : title;
+        /* Every tab always carries its "No.XX - Title" label,
+           and the tab's length follows the label's length
+           (decided 2026-11-18). */
+        var tabText =
+          "No." +
+          (photoIdx + 1 < 10 ? "0" : "") +
+          (photoIdx + 1) +
+          " - " +
+          TAB_TITLES_NICE[photoIdx];
+        var tabLenPx = tabText.length * numSize * (portrait ? 0.73 : 0.8) + 30;
+        var tabLen = Math.max(
+          16,
+          Math.min(62, (tabLenPx / (portrait ? W : H)) * 100)
+        );
+        var zb = Math.min(96, zt + tabLen);
         var spine = document.createElement("div");
         var stex = document.createElement("div");
         stex.className = "pt-tex";
@@ -499,22 +512,17 @@
           num.className = "pt-num-h";
           num.textContent = tabText;
           num.style.left = "calc(" + zt + "% + 8px)";
-          num.style.fontSize = NUM_SIZE + "px";
+          num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
-          if (isDest) {
-            /* The destination text ("No.04 - Biography") is longer
-               than the tab tongue; as a child of the panel instead
-               of the clipped spine it stays fully readable. */
-            num.style.top = "calc(100% - 2px)";
-            num.style.zIndex = 3;
-            d.appendChild(num);
-          } else {
-            spine.appendChild(num);
-            num.style.top = BODY_W - 2 + "px";
-          }
-          spine.style.height = BODY_W + TAB_W + "px";
-          spine.style.bottom = -TAB_W + "px";
-          spine.style.clipPath = spineClipH(zt, zb, TAB_W);
+          /* The "No.XX - Title" labels are longer than the tab
+             tongue; as a child of the panel instead of the
+             clipped spine the text stays fully readable. */
+          num.style.top = "calc(100% - 2px)";
+          num.style.zIndex = 3;
+          d.appendChild(num);
+          spine.style.height = bodyW + tabW + "px";
+          spine.style.bottom = -tabW + "px";
+          spine.style.clipPath = spineClipH(zt, zb, tabW, bodyW, tabLen);
         } else {
           spine.className = "pt-spine";
           spine.style.zIndex = 2;
@@ -522,15 +530,15 @@
           spine.appendChild(stex);
           num.className = "pt-num";
           num.textContent = tabText;
-          num.style.left = BODY_W - 1 + "px";
-          num.style.fontSize = NUM_SIZE + "px";
+          num.style.left = bodyW + Math.max(0, (tabW - numSize) / 2) + "px";
+          num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
           spine.appendChild(num);
-          spine.style.width = BODY_W + TAB_W + "px";
-          spine.style.right = -TAB_W + "px";
-          spine.style.clipPath = spineClip(zt, zb, TAB_W);
-          num.style.width = Math.max(TAB_W + 2, 18) + "px";
-          var titleH = tabText.length * NUM_SIZE * (isDest ? 0.62 : 1.18);
+          spine.style.width = bodyW + tabW + "px";
+          spine.style.right = -tabW + "px";
+          spine.style.clipPath = spineClip(zt, zb, tabW, bodyW, tabLen);
+          num.style.width = numSize + "px";
+          var titleH = tabText.length * numSize * 0.62;
           var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
           num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
         }

@@ -139,10 +139,10 @@
      2026-11-18): translucent dark ink with a shadowed upper
      edge and a faint lit lower edge, like a stamp pressed
      lightly into the surface. */
-  color: rgba(22, 16, 12, 0.5);
+  color: rgba(22, 16, 12, 0.7);
   text-shadow:
-    0 -1px 2px rgba(0, 0, 0, 0.35),
-    0 1px 0 rgba(255, 240, 210, 0.18);
+    0 -1px 2px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 240, 210, 0.28);
 }
 .pt-h .pt-cover-title {
   writing-mode: horizontal-tb;
