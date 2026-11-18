@@ -131,16 +131,22 @@
 }
 .pt-cover-title {
   writing-mode: vertical-rl;
-  color: #ece4d4;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 0.22em;
   white-space: nowrap;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  /* Engraved into the leather (decided 2026-11-18): black
+     darker than the leather itself so the letters read as
+     pressed into the surface, with a faint lit lower edge. */
+  color: rgba(5, 4, 3, 0.92);
+  text-shadow:
+    0 -1px 1px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 240, 210, 0.35);
 }
 .pt-h .pt-cover-title {
   writing-mode: horizontal-tb;
   font-size: 18px;
+  transform: translateY(14px);
 }
 
 .pt-spine {

@@ -50,34 +50,42 @@
      Sign per panel: -1 = from top (landscape) / left (portrait),
      +1 = from bottom / right. EXIT_BACK: exit returns to the entry
      side instead of passing through to the opposite side. */
-  var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1];
-  var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1];
+  var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   var EXIT_BACK = true;
   /* The destination page's panel is special (decided 2026-11-18):
-     it comes first in the panel order; its tab keeps its usual
-     position but is enlarged 1.75x and shows the page number
-     instead of the title; and its print becomes a leather cover
-     carrying the page title, so the centred destination title
-     is suppressed for tabbed pages. */
-  var DEST_TAB_SCALE = 1.75;
-  var DEST_NUM_SIZE = 17.5; /* px */
+     it sits directly after the brand panel; its print becomes a
+     leather cover (img/leather.svg, a photo the artist supplied)
+     carrying the page title, so the centred destination title is
+     suppressed for tabbed pages; and right after landing, the
+     panel itself — plate and image together as one set — snaps
+     wider to 1.5x while the other panels make room. The tab is
+     NOT enlarged; it reads "No.01 - Top". Every one of the nine
+     pages has a tab and a panel. */
+  var DEST_PANEL_SCALE = 1.5;
+  var SNAP_MS = 260;
   var TAB_INDEX_BY_PAGE = {
-    "gallery.html": 0,
-    "artist-statement.html": 1,
-    "biography.html": 2,
-    "information.html": 3,
-    "order.html": 4,
-    "contact.html": 5
+    "index.html": 0,
+    "gallery.html": 1,
+    "artist-statement.html": 2,
+    "biography.html": 3,
+    "information.html": 4,
+    "order.html": 6,
+    "contact.html": 7,
+    "policy.html": 8
   };
   function tabIndexFor(pathname) {
-    var name = (pathname || "").split("/").pop() || "";
+    var p = pathname || "";
+    if (p.indexOf("/exhibitions/yurayura/") !== -1) return 5;
+    var name = p.split("/").pop() || "";
+    if (name === "") return 0;
     return TAB_INDEX_BY_PAGE.hasOwnProperty(name)
       ? TAB_INDEX_BY_PAGE[name]
       : -1;
   }
 
   /* Composition (approved values). */
-  var WIDTHS = [20.5, 14, 14, 14, 14, 14, 14];
+  var WIDTHS = [20.5, 14, 14, 14, 14, 14, 14, 14, 14, 14];
   var OVERLAP_PX = 40;
   var RIGHT_BAND_PX = 66;
   var BODY_W = 10; /* spine body width, px */
@@ -85,16 +93,29 @@
   var TAB_LEN = 25; /* tab length, % of panel height */
   var TAB_SHOULDER = 1.5; /* straight shoulder slope, % */
   var TAB_NOTCH = 0; /* concave fillet depth, % (0 = none) */
-  var TAB_TOPS = [5, 15, 5, 15, 5, 15];
+  var TAB_TOPS = [5, 15, 5, 15, 5, 15, 5, 15, 5];
   var TAB_TITLES = [
+    "TOP",
     "ART INDEX",
     "ARTIST STATEMENT",
     "BIOGRAPHY",
     "INFORMATION",
+    "YURAYURA",
     "ORDER",
-    "CONTACT"
+    "CONTACT",
+    "POLICY"
   ];
-  var ARTWORKS = ["kagayaki", "kaien", "kouen", "kouka", "shinju", "souen"];
+  var TAB_TITLES_NICE = [
+    "Top",
+    "Art Index",
+    "Artist Statement",
+    "Biography",
+    "Information",
+    "Yurayura",
+    "Order",
+    "Contact",
+    "Policy"
+  ];
   var CHEKI_PX = 8; /* plate margin around the print */
   var NUM_SIZE = 10;
   var NUM_POS = 55; /* tab title anchor, px from the panel bottom area */
@@ -138,7 +159,7 @@
     basePath = "/";
   }
   function artURL(name) {
-    return base + "img/" + name + "-web.jpg";
+    return base + "img/" + name;
   }
 
   /* ---- Session flag ---- */
@@ -167,6 +188,11 @@
   /* ---- Small helpers ---- */
   function clamp01(x) {
     return x < 0 ? 0 : x > 1 ? 1 : x;
+  }
+  function easeOutBack(x) {
+    var c1 = 1.4;
+    var c3 = c1 + 1;
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
   }
   function easeOutExpo(x) {
     return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
@@ -200,9 +226,10 @@
      outline transposed — the spine runs along the bottom edge of
      each band, the tab protrudes downward, its left edge is the
      straight sloped shoulder and its right edge returns flat. */
-  function spineClipH(zt, zr, tabW) {
-    var by = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
-    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
+  function spineClipH(zt, zr, tabW, bodyW, tabLen) {
+    var bw = bodyW || BODY_W;
+    var by = (bw / (bw + (tabW || TAB_W))) * 100;
+    var sh = Math.min(TAB_SHOULDER, (tabLen || TAB_LEN) / 3);
     var pts = [];
     pts.push("0% 0%");
     pts.push("100% 0%");
@@ -230,32 +257,16 @@
     return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
   }
 
-  /* Procedural leather texture for the destination panel's cover:
-     fine grain + broad mottling over a dark brown base. A data URI
-     keeps it text-only so it can ship through the connector. */
-  function leatherURI() {
-    var grain =
-      "<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.30 0'/></filter><rect width='240' height='240' filter='url(#g)'/></svg>";
-    var mottle =
-      "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.016' numOctaves='3' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10 0 0 0 0 0.07 0 0 0 0 0.03 0 0 0 0.38 0'/></filter><rect width='300' height='300' filter='url(#m)'/></svg>";
-    return (
-      "linear-gradient(160deg, rgba(255,240,214,0.10), rgba(0,0,0,0.30) 72%), " +
-      'url("data:image/svg+xml,' +
-      encodeURIComponent(mottle) +
-      '"), url("data:image/svg+xml,' +
-      encodeURIComponent(grain) +
-      '"), linear-gradient(#2c241c, #231c15)'
-    );
-  }
 
   /* Spine outline: the tab leaves the body's right edge with a
      straight sloped shoulder at the top, its bottom edge is
      horizontal, and a concave fillet (depth TAB_NOTCH, 0 in the
      approved design) returns it to the body. Percentages are of
      the spine element (body + tab width, full height). */
-  function spineClip(zt, zb, tabW) {
-    var bx = (BODY_W / (BODY_W + (tabW || TAB_W))) * 100;
-    var sh = Math.min(TAB_SHOULDER, TAB_LEN / 3);
+  function spineClip(zt, zb, tabW, bodyW, tabLen) {
+    var bw = bodyW || BODY_W;
+    var bx = (bw / (bw + (tabW || TAB_W))) * 100;
+    var sh = Math.min(TAB_SHOULDER, (tabLen || TAB_LEN) / 3);
     var notchX = bx + TAB_NOTCH * 4;
     function pt(p) {
       return p[0].toFixed(1) + "% " + p[1].toFixed(1) + "%";
@@ -295,6 +306,30 @@
      converted to pixels: the distance that puts each band fully
      below the viewport's bottom edge. */
   var portOffsets = null;
+  var centerJobs = [];
+  var layoutState = null;
+  function relayout(destScale) {
+    if (!layoutState || !panels.length) return;
+    var st = layoutState;
+    var sumW = 0;
+    var i;
+    for (i = 0; i < st.shares.length; i++) {
+      sumW += st.shares[i] * (i === st.destPos ? destScale : 1);
+    }
+    var left = 0;
+    for (i = 0; i < panels.length; i++) {
+      var colW =
+        (st.sumPx * st.shares[i] * (i === st.destPos ? destScale : 1)) / sumW;
+      if (st.portrait) {
+        panels[i].style.top = left + "px";
+        panels[i].style.height = colW + "px";
+      } else {
+        panels[i].style.left = left + "px";
+        panels[i].style.width = colW + "px";
+      }
+      left += colW - OVERLAP_PX;
+    }
+  }
   var destEl = null;
   var destTextEl = null;
   var rafId = 0;
@@ -336,10 +371,9 @@
 
     var grad = ironGradient(portrait);
     var tex = noiseURI();
-    var leather = leatherURI();
     var wrapW = portrait ? H - RIGHT_BAND_PX : W - RIGHT_BAND_PX;
-    /* Panel order: the destination page's panel comes first,
-       then the brand panel, then the rest (decided 2026-11-18). */
+    /* Panel order: brand panel first, the destination page's
+       panel directly after it, then the rest (decided 2026-11-18). */
     var items = [{ kind: "brand", idx: -1, share: WIDTHS[0] }];
     var kk;
     for (kk = 0; kk < TAB_TITLES.length; kk++) {
@@ -352,14 +386,25 @@
         if (it.kind === "art" && it.idx === destIdx) destItem = it;
         else restItems.push(it);
       });
-      if (destItem) items = [destItem].concat(restItems);
+      if (destItem && restItems.length) {
+        items = [restItems[0], destItem].concat(restItems.slice(1));
+      }
     }
     var sumW = 0;
     var i;
     for (i = 0; i < items.length; i++) sumW += items[i].share;
     var sumPx = wrapW + OVERLAP_PX * (items.length - 1);
+    layoutState = {
+      portrait: portrait,
+      sumPx: sumPx,
+      shares: items.map(function (it) {
+        return it.share;
+      }),
+      destPos: destIdx >= 0 ? 1 : -1
+    };
     panels = [];
     inners = [];
+    centerJobs = [];
     portOffsets = portrait ? [] : null;
     var left = 0;
 
@@ -411,36 +456,48 @@
       } else {
         img.style.top = CHEKI_PX + "px";
         img.style.left = CHEKI_PX + "px";
-        img.style.right = (portrait ? CHEKI_PX : BODY_W + CHEKI_PX) + "px";
-        img.style.bottom = (portrait ? BODY_W + CHEKI_PX : CHEKI_PX) + "px";
+        /* PC tabs run a little larger (decided 2026-11-18). */
+        var bodyW = portrait ? BODY_W : 12;
+        var tabW = portrait ? TAB_W : 14;
+        var numSize = portrait ? NUM_SIZE : 12;
+        img.style.right = (portrait ? CHEKI_PX : bodyW + CHEKI_PX) + "px";
+        img.style.bottom = (portrait ? bodyW + CHEKI_PX : CHEKI_PX) + "px";
+        if (portrait) {
+          img.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.35)";
+        }
         var photoIdx = item.idx;
         var isDest = photoIdx === destIdx;
         var title = TAB_TITLES[photoIdx] || "";
+        if (isDest) img.style.borderRadius = "0px";
         var inner = document.createElement("div");
-        if (isDest) {
-          inner.className = "pt-inner pt-cover";
-          inner.style.backgroundImage = leather;
-          inner.style.backgroundSize = "cover, 300px 300px, 240px 240px, cover";
-          inner.style.backgroundRepeat = "no-repeat, repeat, repeat, no-repeat";
-          inner.style.backgroundColor = "#261f19";
-          var coverTitle = document.createElement("div");
-          coverTitle.className = "pt-cover-title";
-          coverTitle.textContent = title;
-          inner.appendChild(coverTitle);
-        } else {
-          inner.className = "pt-inner";
-          inner.style.backgroundImage = 'url("' + artURL(ARTWORKS[photoIdx]) + '")';
-        }
+        /* Every panel uses the same leather image (decided
+           2026-11-18), with its page title engraved on it. */
+        inner.className = "pt-inner pt-cover";
+        inner.style.backgroundImage = 'url("' + artURL("leather.svg") + '")';
+        inner.style.backgroundColor = "#17130f";
+        var coverTitle = document.createElement("div");
+        coverTitle.className = "pt-cover-title";
+        coverTitle.textContent = title;
+        inner.appendChild(coverTitle);
         img.appendChild(inner);
         inners.push(inner);
 
-        var tabScale = isDest ? DEST_TAB_SCALE : 1;
-        var tabW2 = TAB_W * tabScale;
         var zt = TAB_TOPS[photoIdx];
-        var zb = Math.min(96, zt + TAB_LEN * tabScale);
-        var tabText = isDest
-          ? (photoIdx + 1 < 10 ? "0" : "") + (photoIdx + 1)
-          : title;
+        /* Every tab always carries its "No.XX - Title" label,
+           and the tab's length follows the label's length
+           (decided 2026-11-18). */
+        var tabText =
+          "No." +
+          (photoIdx + 1 < 10 ? "0" : "") +
+          (photoIdx + 1) +
+          " - " +
+          TAB_TITLES_NICE[photoIdx];
+        var tabLenPx = tabText.length * numSize * (portrait ? 0.73 : 0.8) + 30;
+        var tabLen = Math.max(
+          16,
+          Math.min(62, (tabLenPx / (portrait ? W : H)) * 100)
+        );
+        var zb = Math.min(96, zt + tabLen);
         var spine = document.createElement("div");
         var stex = document.createElement("div");
         stex.className = "pt-tex";
@@ -449,9 +506,6 @@
         var num = document.createElement("div");
         if (portrait) {
           spine.className = "pt-spine-h";
-          spine.style.height = BODY_W + tabW2 + "px";
-          spine.style.bottom = -tabW2 + "px";
-          spine.style.clipPath = spineClipH(zt, zb, tabW2);
           spine.style.left = "0px";
           spine.style.width = "100%";
           spine.style.zIndex = 2;
@@ -459,30 +513,45 @@
           spine.appendChild(stex);
           num.className = "pt-num-h";
           num.textContent = tabText;
+          /* Centred in the tab on both axes (decided 2026-11-18):
+             the horizontal centre is set exactly after layout
+             (see centerJobs below); vertically it sits at the
+             middle of the spine strip. As a child of the panel
+             instead of the clipped spine, long labels stay
+             fully readable. */
           num.style.left = "calc(" + zt + "% + 8px)";
-          num.style.top = (isDest ? BODY_W : BODY_W - 2) + "px";
-          num.style.fontSize = (isDest ? DEST_NUM_SIZE : NUM_SIZE) + "px";
+          centerJobs.push({ num: num, zt: zt, zb: zb, portrait: true });
+          num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
-          spine.appendChild(num);
+          num.style.top = "calc(100% - 5px)";
+          num.style.zIndex = 3;
+          d.appendChild(num);
+          spine.style.height = bodyW + tabW + "px";
+          spine.style.bottom = -tabW + "px";
+          spine.style.clipPath = spineClipH(zt, zb, tabW, bodyW, tabLen);
         } else {
           spine.className = "pt-spine";
-          spine.style.width = BODY_W + tabW2 + "px";
-          spine.style.right = -tabW2 + "px";
           spine.style.zIndex = 2;
           spine.style.background = grad;
-          spine.style.clipPath = spineClip(zt, zb, tabW2);
           spine.appendChild(stex);
           num.className = "pt-num";
           num.textContent = tabText;
-          num.style.left = (isDest ? BODY_W - 6 : BODY_W - 1) + "px";
-          num.style.width = Math.max(tabW2 + 2, 18) + "px";
-          var numSize = isDest ? DEST_NUM_SIZE : NUM_SIZE;
+          /* The box is centred on the spine, minus 3px: in
+             vertical writing the glyph ink itself sits about
+             3px right of the box centre (measured 2026-11-18),
+             which made the label look right-shifted. */
+          num.style.left = (bodyW + tabW - numSize) / 2 - 3 + "px";
           num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
-          var titleH = tabText.length * numSize * (isDest ? 0.72 : 1.18);
-          var titleBottom = (zb / 100) * H - Math.max(4, NUM_POS - 43);
-          num.style.top = Math.max(4, Math.round(titleBottom - titleH)) + "px";
           spine.appendChild(num);
+          spine.style.width = bodyW + tabW + "px";
+          spine.style.right = -tabW + "px";
+          spine.style.clipPath = spineClip(zt, zb, tabW, bodyW, tabLen);
+          num.style.width = numSize + "px";
+          /* The label is centred in the tab on both axes
+             (decided 2026-11-18); its exact position is set
+             after layout via centerJobs below. */
+          centerJobs.push({ num: num, zt: zt, zb: zb, portrait: false });
         }
         d.appendChild(spine);
       }
@@ -491,7 +560,7 @@
         var shade = document.createElement("div");
         if (portrait) {
           shade.className = "pt-shade-h";
-          shade.style.top = OVERLAP_PX + TAB_W + "px";
+          shade.style.top = OVERLAP_PX + "px";
         } else {
           shade.className = "pt-shade";
           shade.style.left = OVERLAP_PX + "px";
@@ -520,6 +589,20 @@
     overlay.appendChild(destEl);
 
     document.documentElement.appendChild(overlay);
+    /* Centre each tab label exactly, using its measured size:
+       horizontally/vertically at the middle of the tab. */
+    centerJobs.forEach(function (job) {
+      if (job.portrait) {
+        var nw = job.num.getBoundingClientRect().width;
+        job.num.style.left =
+          Math.round((((job.zt + job.zb) / 2) / 100) * W - nw / 2) + "px";
+      } else {
+        var nh = job.num.getBoundingClientRect().height;
+        var tabCentre = (((job.zt + job.zb) / 2) / 100) * H;
+        job.num.style.top =
+          Math.max(4, Math.round(tabCentre - nh / 2)) + "px";
+      }
+    });
     return overlay;
   }
 
@@ -623,18 +706,23 @@
     if (destEl) destEl.style.opacity = "1";
     var outTotal = OUT_MS + (n - 1) * OUT_STAGGER_MS;
     var t0 = null;
-    var startAt = null;
     function step(now) {
       if (t0 === null) t0 = now;
-      if (startAt === null) {
-        startAt = now + HOLD_MS;
+      var el = now - t0;
+      /* Right after landing, the destination panel (plate and
+         image as one set) snaps wider (decided 2026-11-18) with
+         a short overshoot, then settles during the hold. The
+         tab itself is not enlarged. */
+      if (layoutState && layoutState.destPos >= 0) {
+        var sp = clamp01(el / SNAP_MS);
+        relayout(1 + (DEST_PANEL_SCALE - 1) * easeOutBack(sp));
       }
-      var el = now - startAt;
-      if (el >= 0) {
+      var outEl = el - SNAP_MS - HOLD_MS;
+      if (outEl >= 0) {
         for (var j = 0; j < n; j++) {
           var dir = curDirs[j];
           var es = EXIT_BACK ? dir : -dir;
-          var lo = el - j * OUT_STAGGER_MS;
+          var lo = outEl - j * OUT_STAGGER_MS;
           if (lo < 0) {
             setPanel(j, 0, 0);
           } else if (lo < OUT_MS) {
@@ -645,10 +733,10 @@
           }
         }
         if (destEl) {
-          destEl.style.opacity = 1 - clamp01((el + 40) / 200);
+          destEl.style.opacity = 1 - clamp01((outEl + 40) / 200);
         }
       }
-      if (el >= outTotal) {
+      if (outEl >= outTotal) {
         rafId = 0;
         removeOverlay();
         return;
@@ -714,10 +802,8 @@
      so a later click finds it in cache. */
   window.addEventListener("load", function () {
     window.setTimeout(function () {
-      ARTWORKS.forEach(function (name) {
-        var im = new Image();
-        im.src = artURL(name);
-      });
+      var lim = new Image();
+      lim.src = artURL("leather.svg");
     }, 1600);
   });
 
