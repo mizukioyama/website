@@ -123,6 +123,25 @@
   opacity: 0.6;
   will-change: transform;
 }
+.pt-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.95;
+}
+.pt-cover-title {
+  writing-mode: vertical-rl;
+  color: #ece4d4;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+}
+.pt-h .pt-cover-title {
+  writing-mode: horizontal-tb;
+  font-size: 18px;
+}
 
 .pt-spine {
   position: absolute;
@@ -203,9 +222,6 @@
   background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(0, 0, 0, 0.05) 1px 2px, transparent 2px 5px);
 }
 
-.pt-spine-top {
-  filter: drop-shadow(0 -4px 5px rgba(8, 9, 11, 0.7));
-}
 
 .pt-num-h {
   position: absolute;
