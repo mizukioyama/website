@@ -629,6 +629,29 @@ body:has(#modalBox[style*="display: block"]) {
   .home .site-frame .frame-light { display: block; }
   .home .site-frame .frame-dark { display: none; }
 
+  /* The brand and the language switch sit centred, both
+     ways, in the frame's top-left rectangle (342x128 of
+     1440x900, the same ratios as the frame SVG). The nav
+     is fixed in the right rectangle, so only these two
+     remain in the inner flow. */
+  #header-container .header-inner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 23.75vw;
+    height: 14.22dvh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  /* The grid layout above gives the language switch
+     align-self: start, which would keep it on the left
+     edge of the rectangle instead of centred. */
+  #header-container header #langChange { align-self: center; }
+
   /* The nav moves into the frame's right rectangle. Its
      position and size use the same ratios as the frame SVG
      (block: x 1350-1440 of 1440, y 60-780 of 900), so the
