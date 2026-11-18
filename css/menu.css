@@ -542,23 +542,24 @@ body:has(#modalBox[style*="display: block"]) {
 }
 
 /* === Curved header bar (2026-11-18, design A: deep curve) ===
-   The bar's bottom edge dips down on the left and sweeps up in
-   a smooth curve, painted as an SVG layer behind the content.
-   It replaces the straight gradient and the nav hairline. */
-#header-container header::before {
-  content: "";
+   The bar is an inline SVG in the shared header component
+   (.header-bar); this CSS only positions it and switches the
+   dark/light variant. The curve shape and its inset shadow
+   live in the SVG: the shadow is clipped to the bar shape
+   inside the filter, so it stays fully inside the bar. */
+.header-bar {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 118px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-5%' y='-5%' width='110%' height='110%' color-interpolation-filters='sRGB'%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-10' result='u1'/%3E%3CfeComposite in='SourceAlpha' in2='u1' operator='out' result='b1'/%3E%3CfeGaussianBlur in='b1' stdDeviation='5' result='bb1'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.85' result='f1'/%3E%3CfeComposite in='f1' in2='bb1' operator='in' result='rim'/%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-22' result='u2'/%3E%3CfeComposite in='SourceAlpha' in2='u2' operator='out' result='b2'/%3E%3CfeGaussianBlur in='b2' stdDeviation='12' result='bb2'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.45' result='f2'/%3E%3CfeComposite in='f2' in2='bb2' operator='in' result='shd'/%3E%3CfeMerge%3E%3CfeMergeNode in='SourceGraphic'/%3E%3CfeMergeNode in='shd'/%3E%3CfeMergeNode in='rim'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%23222527' filter='url%28%23r%29'/%3E%3C/svg%3E") no-repeat left top / 100% 100%;
   z-index: -1;
   pointer-events: none;
+  display: block;
 }
-.home #header-container header::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-5%' y='-5%' width='110%' height='110%' color-interpolation-filters='sRGB'%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-7' result='u7'/%3E%3CfeComposite in='SourceAlpha' in2='u7' operator='out' result='b1'/%3E%3CfeGaussianBlur in='b1' stdDeviation='4' result='bb1'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.30' result='f1'/%3E%3CfeComposite in='f1' in2='bb1' operator='in' result='rim'/%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-18' result='u18'/%3E%3CfeComposite in='SourceAlpha' in2='u18' operator='out' result='b2'/%3E%3CfeGaussianBlur in='b2' stdDeviation='10' result='bb2'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.14' result='f2'/%3E%3CfeComposite in='f2' in2='bb2' operator='in' result='shd'/%3E%3CfeMerge%3E%3CfeMergeNode in='SourceGraphic'/%3E%3CfeMergeNode in='shd'/%3E%3CfeMergeNode in='rim'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%23e1e1dc' filter='url%28%23r%29'/%3E%3C/svg%3E");
-}
+.header-bar .header-bar-light { display: none; }
+.home .header-bar .header-bar-light { display: block; }
+.home .header-bar .header-bar-dark { display: none; }
 @media screen and (min-width: 1024px) {
   #header-container header { background: none; }
   .home #header-container header { background: none; }
@@ -566,23 +567,13 @@ body:has(#modalBox[style*="display: block"]) {
 }
 @media screen and (max-width: 1023px) {
   /* On small screens the header box itself has no size, so the
-     bar is a fixed layer on the wrapper instead. It sits below
+     bar is fixed to the viewport top instead. It sits below
      the language switch (999), the menu overlay (1000) and the
      toggle button (1002); the brand link is lifted above it. */
-  #header-container header::before { display: none; }
-  #header-container::before {
-    content: "";
+  .header-bar {
     position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
     height: 96px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-5%' y='-5%' width='110%' height='110%' color-interpolation-filters='sRGB'%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-10' result='u1'/%3E%3CfeComposite in='SourceAlpha' in2='u1' operator='out' result='b1'/%3E%3CfeGaussianBlur in='b1' stdDeviation='5' result='bb1'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.85' result='f1'/%3E%3CfeComposite in='f1' in2='bb1' operator='in' result='rim'/%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-22' result='u2'/%3E%3CfeComposite in='SourceAlpha' in2='u2' operator='out' result='b2'/%3E%3CfeGaussianBlur in='b2' stdDeviation='12' result='bb2'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.45' result='f2'/%3E%3CfeComposite in='f2' in2='bb2' operator='in' result='shd'/%3E%3CfeMerge%3E%3CfeMergeNode in='SourceGraphic'/%3E%3CfeMergeNode in='shd'/%3E%3CfeMergeNode in='rim'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%23222527' filter='url%28%23r%29'/%3E%3C/svg%3E") no-repeat left top / 100% 100%;
     z-index: 998;
-    pointer-events: none;
-  }
-  .home #header-container::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 118' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-5%' y='-5%' width='110%' height='110%' color-interpolation-filters='sRGB'%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-7' result='u7'/%3E%3CfeComposite in='SourceAlpha' in2='u7' operator='out' result='b1'/%3E%3CfeGaussianBlur in='b1' stdDeviation='4' result='bb1'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.30' result='f1'/%3E%3CfeComposite in='f1' in2='bb1' operator='in' result='rim'/%3E%3CfeOffset in='SourceAlpha' dx='0' dy='-18' result='u18'/%3E%3CfeComposite in='SourceAlpha' in2='u18' operator='out' result='b2'/%3E%3CfeGaussianBlur in='b2' stdDeviation='10' result='bb2'/%3E%3CfeFlood flood-color='%23000000' flood-opacity='0.14' result='f2'/%3E%3CfeComposite in='f2' in2='bb2' operator='in' result='shd'/%3E%3CfeMerge%3E%3CfeMergeNode in='SourceGraphic'/%3E%3CfeMergeNode in='shd'/%3E%3CfeMergeNode in='rim'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 0H1440V72H612C505 72 472 118 336 118H0Z' fill='%23e1e1dc' filter='url%28%23r%29'/%3E%3C/svg%3E");
   }
   #header-container .head a { z-index: 1001; }
 }
