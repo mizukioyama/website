@@ -1231,21 +1231,28 @@ main {
 #state.statement .work > p.state-txt { padding-bottom: 2vmin; }
 #state.statement .work > p.text + p:not(.text) { margin-top: clamp(2rem, 6vmin, 4rem); }
 
-/* On PC, main sits inside the site frame: it is inset by
-   the frame's edge thickness (40px at the 1440x900 design
+/* Main sits inside the site frame: it is inset by the
+   frame's edge thickness (40px at the 1440x900 design
    size, expressed as viewport ratios) so its backdrop blur
    and inset shadow follow the frame's inner outline
    instead of running full-bleed underneath the frame,
    where the frame's shadow fell on blurred backdrop and
-   looked doubly soft. The frame is PC-only, and the
-   frame's opaque fill covers the overlaps at the
-   top-left zone and the right band. Placed last so it
-   also overrides the width:100% on .art-page main.gallery
-   in the >=600px block above. */
-@media screen and (min-width: 1024px) {
+   looked doubly soft. The frame's opaque fill covers the
+   overlaps at the top-left zone and the right band.
+   Placed last so it also overrides the width:100% on
+   .art-page main.gallery in the >=600px block above. */
+@media screen and (min-width: 768px) {
   main,
   .art-page main.gallery {
     width: auto;
     margin: 4.44dvh 2.78vw;
+  }
+}
+/* Small screens: the SP frame's edge (10 of 390x844). */
+@media screen and (max-width: 767px) {
+  main,
+  .art-page main.gallery {
+    width: auto;
+    margin: 1.18dvh 2.56vw;
   }
 }
