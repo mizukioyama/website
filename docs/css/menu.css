@@ -617,8 +617,15 @@ body:has(#modalBox[style*="display: block"]) {
     height: 100dvh;
     z-index: -1;
     pointer-events: none;
+    /* The frame's shadow: a drop-shadow follows the frame
+       shape's alpha, so it falls along the inner contour
+       into the page with a uniform screen-space blur
+       (replaces the in-SVG blurred strokes, whose blur
+       stretched unevenly with the viewport). */
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));
   }
   .site-frame .frame-light { display: none; }
+  .home .site-frame { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5)); }
   .home .site-frame .frame-light { display: block; }
   .home .site-frame .frame-dark { display: none; }
 
@@ -745,11 +752,16 @@ body:has(#modalBox[style*="display: block"]) {
       inset 0 10px 12px -10px rgba(0, 0, 0, 0.22),
       inset 0 -10px 12px -10px rgba(0, 0, 0, 0.22);
   }
-  /* The label's underline sits on the tab's bottom edge:
-     its left end and width match the tab background
+  /* The label's underline sits on the tab's bottom edge
+     and spans the tab's width, matching the tab background
      (the shared style offsets it by -10px and grows it to
-     110% of the text, which suited the old text-only nav). */
-  #navArea .nav-label::before { left: 0; }
+     110% of the text, which suited the old text-only nav).
+     It is anchored to the right, like the tab itself, so
+     on hover it grows leftward from the right edge instead
+     of rightward from the bottom-left corner, which made
+     the tab and the line look as if they spread out from
+     the centre in both directions. */
+  #navArea .nav-label::before { left: auto; right: 0; }
   #navArea a:is(:hover, :focus-visible) > .nav-label::before,
   #navArea a[aria-current="page"] > .nav-label::before { width: 100%; }
   @media (prefers-reduced-motion: reduce) {

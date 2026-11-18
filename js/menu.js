@@ -53,25 +53,18 @@ const HEADER_MARKUP = `
        >=1024px and hides the top bar there). A thin frame
        around the whole viewport; the top-left rectangle wraps
        the brand and language switch, and a rectangle on the
-       right wraps the global menu. The inset shadow is the
-       inner contour stroked and clipped inside the frame. -->
+       right wraps the global menu. The frame is a flat fill;
+       its shadow is a CSS drop-shadow on the SVG element
+       (menu.css), which follows the inner contour with a
+       uniform screen-space blur. (The previous in-SVG
+       blurred strokes stretched unevenly with the viewport
+       and looked blotchy.) -->
   <svg class="site-frame" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <defs>
-      <clipPath id="frameClip"><path fill-rule="evenodd" d="M0 0H1440V900H0Z M40 860H1400V780H1350V60H1400V40H342V128H40Z"/></clipPath>
-    </defs>
     <g class="frame-dark">
-      <path fill-rule="evenodd" fill="#222527" d="M0 0H1440V900H0Z M40 860H1400V780H1350V60H1400V40H342V128H40Z"/>
-      <g clip-path="url(#frameClip)">
-        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.18" style="filter: blur(10px)"/>
-        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.48" style="filter: blur(5px)"/>
-      </g>
+      <path fill-rule="evenodd" fill="#222527" d="M0 0H1440V900H0Z M40.0 846.0L40.5 849.6L41.9 853.0L44.1 855.9L47.0 858.1L50.4 859.5L54.0 860.0L1386.0 860.0L1389.6 859.5L1393.0 858.1L1395.9 855.9L1398.1 853.0L1399.5 849.6L1400.0 846.0L1400.0 794.0L1399.5 790.4L1398.1 787.0L1395.9 784.1L1393.0 781.9L1389.6 780.5L1386.0 780.0L1375.0 780.0L1368.5 779.1L1362.5 776.7L1357.3 772.7L1353.3 767.5L1350.9 761.5L1350.0 755.0L1350.0 85.0L1350.9 78.5L1353.3 72.5L1357.3 67.3L1362.5 63.3L1368.5 60.9L1375.0 60.0L1396.0 60.0L1397.0 59.9L1398.0 59.5L1398.8 58.8L1399.5 58.0L1399.9 57.0L1400.0 56.0L1400.0 44.0L1399.9 43.0L1399.5 42.0L1398.8 41.2L1398.0 40.5L1397.0 40.1L1396.0 40.0L356.0 40.0L352.4 40.5L349.0 41.9L346.1 44.1L343.9 47.0L342.5 50.4L342.0 54.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L54.0 128.0L50.4 128.5L47.0 129.9L44.1 132.1L41.9 135.0L40.5 138.4L40.0 142.0Z"/>
     </g>
     <g class="frame-light">
-      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H1440V900H0Z M40 860H1400V780H1350V60H1400V40H342V128H40Z"/>
-      <g clip-path="url(#frameClip)">
-        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="26" opacity="0.08" style="filter: blur(10px)"/>
-        <path d="M40 860H1400V780H1350V60H1400V40H342V128H40Z" fill="none" stroke="#000000" stroke-width="12" opacity="0.25" style="filter: blur(5px)"/>
-      </g>
+      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H1440V900H0Z M40.0 846.0L40.5 849.6L41.9 853.0L44.1 855.9L47.0 858.1L50.4 859.5L54.0 860.0L1386.0 860.0L1389.6 859.5L1393.0 858.1L1395.9 855.9L1398.1 853.0L1399.5 849.6L1400.0 846.0L1400.0 794.0L1399.5 790.4L1398.1 787.0L1395.9 784.1L1393.0 781.9L1389.6 780.5L1386.0 780.0L1375.0 780.0L1368.5 779.1L1362.5 776.7L1357.3 772.7L1353.3 767.5L1350.9 761.5L1350.0 755.0L1350.0 85.0L1350.9 78.5L1353.3 72.5L1357.3 67.3L1362.5 63.3L1368.5 60.9L1375.0 60.0L1396.0 60.0L1397.0 59.9L1398.0 59.5L1398.8 58.8L1399.5 58.0L1399.9 57.0L1400.0 56.0L1400.0 44.0L1399.9 43.0L1399.5 42.0L1398.8 41.2L1398.0 40.5L1397.0 40.1L1396.0 40.0L356.0 40.0L352.4 40.5L349.0 41.9L346.1 44.1L343.9 47.0L342.5 50.4L342.0 54.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L54.0 128.0L50.4 128.5L47.0 129.9L44.1 132.1L41.9 135.0L40.5 138.4L40.0 142.0Z"/>
     </g>
   </svg>
   <div class="header-inner">
