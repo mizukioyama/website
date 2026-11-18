@@ -595,11 +595,11 @@ body:has(#modalBox[style*="display: block"]) {
   .home #header-container header #langChange .en { color: var(--text); }
 }
 @media screen and (max-width: 1023px) {
-  /* Centre of the bar's protruding lobe, as on PC: on SP the
-     lobe spans x 0..166 / y 59..96, centre (83, 78); the
-     100x44 switch therefore sits at (33, 56). */
-  #langChange { top: 56px; left: 33px; transform: none; }
-  .home #langChange { top: 56px; left: 33px; transform: none; }
+  /* The Ja glyph aligned with the M of the brand (x 27 on
+     SP): the glyph starts 15px inside the switch box, so the
+     box sits at left 12. Vertically centred in the lobe. */
+  #langChange { top: 56px; left: 12px; transform: none; }
+  .home #langChange { top: 56px; left: 12px; transform: none; }
   #langChange .ja, #langChange .en { color: var(--inv); }
   .home #langChange .ja, .home #langChange .en { color: var(--text); }
 }
