@@ -664,69 +664,88 @@ body:has(#modalBox[style*="display: block"]) {
     min-height: 27px;
     box-sizing: border-box;
   }
+  /* The nav anchors clip their contents (overflow: hidden
+     from the shared styles), which would cut the widening
+     tab off at the band's edge; free them in frame mode. */
+  #header-container #navArea .inner li a { overflow: visible; }
   #navArea .nav-initial {
     display: block;
     font-size: 15px;
     letter-spacing: 0;
+    transition: opacity 0.2s ease;
   }
-  /* The full label stays available to assistive tech and
-     appears on hover/focus, right-aligned in the row and
-     extending left past the rectangle when longer. */
+  /* The full label is a tab the width of the band (120px),
+     transparent over the band, so only the initial shows.
+     On hover/focus the tab itself widens to 200px while its
+     colour, inset shadow and text fade in, so the band is
+     seen to grow at that row; leaving reverses the motion.
+     While shown, the tab takes pointer events so moving
+     onto it does not drop the hover state. The text stays
+     available to assistive tech (transparent, not clipped).
+     All current labels fit inside the 200px tab. */
   #navArea .nav-label {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-  #navArea .inner li a:hover .nav-initial,
-  #navArea .inner li a:focus-visible .nav-initial { display: none; }
-  /* On hover/focus the band widens at that row only: the
-     full label sits in a tab of the frame colour extending
-     left from the band, with the frame's inset shadow
-     reproduced on its exposed edges. */
-  #navArea .inner li a:hover .nav-label,
-  #navArea .inner li a:focus-visible .nav-label {
-    left: auto;
     right: 0;
-    max-width: none;
     top: 50%;
     transform: translateY(-50%);
-    width: auto;
+    width: 120px;
+    max-width: none;
     height: auto;
-    overflow: visible;
+    /* Clipped to the tab, so as the tab widens the text is
+       uncovered from right to left. */
+    overflow: hidden;
     clip-path: none;
+    padding: 18px 36px;
+    box-sizing: border-box;
     font-size: 11px;
     letter-spacing: 0.14em;
-    padding: 18px 36px;
-    /* Every tab widens to at least 200px (the band is 120px),
-       so even short labels extend past the band. */
-    min-width: 200px;
-    box-sizing: border-box;
+    white-space: nowrap;
     text-align: right;
-    background: #222527;
+    color: transparent;
+    background-color: transparent;
+    box-shadow:
+      inset 10px 0 14px -8px rgba(0, 0, 0, 0),
+      inset 0 10px 12px -10px rgba(0, 0, 0, 0),
+      inset 0 -10px 12px -10px rgba(0, 0, 0, 0);
+    pointer-events: none;
+    transition:
+      width 0.3s ease,
+      background-color 0.3s ease,
+      box-shadow 0.3s ease,
+      color 0.25s ease;
+    z-index: 5;
+  }
+  #navArea .inner li a:hover .nav-initial,
+  #navArea .inner li a:focus-visible .nav-initial { opacity: 0; }
+  #navArea .inner li a:hover .nav-label,
+  #navArea .inner li a:focus-visible .nav-label {
+    width: 200px;
+    color: inherit;
+    background-color: #222527;
     box-shadow:
       inset 10px 0 14px -8px rgba(0, 0, 0, 0.6),
       inset 0 10px 12px -10px rgba(0, 0, 0, 0.55),
       inset 0 -10px 12px -10px rgba(0, 0, 0, 0.55);
-    animation: frame-tab-in 0.25s ease;
-    z-index: 5;
+    pointer-events: auto;
   }
   .home #navArea .inner li a:hover .nav-label,
   .home #navArea .inner li a:focus-visible .nav-label {
-    background: #e1e1dc;
+    background-color: #e1e1dc;
     box-shadow:
       inset 10px 0 14px -8px rgba(0, 0, 0, 0.28),
       inset 0 10px 12px -10px rgba(0, 0, 0, 0.22),
       inset 0 -10px 12px -10px rgba(0, 0, 0, 0.22);
   }
-  @keyframes frame-tab-in {
-    from { opacity: 0; transform: translateY(-50%) translateX(12px); }
-  }
+  /* The label's underline sits on the tab's bottom edge:
+     its left end and width match the tab background
+     (the shared style offsets it by -10px and grows it to
+     110% of the text, which suited the old text-only nav). */
+  #navArea .nav-label::before { left: 0; }
+  #navArea a:is(:hover, :focus-visible) > .nav-label::before,
+  #navArea a[aria-current="page"] > .nav-label::before { width: 100%; }
   @media (prefers-reduced-motion: reduce) {
-    #navArea .inner li a:hover .nav-label,
-    #navArea .inner li a:focus-visible .nav-label { animation: none; }
+    #navArea .nav-label,
+    #navArea .nav-initial { transition: none; }
   }
 
   /* Scroll-compact is disabled for the frame menu. */
