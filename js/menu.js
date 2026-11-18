@@ -630,7 +630,10 @@ function initializeMenu() {
 
   if (!btn || !nav || btn.dataset.menuBound === 'true') return;
 
-  const desktop = window.matchMedia('(min-width: 1024px)');
+  /* The frame menu is permanent at every width since
+     2026-11-19 (the drawer was retired), so the "desktop"
+     branch — permanent nav, no toggle — always applies. */
+  const desktop = window.matchMedia('(min-width: 0px)');
   const panel = nav.querySelector('nav');
   const normalizePath = value => new URL(value, location.href).pathname.replace(/index\.html$/, '').replace(/\/$/, '');
   const currentPath = normalizePath(location.href);

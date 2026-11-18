@@ -327,20 +327,20 @@
   }
 }
 
-/* === Transition inside the site frame (PC, 2026-11-18) ===
-   At >=1024px the site frame (see css/menu.css) surrounds the
-   page. Mask the overlay to the frame's inner contour — the
-   same arc-sampled path as the frame SVG's hole, stretched
-   with the viewport exactly like the frame — so the panels
-   play inside the frame and the frame, brand and menu stay
-   visible around them. The overlay is a child of <html>
-   while the header lives in the isolated <body> stacking
-   context, so no z-index on the header could lift it above
-   the overlay; masking the overlay itself is the reliable
-   side to change. Below 1024px there is no frame and the
-   overlay keeps covering the whole screen. */
-@media screen and (min-width: 1024px) {
-  .page-transition-overlay {
+/* === Transition inside the site frame (2026-11-18; all
+   widths since 2026-11-19) ===
+   The site frame (see css/menu.css) surrounds the page at
+   every width. Mask the overlay to the frame's inner
+   contour — the same arc-sampled path as the frame SVG's
+   hole, stretched with the viewport exactly like the
+   frame — so the panels play inside the frame and the
+   frame, brand and menu stay visible around them. The
+   overlay is a child of <html> while the header lives in
+   the isolated <body> stacking context, so no z-index on
+   the header could lift it above the overlay; masking the
+   overlay itself is the reliable side to change. The
+   contour is the one frame geometry used at every width. */
+.page-transition-overlay {
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cpath d='M40.0 846.0L40.5 849.6L41.9 853.0L44.1 855.9L47.0 858.1L50.4 859.5L54.0 860.0L1386.0 860.0L1389.6 859.5L1393.0 858.1L1395.9 855.9L1398.1 853.0L1399.5 849.6L1400.0 846.0L1400.0 794.0L1399.5 790.4L1398.1 787.0L1395.9 784.1L1393.0 781.9L1389.6 780.5L1386.0 780.0L1375.0 780.0L1368.5 779.1L1362.5 776.7L1357.3 772.7L1353.3 767.5L1350.9 761.5L1350.0 755.0L1350.0 85.0L1350.9 78.5L1353.3 72.5L1357.3 67.3L1362.5 63.3L1368.5 60.9L1375.0 60.0L1396.0 60.0L1397.0 59.9L1398.0 59.5L1398.8 58.8L1399.5 58.0L1399.9 57.0L1400.0 56.0L1400.0 44.0L1399.9 43.0L1399.5 42.0L1398.8 41.2L1398.0 40.5L1397.0 40.1L1396.0 40.0L356.0 40.0L352.4 40.5L349.0 41.9L346.1 44.1L343.9 47.0L342.5 50.4L342.0 54.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L54.0 128.0L50.4 128.5L47.0 129.9L44.1 132.1L41.9 135.0L40.5 138.4L40.0 142.0Z' fill='%23fff'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cpath d='M40.0 846.0L40.5 849.6L41.9 853.0L44.1 855.9L47.0 858.1L50.4 859.5L54.0 860.0L1386.0 860.0L1389.6 859.5L1393.0 858.1L1395.9 855.9L1398.1 853.0L1399.5 849.6L1400.0 846.0L1400.0 794.0L1399.5 790.4L1398.1 787.0L1395.9 784.1L1393.0 781.9L1389.6 780.5L1386.0 780.0L1375.0 780.0L1368.5 779.1L1362.5 776.7L1357.3 772.7L1353.3 767.5L1350.9 761.5L1350.0 755.0L1350.0 85.0L1350.9 78.5L1353.3 72.5L1357.3 67.3L1362.5 63.3L1368.5 60.9L1375.0 60.0L1396.0 60.0L1397.0 59.9L1398.0 59.5L1398.8 58.8L1399.5 58.0L1399.9 57.0L1400.0 56.0L1400.0 44.0L1399.9 43.0L1399.5 42.0L1398.8 41.2L1398.0 40.5L1397.0 40.1L1396.0 40.0L356.0 40.0L352.4 40.5L349.0 41.9L346.1 44.1L343.9 47.0L342.5 50.4L342.0 54.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L54.0 128.0L50.4 128.5L47.0 129.9L44.1 132.1L41.9 135.0L40.5 138.4L40.0 142.0Z' fill='%23fff'/%3E%3C/svg%3E");
     -webkit-mask-size: 100% 100%;
@@ -348,4 +348,3 @@
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
   }
-}

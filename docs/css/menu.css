@@ -383,6 +383,13 @@ body:has(#modalBox[style*="display: block"]) {
     position: relative;
   }
 }
+/* While a page transition is running, the fallback is hidden:
+   the real header replaces it on DOMContentLoaded anyway,
+   and at the top-left it would otherwise show through the
+   transition overlay's frame mask before that happens. */
+html:has(.page-transition-overlay) #header-container > .static-primary-navigation {
+  display: none;
+}
 #navArea .inner a:focus-visible,
 .head a:focus-visible {
   outline: 1px solid currentColor;
@@ -595,19 +602,23 @@ body:has(#modalBox[style*="display: block"]) {
   .home #langChange .ja, .home #langChange .en { color: var(--text); }
 }
 
-/* === Site frame header (PC only, 2026-11-18) ===
-   At >=1024px the top bar is replaced by a fixed frame
-   around the whole viewport (inline SVG .site-frame in the
-   shared header component): a thin edge everywhere, a
-   rectangle at the top-left wrapping the brand and the
-   language switch, and a rectangle on the right wrapping
-   the global menu. The menu shows initials; the hovered or
-   focused row switches to its full label. Below 1024px
-   nothing changes. The frame menu is permanent, so the
-   desktop scroll-compact behaviour is disabled in menu.js
-   and its styles are neutralised below. */
+/* === Site frame header (2026-11-18; all widths since 2026-11-19) ===
+   The top bar is replaced by a fixed frame around the whole
+   viewport (inline SVG .site-frame in the shared header
+   component): a thin edge everywhere, a rectangle at the
+   top-left wrapping the brand and the language switch, and
+   a rectangle on the right wrapping the global menu. The
+   menu shows initials; the hovered or focused row switches
+   to its full label. One geometry at every width (1440x900
+   space, stretched): tablets and phones use the same ratios
+   as PC, so on small screens the brand is set smaller to
+   stay on one line inside the narrower rectangle (see the
+   small-screen adjustments after this block). The frame
+   menu is permanent at every width, so the drawer and the
+   scroll-compact behaviour are retired: menu.js treats every
+   width as the desktop (permanent) navigation. */
 .site-frame { display: none; }
-@media screen and (min-width: 1024px) {
+@media screen {
   .header-bar { display: none; }
   .site-frame {
     display: block;
@@ -649,8 +660,29 @@ body:has(#modalBox[style*="display: block"]) {
   }
   /* The grid layout above gives the language switch
      align-self: start, which would keep it on the left
-     edge of the rectangle instead of centred. */
-  #header-container header #langChange { align-self: center; }
+     edge of the rectangle instead of centred. Below 1024px
+     there is no grid; the switch is absolutely positioned
+     for the old bar, so it is returned to the flow here. */
+  #header-container header #langChange { position: static; align-self: center; }
+
+  /* Resets the >=1024px header grid used to provide; the
+     frame layout needs them at every frame width: the nav
+     is a plain full-height box (not the off-canvas drawer),
+     the drawer toggle and mask are gone, and the brand
+     anchor leaves its fixed bar position for the flow. */
+  #navArea nav { position: static; inset: auto; display: block; overflow: visible; background: none; backdrop-filter: none; }
+  #navArea #mask, #navArea .toggle_btn { display: none; }
+  #header-container header .head a {
+    position: relative;
+    inset: auto;
+    top: auto;
+    left: auto;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  #header-container header .head a::after { display: none; }
 
   /* The nav moves into the frame's right rectangle. Its
      position and size use the same ratios as the frame SVG
@@ -820,4 +852,27 @@ body:has(#modalBox[style*="display: block"]) {
     visibility: visible;
     pointer-events: auto;
   }
+}
+
+/* Below 1024px the header has no fixed positioning from
+   the old layouts, so its paint order above main (whose
+   positioned layers would otherwise cover the band menu
+   and make it unclickable) is stated explicitly; at
+   >=1024px the fixed header's z-index already does this. */
+@media screen and (max-width: 1023px) {
+  #header-container header { position: relative; z-index: 2001; }
+}
+
+/* Small-screen frame adjustments (2026-11-19): the frame
+   keeps the PC ratios, so the top-left rectangle is only
+   23.75vw wide. The brand is set smaller to stay on one
+   line inside it (a header-component size, chosen by the
+   user over wrapping to two lines), and the language
+   switch's grid is narrowed to fit the same rectangle. */
+@media screen and (max-width: 767px) {
+  #header-container .header-inner { gap: 4px; }
+  #header-container header .head a { font-size: 11.5px; }
+  #header-container header #langChange .inner_label { grid-template-columns: 34px 10px 34px; }
+  #header-container header #langChange .ja,
+  #header-container header #langChange .en { font-size: 11px; }
 }
