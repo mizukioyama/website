@@ -536,7 +536,11 @@
           spine.appendChild(stex);
           num.className = "pt-num";
           num.textContent = tabText;
-          num.style.left = (bodyW + tabW - numSize) / 2 + "px";
+          /* The box is centred on the spine, minus 3px: in
+             vertical writing the glyph ink itself sits about
+             3px right of the box centre (measured 2026-11-18),
+             which made the label look right-shifted. */
+          num.style.left = (bodyW + tabW - numSize) / 2 - 3 + "px";
           num.style.fontSize = numSize + "px";
           num.style.color = NUM_COLOR;
           spine.appendChild(num);
