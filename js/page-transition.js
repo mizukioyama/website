@@ -463,7 +463,9 @@
         img.style.right = (portrait ? CHEKI_PX : bodyW + CHEKI_PX) + "px";
         img.style.bottom = (portrait ? bodyW + CHEKI_PX : CHEKI_PX) + "px";
         if (portrait) {
-          img.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.35)";
+          /* No print shadow in the stacked layout: the spill
+             onto the dark gap read as a step (2026-11-18). */
+          img.style.boxShadow = "none";
         }
         var photoIdx = item.idx;
         var isDest = photoIdx === destIdx;
