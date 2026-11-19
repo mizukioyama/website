@@ -424,6 +424,35 @@ p {
   background: transparent; color: var(--inv); cursor: pointer;
   opacity: 0.7; z-index: 11; transition: opacity 350ms ease-out;
 }
+
+/* Manual card switch buttons, bottom-left of the card. */
+.card-navs {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 11;
+  display: flex;
+  gap: 8px;
+}
+
+.card-nav {
+  padding: 0.55em 1.1em;
+  font-family: "Shippori Mincho", serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: #f2f2ec;
+  background: rgba(18, 19, 20, 0.45);
+  border: 1px solid rgba(242, 242, 236, 0.35);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 250ms ease;
+}
+
+.card-nav:hover,
+.card-nav:focus-visible {
+  background: rgba(18, 19, 20, 0.72);
+}
 .content__ping::before, .content__ping::after {
   content: ""; display: block; position: absolute;
   width: 28px; height: 1px; left: 8px; top: 50%;
