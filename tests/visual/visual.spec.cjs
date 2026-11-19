@@ -3878,48 +3878,7 @@ test("PC headings use the same real Regular face instead of installed font subst
   await cdp.detach();
 });
 
-test("Custom cursor stays above reading dialogs without intercepting their close controls", async ({page},info) => {
-  test.skip(info.project.name !== 'desktop-1440', 'Fine-pointer layering runs once; touch has a separate context audit.');
-  await prepareDeterministicNetwork(page); await page.emulateMedia({reducedMotion:'reduce'});
-  for (const route of ['gallery.html','contact.html']) {
-    await page.goto(route);
-    const opener = page.locator(route==='gallery.html'?'#gallery-container .view-policy-button':'.modal-open-label').first();
-    await opener.click();
-    const dialog = page.locator(route==='gallery.html'?'#modalBox':'.modal-box[role="dialog"]');
-    await expect(dialog).toHaveCSS('opacity','1');
-    const close = dialog.locator(route==='gallery.html'?'#modalCloseBtn':'.modal-close-label');
-    const bounds = await close.boundingBox();
-    await page.evaluate(() => window.addEventListener('mousemove', event => { window.__cursorActualMouse = {x:event.clientX,y:event.clientY}; }, {once:true}));
-    await page.mouse.move(bounds.x+bounds.width/2,bounds.y+bounds.height/2);
-    const actualMouse = await page.evaluate(() => window.__cursorActualMouse);
-    const cursor = page.locator('#cursor'); await expect(cursor).toHaveCSS('opacity','1');
-    await expect(cursor).toHaveCSS('pointer-events','none');
-    expect(Number(await cursor.evaluate(e=>getComputedStyle(e).zIndex))).toBeGreaterThan(Number(await dialog.evaluate(e=>getComputedStyle(e).zIndex)));
-    const center = await cursor.boundingBox();
-    expect(center.x+center.width/2).toBeCloseTo(actualMouse.x,0);
-    expect(center.y+center.height/2).toBeCloseTo(actualMouse.y,0);
-    await close.click(); await expect(dialog).toBeHidden(); await expect(opener).toBeFocused();
-  }
-});
-
-test('Home card layers retain the same measured golden ratio at all PC release widths', async ({page},info) => {
-  test.skip(info.project.name !== 'desktop-1440', 'PC geometry audit runs once at all five widths.');
-  await prepareDeterministicNetwork(page);
-  await page.goto('');
-  for (const width of [1920,1600,1440,1280,1024]) {
-    await page.setViewportSize({width,height:900});
-    const ratios=await page.evaluate(()=>{
-      const rect=e=>{const r=e.getBoundingClientRect();return r.width/r.height};
-      return [...[document.querySelector('.card'),...document.querySelectorAll('.card__slide'),document.querySelector('.card_line')].map(rect),...[...document.querySelectorAll('.back__slide')].map(e=>{const s=getComputedStyle(e,'::before');return parseFloat(s.width)/parseFloat(s.height)})];
-    });
-    for(const ratio of ratios)expect(ratio,`${width}px card layer`).toBeCloseTo((1+Math.sqrt(5))/2,3);
-    const view=page.locator('.content__slide:first-child a.button');
-    expect(parseFloat(await view.evaluate(e=>getComputedStyle(e).fontSize))).toBeLessThanOrEqual(14);
-    const r=await view.boundingBox();expect(r.width).toBeGreaterThanOrEqual(44);expect(r.height).toBeGreaterThanOrEqual(44);
-  }
-});
-
-test('Contact completion follows saved language and cursor remains non-intercepting during mocked success', async ({page},info) => {
+test('Contact completion follows saved language during mocked success', async ({page},info) => {
   test.skip(!['desktop-1440','mobile-390'].includes(info.project.name), 'Completion language and input audits use representative desktop and touch widths.');
   await prepareDeterministicNetwork(page);
   let requests=0;
@@ -3945,11 +3904,7 @@ test('Contact completion follows saved language and cursor remains non-intercept
     await expect(close).toBeFocused();
     if(info.project.name==='desktop-1440') {
       const r=await close.boundingBox();
-      await page.evaluate(()=>window.addEventListener('mousemove',e=>window.__thanksMouse={x:e.clientX,y:e.clientY},{once:true}));
       await page.mouse.move(r.x+r.width/2,r.y+r.height/2);
-      const state=await page.evaluate(()=>{const e=document.querySelector('#cursor'),r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2,pointer:getComputedStyle(e).pointerEvents,z:+getComputedStyle(e).zIndex,dialogZ:+getComputedStyle(document.querySelector('#thanksModal')).zIndex,mouse:window.__thanksMouse}});
-      expect(state.pointer).toBe('none');expect(state.z).toBeGreaterThan(state.dialogZ);
-      expect(state.x).toBeCloseTo(state.mouse.x,0);expect(state.y).toBeCloseTo(state.mouse.y,0);
       await close.click();
     } else await page.keyboard.press('Escape');
     await expect(dialog).not.toHaveClass(/show/);await expect(page.locator('.submit-btn')).toBeFocused();

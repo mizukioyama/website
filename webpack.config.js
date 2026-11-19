@@ -16,7 +16,6 @@ const rootVisualScripts = [
   "organic-flow-engine.js",
   "organic-flow-production.js",
   "selected-ink-field.js",
-  "cursor.js",
   "form.js",
   "gallery-captions-data.js",
   "jquery-3.7.1.min.js",
