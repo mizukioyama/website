@@ -144,7 +144,10 @@ waitForJQuery(function ($) {
             "uniform float u_ready2;",
             "uniform sampler2D u_tex3;",
             "uniform float u_ready3;",
-            "uniform float u_mix;",
+            "uniform float u_mfrom;",
+            "uniform float u_mto;",
+            "uniform float u_ap;",
+            "uniform float u_bp;",
             "uniform float u_metal;",
             "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
@@ -202,47 +205,71 @@ waitForJQuery(function ($) {
             "  float artA = 0.0;",
             "  {",
             "    float ca = u_card.z / u_card.w;",
-            "    vec3 c1 = vec3(0.0);",
-            "    vec3 c2 = vec3(0.0);",
+            "    vec2 sOut = uv + vec2(u_ap * 0.05, 0.0);",
+            "    vec2 sIn = uv + vec2((1.0 - u_ap) * 0.10, 0.0);",
+            "    vec3 o1 = vec3(0.0);",
+            "    vec3 i1 = vec3(0.0);",
+            "    vec3 o2 = vec3(0.0);",
+            "    vec3 i2 = vec3(0.0);",
             "    if (u_ready1 > 0.5) {",
-            "      vec2 t1 = uv;",
             "      float ia1 = 1920.0 / 1080.0;",
+            "      vec2 t1 = sOut;",
             "      if (ca > ia1) { t1.y = (t1.y - 0.5) * (ia1 / ca) + 0.5; } else { t1.x = (t1.x - 0.5) * (ca / ia1) + 0.5; }",
-            "      c1 = texture2D(u_tex1, clamp(t1, 0.001, 0.999)).rgb;",
+            "      o1 = texture2D(u_tex1, clamp(t1, 0.001, 0.999)).rgb;",
+            "      vec2 t1b = sIn;",
+            "      if (ca > ia1) { t1b.y = (t1b.y - 0.5) * (ia1 / ca) + 0.5; } else { t1b.x = (t1b.x - 0.5) * (ca / ia1) + 0.5; }",
+            "      i1 = texture2D(u_tex1, clamp(t1b, 0.001, 0.999)).rgb;",
             "    }",
             "    if (u_ready2 > 0.5) {",
-            "      vec2 t2 = uv;",
             "      float ia2 = 1300.0 / 768.0;",
+            "      vec2 t2 = sOut;",
             "      if (ca > ia2) { t2.y = (t2.y - 0.5) * (ia2 / ca) + 0.5; } else { t2.x = (t2.x - 0.5) * (ca / ia2) + 0.5; }",
-            "      c2 = texture2D(u_tex2, clamp(t2, 0.001, 0.999)).rgb;",
+            "      o2 = texture2D(u_tex2, clamp(t2, 0.001, 0.999)).rgb;",
+            "      vec2 t2b = sIn;",
+            "      if (ca > ia2) { t2b.y = (t2b.y - 0.5) * (ia2 / ca) + 0.5; } else { t2b.x = (t2b.x - 0.5) * (ca / ia2) + 0.5; }",
+            "      i2 = texture2D(u_tex2, clamp(t2b, 0.001, 0.999)).rgb;",
             "    }",
-            "    art = mix(c1, c2, u_mix);",
-            "    artA = mix(u_ready1, u_ready2, u_mix);",
+            "    art = mix(mix(o1, o2, u_mfrom), mix(i1, i2, u_mto), u_ap);",
+            "    artA = mix(u_ready1, u_ready2, mix(u_mfrom, u_mto, u_ap));",
             "  }",
             "  vec3 back = vec3(0.0);",
             "  float backA = 0.0;",
             "  {",
             "    float ca = u_card.z / u_card.w;",
-            "    vec3 b1 = vec3(0.0);",
-            "    vec3 b2 = vec3(0.0);",
+            "    vec2 sOut = uv + vec2(u_bp * 0.04, 0.0);",
+            "    vec2 sIn = uv + vec2((1.0 - u_bp) * 0.06, 0.0);",
+            "    vec3 o1 = vec3(0.0);",
+            "    vec3 i1 = vec3(0.0);",
+            "    vec3 o2 = vec3(0.0);",
+            "    vec3 i2 = vec3(0.0);",
             "    if (u_ready3 > 0.5) {",
-            "      vec2 t3 = uv;",
             "      float ia3 = 1920.0 / 1080.0;",
+            "      vec2 t3 = sOut;",
             "      if (ca > ia3) { t3.y = (t3.y - 0.5) * (ia3 / ca) + 0.5; } else { t3.x = (t3.x - 0.5) * (ca / ia3) + 0.5; }",
-            "      b1 = texture2D(u_tex3, clamp(t3, 0.001, 0.999)).rgb;",
-            "      float l1 = dot(b1, vec3(0.299, 0.587, 0.114));",
-            "      b1 = mix(b1, vec3(l1), 0.30) * 0.80 + vec3(0.078) * 0.20;",
+            "      o1 = texture2D(u_tex3, clamp(t3, 0.001, 0.999)).rgb;",
+            "      float l1 = dot(o1, vec3(0.299, 0.587, 0.114));",
+            "      o1 = mix(o1, vec3(l1), 0.30) * 0.80 + vec3(0.078) * 0.20;",
+            "      vec2 t3b = sIn;",
+            "      if (ca > ia3) { t3b.y = (t3b.y - 0.5) * (ia3 / ca) + 0.5; } else { t3b.x = (t3b.x - 0.5) * (ca / ia3) + 0.5; }",
+            "      i1 = texture2D(u_tex3, clamp(t3b, 0.001, 0.999)).rgb;",
+            "      float l1b = dot(i1, vec3(0.299, 0.587, 0.114));",
+            "      i1 = mix(i1, vec3(l1b), 0.30) * 0.80 + vec3(0.078) * 0.20;",
             "    }",
             "    if (u_ready2 > 0.5) {",
-            "      vec2 t4 = uv;",
             "      float ia4 = 1300.0 / 768.0;",
+            "      vec2 t4 = sOut;",
             "      if (ca > ia4) { t4.y = (t4.y - 0.5) * (ia4 / ca) + 0.5; } else { t4.x = (t4.x - 0.5) * (ca / ia4) + 0.5; }",
-            "      b2 = texture2D(u_tex2, clamp(t4, 0.001, 0.999)).rgb;",
-            "      float l2 = dot(b2, vec3(0.299, 0.587, 0.114));",
-            "      b2 = mix(b2, vec3(l2), 0.30) * 0.38 + vec3(0.706) * 0.62;",
+            "      o2 = texture2D(u_tex2, clamp(t4, 0.001, 0.999)).rgb;",
+            "      float l2 = dot(o2, vec3(0.299, 0.587, 0.114));",
+            "      o2 = mix(o2, vec3(l2), 0.30) * 0.38 + vec3(0.706) * 0.62;",
+            "      vec2 t4b = sIn;",
+            "      if (ca > ia4) { t4b.y = (t4b.y - 0.5) * (ia4 / ca) + 0.5; } else { t4b.x = (t4b.x - 0.5) * (ca / ia4) + 0.5; }",
+            "      i2 = texture2D(u_tex2, clamp(t4b, 0.001, 0.999)).rgb;",
+            "      float l2b = dot(i2, vec3(0.299, 0.587, 0.114));",
+            "      i2 = mix(i2, vec3(l2b), 0.30) * 0.38 + vec3(0.706) * 0.62;",
             "    }",
-            "    back = mix(b1, b2, u_mix);",
-            "    backA = mix(u_ready3, u_ready2, u_mix);",
+            "    back = mix(mix(o1, o2, u_mfrom), mix(i1, i2, u_mto), u_bp);",
+            "    backA = mix(u_ready3, u_ready2, mix(u_mfrom, u_mto, u_bp));",
             "  }",
             "  vec3 col = mix(mix(art, chrome, u_metal), art, artA * 0.50 * u_metal);",
             "  col = mix(col, mix(back, col, 0.80), backA);",
@@ -273,7 +300,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mix", "u_metal", "u_tex3", "u_ready3"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_bp", "u_metal", "u_tex3", "u_ready3"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -318,12 +345,19 @@ waitForJQuery(function ($) {
         // overlay, both grayscale 30%). The opaque canvas
         // covers the DOM originals, so the shader draws them
         // as the bottom layer and the card surface stays at
-        // 80% opacity over them; they crossfade with u_mix.
+        // 80% opacity over them; they slide with the switch.
         loadTex(2, 2, "img/shinju.jpg");
         gl.uniform1i(uni.u_tex1, 0);
         gl.uniform1i(uni.u_tex2, 1);
         gl.uniform1i(uni.u_tex3, 2);
-        let slideMix = 0;
+        // Slide-switch choreography (restored from the
+        // original design, 2026-11-19): the images slide
+        // instead of crossfading. The background starts at
+        // 1200ms over 1200ms, the artwork at 1500ms over
+        // 1300ms, both with the original easeOutQuint curve,
+        // inside goToSlide's 3s lock. mixFrom/mixTo are the
+        // slide indices (0 or 1) at the switch.
+        let mixFrom = 0, mixTo = 0, transStart = -10000;
 
         const PAD = 40;
         const REACH = 90;
@@ -415,11 +449,17 @@ waitForJQuery(function ($) {
             const slides = document.querySelectorAll(".card__slide");
             let activeIdx = 0;
             slides.forEach((s, i) => { if (s.classList.contains("active")) activeIdx = i; });
-            slideMix += (activeIdx - slideMix) * (1 - Math.exp(-dt / 220));
+            if (activeIdx !== mixTo) { mixFrom = mixTo; mixTo = activeIdx; transStart = t; }
+            const easeOutQuint = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 5);
+            const artP = easeOutQuint((t - transStart - 1500) / 1300);
+            const backP = easeOutQuint((t - transStart - 1200) / 1200);
             gl.uniform1f(uni.u_ready1, texReady[0]);
             gl.uniform1f(uni.u_ready2, texReady[1]);
             gl.uniform1f(uni.u_ready3, texReady[2]);
-            gl.uniform1f(uni.u_mix, Math.min(1, Math.max(0, slideMix)));
+            gl.uniform1f(uni.u_mfrom, mixFrom);
+            gl.uniform1f(uni.u_mto, mixTo);
+            gl.uniform1f(uni.u_ap, artP);
+            gl.uniform1f(uni.u_bp, backP);
             gl.uniform1f(uni.u_metal, metalMode);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };

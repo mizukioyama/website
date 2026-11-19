@@ -140,30 +140,6 @@ p {
   background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/shinju.jpg");
 }
 
-/* フロント画像 */
-.back__slide .back-front-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  mix-blend-mode: difference;
-}
-
-.back__slide .back-front-image::after {
-  content: "";
-  display: block;
-  width: 100%;
-  position: absolute;
-  left: 0;
-}
-
-.back__slide .active .back-front-image {
-  transition: transform 1200ms 1300ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1300ms linear;
-}
-
 /* ========== Header / Creator / Time ========== */
 /*.head a {
   font-size: clamp(1.2em, calc(1.2em + 0.5vw), 1.4em);
@@ -258,52 +234,6 @@ html[lang="ja"] .creator-title {
 .card__slide:nth-child(even).active:after {
   opacity: 1;
   transform-origin: 0% 50%;
-}
-
-/*== 内容 img ==
-.card__slide .image {
-  background-image: url("../img/202343-2.jpg");
-  background-size: 85% auto;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 30%;
-  height: 100%;
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  filter: grayscale(40%) drop-shadow(0px 2px 10px var(--inv));
-  transform: translateX(-8rem);
-  opacity: 0;
-  transition: all 1s ease;
-  z-index: 1;
-}
-
-.card__slide:nth-child(even) .image {
-  left: 65%;
-  background-image: url("../img/couryoku.jpg");
-  pointer-events: none;
-  transition: transform 850ms 550ms linear, opacity 450ms 800ms linear;
-}*/
-
-.card__slide.active .image {
-  /*clip-path: polygon(0% 0%, 90% 0%, 90% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%);*/
-  opacity: 1;
-  z-index: 1;
-  transform: translateX(0rem);
-  transition: transform 1300ms 1700ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1300ms 1700ms linear;
-}
-
-.card__slide:nth-child(1).exit .image {
-  transition: transform 1200ms 600ms linear, opacity 200ms 800ms linear;
-}
-
-.card__slide:nth-child(even).active .back-image {
-  opacity: 1;
-  transition: transform 1200ms 1000ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 300ms 1000ms linear;
-}
-
-.card__slide:nth-child(even).exit .back-image {
-  transform: translateX(-4rem);
 }
 
 /*== number ==*/
@@ -588,30 +518,6 @@ body.card-liquid-on .card__slide::after {
 .card-nav:focus-visible {
   outline: 1px solid rgba(242, 242, 236, 0.8);
   outline-offset: 3px;
-}
-
-/* Card switch motion: the incoming card layer slides in
-   from the right while the outgoing one slides out left. */
-@media (prefers-reduced-motion: no-preference) {
-  .card__slide.active,
-  .content__slide.active {
-    animation: cardSlideIn 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-
-  .card__slide.exit,
-  .content__slide.exit {
-    animation: cardSlideOut 700ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  }
-
-  @keyframes cardSlideIn {
-    from { transform: translateX(36px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-
-  @keyframes cardSlideOut {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(-36px); opacity: 0; }
-  }
 }
 
 .top-page .content {
