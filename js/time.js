@@ -112,11 +112,14 @@ waitForJQuery(function ($) {
         const wrap = card ? card.closest(".wrap") : null;
         if (!canvas || !card || !wrap) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        // PC only (user instruction, 2026-11-19): the liquid
-        // metal runs on viewports 1024px and wider; smaller
-        // viewports keep the standard card (backdrop blur).
+        // The liquid metal itself is PC only (user
+        // instruction, 2026-11-19): viewports 1024px and
+        // wider get the metal (metalMode 1); smaller
+        // viewports run the same canvas in an art-only mode
+        // (metalMode 0) so the artwork images and their
+        // crossfade on slide switches still show there.
         const pcQuery = window.matchMedia("(min-width: 1024px)");
-        if (!pcQuery.matches) return;
+        let metalMode = pcQuery.matches ? 1 : 0;
         const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false });
         if (!gl) return;
         const VS = "attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }";
@@ -140,6 +143,7 @@ waitForJQuery(function ($) {
             "uniform float u_ready1;",
             "uniform float u_ready2;",
             "uniform float u_mix;",
+            "uniform float u_metal;",
             "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -213,7 +217,7 @@ waitForJQuery(function ($) {
             "    art = mix(c1, c2, u_mix);",
             "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
-            "  vec3 col = mix(chrome, art, artA * 0.50);",
+            "  vec3 col = mix(mix(art, chrome, u_metal), art, artA * 0.50 * u_metal);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
@@ -241,20 +245,17 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mix"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mix", "u_metal"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         document.body.classList.add("card-liquid-on");
         // Follow viewport changes across the PC boundary:
-        // hide the canvas and restore the standard card
-        // below 1024px, and bring the metal back above it.
-        // (The frame loop skips drawing while the canvas is
-        // display:none because its rect has no size.)
+        // the metal appears at 1024px and wider and the
+        // canvas falls back to art-only below it.
         pcQuery.addEventListener("change", (event) => {
-            canvas.style.display = event.matches ? "" : "none";
-            document.body.classList.toggle("card-liquid-on", event.matches);
+            metalMode = event.matches ? 1 : 0;
         });
         // The artwork layer is the real slide artwork over
         // the whole card: img/202343-2.jpg (slide 1) and
@@ -366,8 +367,8 @@ waitForJQuery(function ($) {
             gl.uniform2f(uni.u_q, (qx + PAD) * sx, (qy + PAD) * sy);
             gl.uniform2f(uni.u_vel, pvx * sx, pvy * sy);
             gl.uniform2f(uni.u_flow, flowOff.x * sx, flowOff.y * sy);
-            gl.uniform1f(uni.u_amp, Math.max(0, ampS) * AMP * sx);
-            gl.uniform1f(uni.u_on, on);
+            gl.uniform1f(uni.u_amp, Math.max(0, ampS) * AMP * sx * metalMode);
+            gl.uniform1f(uni.u_on, on * metalMode);
             gl.uniform1f(uni.u_time, 12.0);
             gl.uniform1f(uni.u_soft, SOFT);
             gl.uniform1f(uni.u_slim, SLIM);
@@ -380,6 +381,7 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_ready1, texReady[0]);
             gl.uniform1f(uni.u_ready2, texReady[1]);
             gl.uniform1f(uni.u_mix, Math.min(1, Math.max(0, slideMix)));
+            gl.uniform1f(uni.u_metal, metalMode);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
         requestAnimationFrame(frame);
