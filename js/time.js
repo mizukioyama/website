@@ -225,7 +225,7 @@ waitForJQuery(function ($) {
             "    inArt = mix(i1, i2, u_mto);",
             "    float covO = clamp((1.0 - u_ap - uv.x) / 0.004 + 0.5, 0.0, 1.0);",
             "    float covI = clamp((u_ap - uv.x) / 0.004 + 0.5, 0.0, 1.0);",
-            "    wOut = covO * (1.0 - smoothstep(0.05, 0.55, u_ap)) * mix(u_ready1, u_ready2, u_mfrom);",
+            "    wOut = covO * (1.0 - smoothstep(0.30, 0.80, u_ap)) * mix(u_ready1, u_ready2, u_mfrom);",
             "    wIn = covI * smoothstep(0.05, 0.75, u_ap) * mix(u_ready1, u_ready2, u_mto);",
             "  }",
             "  vec3 col = mix(chrome, outArt, wOut * 0.50);",
