@@ -10,7 +10,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=8d89e26a196f">
-    <link rel="stylesheet" href="css/index.css?v=5d942f2e7625">
+    <link rel="stylesheet" href="css/index.css?v=188176cd1375">
     <link rel="stylesheet" href="css/menu.css?v=a8c493513a40">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=1e90003db811">
     <link rel="stylesheet" href="css/page-transition.css?v=16c83d93d4ff">
@@ -24,7 +24,7 @@
     <script src="js/three.r134.min.js?v=2d137d69ae99"></script>
     <script src="js/vanta.fog.min.js?v=902b0ec9cd38"></script>
 
-    <script src="js/time.js?v=4f845b14b63b"></script>
+    <script src="js/time.js?v=f42a95d0fd9a"></script>
     <script src="js/menu.js?v=88f2e2f55e7b"></script>
     <!--<script src="js/security.js"></script>-->
 
@@ -187,7 +187,7 @@
             <div class="card_line"></div>
 
             <!-- in item -->
-            <div class="card-liquid" aria-hidden="true"><span class="card-liquid-anchor"></span><span class="card-liquid-drop"></span></div>
+            <canvas class="card-liquid-gl" aria-hidden="true"></canvas>
             <div id="mainContent" class="card">
                 <div class="card__slide active">
                     <!--<div class="image"></div>-->
@@ -252,8 +252,7 @@
                 </div>
             </div>
             
-            <svg width="0" height="0" style="position: absolute" aria-hidden="true"><defs><filter id="card-goo"><feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"></feGaussianBlur><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 19 -9"></feColorMatrix></filter></defs></svg>
-            <button type="button" class="card-nav" data-card-nav="next" aria-label="カード切替 / Switch card"><span class="card-nav-liquid" aria-hidden="true"><span class="card-nav-bg"></span><span class="card-nav-drop"></span></span><span class="card-nav-text">NEXT</span></button>
+            <button type="button" class="card-nav" data-card-nav="next" aria-label="カード切替 / Switch card"><span class="card-nav-text">NEXT</span></button>
         </div>
         <div class="noise"
             style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">

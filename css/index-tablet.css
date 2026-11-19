@@ -39,7 +39,7 @@
     bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 14px);
   }
 
-  .home .card-liquid {
+  .home .card-liquid-gl {
     height: calc(var(--card-width) * 1.61803398875 + 60px);
   }
 

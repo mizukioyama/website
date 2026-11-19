@@ -472,122 +472,97 @@ html[lang="ja"] .creator-title {
   }
 }
 
-/* Manual card switch: a single button inside the card's
-   bottom-right corner. Its surface is liquid: a droplet
-   follows the pointer and melts into the button's body
-   through an SVG goo filter scoped to the button alone. */
+/* Manual card switch: a single Liquid Glass button at the
+   card's bottom-right corner (flush right, 14px above the
+   bottom). The glass itself is nearly clear (no blur, no
+   white tint); the design is the rim: light refracts into
+   a faint spectrum around the edge (35% intensity), with a
+   soft spectral glow behind it. Square corners. */
 .card-nav {
-  --navbg: #17181a;
   position: absolute;
   right: calc(50% - var(--card-width) / 2);
   bottom: calc(50% - var(--card-height) / 2 + 14px);
   z-index: 12;
-  padding: 0.38em 0.8em;
+  padding: 0.38em 0.95em;
   font-family: "Shippori Mincho", serif;
   font-size: 18px;
   letter-spacing: 0.18em;
-  color: #f2f2ec;
-  background: transparent;
-  border: 0;
+  color: #f4f4ee;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
   border-radius: 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  transition: color 250ms ease;
 }
 
-.card-nav-liquid {
+.card-nav::before {
+  content: "";
   position: absolute;
-  left: -30px;
-  top: -30px;
-  width: calc(100% + 60px);
-  height: calc(100% + 60px);
-  filter: url(#card-goo);
+  inset: 0;
+  padding: 1.5px;
+  background: conic-gradient(from 210deg,
+    rgba(255, 110, 110, 0.95), rgba(255, 178, 92, 0.95),
+    rgba(255, 238, 140, 0.95), rgba(150, 255, 170, 0.95),
+    rgba(110, 205, 255, 0.95), rgba(178, 150, 255, 0.95),
+    rgba(255, 140, 215, 0.95), rgba(255, 110, 110, 0.95));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.35;
   pointer-events: none;
+  transition: opacity 250ms ease;
 }
 
-.card-nav-bg {
+.card-nav::after {
+  content: "";
   position: absolute;
-  left: 30px;
-  top: 30px;
-  width: calc(100% - 60px);
-  height: calc(100% - 60px);
-  background: var(--navbg);
-  transition: background-color 250ms ease;
+  inset: -3px;
+  z-index: -1;
+  background: conic-gradient(from 210deg,
+    rgba(255, 110, 110, 0.5), rgba(255, 178, 92, 0.5),
+    rgba(255, 238, 140, 0.5), rgba(150, 255, 170, 0.5),
+    rgba(110, 205, 255, 0.5), rgba(178, 150, 255, 0.5),
+    rgba(255, 140, 215, 0.5), rgba(255, 110, 110, 0.5));
+  filter: blur(10px);
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 250ms ease;
 }
 
-.card-nav-drop {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 30px;
-  height: 30px;
-  margin: -15px 0 0 -15px;
-  border-radius: 50%;
-  background: var(--navbg);
-  opacity: 0;
-  transition: left 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
-    top 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
-    opacity 300ms ease, background-color 250ms ease;
+.card-nav:hover::before,
+.card-nav:hover::after {
+  opacity: 0.55;
 }
 
 .card-nav-text {
   position: relative;
-  z-index: 1;
-}
-
-.card-nav:hover {
-  --navbg: #0a0b0c;
+  z-index: 3;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-nav-drop {
-    display: none;
-  }
-
-  .card-liquid {
+  .card-liquid-gl {
     display: none;
   }
 }
 
-/* The card melts the same way as the switch button: a
-   droplet follows the pointer, and where it nears the
-   card's edge an anchor blob rises so the goo filter
-   pulls a liquid neck out of the touched spot. The
-   filter is scoped to this layer alone. */
-.card-liquid {
+/* The card's liquid is rendered by a small WebGL shader
+   (js/time.js): the card's own outline joins the liquid's
+   signed-distance field, so where the pointer touches an
+   edge the boundary becomes one continuous liquid contour
+   instead of a circle pasted onto a straight line. The
+   canvas hugs the card plus a 30px margin the liquid can
+   spill into, and paints above the card. */
+.card-liquid-gl {
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 6;
   transform: translate(-50%, -50%);
   width: calc(var(--card-width) + 60px);
   height: calc(var(--card-height) + 60px);
-  filter: url(#card-goo);
   pointer-events: none;
-}
-
-.card-liquid-anchor {
-  position: absolute;
-  width: 52px;
-  height: 52px;
-  margin: -26px 0 0 -26px;
-  border-radius: 50%;
-  background: #17181a;
-  opacity: 0;
-  transition: opacity 300ms ease;
-}
-
-.card-liquid-drop {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 30px;
-  height: 30px;
-  margin: -15px 0 0 -15px;
-  border-radius: 50%;
-  background: #17181a;
-  opacity: 0;
-  transition: left 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
-    top 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
-    opacity 300ms ease;
 }
 
 .card-nav:focus-visible {
@@ -925,7 +900,7 @@ footer,
     bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 14px);
   }
 
-  .card-liquid {
+  .card-liquid-gl {
     height: calc(var(--card-width) * 1.61803398875 + 60px);
   }
 
