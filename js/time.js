@@ -15,7 +15,6 @@ waitForJQuery(function ($) {
         // スライド処理
         const slideElements = ['.back__slide', '.card__slide', '.content__slide'];
         const syncContentControls = () => {
-            $('.content__ping').attr('data-home-slide', $('.content__slide').first().hasClass('active') ? '2' : '1');
             $('.content__slide').each((_, element) => {
                 const active = element.classList.contains('active');
                 element.inert = !active;
@@ -36,12 +35,6 @@ waitForJQuery(function ($) {
                 });
 
                 syncContentControls();
-                const evenSlide = index % 2 === 0;
-                if (evenSlide)
-                    $('.content__ping').addClass('content__ping--right');
-                else
-                    $('.content__ping').removeClass('content__ping--right');
-                $('.content__ping--noanimation').removeClass('content__ping--noanimation');
 
                 setTimeout(() => $('.exit').removeClass('exit'), 1500);
                 setTimeout(() => inProgress = false, 3000);
