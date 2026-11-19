@@ -558,25 +558,30 @@ html[lang="ja"] .creator-title {
   }
 }
 
-/* The card's liquid is rendered by a small WebGL shader
-   (js/time.js): the card's own outline joins the liquid's
-   signed-distance field, so where the pointer touches an
-   edge the boundary becomes one continuous liquid contour
-   instead of a circle pasted onto a straight line. The
-   canvas hugs the card plus a 30px margin the liquid can
-   spill into, and paints above the card. */
+/* While the droplet renders, the card's own backdrop blur
+   must not blur the shader's surface. */
+body.card-liquid-on .card,
+body.card-liquid-on .card__slide::after {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* The card itself is rendered as a liquid-metal droplet
+   by a small WebGL shader (js/time.js): flowing chrome,
+   the artwork layer and grain composited in the shader.
+   The canvas hugs the card plus a 40px margin the droplet
+   can deform into, behind the card's DOM content. */
 .card-liquid-gl {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Behind the card (z-index 0, the card paints above in
-     DOM order): the liquid oozes out from behind the card's
-     edge, so the neck of the bulge is hidden by the edge
-     itself and only the bead outside the outline shows. */
+  /* Behind the card's content (z-index 0, the card paints
+     above in DOM order): the shader draws the card body
+     itself, and the DOM text and decorations stay on top. */
   z-index: 0;
   transform: translate(-50%, -50%);
-  width: calc(var(--card-width) + 60px);
-  height: calc(var(--card-height) + 60px);
+  width: calc(var(--card-width) + 80px);
+  height: calc(var(--card-height) + 80px);
   pointer-events: none;
 }
 
@@ -916,7 +921,7 @@ footer,
   }
 
   .card-liquid-gl {
-    height: calc(var(--card-width) * 1.61803398875 + 60px);
+    height: calc(var(--card-width) * 1.61803398875 + 80px);
   }
 
 

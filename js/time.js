@@ -92,17 +92,15 @@ waitForJQuery(function ($) {
         updateClocks();
         setInterval(updateClocks, CLOCK_UPDATE_INTERVAL);
     };
-    // The card's liquid is a small WebGL shader: the card's own
-    // outline joins the liquid's signed-distance field (smooth
-    // union), so where the pointer nears an edge the boundary
-    // becomes one continuous liquid contour. Droplet 22px,
-    // boundary softness 22, follow lag 700ms (exponential
-    // smoothing, tau = 280ms). The smooth union is localized
-    // to the contact point (gate x window in the shader) so
-    // the card's overall outline never morphs; only the
-    // touched spot swells. No spectral rim (removed at the
-    // user's request); only a soft specular highlight remains.
-    // When WebGL is unavailable the card simply has no liquid.
+    // The card itself is rendered as a liquid-metal droplet
+    // by a small WebGL shader (user settings, 2026-11-19):
+    // flowing chrome, the artwork layer over it (50%) and
+    // grain on top (100%), material softness 100%, sliminess
+    // 0%. The surface drift direction random-walks on its
+    // own; the silhouette swells only where the pointer
+    // touches an edge (bulge 30px, gel spring 100%, follow
+    // lag 700ms, tau = 280ms). When WebGL is unavailable
+    // the card keeps its plain styling.
     const initializeCardLiquidGL = () => {
         const canvas = document.querySelector(".card-liquid-gl");
         const card = document.querySelector(".card");
@@ -117,56 +115,75 @@ waitForJQuery(function ($) {
             "uniform vec2 u_res;",
             "uniform vec4 u_card;",
             "uniform vec2 u_ptr;",
+            "uniform vec2 u_q;",
             "uniform vec2 u_vel;",
-            "uniform float u_rad;",
-            "uniform float u_soft;",
+            "uniform vec2 u_flow;",
+            "uniform float u_amp;",
             "uniform float u_on;",
-            "uniform float u_press;",
+            "uniform float u_time;",
+            "uniform float u_soft;",
+            "uniform float u_slim;",
             "uniform float u_wob;",
             "uniform float u_phase;",
-            "float sdBox(vec2 p, vec2 b, float r){ vec2 q = abs(p) - b; return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r; }",
-            "float smin(float a, float b, float k){ float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0); return mix(b, a, h) - k * h * (1.0 - h); }",
+            "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }",
+            "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
+            "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
+            "float fbm(vec2 p){ float v = 0.0; float a = 0.55; for (int i = 0; i < 4; i++) { v += a * vnoise(p); p = p * 2.03 + vec2(17.3, 9.1); a *= 0.55; } return v; }",
+            "float sdRBox(vec2 p, vec2 b, float r){ vec2 q = abs(p) - b; return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r; }",
             "float field(vec2 p){",
             "  vec2 cc = u_card.xy + u_card.zw * 0.5;",
-            "  float dCard = sdBox(p - cc, u_card.zw * 0.5, 4.0);",
-            "  vec2 rel = p - u_ptr;",
-            "  float sp = length(u_vel);",
-            "  vec2 dir = sp > 0.01 ? u_vel / sp : vec2(1.0, 0.0);",
-            "  vec2 lp = vec2(dot(rel, dir), dot(rel, vec2(-dir.y, dir.x)));",
-            "  lp.x /= 1.0 + min(sp * 0.004, 0.7);",
-            "  lp.x *= 1.0 - 0.09 * sin(u_phase) * u_wob;",
-            "  lp.y *= 1.0 + 0.13 * sin(u_phase) * u_wob;",
-            "  float rEff = u_rad * (0.72 + 0.55 * u_press) * (1.0 + 0.06 * sin(u_phase) * u_wob);",
-            "  float dDrop = length(lp) - rEff;",
-            "  vec2 q = clamp(u_ptr, u_card.xy, u_card.xy + u_card.zw);",
-            "  float gate = smoothstep(34.0, 14.0, length(u_ptr - q));",
-            "  float win = smoothstep(60.0, 22.0, length(p - q));",
-            "  float dU = smin(dDrop, dCard, u_soft * (0.7 + 0.6 * u_press));",
-            "  return mix(dDrop, dU, gate * win);",
+            "  vec2 lp = p - cc;",
+            "  lp.x *= 1.0 - 0.012 * sin(u_phase) * u_wob;",
+            "  lp.y *= 1.0 + 0.012 * sin(u_phase) * u_wob;",
+            "  float d = sdRBox(lp, u_card.zw * 0.5, 4.0);",
+            "  vec2 q = clamp(u_q, u_card.xy, u_card.xy + u_card.zw);",
+            "  float dL = u_q.x - u_card.x;",
+            "  float dR = (u_card.x + u_card.z) - u_q.x;",
+            "  float dT = u_q.y - u_card.y;",
+            "  float dB = (u_card.y + u_card.w) - u_q.y;",
+            "  float mE = min(min(dL, dR), min(dT, dB));",
+            "  vec2 nOut = mE == dL ? vec2(-1.0, 0.0) : (mE == dR ? vec2(1.0, 0.0) : (mE == dT ? vec2(0.0, -1.0) : vec2(0.0, 1.0)));",
+            "  vec2 rel = p - q;",
+            "  float t = dot(rel, vec2(-nOut.y, nOut.x));",
+            "  float nrm = dot(rel, nOut);",
+            "  float g = exp(-(t * t) / (52.0 * 52.0));",
+            "  float band = exp(-(d * d) / (34.0 * 34.0)) * exp(-(nrm * nrm) / (40.0 * 40.0));",
+            "  float per = (p.x - cc.x) / u_card.z + (p.y - cc.y) / u_card.w;",
+            "  float und = (vnoise(vec2(per * 4.0, u_time * 0.22)) - 0.5) * u_slim * 4.4 * exp(-(d * d) / (20.0 * 20.0));",
+            "  return d - u_amp * u_on * g * band - und;",
             "}",
             "void main(){",
             "  vec2 p = vec2(gl_FragCoord.x, u_res.y - gl_FragCoord.y);",
-            "  float dCard = sdBox(p - (u_card.xy + u_card.zw * 0.5), u_card.zw * 0.5, 4.0);",
             "  float d = field(p);",
-            "  float region = dCard >= 0.0 ? 1.0 : smoothstep(-22.0, -2.0, dCard);",
-            "  float body = smoothstep(1.5, -1.5, d) * region * u_on;",
-            "  float shadow = smoothstep(-20.0, -2.0, dCard) * smoothstep(30.0, 6.0, d) * u_on * 0.16;",
-            "  float alpha = max(body * 0.94, shadow);",
+            "  float body = smoothstep(1.6, -1.6, d);",
+            "  float shadow = smoothstep(26.0, 2.0, d) * 0.20;",
+            "  float alpha = max(body, shadow * (1.0 - body));",
             "  if (alpha <= 0.004) { gl_FragColor = vec4(0.0); return; }",
+            "  vec2 uv = (p - u_card.xy) / u_card.zw;",
+            "  float tm = u_time * 0.030;",
+            "  vec2 fp = uv * vec2(3.2, 2.1);",
+            "  float w1 = fbm(fp + u_flow + fbm(fp * 1.4 - tm * 0.3) * mix(1.6, 2.7, u_slim) - u_vel * 0.010 * (0.4 + u_slim));",
+            "  float ridge = 1.0 - abs(w1 * 2.0 - 1.0);",
+            "  float streak = pow(ridge, mix(3.4, 2.0, u_soft));",
+            "  float w2 = fbm(fp * 0.8 - vec2(tm * 0.5, 0.0));",
+            "  vec3 chrome = mix(vec3(0.028, 0.032, 0.042), vec3(0.105, 0.115, 0.135), u_soft);",
+            "  chrome += vec3(0.88, 0.94, 1.05) * streak * mix(0.95, 0.55, u_soft);",
+            "  chrome += vec3(0.35, 0.42, 0.55) * pow(ridge, 1.6) * mix(0.35, 0.30, u_soft);",
+            "  chrome += vec3(1.0, 0.80, 0.52) * smoothstep(0.55, 0.85, w2) * streak * 0.35;",
             "  float e = 1.5;",
             "  vec2 grad = vec2(field(p + vec2(e, 0.0)) - field(p - vec2(e, 0.0)), field(p + vec2(0.0, e)) - field(p - vec2(0.0, e)));",
             "  vec2 n = length(grad) > 0.0001 ? normalize(grad) : vec2(0.0, -1.0);",
-            "  vec3 col = vec3(0.055, 0.058, 0.063);",
-            "  vec2 L = normalize(vec2(-0.45, -0.89));",
-            "  float spec = pow(max(dot(n, L), 0.0), 3.0);",
-            "  col += vec3(1.0) * spec * 0.40;",
-            "  vec2 rp = (p - u_ptr) / max(u_rad * (0.72 + 0.55 * u_press), 1.0);",
-            "  float spot = pow(clamp(1.0 - length(rp - vec2(-0.38, -0.42)), 0.0, 1.0), 3.0);",
-            "  col += vec3(1.0) * spot * 0.50;",
-            "  float rim = smoothstep(7.0, 0.0, abs(d + 1.0));",
-            "  col += vec3(1.0) * rim * (0.05 + 0.15 * max(dot(n, L), 0.0));",
-            "  vec3 outCol = body > shadow ? col : vec3(0.0);",
-            "  gl_FragColor = vec4(outCol, alpha);",
+            "  float rim = smoothstep(9.0, 0.0, abs(d + 1.0));",
+            "  chrome += vec3(1.0) * rim * (0.10 + 0.38 * max(dot(n, normalize(vec2(-0.45, -0.89))), 0.0));",
+            "  float aw = fbm(uv * vec2(2.6, 1.9) + 4.7);",
+            "  vec3 art = vec3(0.05, 0.07, 0.11);",
+            "  art += vec3(0.10, 0.45, 0.55) * pow(1.0 - abs(aw * 2.0 - 1.0), 2.6) * 0.9;",
+            "  art += vec3(0.85, 0.45, 0.16) * smoothstep(0.62, 0.92, fbm(uv * vec2(3.4, 2.2) - 2.3)) * 0.85;",
+            "  art += vec3(0.75, 0.78, 0.85) * smoothstep(0.78, 0.97, fbm(uv * vec2(5.0, 3.4) + 8.1)) * 0.5;",
+            "  vec3 col = mix(chrome, art, 0.50 * (0.82 + streak * 0.18));",
+            "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
+            "  vec3 outC = body >= shadow ? col : vec3(0.0);",
+            "  gl_FragColor = vec4(outC, alpha);",
             "}"
         ].join("\n");
         const compile = (type, src) => {
@@ -191,31 +208,33 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_vel", "u_rad", "u_soft", "u_on", "u_press", "u_wob", "u_phase"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        document.body.classList.add("card-liquid-on");
 
-        const PAD = 30;
-        const REACH = 80;
-        const RADIUS = 11;
-        const SOFT = 22;
+        const PAD = 40;
+        const REACH = 90;
+        const AMP = 30;
         const TAU = 280;
-        // Gel spring at 20% (user setting): pressing the
-        // edge grows the bulge, releasing it settles back
-        // with a slight jelly wobble (WWDC25 Liquid Glass
-        // dynamics: instant deformation, gel flex).
-        const STIFF = 0.087;
-        const DAMP = 0.84;
+        const SOFT = 1.0;
+        const SLIM = 0.0;
+        // Gel spring at 100% (user setting).
+        const STIFF = 0.215;
+        const DAMP = 0.76;
         let tx = -9999, ty = -9999, px = -9999, py = -9999, pvx = 0, pvy = 0;
         let on = 0, onTarget = 0, lastT = 0;
-        let press = 0, pressV = 0, wob = 0, phase = 0;
+        let ampS = 0, ampV = 0, wob = 0, phase = 0;
+        let qx = -9999, qy = -9999;
+        let autoT = 0, flowAng = Math.random() * 6.28, flowTgt = flowAng;
+        const flowOff = { x: 0, y: 0 };
         const onMove = (event) => {
             const rect = card.getBoundingClientRect();
             tx = event.clientX - rect.left;
             ty = event.clientY - rect.top;
-            if (px < -1000) { px = tx; py = ty; }
+            if (px < -1000) { px = tx; py = ty; qx = tx; qy = ty; }
             const outX = Math.max(0, -tx, tx - rect.width);
             const outY = Math.max(0, -ty, ty - rect.height);
             onTarget = Math.hypot(outX, outY) <= REACH ? 1 : 0;
@@ -234,21 +253,33 @@ waitForJQuery(function ($) {
             py += (ty - py) * k;
             pvx = (px - ox) / Math.max(1, dt) * 16.7;
             pvy = (py - oy) / Math.max(1, dt) * 16.7;
-            on += (onTarget - on) * (1 - Math.exp(-dt / 90));
+            on += (onTarget - on) * (1 - Math.exp(-dt / 120));
+            // The surface drift direction random-walks on its own.
+            autoT -= dt / 1000;
+            if (autoT <= 0) {
+                autoT = 2.6 + Math.random() * 3.2;
+                flowTgt += (Math.random() - 0.5) * 2.4;
+            }
+            flowAng += (flowTgt - flowAng) * (1 - Math.exp(-dt / 1600));
+            flowOff.x += Math.cos(flowAng) * dt * 0.006 * (0.4 + SLIM);
+            flowOff.y += Math.sin(flowAng) * dt * 0.006 * (0.4 + SLIM);
+            const qk = 1 - Math.exp(-dt / (200 + 380 * SLIM));
+            qx += (px - qx) * qk;
+            qy += (py - qy) * qk;
             const crd = card.getBoundingClientRect();
-            const qx = Math.min(Math.max(px, 0), crd.width);
-            const qy = Math.min(Math.max(py, 0), crd.height);
-            const distEdge = Math.hypot(px - qx, py - qy);
+            const qxc = Math.min(Math.max(px, 0), crd.width);
+            const qyc = Math.min(Math.max(py, 0), crd.height);
+            const distEdge = Math.hypot(px - qxc, py - qyc);
             const insidePt = px >= 0 && px <= crd.width && py >= 0 && py <= crd.height;
             const edgeNear = insidePt ? Math.min(px, crd.width - px, py, crd.height - py) : distEdge;
-            const pressTarget = onTarget > 0 ? Math.max(0, 1 - edgeNear / (RADIUS * 2.1)) : 0;
-            pressV += (pressTarget - press) * STIFF * (dt / 16.7);
-            pressV *= Math.pow(DAMP, dt / 16.7);
-            press += pressV * (dt / 16.7);
+            const contact = Math.max(0, 1 - Math.max(0, edgeNear - 3) / 13);
+            const target = onTarget > 0 ? Math.pow(contact, 1.2) : 0;
+            ampV += (target - ampS) * STIFF * (dt / 16.7);
+            ampV *= Math.pow(DAMP, dt / 16.7);
+            ampS += ampV * (dt / 16.7);
             const speed = Math.hypot(pvx, pvy);
-            wob = Math.min(1, Math.max(wob * Math.pow(0.94, dt / 16.7), Math.abs(pressV) * 0.44, press > 0.4 ? speed * 0.002 : 0));
-            phase += dt * 0.021;
-            if (on < 0.01 && onTarget === 0 && Math.abs(press) < 0.01) return;
+            wob = Math.min(1, Math.max(wob * Math.pow(0.95, dt / 16.7), Math.abs(ampV) * 2.4, (ampS > 0.4 ? speed * 0.012 : 0), on * 0.25));
+            phase += dt * 0.020;
             const dpr = Math.min(2, window.devicePixelRatio || 1);
             const w = Math.round(canvas.clientWidth * dpr);
             const h = Math.round(canvas.clientHeight * dpr);
@@ -265,11 +296,14 @@ waitForJQuery(function ($) {
             gl.uniform2f(uni.u_res, canvas.width, canvas.height);
             gl.uniform4f(uni.u_card, (cr.left - cvr.left) * sx, (cr.top - cvr.top) * sy, cr.width * sx, cr.height * sy);
             gl.uniform2f(uni.u_ptr, (px + PAD) * sx, (py + PAD) * sy);
+            gl.uniform2f(uni.u_q, (qx + PAD) * sx, (qy + PAD) * sy);
             gl.uniform2f(uni.u_vel, pvx * sx, pvy * sy);
-            gl.uniform1f(uni.u_rad, RADIUS * sx);
-            gl.uniform1f(uni.u_soft, SOFT * sx);
+            gl.uniform2f(uni.u_flow, flowOff.x * sx, flowOff.y * sy);
+            gl.uniform1f(uni.u_amp, Math.max(0, ampS) * AMP * sx);
             gl.uniform1f(uni.u_on, on);
-            gl.uniform1f(uni.u_press, Math.max(0, Math.min(1.15, press)));
+            gl.uniform1f(uni.u_time, t / 1000);
+            gl.uniform1f(uni.u_soft, SOFT);
+            gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
             gl.uniform1f(uni.u_phase, phase);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
