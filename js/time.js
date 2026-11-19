@@ -417,6 +417,7 @@ waitForJQuery(function ($) {
 // the native cursor.
 document.addEventListener("DOMContentLoaded", () => {
     const lens = document.getElementById("lensCursor");
+    const blend = document.getElementById("lensBlend");
     if (!lens) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -469,9 +470,11 @@ document.addEventListener("DOMContentLoaded", () => {
             shown = true;
             document.body.classList.add("lens-cursor-on");
             lens.style.opacity = "1";
+            if (blend) blend.style.opacity = "1";
         }
         // Lag is 0ms (user setting): follow immediately.
         lens.style.transform = `translate(${tx - 32}px, ${ty - 32}px)`;
+        if (blend) blend.style.transform = `translate(${tx - 32}px, ${ty - 32}px)`;
     }, { passive: true });
     // Hover state: over links and buttons the small 28px
     // lens grows to the tuned 64px state (CSS scale).
@@ -484,5 +487,6 @@ document.addEventListener("DOMContentLoaded", () => {
         shown = false;
         document.body.classList.remove("lens-cursor-on");
         lens.style.opacity = "0";
+        if (blend) blend.style.opacity = "0";
     });
 });

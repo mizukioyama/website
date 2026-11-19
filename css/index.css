@@ -500,7 +500,6 @@ html[lang="ja"] .creator-title {
 @keyframes lensGlow {
   0% {
     box-shadow:
-      0 10px 24px rgba(0, 0, 0, 0.22),
       inset 0 0 0 1px rgba(255, 255, 255, 0.20),
       0 0 18px rgba(0, 100, 100, 0.26),
       0 0 18px rgba(0, 0, 155, 0.40),
@@ -508,7 +507,6 @@ html[lang="ja"] .creator-title {
   }
   25% {
     box-shadow:
-      0 10px 24px rgba(0, 0, 0, 0.22),
       inset 0 0 0 1px rgba(255, 255, 255, 0.20),
       0 0 18px rgba(0, 0, 155, 0.40),
       0 0 18px rgba(0, 100, 100, 0.26),
@@ -516,7 +514,6 @@ html[lang="ja"] .creator-title {
   }
   50% {
     box-shadow:
-      0 10px 24px rgba(0, 0, 0, 0.22),
       inset 0 0 0 1px rgba(255, 255, 255, 0.20),
       0 0 18px rgba(0, 0, 155, 0.40),
       0 0 18px rgba(100, 0, 100, 0.40),
@@ -524,7 +521,6 @@ html[lang="ja"] .creator-title {
   }
   75% {
     box-shadow:
-      0 10px 24px rgba(0, 0, 0, 0.22),
       inset 0 0 0 1px rgba(255, 255, 255, 0.20),
       0 0 18px rgba(0, 0, 155, 0.40),
       0 0 18px rgba(0, 100, 100, 0.26),
@@ -532,7 +528,6 @@ html[lang="ja"] .creator-title {
   }
   100% {
     box-shadow:
-      0 10px 24px rgba(0, 0, 0, 0.22),
       inset 0 0 0 1px rgba(255, 255, 255, 0.20),
       0 0 18px rgba(0, 100, 100, 0.26),
       0 0 18px rgba(0, 0, 155, 0.40),
@@ -560,11 +555,52 @@ html[lang="ja"] .creator-title {
   height: 64px;
   border-radius: 50%;
   pointer-events: none;
-  mix-blend-mode: difference;
+  transform: scale(0.4375);
+  transition: transform 260ms cubic-bezier(0.34, 1.3, 0.4, 1);
+}
+
+/* The refraction layer: backdrop displacement only.
+   It must not carry mix-blend-mode — with a blend mode
+   on the same element Chrome drops the backdrop filter
+   and the lens loses its refraction. */
+.lens-cursor__glass {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  pointer-events: none;
   backdrop-filter: url(#lens-filter);
   -webkit-backdrop-filter: url(#lens-filter);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+/* The carried-over colors: white rim, specular and
+   caustic, and the rotating glow, blended with
+   difference on their own layer above the glass. */
+.lens-cursor-blend {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 64px;
+  z-index: 9001;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.lens-cursor-blend__disc {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: difference;
   box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.22),
     inset 0 0 0 1px rgba(255, 255, 255, 0.20),
     0 0 18px rgba(0, 100, 100, 0.26),
     0 0 18px rgba(0, 0, 155, 0.40),
@@ -574,11 +610,15 @@ html[lang="ja"] .creator-title {
   transition: transform 260ms cubic-bezier(0.34, 1.3, 0.4, 1);
 }
 
+body.lens-cursor-hover .lens-cursor-blend__disc {
+  transform: scale(1);
+}
+
 body.lens-cursor-hover .lens-cursor__disc {
   transform: scale(1);
 }
 
-.lens-cursor__disc::before {
+.lens-cursor-blend__disc::before {
   content: "";
   position: absolute;
   left: 0;
@@ -590,7 +630,7 @@ body.lens-cursor-hover .lens-cursor__disc {
   pointer-events: none;
 }
 
-.lens-cursor__disc::after {
+.lens-cursor-blend__disc::after {
   content: "";
   position: absolute;
   left: 0;
@@ -603,7 +643,8 @@ body.lens-cursor-hover .lens-cursor__disc {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lens-cursor__disc {
+  .lens-cursor__disc,
+  .lens-cursor-blend__disc {
     transition: none;
   }
 }
