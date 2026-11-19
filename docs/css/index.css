@@ -542,6 +542,52 @@ html[lang="ja"] .creator-title {
   .card-nav-drop {
     display: none;
   }
+
+  .card-liquid {
+    display: none;
+  }
+}
+
+/* The card melts the same way as the switch button: a
+   droplet follows the pointer, and where it nears the
+   card's edge an anchor blob rises so the goo filter
+   pulls a liquid neck out of the touched spot. The
+   filter is scoped to this layer alone. */
+.card-liquid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--card-width) + 60px);
+  height: calc(var(--card-height) + 60px);
+  filter: url(#card-goo);
+  pointer-events: none;
+}
+
+.card-liquid-anchor {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
+  border-radius: 50%;
+  background: #17181a;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.card-liquid-drop {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  background: #17181a;
+  opacity: 0;
+  transition: left 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
+    top 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
+    opacity 300ms ease;
 }
 
 .card-nav:focus-visible {
@@ -877,6 +923,10 @@ footer,
     /* Portrait card: its height is the width times the
        golden ratio, not the shared --card-height. */
     bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 14px);
+  }
+
+  .card-liquid {
+    height: calc(var(--card-width) * 1.61803398875 + 60px);
   }
 
 

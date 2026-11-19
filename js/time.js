@@ -124,6 +124,53 @@ waitForJQuery(function ($) {
         wrap.addEventListener("pointerdown", onMove);
         wrap.addEventListener("pointerleave", () => { drop.style.opacity = "0"; });
     };
+    // The card melts like the switch button: a droplet follows
+    // the pointer and an anchor blob rises at the nearest edge
+    // point so the goo filter pulls a neck out of the card.
+    const initializeCardLiquid = () => {
+        const card = document.querySelector(".card");
+        const layer = document.querySelector(".card-liquid");
+        const drop = layer ? layer.querySelector(".card-liquid-drop") : null;
+        const anchor = layer ? layer.querySelector(".card-liquid-anchor") : null;
+        const wrap = card ? card.closest(".wrap") : null;
+        if (!card || !drop || !anchor || !wrap) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const PAD = 30;
+        const REACH = 70;
+        const onMove = (event) => {
+            const rect = card.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            const outX = Math.max(0, -x, x - rect.width);
+            const outY = Math.max(0, -y, y - rect.height);
+            const dist = Math.hypot(outX, outY);
+            if (dist <= REACH) {
+                drop.style.left = `${x + PAD}px`;
+                drop.style.top = `${y + PAD}px`;
+                drop.style.opacity = String(Math.max(0, 1 - dist / 55));
+            } else {
+                drop.style.opacity = "0";
+            }
+            const inside = x >= 0 && x <= rect.width && y >= 0 && y <= rect.height;
+            const edgeDist = inside
+                ? Math.min(x, rect.width - x, y, rect.height - y)
+                : dist;
+            if (edgeDist <= 46) {
+                anchor.style.left = `${Math.min(Math.max(x, 0), rect.width) + PAD}px`;
+                anchor.style.top = `${Math.min(Math.max(y, 0), rect.height) + PAD}px`;
+                anchor.style.opacity = "1";
+            } else {
+                anchor.style.opacity = "0";
+            }
+        };
+        wrap.addEventListener("pointermove", onMove);
+        wrap.addEventListener("pointerdown", onMove);
+        wrap.addEventListener("pointerleave", () => {
+            drop.style.opacity = "0";
+            anchor.style.opacity = "0";
+        });
+    };
     document.addEventListener("portfolio:homeready", initializeHomeSlides, { once: true });
     document.addEventListener("portfolio:homeready", initializeCardNavLiquid, { once: true });
+    document.addEventListener("portfolio:homeready", initializeCardLiquid, { once: true });
 });
