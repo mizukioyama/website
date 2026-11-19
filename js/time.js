@@ -94,9 +94,10 @@ waitForJQuery(function ($) {
     };
     // The card itself is rendered as a liquid-metal droplet
     // by a small WebGL shader (user settings, 2026-11-19):
-    // flowing chrome, the real artwork images over the
-    // whole card (cover, 50%) and grain on top (100%),
-    // material softness 100%, sliminess
+    // flowing chrome (metal strength 150%: streak x1.37),
+    // the real artwork images over the whole card (cover,
+    // 40%, multiply-leaning composite) and grain on top
+    // (100%), material softness 100%, sliminess
     // 0%. The surface drift direction random-walks on its
     // own; the silhouette swells only where the pointer
     // touches an edge (bulge 30px, gel spring 100%, follow
@@ -170,7 +171,7 @@ waitForJQuery(function ($) {
             "  vec2 fp = uv * vec2(3.2, 2.1);",
             "  float w1 = fbm(fp + u_flow + fbm(fp * 1.4 - tm * 0.3) * mix(1.6, 2.7, u_slim) - u_vel * 0.010 * (0.4 + u_slim));",
             "  float ridge = 1.0 - abs(w1 * 2.0 - 1.0);",
-            "  float streak = pow(ridge, mix(3.4, 2.0, u_soft));",
+            "  float streak = pow(ridge, mix(3.4, 2.0, u_soft)) * 1.37;",
             "  float w2 = fbm(fp * 0.8 - vec2(tm * 0.5, 0.0));",
             "  vec3 chrome = mix(vec3(0.028, 0.032, 0.042), vec3(0.105, 0.115, 0.135), u_soft);",
             "  chrome += vec3(0.88, 0.94, 1.05) * streak * mix(0.95, 0.55, u_soft);",
@@ -202,7 +203,9 @@ waitForJQuery(function ($) {
             "    art = mix(c1, c2, u_mix);",
             "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
-            "  vec3 col = mix(chrome, art, artA * 0.50 * (0.82 + streak * 0.18));",
+            "  vec3 colM = chrome * (art * 1.5 + 0.30);",
+            "  colM = mix(colM, art, artA * 0.40 * 0.35);",
+            "  vec3 col = mix(chrome, colM, artA);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
