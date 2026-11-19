@@ -97,8 +97,23 @@ p {
   background-size: cover;
   color: var(--text);
   filter: grayscale(40%);
-  transition: opacity 850ms 1500ms linear;
+  z-index: -2;
+}
+
+/* The visible background (the slide element without
+   .active) stacks above the parked one. */
+.back__slide:not(.active) {
   z-index: -1;
+}
+
+/* The side label keeps its original crossfade timing;
+   only the image layer switches by sliding. */
+.back__slide .creator {
+  transition: opacity 850ms 1500ms linear;
+}
+
+.back__slide.active .creator {
+  opacity: 0;
 }
 
 .back__slide .progress {
@@ -113,22 +128,32 @@ p {
   transform-origin: 100% 100%;
 }
 
+/* Background switch = slide (Mizuki, 2026-11-20): the
+   outgoing image slides out to the left over a full
+   width and fades out (the fade starts a little after
+   the slide), the incoming one slides in from the
+   left while fading in. The switch starts at 2000ms,
+   a little after the content switch. */
 .back__slide::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(calc(-50% - 100%), -50%, 0);
+  opacity: 0;
   width: var(--card-width);
   height: var(--card-height);
   background-position: center;
   background-size: cover;
   filter: grayscale(30%);
   box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.65);
+  transition: transform 1300ms cubic-bezier(0.23, 1, 0.32, 1) 2000ms, opacity 800ms linear 2400ms;
 }
 
-.back__slide.active {
-  opacity: 0;
+.back__slide:not(.active)::before {
+  transform: translate3d(-50%, -50%, 0);
+  opacity: 1;
+  transition: transform 1300ms cubic-bezier(0.23, 1, 0.32, 1) 2000ms, opacity 600ms linear 2000ms;
 }
 
 /* 背景画像 */
