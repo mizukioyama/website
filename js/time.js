@@ -112,14 +112,13 @@ waitForJQuery(function ($) {
         const wrap = card ? card.closest(".wrap") : null;
         if (!canvas || !card || !wrap) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        // The liquid metal itself is PC only (user
-        // instruction, 2026-11-19): viewports 1024px and
-        // wider get the metal (metalMode 1); smaller
-        // viewports run the same canvas in an art-only mode
-        // (metalMode 0) so the artwork images and their
-        // crossfade on slide switches still show there.
-        const pcQuery = window.matchMedia("(min-width: 1024px)");
-        let metalMode = pcQuery.matches ? 1 : 0;
+        // The full layer stack (liquid metal, artwork at
+        // 50% over it, grain on top) runs on every viewport,
+        // as it did before the PC-only split: on smaller
+        // viewports the same display is restored (user
+        // instruction, 2026-11-19). The metal itself stays
+        // exactly as tuned: still surface, bulge on contact.
+        const metalMode = 1;
         const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false });
         if (!gl) return;
         const VS = "attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }";
@@ -150,7 +149,7 @@ waitForJQuery(function ($) {
             "uniform float u_bp;",
             "uniform float u_sdist;",
             "uniform float u_metal;",
-            "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }",
+            "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
             "float fbm(vec2 p){ float v = 0.0; float a = 0.55; for (int i = 0; i < 4; i++) { v += a * vnoise(p); p = p * 2.03 + vec2(17.3, 9.1); a *= 0.55; } return v; }",
@@ -307,12 +306,6 @@ waitForJQuery(function ($) {
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         document.body.classList.add("card-liquid-on");
-        // Follow viewport changes across the PC boundary:
-        // the metal appears at 1024px and wider and the
-        // canvas falls back to art-only below it.
-        pcQuery.addEventListener("change", (event) => {
-            metalMode = event.matches ? 1 : 0;
-        });
         // The artwork layer is the real slide artwork over
         // the whole card: img/202343-2.jpg (slide 1) and
         // img/couryoku.jpg (slide 2), crossfaded on switches.
