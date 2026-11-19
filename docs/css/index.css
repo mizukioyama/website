@@ -177,11 +177,12 @@ p {
 .creator {
   display: block;
   position: absolute;
-  top: 10%;
-  /* Keep clear of the site frame's top-left zone (23.75vw
-     wide): on wide screens 30vmin falls short of the zone's
-     right edge and the label slides underneath it. */
-  left: max(30vmin, 25.75vw);
+  /* Rotated -90 degrees and placed beside the centre card,
+     vertically centred on it. */
+  top: 50%;
+  left: calc(50% - var(--card-width) / 2 - 1.75rem);
+  transform: translate(-50%, -50%) rotate(-90deg);
+  white-space: nowrap;
   padding: 0.15vmin 0.75vmin 0.25vmin;
   color: var(--inv);
   background-image: linear-gradient(to right, var(--text));
@@ -193,8 +194,12 @@ p {
 
 .time {
   position: absolute;
-  bottom: 10%;
-  right: 30vmin;
+  /* Rotated -90 degrees beside the centre card, mirroring
+     the creator label on the left. */
+  top: 50%;
+  left: calc(50% + var(--card-width) / 2 + 1.75rem);
+  transform: translate(-50%, -50%) rotate(-90deg);
+  white-space: nowrap;
   padding: 0.15vmin 0.75vmin 0.25vmin;
   color: var(--inv);
   background-image: linear-gradient(to right, var(--text));
@@ -734,6 +739,12 @@ footer,
 
 
 @media screen and (max-width: 599px) {
+  :root {
+    /* Match the card's actual width in this range (the
+       .card rule below), so the side labels track it. */
+    --card-width: min(calc(100vw - 48px), calc(90svh / 1.61803398875));
+  }
+
     #vanta-bg {
         opacity: 0.35;
     }
@@ -764,16 +775,17 @@ footer,
   }
 
   .creator {
-    /* Clear of the site frame's top-left zone, mirroring
-       the desktop position (top 10%, right of the zone). */
-    top: 10%;
-    left: 25.75vw;
+    /* The card spans nearly the full width here, so the
+       rotated label sits just inside the card's left edge. */
+    left: calc(50% - var(--card-width) / 2 + 0.9rem);
+    z-index: 3;
   }
 
   .time {
-    right: 4%;
-    /* Above the frame's bottom edge, mirroring desktop. */
-    bottom: 10%;
+    /* Just inside the card's right edge, mirroring the
+       creator label on the left. */
+    left: calc(50% + var(--card-width) / 2 - 0.9rem);
+    z-index: 3;
   }
 
 .card__slide:first-child .number,

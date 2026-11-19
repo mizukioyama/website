@@ -55,17 +55,12 @@
     gap: 16px;
   }
 
-  .home .creator {
-    /* Clear of the site frame's top-left zone, mirroring
-       the desktop position (top 10%, right of the zone). */
-    top: 10%;
-    left: 25.75vw;
-  }
-
-  .home .time {
-    right: 4%;
-    /* Above the frame's bottom edge, mirroring desktop. */
-    bottom: 10%;
+  :root {
+    /* Match the tablet card's actual width (the .card rule
+       below), so the rotated side labels track it. The
+       labels themselves keep the base card-side placement
+       from index.css. */
+    --card-width: min(calc(100vw - 48px), calc(90svh / 1.61803398875));
   }
 
   .home .card__slide:first-child .number,
