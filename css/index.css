@@ -569,7 +569,11 @@ html[lang="ja"] .creator-title {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 6;
+  /* Behind the card (z-index 0, the card paints above in
+     DOM order): the liquid oozes out from behind the card's
+     edge, so the neck of the bulge is hidden by the edge
+     itself and only the bead outside the outline shows. */
+  z-index: 0;
   transform: translate(-50%, -50%);
   width: calc(var(--card-width) + 60px);
   height: calc(var(--card-height) + 60px);
