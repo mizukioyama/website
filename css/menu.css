@@ -609,15 +609,18 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
    top-left wrapping the brand and the language switch, and
    a rectangle on the right wrapping the global menu. The
    menu shows initials; the hovered or focused row switches
-   to its full label. One geometry at every width (1440x900
-   space, stretched): tablets and phones use the same ratios
-   as PC, so on small screens the brand is set smaller to
-   stay on one line inside the narrower rectangle (see the
-   small-screen adjustments after this block). The frame
-   menu is permanent at every width, so the drawer and the
-   scroll-compact behaviour are retired: menu.js treats every
-   width as the desktop (permanent) navigation. */
-.site-frame { display: none; }
+   to its full label. One geometry at every width: tablets
+   and phones use the same ratios as PC, so on small screens
+   the brand is set smaller to stay on one line inside the
+   narrower rectangle (see the small-screen adjustments
+   after this block). Below 768px the frame is drawn by
+   .site-frame-sp, the same ratios in a 390x844 space, so
+   the corner arcs stay circular instead of stretching into
+   tall ellipses. The frame menu is permanent at every
+   width, so the drawer and the scroll-compact behaviour
+   are retired: menu.js treats every width as the desktop
+   (permanent) navigation. */
+.site-frame, .site-frame-sp { display: none; }
 @media screen {
   .header-bar { display: none; }
   .site-frame {
@@ -735,6 +738,19 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     font-size: 15px;
     letter-spacing: 0;
     transition: opacity 0.2s ease;
+  }
+  /* The shared noise mask shreds the small initials (the
+     >=1024px layout strips the noise from header links for
+     the same reason); show the band menu solid at every
+     width so the initials stay legible. */
+  #navArea .inner a.noise {
+    background: none;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: currentColor;
+    mask: none;
+    animation: none;
+    text-shadow: none;
   }
   /* The full label is a tab the width of the band (90px at
      the 1440px design width; vw units keep it matched to
@@ -870,7 +886,29 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
    user over wrapping to two lines), and the language
    switch's grid is narrowed to fit the same rectangle. */
 @media screen and (max-width: 767px) {
+  /* Small screens draw the frame in a 390x844 space (same
+     ratios, circular corner arcs) instead of stretching
+     the 1440x900 frame. */
+  .site-frame { display: none; }
+  .site-frame-sp {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    z-index: -1;
+    pointer-events: none;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));
+  }
+  .site-frame-sp .frame-light { display: none; }
+  .home .site-frame-sp { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5)); }
+  .home .site-frame-sp .frame-light { display: block; }
+  .home .site-frame-sp .frame-dark { display: none; }
   #header-container .header-inner { gap: 4px; }
+  /* The shared 44px tap-target floor is wider than the
+     24px band and pushes the initials off the right edge;
+     the band rows are tall, so the width follows the band. */
+  #navArea .inner li a { min-width: 0; }
   #header-container header .head a { font-size: 11.5px; }
   #header-container header #langChange .inner_label { grid-template-columns: 34px 10px 34px; }
   #header-container header #langChange .ja,
