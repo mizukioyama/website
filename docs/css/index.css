@@ -61,7 +61,7 @@ h1 {
 }
 
 .creator-title {
-  font-size: var(--type-home-creator-size);
+  font-size: 14px;
 }
 
 h2 {
@@ -178,32 +178,30 @@ p {
   display: block;
   position: absolute;
   /* Rotated -90 degrees and placed beside the centre card,
-     vertically centred on it. */
+     vertically centred on it. No background bar; the text
+     sits directly on the page in the dark text colour. */
   top: 50%;
   left: calc(50% - var(--card-width) / 2 - 1.75rem);
   transform: translate(-50%, -50%) rotate(-90deg);
   white-space: nowrap;
-  padding: 0.15vmin 0.75vmin 0.25vmin;
-  color: var(--inv);
-  background-image: linear-gradient(to right, var(--text));
+  padding: 0;
+  color: var(--text);
+}
+
+/* Japanese label: upright vertical writing instead of the
+   -90 degree rotation used for the English label. */
+.creator--vertical {
+  transform: translate(-50%, -50%);
+}
+
+.creator--vertical .creator-title {
+  writing-mode: vertical-rl;
 }
 
 .creator .noise {
   display: block;
 }
 
-.time {
-  position: absolute;
-  /* Rotated -90 degrees beside the centre card, mirroring
-     the creator label on the left. */
-  top: 50%;
-  left: calc(50% + var(--card-width) / 2 + 1.75rem);
-  transform: translate(-50%, -50%) rotate(-90deg);
-  white-space: nowrap;
-  padding: 0.15vmin 0.75vmin 0.25vmin;
-  color: var(--inv);
-  background-image: linear-gradient(to right, var(--text));
-}
 
 /* ========== Card Slide ========== */
 .card {
@@ -810,12 +808,6 @@ footer,
     z-index: 3;
   }
 
-  .time {
-    /* Just inside the card's right edge, mirroring the
-       creator label on the left. */
-    left: calc(50% + var(--card-width) / 2 - 0.9rem);
-    z-index: 3;
-  }
 
   .card-navs {
     right: 14px;
