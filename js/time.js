@@ -131,6 +131,7 @@ waitForJQuery(function ($) {
             "uniform float u_on;",
             "uniform float u_time;",
             "uniform float u_soft;",
+            "uniform float u_opaque;",
             "uniform float u_slim;",
             "uniform float u_wob;",
             "uniform float u_phase;",
@@ -173,7 +174,7 @@ waitForJQuery(function ($) {
             "  float d = field(p);",
             "  float body = smoothstep(1.6, -1.6, d);",
             "  float shadow = smoothstep(26.0, 2.0, d) * 0.20;",
-            "  float alpha = max(body * 0.80, shadow * (1.0 - body));",
+            "  float alpha = max(body * u_opaque, shadow * (1.0 - body));",
             "  if (alpha <= 0.004) { gl_FragColor = vec4(0.0); return; }",
             "  vec2 uv = (p - u_card.xy) / u_card.zw;",
             "  float tm = u_time * 0.010;",
@@ -257,7 +258,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_opaque"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -297,7 +298,7 @@ waitForJQuery(function ($) {
         // outgoing artwork slides out to the left over
         // a full card width while fading out, and the
         // incoming one slides in from the left while
-        // fading in, starting at 1500ms over 1300ms
+        // fading in, starting at 2000ms over 1300ms
         // with the original easeOutQuint curve,
         // inside goToSlide's 3s lock. The page background
         // behind the card is the DOM's own layer (the card
@@ -390,6 +391,7 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_on, on);
             gl.uniform1f(uni.u_time, 12.0);
             gl.uniform1f(uni.u_soft, SOFT);
+            gl.uniform1f(uni.u_opaque, window.innerWidth < 1024 ? 1.0 : 0.8);
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
             gl.uniform1f(uni.u_phase, phase);
@@ -398,7 +400,7 @@ waitForJQuery(function ($) {
             slides.forEach((s, i) => { if (s.classList.contains("active")) activeIdx = i; });
             if (activeIdx !== mixTo) { mixFrom = mixTo; mixTo = activeIdx; transStart = t; }
             const easeOutQuint = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 5);
-            const artP = easeOutQuint((t - transStart - 1500) / 1300);
+            const artP = easeOutQuint((t - transStart - 2000) / 1300);
             gl.uniform1f(uni.u_ready1, texReady[0]);
             gl.uniform1f(uni.u_ready2, texReady[1]);
             gl.uniform1f(uni.u_mfrom, mixFrom);
