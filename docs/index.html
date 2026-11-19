@@ -10,7 +10,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=8d89e26a196f">
-    <link rel="stylesheet" href="css/index.css?v=fbed90e47978">
+    <link rel="stylesheet" href="css/index.css?v=09b34b78c9d0">
     <link rel="stylesheet" href="css/menu.css?v=a8c493513a40">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=1e90003db811">
     <link rel="stylesheet" href="css/page-transition.css?v=16c83d93d4ff">
@@ -24,7 +24,7 @@
     <script src="js/three.r134.min.js?v=2d137d69ae99"></script>
     <script src="js/vanta.fog.min.js?v=902b0ec9cd38"></script>
 
-    <script src="js/time.js?v=b1c3c51ac47c"></script>
+    <script src="js/time.js?v=a4d323ddf1c3"></script>
     <script src="js/menu.js?v=88f2e2f55e7b"></script>
     <!--<script src="js/security.js"></script>-->
 
@@ -340,6 +340,23 @@
         });
     </script>
 
+
+  <div class="lens-cursor" id="lensCursor" aria-hidden="true"><div class="lens-cursor__disc"></div></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="lens-filter" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+        <feImage id="lensMap" x="0" y="0" width="64" height="64" preserveAspectRatio="none" result="map" />
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="25" xChannelSelector="R" yChannelSelector="G" result="dispR" />
+        <feColorMatrix in="dispR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanR" />
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="20" xChannelSelector="R" yChannelSelector="G" result="dispG" />
+        <feColorMatrix in="dispG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanG" />
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="15" xChannelSelector="R" yChannelSelector="G" result="dispB" />
+        <feColorMatrix in="dispB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="chanB" />
+        <feComposite in="chanR" in2="chanG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="rg" />
+        <feComposite in="rg" in2="chanB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+      </filter>
+    </defs>
+  </svg>
 
   <script src="js/selected-ink-field.js?v=fcc5b966083b"></script>
 </body>
