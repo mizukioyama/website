@@ -94,8 +94,9 @@ waitForJQuery(function ($) {
     };
     // The card itself is rendered as a liquid-metal droplet
     // by a small WebGL shader (user settings, 2026-11-19):
-    // flowing chrome, the artwork layer over it (50%) and
-    // grain on top (100%), material softness 100%, sliminess
+    // flowing chrome, the real artwork images over it in
+    // the card's original placement (50%, grayscale 40%)
+    // and grain on top (100%), material softness 100%, sliminess
     // 0%. The surface drift direction random-walks on its
     // own; the silhouette swells only where the pointer
     // touches an edge (bulge 30px, gel spring 100%, follow
@@ -125,6 +126,11 @@ waitForJQuery(function ($) {
             "uniform float u_slim;",
             "uniform float u_wob;",
             "uniform float u_phase;",
+            "uniform sampler2D u_tex1;",
+            "uniform sampler2D u_tex2;",
+            "uniform float u_ready1;",
+            "uniform float u_ready2;",
+            "uniform float u_mix;",
             "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -175,12 +181,38 @@ waitForJQuery(function ($) {
             "  vec2 n = length(grad) > 0.0001 ? normalize(grad) : vec2(0.0, -1.0);",
             "  float rim = smoothstep(9.0, 0.0, abs(d + 1.0));",
             "  chrome += vec3(1.0) * rim * (0.10 + 0.38 * max(dot(n, normalize(vec2(-0.45, -0.89))), 0.0));",
-            "  float aw = fbm(uv * vec2(2.6, 1.9) + 4.7);",
-            "  vec3 art = vec3(0.05, 0.07, 0.11);",
-            "  art += vec3(0.10, 0.45, 0.55) * pow(1.0 - abs(aw * 2.0 - 1.0), 2.6) * 0.9;",
-            "  art += vec3(0.85, 0.45, 0.16) * smoothstep(0.62, 0.92, fbm(uv * vec2(3.4, 2.2) - 2.3)) * 0.85;",
-            "  art += vec3(0.75, 0.78, 0.85) * smoothstep(0.78, 0.97, fbm(uv * vec2(5.0, 3.4) + 8.1)) * 0.5;",
-            "  vec3 col = mix(chrome, art, 0.50 * (0.82 + streak * 0.18));",
+            "  vec3 art = vec3(0.0);",
+            "  float artA = 0.0;",
+            "  {",
+            "    vec4 a1 = vec4(0.0);",
+            "    vec4 a2 = vec4(0.0);",
+            "    if (u_ready1 > 0.5) {",
+            "      vec2 pr = vec2((uv.x - 0.05) / 0.30, (uv.y - 0.05) / 0.90);",
+            "      if (pr.x >= 0.0 && pr.x <= 1.0 && pr.y >= 0.0 && pr.y <= 1.0) {",
+            "        float bandH = 0.85 * (0.30 * (u_card.z / u_card.w)) / (1920.0 / 1080.0) / 0.90;",
+            "        vec2 iuv = vec2((pr.x - 0.075) / 0.85, (pr.y - (0.5 - bandH * 0.5)) / bandH);",
+            "        if (iuv.x >= 0.0 && iuv.x <= 1.0 && iuv.y >= 0.0 && iuv.y <= 1.0) {",
+            "          vec3 c = texture2D(u_tex1, vec2(iuv.x, 1.0 - iuv.y)).rgb;",
+            "          a1 = vec4(mix(vec3(dot(c, vec3(0.299, 0.587, 0.114))), c, 0.6), 1.0);",
+            "        }",
+            "      }",
+            "    }",
+            "    if (u_ready2 > 0.5) {",
+            "      vec2 pr = vec2((uv.x - 0.65) / 0.30, (uv.y - 0.05) / 0.90);",
+            "      if (pr.x >= 0.0 && pr.x <= 1.0 && pr.y >= 0.0 && pr.y <= 1.0) {",
+            "        float bandH = 0.85 * (0.30 * (u_card.z / u_card.w)) / (1300.0 / 768.0) / 0.90;",
+            "        vec2 iuv = vec2((pr.x - 0.075) / 0.85, (pr.y - (0.5 - bandH * 0.5)) / bandH);",
+            "        if (iuv.x >= 0.0 && iuv.x <= 1.0 && iuv.y >= 0.0 && iuv.y <= 1.0) {",
+            "          vec3 c = texture2D(u_tex2, vec2(iuv.x, 1.0 - iuv.y)).rgb;",
+            "          a2 = vec4(mix(vec3(dot(c, vec3(0.299, 0.587, 0.114))), c, 0.6), 1.0);",
+            "        }",
+            "      }",
+            "    }",
+            "    vec4 am = mix(a1, a2, u_mix);",
+            "    art = am.rgb;",
+            "    artA = am.a;",
+            "  }",
+            "  vec3 col = mix(chrome, art, artA * 0.50 * (0.82 + streak * 0.18));",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
@@ -208,12 +240,40 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mix"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         document.body.classList.add("card-liquid-on");
+        // The artwork layer is the real slide artwork, in the
+        // card's original placement (left for slide 1, right
+        // for slide 2, grayscale 40%): img/202343-2.jpg and
+        // img/couryoku.jpg, crossfaded on slide switches.
+        const texReady = [0, 0];
+        const loadTex = (unit, readyIdx, srcPath) => {
+            const tex = gl.createTexture();
+            gl.activeTexture(gl.TEXTURE0 + unit);
+            gl.bindTexture(gl.TEXTURE_2D, tex);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 12, 16, 255]));
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            const img = new Image();
+            img.onload = () => {
+                gl.activeTexture(gl.TEXTURE0 + unit);
+                gl.bindTexture(gl.TEXTURE_2D, tex);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+                texReady[readyIdx] = 1;
+            };
+            img.src = srcPath;
+        };
+        loadTex(0, 0, "img/202343-2.jpg");
+        loadTex(1, 1, "img/couryoku.jpg");
+        gl.uniform1i(uni.u_tex1, 0);
+        gl.uniform1i(uni.u_tex2, 1);
+        let slideMix = 0;
 
         const PAD = 40;
         const REACH = 90;
@@ -306,6 +366,13 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
             gl.uniform1f(uni.u_phase, phase);
+            const slides = document.querySelectorAll(".card__slide");
+            let activeIdx = 0;
+            slides.forEach((s, i) => { if (s.classList.contains("active")) activeIdx = i; });
+            slideMix += (activeIdx - slideMix) * (1 - Math.exp(-dt / 220));
+            gl.uniform1f(uni.u_ready1, texReady[0]);
+            gl.uniform1f(uni.u_ready2, texReady[1]);
+            gl.uniform1f(uni.u_mix, Math.min(1, Math.max(0, slideMix)));
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
         requestAnimationFrame(frame);
