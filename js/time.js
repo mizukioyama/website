@@ -195,8 +195,8 @@ waitForJQuery(function ($) {
             "  float artA = 0.0;",
             "  {",
             "    float ca = u_card.z / u_card.w;",
-            "    vec2 sOut = uv - vec2(u_ap, 0.0);",
-            "    vec2 sIn = uv + vec2(1.0 - u_ap, 0.0);",
+            "    vec2 sOut = uv + vec2(u_ap, 0.0);",
+            "    vec2 sIn = uv + vec2(u_ap - 1.0, 0.0);",
             "    vec3 o1 = vec3(0.0);",
             "    vec3 i1 = vec3(0.0);",
             "    vec3 o2 = vec3(0.0);",
@@ -219,8 +219,8 @@ waitForJQuery(function ($) {
             "      if (ca > ia2) { t2b.y = (t2b.y - 0.5) * (ia2 / ca) + 0.5; } else { t2b.x = (t2b.x - 0.5) * (ca / ia2) + 0.5; }",
             "      i2 = texture2D(u_tex2, clamp(t2b, 0.001, 0.999)).rgb;",
             "    }",
-            "    float seamF = smoothstep(u_ap - 0.004, u_ap + 0.004, uv.x);",
-            "    art = mix(mix(i1, i2, u_mto), mix(o1, o2, u_mfrom), seamF);",
+            "    float seamF = smoothstep(0.996 - u_ap, 1.004 - u_ap, uv.x);",
+            "    art = mix(mix(o1, o2, u_mfrom), mix(i1, i2, u_mto), seamF);",
             "    artA = mix(u_ready1, u_ready2, mix(u_mfrom, u_mto, u_ap));",
             "  }",
             "  vec3 col = mix(chrome, art, artA * 0.50);",
@@ -286,13 +286,13 @@ waitForJQuery(function ($) {
         gl.uniform1i(uni.u_tex1, 0);
         gl.uniform1i(uni.u_tex2, 1);
         // Slide-switch choreography (restored from the
-        // original design, 2026-11-19; extended to a
-        // full-width push slide at Mizuki's request,
-        // 2026-11-19): the incoming artwork pushes in
-        // from the left over a full card width and the
-        // outgoing one exits to the right, starting at
-        // 1500ms over 1300ms with the original
-        // easeOutQuint curve,
+        // original design, 2026-11-19; full-width film
+        // strip at Mizuki's request, 2026-11-20): both
+        // artworks slide left together by a full card
+        // width with the same motion, the outgoing one
+        // exits left and the incoming one follows in
+        // from the right, starting at 1500ms over
+        // 1300ms with the original easeOutQuint curve,
         // inside goToSlide's 3s lock. The page background
         // behind the card is the DOM's own layer (the card
         // surface is 80% opaque over it), crossfading with
