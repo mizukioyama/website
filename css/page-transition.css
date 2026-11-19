@@ -10,7 +10,7 @@
    Plain browser navigation is kept as-is; the overlay only sits
    on top of it (see js/page-transition.js). The layer is built
    entirely by that script; this file holds its static styles.
-   z-index 13000: above the custom cursor (12000), modals
+   z-index 13000: above the lens cursor (9000), modals
    (10000/10001) and the Home loading layer (9998), so the whole
    screen is covered evenly while the next page loads.
    Note: the site reset in css/all.css gives every div
