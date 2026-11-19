@@ -135,13 +135,6 @@ waitForJQuery(function ($) {
             "uniform float u_slim;",
             "uniform float u_wob;",
             "uniform float u_phase;",
-            "uniform sampler2D u_tex1;",
-            "uniform sampler2D u_tex2;",
-            "uniform float u_ready1;",
-            "uniform float u_ready2;",
-            "uniform float u_mfrom;",
-            "uniform float u_mto;",
-            "uniform float u_ap;",
             "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -192,45 +185,7 @@ waitForJQuery(function ($) {
             "  vec2 n = length(grad) > 0.0001 ? normalize(grad) : vec2(0.0, -1.0);",
             "  float rim = smoothstep(9.0, 0.0, abs(d + 1.0));",
             "  chrome += vec3(1.0) * rim * (0.10 + 0.38 * max(dot(n, normalize(vec2(-0.45, -0.89))), 0.0));",
-            "  vec3 outArt = vec3(0.0);",
-            "  vec3 inArt = vec3(0.0);",
-            "  float wOut = 0.0;",
-            "  float wIn = 0.0;",
-            "  {",
-            "    float ca = u_card.z / u_card.w;",
-            "    vec2 sOut = uv + vec2(u_ap, 0.0);",
-            "    vec2 sIn = uv + vec2(1.0 - u_ap, 0.0);",
-            "    vec3 o1 = vec3(0.0);",
-            "    vec3 i1 = vec3(0.0);",
-            "    vec3 o2 = vec3(0.0);",
-            "    vec3 i2 = vec3(0.0);",
-            "    if (u_ready1 > 0.5) {",
-            "      float ia1 = 1920.0 / 1080.0;",
-            "      vec2 t1 = sOut;",
-            "      if (ca > ia1) { t1.y = (t1.y - 0.5) * (ia1 / ca) + 0.5; } else { t1.x = (t1.x - 0.5) * (ca / ia1) + 0.5; }",
-            "      o1 = texture2D(u_tex1, clamp(t1, 0.001, 0.999)).rgb;",
-            "      vec2 t1b = sIn;",
-            "      if (ca > ia1) { t1b.y = (t1b.y - 0.5) * (ia1 / ca) + 0.5; } else { t1b.x = (t1b.x - 0.5) * (ca / ia1) + 0.5; }",
-            "      i1 = texture2D(u_tex1, clamp(t1b, 0.001, 0.999)).rgb;",
-            "    }",
-            "    if (u_ready2 > 0.5) {",
-            "      float ia2 = 1300.0 / 768.0;",
-            "      vec2 t2 = sOut;",
-            "      if (ca > ia2) { t2.y = (t2.y - 0.5) * (ia2 / ca) + 0.5; } else { t2.x = (t2.x - 0.5) * (ca / ia2) + 0.5; }",
-            "      o2 = texture2D(u_tex2, clamp(t2, 0.001, 0.999)).rgb;",
-            "      vec2 t2b = sIn;",
-            "      if (ca > ia2) { t2b.y = (t2b.y - 0.5) * (ia2 / ca) + 0.5; } else { t2b.x = (t2b.x - 0.5) * (ca / ia2) + 0.5; }",
-            "      i2 = texture2D(u_tex2, clamp(t2b, 0.001, 0.999)).rgb;",
-            "    }",
-            "    outArt = mix(o1, o2, u_mfrom);",
-            "    inArt = mix(i1, i2, u_mto);",
-            "    float covO = clamp((1.0 - u_ap - uv.x) / 0.004 + 0.5, 0.0, 1.0);",
-            "    float covI = clamp((u_ap - uv.x) / 0.004 + 0.5, 0.0, 1.0);",
-            "    wOut = covO * (1.0 - smoothstep(0.30, 0.80, u_ap)) * mix(u_ready1, u_ready2, u_mfrom);",
-            "    wIn = covI * smoothstep(0.05, 0.75, u_ap) * mix(u_ready1, u_ready2, u_mto);",
-            "  }",
-            "  vec3 col = mix(chrome, outArt, wOut * 0.50);",
-            "  col = mix(col, inArt, wIn * 0.50);",
+            "  vec3 col = chrome;",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
@@ -258,54 +213,17 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_opaque"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_opaque"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         document.body.classList.add("card-liquid-on");
-        // The artwork layer is the real slide artwork over
-        // the whole card: img/202343-2.jpg (slide 1) and
-        // img/couryoku.jpg (slide 2), sliding on switches.
-        // Textures are sampled without a Y flip: uv.y is 0 at
-        // the card top and v=0 is the image's top row.
-        const texReady = [0, 0];
-        const loadTex = (unit, readyIdx, srcPath) => {
-            const tex = gl.createTexture();
-            gl.activeTexture(gl.TEXTURE0 + unit);
-            gl.bindTexture(gl.TEXTURE_2D, tex);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 12, 16, 255]));
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-            const img = new Image();
-            img.onload = () => {
-                gl.activeTexture(gl.TEXTURE0 + unit);
-                gl.bindTexture(gl.TEXTURE_2D, tex);
-                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-                texReady[readyIdx] = 1;
-            };
-            img.src = srcPath;
-        };
-        loadTex(0, 0, "img/202343-2.jpg");
-        loadTex(1, 1, "img/couryoku.jpg");
-        gl.uniform1i(uni.u_tex1, 0);
-        gl.uniform1i(uni.u_tex2, 1);
-        // Slide-switch choreography (restored from the
-        // original design, 2026-11-19; full width with
-        // fades at Mizuki's request, 2026-11-20): the
-        // outgoing artwork slides out to the left over
-        // a full card width while fading out, and the
-        // incoming one slides in from the left while
-        // fading in, starting at 2000ms over 1300ms
-        // with the original easeOutQuint curve,
-        // inside goToSlide's 3s lock. The page background
-        // behind the card is the DOM's own layer (the card
-        // surface is 80% opaque over it), crossfading with
-        // its own original timing. mixFrom/mixTo are the
-        // slide indices (0 or 1) at the switch.
-        let mixFrom = 0, mixTo = 0, transStart = -10000;
+        // The card carries no artwork layer (Mizuki,
+        // 2026-11-20): the sliding image is the page
+        // background (.back__slide in css/index.css),
+        // which switches by sliding. The card surface
+        // is the liquid metal plus grain only.
 
         const PAD = 40;
         const REACH = 90;
@@ -395,17 +313,6 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
             gl.uniform1f(uni.u_phase, phase);
-            const slides = document.querySelectorAll(".card__slide");
-            let activeIdx = 0;
-            slides.forEach((s, i) => { if (s.classList.contains("active")) activeIdx = i; });
-            if (activeIdx !== mixTo) { mixFrom = mixTo; mixTo = activeIdx; transStart = t; }
-            const easeOutQuint = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 5);
-            const artP = easeOutQuint((t - transStart - 2000) / 1300);
-            gl.uniform1f(uni.u_ready1, texReady[0]);
-            gl.uniform1f(uni.u_ready2, texReady[1]);
-            gl.uniform1f(uni.u_mfrom, mixFrom);
-            gl.uniform1f(uni.u_mto, mixTo);
-            gl.uniform1f(uni.u_ap, artP);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
         requestAnimationFrame(frame);
