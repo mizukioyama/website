@@ -96,8 +96,8 @@ waitForJQuery(function ($) {
     // by a small WebGL shader (user settings, 2026-11-19):
     // flowing chrome (metal strength 150%: streak x1.37),
     // the real artwork images over the whole card (cover,
-    // 40%, multiply-leaning composite) and grain on top
-    // (100%), material softness 100%, sliminess
+    // plain 40% opacity) and grain on top (100%),
+    // material softness 100%, sliminess
     // 0%. The surface drift direction random-walks on its
     // own; the silhouette swells only where the pointer
     // touches an edge (bulge 30px, gel spring 100%, follow
@@ -203,9 +203,7 @@ waitForJQuery(function ($) {
             "    art = mix(c1, c2, u_mix);",
             "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
-            "  vec3 colM = chrome * (art * 1.5 + 0.30);",
-            "  colM = mix(colM, art, artA * 0.40 * 0.35);",
-            "  vec3 col = mix(chrome, colM, artA);",
+            "  vec3 col = mix(chrome, art, artA * 0.40);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
