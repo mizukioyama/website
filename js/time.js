@@ -112,6 +112,11 @@ waitForJQuery(function ($) {
         const wrap = card ? card.closest(".wrap") : null;
         if (!canvas || !card || !wrap) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        // PC only (user instruction, 2026-11-19): the liquid
+        // metal runs on viewports 1024px and wider; smaller
+        // viewports keep the standard card (backdrop blur).
+        const pcQuery = window.matchMedia("(min-width: 1024px)");
+        if (!pcQuery.matches) return;
         const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false });
         if (!gl) return;
         const VS = "attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }";
@@ -242,6 +247,15 @@ waitForJQuery(function ($) {
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         document.body.classList.add("card-liquid-on");
+        // Follow viewport changes across the PC boundary:
+        // hide the canvas and restore the standard card
+        // below 1024px, and bring the metal back above it.
+        // (The frame loop skips drawing while the canvas is
+        // display:none because its rect has no size.)
+        pcQuery.addEventListener("change", (event) => {
+            canvas.style.display = event.matches ? "" : "none";
+            document.body.classList.toggle("card-liquid-on", event.matches);
+        });
         // The artwork layer is the real slide artwork over
         // the whole card: img/202343-2.jpg (slide 1) and
         // img/couryoku.jpg (slide 2), crossfaded on switches.
