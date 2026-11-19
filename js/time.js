@@ -141,7 +141,6 @@ waitForJQuery(function ($) {
             "uniform float u_mfrom;",
             "uniform float u_mto;",
             "uniform float u_ap;",
-            "uniform float u_sdist;",
             "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -196,8 +195,8 @@ waitForJQuery(function ($) {
             "  float artA = 0.0;",
             "  {",
             "    float ca = u_card.z / u_card.w;",
-            "    vec2 sOut = uv + vec2(u_ap * u_sdist, 0.0);",
-            "    vec2 sIn = uv + vec2((1.0 - u_ap) * u_sdist, 0.0);",
+            "    vec2 sOut = uv - vec2(u_ap, 0.0);",
+            "    vec2 sIn = uv + vec2(1.0 - u_ap, 0.0);",
             "    vec3 o1 = vec3(0.0);",
             "    vec3 i1 = vec3(0.0);",
             "    vec3 o2 = vec3(0.0);",
@@ -220,7 +219,8 @@ waitForJQuery(function ($) {
             "      if (ca > ia2) { t2b.y = (t2b.y - 0.5) * (ia2 / ca) + 0.5; } else { t2b.x = (t2b.x - 0.5) * (ca / ia2) + 0.5; }",
             "      i2 = texture2D(u_tex2, clamp(t2b, 0.001, 0.999)).rgb;",
             "    }",
-            "    art = mix(mix(o1, o2, u_mfrom), mix(i1, i2, u_mto), u_ap);",
+            "    float seamF = smoothstep(u_ap - 0.004, u_ap + 0.004, uv.x);",
+            "    art = mix(mix(i1, i2, u_mto), mix(o1, o2, u_mfrom), seamF);",
             "    artA = mix(u_ready1, u_ready2, mix(u_mfrom, u_mto, u_ap));",
             "  }",
             "  vec3 col = mix(chrome, art, artA * 0.50);",
@@ -251,7 +251,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_sdist"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -286,11 +286,13 @@ waitForJQuery(function ($) {
         gl.uniform1i(uni.u_tex1, 0);
         gl.uniform1i(uni.u_tex2, 1);
         // Slide-switch choreography (restored from the
-        // original design, 2026-11-19; distance extended
-        // to a full card width at Mizuki's request,
-        // 2026-11-19): the artwork slides instead of
-        // crossfading, starting at 1500ms over
-        // 1300ms with the original easeOutQuint curve,
+        // original design, 2026-11-19; extended to a
+        // full-width push slide at Mizuki's request,
+        // 2026-11-19): the incoming artwork pushes in
+        // from the left over a full card width and the
+        // outgoing one exits to the right, starting at
+        // 1500ms over 1300ms with the original
+        // easeOutQuint curve,
         // inside goToSlide's 3s lock. The page background
         // behind the card is the DOM's own layer (the card
         // surface is 80% opaque over it), crossfading with
@@ -396,7 +398,6 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_mfrom, mixFrom);
             gl.uniform1f(uni.u_mto, mixTo);
             gl.uniform1f(uni.u_ap, artP);
-            gl.uniform1f(uni.u_sdist, 1.0);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
         requestAnimationFrame(frame);
