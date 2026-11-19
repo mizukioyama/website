@@ -34,7 +34,10 @@
     line-height: 1;
   }
 
-  .home .content__ping { left: calc(50% + 48px); right: auto; bottom: 24px; transform: translateX(-50%); }
+  .home .card-nav {
+    /* Portrait card: height is width times the golden ratio. */
+    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 14px);
+  }
 
   .home .card {
     width: calc(100% - 48px);
