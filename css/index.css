@@ -188,13 +188,14 @@ p {
   color: var(--text);
 }
 
-/* Japanese label: upright vertical writing instead of the
-   -90 degree rotation used for the English label. */
-.creator--vertical {
+/* The label follows the page language: Japanese labels
+   stand upright in vertical writing; English labels keep
+   the -90 degree rotation of the base rule above. */
+html[lang="ja"] .creator {
   transform: translate(-50%, -50%);
 }
 
-.creator--vertical .creator-title {
+html[lang="ja"] .creator-title {
   writing-mode: vertical-rl;
 }
 
@@ -416,17 +417,68 @@ p {
 }
 
 
-/* Manual card switch buttons, bottom-right of the card. */
-.card-navs {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  z-index: 11;
-  display: flex;
-  gap: 8px;
+/* Decorative animated line at the card's bottom-right
+   (the former switch dot, kept as decoration only). */
+/*== bottm line */
+.content__ping {
+  position: absolute; right: 24px; bottom: 24px; left: auto;
+  width: 44px; height: 44px; padding: 0; border: 0;
+  background: transparent; color: var(--inv); pointer-events: none;
+  opacity: 0.7; z-index: 11;
+}
+.content__ping::before, .content__ping::after {
+  content: ""; display: block; position: absolute;
+  width: 28px; height: 1px; left: 8px; top: 50%;
+  background: currentColor; pointer-events: none;
+}
+.content__ping::after {
+  background: var(--text); opacity: 0.7;
+  transition: background 350ms 800ms linear;
+  animation: widenFromLeft 2200ms ease-out;
 }
 
+@keyframes widenFromLeft {
+  0% {
+    opacity: 1;
+    transform-origin: 0 50%;
+  }
+
+  20% {
+    transform: scaleX(1.25);
+    transform-origin: 0 50%;
+  }
+
+  100% {
+    opacity: 1;
+    transform-origin: 0 50%;
+  }
+}
+
+@keyframes widenFromRight {
+  0% {
+    opacity: 1;
+    transform-origin: 100% 50%;
+  }
+
+  20% {
+    transform: scaleX(1.25);
+    transform-origin: 100% 50%;
+  }
+
+  100% {
+    opacity: 1;
+    transform-origin: 100% 50%;
+  }
+}
+
+/* Manual card switch: a single button attached to the
+   card's right side, centred on its edge. */
 .card-nav {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + var(--card-width) / 2);
+  transform: translate(-50%, -50%);
+  z-index: 12;
   padding: 0.38em 0.8em;
   font-family: "Shippori Mincho", serif;
   font-size: 10px;
@@ -445,8 +497,29 @@ p {
   background: rgba(18, 19, 20, 0.72);
 }
 
+/* Card switch motion: the incoming card layer slides in
+   from the right while the outgoing one slides out left. */
+@media (prefers-reduced-motion: no-preference) {
+  .card__slide.active,
+  .content__slide.active {
+    animation: cardSlideIn 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
 
+  .card__slide.exit,
+  .content__slide.exit {
+    animation: cardSlideOut 700ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
 
+  @keyframes cardSlideIn {
+    from { transform: translateX(36px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes cardSlideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-36px); opacity: 0; }
+  }
+}
 
 .top-page .content {
   width: 100%;
@@ -746,6 +819,12 @@ footer,
        rotated label sits just inside the card's left edge. */
     left: calc(50% - var(--card-width) / 2 + 0.9rem);
     z-index: 3;
+  }
+
+  .content__ping { left: calc(50% + 48px); right: auto; bottom: 24px; transform: translateX(-50%); }
+
+  .card-nav {
+    transform: translate(-100%, -50%);
   }
 
 

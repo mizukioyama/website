@@ -10,8 +10,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=8d89e26a196f">
-    <link rel="stylesheet" href="css/index.css?v=d060669ab31f">
-    <link rel="stylesheet" href="css/menu.css?v=e0739e1b95f3">
+    <link rel="stylesheet" href="css/index.css?v=b677607675d5">
+    <link rel="stylesheet" href="css/menu.css?v=a8c493513a40">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=1e90003db811">
     <link rel="stylesheet" href="css/page-transition.css?v=16c83d93d4ff">
     <script src="js/page-transition.js?v=097d5a8a76c2"></script>
@@ -170,18 +170,16 @@
                 <div class="back__slide active">
                     <div class="progress"></div>
                     <div class="creator">
-                        <h2 class="creator-title">
-                            Exhibition / Closed.
-                        </h2>
+                        <h2 class="creator-title" lang="ja">展示は終了しています</h2>
+                        <h2 class="creator-title" lang="en">Exhibition / Closed.</h2>
                     </div>
                 </div>
                 <div class="back__slide">
                     <div class="progress"></div>
                     <div class="back-front-image"></div>
-                    <div class="creator creator--vertical">
-                        <h2 class="creator-title">
-                            固定化された概念からの脱却
-                        </h2>
+                    <div class="creator">
+                        <h2 class="creator-title" lang="ja">固定化された概念からの脱却</h2>
+                        <h2 class="creator-title" lang="en">Breaking Free from Fixed Concepts</h2>
                     </div>
                 </div>
             </div>
@@ -247,14 +245,12 @@
                         </p>
                     </div>
                 </div>
-                <div class="card-navs">
-                    <button type="button" class="card-nav" data-card-nav="prev" aria-label="前のカード / Previous card">PREV</button>
-                    <button type="button" class="card-nav" data-card-nav="next" aria-label="次のカード / Next card">NEXT</button>
-                </div>
+                <div class="content__ping" aria-hidden="true"></div>
                 <div class="noise"
                     style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.15); top: 0; z-index: -1;">
                 </div>
             </div>
+            <button type="button" class="card-nav" data-card-nav="next" aria-label="カード切替 / Switch card">NEXT</button>
         </div>
         <div class="noise"
             style="content: ''; width: 100%; height: 100%; position: absolute; background: rgba(200, 200, 200, 0.2); top: 0; z-index: -1;">
