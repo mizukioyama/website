@@ -43,6 +43,8 @@
 
   .home .content__ping { left: calc(50% + 48px); right: auto; bottom: 24px; transform: translateX(-50%); }
 
+  .home .card-navs { right: 14px; bottom: 14px; }
+
   .home .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
   .home .back__slide::before {
@@ -55,14 +57,12 @@
     gap: 16px;
   }
 
-  .home .creator {
-    top: 0.5%;
-    left: 4%;
-  }
-
-  .home .time {
-    right: 4%;
-    bottom: 0.5%;
+  :root {
+    /* Match the tablet card's actual width (the .card rule
+       below), so the rotated side labels track it. The
+       labels themselves keep the base card-side placement
+       from index.css. */
+    --card-width: min(calc(100vw - 48px), calc(90svh / 1.61803398875));
   }
 
   .home .card__slide:first-child .number,

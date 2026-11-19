@@ -61,7 +61,7 @@ h1 {
 }
 
 .creator-title {
-  font-size: var(--type-home-creator-size);
+  font-size: 14px;
 }
 
 h2 {
@@ -177,25 +177,31 @@ p {
 .creator {
   display: block;
   position: absolute;
-  top: 10%;
-  left: 30vmin;
-  padding: 0.15vmin 0.75vmin 0.25vmin;
-  color: var(--inv);
-  background-image: linear-gradient(to right, var(--text));
+  /* Rotated -90 degrees and placed beside the centre card,
+     vertically centred on it. No background bar; the text
+     sits directly on the page in the dark text colour. */
+  top: 50%;
+  left: calc(50% - var(--card-width) / 2 - 1.75rem);
+  transform: translate(-50%, -50%) rotate(-90deg);
+  white-space: nowrap;
+  padding: 0;
+  color: var(--text);
+}
+
+/* Japanese label: upright vertical writing instead of the
+   -90 degree rotation used for the English label. */
+.creator--vertical {
+  transform: translate(-50%, -50%);
+}
+
+.creator--vertical .creator-title {
+  writing-mode: vertical-rl;
 }
 
 .creator .noise {
   display: block;
 }
 
-.time {
-  position: absolute;
-  bottom: 10%;
-  right: 30vmin;
-  padding: 0.15vmin 0.75vmin 0.25vmin;
-  color: var(--inv);
-  background-image: linear-gradient(to right, var(--text));
-}
 
 /* ========== Card Slide ========== */
 .card {
@@ -415,6 +421,35 @@ p {
   width: 44px; height: 44px; padding: 0; border: 0;
   background: transparent; color: var(--inv); cursor: pointer;
   opacity: 0.7; z-index: 11; transition: opacity 350ms ease-out;
+}
+
+/* Manual card switch buttons, bottom-left of the card. */
+.card-navs {
+  position: absolute;
+  right: 80px;
+  bottom: 34px;
+  z-index: 11;
+  display: flex;
+  gap: 8px;
+}
+
+.card-nav {
+  padding: 0.38em 0.8em;
+  font-family: "Shippori Mincho", serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: #f2f2ec;
+  background: rgba(18, 19, 20, 0.45);
+  border: 1px solid rgba(242, 242, 236, 0.35);
+  border-radius: 0;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 250ms ease;
+}
+
+.card-nav:hover,
+.card-nav:focus-visible {
+  background: rgba(18, 19, 20, 0.72);
 }
 .content__ping::before, .content__ping::after {
   content: ""; display: block; position: absolute;
@@ -731,6 +766,12 @@ footer,
 
 
 @media screen and (max-width: 599px) {
+  :root {
+    /* Match the card's actual width in this range (the
+       .card rule below), so the side labels track it. */
+    --card-width: min(calc(100vw - 48px), calc(90svh / 1.61803398875));
+  }
+
     #vanta-bg {
         opacity: 0.35;
     }
@@ -761,13 +802,16 @@ footer,
   }
 
   .creator {
-    top: 0.5%;
-    left: 4%;
+    /* The card spans nearly the full width here, so the
+       rotated label sits just inside the card's left edge. */
+    left: calc(50% - var(--card-width) / 2 + 0.9rem);
+    z-index: 3;
   }
 
-  .time {
-    right: 4%;
-    bottom: 0.5%;
+
+  .card-navs {
+    right: 14px;
+    bottom: 14px;
   }
 
 .card__slide:first-child .number,

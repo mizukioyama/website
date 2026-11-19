@@ -52,8 +52,18 @@ waitForJQuery(function ($) {
             goToSlide(slideElements, Number(this.dataset.homeSlide));
         });
 
-        setTimeout(() => goToSlide(slideElements, 2), 2000);
-        setTimeout(() => goToSlide(slideElements, 1), 6000);
+        const autoTimers = [
+            setTimeout(() => goToSlide(slideElements, 2), 2000),
+            setTimeout(() => goToSlide(slideElements, 1), 6000)
+        ];
+
+        $('[data-card-nav]').on('click', function () {
+            autoTimers.forEach(timer => clearTimeout(timer));
+            const count = $('.back__slide').length;
+            const current = $('.back__slide.active').index() + 1;
+            const step = this.dataset.cardNav === 'next' ? 1 : -1;
+            goToSlide(slideElements, ((current - 1 + step + count) % count) + 1);
+        });
 
         // 時刻表示
         function updateParisTime() {
