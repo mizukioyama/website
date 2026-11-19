@@ -94,12 +94,13 @@ waitForJQuery(function ($) {
     };
     // The card itself is rendered as a liquid-metal droplet
     // by a small WebGL shader (user settings, 2026-11-19):
-    // three layers: the real artwork images (cover) at
-    // the bottom, the flowing chrome (metal strength
-    // 150%: streak x1.37) as a translucent film over
-    // them (25% opacity, plain source-over), grain on
-    // top (100%). Material softness 55%, sliminess 0%,
-    // slowed surface flow (tm x0.010), deformation
+    // the flowing chrome (metal strength 150%: streak
+    // x1.37) at the very back, the real artwork images
+    // (cover) over it at the original 50% opacity, grain
+    // on top (100%). Material softness 55%, sliminess 0%.
+    // No automatic surface animation: the pattern is
+    // frozen (fixed time phase, no drift); only the
+    // pointer-driven bulge moves. Deformation
     // 0%. The surface drift direction random-walks on its
     // own; the silhouette swells only where the pointer
     // touches an edge (bulge 30px, gel spring 100%, follow
@@ -207,7 +208,7 @@ waitForJQuery(function ($) {
             "    art = mix(c1, c2, u_mix);",
             "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
-            "  vec3 col = mix(chrome, mix(art, chrome, 0.25), artA);",
+            "  vec3 col = mix(chrome, art, artA * 0.50);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
@@ -310,15 +311,11 @@ waitForJQuery(function ($) {
             pvx = (px - ox) / Math.max(1, dt) * 16.7;
             pvy = (py - oy) / Math.max(1, dt) * 16.7;
             on += (onTarget - on) * (1 - Math.exp(-dt / 120));
-            // The surface drift direction random-walks on its own.
-            autoT -= dt / 1000;
-            if (autoT <= 0) {
-                autoT = 2.6 + Math.random() * 3.2;
-                flowTgt += (Math.random() - 0.5) * 2.4;
-            }
-            flowAng += (flowTgt - flowAng) * (1 - Math.exp(-dt / 1600));
-            flowOff.x += Math.cos(flowAng) * dt * 0.006 * (0.4 + SLIM);
-            flowOff.y += Math.sin(flowAng) * dt * 0.006 * (0.4 + SLIM);
+            // No automatic surface animation (user instruction,
+            // 2026-11-19): the flow offset stays fixed at zero
+            // and u_time below is a fixed phase, so the metal
+            // surface is static. Only the pointer-driven bulge
+            // still moves.
             const qk = 1 - Math.exp(-dt / (200 + 380 * SLIM));
             qx += (px - qx) * qk;
             qy += (py - qy) * qk;
@@ -357,7 +354,7 @@ waitForJQuery(function ($) {
             gl.uniform2f(uni.u_flow, flowOff.x * sx, flowOff.y * sy);
             gl.uniform1f(uni.u_amp, Math.max(0, ampS) * AMP * sx);
             gl.uniform1f(uni.u_on, on);
-            gl.uniform1f(uni.u_time, t / 1000);
+            gl.uniform1f(uni.u_time, 12.0);
             gl.uniform1f(uni.u_soft, SOFT);
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
