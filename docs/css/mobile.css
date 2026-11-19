@@ -28,8 +28,11 @@
 
   main {
     position: relative;
-    width: 100%;
-    margin: 0 auto;
+    /* Inside the site frame, like the wider layouts: inset
+       by the frame's edge, and by the band width on the
+       right so content stops at the band's inner edge. */
+    width: auto;
+    margin: 4.44dvh 6.25vw 4.44dvh 2.78vw;
     padding-bottom: 10em;
     padding: 5rem 2.5rem 15rem;
     padding-inline: min(2.5rem, calc((100vw - 1rem) / 2));

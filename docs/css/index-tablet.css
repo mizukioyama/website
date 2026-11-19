@@ -56,13 +56,16 @@
   }
 
   .home .creator {
-    top: 0.5%;
-    left: 4%;
+    /* Clear of the site frame's top-left zone, mirroring
+       the desktop position (top 10%, right of the zone). */
+    top: 10%;
+    left: 25.75vw;
   }
 
   .home .time {
     right: 4%;
-    bottom: 0.5%;
+    /* Above the frame's bottom edge, mirroring desktop. */
+    bottom: 10%;
   }
 
   .home .card__slide:first-child .number,

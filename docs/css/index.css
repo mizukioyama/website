@@ -178,7 +178,10 @@ p {
   display: block;
   position: absolute;
   top: 10%;
-  left: 30vmin;
+  /* Keep clear of the site frame's top-left zone (23.75vw
+     wide): on wide screens 30vmin falls short of the zone's
+     right edge and the label slides underneath it. */
+  left: max(30vmin, 25.75vw);
   padding: 0.15vmin 0.75vmin 0.25vmin;
   color: var(--inv);
   background-image: linear-gradient(to right, var(--text));
@@ -761,13 +764,16 @@ footer,
   }
 
   .creator {
-    top: 0.5%;
-    left: 4%;
+    /* Clear of the site frame's top-left zone, mirroring
+       the desktop position (top 10%, right of the zone). */
+    top: 10%;
+    left: 25.75vw;
   }
 
   .time {
     right: 4%;
-    bottom: 0.5%;
+    /* Above the frame's bottom edge, mirroring desktop. */
+    bottom: 10%;
   }
 
 .card__slide:first-child .number,

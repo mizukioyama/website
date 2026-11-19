@@ -1237,12 +1237,14 @@ main {
    and inset shadow follow the frame's inner outline
    instead of running full-bleed underneath the frame,
    where the frame's shadow fell on blurred backdrop and
-   looked doubly soft. The frame's opaque fill covers the
-   overlaps at the top-left zone and the right band.
-   Placed last so it also overrides the width:100% on
-   .art-page main.gallery in the >=600px block above. */
+   looked doubly soft. On the right the inset is the band
+   width (90px, 6.25vw), so main ends flush at the band's
+   inner edge and content boxes no longer slide underneath
+   the band. Placed last so it also overrides the
+   width:100% on .art-page main.gallery in the >=600px
+   block above. */
 main,
 .art-page main.gallery {
   width: auto;
-  margin: 4.44dvh 2.78vw;
+  margin: 4.44dvh 6.25vw 4.44dvh 2.78vw;
 }
