@@ -96,7 +96,7 @@ waitForJQuery(function ($) {
     // outline joins the liquid's signed-distance field (smooth
     // union), so where the pointer nears an edge the boundary
     // becomes one continuous liquid contour. Droplet 22px,
-    // boundary softness 20, follow lag 700ms (exponential
+    // boundary softness 22, follow lag 700ms (exponential
     // smoothing, tau = 280ms). The smooth union is localized
     // to the contact point (gate x window in the shader) so
     // the card's overall outline never morphs; only the
@@ -140,7 +140,7 @@ waitForJQuery(function ($) {
             "  float dDrop = length(lp) - rEff;",
             "  vec2 q = clamp(u_ptr, u_card.xy, u_card.xy + u_card.zw);",
             "  float gate = smoothstep(34.0, 14.0, length(u_ptr - q));",
-            "  float win = smoothstep(150.0, 55.0, length(p - q));",
+            "  float win = smoothstep(60.0, 22.0, length(p - q));",
             "  float dU = smin(dDrop, dCard, u_soft * (0.7 + 0.6 * u_press));",
             "  return mix(dDrop, dU, gate * win);",
             "}",
@@ -200,14 +200,14 @@ waitForJQuery(function ($) {
         const PAD = 30;
         const REACH = 80;
         const RADIUS = 11;
-        const SOFT = 20;
+        const SOFT = 22;
         const TAU = 280;
-        // Gel spring at full strength (user setting 100%):
-        // pressing the edge grows the bulge, releasing it
-        // makes it wobble back like jelly (WWDC25 Liquid
-        // Glass dynamics: instant deformation, gel flex).
-        const STIFF = 0.215;
-        const DAMP = 0.76;
+        // Gel spring at 20% (user setting): pressing the
+        // edge grows the bulge, releasing it settles back
+        // with a slight jelly wobble (WWDC25 Liquid Glass
+        // dynamics: instant deformation, gel flex).
+        const STIFF = 0.087;
+        const DAMP = 0.84;
         let tx = -9999, ty = -9999, px = -9999, py = -9999, pvx = 0, pvy = 0;
         let on = 0, onTarget = 0, lastT = 0;
         let press = 0, pressV = 0, wob = 0, phase = 0;
@@ -246,7 +246,7 @@ waitForJQuery(function ($) {
             pressV *= Math.pow(DAMP, dt / 16.7);
             press += pressV * (dt / 16.7);
             const speed = Math.hypot(pvx, pvy);
-            wob = Math.min(1, Math.max(wob * Math.pow(0.94, dt / 16.7), Math.abs(pressV) * 2.2, press > 0.4 ? speed * 0.010 : 0));
+            wob = Math.min(1, Math.max(wob * Math.pow(0.94, dt / 16.7), Math.abs(pressV) * 0.44, press > 0.4 ? speed * 0.002 : 0));
             phase += dt * 0.021;
             if (on < 0.01 && onTarget === 0 && Math.abs(press) < 0.01) return;
             const dpr = Math.min(2, window.devicePixelRatio || 1);
