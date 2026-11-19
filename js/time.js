@@ -142,6 +142,8 @@ waitForJQuery(function ($) {
             "uniform sampler2D u_tex2;",
             "uniform float u_ready1;",
             "uniform float u_ready2;",
+            "uniform sampler2D u_tex3;",
+            "uniform float u_ready3;",
             "uniform float u_mix;",
             "uniform float u_metal;",
             "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }",
@@ -217,7 +219,33 @@ waitForJQuery(function ($) {
             "    art = mix(c1, c2, u_mix);",
             "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
+            "  vec3 back = vec3(0.0);",
+            "  float backA = 0.0;",
+            "  {",
+            "    float ca = u_card.z / u_card.w;",
+            "    vec3 b1 = vec3(0.0);",
+            "    vec3 b2 = vec3(0.0);",
+            "    if (u_ready3 > 0.5) {",
+            "      vec2 t3 = uv;",
+            "      float ia3 = 1920.0 / 1080.0;",
+            "      if (ca > ia3) { t3.y = (t3.y - 0.5) * (ia3 / ca) + 0.5; } else { t3.x = (t3.x - 0.5) * (ca / ia3) + 0.5; }",
+            "      b1 = texture2D(u_tex3, clamp(t3, 0.001, 0.999)).rgb;",
+            "      float l1 = dot(b1, vec3(0.299, 0.587, 0.114));",
+            "      b1 = mix(b1, vec3(l1), 0.30) * 0.80 + vec3(0.078) * 0.20;",
+            "    }",
+            "    if (u_ready2 > 0.5) {",
+            "      vec2 t4 = uv;",
+            "      float ia4 = 1300.0 / 768.0;",
+            "      if (ca > ia4) { t4.y = (t4.y - 0.5) * (ia4 / ca) + 0.5; } else { t4.x = (t4.x - 0.5) * (ca / ia4) + 0.5; }",
+            "      b2 = texture2D(u_tex2, clamp(t4, 0.001, 0.999)).rgb;",
+            "      float l2 = dot(b2, vec3(0.299, 0.587, 0.114));",
+            "      b2 = mix(b2, vec3(l2), 0.30) * 0.38 + vec3(0.706) * 0.62;",
+            "    }",
+            "    back = mix(b1, b2, u_mix);",
+            "    backA = mix(u_ready3, u_ready2, u_mix);",
+            "  }",
             "  vec3 col = mix(mix(art, chrome, u_metal), art, artA * 0.50 * u_metal);",
+            "  col = mix(col, mix(back, col, 0.80), backA);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
@@ -245,7 +273,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mix", "u_metal"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mix", "u_metal", "u_tex3", "u_ready3"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -262,7 +290,7 @@ waitForJQuery(function ($) {
         // img/couryoku.jpg (slide 2), crossfaded on switches.
         // Textures are sampled without a Y flip: uv.y is 0 at
         // the card top and v=0 is the image's top row.
-        const texReady = [0, 0];
+        const texReady = [0, 0, 0];
         const loadTex = (unit, readyIdx, srcPath) => {
             const tex = gl.createTexture();
             gl.activeTexture(gl.TEXTURE0 + unit);
@@ -283,8 +311,18 @@ waitForJQuery(function ($) {
         };
         loadTex(0, 0, "img/202343-2.jpg");
         loadTex(1, 1, "img/couryoku.jpg");
+        // Background layer (restored, 2026-11-19): the
+        // original per-slide background images that used to
+        // sit behind the frosted card (slide 1: shinju with
+        // its dark overlay, slide 2: couryoku with its light
+        // overlay, both grayscale 30%). The opaque canvas
+        // covers the DOM originals, so the shader draws them
+        // as the bottom layer and the card surface stays at
+        // 80% opacity over them; they crossfade with u_mix.
+        loadTex(2, 2, "img/shinju.jpg");
         gl.uniform1i(uni.u_tex1, 0);
         gl.uniform1i(uni.u_tex2, 1);
+        gl.uniform1i(uni.u_tex3, 2);
         let slideMix = 0;
 
         const PAD = 40;
@@ -380,6 +418,7 @@ waitForJQuery(function ($) {
             slideMix += (activeIdx - slideMix) * (1 - Math.exp(-dt / 220));
             gl.uniform1f(uni.u_ready1, texReady[0]);
             gl.uniform1f(uni.u_ready2, texReady[1]);
+            gl.uniform1f(uni.u_ready3, texReady[2]);
             gl.uniform1f(uni.u_mix, Math.min(1, Math.max(0, slideMix)));
             gl.uniform1f(uni.u_metal, metalMode);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
