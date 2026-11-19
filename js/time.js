@@ -96,8 +96,11 @@ waitForJQuery(function ($) {
     // outline joins the liquid's signed-distance field (smooth
     // union), so where the pointer nears an edge the boundary
     // becomes one continuous liquid contour. Droplet 22px,
-    // boundary softness 70, follow lag 700ms (exponential
-    // smoothing, tau = 280ms). No spectral rim (removed at the
+    // boundary softness 30, follow lag 700ms (exponential
+    // smoothing, tau = 280ms). The smooth union is localized
+    // to the contact point (gate x window in the shader) so
+    // the card's overall outline never morphs; only the
+    // touched spot swells. No spectral rim (removed at the
     // user's request); only a soft specular highlight remains.
     // When WebGL is unavailable the card simply has no liquid.
     const initializeCardLiquidGL = () => {
@@ -129,7 +132,11 @@ waitForJQuery(function ($) {
             "  vec2 lp = vec2(dot(rel, dir), dot(rel, vec2(-dir.y, dir.x)));",
             "  lp.x /= 1.0 + min(sp * 0.0035, 0.55);",
             "  float dDrop = length(lp) - u_rad;",
-            "  return smin(dDrop, dCard, u_soft);",
+            "  vec2 q = clamp(u_ptr, u_card.xy, u_card.xy + u_card.zw);",
+            "  float gate = smoothstep(30.0, 12.0, length(u_ptr - q));",
+            "  float win = smoothstep(120.0, 45.0, length(p - q));",
+            "  float dU = smin(dDrop, dCard, u_soft);",
+            "  return mix(dDrop, dU, gate * win);",
             "}",
             "void main(){",
             "  vec2 p = vec2(gl_FragCoord.x, u_res.y - gl_FragCoord.y);",
@@ -180,7 +187,7 @@ waitForJQuery(function ($) {
         const PAD = 30;
         const REACH = 80;
         const RADIUS = 11;
-        const SOFT = 70;
+        const SOFT = 30;
         const TAU = 280;
         let tx = -9999, ty = -9999, px = -9999, py = -9999, pvx = 0, pvy = 0;
         let on = 0, onTarget = 0, lastT = 0;

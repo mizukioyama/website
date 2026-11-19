@@ -475,9 +475,10 @@ html[lang="ja"] .creator-title {
 /* Manual card switch: a single Liquid Glass button at the
    card's bottom-right corner (flush right, 14px above the
    bottom). The glass itself is nearly clear (no blur, no
-   white tint); the design is the rim: light refracts into
-   a faint spectrum around the edge (35% intensity), with a
-   soft spectral glow behind it. Square corners. */
+   white tint); the design is the rim: a faint ring in the
+   TOP page's own colors (blue #5ddcff / #3c67e3, white
+   #f9fafb, black #101918) at 35% intensity, with a soft
+   glow behind it. Square corners. */
 .card-nav {
   position: absolute;
   right: calc(50% - var(--card-width) / 2);
@@ -507,10 +508,11 @@ html[lang="ja"] .creator-title {
   height: 100%;
   padding: 1.5px;
   background: conic-gradient(from 210deg,
-    rgba(255, 110, 110, 0.95), rgba(255, 178, 92, 0.95),
-    rgba(255, 238, 140, 0.95), rgba(150, 255, 170, 0.95),
-    rgba(110, 205, 255, 0.95), rgba(178, 150, 255, 0.95),
-    rgba(255, 140, 215, 0.95), rgba(255, 110, 110, 0.95));
+    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
+    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
+    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
+    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
+    rgba(93, 220, 255, 0.95));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -529,10 +531,11 @@ html[lang="ja"] .creator-title {
   height: calc(100% + 6px);
   z-index: -1;
   background: conic-gradient(from 210deg,
-    rgba(255, 110, 110, 0.5), rgba(255, 178, 92, 0.5),
-    rgba(255, 238, 140, 0.5), rgba(150, 255, 170, 0.5),
-    rgba(110, 205, 255, 0.5), rgba(178, 150, 255, 0.5),
-    rgba(255, 140, 215, 0.5), rgba(255, 110, 110, 0.5));
+    rgba(93, 220, 255, 0.5), rgba(249, 250, 251, 0.5),
+    rgba(60, 103, 227, 0.5), rgba(16, 25, 24, 0.5),
+    rgba(93, 220, 255, 0.5), rgba(249, 250, 251, 0.5),
+    rgba(60, 103, 227, 0.5), rgba(16, 25, 24, 0.5),
+    rgba(93, 220, 255, 0.5));
   filter: blur(10px);
   opacity: 0.35;
   pointer-events: none;
