@@ -188,13 +188,14 @@ p {
   color: var(--text);
 }
 
-/* Japanese label: upright vertical writing instead of the
-   -90 degree rotation used for the English label. */
-.creator--vertical {
+/* The label follows the page language: Japanese labels
+   stand upright in vertical writing; English labels keep
+   the -90 degree rotation of the base rule above. */
+html[lang="ja"] .creator {
   transform: translate(-50%, -50%);
 }
 
-.creator--vertical .creator-title {
+html[lang="ja"] .creator-title {
   writing-mode: vertical-rl;
 }
 
@@ -416,37 +417,182 @@ p {
 }
 
 
-/* Manual card switch buttons, bottom-right of the card. */
-.card-navs {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  z-index: 11;
-  display: flex;
-  gap: 8px;
+/* Decorative animated line at the card's bottom-right
+   (the former switch dot, kept as decoration only). */
+/*== bottm line */
+.content__ping {
+  position: absolute; left: calc(50% + 48px); right: auto; bottom: 24px;
+  transform: translateX(-50%);
+  width: 44px; height: 44px; padding: 0; border: 0;
+  background: transparent; color: var(--inv); pointer-events: none;
+  opacity: 0.7; z-index: 11;
+}
+.content__ping::before, .content__ping::after {
+  content: ""; display: block; position: absolute;
+  width: 28px; height: 1px; left: 8px; top: 50%;
+  background: currentColor; pointer-events: none;
+}
+.content__ping::after {
+  background: var(--text); opacity: 0.7;
+  transition: background 350ms 800ms linear;
+  animation: widenFromLeft 2200ms ease-out;
 }
 
+@keyframes widenFromLeft {
+  0% {
+    opacity: 1;
+    transform-origin: 0 50%;
+  }
+
+  20% {
+    transform: scaleX(1.25);
+    transform-origin: 0 50%;
+  }
+
+  100% {
+    opacity: 1;
+    transform-origin: 0 50%;
+  }
+}
+
+@keyframes widenFromRight {
+  0% {
+    opacity: 1;
+    transform-origin: 100% 50%;
+  }
+
+  20% {
+    transform: scaleX(1.25);
+    transform-origin: 100% 50%;
+  }
+
+  100% {
+    opacity: 1;
+    transform-origin: 100% 50%;
+  }
+}
+
+/* Manual card switch: a single Liquid Glass button at the
+   card's bottom-right corner (flush right, 14px above the
+   bottom). The glass itself is nearly clear (no blur, no
+   white tint); the design is the rim: light refracts into
+   a faint spectrum around the edge (35% intensity), with a
+   soft spectral glow behind it. Square corners. */
 .card-nav {
-  padding: 0.38em 0.8em;
+  position: absolute;
+  right: calc(50% - var(--card-width) / 2);
+  bottom: calc(50% - var(--card-height) / 2 + 14px);
+  z-index: 12;
+  padding: 0.38em 0.95em;
   font-family: "Shippori Mincho", serif;
-  font-size: 10px;
+  font-size: 18px;
   letter-spacing: 0.18em;
-  color: #f2f2ec;
-  background: rgba(18, 19, 20, 0.45);
-  border: 1px solid rgba(242, 242, 236, 0.35);
+  color: #f4f4ee;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
   border-radius: 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  backdrop-filter: blur(4px);
-  transition: background 250ms ease;
 }
 
-.card-nav:hover,
+.card-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  background: conic-gradient(from 210deg,
+    rgba(255, 110, 110, 0.95), rgba(255, 178, 92, 0.95),
+    rgba(255, 238, 140, 0.95), rgba(150, 255, 170, 0.95),
+    rgba(110, 205, 255, 0.95), rgba(178, 150, 255, 0.95),
+    rgba(255, 140, 215, 0.95), rgba(255, 110, 110, 0.95));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.card-nav::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  background: conic-gradient(from 210deg,
+    rgba(255, 110, 110, 0.5), rgba(255, 178, 92, 0.5),
+    rgba(255, 238, 140, 0.5), rgba(150, 255, 170, 0.5),
+    rgba(110, 205, 255, 0.5), rgba(178, 150, 255, 0.5),
+    rgba(255, 140, 215, 0.5), rgba(255, 110, 110, 0.5));
+  filter: blur(10px);
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.card-nav:hover::before,
+.card-nav:hover::after {
+  opacity: 0.55;
+}
+
+.card-nav-text {
+  position: relative;
+  z-index: 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-liquid-gl {
+    display: none;
+  }
+}
+
+/* The card's liquid is rendered by a small WebGL shader
+   (js/time.js): the card's own outline joins the liquid's
+   signed-distance field, so where the pointer touches an
+   edge the boundary becomes one continuous liquid contour
+   instead of a circle pasted onto a straight line. The
+   canvas hugs the card plus a 30px margin the liquid can
+   spill into, and paints above the card. */
+.card-liquid-gl {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  transform: translate(-50%, -50%);
+  width: calc(var(--card-width) + 60px);
+  height: calc(var(--card-height) + 60px);
+  pointer-events: none;
+}
+
 .card-nav:focus-visible {
-  background: rgba(18, 19, 20, 0.72);
+  outline: 1px solid rgba(242, 242, 236, 0.8);
+  outline-offset: 3px;
 }
 
+/* Card switch motion: the incoming card layer slides in
+   from the right while the outgoing one slides out left. */
+@media (prefers-reduced-motion: no-preference) {
+  .card__slide.active,
+  .content__slide.active {
+    animation: cardSlideIn 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
 
+  .card__slide.exit,
+  .content__slide.exit {
+    animation: cardSlideOut 700ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
 
+  @keyframes cardSlideIn {
+    from { transform: translateX(36px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes cardSlideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-36px); opacity: 0; }
+  }
+}
 
 .top-page .content {
   width: 100%;
@@ -746,6 +892,16 @@ footer,
        rotated label sits just inside the card's left edge. */
     left: calc(50% - var(--card-width) / 2 + 0.9rem);
     z-index: 3;
+  }
+
+  .card-nav {
+    /* Portrait card: its height is the width times the
+       golden ratio, not the shared --card-height. */
+    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 14px);
+  }
+
+  .card-liquid-gl {
+    height: calc(var(--card-width) * 1.61803398875 + 60px);
   }
 
 

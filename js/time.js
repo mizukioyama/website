@@ -92,5 +92,147 @@ waitForJQuery(function ($) {
         updateClocks();
         setInterval(updateClocks, CLOCK_UPDATE_INTERVAL);
     };
+    // The card's liquid is a small WebGL shader: the card's own
+    // outline joins the liquid's signed-distance field (smooth
+    // union), so where the pointer nears an edge the boundary
+    // becomes one continuous liquid contour. Droplet 22px,
+    // boundary softness 70, follow lag 700ms (exponential
+    // smoothing, tau = 280ms). No spectral rim (removed at the
+    // user's request); only a soft specular highlight remains.
+    // When WebGL is unavailable the card simply has no liquid.
+    const initializeCardLiquidGL = () => {
+        const canvas = document.querySelector(".card-liquid-gl");
+        const card = document.querySelector(".card");
+        const wrap = card ? card.closest(".wrap") : null;
+        if (!canvas || !card || !wrap) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false });
+        if (!gl) return;
+        const VS = "attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }";
+        const FS = [
+            "precision highp float;",
+            "uniform vec2 u_res;",
+            "uniform vec4 u_card;",
+            "uniform vec2 u_ptr;",
+            "uniform vec2 u_vel;",
+            "uniform float u_rad;",
+            "uniform float u_soft;",
+            "uniform float u_on;",
+            "float sdBox(vec2 p, vec2 b, float r){ vec2 q = abs(p) - b; return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r; }",
+            "float smin(float a, float b, float k){ float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0); return mix(b, a, h) - k * h * (1.0 - h); }",
+            "float field(vec2 p){",
+            "  vec2 cc = u_card.xy + u_card.zw * 0.5;",
+            "  float dCard = sdBox(p - cc, u_card.zw * 0.5, 4.0);",
+            "  vec2 rel = p - u_ptr;",
+            "  float sp = length(u_vel);",
+            "  vec2 dir = sp > 0.01 ? u_vel / sp : vec2(1.0, 0.0);",
+            "  vec2 lp = vec2(dot(rel, dir), dot(rel, vec2(-dir.y, dir.x)));",
+            "  lp.x /= 1.0 + min(sp * 0.0035, 0.55);",
+            "  float dDrop = length(lp) - u_rad;",
+            "  return smin(dDrop, dCard, u_soft);",
+            "}",
+            "void main(){",
+            "  vec2 p = vec2(gl_FragCoord.x, u_res.y - gl_FragCoord.y);",
+            "  float dCard = sdBox(p - (u_card.xy + u_card.zw * 0.5), u_card.zw * 0.5, 4.0);",
+            "  float d = field(p);",
+            "  float region = dCard >= 0.0 ? 1.0 : smoothstep(-22.0, -2.0, dCard);",
+            "  float body = smoothstep(1.5, -1.5, d) * region * u_on;",
+            "  if (body <= 0.003) { gl_FragColor = vec4(0.0); return; }",
+            "  float e = 1.5;",
+            "  vec2 grad = vec2(field(p + vec2(e, 0.0)) - field(p - vec2(e, 0.0)), field(p + vec2(0.0, e)) - field(p - vec2(0.0, e)));",
+            "  vec2 n = length(grad) > 0.0001 ? normalize(grad) : vec2(0.0, -1.0);",
+            "  vec3 col = vec3(0.055, 0.058, 0.063);",
+            "  float spec = pow(max(dot(n, normalize(vec2(-0.45, -0.89))), 0.0), 3.0);",
+            "  col += vec3(1.0) * spec * 0.45;",
+            "  float rim = smoothstep(7.0, 0.0, abs(d + 1.0));",
+            "  col += vec3(1.0) * rim * 0.10;",
+            "  gl_FragColor = vec4(col, body * 0.94);",
+            "}"
+        ].join("\n");
+        const compile = (type, src) => {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
+        };
+        const vs = compile(gl.VERTEX_SHADER, VS);
+        const fs = compile(gl.FRAGMENT_SHADER, FS);
+        if (!vs || !fs) return;
+        const prog = gl.createProgram();
+        gl.attachShader(prog, vs);
+        gl.attachShader(prog, fs);
+        gl.linkProgram(prog);
+        if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+        gl.useProgram(prog);
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+        const loc = gl.getAttribLocation(prog, "a_pos");
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+        const uni = {};
+        ["u_res", "u_card", "u_ptr", "u_vel", "u_rad", "u_soft", "u_on"].forEach((name) => {
+            uni[name] = gl.getUniformLocation(prog, name);
+        });
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+        const PAD = 30;
+        const REACH = 80;
+        const RADIUS = 11;
+        const SOFT = 70;
+        const TAU = 280;
+        let tx = -9999, ty = -9999, px = -9999, py = -9999, pvx = 0, pvy = 0;
+        let on = 0, onTarget = 0, lastT = 0;
+        const onMove = (event) => {
+            const rect = card.getBoundingClientRect();
+            tx = event.clientX - rect.left;
+            ty = event.clientY - rect.top;
+            if (px < -1000) { px = tx; py = ty; }
+            const outX = Math.max(0, -tx, tx - rect.width);
+            const outY = Math.max(0, -ty, ty - rect.height);
+            onTarget = Math.hypot(outX, outY) <= REACH ? 1 : 0;
+        };
+        wrap.addEventListener("pointermove", onMove);
+        wrap.addEventListener("pointerdown", onMove);
+        wrap.addEventListener("pointerleave", () => { onTarget = 0; });
+
+        const frame = (t) => {
+            requestAnimationFrame(frame);
+            const dt = Math.min(50, t - lastT || 16);
+            lastT = t;
+            const k = 1 - Math.exp(-dt / TAU);
+            const ox = px, oy = py;
+            px += (tx - px) * k;
+            py += (ty - py) * k;
+            pvx = (px - ox) / Math.max(1, dt) * 16.7;
+            pvy = (py - oy) / Math.max(1, dt) * 16.7;
+            on += (onTarget - on) * (1 - Math.exp(-dt / 90));
+            if (on < 0.01 && onTarget === 0) return;
+            const dpr = Math.min(2, window.devicePixelRatio || 1);
+            const w = Math.round(canvas.clientWidth * dpr);
+            const h = Math.round(canvas.clientHeight * dpr);
+            if (canvas.width !== w || canvas.height !== h) {
+                canvas.width = w;
+                canvas.height = h;
+            }
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            const cr = card.getBoundingClientRect();
+            const cvr = canvas.getBoundingClientRect();
+            if (!cvr.width || !cvr.height) return;
+            const sx = canvas.width / cvr.width;
+            const sy = canvas.height / cvr.height;
+            gl.uniform2f(uni.u_res, canvas.width, canvas.height);
+            gl.uniform4f(uni.u_card, (cr.left - cvr.left) * sx, (cr.top - cvr.top) * sy, cr.width * sx, cr.height * sy);
+            gl.uniform2f(uni.u_ptr, (px + PAD) * sx, (py + PAD) * sy);
+            gl.uniform2f(uni.u_vel, pvx * sx, pvy * sy);
+            gl.uniform1f(uni.u_rad, RADIUS * sx);
+            gl.uniform1f(uni.u_soft, SOFT * sx);
+            gl.uniform1f(uni.u_on, on);
+            gl.drawArrays(gl.TRIANGLES, 0, 3);
+        };
+        requestAnimationFrame(frame);
+    };
     document.addEventListener("portfolio:homeready", initializeHomeSlides, { once: true });
+    document.addEventListener("portfolio:homeready", initializeCardLiquidGL, { once: true });
 });
