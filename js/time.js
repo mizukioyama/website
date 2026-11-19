@@ -148,6 +148,7 @@ waitForJQuery(function ($) {
             "uniform float u_mto;",
             "uniform float u_ap;",
             "uniform float u_bp;",
+            "uniform float u_sdist;",
             "uniform float u_metal;",
             "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
@@ -205,8 +206,8 @@ waitForJQuery(function ($) {
             "  float artA = 0.0;",
             "  {",
             "    float ca = u_card.z / u_card.w;",
-            "    vec2 sOut = uv + vec2(u_ap * 0.05, 0.0);",
-            "    vec2 sIn = uv + vec2((1.0 - u_ap) * 0.10, 0.0);",
+            "    vec2 sOut = uv + vec2(u_ap * u_sdist * 0.5, 0.0);",
+            "    vec2 sIn = uv + vec2((1.0 - u_ap) * u_sdist, 0.0);",
             "    vec3 o1 = vec3(0.0);",
             "    vec3 i1 = vec3(0.0);",
             "    vec3 o2 = vec3(0.0);",
@@ -236,8 +237,8 @@ waitForJQuery(function ($) {
             "  float backA = 0.0;",
             "  {",
             "    float ca = u_card.z / u_card.w;",
-            "    vec2 sOut = uv + vec2(u_bp * 0.04, 0.0);",
-            "    vec2 sIn = uv + vec2((1.0 - u_bp) * 0.06, 0.0);",
+            "    vec2 sOut = uv + vec2(u_bp * u_sdist * 0.5, 0.0);",
+            "    vec2 sIn = uv + vec2((1.0 - u_bp) * u_sdist * 0.75, 0.0);",
             "    vec3 o1 = vec3(0.0);",
             "    vec3 i1 = vec3(0.0);",
             "    vec3 o2 = vec3(0.0);",
@@ -300,7 +301,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_bp", "u_metal", "u_tex3", "u_ready3"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_bp", "u_sdist", "u_metal", "u_tex3", "u_ready3"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -460,6 +461,7 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_mto, mixTo);
             gl.uniform1f(uni.u_ap, artP);
             gl.uniform1f(uni.u_bp, backP);
+            gl.uniform1f(uni.u_sdist, 128 / Math.max(1, canvas.clientWidth));
             gl.uniform1f(uni.u_metal, metalMode);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
