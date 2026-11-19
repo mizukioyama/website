@@ -112,13 +112,10 @@ waitForJQuery(function ($) {
         const wrap = card ? card.closest(".wrap") : null;
         if (!canvas || !card || !wrap) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        // The full layer stack (liquid metal, artwork at
-        // 50% over it, grain on top) runs on every viewport,
-        // as it did before the PC-only split: on smaller
-        // viewports the same display is restored (user
-        // instruction, 2026-11-19). The metal itself stays
-        // exactly as tuned: still surface, bulge on contact.
-        const metalMode = 1;
+        // The full layer stack (background, liquid metal,
+        // artwork at 50% over it, grain on top) runs on
+        // every viewport. The metal itself stays exactly
+        // as tuned: still surface, bulge on contact.
         const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false });
         if (!gl) return;
         const VS = "attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }";
@@ -148,7 +145,6 @@ waitForJQuery(function ($) {
             "uniform float u_ap;",
             "uniform float u_bp;",
             "uniform float u_sdist;",
-            "uniform float u_metal;",
             "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -176,8 +172,6 @@ waitForJQuery(function ($) {
             "  float und = (vnoise(vec2(per * 4.0, u_time * 0.22)) - 0.5) * u_slim * 4.4 * exp(-(d * d) / (20.0 * 20.0));",
             "  return d - u_amp * u_on * g * band - und;",
             "}",
-            "float blHL(float a, float b) { return b < 0.5 ? 2.0 * a * b : 1.0 - 2.0 * (1.0 - a) * (1.0 - b); }",
-            "vec3 blendHL(vec3 a, vec3 b) { return vec3(blHL(a.r, b.r), blHL(a.g, b.g), blHL(a.b, b.b)); }",
             "void main(){",
             "  vec2 p = vec2(gl_FragCoord.x, u_res.y - gl_FragCoord.y);",
             "  float d = field(p);",
@@ -255,23 +249,23 @@ waitForJQuery(function ($) {
             "      float l1b = dot(i1, vec3(0.299, 0.587, 0.114));",
             "      i1 = mix(i1, vec3(l1b), 0.30) * 0.80 + vec3(0.078) * 0.20;",
             "    }",
-            "    if (u_ready2 > 0.5) {",
-            "      float ia4 = 1300.0 / 768.0;",
+            "    if (u_ready3 > 0.5) {",
+            "      float ia3b = 1920.0 / 1080.0;",
             "      vec2 t4 = sOut;",
-            "      if (ca > ia4) { t4.y = (t4.y - 0.5) * (ia4 / ca) + 0.5; } else { t4.x = (t4.x - 0.5) * (ca / ia4) + 0.5; }",
-            "      o2 = texture2D(u_tex2, clamp(t4, 0.001, 0.999)).rgb;",
+            "      if (ca > ia3b) { t4.y = (t4.y - 0.5) * (ia3b / ca) + 0.5; } else { t4.x = (t4.x - 0.5) * (ca / ia3b) + 0.5; }",
+            "      o2 = texture2D(u_tex3, clamp(t4, 0.001, 0.999)).rgb;",
             "      float l2 = dot(o2, vec3(0.299, 0.587, 0.114));",
             "      o2 = mix(o2, vec3(l2), 0.30) * 0.38 + vec3(0.706) * 0.62;",
             "      vec2 t4b = sIn;",
-            "      if (ca > ia4) { t4b.y = (t4b.y - 0.5) * (ia4 / ca) + 0.5; } else { t4b.x = (t4b.x - 0.5) * (ca / ia4) + 0.5; }",
-            "      i2 = texture2D(u_tex2, clamp(t4b, 0.001, 0.999)).rgb;",
+            "      if (ca > ia3b) { t4b.y = (t4b.y - 0.5) * (ia3b / ca) + 0.5; } else { t4b.x = (t4b.x - 0.5) * (ca / ia3b) + 0.5; }",
+            "      i2 = texture2D(u_tex3, clamp(t4b, 0.001, 0.999)).rgb;",
             "      float l2b = dot(i2, vec3(0.299, 0.587, 0.114));",
             "      i2 = mix(i2, vec3(l2b), 0.30) * 0.38 + vec3(0.706) * 0.62;",
             "    }",
             "    back = mix(mix(o1, o2, u_mfrom), mix(i1, i2, u_mto), u_bp);",
-            "    backA = mix(u_ready3, u_ready2, mix(u_mfrom, u_mto, u_bp));",
+            "    backA = u_ready3;",
             "  }",
-            "  vec3 col = mix(mix(art, chrome, u_metal), art, artA * 0.50 * u_metal);",
+            "  vec3 col = mix(chrome, art, artA * 0.50);",
             "  col = mix(col, mix(back, col, 0.80), backA);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
@@ -300,7 +294,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_bp", "u_sdist", "u_metal", "u_tex3", "u_ready3"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_bp", "u_sdist", "u_tex3", "u_ready3"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -308,7 +302,7 @@ waitForJQuery(function ($) {
         document.body.classList.add("card-liquid-on");
         // The artwork layer is the real slide artwork over
         // the whole card: img/202343-2.jpg (slide 1) and
-        // img/couryoku.jpg (slide 2), crossfaded on switches.
+        // img/couryoku.jpg (slide 2), sliding on switches.
         // Textures are sampled without a Y flip: uv.y is 0 at
         // the card top and v=0 is the image's top row.
         const texReady = [0, 0, 0];
@@ -332,14 +326,12 @@ waitForJQuery(function ($) {
         };
         loadTex(0, 0, "img/202343-2.jpg");
         loadTex(1, 1, "img/couryoku.jpg");
-        // Background layer (restored, 2026-11-19): the
-        // original per-slide background images that used to
-        // sit behind the frosted card (slide 1: shinju with
-        // its dark overlay, slide 2: couryoku with its light
-        // overlay, both grayscale 30%). The opaque canvas
-        // covers the DOM originals, so the shader draws them
-        // as the bottom layer and the card surface stays at
-        // 80% opacity over them; they slide with the switch.
+        // Background layer (restored, 2026-11-19): shinju
+        // sits behind the card surface at 80% (dark overlay
+        // on slide 1, light overlay on slide 2, grayscale
+        // 30%), sliding with the switch. Slide 2 originally
+        // used couryoku here, but that is the same file as
+        // slide 2's artwork, which doubled the image.
         loadTex(2, 2, "img/shinju.jpg");
         gl.uniform1i(uni.u_tex1, 0);
         gl.uniform1i(uni.u_tex2, 1);
@@ -433,8 +425,8 @@ waitForJQuery(function ($) {
             gl.uniform2f(uni.u_q, (qx + PAD) * sx, (qy + PAD) * sy);
             gl.uniform2f(uni.u_vel, pvx * sx, pvy * sy);
             gl.uniform2f(uni.u_flow, flowOff.x * sx, flowOff.y * sy);
-            gl.uniform1f(uni.u_amp, Math.max(0, ampS) * AMP * sx * metalMode);
-            gl.uniform1f(uni.u_on, on * metalMode);
+            gl.uniform1f(uni.u_amp, Math.max(0, ampS) * AMP * sx);
+            gl.uniform1f(uni.u_on, on);
             gl.uniform1f(uni.u_time, 12.0);
             gl.uniform1f(uni.u_soft, SOFT);
             gl.uniform1f(uni.u_slim, SLIM);
@@ -455,7 +447,6 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_ap, artP);
             gl.uniform1f(uni.u_bp, backP);
             gl.uniform1f(uni.u_sdist, 128 / Math.max(1, canvas.clientWidth));
-            gl.uniform1f(uni.u_metal, metalMode);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
         requestAnimationFrame(frame);
