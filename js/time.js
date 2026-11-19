@@ -138,12 +138,9 @@ waitForJQuery(function ($) {
             "uniform sampler2D u_tex2;",
             "uniform float u_ready1;",
             "uniform float u_ready2;",
-            "uniform sampler2D u_tex3;",
-            "uniform float u_ready3;",
             "uniform float u_mfrom;",
             "uniform float u_mto;",
             "uniform float u_ap;",
-            "uniform float u_bp;",
             "uniform float u_sdist;",
             "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
@@ -177,7 +174,7 @@ waitForJQuery(function ($) {
             "  float d = field(p);",
             "  float body = smoothstep(1.6, -1.6, d);",
             "  float shadow = smoothstep(26.0, 2.0, d) * 0.20;",
-            "  float alpha = max(body, shadow * (1.0 - body));",
+            "  float alpha = max(body * 0.80, shadow * (1.0 - body));",
             "  if (alpha <= 0.004) { gl_FragColor = vec4(0.0); return; }",
             "  vec2 uv = (p - u_card.xy) / u_card.zw;",
             "  float tm = u_time * 0.010;",
@@ -226,47 +223,7 @@ waitForJQuery(function ($) {
             "    art = mix(mix(o1, o2, u_mfrom), mix(i1, i2, u_mto), u_ap);",
             "    artA = mix(u_ready1, u_ready2, mix(u_mfrom, u_mto, u_ap));",
             "  }",
-            "  vec3 back = vec3(0.0);",
-            "  float backA = 0.0;",
-            "  {",
-            "    float ca = u_card.z / u_card.w;",
-            "    vec2 sOut = uv + vec2(u_bp * u_sdist * 0.5, 0.0);",
-            "    vec2 sIn = uv + vec2((1.0 - u_bp) * u_sdist * 0.75, 0.0);",
-            "    vec3 o1 = vec3(0.0);",
-            "    vec3 i1 = vec3(0.0);",
-            "    vec3 o2 = vec3(0.0);",
-            "    vec3 i2 = vec3(0.0);",
-            "    if (u_ready3 > 0.5) {",
-            "      float ia3 = 1920.0 / 1080.0;",
-            "      vec2 t3 = sOut;",
-            "      if (ca > ia3) { t3.y = (t3.y - 0.5) * (ia3 / ca) + 0.5; } else { t3.x = (t3.x - 0.5) * (ca / ia3) + 0.5; }",
-            "      o1 = texture2D(u_tex3, clamp(t3, 0.001, 0.999)).rgb;",
-            "      float l1 = dot(o1, vec3(0.299, 0.587, 0.114));",
-            "      o1 = mix(o1, vec3(l1), 0.30) * 0.80 + vec3(0.078) * 0.20;",
-            "      vec2 t3b = sIn;",
-            "      if (ca > ia3) { t3b.y = (t3b.y - 0.5) * (ia3 / ca) + 0.5; } else { t3b.x = (t3b.x - 0.5) * (ca / ia3) + 0.5; }",
-            "      i1 = texture2D(u_tex3, clamp(t3b, 0.001, 0.999)).rgb;",
-            "      float l1b = dot(i1, vec3(0.299, 0.587, 0.114));",
-            "      i1 = mix(i1, vec3(l1b), 0.30) * 0.80 + vec3(0.078) * 0.20;",
-            "    }",
-            "    if (u_ready3 > 0.5) {",
-            "      float ia3b = 1920.0 / 1080.0;",
-            "      vec2 t4 = sOut;",
-            "      if (ca > ia3b) { t4.y = (t4.y - 0.5) * (ia3b / ca) + 0.5; } else { t4.x = (t4.x - 0.5) * (ca / ia3b) + 0.5; }",
-            "      o2 = texture2D(u_tex3, clamp(t4, 0.001, 0.999)).rgb;",
-            "      float l2 = dot(o2, vec3(0.299, 0.587, 0.114));",
-            "      o2 = mix(o2, vec3(l2), 0.30) * 0.38 + vec3(0.706) * 0.62;",
-            "      vec2 t4b = sIn;",
-            "      if (ca > ia3b) { t4b.y = (t4b.y - 0.5) * (ia3b / ca) + 0.5; } else { t4b.x = (t4b.x - 0.5) * (ca / ia3b) + 0.5; }",
-            "      i2 = texture2D(u_tex3, clamp(t4b, 0.001, 0.999)).rgb;",
-            "      float l2b = dot(i2, vec3(0.299, 0.587, 0.114));",
-            "      i2 = mix(i2, vec3(l2b), 0.30) * 0.38 + vec3(0.706) * 0.62;",
-            "    }",
-            "    back = mix(mix(o1, o2, u_mfrom), mix(i1, i2, u_mto), u_bp);",
-            "    backA = u_ready3;",
-            "  }",
             "  vec3 col = mix(chrome, art, artA * 0.50);",
-            "  col = mix(col, mix(back, col, 0.80), backA);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
@@ -294,7 +251,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_bp", "u_sdist", "u_tex3", "u_ready3"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_tex1", "u_tex2", "u_ready1", "u_ready2", "u_mfrom", "u_mto", "u_ap", "u_sdist"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -305,7 +262,7 @@ waitForJQuery(function ($) {
         // img/couryoku.jpg (slide 2), sliding on switches.
         // Textures are sampled without a Y flip: uv.y is 0 at
         // the card top and v=0 is the image's top row.
-        const texReady = [0, 0, 0];
+        const texReady = [0, 0];
         const loadTex = (unit, readyIdx, srcPath) => {
             const tex = gl.createTexture();
             gl.activeTexture(gl.TEXTURE0 + unit);
@@ -326,22 +283,16 @@ waitForJQuery(function ($) {
         };
         loadTex(0, 0, "img/202343-2.jpg");
         loadTex(1, 1, "img/couryoku.jpg");
-        // Background layer (restored, 2026-11-19): shinju
-        // sits behind the card surface at 80% (dark overlay
-        // on slide 1, light overlay on slide 2, grayscale
-        // 30%), sliding with the switch. Slide 2 originally
-        // used couryoku here, but that is the same file as
-        // slide 2's artwork, which doubled the image.
-        loadTex(2, 2, "img/shinju.jpg");
         gl.uniform1i(uni.u_tex1, 0);
         gl.uniform1i(uni.u_tex2, 1);
-        gl.uniform1i(uni.u_tex3, 2);
         // Slide-switch choreography (restored from the
-        // original design, 2026-11-19): the images slide
-        // instead of crossfading. The background starts at
-        // 1200ms over 1200ms, the artwork at 1500ms over
-        // 1300ms, both with the original easeOutQuint curve,
-        // inside goToSlide's 3s lock. mixFrom/mixTo are the
+        // original design, 2026-11-19): the artwork slides
+        // instead of crossfading, starting at 1500ms over
+        // 1300ms with the original easeOutQuint curve,
+        // inside goToSlide's 3s lock. The page background
+        // behind the card is the DOM's own layer (the card
+        // surface is 80% opaque over it), crossfading with
+        // its own original timing. mixFrom/mixTo are the
         // slide indices (0 or 1) at the switch.
         let mixFrom = 0, mixTo = 0, transStart = -10000;
 
@@ -438,14 +389,11 @@ waitForJQuery(function ($) {
             if (activeIdx !== mixTo) { mixFrom = mixTo; mixTo = activeIdx; transStart = t; }
             const easeOutQuint = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 5);
             const artP = easeOutQuint((t - transStart - 1500) / 1300);
-            const backP = easeOutQuint((t - transStart - 1200) / 1200);
             gl.uniform1f(uni.u_ready1, texReady[0]);
             gl.uniform1f(uni.u_ready2, texReady[1]);
-            gl.uniform1f(uni.u_ready3, texReady[2]);
             gl.uniform1f(uni.u_mfrom, mixFrom);
             gl.uniform1f(uni.u_mto, mixTo);
             gl.uniform1f(uni.u_ap, artP);
-            gl.uniform1f(uni.u_bp, backP);
             gl.uniform1f(uni.u_sdist, 128 / Math.max(1, canvas.clientWidth));
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
