@@ -94,10 +94,11 @@ waitForJQuery(function ($) {
     };
     // The card itself is rendered as a liquid-metal droplet
     // by a small WebGL shader (user settings, 2026-11-19):
-    // flowing chrome (metal strength 150%: streak x1.37),
-    // the real artwork images over the whole card (cover,
-    // plain 40% opacity) and grain on top (100%),
-    // material softness 100%, sliminess
+    // the real artwork images (cover) BEHIND the flowing
+    // chrome (metal strength 150%: streak x1.37), blended
+    // over them with hard-light at 100%, grain on top
+    // (100%), material softness 100%, sliminess 0% and a
+    // slowed surface flow (tm x0.010), deformation
     // 0%. The surface drift direction random-walks on its
     // own; the silhouette swells only where the pointer
     // touches an edge (bulge 30px, gel spring 100%, follow
@@ -159,6 +160,8 @@ waitForJQuery(function ($) {
             "  float und = (vnoise(vec2(per * 4.0, u_time * 0.22)) - 0.5) * u_slim * 4.4 * exp(-(d * d) / (20.0 * 20.0));",
             "  return d - u_amp * u_on * g * band - und;",
             "}",
+            "float blHL(float a, float b) { return b < 0.5 ? 2.0 * a * b : 1.0 - 2.0 * (1.0 - a) * (1.0 - b); }",
+            "vec3 blendHL(vec3 a, vec3 b) { return vec3(blHL(a.r, b.r), blHL(a.g, b.g), blHL(a.b, b.b)); }",
             "void main(){",
             "  vec2 p = vec2(gl_FragCoord.x, u_res.y - gl_FragCoord.y);",
             "  float d = field(p);",
@@ -167,7 +170,7 @@ waitForJQuery(function ($) {
             "  float alpha = max(body, shadow * (1.0 - body));",
             "  if (alpha <= 0.004) { gl_FragColor = vec4(0.0); return; }",
             "  vec2 uv = (p - u_card.xy) / u_card.zw;",
-            "  float tm = u_time * 0.030;",
+            "  float tm = u_time * 0.010;",
             "  vec2 fp = uv * vec2(3.2, 2.1);",
             "  float w1 = fbm(fp + u_flow + fbm(fp * 1.4 - tm * 0.3) * mix(1.6, 2.7, u_slim) - u_vel * 0.010 * (0.4 + u_slim));",
             "  float ridge = 1.0 - abs(w1 * 2.0 - 1.0);",
@@ -203,7 +206,7 @@ waitForJQuery(function ($) {
             "    art = mix(c1, c2, u_mix);",
             "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
-            "  vec3 col = mix(chrome, art, artA * 0.40);",
+            "  vec3 col = mix(chrome, blendHL(art, chrome), artA);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
