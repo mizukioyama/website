@@ -128,12 +128,18 @@ p {
   transform-origin: 100% 100%;
 }
 
-/* Background switch = slide (Mizuki, 2026-11-20): the
-   outgoing image slides out to the left over a full
-   width and fades out (the fade starts a little after
-   the slide), the incoming one slides in from the
-   left while fading in. The switch starts at 2000ms,
-   a little after the content switch. */
+/* Background switch choreography (Mizuki, 2026-11-20,
+   values confirmed in the timing tuner):
+   - Outgoing: slides out to the left over 1300ms
+     starting at 550ms, fading out over 950-1750ms.
+   - Incoming: stepped slide-in anchored to the date
+     decoration at the card's bottom-left (it starts
+     rotating at 1850ms and becomes horizontal at
+     3300ms): at 1850ms the image snaps to 15%, stops
+     for 0.5s, slides to 105% by 2800ms, stops for
+     0.5s, then snaps to 100% at 3300ms. It fades in
+     over 1850-2450ms.
+   Keyframe percentages are of the 3420ms total. */
 .back__slide::before {
   content: "";
   position: absolute;
@@ -147,13 +153,65 @@ p {
   background-size: cover;
   filter: grayscale(30%);
   box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.65);
-  transition: transform 1300ms cubic-bezier(0.23, 1, 0.32, 1) 2000ms, opacity 800ms linear 2400ms;
+}
+
+.back__slide.active::before {
+  transform: translate3d(calc(-50% - 100%), -50%, 0);
+  opacity: 0;
+  transition: transform 1300ms cubic-bezier(0.23, 1, 0.32, 1) 550ms, opacity 800ms linear 950ms;
 }
 
 .back__slide:not(.active)::before {
   transform: translate3d(-50%, -50%, 0);
   opacity: 1;
-  transition: transform 1300ms cubic-bezier(0.23, 1, 0.32, 1) 2000ms, opacity 600ms linear 2000ms;
+  animation: bgSlideIn 3420ms linear both;
+}
+
+@keyframes bgSlideIn {
+  0% {
+    transform: translate3d(calc(-50% - 100%), -50%, 0);
+    opacity: 0;
+    animation-timing-function: linear;
+  }
+
+  54.09% {
+    transform: translate3d(calc(-50% - 100%), -50%, 0);
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
+  }
+
+  57.60% {
+    transform: translate3d(calc(-50% - 85%), -50%, 0);
+    opacity: 0.2;
+    animation-timing-function: linear;
+  }
+
+  68.71% {
+    transform: translate3d(calc(-50% - 85%), -50%, 0);
+    opacity: 0.83;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  71.64% {
+    opacity: 1;
+  }
+
+  81.87% {
+    transform: translate3d(calc(-50% + 5%), -50%, 0);
+    opacity: 1;
+    animation-timing-function: linear;
+  }
+
+  96.49% {
+    transform: translate3d(calc(-50% + 5%), -50%, 0);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
+  }
+
+  100% {
+    transform: translate3d(-50%, -50%, 0);
+    opacity: 1;
+  }
 }
 
 /* 背景画像 */
@@ -390,6 +448,9 @@ html[lang="ja"] .creator-title {
 .content__ping::after {
   background: var(--text); opacity: 0.7;
   transition: background 350ms 800ms linear;
+}
+
+.content__ping.play::after {
   animation: widenFromLeft 2200ms ease-out;
 }
 
