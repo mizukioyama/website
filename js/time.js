@@ -94,9 +94,9 @@ waitForJQuery(function ($) {
     };
     // The card itself is rendered as a liquid-metal droplet
     // by a small WebGL shader (user settings, 2026-11-19):
-    // flowing chrome, the real artwork images over it in
-    // the card's original placement (50%, grayscale 40%)
-    // and grain on top (100%), material softness 100%, sliminess
+    // flowing chrome, the real artwork images over the
+    // whole card (cover, 50%) and grain on top (100%),
+    // material softness 100%, sliminess
     // 0%. The surface drift direction random-walks on its
     // own; the silhouette swells only where the pointer
     // touches an edge (bulge 30px, gel spring 100%, follow
@@ -184,33 +184,23 @@ waitForJQuery(function ($) {
             "  vec3 art = vec3(0.0);",
             "  float artA = 0.0;",
             "  {",
-            "    vec4 a1 = vec4(0.0);",
-            "    vec4 a2 = vec4(0.0);",
+            "    float ca = u_card.z / u_card.w;",
+            "    vec3 c1 = vec3(0.0);",
+            "    vec3 c2 = vec3(0.0);",
             "    if (u_ready1 > 0.5) {",
-            "      vec2 pr = vec2((uv.x - 0.05) / 0.30, (uv.y - 0.05) / 0.90);",
-            "      if (pr.x >= 0.0 && pr.x <= 1.0 && pr.y >= 0.0 && pr.y <= 1.0) {",
-            "        float bandH = 0.85 * (0.30 * (u_card.z / u_card.w)) / (1920.0 / 1080.0) / 0.90;",
-            "        vec2 iuv = vec2((pr.x - 0.075) / 0.85, (pr.y - (0.5 - bandH * 0.5)) / bandH);",
-            "        if (iuv.x >= 0.0 && iuv.x <= 1.0 && iuv.y >= 0.0 && iuv.y <= 1.0) {",
-            "          vec3 c = texture2D(u_tex1, vec2(iuv.x, 1.0 - iuv.y)).rgb;",
-            "          a1 = vec4(mix(vec3(dot(c, vec3(0.299, 0.587, 0.114))), c, 0.6), 1.0);",
-            "        }",
-            "      }",
+            "      vec2 t1 = uv;",
+            "      float ia1 = 1920.0 / 1080.0;",
+            "      if (ca > ia1) { t1.y = (t1.y - 0.5) * (ia1 / ca) + 0.5; } else { t1.x = (t1.x - 0.5) * (ca / ia1) + 0.5; }",
+            "      c1 = texture2D(u_tex1, clamp(t1, 0.001, 0.999)).rgb;",
             "    }",
             "    if (u_ready2 > 0.5) {",
-            "      vec2 pr = vec2((uv.x - 0.65) / 0.30, (uv.y - 0.05) / 0.90);",
-            "      if (pr.x >= 0.0 && pr.x <= 1.0 && pr.y >= 0.0 && pr.y <= 1.0) {",
-            "        float bandH = 0.85 * (0.30 * (u_card.z / u_card.w)) / (1300.0 / 768.0) / 0.90;",
-            "        vec2 iuv = vec2((pr.x - 0.075) / 0.85, (pr.y - (0.5 - bandH * 0.5)) / bandH);",
-            "        if (iuv.x >= 0.0 && iuv.x <= 1.0 && iuv.y >= 0.0 && iuv.y <= 1.0) {",
-            "          vec3 c = texture2D(u_tex2, vec2(iuv.x, 1.0 - iuv.y)).rgb;",
-            "          a2 = vec4(mix(vec3(dot(c, vec3(0.299, 0.587, 0.114))), c, 0.6), 1.0);",
-            "        }",
-            "      }",
+            "      vec2 t2 = uv;",
+            "      float ia2 = 1300.0 / 768.0;",
+            "      if (ca > ia2) { t2.y = (t2.y - 0.5) * (ia2 / ca) + 0.5; } else { t2.x = (t2.x - 0.5) * (ca / ia2) + 0.5; }",
+            "      c2 = texture2D(u_tex2, clamp(t2, 0.001, 0.999)).rgb;",
             "    }",
-            "    vec4 am = mix(a1, a2, u_mix);",
-            "    art = am.rgb;",
-            "    artA = am.a;",
+            "    art = mix(c1, c2, u_mix);",
+            "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
             "  vec3 col = mix(chrome, art, artA * 0.50 * (0.82 + streak * 0.18));",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
@@ -246,10 +236,11 @@ waitForJQuery(function ($) {
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         document.body.classList.add("card-liquid-on");
-        // The artwork layer is the real slide artwork, in the
-        // card's original placement (left for slide 1, right
-        // for slide 2, grayscale 40%): img/202343-2.jpg and
-        // img/couryoku.jpg, crossfaded on slide switches.
+        // The artwork layer is the real slide artwork over
+        // the whole card: img/202343-2.jpg (slide 1) and
+        // img/couryoku.jpg (slide 2), crossfaded on switches.
+        // Textures are sampled without a Y flip: uv.y is 0 at
+        // the card top and v=0 is the image's top row.
         const texReady = [0, 0];
         const loadTex = (unit, readyIdx, srcPath) => {
             const tex = gl.createTexture();
