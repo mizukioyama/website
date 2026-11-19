@@ -196,7 +196,7 @@ waitForJQuery(function ($) {
             "  float artA = 0.0;",
             "  {",
             "    float ca = u_card.z / u_card.w;",
-            "    vec2 sOut = uv + vec2(u_ap * u_sdist * 0.5, 0.0);",
+            "    vec2 sOut = uv + vec2(u_ap * u_sdist, 0.0);",
             "    vec2 sIn = uv + vec2((1.0 - u_ap) * u_sdist, 0.0);",
             "    vec3 o1 = vec3(0.0);",
             "    vec3 i1 = vec3(0.0);",
@@ -286,8 +286,10 @@ waitForJQuery(function ($) {
         gl.uniform1i(uni.u_tex1, 0);
         gl.uniform1i(uni.u_tex2, 1);
         // Slide-switch choreography (restored from the
-        // original design, 2026-11-19): the artwork slides
-        // instead of crossfading, starting at 1500ms over
+        // original design, 2026-11-19; distance extended
+        // to a full card width at Mizuki's request,
+        // 2026-11-19): the artwork slides instead of
+        // crossfading, starting at 1500ms over
         // 1300ms with the original easeOutQuint curve,
         // inside goToSlide's 3s lock. The page background
         // behind the card is the DOM's own layer (the card
@@ -394,7 +396,7 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_mfrom, mixFrom);
             gl.uniform1f(uni.u_mto, mixTo);
             gl.uniform1f(uni.u_ap, artP);
-            gl.uniform1f(uni.u_sdist, 128 / Math.max(1, canvas.clientWidth));
+            gl.uniform1f(uni.u_sdist, 1.0);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
         requestAnimationFrame(frame);
