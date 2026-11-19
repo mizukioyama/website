@@ -94,10 +94,11 @@ waitForJQuery(function ($) {
     };
     // The card itself is rendered as a liquid-metal droplet
     // by a small WebGL shader (user settings, 2026-11-19):
-    // the real artwork images (cover) BEHIND the flowing
-    // chrome (metal strength 150%: streak x1.37), blended
-    // over them with hard-light at 100%, grain on top
-    // (100%), material softness 100%, sliminess 0% and a
+    // three layers: the real artwork images (cover) at
+    // the bottom, the flowing chrome (metal strength
+    // 150%: streak x1.37) as a translucent film over
+    // them (25% opacity, plain source-over), grain on
+    // top (100%). Material softness 55%, sliminess 0%,
     // slowed surface flow (tm x0.010), deformation
     // 0%. The surface drift direction random-walks on its
     // own; the silhouette swells only where the pointer
@@ -206,7 +207,7 @@ waitForJQuery(function ($) {
             "    art = mix(c1, c2, u_mix);",
             "    artA = mix(u_ready1, u_ready2, u_mix);",
             "  }",
-            "  vec3 col = mix(chrome, blendHL(art, chrome), artA);",
+            "  vec3 col = mix(chrome, mix(art, chrome, 0.25), artA);",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
             "  gl_FragColor = vec4(outC, alpha);",
@@ -274,7 +275,7 @@ waitForJQuery(function ($) {
         const REACH = 90;
         const AMP = 30;
         const TAU = 280;
-        const SOFT = 1.0;
+        const SOFT = 0.55;
         const SLIM = 0.0;
         // Gel spring at 100% (user setting).
         const STIFF = 0.215;
