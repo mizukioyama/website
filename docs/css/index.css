@@ -473,8 +473,11 @@ html[lang="ja"] .creator-title {
 }
 
 /* Manual card switch: a single button inside the card's
-   bottom-right corner. */
+   bottom-right corner. Its surface is liquid: a droplet
+   follows the pointer and melts into the button's body
+   through an SVG goo filter scoped to the button alone. */
 .card-nav {
+  --navbg: #17181a;
   position: absolute;
   right: calc(50% - var(--card-width) / 2);
   bottom: calc(50% - var(--card-height) / 2 + 14px);
@@ -484,17 +487,66 @@ html[lang="ja"] .creator-title {
   font-size: 18px;
   letter-spacing: 0.18em;
   color: #f2f2ec;
-  background: rgba(18, 19, 20, 0.45);
-  border: 1px solid rgba(242, 242, 236, 0.35);
+  background: transparent;
+  border: 0;
   border-radius: 0;
   cursor: pointer;
-  backdrop-filter: blur(4px);
-  transition: background 250ms ease;
+  transition: color 250ms ease;
 }
 
-.card-nav:hover,
+.card-nav-liquid {
+  position: absolute;
+  left: -30px;
+  top: -30px;
+  width: calc(100% + 60px);
+  height: calc(100% + 60px);
+  filter: url(#card-goo);
+  pointer-events: none;
+}
+
+.card-nav-bg {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  width: calc(100% - 60px);
+  height: calc(100% - 60px);
+  background: var(--navbg);
+  transition: background-color 250ms ease;
+}
+
+.card-nav-drop {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  background: var(--navbg);
+  opacity: 0;
+  transition: left 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
+    top 700ms cubic-bezier(0.22, 1.2, 0.36, 1),
+    opacity 300ms ease, background-color 250ms ease;
+}
+
+.card-nav-text {
+  position: relative;
+  z-index: 1;
+}
+
+.card-nav:hover {
+  --navbg: #0a0b0c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-nav-drop {
+    display: none;
+  }
+}
+
 .card-nav:focus-visible {
-  background: rgba(18, 19, 20, 0.72);
+  outline: 1px solid rgba(242, 242, 236, 0.8);
+  outline-offset: 3px;
 }
 
 /* Card switch motion: the incoming card layer slides in

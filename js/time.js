@@ -92,5 +92,38 @@ waitForJQuery(function ($) {
         updateClocks();
         setInterval(updateClocks, CLOCK_UPDATE_INTERVAL);
     };
+    // Liquid switch button: a droplet follows the pointer near
+    // the button and melts into it (see .card-nav-liquid).
+    const initializeCardNavLiquid = () => {
+        const button = document.querySelector("[data-card-nav]");
+        const drop = button ? button.querySelector(".card-nav-drop") : null;
+        const wrap = button ? button.closest(".wrap") : null;
+        if (!button || !drop || !wrap) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const PAD = 30;
+        const REACH = 70;
+        const onMove = (event) => {
+            const rect = button.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            const near = x >= -REACH && x <= rect.width + REACH && y >= -REACH && y <= rect.height + REACH;
+            if (near) {
+                drop.style.left = `${x + PAD}px`;
+                drop.style.top = `${y + PAD}px`;
+                // Fade the droplet out as it leaves the button so it
+                // melts away instead of floating on its own.
+                const outX = Math.max(0, -x, x - rect.width);
+                const outY = Math.max(0, -y, y - rect.height);
+                const dist = Math.hypot(outX, outY);
+                drop.style.opacity = String(Math.max(0, 1 - dist / 55));
+            } else {
+                drop.style.opacity = "0";
+            }
+        };
+        wrap.addEventListener("pointermove", onMove);
+        wrap.addEventListener("pointerdown", onMove);
+        wrap.addEventListener("pointerleave", () => { drop.style.opacity = "0"; });
+    };
     document.addEventListener("portfolio:homeready", initializeHomeSlides, { once: true });
+    document.addEventListener("portfolio:homeready", initializeCardNavLiquid, { once: true });
 });
