@@ -43,6 +43,8 @@
 
   .home .content__ping { left: calc(50% + 48px); right: auto; bottom: 24px; transform: translateX(-50%); }
 
+  .home .card-navs { right: 14px; bottom: 14px; }
+
   .home .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
   .home .back__slide::before {

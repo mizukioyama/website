@@ -428,8 +428,8 @@ p {
 /* Manual card switch buttons, bottom-left of the card. */
 .card-navs {
   position: absolute;
-  left: 14px;
-  bottom: 14px;
+  right: 80px;
+  bottom: 31px;
   z-index: 11;
   display: flex;
   gap: 8px;
@@ -443,7 +443,7 @@ p {
   color: #f2f2ec;
   background: rgba(18, 19, 20, 0.45);
   border: 1px solid rgba(242, 242, 236, 0.35);
-  border-radius: 999px;
+  border-radius: 0;
   cursor: pointer;
   backdrop-filter: blur(4px);
   transition: background 250ms ease;
@@ -815,6 +815,11 @@ footer,
        creator label on the left. */
     left: calc(50% + var(--card-width) / 2 - 0.9rem);
     z-index: 3;
+  }
+
+  .card-navs {
+    right: 14px;
+    bottom: 14px;
   }
 
 .card__slide:first-child .number,
