@@ -24,9 +24,19 @@ waitForJQuery(function ($) {
         syncContentControls();
         let inProgress = false;
 
+        const restartPing = () => {
+            const ping = document.querySelector('.content__ping');
+            if (!ping) return;
+            ping.classList.remove('play');
+            void ping.offsetWidth;
+            ping.classList.add('play');
+        };
+        restartPing();
+
         const goToSlide = (slideElements, index) => {
             if (!inProgress) {
                 inProgress = true;
+                restartPing();
 
                 $('.active').addClass('exit');
                 $('.active').not('#langChange .active').removeClass('active');
