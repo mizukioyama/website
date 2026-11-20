@@ -203,12 +203,7 @@ const FOOTER_MARKUP = `
    </a>
 
    <div class="foot-nav">
-      <a class="noise" href="${siteHref("gallery.html")}">Art Index</a>
-      <a class="noise" href="${siteHref("artist-statement.html")}">Artist Statement</a>
-      <a class="noise" href="${siteHref("biography.html")}">Biography</a>
       <a class="noise" href="${siteHref("information.html")}">Information</a>
-      <a class="noise" href="${siteHref("contact.html")}">Contact Us</a>
-      <a class="noise" href="${siteHref("order.html")}">Order</a>
       <a class="noise" href="${siteHref("policy.html")}">Site Policy</a>
    </div>
 
