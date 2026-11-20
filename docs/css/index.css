@@ -153,10 +153,9 @@ p {
   transform: translate(-50%, -50%);
   width: var(--card-width);
   height: var(--card-height);
-  /* The shadow lives on this wrapper so it follows the
-     notch clip applied to the frame inside (Mizuki
-     2026-11-20: the card scoops around the NEXT button). */
-  filter: drop-shadow(0 3px 20px rgba(0, 0, 0, 0.65));
+  /* The card's shadow no longer lives here: it is cast
+     from the outline SVG's path (see .card-shape), so it
+     follows the same shape as every other layer. */
 }
 
 .back__frame {
@@ -1188,13 +1187,15 @@ footer,
 
 
 /* Transparent SVG holding the card outline (see
-   index.html). It is placed over the card by
-   updateCardNotch and never receives input. */
+   index.html). updateCardNotch lays it exactly over the
+   card; it sits behind the card layers so only the
+   shadow its path casts is visible, and it never
+   receives input. */
 .card-shape {
   position: fixed;
   pointer-events: none;
   overflow: visible;
-  z-index: 5;
+  z-index: -3;
 }
 
 .card_line {

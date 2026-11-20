@@ -10,7 +10,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=bd209d8f3da3">
-    <link rel="stylesheet" href="css/index.css?v=79f1f82590d5">
+    <link rel="stylesheet" href="css/index.css?v=4346fec988b9">
     <link rel="stylesheet" href="css/menu.css?v=a8c493513a40">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=1e90003db811">
     <link rel="stylesheet" href="css/page-transition.css?v=7396f05b127f">
@@ -24,7 +24,7 @@
     <script src="js/three.r134.min.js?v=2d137d69ae99"></script>
     <script src="js/vanta.fog.min.js?v=902b0ec9cd38"></script>
 
-    <script src="js/time.js?v=3e559e572c52"></script>
+    <script src="js/time.js?v=6f499b3da512"></script>
     <script src="js/menu.js?v=8b11e941f9e8"></script>
     <!--<script src="js/security.js"></script>-->
 
@@ -191,8 +191,12 @@
                  2026-11-20): a transparent SVG whose path holds
                  the card shape, button dip included. Every card
                  layer (background, liquid metal, noise, ink
-                 glow) is clipped from this same outline. -->
-            <svg class="card-shape" aria-hidden="true" focusable="false"><path id="cardShapePath" d="" fill="transparent"></path></svg>
+                 glow) is clipped from this same outline, and
+                 the card's shadow is cast from this path too:
+                 the filter below outputs only the blurred
+                 shadow of the outline, so the shadow takes
+                 whatever shape the path takes. -->
+            <svg class="card-shape" aria-hidden="true" focusable="false"><defs><filter id="cardShapeShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"></feGaussianBlur><feOffset in="blur" dx="0" dy="3" result="off"></feOffset><feFlood flood-color="#000" flood-opacity="0.65" result="flood"></feFlood><feComposite in="flood" in2="off" operator="in"></feComposite></filter></defs><path id="cardShapePath" d="" fill="#000" filter="url(#cardShapeShadow)"></path></svg>
 
             <!-- in item -->
             <canvas class="card-liquid-gl" aria-hidden="true"></canvas>
