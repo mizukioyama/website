@@ -52,8 +52,6 @@
 
 
 
-  .home .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
-
   .home .back__shadow {
     height: calc(var(--card-width) * 1.61803398875);
   }
