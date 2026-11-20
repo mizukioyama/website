@@ -380,6 +380,32 @@ waitForJQuery(function ($) {
             }
             return p;
         };
+        // The card outline (rectangle with the button dip in
+        // its bottom edge) for a box whose top-left corner is
+        // (x, y); dipCx is the dip's center in the same
+        // coordinate space. One shape, shared by every layer.
+        const outlineAt = (x, y, w, h, dipCx) =>
+            "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + (x + w).toFixed(1) + " V " + (y + h).toFixed(1) + dip(dipCx, y + h) + " H " + x.toFixed(1) + " Z";
+        const card = document.querySelector(".card");
+        // The outline's source of truth is the transparent
+        // SVG overlay (Mizuki 2026-11-20): its path holds the
+        // shape in card coordinates, it is laid exactly over
+        // the card, and every layer below is clipped from
+        // that same outline, mapped into its own coordinates
+        // (the layers have different boxes, so a bare SVG
+        // clip reference could not line them up).
+        const shapeSvg = document.querySelector(".card-shape");
+        const shapePath = document.getElementById("cardShapePath");
+        if (card && shapeSvg && shapePath) {
+            const kr = card.getBoundingClientRect();
+            if (kr.width) {
+                shapeSvg.style.left = kr.left.toFixed(1) + "px";
+                shapeSvg.style.top = kr.top.toFixed(1) + "px";
+                shapeSvg.style.width = kr.width.toFixed(1) + "px";
+                shapeSvg.style.height = kr.height.toFixed(1) + "px";
+                shapePath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left));
+            }
+        }
         // Layers whose own bottom edge is the card's bottom
         // edge: the outline ends at the dip. The card's noise
         // veil is clipped on its own element too, so the
@@ -388,14 +414,12 @@ waitForJQuery(function ($) {
         document.querySelectorAll(".card, .card_line, .card-liquid-gl, .back__frame, #mainContent > .noise").forEach((el) => {
             const r = el.getBoundingClientRect();
             if (!r.width || !r.height) return;
-            const lx = cx - r.left;
-            el.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + dip(lx, r.height) + " H 0 Z')";
+            el.style.clipPath = "path('" + outlineAt(0, 0, r.width, r.height, cx - r.left) + "')";
         });
         // The page-wide noise veil keeps covering the page,
         // but the scoop is cut out of it at the card's
         // bottom line (Mizuki 2026-11-20: the noise filter
         // takes the same shape).
-        const card = document.querySelector(".card");
         const veil = document.querySelector("main > .noise");
         if (card && veil) {
             const r = veil.getBoundingClientRect();
@@ -422,7 +446,7 @@ waitForJQuery(function ($) {
                 if (c.width && kr.width) {
                     const ox = kr.left - c.left;
                     const oy = kr.top - c.top;
-                    ink.style.clipPath = "path('M " + ox.toFixed(1) + " " + oy.toFixed(1) + " H " + (ox + kr.width).toFixed(1) + " V " + (oy + kr.height).toFixed(1) + dip(cx - c.left, kr.bottom - c.top) + " H " + ox.toFixed(1) + " Z')";
+                    ink.style.clipPath = "path('" + outlineAt(ox, oy, kr.width, kr.height, cx - c.left) + "')";
                 }
             }
         }

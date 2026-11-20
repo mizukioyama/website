@@ -1187,6 +1187,16 @@ footer,
 }
 
 
+/* Transparent SVG holding the card outline (see
+   index.html). It is placed over the card by
+   updateCardNotch and never receives input. */
+.card-shape {
+  position: fixed;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 5;
+}
+
 .card_line {
   width: var(--card-width);
   cursor: pointer;
