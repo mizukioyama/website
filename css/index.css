@@ -659,8 +659,8 @@ body.back--anim .card__slide:not(.active) .date {
    glow behind it. Square corners. */
 .card-nav {
   position: absolute;
-  right: calc(50% - var(--card-width) / 2);
-  bottom: calc(50% - var(--card-height) / 2 - 20px);
+  right: calc(50% - var(--card-width) / 2 - 8px);
+  bottom: calc(50% - var(--card-height) / 2 + 19px);
   z-index: 12;
   padding: 0.38em 0.95em;
   font-family: "Shippori Mincho", serif;
@@ -1296,7 +1296,7 @@ footer,
   .card-nav {
     /* Portrait card: its height is the width times the
        golden ratio, not the shared --card-height. */
-    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 - 20px);
+    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 19px);
   }
 
   .card-liquid-gl {
