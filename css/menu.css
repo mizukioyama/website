@@ -1002,7 +1002,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 .frame-initials {
   position: fixed;
   left: calc(3.125vw - 12px);
-  bottom: 140px;
+  bottom: calc(20dvh - 39px);
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -1085,7 +1085,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 .frame-prev {
   position: fixed;
   left: calc(1.6667vw + 12px);
-  bottom: calc(5dvh + 10px);
+  bottom: calc(12.22dvh - 52px);
   z-index: 1000;
   padding: 0;
   color: var(--inv);
