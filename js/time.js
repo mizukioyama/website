@@ -319,7 +319,7 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_on, on);
             gl.uniform1f(uni.u_time, 12.0);
             gl.uniform1f(uni.u_soft, SOFT);
-            gl.uniform1f(uni.u_opaque, window.innerWidth < 1024 ? 1.0 : 0.8);
+            gl.uniform1f(uni.u_opaque, 0.8);
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
             gl.uniform1f(uni.u_phase, phase);
