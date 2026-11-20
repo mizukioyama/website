@@ -166,6 +166,7 @@ waitForJQuery(function ($) {
             "uniform float u_slim;",
             "uniform float u_wob;",
             "uniform float u_phase;",
+            "uniform vec3 u_notch;",
             "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -191,7 +192,16 @@ waitForJQuery(function ($) {
             "  float band = exp(-(d * d) / (34.0 * 34.0)) * exp(-(nrm * nrm) / (40.0 * 40.0));",
             "  float per = (p.x - cc.x) / u_card.z + (p.y - cc.y) / u_card.w;",
             "  float und = (vnoise(vec2(per * 4.0, u_time * 0.22)) - 0.5) * u_slim * 4.4 * exp(-(d * d) / (20.0 * 20.0));",
-            "  return d - u_amp * u_on * g * band - und;",
+            "  float dOut = d - u_amp * u_on * g * band - und;",
+            "  if (u_notch.z > 0.0) {",
+            "    vec2 capC = vec2(u_card.x + u_notch.x, u_card.y + u_card.w);",
+            "    vec2 pa = p - capC + vec2(u_notch.y, 0.0);",
+            "    vec2 ba = vec2(2.0 * u_notch.y, 0.0);",
+            "    float hh = clamp(dot(pa, ba) / max(dot(ba, ba), 1.0), 0.0, 1.0);",
+            "    float sdCap = length(pa - ba * hh) - u_notch.z;",
+            "    dOut = max(dOut, -sdCap);",
+            "  }",
+            "  return dOut;",
             "}",
             "void main(){",
             "  vec2 p = vec2(gl_FragCoord.x, u_res.y - gl_FragCoord.y);",
@@ -244,7 +254,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_opaque"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_opaque", "u_notch"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -332,6 +342,7 @@ waitForJQuery(function ($) {
             const sy = canvas.height / cvr.height;
             gl.uniform2f(uni.u_res, canvas.width, canvas.height);
             gl.uniform4f(uni.u_card, (cr.left - cvr.left) * sx, (cr.top - cvr.top) * sy, cr.width * sx, cr.height * sy);
+            gl.uniform3f(uni.u_notch, notchShape.cx * sx, notchShape.capA * sx, notchShape.capR * sx);
             gl.uniform2f(uni.u_ptr, (px + PAD) * sx, (py + PAD) * sy);
             gl.uniform2f(uni.u_q, (qx + PAD) * sx, (qy + PAD) * sy);
             gl.uniform2f(uni.u_vel, pvx * sx, pvy * sy);
@@ -350,6 +361,14 @@ waitForJQuery(function ($) {
     };
     document.addEventListener("portfolio:homeready", initializeHomeSlides, { once: true });
     document.addEventListener("portfolio:homeready", initializeCardLiquidGL, { once: true });
+
+    // The notch's capsule in CSS px (center x relative to
+    // the card's left edge, cap half-length, radius):
+    // updateCardNotch fills it in, and the liquid-metal
+    // shader carves the same capsule out of its field, so
+    // the metal and its own edge shadow take the notch
+    // shape too instead of staying rectangular.
+    const notchShape = { cx: 0, capA: 0, capR: 0 };
 
     // Card notch (Mizuki 2026-11-20): the card's bottom edge
     // scoops into a hollow shaped like the NEXT button
@@ -373,6 +392,8 @@ waitForJQuery(function ($) {
         const gap = 6;
         const capR = b.height / 2 + gap;
         const capA = Math.max(0, (b.width - b.height) / 2);
+        notchShape.capA = capA;
+        notchShape.capR = capR;
         const dip = (lx, by) => {
             const y = by - capR;
             return " H " + (lx + capA + capR).toFixed(1) +
@@ -399,6 +420,7 @@ waitForJQuery(function ($) {
         if (card && shapeSvg && shapePath) {
             const kr = card.getBoundingClientRect();
             if (kr.width) {
+                notchShape.cx = cx - kr.left;
                 shapeSvg.style.left = kr.left.toFixed(1) + "px";
                 shapeSvg.style.top = kr.top.toFixed(1) + "px";
                 shapeSvg.style.width = kr.width.toFixed(1) + "px";
