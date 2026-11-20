@@ -343,15 +343,25 @@ waitForJQuery(function ($) {
         const b = btn.getBoundingClientRect();
         if (!b.width) return;
         const cx = b.left + b.width / 2;
-        const hw = b.width / 2 + 16;
-        const d = b.height / 2 + 16;
+        // Gentle raised-cosine dip (Mizuki 2026-11-20): the
+        // edge leaves and returns to the bottom side
+        // horizontally, like the site frame's arcs, instead
+        // of the steeper half-ellipse used at first.
+        const hw = b.width * 1.15;
+        const d = b.height * 1.17;
         document.querySelectorAll(".card, .card_line, .card-liquid-gl, .back__frame").forEach((el) => {
             const r = el.getBoundingClientRect();
             if (!r.width || !r.height) return;
             const lx = cx - r.left;
-            const x1 = (lx + hw).toFixed(1);
-            const x2 = (lx - hw).toFixed(1);
-            el.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + " H " + x1 + " A " + hw.toFixed(1) + " " + d.toFixed(1) + " 0 0 0 " + x2 + " " + r.height.toFixed(1) + " H 0 Z')";
+            let path = "M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + " H " + (lx + hw).toFixed(1);
+            const steps = 24;
+            for (let i = 1; i <= steps; i++) {
+                const x = lx + hw - (2 * hw * i) / steps;
+                const y = r.height - d * (0.5 + 0.5 * Math.cos((Math.PI * (x - lx)) / hw));
+                path += " L " + x.toFixed(1) + " " + y.toFixed(1);
+            }
+            path += " H 0 Z";
+            el.style.clipPath = "path('" + path + "')";
         });
     }
     window.addEventListener("resize", updateCardNotch);
