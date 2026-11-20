@@ -142,23 +142,36 @@ p {
    - The outgoing image first snaps 5% to the right
      at 550ms before sliding out (see bgSlideOut).
    Keyframe percentages are of the 3420ms total. */
-.back__slide::before {
-  content: "";
+/* The background image lives in a card-sized frame
+   with overflow hidden, so it is never visible
+   outside the card at any width (Mizuki, 2026-11-20).
+   The sliding motion happens inside the frame. */
+.back__frame {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate3d(calc(-50% - 100%), -50%, 0);
-  opacity: 0;
+  transform: translate(-50%, -50%);
   width: var(--card-width);
   height: var(--card-height);
-  background-position: center;
-  background-size: cover;
-  filter: grayscale(30%);
+  overflow: hidden;
   box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.65);
 }
 
-.back__slide.active::before {
-  transform: translate3d(calc(-50% - 100%), -50%, 0);
+.back__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  filter: grayscale(30%);
+  transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+}
+
+.back__slide.active .back__img {
+  transform: translate3d(-100%, 0, 0);
   opacity: 0;
   animation: bgSlideOut 1900ms linear both;
 }
@@ -169,19 +182,19 @@ p {
    Percentages are of the 1900ms total. */
 @keyframes bgSlideOut {
   0% {
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
     animation-timing-function: linear;
   }
 
   28.95% {
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
     animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
   }
 
   35.26% {
-    transform: translate3d(calc(-50% + 5%), -50%, 0);
+    transform: translate3d(5%, 0, 0);
     opacity: 1;
     animation-timing-function: linear;
   }
@@ -196,7 +209,7 @@ p {
   }
 
   61.63% {
-    transform: translate3d(calc(-50% + 5%), -50%, 0);
+    transform: translate3d(5%, 0, 0);
     animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
@@ -205,37 +218,37 @@ p {
   }
 
   97.37% {
-    transform: translate3d(calc(-50% - 100%), -50%, 0);
+    transform: translate3d(-100%, 0, 0);
     opacity: 0;
   }
 
   100% {
-    transform: translate3d(calc(-50% - 100%), -50%, 0);
+    transform: translate3d(-100%, 0, 0);
     opacity: 0;
   }
 }
 
-.back__slide:not(.active)::before {
-  transform: translate3d(-50%, -50%, 0);
+.back__slide:not(.active) .back__img {
+  transform: translate3d(0, 0, 0);
   opacity: 1;
   animation: bgSlideIn 3420ms linear both;
 }
 
 @keyframes bgSlideIn {
   0% {
-    transform: translate3d(calc(-50% - 100%), -50%, 0);
+    transform: translate3d(-100%, 0, 0);
     opacity: 0;
     animation-timing-function: linear;
   }
 
   54.09% {
-    transform: translate3d(calc(-50% - 100%), -50%, 0);
+    transform: translate3d(-100%, 0, 0);
     opacity: 0;
     animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
   }
 
   57.60% {
-    transform: translate3d(calc(-50% - 95%), -50%, 0);
+    transform: translate3d(-95%, 0, 0);
     opacity: 0.6;
     animation-timing-function: linear;
   }
@@ -245,35 +258,35 @@ p {
   }
 
   68.71% {
-    transform: translate3d(calc(-50% - 95%), -50%, 0);
+    transform: translate3d(-95%, 0, 0);
     opacity: 1;
     animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   81.87% {
-    transform: translate3d(calc(-50% + 5%), -50%, 0);
+    transform: translate3d(5%, 0, 0);
     opacity: 1;
     animation-timing-function: linear;
   }
 
   96.49% {
-    transform: translate3d(calc(-50% + 5%), -50%, 0);
+    transform: translate3d(5%, 0, 0);
     opacity: 1;
     animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
   }
 
   100% {
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 }
 
 /* 背景画像 */
-.back__slide:nth-child(1)::before {
+.back__slide:nth-child(1) .back__img {
   background-image: linear-gradient(rgba(180, 180, 180, 0.62), rgba(180, 180, 180, 0.62)), url("../img/couryoku.jpg");
 }
 
-.back__slide:nth-child(even)::before {
+.back__slide:nth-child(even) .back__img {
   background-image: linear-gradient(rgba(20, 20, 20, 0.2), rgba(20, 20, 20, 0.2)), url("../img/shinju.jpg");
 }
 
@@ -326,7 +339,7 @@ html[lang="ja"] .creator-title {
   top: 50%;
   left: 50%;
   backdrop-filter: blur(10px);
-  transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(0, 0, 0);
   overflow: hidden;
 }
 
@@ -1039,7 +1052,7 @@ footer,
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(0, 0, 0);
   z-index: -2;
 }
 
@@ -1115,9 +1128,8 @@ footer,
 
   .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
-  .back__slide::before {
-    width: 100%;
-    height: 100svh;
+  .back__frame {
+    height: calc(var(--card-width) * 1.61803398875);
   }
 
   .content__slide {
