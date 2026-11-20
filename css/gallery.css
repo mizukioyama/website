@@ -589,154 +589,23 @@ main li {
   margin: 10vmin auto;
 }
 
-/* Liquid glass buttons, same design as the TOP NEXT
-   button (Mizuki 2026-11-20). The faint opacity states
-   are kept: inactive pages stay quiet, the current and
-   hovered pages come forward. */
-.page-btn,
-.prev-btn,
-.next-btn {
-  position: relative;
-  padding: 0.5rem 0.95rem;
+.page-btn {
+  padding: 0.5rem;
   cursor: pointer;
   opacity: 0.3;
   font-size: 12px;
-  color: inherit;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0);
-  -webkit-backdrop-filter: blur(12px) saturate(1.25);
-  backdrop-filter: blur(12px) saturate(1.25);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 8px 20px rgba(0, 0, 0, 0.18);
-  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease, opacity 250ms ease;
 }
 
-.page-btn::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: inherit;
-  /* Explicit size: the all.css reset's fit-content width
-     otherwise collapses this layer to a 3px strip. */
-  width: 100%;
-  height: 100%;
-  padding: 1.5px;
-  background: conic-gradient(from 210deg,
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  opacity: 0.3;
-  pointer-events: none;
-  transition: opacity 250ms ease;
-}
-.prev-btn::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: inherit;
-  /* Explicit size: the all.css reset's fit-content width
-     otherwise collapses this layer to a 3px strip. */
-  width: 100%;
-  height: 100%;
-  padding: 1.5px;
-  background: conic-gradient(from 210deg,
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  opacity: 0.3;
-  pointer-events: none;
-  transition: opacity 250ms ease;
-}
-.next-btn::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: inherit;
-  /* Explicit size: the all.css reset's fit-content width
-     otherwise collapses this layer to a 3px strip. */
-  width: 100%;
-  height: 100%;
-  padding: 1.5px;
-  background: conic-gradient(from 210deg,
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  opacity: 0.3;
-  pointer-events: none;
-  transition: opacity 250ms ease;
-}
-
-.prev-btn,
 .next-btn {
   opacity: 0.8;
 }
 
 .page-btn:hover,
 .page-btn.active,
-.prev-btn:hover,
-.next-btn:hover {
-  opacity: 0.8;
-  border-color: rgba(255, 255, 255, 0.9);
-}
-
-.page-btn:hover::before,
-.page-btn.active::before,
-.prev-btn:hover::before,
-.next-btn:hover::before {
-  opacity: 0.55;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .page-btn:hover,
-  .prev-btn:hover,
-  .next-btn:hover {
-    transform: scale(1.05);
-  }
-}
-
-.page-btn:active,
-.prev-btn:active,
+.next-btn:hover,
 .next-btn:active {
-  transform: scale(0.95);
-  transition-duration: 100ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .page-btn,
-  .prev-btn,
-  .next-btn {
-    transition: none;
-  }
-
-  .page-btn:hover,
-  .page-btn:active,
-  .prev-btn:hover,
-  .prev-btn:active,
-  .next-btn:hover,
-  .next-btn:active {
-    transform: none;
-  }
+  opacity: 0.8;
+  font-size: 16px;
 }
 
 main {
@@ -1209,77 +1078,6 @@ main {
 
 #gallery-container .view-policy-button {
   inline-size: 100%;
-  /* Liquid glass, same design as the TOP NEXT button
-     (Mizuki 2026-11-20). Full width, so the hover motion
-     stays small. */
-  position: relative;
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0);
-  -webkit-backdrop-filter: blur(12px) saturate(1.25);
-  backdrop-filter: blur(12px) saturate(1.25);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 8px 20px rgba(0, 0, 0, 0.18);
-  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
-}
-
-#gallery-container .view-policy-button::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: inherit;
-  /* Explicit size: the all.css reset's fit-content width
-     otherwise collapses this layer to a 3px strip. */
-  width: 100%;
-  height: 100%;
-  padding: 1.5px;
-  background: conic-gradient(from 210deg,
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
-    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
-    rgba(93, 220, 255, 0.95));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  opacity: 0.3;
-  pointer-events: none;
-  transition: opacity 250ms ease;
-}
-
-#gallery-container .view-policy-button:hover {
-  border-color: rgba(255, 255, 255, 0.9);
-}
-
-#gallery-container .view-policy-button:hover::before {
-  opacity: 0.55;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #gallery-container .view-policy-button:hover {
-    transform: scale(1.02);
-  }
-}
-
-#gallery-container .view-policy-button:active {
-  transform: scale(0.98);
-  transition-duration: 100ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #gallery-container .view-policy-button {
-    transition: none;
-  }
-
-  #gallery-container .view-policy-button:hover,
-  #gallery-container .view-policy-button:active {
-    transform: none;
-  }
 }
 
 #gallery-container .gallery-work-heading {
