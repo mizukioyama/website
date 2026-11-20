@@ -208,13 +208,15 @@ waitForJQuery(function ($) {
             "  float d = field(p);",
             "  float body = smoothstep(1.6, -1.6, d);",
             "  float shadow = smoothstep(26.0, 2.0, d) * 0.20;",
+            "  float zone = 1.0;",
             "  if (u_notch.z > 0.0) {",
             "    vec2 zc = vec2(u_card.x + u_notch.x, u_card.y + u_card.w - u_notch.w);",
             "    vec2 zp = p - zc + vec2(u_notch.y, 0.0);",
             "    vec2 zb = vec2(2.0 * u_notch.y, 0.0);",
             "    float zh = clamp(dot(zp, zb) / max(dot(zb, zb), 1.0), 0.0, 1.0);",
             "    float zsd = length(zp - zb * zh) - (u_notch.z + 26.0);",
-            "    shadow *= smoothstep(-4.0, 10.0, zsd);",
+            "    zone = smoothstep(-4.0, 10.0, zsd);",
+            "    shadow *= zone;",
             "  }",
             "  float alpha = max(body * u_opaque, shadow * (1.0 - body));",
             "  if (alpha <= 0.004) { gl_FragColor = vec4(0.0); return; }",
@@ -233,7 +235,7 @@ waitForJQuery(function ($) {
             "  vec2 grad = vec2(field(p + vec2(e, 0.0)) - field(p - vec2(e, 0.0)), field(p + vec2(0.0, e)) - field(p - vec2(0.0, e)));",
             "  vec2 n = length(grad) > 0.0001 ? normalize(grad) : vec2(0.0, -1.0);",
             "  float rim = smoothstep(9.0, 0.0, abs(d + 1.0));",
-            "  chrome += vec3(1.0) * rim * (0.10 + 0.38 * max(dot(n, normalize(vec2(-0.45, -0.89))), 0.0));",
+            "  chrome += vec3(1.0) * rim * (0.10 + 0.38 * max(dot(n, normalize(vec2(-0.45, -0.89))), 0.0)) * zone;",
             "  vec3 col = chrome;",
             "  col += mix(hash(p * 1.71) - 0.5, vnoise(p * 0.35) - 0.5, u_soft * 0.7) * mix(0.14, 0.075, u_soft);",
             "  vec3 outC = body >= shadow ? col : vec3(0.0);",
@@ -436,16 +438,29 @@ waitForJQuery(function ($) {
                 return rect;
             }
             if (crossR && !crossB) {
+                // The joins where the detour meets the
+                // right edge are rounded with fillet arcs
+                // tangent to both the edge and the cap
+                // circle (like the site frame's corners),
+                // so the socket has no pointed corners.
                 const dR = rx - capRt;
-                const s = Math.sqrt(Math.max(0, r * r - dR * dR));
+                const f = Math.min(16, r);
+                const dF = Math.sqrt(Math.max(0, (r + f) * (r + f) - (dR - f) * (dR - f)));
+                const cfU = { x: rx - f, y: ccy - dF };
+                const cfL = { x: rx - f, y: ccy + dF };
+                const tU = { x: capRt + r * (cfU.x - capRt) / (r + f), y: ccy + r * (cfU.y - ccy) / (r + f) };
+                const tL = { x: capRt + r * (cfL.x - capRt) / (r + f), y: ccy + r * (cfL.y - ccy) / (r + f) };
+                const arc = (rr, sw, px, py) => " A " + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 0 " + sw + " " + px.toFixed(1) + " " + py.toFixed(1);
                 return "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) +
-                    " V " + (ccy - s).toFixed(1) +
-                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + capRt.toFixed(1) + " " + (ccy - r).toFixed(1) +
+                    " V " + cfU.y.toFixed(1) +
+                    arc(f, 1, tU.x, tU.y) +
+                    arc(r, 1, capRt, ccy - r) +
                     " H " + capL.toFixed(1) +
-                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (capL - r).toFixed(1) + " " + ccy.toFixed(1) +
-                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + capL.toFixed(1) + " " + (ccy + r).toFixed(1) +
+                    arc(r, 0, capL - r, ccy) +
+                    arc(r, 0, capL, ccy + r) +
                     " H " + capRt.toFixed(1) +
-                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + rx.toFixed(1) + " " + (ccy + s).toFixed(1) +
+                    arc(r, 1, tL.x, tL.y) +
+                    arc(f, 1, rx, cfL.y) +
                     " V " + by.toFixed(1) + " H " + x.toFixed(1) + " Z";
             }
             // Crossing the bottom edge (the dip), including
@@ -453,13 +468,23 @@ waitForJQuery(function ($) {
             // crosses the right edge: the dip's arcs then
             // overshoot the corner by a sub-pixel amount,
             // which only the blurred shadow path can hit.
+            // The joins on the bottom edge get the same
+            // tangent fillets as the right-edge detour.
             const dy = by - ccy;
-            const s = Math.sqrt(Math.max(0, r * r - dy * dy));
+            const f = Math.min(16, r);
+            const dF = Math.sqrt(Math.max(0, (r + f) * (r + f) - (dy - f) * (dy - f)));
+            const cfR = { x: capRt + dF, y: by - f };
+            const cfL = { x: capL - dF, y: by - f };
+            const tR = { x: capRt + r * (cfR.x - capRt) / (r + f), y: ccy + r * (cfR.y - ccy) / (r + f) };
+            const tL = { x: capL + r * (cfL.x - capL) / (r + f), y: ccy + r * (cfL.y - ccy) / (r + f) };
+            const arc = (rr, sw, px, py) => " A " + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 0 " + sw + " " + px.toFixed(1) + " " + py.toFixed(1);
             return "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) + " V " + by.toFixed(1) +
-                " H " + (capRt + s).toFixed(1) +
-                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + capRt.toFixed(1) + " " + (ccy - r).toFixed(1) +
+                " H " + cfR.x.toFixed(1) +
+                arc(f, 1, tR.x, tR.y) +
+                arc(r, 0, capRt, ccy - r) +
                 " H " + capL.toFixed(1) +
-                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (capL - s).toFixed(1) + " " + by.toFixed(1) +
+                arc(r, 0, tL.x, tL.y) +
+                arc(f, 1, cfL.x, by) +
                 " H " + x.toFixed(1) + " Z";
         };
         const card = document.querySelector(".card");
@@ -532,13 +557,21 @@ waitForJQuery(function ($) {
                     // that line and detours around the dip,
                     // so no grain sits in the scoop.
                     const dy = by - ly;
-                    const s = Math.sqrt(Math.max(0, capR * capR - dy * dy));
                     const capL = lx - capA, capRt = lx + capA;
+                    const f = Math.min(16, capR);
+                    const dF = Math.sqrt(Math.max(0, (capR + f) * (capR + f) - (dy - f) * (dy - f)));
+                    const cfR = { x: capRt + dF, y: by - f };
+                    const cfL = { x: capL - dF, y: by - f };
+                    const tR = { x: capRt + capR * (cfR.x - capRt) / (capR + f), y: ly + capR * (cfR.y - ly) / (capR + f) };
+                    const tL = { x: capL + capR * (cfL.x - capL) / (capR + f), y: ly + capR * (cfL.y - ly) / (capR + f) };
+                    const arc = (rr, sw, px, py) => " A " + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 0 " + sw + " " + px.toFixed(1) + " " + py.toFixed(1);
                     veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + by.toFixed(1) +
-                        " H " + (capRt + s).toFixed(1) +
-                        " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + capRt.toFixed(1) + " " + (ly - capR).toFixed(1) +
+                        " H " + cfR.x.toFixed(1) +
+                        arc(f, 1, tR.x, tR.y) +
+                        arc(capR, 0, capRt, ly - capR) +
                         " H " + capL.toFixed(1) +
-                        " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + (capL - s).toFixed(1) + " " + by.toFixed(1) +
+                        arc(capR, 0, tL.x, tL.y) +
+                        arc(f, 1, cfL.x, by) +
                         " H 0 V " + r.height.toFixed(1) + " H " + r.width.toFixed(1) + " Z')";
                 } else if (cyB - capR < cr.bottom) {
                     // The socket is a crater inside the
