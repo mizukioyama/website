@@ -9,10 +9,10 @@
 
     <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
     <link rel="stylesheet" href="css/all.css?v=bd209d8f3da3">
-    <link rel="stylesheet" href="css/gallery.css?v=b7f1b4213fae">
+    <link rel="stylesheet" href="css/gallery.css?v=c58033ea4105">
     <link rel="stylesheet" href="css/mobile.css?v=485467a6507c">
     <link rel="stylesheet" href="css/footer.css?v=fcde8536cda8">
-    <link rel="stylesheet" href="css/menu.css?v=a8c493513a40">
+    <link rel="stylesheet" href="css/menu.css?v=872abddf0a39">
     <link rel="stylesheet" href="assets/css/user-settings.css?v=1e90003db811">
     <link rel="stylesheet" href="css/page-transition.css?v=7396f05b127f">
     <script src="js/page-transition.js?v=097d5a8a76c2"></script>
@@ -256,10 +256,80 @@
         }
 
         .order-page .order-cta {
+            /* Liquid glass, same design as the TOP NEXT
+               button (Mizuki 2026-11-20). */
+            position: relative;
             display: inline-block;
             margin-top: 3rem;
-            border-bottom: 1px solid currentColor;
+            padding: 12px 26px;
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 999px;
+            /* background-color only: the .noise text paint
+               lives in the background-image, and the
+               shorthand would erase it (and the text). */
+            background-color: rgba(255, 255, 255, 0);
+            -webkit-backdrop-filter: blur(12px) saturate(1.25);
+            backdrop-filter: blur(12px) saturate(1.25);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 8px 20px rgba(0, 0, 0, 0.18);
             font-size: var(--font-list-size);
+            text-decoration: none;
+            transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+        }
+
+        .order-page .order-cta::before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 0;
+              border-radius: inherit;
+              /* Explicit size: the all.css reset's fit-content width
+                 otherwise collapses this layer to a 3px strip. */
+              width: 100%;
+              height: 100%;
+              padding: 1.5px;
+              background: conic-gradient(from 210deg,
+                rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
+                rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
+                rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
+                rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
+                rgba(93, 220, 255, 0.95));
+              -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+              -webkit-mask-composite: xor;
+              mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+              mask-composite: exclude;
+              opacity: 0.3;
+              pointer-events: none;
+              transition: opacity 250ms ease;
+            }
+
+        .order-page .order-cta:hover {
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .order-page .order-cta:hover::before {
+            opacity: 0.55;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .order-page .order-cta:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        .order-page .order-cta:active {
+            transform: scale(0.95);
+            transition-duration: 100ms;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .order-page .order-cta {
+                transition: none;
+            }
+
+            .order-page .order-cta:hover,
+            .order-page .order-cta:active {
+                transform: none;
+            }
         }
 
         @media (max-width: 768px) {

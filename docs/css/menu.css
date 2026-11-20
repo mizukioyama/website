@@ -914,3 +914,80 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   #header-container header #langChange .ja,
   #header-container header #langChange .en { font-size: 11px; }
 }
+
+/* Header language buttons: liquid glass, same design as
+   the TOP NEXT button (Mizuki 2026-11-20). They had no
+   box styling of their own before this. */
+.lang-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  /* background-color only: the .noise text paint lives
+     in the background-image, and the shorthand would
+     erase it (and the text with it). */
+  background-color: rgba(255, 255, 255, 0);
+  -webkit-backdrop-filter: blur(12px) saturate(1.25);
+  backdrop-filter: blur(12px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 8px 20px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.lang-button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: inherit;
+  /* Explicit size: the all.css reset's fit-content width
+     otherwise collapses this layer to a 3px strip. */
+  width: 100%;
+  height: 100%;
+  padding: 1.5px;
+  background: conic-gradient(from 210deg,
+    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
+    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
+    rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95),
+    rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95),
+    rgba(93, 220, 255, 0.95));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.3;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.lang-button:hover {
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.lang-button:hover::before {
+  opacity: 0.55;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lang-button:hover {
+    transform: scale(1.05);
+  }
+}
+
+.lang-button:active {
+  transform: scale(0.95);
+  transition-duration: 100ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-button {
+    transition: none;
+  }
+
+  .lang-button:hover,
+  .lang-button:active {
+    transform: none;
+  }
+}
