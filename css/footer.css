@@ -41,7 +41,12 @@
         text-align: right;
         position: absolute;
         padding: 0.5rem 2rem 1rem;
-        bottom: 0;
+        /* Lifted above the site frame's bottom strip (40px), which
+           otherwise covers the row at full scroll. */
+        bottom: 48px;
+        /* The frame's side strips (40px of the 1440px frame space)
+           cover the row's ends; inset the row past them. */
+        padding-inline: calc(2.7778vw + 12px);
         right: 0;
         width: 100%;
         border-top: 1px solid #aaa;
@@ -166,7 +171,7 @@ footer a.foot-prev[hidden] { display: none; }
    in the static footer. */
 .foot-sub-links {
     position: absolute;
-    left: 2rem;
+    left: calc(2.7778vw + 12px);
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -176,12 +181,24 @@ footer a.foot-prev[hidden] { display: none; }
     font-size: var(--font-caption-size);
     letter-spacing: 0.08em;
     margin-top: 0;
+    padding: 0;
     text-decoration: none;
+    /* The global footer/header link style paints text from a
+       background gradient (color: transparent); this row is plain
+       text like the copyright itself, so opt out. */
+    color: var(--inv);
+    -webkit-text-fill-color: currentColor;
+    background: none;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
 }
+.foot-sub-links a::before { content: none; }
 .foot-sub-links a:hover, .foot-sub-links a:focus-visible {
     text-decoration: underline;
     text-underline-offset: 4px;
 }
 @media only screen and (max-width: 600px) {
-    .foot-sub-links { left: 0.5rem; }
+    /* The small frame's side strips are 40px of a 390px space. */
+    .foot { padding-inline: calc(10.256vw + 6px); }
+    .foot-sub-links { left: calc(10.256vw + 6px); }
 }
