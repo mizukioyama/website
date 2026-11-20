@@ -173,6 +173,12 @@ p {
 .back__slide.active .back__img {
   transform: translate3d(-100%, 0, 0);
   opacity: 0;
+}
+
+/* The slide animations run only once an actual switch has
+   happened (body.back--anim is added by goToSlide). On first
+   load the visible background simply sits at center. */
+body.back--anim .back__slide.active .back__img {
   animation: bgSlideOut 1900ms linear both;
 }
 
@@ -231,6 +237,9 @@ p {
 .back__slide:not(.active) .back__img {
   transform: translate3d(0, 0, 0);
   opacity: 1;
+}
+
+body.back--anim .back__slide:not(.active) .back__img {
   animation: bgSlideIn 3420ms linear both;
 }
 
@@ -924,6 +933,9 @@ body.card-liquid-on .card__slide::after {
 .top-page h1.title {
   width: fit-content;
   font-size: var(--type-home-title-size);
+  /* Same typeface as the slide-2 heading (the inherited
+     body stack), per Mizuki 2026-11-20. */
+  font-family: inherit;
   -webkit-text-fill-color: var(--inv);
   text-shadow: 0 0 2px #101918, 0 0 6px #101918;
   filter: drop-shadow(0 0 2px #101918) drop-shadow(0 0 4px #101918);
@@ -935,6 +947,7 @@ body.card-liquid-on .card__slide::after {
   justify-content: flex-start;
   color: var(--inv);
   -webkit-text-fill-color: var(--inv);
+  font-weight: 200;
   /* Heading noise: denser dots than the shared .noise
      (gap x2 instead of x3, Mizuki 2026-11-20). */
   -webkit-mask: repeating-radial-gradient(circle at center, #000, var(--lines), #000, 0, #0000, calc(var(--lines) * 2), #0000 0);
@@ -968,8 +981,10 @@ body.card-liquid-on .card__slide::after {
 
 .content__slide:nth-child(even) .desc,
 .content__slide:nth-child(even) .button-wrap {
-  color: var(--def);
-  text-shadow: 0px 0px 1px rgba(200, 200, 200, 0.25);
+  /* Same text color as slide 1 (Mizuki 2026-11-20);
+     shadow follows slide 1's desc for legibility. */
+  color: #f9fafbb3;
+  text-shadow: 1px 1px 10px rgba(15, 53, 43);
 }
 
 /*==================================== button ==*/
