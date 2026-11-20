@@ -658,8 +658,13 @@ body.back--anim .card__slide:not(.active) .date {
    glow behind it. Square corners. */
 .card-nav {
   position: absolute;
-  right: calc(50% - var(--card-width) / 2);
-  bottom: calc(50% - var(--card-height) / 2 - 20px);
+  /* Position (Mizuki 2026-11-20): the button's right
+     edge sits 12px outside the card's right edge, and
+     its center 62px above the card's bottom edge on
+     wide screens (48px on phones, see the <=599px
+     rule); the card's socket follows it. */
+  right: calc(50% - var(--card-width) / 2 - 12px);
+  bottom: calc(50% - var(--card-height) / 2 + 41px);
   z-index: 12;
   padding: 0.38em 0.95em;
   font-family: "Shippori Mincho", serif;
@@ -1257,7 +1262,7 @@ footer,
   .card-nav {
     /* Portrait card: its height is the width times the
        golden ratio, not the shared --card-height. */
-    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 - 20px);
+    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 27px);
   }
 
   .card-liquid-gl {
