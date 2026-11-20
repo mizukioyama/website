@@ -1008,7 +1008,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   gap: 30px;
   z-index: 1000;
   color: var(--inv);
-  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  font-family: inherit;
 }
 .home .frame-initials { color: var(--text); }
 .frame-initials a {
@@ -1089,7 +1089,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   z-index: 1000;
   padding: 0;
   color: var(--inv);
-  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  font-family: inherit;
   text-decoration: none;
   line-height: 1.5;
 }
@@ -1116,7 +1116,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   bottom: calc(1.333dvh - 6px);
   z-index: 1000;
   color: var(--inv);
-  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  font-family: inherit;
   font-size: var(--font-caption-size);
   letter-spacing: 0.04em;
   white-space: nowrap;
