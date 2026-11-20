@@ -143,30 +143,6 @@ footer a.foot-prev[hidden] { display: none; }
     letter-spacing: 0.08em;
     text-shadow: none;
 }
-/* Information and Site Policy are not in the right menu, so the
-   footer carries them as initials (the same letterform style as
-   the menu band) at the footer's bottom left, just above the
-   copyright row. */
-.foot-initials {
-    position: absolute;
-    left: 48px;
-    bottom: 56px;
-    display: flex;
-    gap: 30px;
-}
-.foot-initials a {
-    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
-    font-size: 19px;
-    line-height: 1;
-    margin-top: 0;
-    text-decoration: none;
-}
-.foot-initials a:hover, .foot-initials a:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 6px;
-}
-@media only screen and (max-width: 600px) {
-    .foot-initials { left: 24px; bottom: 60px; }
 }
 #footer-container::before {
     content: "";
@@ -182,4 +158,30 @@ footer a.foot-prev[hidden] { display: none; }
        the strip reaches into main's territory. */
     z-index: 99;
     pointer-events: none;
+}
+
+/* Secondary routes (Information / Site Policy) also sit, small,
+   at the left end of the copyright row: the frame carries them
+   as initials, and this row keeps them reachable and crawlable
+   in the static footer. */
+.foot-sub-links {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 1.4rem;
+}
+.foot-sub-links a {
+    font-size: var(--font-caption-size);
+    letter-spacing: 0.08em;
+    margin-top: 0;
+    text-decoration: none;
+}
+.foot-sub-links a:hover, .foot-sub-links a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+@media only screen and (max-width: 600px) {
+    .foot-sub-links { left: 0.5rem; }
 }
