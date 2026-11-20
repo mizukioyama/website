@@ -1194,14 +1194,42 @@ footer,
 @media screen and (min-width: 1200px) and (max-width: 1550px) {}
 
 /* Home entry uses the existing language preference and loading sequence. */
+/* Gate layout and fog tuned by the user, 2026-11-20:
+   plan A, title 32px, 120px above the language label,
+   the block shifted 90px up (the extra bottom padding),
+   fog at full strength with no veil, START 420px wide
+   and the language buttons sharing the same width.
+   The fog is a gate-local layer in the ink field's
+   colours: the live ink canvas belongs to the light
+   home page behind the gate and cannot show through
+   this dark screen. */
 #home-entry {
   position: fixed; inset: 0; width: 100%; height: 100%; box-sizing: border-box; z-index: 10010; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 24px; padding: 24px;
+  align-items: center; justify-content: center; gap: 0; padding: 24px 24px 204px;
   background: #101919; color: var(--inv); text-align: center;
 }
+#home-entry::before {
+  content: ""; position: absolute; inset: -12%; pointer-events: none;
+  background:
+    radial-gradient(ellipse 62% 40% at 22% 26%, rgba(196, 216, 220, 0.20), rgba(196, 216, 220, 0) 65%),
+    radial-gradient(ellipse 55% 46% at 82% 44%, rgba(160, 185, 195, 0.15), rgba(160, 185, 195, 0) 65%),
+    radial-gradient(ellipse 70% 38% at 47% 96%, rgba(210, 220, 215, 0.12), rgba(210, 220, 215, 0) 65%),
+    radial-gradient(ellipse 34% 26% at 61% 24%, rgba(230, 238, 240, 0.10), rgba(230, 238, 240, 0) 60%);
+  filter: blur(38px);
+  animation: homeEntryFog 26s ease-in-out infinite alternate;
+}
+@keyframes homeEntryFog {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(3.5%, 2%) scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) { #home-entry::before { animation: none; } }
+#home-entry > * { position: relative; z-index: 1; }
 #home-entry[hidden], #loading-bg[hidden] { display: none; }
-#home-entry h2 { font-size: var(--type-home-title-size); font-weight: 100; }
-.home-entry-languages { display: flex; gap: 12px; }
+.home-entry-brand { font-size: 13px; font-weight: 300; letter-spacing: 0.22em; opacity: 0.78; margin-bottom: 14px; }
+#home-entry h2 { font-size: 32px; font-weight: 100; }
+.home-entry-label { font-size: 11.5px; font-weight: 300; letter-spacing: 0.26em; opacity: 0.62; margin-top: 120px; }
+.home-entry-languages { display: flex; gap: 12px; width: min(100%, 420px); margin-top: 16px; }
+.home-entry-languages button { flex: 1 1 0; }
 #home-entry button { position: relative; min-width: 88px; min-height: 44px; padding: 12px 20px; color: inherit; cursor: pointer; border-radius: 999px; background: rgba(255, 255, 255, 0);   -webkit-backdrop-filter: blur(12px) saturate(1.25);   backdrop-filter: blur(12px) saturate(1.25);   border: 1px solid rgba(255, 255, 255, 0.65);   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 8px 20px rgba(0, 0, 0, 0.18); transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease; }
 #home-entry button::before {
   content: "";
@@ -1236,4 +1264,4 @@ footer,
 #home-entry button[aria-pressed="true"] { background: rgba(255,255,255,.15); border-color: rgba(255, 255, 255, 0.9); }
 #home-entry button[aria-pressed="true"]::before { opacity: 0.55; }
 #home-entry button:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
-#home-start { width: min(100%, 320px); }
+#home-start { width: min(100%, 420px); margin-top: 30px; }
