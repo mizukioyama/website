@@ -143,13 +143,28 @@ footer a.foot-prev[hidden] { display: none; }
     letter-spacing: 0.08em;
     text-shadow: none;
 }
+/* The footer nav now holds only the pages that are not in the
+   right menu (Information / Site Policy); the rest were duplicates
+   of the menu and were removed. On tablet/desktop the two links
+   stack at the footer's right, below the right menu band, aligned
+   with the PREV link at the top. Phones stack them under PREV. */
 @media only screen and (min-width: 601px) {
     .foot-nav {
-        display: grid;
-        grid-template-columns: repeat(4, auto);
-        justify-content: start;
-        column-gap: 3.2rem;
-        row-gap: 2.2vmin;
+        position: absolute;
+        top: 4rem;
+        right: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    footer .foot-nav a { margin-top: 0; }
+}
+@media only screen and (max-width: 600px) {
+    .foot-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 5vmin;
     }
     footer .foot-nav a { margin-top: 0; }
 }
