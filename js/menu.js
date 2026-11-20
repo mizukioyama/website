@@ -202,9 +202,9 @@ const FOOTER_MARKUP = `
       <small>前のページへ</small>
    </a>
 
-   <div class="foot-nav">
-      <a class="noise" href="${siteHref("information.html")}">Information</a>
-      <a class="noise" href="${siteHref("policy.html")}">Site Policy</a>
+   <div class="foot-initials" role="navigation" aria-label="Information / Site Policy">
+      <a class="noise" href="${siteHref("information.html")}" aria-label="Information" title="Information">I</a>
+      <a class="noise" href="${siteHref("policy.html")}" aria-label="Site Policy" title="Site Policy">P</a>
    </div>
 
    <div class="foot">&copy; <span id="year"></span>

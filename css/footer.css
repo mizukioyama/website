@@ -143,30 +143,30 @@ footer a.foot-prev[hidden] { display: none; }
     letter-spacing: 0.08em;
     text-shadow: none;
 }
-/* The footer nav now holds only the pages that are not in the
-   right menu (Information / Site Policy); the rest were duplicates
-   of the menu and were removed. On tablet/desktop the two links
-   stack at the footer's right, below the right menu band, aligned
-   with the PREV link at the top. Phones stack them under PREV. */
-@media only screen and (min-width: 601px) {
-    .foot-nav {
-        position: absolute;
-        top: 4rem;
-        right: 120px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-    }
-    footer .foot-nav a { margin-top: 0; }
+/* Information and Site Policy are not in the right menu, so the
+   footer carries them as initials (the same letterform style as
+   the menu band) at the footer's bottom left, just above the
+   copyright row. */
+.foot-initials {
+    position: absolute;
+    left: 48px;
+    bottom: 56px;
+    display: flex;
+    gap: 30px;
+}
+.foot-initials a {
+    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+    font-size: 19px;
+    line-height: 1;
+    margin-top: 0;
+    text-decoration: none;
+}
+.foot-initials a:hover, .foot-initials a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 6px;
 }
 @media only screen and (max-width: 600px) {
-    .foot-nav {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        margin-top: 5vmin;
-    }
-    footer .foot-nav a { margin-top: 0; }
+    .foot-initials { left: 24px; bottom: 60px; }
 }
 #footer-container::before {
     content: "";
