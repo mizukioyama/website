@@ -487,19 +487,21 @@ html[lang="ja"] .creator-title {
   z-index: -1;
 }
 
-/* Date block switch choreography (Mizuki 2026-11-20, total 2880ms):
-   snap right 5% (140ms) -> rotate to -90deg (600ms) -> hold vertical
-   (300ms) -> crossfade while vertical (400ms) -> rotate back holding
-   +5% (1000ms) -> hold horizontal (300ms) -> final snap left into
-   place (140ms). Start and end positions are identical; the
+/* Date block switch choreography (Mizuki 2026-11-20, total 5150ms):
+   snap right 5% (400ms) -> rotate to -90deg (1500ms) -> hold vertical
+   (300ms) -> crossfade while vertical (250ms) -> rotate back holding
+   +5% (2000ms) -> hold horizontal (300ms) -> final snap left into
+   place (400ms). Start and end positions are identical; the
    animations run only on actual switches (body.back--anim, added
-   by goToSlide). */
+   by goToSlide). The outgoing animation is keyed on :not(.active)
+   rather than .exit because .exit is removed after 1500ms, long
+   before this choreography ends. */
 body.back--anim .card__slide.active .date {
-  animation: dateIn 2880ms linear both;
+  animation: dateIn 5150ms linear both;
 }
 
-body.back--anim .card__slide.exit .date {
-  animation: dateOut 2880ms linear both;
+body.back--anim .card__slide:not(.active) .date {
+  animation: dateOut 5150ms linear both;
 }
 
 @keyframes dateOut {
@@ -509,50 +511,50 @@ body.back--anim .card__slide.exit .date {
     animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1);
   }
 
-  4.86% {
+  7.77% {
     transform: translateX(5%) rotate(0deg);
     opacity: 0.7;
     animation-timing-function: cubic-bezier(0.55, 0.06, 0.35, 1);
   }
 
-  25.69% {
+  36.89% {
     transform: translateX(5%) rotate(-90deg);
     opacity: 0.7;
     animation-timing-function: linear;
   }
 
-  36.11% {
+  42.72% {
     transform: translateX(5%) rotate(-90deg);
     opacity: 0.7;
     animation-timing-function: linear;
   }
 
-  50%, 100% {
+  47.57%, 100% {
     transform: translateX(5%) rotate(-90deg);
     opacity: 0;
   }
 }
 
 @keyframes dateIn {
-  0%, 36.11% {
+  0%, 42.72% {
     transform: translateX(5%) rotate(-90deg);
     opacity: 0;
     animation-timing-function: linear;
   }
 
-  50% {
+  47.57% {
     transform: translateX(5%) rotate(-90deg);
     opacity: 0.7;
     animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  84.72% {
+  86.41% {
     transform: translateX(5%) rotate(0deg);
     opacity: 0.7;
     animation-timing-function: linear;
   }
 
-  95.14% {
+  92.23% {
     transform: translateX(5%) rotate(0deg);
     opacity: 0.7;
     animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1);
