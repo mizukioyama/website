@@ -689,14 +689,14 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 
   /* The nav moves into the frame's right rectangle. Its
      position and size use the same ratios as the frame SVG
-     (block: x 1350-1440 of 1440, y 60-780 of 900), so the
+     (block: x 1350-1440 of 1440, y 44-796 of 900), so the
      two stay aligned at any viewport size. */
   #navArea {
     position: fixed;
-    top: 6.67dvh;
+    top: 4.89dvh;
     right: 0;
     width: 6.25vw;
-    height: 80dvh;
+    height: 83.56dvh;
   }
   #navArea nav { height: 100%; }
   #navArea .inner { height: 100%; padding: 0; }
@@ -1001,7 +1001,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
    140px, 18px, stacked vertically. */
 .frame-initials {
   position: fixed;
-  left: 24px;
+  left: calc(3.125vw - 12px);
   bottom: 140px;
   display: flex;
   flex-direction: column;
@@ -1084,8 +1084,8 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
    the first page keeps it hidden. */
 .frame-prev {
   position: fixed;
-  left: calc(2.7778vw + 12px);
-  bottom: 48px;
+  left: calc(1.6667vw + 12px);
+  bottom: calc(5dvh + 10px);
   z-index: 1000;
   padding: 0;
   color: var(--inv);
@@ -1112,8 +1112,8 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
    bottom right, clear of the band's lower end. */
 .frame-copy {
   position: fixed;
-  right: calc(2.7778vw + 12px);
-  bottom: 13px;
+  right: calc(1.6667vw + 12px);
+  bottom: calc(1.333dvh - 6px);
   z-index: 1000;
   color: var(--inv);
   font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
@@ -1125,9 +1125,9 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 @media only screen and (max-width: 600px) {
   /* Phones: the gallery's category bar occupies the area above the
      strip, so PREV joins the copyright inside the strip, one line. */
-  .frame-prev { left: calc(10.256vw + 6px); bottom: 11px; }
+  .frame-prev { left: calc(1.667vw + 6px); bottom: 4px; }
   .frame-prev-tag { font-size: 11px; }
   .frame-prev-name { font-size: 14px; }
   .frame-prev small { display: none; }
-  .frame-copy { right: calc(10.256vw + 6px); bottom: 12px; }
+  .frame-copy { right: calc(1.667vw + 6px); bottom: 6px; }
 }
