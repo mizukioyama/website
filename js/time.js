@@ -167,6 +167,7 @@ waitForJQuery(function ($) {
             "uniform float u_wob;",
             "uniform float u_phase;",
             "uniform vec4 u_notch;",
+            "uniform float u_radius;",
             "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -178,7 +179,7 @@ waitForJQuery(function ($) {
             "  vec2 lp = p - cc;",
             "  lp.x *= 1.0 - 0.012 * sin(u_phase) * u_wob;",
             "  lp.y *= 1.0 + 0.012 * sin(u_phase) * u_wob;",
-            "  float d = sdRBox(lp, u_card.zw * 0.5, 4.0);",
+            "  float d = sdRBox(lp, u_card.zw * 0.5 - u_radius, u_radius);",
             "  vec2 q = clamp(u_q, u_card.xy, u_card.xy + u_card.zw);",
             "  float dL = u_q.x - u_card.x;",
             "  float dR = (u_card.x + u_card.z) - u_q.x;",
@@ -265,7 +266,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_opaque", "u_notch"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_opaque", "u_notch", "u_radius"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -305,6 +306,13 @@ waitForJQuery(function ($) {
         wrap.addEventListener("pointerdown", onMove);
         wrap.addEventListener("pointerleave", () => { onTarget = 0; });
 
+        let radiusCss = 0;
+        const readRadius = () => {
+            const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--card-radius"));
+            radiusCss = isNaN(v) ? 0 : Math.max(0, v);
+        };
+        readRadius();
+        window.addEventListener("resize", readRadius);
         const frame = (t) => {
             requestAnimationFrame(frame);
             const dt = Math.min(50, t - lastT || 16);
@@ -366,6 +374,7 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
             gl.uniform1f(uni.u_phase, phase);
+            gl.uniform1f(uni.u_radius, radiusCss * sx);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         };
         requestAnimationFrame(frame);
@@ -406,6 +415,11 @@ waitForJQuery(function ($) {
         const capA = Math.max(0, (b.width - b.height) / 2);
         notchShape.capA = capA;
         notchShape.capR = capR;
+        // Card corner radius (Mizuki 2026-11-20), shared
+        // with the liquid metal shader through the same
+        // --card-radius custom property, so the clipped
+        // outline and the metal round their corners alike.
+        const cardR = Math.max(0, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--card-radius")) || 0);
         // The card outline with the button's capsule
         // socket cut out of it, for a box whose top-left
         // corner is (x, y) and whose size is (w, h);
@@ -429,16 +443,33 @@ waitForJQuery(function ($) {
             const r = rUse === undefined ? capR : rUse;
             const by = y + h, rx = x + w;
             const capL = ccx - capA, capRt = ccx + capA;
-            const rect = "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) + " V " + by.toFixed(1) + " H " + x.toFixed(1) + " Z";
+            const arc = (rr, sw, px, py) => " A " + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 0 " + sw + " " + px.toFixed(1) + " " + py.toFixed(1);
+            // Rounded card corners: every layer sharing this
+            // outline rounds together. The bottom-right corner
+            // shares its edge with the socket detour, so it
+            // takes only the edge length the detour leaves.
+            const cr = Math.min(cardR, w / 2, h / 2);
+            let crBR = cr;
             const crossB = ccy + r > by && ccy - r < by;
             const crossR = capRt + r > rx && capL - r < rx;
-            if (!crossB && !crossR) {
-                if (ccy - r >= y && ccy + r <= by && capL - r >= x && capRt + r <= rx) {
-                    return rect + " " + capsuleHole(ccx, ccy, r);
-                }
-                return rect;
-            }
             if (crossR && !crossB) {
+                const dRx = rx - capRt;
+                const fx = Math.min(16, r);
+                const dFx = Math.sqrt(Math.max(0, (r + fx) * (r + fx) - (dRx - fx) * (dRx - fx)));
+                crBR = Math.max(0, Math.min(cr, by - (ccy + dFx)));
+            }
+            const head = "M " + (x + cr).toFixed(1) + " " + y.toFixed(1) + " H " + (rx - cr).toFixed(1) + arc(cr, 1, rx, y + cr);
+            const afterBR = (radBR) => arc(radBR, 1, rx - radBR, by) +
+                " H " + (x + cr).toFixed(1) + arc(cr, 1, x, by - cr) +
+                " V " + (y + cr).toFixed(1) + arc(cr, 1, x + cr, y) + " Z";
+            if (!crossB && !crossR) {
+                let out = head + " V " + (by - crBR).toFixed(1) + afterBR(crBR);
+                if (ccy - r >= y && ccy + r <= by && capL - r >= x && capRt + r <= rx) {
+                    out += " " + capsuleHole(ccx, ccy, r);
+                }
+                return out;
+            }
+            if (crossR) {
                 // The joins where the detour meets the
                 // right edge are rounded with fillet arcs
                 // tangent to both the edge and the cap
@@ -451,8 +482,7 @@ waitForJQuery(function ($) {
                 const cfL = { x: rx - f, y: ccy + dF };
                 const tU = { x: capRt + r * (cfU.x - capRt) / (r + f), y: ccy + r * (cfU.y - ccy) / (r + f) };
                 const tL = { x: capRt + r * (cfL.x - capRt) / (r + f), y: ccy + r * (cfL.y - ccy) / (r + f) };
-                const arc = (rr, sw, px, py) => " A " + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 0 " + sw + " " + px.toFixed(1) + " " + py.toFixed(1);
-                return "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) +
+                return head +
                     " V " + cfU.y.toFixed(1) +
                     arc(f, 1, tU.x, tU.y) +
                     arc(r, 1, capRt, ccy - r) +
@@ -462,7 +492,7 @@ waitForJQuery(function ($) {
                     " H " + capRt.toFixed(1) +
                     arc(r, 1, tL.x, tL.y) +
                     arc(f, 1, rx, cfL.y) +
-                    " V " + by.toFixed(1) + " H " + x.toFixed(1) + " Z";
+                    " V " + (by - crBR).toFixed(1) + afterBR(crBR);
             }
             // Crossing the bottom edge (the dip), including
             // the corner case where the capsule also
@@ -475,18 +505,21 @@ waitForJQuery(function ($) {
             const f = Math.min(16, r);
             const dF = Math.sqrt(Math.max(0, (r + f) * (r + f) - (dy - f) * (dy - f)));
             const cfR = { x: capRt + dF, y: by - f };
-            const cfL = { x: capL - dF, y: by - f };
+            const cfLd = { x: capL - dF, y: by - f };
             const tR = { x: capRt + r * (cfR.x - capRt) / (r + f), y: ccy + r * (cfR.y - ccy) / (r + f) };
-            const tL = { x: capL + r * (cfL.x - capL) / (r + f), y: ccy + r * (cfL.y - ccy) / (r + f) };
-            const arc = (rr, sw, px, py) => " A " + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 0 " + sw + " " + px.toFixed(1) + " " + py.toFixed(1);
-            return "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) + " V " + by.toFixed(1) +
+            const tL = { x: capL + r * (cfLd.x - capL) / (r + f), y: ccy + r * (cfLd.y - ccy) / (r + f) };
+            const crBRd = Math.max(0, Math.min(crBR, rx - cfR.x));
+            const crBLd = Math.max(0, Math.min(cr, cfLd.x - x));
+            return head +
+                " V " + (by - crBRd).toFixed(1) + arc(crBRd, 1, rx - crBRd, by) +
                 " H " + cfR.x.toFixed(1) +
                 arc(f, 1, tR.x, tR.y) +
                 arc(r, 0, capRt, ccy - r) +
                 " H " + capL.toFixed(1) +
                 arc(r, 0, tL.x, tL.y) +
-                arc(f, 1, cfL.x, by) +
-                " H " + x.toFixed(1) + " Z";
+                arc(f, 1, cfLd.x, by) +
+                " H " + (x + crBLd).toFixed(1) + arc(crBLd, 1, x, by - crBLd) +
+                " V " + (y + cr).toFixed(1) + arc(cr, 1, x + cr, y) + " Z";
         };
         const card = document.querySelector(".card");
         // The outline's source of truth is the transparent
