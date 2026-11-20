@@ -44,6 +44,19 @@ waitForJQuery(function ($) {
                     clearTimeout(goToSlide._fogTimer);
                     goToSlide._fogTimer = setTimeout(() => document.body.classList.remove("is-switching"), 3300);
                 }
+                // Belt and braces (Mizuki reported the glow
+                // still visible after PR #154): fade the
+                // ink-field canvas element itself. The class
+                // rule only lives in the <=599px stylesheet
+                // block, so set the element style directly
+                // and cover phone and portrait-tablet widths.
+                const inkCanvas = document.getElementById("selected-ink-field-canvas");
+                if (inkCanvas && window.matchMedia("(max-width: 1023px)").matches) {
+                    inkCanvas.style.transition = "opacity 300ms ease";
+                    inkCanvas.style.opacity = "0";
+                    clearTimeout(goToSlide._inkTimer);
+                    goToSlide._inkTimer = setTimeout(() => { inkCanvas.style.opacity = ""; }, 3300);
+                }
                 document.body.classList.add('back--anim');
                 restartPing();
 
