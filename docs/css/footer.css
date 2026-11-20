@@ -11,11 +11,11 @@
         max-width: 100%;
         min-width: 100%;
         height: auto;
-        min-height: max(70svh, 500px);
-        padding: 4rem clamp(1.5rem, calc(7vw - 1rem), 6rem);
+        min-height: 0;
+        padding: 0;
         bottom: 0;
-        background: rgba(0, 15, 15, 0.7);
-        backdrop-filter: blur(20px);
+        background: transparent;
+        backdrop-filter: none;
         z-index: 100;
     }
 
@@ -83,8 +83,8 @@
             width: 100%;
             min-width: 100%;
             max-width: 100%;
-            min-height: 80svh;
-            padding: 3rem 1.5rem 4rem;
+            min-height: 0;
+            padding: 0;
         }
 
         footer a {
@@ -201,4 +201,22 @@ footer a.foot-prev[hidden] { display: none; }
     /* The small frame's side strips are 40px of a 390px space. */
     .foot { padding-inline: calc(10.256vw + 6px); }
     .foot-sub-links { left: calc(10.256vw + 6px); }
+}
+
+/* The visible footer is retired: PREV and the copyright live in
+   the site frame now (see .frame-prev / .frame-copy in menu.css).
+   Only the secondary-route links remain in this footer, visually
+   hidden, so the routes stay crawlable in the static HTML. The
+   curved top edge is retired with the block. */
+#footer-container::before { display: none; }
+.foot-sub-links {
+    position: absolute;
+    left: 0;
+    top: auto;
+    transform: none;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
 }

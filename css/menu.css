@@ -1078,3 +1078,56 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 @media (prefers-reduced-motion: reduce) {
   .frame-label, .frame-initial { transition: none; }
 }
+
+/* Frame bottom-left: the previous-page link, two lines, just above
+   the frame's bottom strip. Filled by menu.js (setupFramePrev);
+   the first page keeps it hidden. */
+.frame-prev {
+  position: fixed;
+  left: calc(2.7778vw + 12px);
+  bottom: 48px;
+  z-index: 1000;
+  padding: 0;
+  color: var(--inv);
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  text-decoration: none;
+  line-height: 1.5;
+}
+.frame-prev::before { content: none; }
+.home .frame-prev { color: var(--text); }
+.frame-prev-tag { font-size: 12px; letter-spacing: 0.35em; }
+.frame-prev-name { font-size: 17px; letter-spacing: 0.04em; margin-left: 0.7em; }
+.frame-prev small {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  opacity: 0.72;
+}
+.frame-prev:hover, .frame-prev:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+/* Frame bottom strip: the copyright, inside the strip at the
+   bottom right, clear of the band's lower end. */
+.frame-copy {
+  position: fixed;
+  right: calc(2.7778vw + 12px);
+  bottom: 13px;
+  z-index: 1000;
+  color: var(--inv);
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  font-size: var(--font-caption-size);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.home .frame-copy { color: var(--text); }
+@media only screen and (max-width: 600px) {
+  /* Phones: the gallery's category bar occupies the area above the
+     strip, so PREV joins the copyright inside the strip, one line. */
+  .frame-prev { left: calc(10.256vw + 6px); bottom: 11px; }
+  .frame-prev-tag { font-size: 11px; }
+  .frame-prev-name { font-size: 14px; }
+  .frame-prev small { display: none; }
+  .frame-copy { right: calc(10.256vw + 6px); bottom: 12px; }
+}
