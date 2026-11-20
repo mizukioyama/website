@@ -1182,7 +1182,7 @@ footer,
 
 :root {
   --card-width: min(93vmin, calc(100vw - 48px), calc(90svh * 1.61803398875));
-  --card-radius: 20px;
+  --card-radius: 12px;
   --card-height: calc(var(--card-width) / 1.61803398875);
 }
 
