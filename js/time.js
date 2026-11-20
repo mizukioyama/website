@@ -36,6 +36,14 @@ waitForJQuery(function ($) {
         const goToSlide = (slideElements, index) => {
             if (!inProgress) {
                 inProgress = true;
+                // Phones only: hide the fog glow while the
+                // switch runs (Mizuki 2026-11-20). Restored
+                // when the incoming background lands (3300ms).
+                if (window.matchMedia("(max-width: 599px)").matches) {
+                    document.body.classList.add("is-switching");
+                    clearTimeout(goToSlide._fogTimer);
+                    goToSlide._fogTimer = setTimeout(() => document.body.classList.remove("is-switching"), 3300);
+                }
                 document.body.classList.add('back--anim');
                 restartPing();
 

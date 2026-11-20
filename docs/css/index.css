@@ -1254,6 +1254,13 @@ footer,
 
     #vanta-bg {
         opacity: 0.35;
+        transition: opacity 300ms ease;
+    }
+
+    /* On phones the fog's glow is hidden while a slide
+       switch runs (Mizuki 2026-11-20). */
+    body.is-switching #vanta-bg {
+        opacity: 0;
     }
 
   h1,
