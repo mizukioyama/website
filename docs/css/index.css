@@ -924,7 +924,7 @@ body.card-liquid-on .card__slide::after {
 .top-page h1.title {
   width: fit-content;
   font-size: var(--type-home-title-size);
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: var(--inv);
   text-shadow: 0 0 2px #101918, 0 0 6px #101918;
   filter: drop-shadow(0 0 2px #101918) drop-shadow(0 0 4px #101918);
 }
@@ -933,7 +933,12 @@ body.card-liquid-on .card__slide::after {
   position: relative;
   /*font-size: clamp(var(--legacy-px-4), calc(var(--legacy-px-4) + 0.5vw), var(--legacy-px-5));*/
   justify-content: flex-start;
-  color: #f9fafbb3;
+  color: var(--inv);
+  -webkit-text-fill-color: var(--inv);
+  /* Heading noise: denser dots than the shared .noise
+     (gap x2 instead of x3, Mizuki 2026-11-20). */
+  -webkit-mask: repeating-radial-gradient(circle at center, #000, var(--lines), #000, 0, #0000, calc(var(--lines) * 2), #0000 0);
+  mask: repeating-radial-gradient(circle at center, #000, var(--lines), #000, 0, #0000, calc(var(--lines) * 2), #0000 0);
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
   line-height: 1.2;
   letter-spacing: clamp(2.56px, calc(2.16px + 0.055vw), 2.88px);
@@ -948,6 +953,7 @@ body.card-liquid-on .card__slide::after {
 
 /*== 内容 ==*/
 .desc {
+  font-family: "Shippori Mincho", serif;
   color: #f9fafbb3;
   text-shadow: 1px 1px 10px rgba(15, 53, 43);
   margin: 0 auto;
