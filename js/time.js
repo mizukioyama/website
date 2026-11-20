@@ -451,7 +451,7 @@ waitForJQuery(function ($) {
         // veil is clipped on its own element too, so the
         // grain cannot linger over the scoop on engines that
         // composite its animated mask separately.
-        document.querySelectorAll(".card, .card_line, .card-liquid-gl, .back__frame, #mainContent > .noise").forEach((el) => {
+        document.querySelectorAll(".card, .card-liquid-gl, .back__frame, #mainContent > .noise").forEach((el) => {
             const r = el.getBoundingClientRect();
             if (!r.width || !r.height) return;
             el.style.clipPath = "path('" + outlineAt(0, 0, r.width, r.height, cx - r.left) + "')";

@@ -1174,12 +1174,6 @@ footer,
 
 
 
-@property --rotate {
-  syntax: "<angle>";
-  initial-value: 132deg;
-  inherits: false;
-}
-
 :root {
   --card-width: min(93vmin, calc(100vw - 48px), calc(90svh * 1.61803398875));
   --card-height: calc(var(--card-width) / 1.61803398875);
@@ -1196,61 +1190,6 @@ footer,
   pointer-events: none;
   overflow: visible;
   z-index: -3;
-}
-
-.card_line {
-  width: var(--card-width);
-  cursor: pointer;
-  height: var(--card-height);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0);
-  z-index: -2;
-}
-
-/*.card_line::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  background-image: linear-gradient(
-    var(--rotate)
-    , #5ddcff, #3c67e3 43%, #4e00c2);
-    position: absolute;
-    z-index: -1;
-    top: -1%;
-    left: -2%;
-    animation: spin 2.5s linear infinite;
-}*/
-
-.card_line::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  transform: scale(0.85);
-  filter: blur(calc(var(--card-height) / 6));
-  background-image: linear-gradient(
-    var(--rotate)
-    , #000000, #057379 43%, #000000);
-  opacity: 1;
-  transition: opacity 0.85s;
-  animation: spin 8.5s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    --rotate: 0deg;
-  }
-  100% {
-    --rotate: 360deg;
-  }
 }
 
 
@@ -1298,7 +1237,6 @@ footer,
   }
 
 
-  .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
   .back__shadow {
     height: calc(var(--card-width) * 1.61803398875);
