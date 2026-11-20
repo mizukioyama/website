@@ -1263,6 +1263,18 @@ footer,
         opacity: 0;
     }
 
+    /* The glow actually on screen is the ink-field
+       canvas: in selectedInkField mode #vanta-bg is
+       display:none, so PR #153 hid an element that is
+       never rendered. Hide the canvas the same way. */
+    #selected-ink-field-canvas {
+        transition: opacity 300ms ease;
+    }
+
+    html.selected-ink-field-mode body.is-switching #selected-ink-field-canvas {
+        opacity: 0;
+    }
+
   h1,
   .creator-title {
     line-height: 1;
