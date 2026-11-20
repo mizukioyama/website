@@ -352,33 +352,33 @@ waitForJQuery(function ($) {
     document.addEventListener("portfolio:homeready", initializeCardLiquidGL, { once: true });
 
     // Card notch (Mizuki 2026-11-20): the card's bottom edge
-    // scoops into a shallow half-ellipse that cradles the
-    // NEXT button where it straddles the edge. The same
-    // outline is clipped into every card layer (background
-    // frame, liquid canvas, card body, outline) in each
-    // element's own coordinates, and recomputed whenever
-    // the layout may have changed.
+    // scoops into a hollow shaped like the NEXT button
+    // itself where it straddles the edge. The same outline
+    // is clipped into every card layer (background frame,
+    // liquid canvas, card body, outline) in each element's
+    // own coordinates, and recomputed whenever the layout
+    // may have changed.
     function updateCardNotch() {
         const btn = document.querySelector(".card-nav");
         if (!btn) return;
         const b = btn.getBoundingClientRect();
         if (!b.width) return;
         const cx = b.left + b.width / 2;
-        // Gentle raised-cosine dip (Mizuki 2026-11-20): the
-        // edge leaves and returns to the bottom side
-        // horizontally, like the site frame's arcs, instead
-        // of the steeper half-ellipse used at first.
-        const hw = b.width * 1.15;
-        const d = b.height * 1.17;
+        // The hollow follows the button's own pill outline
+        // (Mizuki 2026-11-20): a capsule with the button's
+        // cap centers, its radius widened by a small even
+        // gap, so the card edge wraps the button like a
+        // socket. (An offset capsule keeps the cap centers
+        // and only grows the radius.)
+        const gap = 6;
+        const capR = b.height / 2 + gap;
+        const capA = Math.max(0, (b.width - b.height) / 2);
         const dip = (lx, by) => {
-            let p = " H " + (lx + hw).toFixed(1);
-            const steps = 24;
-            for (let i = 1; i <= steps; i++) {
-                const x = lx + hw - (2 * hw * i) / steps;
-                const y = by - d * (0.5 + 0.5 * Math.cos((Math.PI * (x - lx)) / hw));
-                p += " L " + x.toFixed(1) + " " + y.toFixed(1);
-            }
-            return p;
+            const y = by - capR;
+            return " H " + (lx + capA + capR).toFixed(1) +
+                " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + (lx + capA).toFixed(1) + " " + y.toFixed(1) +
+                " H " + (lx - capA).toFixed(1) +
+                " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + (lx - capA - capR).toFixed(1) + " " + by.toFixed(1);
         };
         // The card outline (rectangle with the button dip in
         // its bottom edge) for a box whose top-left corner is
