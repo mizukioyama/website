@@ -22,6 +22,7 @@ const rootVisualScripts = [
   "loading.js",
   "menu.js",
   "lens-cursor.js",
+    "gate-fog.js",
   "mobile.js",
   "p5.min.js",
   "page-nation.js",
