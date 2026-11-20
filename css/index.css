@@ -451,7 +451,7 @@ html[lang="ja"] .creator-title {
   /*font-family: "Roboto Mono", monospace;*/
   position: absolute;
   width: 100%;
-  left: 3%;
+  left: 0;
   bottom: calc(5% - 0.5rem);
   letter-spacing: clamp(2.04px, calc(1.8px + 0.045vw), 2.4px);
   transform-origin: 0 50%;
@@ -487,10 +487,68 @@ html[lang="ja"] .creator-title {
   z-index: -1;
 }
 
-.card__slide .date,
-.card__slide.active .date,
-.card__slide:nth-child(even).active .date {
-  transition: transform 1450ms 1850ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 1450ms 1850ms linear;
+/* Date block switch choreography (Mizuki 2026-11-20, total 2280ms):
+   snap right 5% (140ms) -> rotate to -90deg (600ms) -> crossfade
+   while vertical (400ms) -> rotate back holding +5% (1000ms) ->
+   final snap left into place (140ms). Start and end positions are
+   identical; the animations run only on actual switches
+   (body.back--anim, added by goToSlide). */
+body.back--anim .card__slide.active .date {
+  animation: dateIn 2280ms linear both;
+}
+
+body.back--anim .card__slide.exit .date {
+  animation: dateOut 2280ms linear both;
+}
+
+@keyframes dateOut {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0.7;
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1);
+  }
+
+  6.14% {
+    transform: translateX(5%) rotate(0deg);
+    opacity: 0.7;
+    animation-timing-function: cubic-bezier(0.55, 0.06, 0.35, 1);
+  }
+
+  32.46% {
+    transform: translateX(5%) rotate(-90deg);
+    opacity: 0.7;
+    animation-timing-function: linear;
+  }
+
+  50%, 100% {
+    transform: translateX(5%) rotate(-90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes dateIn {
+  0%, 32.46% {
+    transform: translateX(5%) rotate(-90deg);
+    opacity: 0;
+    animation-timing-function: linear;
+  }
+
+  50% {
+    transform: translateX(5%) rotate(-90deg);
+    opacity: 0.7;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  93.86% {
+    transform: translateX(5%) rotate(0deg);
+    opacity: 0.7;
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1);
+  }
+
+  100% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0.7;
+  }
 }
 
 .card__slide:nth-child(even) .date:before,
