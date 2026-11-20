@@ -262,6 +262,13 @@
                 </div>
             </div>
             
+            <!-- Clear zone (Mizuki 2026-11-20): nothing is
+                 drawn behind the NEXT button. This pill sits
+                 directly under the button and covers every
+                 layer beneath it (shadow, mist, metal edge)
+                 with the page's base tone. updateCardNotch
+                 keeps it fitted to the button. -->
+            <div class="card-nav-clear" aria-hidden="true"></div>
             <button type="button" class="card-nav" data-card-nav="next" aria-label="カード切替 / Switch card"><span class="card-nav-text">NEXT</span></button>
         </div>
         <div class="noise"

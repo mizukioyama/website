@@ -1191,6 +1191,19 @@ footer,
    card; it sits behind the card layers so only the
    shadow its path casts is visible, and it never
    receives input. */
+/* The NEXT button's clear zone: a pill in the page's
+   base tone (sampled from the rendered page around the
+   card) that leaves nothing behind the button. Sized
+   and placed by updateCardNotch. */
+.card-nav-clear {
+  position: fixed;
+  width: 0;
+  height: 0;
+  border-radius: 999px;
+  background: #d6d6d7;
+  pointer-events: none;
+}
+
 .card-shape {
   position: fixed;
   pointer-events: none;

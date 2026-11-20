@@ -416,6 +416,17 @@ waitForJQuery(function ($) {
             if (!r.width || !r.height) return;
             el.style.clipPath = "path('" + outlineAt(0, 0, r.width, r.height, cx - r.left) + "')";
         });
+        // Keep the button's clear zone fitted to it: the
+        // pill is laid in viewport coordinates, matching
+        // its fixed positioning.
+        const clearPill = document.querySelector(".card-nav-clear");
+        if (clearPill) {
+            const m = 10;
+            clearPill.style.left = (b.left - m).toFixed(1) + "px";
+            clearPill.style.top = (b.top - m).toFixed(1) + "px";
+            clearPill.style.width = (b.width + 2 * m).toFixed(1) + "px";
+            clearPill.style.height = (b.height + 2 * m).toFixed(1) + "px";
+        }
         // The page-wide noise veil keeps covering the page,
         // but the scoop is cut out of it at the card's
         // bottom line (Mizuki 2026-11-20: the noise filter
