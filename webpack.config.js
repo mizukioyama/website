@@ -21,6 +21,7 @@ const rootVisualScripts = [
   "jquery-3.7.1.min.js",
   "loading.js",
   "menu.js",
+  "lens-cursor.js",
   "mobile.js",
   "p5.min.js",
   "page-nation.js",

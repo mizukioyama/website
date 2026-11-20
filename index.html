@@ -26,6 +26,7 @@
 
     <script src="js/time.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/lens-cursor.js"></script>
     <!--<script src="js/security.js"></script>-->
 
     <!-- Font -->
@@ -354,23 +355,6 @@
     </script>
 
 
-  <div class="lens-cursor" id="lensCursor" aria-hidden="true"><div class="lens-cursor__disc"><div class="lens-cursor__glass"></div></div></div>
-  <div class="lens-cursor-blend" id="lensBlend" aria-hidden="true"><div class="lens-cursor-blend__disc"></div></div>
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <filter id="lens-filter" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-        <feImage id="lensMap" x="0" y="0" width="64" height="64" preserveAspectRatio="none" result="map" />
-        <feDisplacementMap in="SourceGraphic" in2="map" scale="60" xChannelSelector="R" yChannelSelector="G" result="dispR" />
-        <feColorMatrix in="dispR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanR" />
-        <feDisplacementMap in="SourceGraphic" in2="map" scale="40" xChannelSelector="R" yChannelSelector="G" result="dispG" />
-        <feColorMatrix in="dispG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanG" />
-        <feDisplacementMap in="SourceGraphic" in2="map" scale="20" xChannelSelector="R" yChannelSelector="G" result="dispB" />
-        <feColorMatrix in="dispB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="chanB" />
-        <feComposite in="chanR" in2="chanG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="rg" />
-        <feComposite in="rg" in2="chanB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
-      </filter>
-    </defs>
-  </svg>
 
   <script src="js/selected-ink-field.js"></script>
 </body>
