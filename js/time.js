@@ -329,6 +329,36 @@ waitForJQuery(function ($) {
     };
     document.addEventListener("portfolio:homeready", initializeHomeSlides, { once: true });
     document.addEventListener("portfolio:homeready", initializeCardLiquidGL, { once: true });
+
+    // Card notch (Mizuki 2026-11-20): the card's bottom edge
+    // scoops into a shallow half-ellipse that cradles the
+    // NEXT button where it straddles the edge. The same
+    // outline is clipped into every card layer (background
+    // frame, liquid canvas, card body, outline) in each
+    // element's own coordinates, and recomputed whenever
+    // the layout may have changed.
+    function updateCardNotch() {
+        const btn = document.querySelector(".card-nav");
+        if (!btn) return;
+        const b = btn.getBoundingClientRect();
+        if (!b.width) return;
+        const cx = b.left + b.width / 2;
+        const hw = b.width / 2 + 16;
+        const d = b.height / 2 + 16;
+        document.querySelectorAll(".card, .card_line, .card-liquid-gl, .back__frame").forEach((el) => {
+            const r = el.getBoundingClientRect();
+            if (!r.width || !r.height) return;
+            const lx = cx - r.left;
+            const x1 = (lx + hw).toFixed(1);
+            const x2 = (lx - hw).toFixed(1);
+            el.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + " H " + x1 + " A " + hw.toFixed(1) + " " + d.toFixed(1) + " 0 0 0 " + x2 + " " + r.height.toFixed(1) + " H 0 Z')";
+        });
+    }
+    window.addEventListener("resize", updateCardNotch);
+    window.addEventListener("load", updateCardNotch);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateCardNotch);
+    document.addEventListener("portfolio:homeready", updateCardNotch);
+    updateCardNotch();
 });
 
 // Lens cursor (tuned by the user, 2026-11-19): a glass
