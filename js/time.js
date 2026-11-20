@@ -166,7 +166,7 @@ waitForJQuery(function ($) {
             "uniform float u_slim;",
             "uniform float u_wob;",
             "uniform float u_phase;",
-            "uniform vec3 u_notch;",
+            "uniform vec4 u_notch;",
             "float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }",
             "float vnoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);",
             "  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y); }",
@@ -194,7 +194,7 @@ waitForJQuery(function ($) {
             "  float und = (vnoise(vec2(per * 4.0, u_time * 0.22)) - 0.5) * u_slim * 4.4 * exp(-(d * d) / (20.0 * 20.0));",
             "  float dOut = d - u_amp * u_on * g * band - und;",
             "  if (u_notch.z > 0.0) {",
-            "    vec2 capC = vec2(u_card.x + u_notch.x, u_card.y + u_card.w);",
+            "    vec2 capC = vec2(u_card.x + u_notch.x, u_card.y + u_card.w - u_notch.w);",
             "    vec2 pa = p - capC + vec2(u_notch.y, 0.0);",
             "    vec2 ba = vec2(2.0 * u_notch.y, 0.0);",
             "    float hh = clamp(dot(pa, ba) / max(dot(ba, ba), 1.0), 0.0, 1.0);",
@@ -209,7 +209,7 @@ waitForJQuery(function ($) {
             "  float body = smoothstep(1.6, -1.6, d);",
             "  float shadow = smoothstep(26.0, 2.0, d) * 0.20;",
             "  if (u_notch.z > 0.0) {",
-            "    vec2 zc = vec2(u_card.x + u_notch.x, u_card.y + u_card.w);",
+            "    vec2 zc = vec2(u_card.x + u_notch.x, u_card.y + u_card.w - u_notch.w);",
             "    vec2 zp = p - zc + vec2(u_notch.y, 0.0);",
             "    vec2 zb = vec2(2.0 * u_notch.y, 0.0);",
             "    float zh = clamp(dot(zp, zb) / max(dot(zb, zb), 1.0), 0.0, 1.0);",
@@ -350,7 +350,7 @@ waitForJQuery(function ($) {
             const sy = canvas.height / cvr.height;
             gl.uniform2f(uni.u_res, canvas.width, canvas.height);
             gl.uniform4f(uni.u_card, (cr.left - cvr.left) * sx, (cr.top - cvr.top) * sy, cr.width * sx, cr.height * sy);
-            gl.uniform3f(uni.u_notch, notchShape.cx * sx, notchShape.capA * sx, notchShape.capR * sx);
+            gl.uniform4f(uni.u_notch, notchShape.cx * sx, notchShape.capA * sx, notchShape.capR * sx, notchShape.cy * sx);
             gl.uniform2f(uni.u_ptr, (px + PAD) * sx, (py + PAD) * sy);
             gl.uniform2f(uni.u_q, (qx + PAD) * sx, (qy + PAD) * sy);
             gl.uniform2f(uni.u_vel, pvx * sx, pvy * sy);
@@ -376,7 +376,7 @@ waitForJQuery(function ($) {
     // shader carves the same capsule out of its field, so
     // the metal and its own edge shadow take the notch
     // shape too instead of staying rectangular.
-    const notchShape = { cx: 0, capA: 0, capR: 0 };
+    const notchShape = { cx: 0, capA: 0, capR: 0, cy: 0 };
 
     // Card notch (Mizuki 2026-11-20): the card's bottom edge
     // scoops into a hollow shaped like the NEXT button
@@ -391,6 +391,7 @@ waitForJQuery(function ($) {
         const b = btn.getBoundingClientRect();
         if (!b.width) return;
         const cx = b.left + b.width / 2;
+        const cyB = b.top + b.height / 2;
         // The hollow follows the button's own pill outline
         // (Mizuki 2026-11-20): a capsule with the button's
         // cap centers, its radius widened by a small even
@@ -402,20 +403,65 @@ waitForJQuery(function ($) {
         const capA = Math.max(0, (b.width - b.height) / 2);
         notchShape.capA = capA;
         notchShape.capR = capR;
-        const dip = (lx, by, rOverride) => {
-            const r = rOverride === undefined ? capR : rOverride;
-            const y = by - r;
-            return " H " + (lx + capA + r).toFixed(1) +
-                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (lx + capA).toFixed(1) + " " + y.toFixed(1) +
-                " H " + (lx - capA).toFixed(1) +
-                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (lx - capA - r).toFixed(1) + " " + by.toFixed(1);
+        // The card outline with the button's capsule
+        // socket cut out of it, for a box whose top-left
+        // corner is (x, y) and whose size is (w, h);
+        // (ccx, ccy) is the capsule's center in the same
+        // coordinate space and r its radius (the cap
+        // centers stay capA either side of the center).
+        // Where the capsule sits decides the construction:
+        // fully inside, the outline gains a capsule hole;
+        // crossing the bottom edge, the edge dips around
+        // it; crossing the right edge, the edge detours
+        // around it. One shape, shared by every layer.
+        const capsuleHole = (ccx, ccy, r) =>
+            "M " + (ccx - capA - r).toFixed(1) + " " + ccy.toFixed(1) +
+            " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (ccx - capA).toFixed(1) + " " + (ccy + r).toFixed(1) +
+            " H " + (ccx + capA).toFixed(1) +
+            " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (ccx + capA + r).toFixed(1) + " " + ccy.toFixed(1) +
+            " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (ccx + capA).toFixed(1) + " " + (ccy - r).toFixed(1) +
+            " H " + (ccx - capA).toFixed(1) +
+            " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (ccx - capA - r).toFixed(1) + " " + ccy.toFixed(1) + " Z";
+        const outlineAt = (x, y, w, h, ccx, ccy, rUse) => {
+            const r = rUse === undefined ? capR : rUse;
+            const by = y + h, rx = x + w;
+            const capL = ccx - capA, capRt = ccx + capA;
+            const rect = "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) + " V " + by.toFixed(1) + " H " + x.toFixed(1) + " Z";
+            const crossB = ccy + r > by && ccy - r < by;
+            const crossR = capRt + r > rx && capL - r < rx;
+            if (!crossB && !crossR) {
+                if (ccy - r >= y && ccy + r <= by && capL - r >= x && capRt + r <= rx) {
+                    return rect + " " + capsuleHole(ccx, ccy, r);
+                }
+                return rect;
+            }
+            if (crossR && !crossB) {
+                const dR = rx - capRt;
+                const s = Math.sqrt(Math.max(0, r * r - dR * dR));
+                return "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) +
+                    " V " + (ccy - s).toFixed(1) +
+                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + capRt.toFixed(1) + " " + (ccy - r).toFixed(1) +
+                    " H " + capL.toFixed(1) +
+                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (capL - r).toFixed(1) + " " + ccy.toFixed(1) +
+                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + capL.toFixed(1) + " " + (ccy + r).toFixed(1) +
+                    " H " + capRt.toFixed(1) +
+                    " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + rx.toFixed(1) + " " + (ccy + s).toFixed(1) +
+                    " V " + by.toFixed(1) + " H " + x.toFixed(1) + " Z";
+            }
+            // Crossing the bottom edge (the dip), including
+            // the corner case where the capsule also
+            // crosses the right edge: the dip's arcs then
+            // overshoot the corner by a sub-pixel amount,
+            // which only the blurred shadow path can hit.
+            const dy = by - ccy;
+            const s = Math.sqrt(Math.max(0, r * r - dy * dy));
+            return "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + rx.toFixed(1) + " V " + by.toFixed(1) +
+                " H " + (capRt + s).toFixed(1) +
+                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + capRt.toFixed(1) + " " + (ccy - r).toFixed(1) +
+                " H " + capL.toFixed(1) +
+                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (capL - s).toFixed(1) + " " + by.toFixed(1) +
+                " H " + x.toFixed(1) + " Z";
         };
-        // The card outline (rectangle with the button dip in
-        // its bottom edge) for a box whose top-left corner is
-        // (x, y); dipCx is the dip's center in the same
-        // coordinate space. One shape, shared by every layer.
-        const outlineAt = (x, y, w, h, dipCx, dipR) =>
-            "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + (x + w).toFixed(1) + " V " + (y + h).toFixed(1) + dip(dipCx, y + h, dipR) + " H " + x.toFixed(1) + " Z";
         const card = document.querySelector(".card");
         // The outline's source of truth is the transparent
         // SVG overlay (Mizuki 2026-11-20): its path holds the
@@ -430,11 +476,12 @@ waitForJQuery(function ($) {
             const kr = card.getBoundingClientRect();
             if (kr.width) {
                 notchShape.cx = cx - kr.left;
+                notchShape.cy = kr.bottom - cyB;
                 shapeSvg.style.left = kr.left.toFixed(1) + "px";
                 shapeSvg.style.top = kr.top.toFixed(1) + "px";
                 shapeSvg.style.width = kr.width.toFixed(1) + "px";
                 shapeSvg.style.height = kr.height.toFixed(1) + "px";
-                shapePath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left));
+                shapePath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, cyB - kr.top));
                 // The shadow is cast from its own path whose
                 // socket around the button is deeper, so the
                 // shadow is shaped away from the button's
@@ -442,7 +489,7 @@ waitForJQuery(function ($) {
                 // 2026-11-20: change the shape, do not cover).
                 const shadowPath = document.getElementById("cardShadowPath");
                 if (shadowPath) {
-                    shadowPath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, capR + 22));
+                    shadowPath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, cyB - kr.top, capR + 22));
                 }
             }
         }
@@ -453,8 +500,10 @@ waitForJQuery(function ($) {
         // composite its animated mask separately.
         document.querySelectorAll(".card, .card-liquid-gl, .back__frame, #mainContent > .noise").forEach((el) => {
             const r = el.getBoundingClientRect();
-            if (!r.width || !r.height) return;
-            el.style.clipPath = "path('" + outlineAt(0, 0, r.width, r.height, cx - r.left) + "')";
+            if (!r.width || !r.height || !card) return;
+            const kr = card.getBoundingClientRect();
+            if (!kr.width) return;
+            el.style.clipPath = "path('" + outlineAt(kr.left - r.left, kr.top - r.top, kr.width, kr.height, cx - r.left, cyB - r.top) + "')";
         });
         // The page-wide noise veil keeps covering the page,
         // but the scoop is cut out of it at the card's
@@ -464,10 +513,32 @@ waitForJQuery(function ($) {
         if (card && veil) {
             const r = veil.getBoundingClientRect();
             const cr = card.getBoundingClientRect();
-            if (r.width && r.height) {
+            if (r.width && r.height && cr.width) {
                 const lx = cx - r.left;
+                const ly = cyB - r.top;
                 const by = cr.bottom - r.top;
-                veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + by.toFixed(1) + dip(lx, by) + " H 0 V " + r.height.toFixed(1) + " H " + r.width.toFixed(1) + " Z')";
+                if (cyB + capR > cr.bottom && cyB - capR < cr.bottom) {
+                    // The socket crosses the card's bottom
+                    // edge: the veil's boundary runs along
+                    // that line and detours around the dip,
+                    // so no grain sits in the scoop.
+                    const dy = by - ly;
+                    const s = Math.sqrt(Math.max(0, capR * capR - dy * dy));
+                    const capL = lx - capA, capRt = lx + capA;
+                    veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + by.toFixed(1) +
+                        " H " + (capRt + s).toFixed(1) +
+                        " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + capRt.toFixed(1) + " " + (ly - capR).toFixed(1) +
+                        " H " + capL.toFixed(1) +
+                        " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + (capL - s).toFixed(1) + " " + by.toFixed(1) +
+                        " H 0 V " + r.height.toFixed(1) + " H " + r.width.toFixed(1) + " Z')";
+                } else if (cyB - capR < cr.bottom) {
+                    // The socket is a crater inside the
+                    // card: cut the capsule out of the veil
+                    // as a hole, so no grain sits in it.
+                    veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + " H 0 Z " + capsuleHole(lx, ly, capR) + "')";
+                } else {
+                    veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + " H 0 Z')";
+                }
             }
         }
         // The full-screen glowing ink canvas behind the page
@@ -486,7 +557,7 @@ waitForJQuery(function ($) {
                 if (c.width && kr.width) {
                     const ox = kr.left - c.left;
                     const oy = kr.top - c.top;
-                    ink.style.clipPath = "path('" + outlineAt(ox, oy, kr.width, kr.height, cx - c.left) + "')";
+                    ink.style.clipPath = "path('" + outlineAt(ox, oy, kr.width, kr.height, cx - c.left, cyB - c.top) + "')";
                 }
             }
         }
