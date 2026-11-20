@@ -36,6 +36,7 @@ waitForJQuery(function ($) {
         const goToSlide = (slideElements, index) => {
             if (!inProgress) {
                 inProgress = true;
+                document.body.classList.add('back--anim');
                 restartPing();
 
                 $('.active').addClass('exit');

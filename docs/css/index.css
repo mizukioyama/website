@@ -173,6 +173,12 @@ p {
 .back__slide.active .back__img {
   transform: translate3d(-100%, 0, 0);
   opacity: 0;
+}
+
+/* The slide animations run only once an actual switch has
+   happened (body.back--anim is added by goToSlide). On first
+   load the visible background simply sits at center. */
+body.back--anim .back__slide.active .back__img {
   animation: bgSlideOut 1900ms linear both;
 }
 
@@ -231,6 +237,9 @@ p {
 .back__slide:not(.active) .back__img {
   transform: translate3d(0, 0, 0);
   opacity: 1;
+}
+
+body.back--anim .back__slide:not(.active) .back__img {
   animation: bgSlideIn 3420ms linear both;
 }
 
