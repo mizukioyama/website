@@ -56,8 +56,7 @@ waitForJQuery(function ($) {
         });
 
         const autoTimers = [
-            setTimeout(() => goToSlide(slideElements, 2), 2000),
-            setTimeout(() => goToSlide(slideElements, 1), 6000)
+            setTimeout(() => goToSlide(slideElements, 2), 2000)
         ];
 
         $('[data-card-nav]').on('click', function () {
