@@ -164,8 +164,8 @@ p {
 }
 
 /* Outgoing: at 550ms it first snaps 5% to the right
-   (anticipation), then slides out to the left by
-   1850ms. Fades out over 950-1750ms.
+   (anticipation), stops for 0.5s, then slides out
+   to the left by 1850ms. Fades out over 950-1750ms.
    Percentages are of the 1900ms total. */
 @keyframes bgSlideOut {
   0% {
@@ -183,11 +183,21 @@ p {
   35.26% {
     transform: translate3d(calc(-50% + 5%), -50%, 0);
     opacity: 1;
-    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    animation-timing-function: linear;
   }
 
   50.00% {
     opacity: 1;
+  }
+
+  61.58% {
+    opacity: 0.725;
+    animation-timing-function: linear;
+  }
+
+  61.63% {
+    transform: translate3d(calc(-50% + 5%), -50%, 0);
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   92.11% {
