@@ -406,6 +406,26 @@ waitForJQuery(function ($) {
                 veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + by.toFixed(1) + dip(lx, by) + " H 0 V " + r.height.toFixed(1) + " H " + r.width.toFixed(1) + " Z')";
             }
         }
+        // The full-screen glowing ink canvas behind the page
+        // is trimmed to the card's own outline (same dip as
+        // the other layers) on phones and tablets, so the
+        // glow never spills past the card (Mizuki
+        // 2026-11-20). Wide screens keep the full-screen
+        // mist as designed.
+        const ink = document.getElementById("selected-ink-field-canvas");
+        if (ink && card) {
+            if (window.innerWidth > 1023) {
+                if (ink.style.clipPath) ink.style.clipPath = "";
+            } else {
+                const c = ink.getBoundingClientRect();
+                const kr = card.getBoundingClientRect();
+                if (c.width && kr.width) {
+                    const ox = kr.left - c.left;
+                    const oy = kr.top - c.top;
+                    ink.style.clipPath = "path('M " + ox.toFixed(1) + " " + oy.toFixed(1) + " H " + (ox + kr.width).toFixed(1) + " V " + (oy + kr.height).toFixed(1) + dip(cx - c.left, kr.bottom - c.top) + " H " + ox.toFixed(1) + " Z')";
+                }
+            }
+        }
     }
     window.addEventListener("resize", updateCardNotch);
     window.addEventListener("load", updateCardNotch);
