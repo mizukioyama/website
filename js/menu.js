@@ -197,6 +197,12 @@ const HEADER_MARKUP = `
     <a href="${siteHref("information.html")}"><span class="frame-initial" aria-hidden="true">I</span><span class="frame-label">Information</span></a>
     <a href="${siteHref("policy.html")}"><span class="frame-initial" aria-hidden="true">P</span><span class="frame-label">Site Policy</span></a>
   </div>
+  <a class="frame-prev" id="framePrev" href="#" hidden>
+    <span class="frame-prev-tag" aria-hidden="true">PREV</span>
+    <span class="frame-prev-name"></span>
+    <small>前のページへ</small>
+  </a>
+  <div class="frame-copy">&copy; <span id="frameYear"></span> Mizuki Oyama</div>
 </header>
 `;
 // END GENERATED HEADER_MARKUP
@@ -204,16 +210,7 @@ const HEADER_MARKUP = `
 // BEGIN GENERATED FOOTER_MARKUP — source: src/components/footer.html
 const FOOTER_MARKUP = `
 <footer>
-   <a class="foot-prev noise" id="footPrev" href="#" hidden>
-      <span class="foot-prev-tag" aria-hidden="true">PREV</span>
-      <span class="foot-prev-name"></span>
-      <small>前のページへ</small>
-   </a>
-
-
-   <div class="foot"><span class="foot-sub-links"><a href="${siteHref("information.html")}">Information</a><a href="${siteHref("policy.html")}">Site Policy</a></span>&copy; <span id="year"></span>
-      Mizuki Oyama
-   </div>
+   <span class="foot-sub-links"><a href="${siteHref("information.html")}">Information</a><a href="${siteHref("policy.html")}">Site Policy</a></span>
 </footer>
 `;
 // END GENERATED FOOTER_MARKUP
@@ -266,8 +263,6 @@ function buildFooter() {
   template.innerHTML = FOOTER_MARKUP;
   container.replaceChildren(template.content.cloneNode(true));
 
-  const year = container.querySelector("#year");
-  if (year) year.textContent = String(new Date().getFullYear());
   return container.querySelector("footer");
 }
 
@@ -734,6 +729,10 @@ function initializeHeader() {
   try {
     if (!buildHeader()) return;
 
+    const frameYear = document.getElementById("frameYear");
+    if (frameYear) frameYear.textContent = String(new Date().getFullYear());
+    setupFramePrev();
+
     new multi_language();
 
     initializeMenu();
@@ -852,12 +851,12 @@ function footerPageIndex(pathname) {
     ? FOOTER_PAGE_INDEX[name]
     : -1;
 }
-function setupFooterPrev(container) {
-  const el = container.querySelector("#footPrev");
+function setupFramePrev() {
+  const el = document.getElementById("framePrev");
   if (!el) return;
   const idx = footerPageIndex(window.location.pathname);
   if (idx <= 0) return;
-  const nameEl = el.querySelector(".foot-prev-name");
+  const nameEl = el.querySelector(".frame-prev-name");
   if (nameEl) nameEl.textContent = FOOTER_PREV_LABELS[idx - 1];
   el.setAttribute("href", siteHref(FOOTER_PAGE_ORDER[idx - 1]));
   el.hidden = false;
@@ -869,7 +868,6 @@ function initializeFooter() {
     if (!container || container.dataset.footerInitialized === "true") return;
     if (buildFooter()) {
       container.dataset.footerInitialized = "true";
-      setupFooterPrev(container);
     }
   } catch (error) {
     console.error("Error building footer:", error);
