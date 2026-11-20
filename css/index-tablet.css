@@ -36,7 +36,7 @@
 
   .home .card-nav {
     /* Portrait card: height is width times the golden ratio. */
-    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 14px);
+    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 - 20px);
   }
 
   .home .card-liquid-gl {
@@ -54,7 +54,7 @@
 
   .home .card_line { --card-height: 65vh; width: min(100vmin, calc(100vw - 1rem)); height: 50%; }
 
-  .home .back__frame {
+  .home .back__shadow {
     height: calc(var(--card-width) * 1.61803398875);
   }
 
