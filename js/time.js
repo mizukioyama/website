@@ -208,6 +208,14 @@ waitForJQuery(function ($) {
             "  float d = field(p);",
             "  float body = smoothstep(1.6, -1.6, d);",
             "  float shadow = smoothstep(26.0, 2.0, d) * 0.20;",
+            "  if (u_notch.z > 0.0) {",
+            "    vec2 zc = vec2(u_card.x + u_notch.x, u_card.y + u_card.w);",
+            "    vec2 zp = p - zc + vec2(u_notch.y, 0.0);",
+            "    vec2 zb = vec2(2.0 * u_notch.y, 0.0);",
+            "    float zh = clamp(dot(zp, zb) / max(dot(zb, zb), 1.0), 0.0, 1.0);",
+            "    float zsd = length(zp - zb * zh) - (u_notch.z + 26.0);",
+            "    shadow *= smoothstep(-4.0, 10.0, zsd);",
+            "  }",
             "  float alpha = max(body * u_opaque, shadow * (1.0 - body));",
             "  if (alpha <= 0.004) { gl_FragColor = vec4(0.0); return; }",
             "  vec2 uv = (p - u_card.xy) / u_card.zw;",
@@ -394,19 +402,20 @@ waitForJQuery(function ($) {
         const capA = Math.max(0, (b.width - b.height) / 2);
         notchShape.capA = capA;
         notchShape.capR = capR;
-        const dip = (lx, by) => {
-            const y = by - capR;
-            return " H " + (lx + capA + capR).toFixed(1) +
-                " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + (lx + capA).toFixed(1) + " " + y.toFixed(1) +
+        const dip = (lx, by, rOverride) => {
+            const r = rOverride === undefined ? capR : rOverride;
+            const y = by - r;
+            return " H " + (lx + capA + r).toFixed(1) +
+                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (lx + capA).toFixed(1) + " " + y.toFixed(1) +
                 " H " + (lx - capA).toFixed(1) +
-                " A " + capR.toFixed(1) + " " + capR.toFixed(1) + " 0 0 0 " + (lx - capA - capR).toFixed(1) + " " + by.toFixed(1);
+                " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (lx - capA - r).toFixed(1) + " " + by.toFixed(1);
         };
         // The card outline (rectangle with the button dip in
         // its bottom edge) for a box whose top-left corner is
         // (x, y); dipCx is the dip's center in the same
         // coordinate space. One shape, shared by every layer.
-        const outlineAt = (x, y, w, h, dipCx) =>
-            "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + (x + w).toFixed(1) + " V " + (y + h).toFixed(1) + dip(dipCx, y + h) + " H " + x.toFixed(1) + " Z";
+        const outlineAt = (x, y, w, h, dipCx, dipR) =>
+            "M " + x.toFixed(1) + " " + y.toFixed(1) + " H " + (x + w).toFixed(1) + " V " + (y + h).toFixed(1) + dip(dipCx, y + h, dipR) + " H " + x.toFixed(1) + " Z";
         const card = document.querySelector(".card");
         // The outline's source of truth is the transparent
         // SVG overlay (Mizuki 2026-11-20): its path holds the
@@ -426,6 +435,15 @@ waitForJQuery(function ($) {
                 shapeSvg.style.width = kr.width.toFixed(1) + "px";
                 shapeSvg.style.height = kr.height.toFixed(1) + "px";
                 shapePath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left));
+                // The shadow is cast from its own path whose
+                // socket around the button is deeper, so the
+                // shadow is shaped away from the button's
+                // back instead of pooling behind it (Mizuki
+                // 2026-11-20: change the shape, do not cover).
+                const shadowPath = document.getElementById("cardShadowPath");
+                if (shadowPath) {
+                    shadowPath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, capR + 22));
+                }
             }
         }
         // Layers whose own bottom edge is the card's bottom
