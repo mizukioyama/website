@@ -349,20 +349,42 @@ waitForJQuery(function ($) {
         // of the steeper half-ellipse used at first.
         const hw = b.width * 1.15;
         const d = b.height * 1.17;
-        document.querySelectorAll(".card, .card_line, .card-liquid-gl, .back__frame").forEach((el) => {
-            const r = el.getBoundingClientRect();
-            if (!r.width || !r.height) return;
-            const lx = cx - r.left;
-            let path = "M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + " H " + (lx + hw).toFixed(1);
+        const dip = (lx, by) => {
+            let p = " H " + (lx + hw).toFixed(1);
             const steps = 24;
             for (let i = 1; i <= steps; i++) {
                 const x = lx + hw - (2 * hw * i) / steps;
-                const y = r.height - d * (0.5 + 0.5 * Math.cos((Math.PI * (x - lx)) / hw));
-                path += " L " + x.toFixed(1) + " " + y.toFixed(1);
+                const y = by - d * (0.5 + 0.5 * Math.cos((Math.PI * (x - lx)) / hw));
+                p += " L " + x.toFixed(1) + " " + y.toFixed(1);
             }
-            path += " H 0 Z";
-            el.style.clipPath = "path('" + path + "')";
+            return p;
+        };
+        // Layers whose own bottom edge is the card's bottom
+        // edge: the outline ends at the dip. The card's noise
+        // veil is clipped on its own element too, so the
+        // grain cannot linger over the scoop on engines that
+        // composite its animated mask separately.
+        document.querySelectorAll(".card, .card_line, .card-liquid-gl, .back__frame, #mainContent > .noise").forEach((el) => {
+            const r = el.getBoundingClientRect();
+            if (!r.width || !r.height) return;
+            const lx = cx - r.left;
+            el.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + dip(lx, r.height) + " H 0 Z')";
         });
+        // The page-wide noise veil keeps covering the page,
+        // but the scoop is cut out of it at the card's
+        // bottom line (Mizuki 2026-11-20: the noise filter
+        // takes the same shape).
+        const card = document.querySelector(".card");
+        const veil = document.querySelector("main > .noise");
+        if (card && veil) {
+            const r = veil.getBoundingClientRect();
+            const cr = card.getBoundingClientRect();
+            if (r.width && r.height) {
+                const lx = cx - r.left;
+                const by = cr.bottom - r.top;
+                veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + by.toFixed(1) + dip(lx, by) + " H 0 V " + r.height.toFixed(1) + " H " + r.width.toFixed(1) + " Z')";
+            }
+        }
     }
     window.addEventListener("resize", updateCardNotch);
     window.addEventListener("load", updateCardNotch);
