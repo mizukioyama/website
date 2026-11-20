@@ -189,6 +189,14 @@ const HEADER_MARKUP = `
   </div>
 
   </div>
+
+  <!-- Frame initials: Information and Site Policy are not in the
+       right menu, so the frame carries them at its bottom left,
+       mirroring the menu band (initial + expanding label tab). -->
+  <div class="frame-initials">
+    <a href="${siteHref("information.html")}"><span class="frame-initial" aria-hidden="true">I</span><span class="frame-label">Information</span></a>
+    <a href="${siteHref("policy.html")}"><span class="frame-initial" aria-hidden="true">P</span><span class="frame-label">Site Policy</span></a>
+  </div>
 </header>
 `;
 // END GENERATED HEADER_MARKUP
@@ -202,12 +210,8 @@ const FOOTER_MARKUP = `
       <small>前のページへ</small>
    </a>
 
-   <div class="foot-nav">
-      <a class="noise" href="${siteHref("information.html")}">Information</a>
-      <a class="noise" href="${siteHref("policy.html")}">Site Policy</a>
-   </div>
 
-   <div class="foot">&copy; <span id="year"></span>
+   <div class="foot"><span class="foot-sub-links"><a href="${siteHref("information.html")}">Information</a><a href="${siteHref("policy.html")}">Site Policy</a></span>&copy; <span id="year"></span>
       Mizuki Oyama
    </div>
 </footer>

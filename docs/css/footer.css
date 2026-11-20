@@ -41,7 +41,12 @@
         text-align: right;
         position: absolute;
         padding: 0.5rem 2rem 1rem;
-        bottom: 0;
+        /* Lifted above the site frame's bottom strip (40px), which
+           otherwise covers the row at full scroll. */
+        bottom: 48px;
+        /* The frame's side strips (40px of the 1440px frame space)
+           cover the row's ends; inset the row past them. */
+        padding-inline: calc(2.7778vw + 12px);
         right: 0;
         width: 100%;
         border-top: 1px solid #aaa;
@@ -143,30 +148,6 @@ footer a.foot-prev[hidden] { display: none; }
     letter-spacing: 0.08em;
     text-shadow: none;
 }
-/* The footer nav now holds only the pages that are not in the
-   right menu (Information / Site Policy); the rest were duplicates
-   of the menu and were removed. On tablet/desktop the two links
-   stack at the footer's right, below the right menu band, aligned
-   with the PREV link at the top. Phones stack them under PREV. */
-@media only screen and (min-width: 601px) {
-    .foot-nav {
-        position: absolute;
-        top: 4rem;
-        right: 120px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-    }
-    footer .foot-nav a { margin-top: 0; }
-}
-@media only screen and (max-width: 600px) {
-    .foot-nav {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        margin-top: 5vmin;
-    }
-    footer .foot-nav a { margin-top: 0; }
 }
 #footer-container::before {
     content: "";
@@ -182,4 +163,42 @@ footer a.foot-prev[hidden] { display: none; }
        the strip reaches into main's territory. */
     z-index: 99;
     pointer-events: none;
+}
+
+/* Secondary routes (Information / Site Policy) also sit, small,
+   at the left end of the copyright row: the frame carries them
+   as initials, and this row keeps them reachable and crawlable
+   in the static footer. */
+.foot-sub-links {
+    position: absolute;
+    left: calc(2.7778vw + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 1.4rem;
+}
+.foot-sub-links a {
+    font-size: var(--font-caption-size);
+    letter-spacing: 0.08em;
+    margin-top: 0;
+    padding: 0;
+    text-decoration: none;
+    /* The global footer/header link style paints text from a
+       background gradient (color: transparent); this row is plain
+       text like the copyright itself, so opt out. */
+    color: var(--inv);
+    -webkit-text-fill-color: currentColor;
+    background: none;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+}
+.foot-sub-links a::before { content: none; }
+.foot-sub-links a:hover, .foot-sub-links a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+@media only screen and (max-width: 600px) {
+    /* The small frame's side strips are 40px of a 390px space. */
+    .foot { padding-inline: calc(10.256vw + 6px); }
+    .foot-sub-links { left: calc(10.256vw + 6px); }
 }

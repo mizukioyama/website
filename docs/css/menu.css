@@ -991,3 +991,90 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     transform: none;
   }
 }
+
+/* Frame initials (Information / Site Policy): the two pages are
+   not in the right menu, so the frame carries them at its bottom
+   left, mirroring the menu band — a solid initial (the band strips
+   the noise texture for legibility, and so do these) with a label
+   tab that expands rightward on hover / focus. Position and size
+   are the values chosen by the site owner: left 24px, bottom
+   140px, 18px, stacked vertically. */
+.frame-initials {
+  position: fixed;
+  left: 24px;
+  bottom: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  z-index: 1000;
+  color: var(--inv);
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+}
+.home .frame-initials { color: var(--text); }
+.frame-initials a {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+  text-decoration: none;
+}
+.frame-initial {
+  display: block;
+  font-size: 18px;
+  line-height: 1;
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+.frame-label {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  max-width: none;
+  overflow: hidden;
+  padding: 18px 24px 18px 12px;
+  box-sizing: border-box;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  text-align: left;
+  color: transparent;
+  background-color: transparent;
+  box-shadow:
+    inset -10px 0 14px -8px rgba(0, 0, 0, 0),
+    inset 0 10px 12px -10px rgba(0, 0, 0, 0),
+    inset 0 -10px 12px -10px rgba(0, 0, 0, 0);
+  pointer-events: none;
+  transition:
+    width 0.3s ease,
+    background-color 0.05s ease,
+    box-shadow 0.3s ease,
+    color 0.25s ease;
+  z-index: 5;
+}
+.frame-initials a:hover .frame-initial,
+.frame-initials a:focus-visible .frame-initial { opacity: 0; }
+.frame-initials a:hover .frame-label,
+.frame-initials a:focus-visible .frame-label {
+  width: 168px;
+  color: inherit;
+  background-color: #222527;
+  box-shadow:
+    inset -10px 0 14px -8px rgba(0, 0, 0, 0.6),
+    inset 0 10px 12px -10px rgba(0, 0, 0, 0.55),
+    inset 0 -10px 12px -10px rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+}
+.home .frame-initials a:hover .frame-label,
+.home .frame-initials a:focus-visible .frame-label {
+  background-color: #e1e1dc;
+  box-shadow:
+    inset -10px 0 14px -8px rgba(0, 0, 0, 0.28),
+    inset 0 10px 12px -10px rgba(0, 0, 0, 0.22),
+    inset 0 -10px 12px -10px rgba(0, 0, 0, 0.22);
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame-label, .frame-initial { transition: none; }
+}
