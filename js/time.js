@@ -498,7 +498,16 @@ waitForJQuery(function ($) {
         // veil is clipped on its own element too, so the
         // grain cannot linger over the scoop on engines that
         // composite its animated mask separately.
-        document.querySelectorAll(".card, .card-liquid-gl, .back__frame, #mainContent > .noise").forEach((el) => {
+        // The liquid-metal canvas is NOT clipped to the
+        // outline. Its shader bounds itself (the card
+        // field and the notch carve), and the droplet
+        // bulge on pointer contact swells past the
+        // silhouette — a clip to the outline cuts the
+        // bulge off, which is how the deformation was
+        // lost when the notch clips were introduced.
+        const glCanvas = document.querySelector(".card-liquid-gl");
+        if (glCanvas) glCanvas.style.clipPath = "";
+        document.querySelectorAll(".card, .back__frame, #mainContent > .noise").forEach((el) => {
             const r = el.getBoundingClientRect();
             if (!r.width || !r.height || !card) return;
             const kr = card.getBoundingClientRect();
