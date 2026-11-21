@@ -411,38 +411,16 @@ body.auto-speed .content__slide.active .button-wrap {
     animation-timing-function: linear;
   }
 
-  54.09% {
+  55% {
     transform: translate3d(-100%, 0, 0);
     opacity: 0;
-    animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
-  }
-
-  57.60% {
-    transform: translate3d(-100%, 0, 0);
-    opacity: 0.6;
-    animation-timing-function: linear;
-  }
-
-  59.94% {
-    opacity: 1;
-  }
-
-  68.71% {
-    transform: translate3d(-100%, 0, 0);
-    opacity: 1;
     animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
-  81.87% {
+  80% {
     transform: translate3d(0, 0, 0);
     opacity: 1;
     animation-timing-function: linear;
-  }
-
-  96.49% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
   }
 
   100% {
