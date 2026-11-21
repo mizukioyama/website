@@ -801,7 +801,7 @@ function initializeFrameLiquid() {
       original: paths.map((el) => el.getAttribute('d')),
       prefix: `M0 0H${vbW}V${vbH}H0Z `,
       pts, arc, total: arc[pts.length],
-      vbW, vbH,
+      vbW, vbH, scale,
       amp: AMP * scale, sigma: 95 * scale, range: 190 * scale,
       ampNow: 0, centreS: 0, centreInit: false, dirX: 0, dirY: 1, dirty: false,
     };
@@ -868,7 +868,8 @@ function initializeFrameLiquid() {
       let ds = v.arc[i] - v.centreS;
       if (ds > v.total / 2) ds -= v.total;
       if (ds < -v.total / 2) ds += v.total;
-      const w = Math.exp(-ds * ds * inv) * v.ampNow;
+      let w = Math.exp(-ds * ds * inv) * v.ampNow;
+      if (junction && w > 0) w *= junctionFactor(v, v.pts[i][0], v.pts[i][1]);
       d += (v.pts[i][0] + v.dirX * w).toFixed(1) + ' ' + (v.pts[i][1] + v.dirY * w).toFixed(1) + 'L';
     }
     d = d.slice(0, -1) + 'Z';
@@ -876,6 +877,42 @@ function initializeFrameLiquid() {
     v.dirty = true;
     raf = requestAnimationFrame(step);
   }
+
+  /* While a menu label is expanded, the frame must stay one
+     piece with it: contour points near the label's junction
+     segment are held still, ramping back to full motion away
+     from it, so the swelling contour cannot tear the junction
+     open or grow fins along the label's edges. */
+  let junction = null;
+  function junctionFactor(v, x, y) {
+    const edgeX = (junction.edge === 'band' ? 1350 : 90) * v.scale;
+    const y0 = junction.top * v.vbH / window.innerHeight;
+    const y1 = junction.bottom * v.vbH / window.innerHeight;
+    const dy = y < y0 ? y0 - y : (y > y1 ? y - y1 : 0);
+    const dist = Math.hypot(x - edgeX, dy);
+    const core = 26 * v.scale, ramp = 75 * v.scale;
+    if (dist <= core) return 0;
+    if (dist >= core + ramp) return 1;
+    const t = (dist - core) / ramp;
+    return t * t * (3 - 2 * t);
+  }
+  function bindJunction(link, labelSelector, edge) {
+    if (!link) return;
+    const set = () => {
+      const label = link.querySelector(labelSelector);
+      if (!label) return;
+      const r = label.getBoundingClientRect();
+      junction = { edge, top: r.top, bottom: r.bottom };
+      wake();
+    };
+    const clear = () => { junction = null; wake(); };
+    link.addEventListener('pointerenter', set);
+    link.addEventListener('pointerleave', clear);
+    link.addEventListener('focus', set);
+    link.addEventListener('blur', clear);
+  }
+  document.querySelectorAll('#navArea .inner li a').forEach((a) => bindJunction(a, '.nav-label', 'band'));
+  document.querySelectorAll('.frame-initials a').forEach((a) => bindJunction(a, '.frame-label', 'tab'));
 
   function wake() { if (!raf) raf = requestAnimationFrame(step); }
   window.addEventListener('pointermove', (e) => { pointer = { x: e.clientX, y: e.clientY }; wake(); }, { passive: true });

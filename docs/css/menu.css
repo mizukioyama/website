@@ -778,7 +778,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        uncovered from right to left. */
     overflow: hidden;
     clip-path: none;
-    padding: 18px 2.81vw 18px 1.67vw;
+    padding: 18px 7.19vw 18px 1.67vw;
     box-sizing: border-box;
     font-size: 11px;
     letter-spacing: 0.14em;
@@ -806,8 +806,11 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   #navArea .inner li a:focus-visible .nav-initial { opacity: 0; }
   #navArea .inner li a:hover .nav-label,
   #navArea .inner li a:focus-visible .nav-label {
-    width: 11.81vw;
-    min-width: 168px;
+    /* Wide enough for the longest label with the text ending
+       7.19vw from the right edge, mirroring the left tab's
+       text position (7.19vw from the left edge). */
+    width: calc(8.86vw + 118px);
+    min-width: 190px;
     color: inherit;
     background-color: #222527;
     box-shadow: none;
@@ -1055,6 +1058,13 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   line-height: 1;
   text-align: center;
   transition: opacity 0.2s ease;
+}
+/* No text shadow on the frame's hover labels: the global
+   link-hover shadow in all.css would print a blurred copy of
+   the text over the solid label. */
+#header-container #navArea .inner a:is(:hover, :focus-visible),
+#header-container .frame-initials a:is(:hover, :focus-visible) {
+  text-shadow: none;
 }
 .frame-label {
   position: absolute;
