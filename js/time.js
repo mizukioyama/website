@@ -46,11 +46,16 @@ waitForJQuery(function ($) {
                 // the running animation and makes it jump.
                 const auto = speed === 'auto';
                 const T = auto
-                    ? { fog: 2062, exit: 938, lock: 1875, total: 3419 }
-                    : { fog: 3882, exit: 1765, lock: 3529, total: 4024 };
+                    ? { fog: 2062, exit: 938, lock: 1875, total: 3419, layer: 1438 }
+                    : { fog: 3882, exit: 1765, lock: 3529, total: 4024, layer: 2485 };
                 document.body.classList.toggle('auto-speed', auto);
                 clearTimeout(goToSlide._speedTimer);
                 goToSlide._speedTimer = setTimeout(() => document.body.classList.remove('auto-speed'), T.total + 100);
+                // Keep the outgoing background on the top
+                // layer until it has finished exiting.
+                document.body.classList.add('bg-switching');
+                clearTimeout(goToSlide._layerTimer);
+                goToSlide._layerTimer = setTimeout(() => document.body.classList.remove('bg-switching'), T.layer);
                 // Phones only: hide the fog glow while the
                 // switch runs (Mizuki 2026-11-20). Restored
                 // when the incoming background lands.
