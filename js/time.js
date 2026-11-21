@@ -572,14 +572,16 @@ waitForJQuery(function ($) {
                 shapeSvg.style.width = kr.width.toFixed(1) + "px";
                 shapeSvg.style.height = kr.height.toFixed(1) + "px";
                 shapePath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, cyB - kr.top));
-                // The shadow is cast from its own path whose
-                // socket around the button is deeper, so the
-                // shadow is shaped away from the button's
-                // back instead of pooling behind it (Mizuki
-                // 2026-11-20: change the shape, do not cover).
+                // The shadow is cast from its own path with
+                // the same socket as the outline itself, so
+                // no extra dark mass pools around the button
+                // where it nestles into the corner (Mizuki
+                // 2026-11-21: remove the button's heavy
+                // shadow; the earlier +22 deepening dated
+                // from the button's old position).
                 const shadowPath = document.getElementById("cardShadowPath");
                 if (shadowPath) {
-                    shadowPath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, cyB - kr.top, capR + 22));
+                    shadowPath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, cyB - kr.top, capR));
                 }
             }
         }
