@@ -689,14 +689,14 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 
   /* The nav moves into the frame's right rectangle. Its
      position and size use the same ratios as the frame SVG
-     (block: x 1350-1440 of 1440, y 44-796 of 900), so the
+     (block: x 1350-1440 of 1440, y 44-588 of 900), so the
      two stay aligned at any viewport size. */
   #navArea {
     position: fixed;
     top: 4.89dvh;
     right: 0;
     width: 6.25vw;
-    height: 83.56dvh;
+    height: 60.44dvh;
   }
   #navArea nav { height: 100%; }
   #navArea .inner { height: 100%; padding: 0; }
@@ -709,10 +709,13 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   #header-container #navArea:not(.is-compact) .inner ul li { display: block; }
   #header-container #navArea .inner ul li:nth-of-type(5) { margin-top: 0; }
   #navArea .inner ul {
-    /* Menu group (Mizuki 2026-11-21): spread over 68% of
-       the band height and shifted 110px up (at the 900px
-       design height) from the band's centre. */
-    height: 68%;
+    /* Menu group (Mizuki 2026-11-21): its spread is a
+       fixed height (56.82dvh = the 68% spread it had
+       when the band ended at 796), shifted 110px up (at
+       the 900px design height) from that centre, so the
+       letters keep their exact placement when the
+       band's length changes. */
+    height: 56.82dvh;
     margin-top: 1.15dvh;
     flex-direction: column;
     justify-content: space-evenly;
