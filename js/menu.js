@@ -725,6 +725,166 @@ function initializeDesktopNavigation(desktop, panel, setOpen) {
   update();
 }
 
+function initializeFrameLiquid() {
+  /* Liquid droplet frame: the frame's inner contour swells
+     toward the pointer, the same idea as the TOP card's liquid
+     bulge (approved mock: pull the whole bump in one direction,
+     toward the pointer, so concave corners keep their shape).
+     The static SVG path remains the no-JS / reduced-motion
+     shape; this only rewrites the path's d while animating. */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  const PC_VERTICES = [[24, 876], [1416, 876], [1416, 796], [1350, 796], [1350, 44], [1416, 44], [1416, 24], [342, 24], [342, 128], [24, 128], [24, 650], [90, 650], [90, 790], [24, 790]];
+  const PC_RADII = [14, 8, 30, 40, 40, 8, 8, 14, 28, 14, 30, 40, 40, 30];
+  const SP_RADII = [14, 8, 8, 11, 11, 4, 8, 14, 28, 14, 8, 11, 11, 8];
+  const SP_VERTICES = PC_VERTICES.map(([x, y]) => [Math.round(x * 390 / 1440 * 10) / 10, Math.round(y * 844 / 900 * 10) / 10]);
+  // Bulge size in frame units: the approved mock's "20px" on its
+  // slider equals 30 units of the 1440x900 frame space.
+  const AMP = 30;
+
+  function sampleContour(vertices, radii) {
+    const pts = [];
+    const n = vertices.length;
+    let prevB = null;
+    let firstA = null;
+    for (let i = 0; i < n; i++) {
+      const p = vertices[i];
+      const prev = vertices[(i - 1 + n) % n];
+      const next = vertices[(i + 1) % n];
+      const r = radii[i];
+      let ux = p[0] - prev[0], uy = p[1] - prev[1];
+      const ul = Math.hypot(ux, uy); ux /= ul; uy /= ul;
+      let vx = next[0] - p[0], vy = next[1] - p[1];
+      const vl = Math.hypot(vx, vy); vx /= vl; vy /= vl;
+      const a = [p[0] - r * ux, p[1] - r * uy];
+      const b = [p[0] + r * vx, p[1] + r * vy];
+      const c = [a[0] + r * vx, a[1] + r * vy];
+      if (!firstA) firstA = a;
+      if (prevB) {
+        const dx = a[0] - prevB[0], dy = a[1] - prevB[1];
+        const steps = Math.max(1, Math.round(Math.hypot(dx, dy) / 10));
+        for (let j = 1; j < steps; j++) pts.push([prevB[0] + dx * j / steps, prevB[1] + dy * j / steps]);
+      }
+      let a0 = Math.atan2(a[1] - c[1], a[0] - c[0]);
+      let a1 = Math.atan2(b[1] - c[1], b[0] - c[0]);
+      while (a1 - a0 > Math.PI) a1 -= Math.PI * 2;
+      while (a1 - a0 < -Math.PI) a1 += Math.PI * 2;
+      const steps = Math.max(1, Math.round(Math.abs(a1 - a0) / (Math.PI / 12)));
+      for (let j = 0; j <= steps; j++) {
+        const t = a0 + (a1 - a0) * j / steps;
+        pts.push([c[0] + r * Math.cos(t), c[1] + r * Math.sin(t)]);
+      }
+      prevB = b;
+    }
+    if (prevB && firstA) {
+      const dx = firstA[0] - prevB[0], dy = firstA[1] - prevB[1];
+      const steps = Math.max(1, Math.round(Math.hypot(dx, dy) / 10));
+      for (let j = 1; j < steps; j++) pts.push([prevB[0] + dx * j / steps, prevB[1] + dy * j / steps]);
+    }
+    return pts;
+  }
+
+  function makeVariant(selector, vertices, radii, vbW, vbH, scale) {
+    const svg = document.querySelector(selector);
+    if (!svg) return null;
+    const paths = [...svg.querySelectorAll('path')];
+    if (!paths.length) return null;
+    const pts = sampleContour(vertices, radii);
+    const arc = [0];
+    for (let i = 1; i <= pts.length; i++) {
+      const p0 = pts[i - 1], p1 = pts[i % pts.length];
+      arc.push(arc[i - 1] + Math.hypot(p1[0] - p0[0], p1[1] - p0[1]));
+    }
+    return {
+      paths,
+      original: paths.map((el) => el.getAttribute('d')),
+      prefix: `M0 0H${vbW}V${vbH}H0Z `,
+      pts, arc, total: arc[pts.length],
+      vbW, vbH,
+      amp: AMP * scale, sigma: 95 * scale, range: 190 * scale,
+      ampNow: 0, centreS: 0, centreInit: false, dirX: 0, dirY: 1, dirty: false,
+    };
+  }
+
+  const variants = {
+    pc: makeVariant('.site-frame', PC_VERTICES, PC_RADII, 1440, 900, 1),
+    sp: makeVariant('.site-frame-sp', SP_VERTICES, SP_RADII, 390, 844, 390 / 1440),
+  };
+  if (!variants.pc && !variants.sp) return;
+  const spMq = window.matchMedia('(max-width: 767px)');
+  const active = () => (spMq.matches ? variants.sp : variants.pc) || variants.pc || variants.sp;
+
+  let pointer = null;
+  let raf = 0;
+
+  function restore(v) {
+    if (!v || !v.dirty) return;
+    v.paths.forEach((el, i) => el.setAttribute('d', v.original[i]));
+    v.dirty = false;
+    v.ampNow = 0;
+    v.centreInit = false;
+  }
+
+  function step() {
+    raf = 0;
+    const v = active();
+    if (!v) return;
+    let target = 0;
+    if (pointer) {
+      const px = pointer.x * v.vbW / window.innerWidth;
+      const py = pointer.y * v.vbH / window.innerHeight;
+      let best = Infinity, bi = 0;
+      for (let i = 0; i < v.pts.length; i++) {
+        const dx = v.pts[i][0] - px, dy = v.pts[i][1] - py;
+        const d = dx * dx + dy * dy;
+        if (d < best) { best = d; bi = i; }
+      }
+      const prox = Math.max(0, 1 - Math.sqrt(best) / v.range);
+      target = v.amp * prox * prox;
+      const targetS = v.arc[bi];
+      if (!v.centreInit) { v.centreS = targetS; v.centreInit = true; }
+      let diff = targetS - v.centreS;
+      if (diff > v.total / 2) diff -= v.total;
+      if (diff < -v.total / 2) diff += v.total;
+      v.centreS += diff * 0.14;
+      if (v.centreS < 0) v.centreS += v.total;
+      if (v.centreS >= v.total) v.centreS -= v.total;
+      let vx = px - v.pts[bi][0], vy = py - v.pts[bi][1];
+      const vl = Math.hypot(vx, vy);
+      if (vl > 1) {
+        vx /= vl; vy /= vl;
+        v.dirX += (vx - v.dirX) * 0.18;
+        v.dirY += (vy - v.dirY) * 0.18;
+        const dl = Math.hypot(v.dirX, v.dirY) || 1;
+        v.dirX /= dl; v.dirY /= dl;
+      }
+    }
+    v.ampNow += (target - v.ampNow) * 0.16;
+    if (v.ampNow < 0.02 && target === 0) { restore(v); return; }
+    const inv = 1 / (2 * v.sigma * v.sigma);
+    let d = v.prefix + 'M';
+    for (let i = 0; i < v.pts.length; i++) {
+      let ds = v.arc[i] - v.centreS;
+      if (ds > v.total / 2) ds -= v.total;
+      if (ds < -v.total / 2) ds += v.total;
+      const w = Math.exp(-ds * ds * inv) * v.ampNow;
+      d += (v.pts[i][0] + v.dirX * w).toFixed(1) + ' ' + (v.pts[i][1] + v.dirY * w).toFixed(1) + 'L';
+    }
+    d = d.slice(0, -1) + 'Z';
+    v.paths.forEach((el) => el.setAttribute('d', d));
+    v.dirty = true;
+    raf = requestAnimationFrame(step);
+  }
+
+  function wake() { if (!raf) raf = requestAnimationFrame(step); }
+  window.addEventListener('pointermove', (e) => { pointer = { x: e.clientX, y: e.clientY }; wake(); }, { passive: true });
+  window.addEventListener('pointerdown', (e) => { pointer = { x: e.clientX, y: e.clientY }; wake(); }, { passive: true });
+  document.addEventListener('pointerleave', () => { pointer = null; wake(); });
+  window.addEventListener('blur', () => { pointer = null; wake(); });
+  spMq.addEventListener('change', () => { restore(variants.pc); restore(variants.sp); wake(); });
+}
+
 function initializeHeader() {
   try {
     if (!buildHeader()) return;
@@ -732,6 +892,7 @@ function initializeHeader() {
     const frameYear = document.getElementById("frameYear");
     if (frameYear) frameYear.textContent = String(new Date().getFullYear());
     setupFramePrev();
+    initializeFrameLiquid();
 
     new multi_language();
 
