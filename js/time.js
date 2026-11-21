@@ -38,11 +38,11 @@ waitForJQuery(function ($) {
                 inProgress = true;
                 // Phones only: hide the fog glow while the
                 // switch runs (Mizuki 2026-11-20). Restored
-                // when the incoming background lands (3300ms).
+                // when the incoming background lands (3882ms).
                 if (window.matchMedia("(max-width: 599px)").matches) {
                     document.body.classList.add("is-switching");
                     clearTimeout(goToSlide._fogTimer);
-                    goToSlide._fogTimer = setTimeout(() => document.body.classList.remove("is-switching"), 3300);
+                    goToSlide._fogTimer = setTimeout(() => document.body.classList.remove("is-switching"), 3882);
                 }
                 // Belt and braces (Mizuki reported the glow
                 // still visible after PR #154): fade the
@@ -55,7 +55,7 @@ waitForJQuery(function ($) {
                     inkCanvas.style.transition = "opacity 300ms ease";
                     inkCanvas.style.opacity = "0";
                     clearTimeout(goToSlide._inkTimer);
-                    goToSlide._inkTimer = setTimeout(() => { inkCanvas.style.opacity = ""; }, 3300);
+                    goToSlide._inkTimer = setTimeout(() => { inkCanvas.style.opacity = ""; }, 3882);
                 }
                 document.body.classList.add('back--anim');
                 restartPing();
@@ -68,8 +68,8 @@ waitForJQuery(function ($) {
 
                 syncContentControls();
 
-                setTimeout(() => $('.exit').removeClass('exit'), 1500);
-                setTimeout(() => inProgress = false, 3000);
+                setTimeout(() => $('.exit').removeClass('exit'), 1765);
+                setTimeout(() => inProgress = false, 3529);
             }
         };
 
@@ -78,7 +78,8 @@ waitForJQuery(function ($) {
         });
 
         const autoTimers = [
-            setTimeout(() => goToSlide(slideElements, 2), 2000)
+            setTimeout(() => goToSlide(slideElements, 2), 2000),
+            setTimeout(() => goToSlide(slideElements, 1), 8024)
         ];
 
         $('[data-card-nav]').on('click', function () {
