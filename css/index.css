@@ -129,7 +129,8 @@ p {
 }
 
 /* Background switch choreography (Mizuki, 2026-11-20,
-   values confirmed in the timing tuner):
+   values confirmed in the timing tuner; the whole
+   timeline runs at 0.85x speed since 2026-11-21):
    - Outgoing: slides out to the left over 1300ms
      starting at 550ms, fading out over 950-1750ms.
    - Incoming: stepped slide-in anchored to the date
