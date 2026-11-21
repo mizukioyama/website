@@ -141,7 +141,7 @@ p {
      quickly over 1850-2050ms so the snap is visible.
    - The outgoing image first snaps 5% to the right
      at 550ms before sliding out (see bgSlideOut).
-   Keyframe percentages are of the 3420ms total. */
+   Keyframe percentages are of the 4024ms total. */
 /* The background image lives in a card-sized frame
    with overflow hidden, so it is never visible
    outside the card at any width (Mizuki, 2026-11-20).
@@ -191,13 +191,13 @@ p {
    happened (body.back--anim is added by goToSlide). On first
    load the visible background simply sits at center. */
 body.back--anim .back__slide.active .back__img {
-  animation: bgSlideOut 1900ms linear both;
+  animation: bgSlideOut 2235ms linear both;
 }
 
 /* Outgoing: at 550ms it first snaps 5% to the right
    (anticipation), stops for 0.5s, then slides out
    to the left by 1850ms. Fades out over 950-1750ms.
-   Percentages are of the 1900ms total. */
+   Percentages are of the 2235ms total. */
 @keyframes bgSlideOut {
   0% {
     transform: translate3d(0, 0, 0);
@@ -252,7 +252,7 @@ body.back--anim .back__slide.active .back__img {
 }
 
 body.back--anim .back__slide:not(.active) .back__img {
-  animation: bgSlideIn 3420ms linear both;
+  animation: bgSlideIn 4024ms linear both;
 }
 
 @keyframes bgSlideIn {
@@ -500,7 +500,7 @@ html[lang="ja"] .creator-title {
   z-index: -1;
 }
 
-/* Date block switch choreography (Mizuki 2026-11-20, total 5150ms):
+/* Date block switch choreography (Mizuki 2026-11-20, total 6059ms):
    snap right 5% (400ms) -> rotate to -90deg (1500ms) -> hold vertical
    (300ms) -> crossfade while vertical (250ms) -> rotate back holding
    +5% (2000ms) -> hold horizontal (300ms) -> final snap left into
@@ -510,11 +510,11 @@ html[lang="ja"] .creator-title {
    rather than .exit because .exit is removed after 1500ms, long
    before this choreography ends. */
 body.back--anim .card__slide.active .date {
-  animation: dateIn 5150ms linear both;
+  animation: dateIn 6059ms linear both;
 }
 
 body.back--anim .card__slide:not(.active) .date {
-  animation: dateOut 5150ms linear both;
+  animation: dateOut 6059ms linear both;
 }
 
 @keyframes dateOut {
@@ -613,7 +613,7 @@ body.back--anim .card__slide:not(.active) .date {
 }
 
 .content__ping.play::after {
-  animation: widenFromLeft 2200ms ease-out;
+  animation: widenFromLeft 2588ms ease-out;
 }
 
 @keyframes widenFromLeft {
@@ -844,11 +844,11 @@ body.card-liquid-on .card__slide::after {
 }
 
 .content__slide.active .title__inner {
-  transition-delay: 1600ms;
+  transition-delay: 1882ms;
 }
 
 .content__slide.active .desc {
-  transition-delay: 1800ms;
+  transition-delay: 2118ms;
 }
 
 .content__slide.active .button-wrap {
