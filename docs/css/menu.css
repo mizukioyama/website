@@ -1041,6 +1041,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   max-width: none;
   overflow: hidden;
   padding: 18px 24px 18px 3.125vw;
+  border-radius: 0 2.78dvh 2.78dvh 0;
   box-sizing: border-box;
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -1073,6 +1074,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 }
 .home .frame-label::before { background-color: var(--text); }
 .frame-initials a:is(:hover, :focus-visible) > .frame-label::before { width: 100%; }
+.frame-initials a::before { content: none; }
 .frame-initials a:hover .frame-initial,
 .frame-initials a:focus-visible .frame-initial { opacity: 0; }
 .frame-initials a:hover .frame-label,
@@ -1080,19 +1082,13 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   width: calc(156px + 3.125vw);
   color: inherit;
   background-color: #222527;
-  box-shadow:
-    inset -10px 0 14px -8px rgba(0, 0, 0, 0.6),
-    inset 0 10px 12px -10px rgba(0, 0, 0, 0.55),
-    inset 0 -10px 12px -10px rgba(0, 0, 0, 0.55);
+  box-shadow: none;
   pointer-events: auto;
 }
 .home .frame-initials a:hover .frame-label,
 .home .frame-initials a:focus-visible .frame-label {
   background-color: #e1e1dc;
-  box-shadow:
-    inset -10px 0 14px -8px rgba(0, 0, 0, 0.28),
-    inset 0 10px 12px -10px rgba(0, 0, 0, 0.22),
-    inset 0 -10px 12px -10px rgba(0, 0, 0, 0.22);
+  box-shadow: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .frame-label, .frame-initial, .frame-label::before { transition: none; }
