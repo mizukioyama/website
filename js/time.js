@@ -39,9 +39,14 @@ waitForJQuery(function ($) {
                 // Auto switches run at 1.60x, manual ones at
                 // 0.85x (Mizuki 2026-11-21). The class selects
                 // the CSS timing set; T mirrors it for timers.
+                // T.total is when the class comes off: it must
+                // outlast the longest animation in the set
+                // (the date block, 3219ms at 1.60x), because
+                // removing the class mid-animation rescales
+                // the running animation and makes it jump.
                 const auto = speed === 'auto';
                 const T = auto
-                    ? { fog: 2062, exit: 938, lock: 1875, total: 2138 }
+                    ? { fog: 2062, exit: 938, lock: 1875, total: 3419 }
                     : { fog: 3882, exit: 1765, lock: 3529, total: 4024 };
                 document.body.classList.toggle('auto-speed', auto);
                 clearTimeout(goToSlide._speedTimer);
