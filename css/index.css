@@ -411,13 +411,17 @@ body.auto-speed .content__slide.active .button-wrap {
     animation-timing-function: linear;
   }
 
-  55% {
+  34% {
     transform: translate3d(-100%, 0, 0);
     opacity: 0;
     animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
-  80% {
+  45% {
+    opacity: 1;
+  }
+
+  78% {
     transform: translate3d(0, 0, 0);
     opacity: 1;
     animation-timing-function: linear;
