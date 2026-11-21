@@ -791,13 +791,16 @@ body.back--anim .card__slide:not(.active) .date {
    glow behind it. Square corners. */
 .card-nav {
   position: absolute;
-  /* Position (Mizuki 2026-11-21): the button's right
-     edge sits 8px outside the card's right edge, and
-     its center 112px above the card's bottom edge on
-     wide screens (48px on phones, see the <=599px
+  /* Position (Mizuki 2026-11-21): relative to the card
+     so the placement matches the tuner mock at any
+     screen size: the button's right edge sits 0.96% of
+     the card width outside the card's right edge, and
+     its center 21.65% of the card height above the
+     card's bottom edge (8px / 112px at the 1440x900
+     reference; 48px-center on phones, see the <=599px
      rule); the card's socket follows it. */
-  right: calc(50% - var(--card-width) / 2 - 8px);
-  bottom: calc(50% - var(--card-height) / 2 + 91px);
+  right: calc(50% - var(--card-width) / 2 - var(--card-width) * 0.009558);
+  bottom: calc(50% - var(--card-height) / 2 + var(--card-height) * 0.2165 - 21px);
   z-index: 12;
   padding: 0.38em 0.95em;
   font-family: "Shippori Mincho", serif;
@@ -1252,8 +1255,10 @@ footer,
 
   .card-nav {
     /* Portrait card: its height is the width times the
-       golden ratio, not the shared --card-height. */
-    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + 27px);
+       golden ratio, not the shared --card-height. The
+       center stays 8.68% of the card height above the
+       bottom edge (48px at the 390x844 reference). */
+    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + (var(--card-width) * 1.61803398875) * 0.08675 - 21px);
   }
 
   .card-liquid-gl {
