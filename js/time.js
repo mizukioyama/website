@@ -97,7 +97,16 @@ waitForJQuery(function ($) {
             goToSlide(slideElements, Number(this.dataset.homeSlide));
         });
 
-        const autoTimers = [
+        // The two welcome switches run once per session: coming
+        // back to TOP from another page (or reloading) must not
+        // replay them, or the total count doubles (Mizuki
+        // 2026-11-21: the auto slide ran 4 times in one session).
+        let autoSeen = false;
+        try {
+            autoSeen = sessionStorage.getItem('portfolioAutoSlidesDone') === 'true';
+            if (!autoSeen) sessionStorage.setItem('portfolioAutoSlidesDone', 'true');
+        } catch (_) {}
+        const autoTimers = autoSeen ? [] : [
             setTimeout(() => goToSlide(slideElements, 2, 'auto'), 2000),
             setTimeout(() => goToSlide(slideElements, 1, 'auto'), 6138)
         ];
