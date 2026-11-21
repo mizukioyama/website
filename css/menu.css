@@ -1220,7 +1220,11 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   position: fixed;
   left: calc(6.25vw + 28px);
   bottom: calc(2.67dvh + 10px);
-  z-index: 1000;
+  /* Below the frame's layer (-1): when a tab label's protrusion
+     grows over this spot, the liquid passes in front of PREV
+     instead of PREV floating on top of it. The frame SVG is
+     pointer-events: none, so PREV stays clickable. */
+  z-index: -2;
   padding: 0;
   color: var(--inv);
   font-family: inherit;
@@ -1259,7 +1263,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
 @media only screen and (max-width: 600px) {
   /* Phones: the gallery's category bar occupies the area above the
      strip, so PREV joins the copyright inside the strip, one line. */
-  .frame-prev { left: calc(6.25vw + 12px); bottom: 4px; }
+  .frame-prev { left: calc(6.25vw + 12px); bottom: 4px; z-index: 1000; }
   .frame-prev-tag { font-size: 11px; }
   .frame-prev-name { font-size: 14px; }
   .frame-prev small { display: none; }
