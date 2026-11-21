@@ -727,21 +727,26 @@ function initializeDesktopNavigation(desktop, panel, setOpen) {
 
 function initializeFrameLiquid() {
   /* Liquid droplet frame: the frame's inner contour swells
-     toward the pointer, the same idea as the TOP card's liquid
-     bulge (approved mock: pull the whole bump in one direction,
-     toward the pointer, so concave corners keep their shape).
-     The static SVG path remains the no-JS / reduced-motion
-     shape; this only rewrites the path's d while animating. */
+     toward the pointer (the whole bump is pulled in one
+     direction, toward the pointer, so concave corners keep
+     their shape). Motion tuned with the label mock: swell 8,
+     spread 58, follow 6, label growth via the CSS width
+     transition (0.18s). While a menu label is open, the
+     contour itself grows the label's protrusion, so the
+     label's background is the frame itself (CSS hides the
+     label's own background and the junction fillets under
+     html.frame-liquid-on). The static SVG path remains the
+     no-JS / reduced-motion shape. */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(pointer: fine)').matches) return;
+  document.documentElement.classList.add('frame-liquid-on');
 
   const PC_VERTICES = [[24, 876], [1416, 876], [1416, 796], [1350, 796], [1350, 44], [1416, 44], [1416, 24], [342, 24], [342, 128], [24, 128], [24, 650], [90, 650], [90, 790], [24, 790]];
   const PC_RADII = [14, 8, 30, 40, 40, 8, 8, 14, 28, 14, 30, 40, 40, 30];
   const SP_RADII = [14, 8, 8, 11, 11, 4, 8, 14, 28, 14, 8, 11, 11, 8];
   const SP_VERTICES = PC_VERTICES.map(([x, y]) => [Math.round(x * 390 / 1440 * 10) / 10, Math.round(y * 844 / 900 * 10) / 10]);
-  // Bulge size in frame units: the approved mock's "20px" on its
-  // slider equals 30 units of the 1440x900 frame space.
-  const AMP = 30;
+  const AMP = 8;
+  const FILLET_R = 16, CORNER_R = 9;
 
   function sampleContour(vertices, radii) {
     const pts = [];
@@ -796,13 +801,23 @@ function initializeFrameLiquid() {
       const p0 = pts[i - 1], p1 = pts[i % pts.length];
       arc.push(arc[i - 1] + Math.hypot(p1[0] - p0[0], p1[1] - p0[1]));
     }
+    const nearestIdx = (x, y) => {
+      let bi = 0, bd = Infinity;
+      for (let i = 0; i < pts.length; i++) {
+        const d = (pts[i][0] - x) * (pts[i][0] - x) + (pts[i][1] - y) * (pts[i][1] - y);
+        if (d < bd) { bd = d; bi = i; }
+      }
+      return bi;
+    };
     return {
       paths,
       original: paths.map((el) => el.getAttribute('d')),
       prefix: `M0 0H${vbW}V${vbH}H0Z `,
       pts, arc, total: arc[pts.length],
       vbW, vbH, scale,
-      amp: AMP * scale, sigma: 95 * scale, range: 190 * scale,
+      tabI0: nearestIdx(vertices[10][0], vertices[10][1]),
+      tabI1: nearestIdx(vertices[13][0], vertices[13][1]),
+      amp: AMP * scale, sigma: 58 * scale, range: 190 * scale,
       ampNow: 0, centreS: 0, centreInit: false, dirX: 0, dirY: 1, dirty: false,
     };
   }
@@ -818,107 +833,256 @@ function initializeFrameLiquid() {
   let pointer = null;
   let raf = 0;
 
+  /* The open label: { edge: 'band' | 'tab', el, closing }.
+     The label's width is set per label (text width + padding,
+     at least the frame edge + 52px) so the protrusion fits
+     the text; the contour reads the label's animated rect
+     each frame, so the protrusion grows and shrinks with
+     the CSS width transition. */
+  let labelState = null;
+  function bindLabel(link, labelSelector, edge) {
+    if (!link) return;
+    const label = link.querySelector(labelSelector);
+    if (!label) return;
+    const open = () => {
+      const range = document.createRange();
+      range.selectNodeContents(label);
+      const tw = range.getBoundingClientRect().width;
+      const base = edge === 'tab'
+        ? window.innerWidth * 0.09375 + 40
+        : window.innerWidth * 0.0625 + 52;
+      label.style.width = Math.max(tw + 72, base) + 'px';
+      labelState = { edge, el: label, closing: false };
+      wake();
+    };
+    const close = () => {
+      if (link.matches(':hover') || document.activeElement === link) return;
+      if (labelState && labelState.el === label) {
+        labelState.closing = true;
+        label.style.width = '';
+      }
+      wake();
+    };
+    link.addEventListener('pointerenter', open);
+    link.addEventListener('pointerleave', close);
+    link.addEventListener('focus', open);
+    link.addEventListener('blur', close);
+  }
+
+  /* Protrusion outlines, built in 1440x900 frame space and
+     scaled by (sx, sy) into the variant's viewBox. */
+  function detourBand(y0, y1, depth, sx, sy) {
+    const pts = [];
+    const ex = 1350, R = FILLET_R, r = CORNER_R, d = depth;
+    const P = (x, y) => pts.push([x * sx, y * sy]);
+    for (let j = 0; j <= 6; j++) { const a = -Math.PI / 2 * j / 6; P(ex - R + R * Math.cos(a), y1 + R + R * Math.sin(a)); }
+    const n1 = Math.max(1, Math.round(((ex - R) - (ex - d + r)) / 12));
+    for (let j = 1; j < n1; j++) P((ex - R) + ((ex - d + r) - (ex - R)) * j / n1, y1);
+    P(ex - d + r, y1);
+    for (let j = 1; j <= 4; j++) { const a = Math.PI / 2 + Math.PI / 2 * j / 4; P(ex - d + r + r * Math.cos(a), y1 - r + r * Math.sin(a)); }
+    const n2 = Math.max(1, Math.round(((y1 - r) - (y0 + r)) / 12));
+    for (let j = 1; j < n2; j++) P(ex - d, (y1 - r) + ((y0 + r) - (y1 - r)) * j / n2);
+    P(ex - d, y0 + r);
+    for (let j = 1; j <= 4; j++) { const a = Math.PI + Math.PI / 2 * j / 4; P(ex - d + r + r * Math.cos(a), y0 + r + r * Math.sin(a)); }
+    const n3 = Math.max(1, Math.round(((ex - R) - (ex - d + r)) / 12));
+    for (let j = 1; j < n3; j++) P((ex - d + r) + ((ex - R) - (ex - d + r)) * j / n3, y0);
+    P(ex - R, y0);
+    for (let j = 1; j <= 6; j++) { const a = Math.PI / 2 - Math.PI / 2 * j / 6; P(ex - R + R * Math.cos(a), y0 - R + R * Math.sin(a)); }
+    return pts;
+  }
+  function tabFilletTop(y0, sx, sy) {
+    const pts = [];
+    const R = FILLET_R;
+    let cx;
+    if (y0 < 690) {
+      const cy = y0 - R;
+      cx = 50 + Math.sqrt((40 + R) * (40 + R) - (cy - 690) * (cy - 690));
+      const dx = cx - 50, dy = cy - 690, dl = Math.hypot(dx, dy);
+      const t1 = [50 + 40 * dx / dl, 690 + 40 * dy / dl];
+      const a1 = Math.atan2(t1[1] - cy, t1[0] - cx), a2 = Math.PI / 2;
+      for (let j = 0; j <= 6; j++) { const a = a1 + (a2 - a1) * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
+    } else {
+      cx = 90 + R;
+      const cy = y0 - R;
+      for (let j = 0; j <= 6; j++) { const a = Math.PI - Math.PI / 2 * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
+    }
+    return { pts, edgeX: cx };
+  }
+  function tabFilletBottom(y1, sx, sy) {
+    const pts = [];
+    const R = FILLET_R;
+    let cx;
+    if (y1 > 750) {
+      const cy = y1 + R;
+      cx = 50 + Math.sqrt((40 + R) * (40 + R) - (cy - 750) * (cy - 750));
+      const dx = cx - 50, dy = cy - 750, dl = Math.hypot(dx, dy);
+      const t1 = [50 + 40 * dx / dl, 750 + 40 * dy / dl];
+      const a1 = -Math.PI / 2, a2 = Math.atan2(t1[1] - cy, t1[0] - cx);
+      for (let j = 0; j <= 6; j++) { const a = a1 + (a2 - a1) * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
+    } else {
+      cx = 90 + R;
+      const cy = y1 + R;
+      for (let j = 0; j <= 6; j++) { const a = -Math.PI / 2 - Math.PI / 2 * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
+    }
+    return { pts, edgeX: cx };
+  }
+  function detourTab(y0, y1, depth, sx, sy) {
+    const pts = [];
+    const exR = 90 + depth, r = CORNER_R;
+    const ft = tabFilletTop(y0, sx, sy);
+    ft.pts.forEach((p) => pts.push(p));
+    const n1 = Math.max(1, Math.round(((exR - r) - ft.edgeX) / 12));
+    for (let j = 1; j < n1; j++) pts.push([(ft.edgeX + ((exR - r) - ft.edgeX) * j / n1) * sx, y0 * sy]);
+    pts.push([(exR - r) * sx, y0 * sy]);
+    for (let j = 1; j <= 4; j++) { const a = -Math.PI / 2 + Math.PI / 2 * j / 4; pts.push([(exR - r + r * Math.cos(a)) * sx, (y0 + r + r * Math.sin(a)) * sy]); }
+    const n2 = Math.max(1, Math.round(((y1 - r) - (y0 + r)) / 12));
+    for (let j = 1; j < n2; j++) pts.push([exR * sx, (y0 + r + ((y1 - r) - (y0 + r)) * j / n2) * sy]);
+    pts.push([exR * sx, (y1 - r) * sy]);
+    for (let j = 1; j <= 4; j++) { const a = Math.PI / 2 * j / 4; pts.push([(exR - r + r * Math.cos(a)) * sx, (y1 - r + r * Math.sin(a)) * sy]); }
+    const fb = tabFilletBottom(y1, sx, sy);
+    const n3 = Math.max(1, Math.round(((exR - r) - fb.edgeX) / 12));
+    for (let j = 1; j < n3; j++) pts.push([(exR - r + (fb.edgeX - (exR - r)) * j / n3) * sx, y1 * sy]);
+    pts.push([fb.edgeX * sx, y1 * sy]);
+    fb.pts.slice(1).forEach((p) => pts.push(p));
+    return pts;
+  }
+
+  /* Build the render point list: the static contour with the
+     open label's stretch replaced by its protrusion. Detour
+     points carry arc values interpolated across the replaced
+     stretch, so the swell's centre tracking stays in static
+     arc coordinates. Returns null when no protrusion. */
+  function buildRender(v) {
+    if (!labelState) return null;
+    const rect = labelState.el.getBoundingClientRect();
+    const sx = v.vbW / 1440, sy = v.vbH / 900;
+    const y0 = rect.top * 900 / window.innerHeight;
+    const y1 = rect.bottom * 900 / window.innerHeight;
+    let detour = null, iA = -1, iB = -1;
+    if (labelState.edge === 'band') {
+      const depth = (window.innerWidth * 1350 / 1440 - rect.left) * 1440 / window.innerWidth;
+      if (depth < 0.5) return null;
+      detour = detourBand(y0, y1, depth, sx, sy);
+      const edgeX = 1350 * sx;
+      for (let i = 0; i < v.pts.length; i++) {
+        const yy = v.pts[i][1] / sy;
+        if (Math.abs(v.pts[i][0] - edgeX) < 0.6 && yy < y1 + FILLET_R && yy > y0 - FILLET_R) {
+          if (iA < 0) iA = i;
+          iB = i;
+        }
+      }
+    } else {
+      const depth = (rect.right - window.innerWidth * 90 / 1440) * 1440 / window.innerWidth;
+      if (depth < 0.5) return null;
+      detour = detourTab(y0, y1, depth, sx, sy);
+      let c0 = v.tabI0, c1 = v.tabI1, bd0 = Infinity, bd1 = Infinity;
+      for (let i = v.tabI0; i <= v.tabI1; i++) {
+        const yy = v.pts[i][1] / sy;
+        const d0 = Math.abs(yy - y0), d1 = Math.abs(yy - y1);
+        if (d0 < bd0) { bd0 = d0; c0 = i; }
+        if (d1 < bd1) { bd1 = d1; c1 = i; }
+      }
+      const win = 26 * sy;
+      for (let i = v.tabI0; i <= v.tabI1; i++) {
+        if (Math.abs(v.arc[i] - v.arc[c0]) <= win || Math.abs(v.arc[i] - v.arc[c1]) <= win || (i > c0 && i < c1)) {
+          if (iA < 0) iA = i;
+          iB = i;
+        }
+      }
+    }
+    if (iA < 0 || !detour) return null;
+    const sA = v.arc[iA], sB = v.arc[iB];
+    const cum = [0];
+    for (let j = 1; j < detour.length; j++) {
+      cum.push(cum[j - 1] + Math.hypot(detour[j][0] - detour[j - 1][0], detour[j][1] - detour[j - 1][1]));
+    }
+    const totalD = cum[cum.length - 1] || 1;
+    const rPts = [], rArc = [];
+    for (let i = 0; i < iA; i++) { rPts.push(v.pts[i]); rArc.push(v.arc[i]); }
+    detour.forEach((p, j) => { rPts.push(p); rArc.push(sA + (sB - sA) * (cum[j] / totalD)); });
+    for (let i = iB + 1; i < v.pts.length; i++) { rPts.push(v.pts[i]); rArc.push(v.arc[i]); }
+    return { pts: rPts, arc: rArc, key: Math.round(rect.width * 4) + ':' + Math.round(rect.height * 4) };
+  }
+
   function restore(v) {
     if (!v || !v.dirty) return;
     v.paths.forEach((el, i) => el.setAttribute('d', v.original[i]));
     v.dirty = false;
     v.ampNow = 0;
     v.centreInit = false;
+    v.lastD = null;
   }
 
   function step() {
     raf = 0;
     const v = active();
     if (!v) return;
+    const render = buildRender(v);
+    const rPts = render ? render.pts : v.pts;
+    const rArc = render ? render.arc : v.arc;
     let target = 0;
     if (pointer) {
       const px = pointer.x * v.vbW / window.innerWidth;
       const py = pointer.y * v.vbH / window.innerHeight;
       let best = Infinity, bi = 0;
-      for (let i = 0; i < v.pts.length; i++) {
-        const dx = v.pts[i][0] - px, dy = v.pts[i][1] - py;
+      for (let i = 0; i < rPts.length; i++) {
+        const dx = rPts[i][0] - px, dy = rPts[i][1] - py;
         const d = dx * dx + dy * dy;
         if (d < best) { best = d; bi = i; }
       }
       const prox = Math.max(0, 1 - Math.sqrt(best) / v.range);
       target = v.amp * prox * prox;
-      const targetS = v.arc[bi];
+      const targetS = rArc[bi];
       if (!v.centreInit) { v.centreS = targetS; v.centreInit = true; }
       let diff = targetS - v.centreS;
       if (diff > v.total / 2) diff -= v.total;
       if (diff < -v.total / 2) diff += v.total;
-      v.centreS += diff * 0.14;
+      v.centreS += diff * 0.06;
       if (v.centreS < 0) v.centreS += v.total;
       if (v.centreS >= v.total) v.centreS -= v.total;
-      let vx = px - v.pts[bi][0], vy = py - v.pts[bi][1];
+      let vx = px - rPts[bi][0], vy = py - rPts[bi][1];
       const vl = Math.hypot(vx, vy);
       if (vl > 1) {
         vx /= vl; vy /= vl;
-        v.dirX += (vx - v.dirX) * 0.18;
-        v.dirY += (vy - v.dirY) * 0.18;
+        v.dirX += (vx - v.dirX) * 0.08;
+        v.dirY += (vy - v.dirY) * 0.08;
         const dl = Math.hypot(v.dirX, v.dirY) || 1;
         v.dirX /= dl; v.dirY /= dl;
       }
     }
-    v.ampNow += (target - v.ampNow) * 0.16;
-    if (v.ampNow < 0.02 && target === 0) { restore(v); return; }
+    v.ampNow += (target - v.ampNow) * 0.06;
+    if (labelState && labelState.closing && !render) labelState = null;
+    if (v.ampNow < 0.15 && target === 0 && !labelState) { restore(v); return; }
     const inv = 1 / (2 * v.sigma * v.sigma);
     let d = v.prefix + 'M';
-    for (let i = 0; i < v.pts.length; i++) {
-      let ds = v.arc[i] - v.centreS;
+    for (let i = 0; i < rPts.length; i++) {
+      let ds = rArc[i] - v.centreS;
       if (ds > v.total / 2) ds -= v.total;
       if (ds < -v.total / 2) ds += v.total;
-      let w = Math.exp(-ds * ds * inv) * v.ampNow;
-      if (junction && w > 0) w *= junctionFactor(v, v.pts[i][0], v.pts[i][1]);
-      d += (v.pts[i][0] + v.dirX * w).toFixed(1) + ' ' + (v.pts[i][1] + v.dirY * w).toFixed(1) + 'L';
+      const w = Math.exp(-ds * ds * inv) * v.ampNow;
+      d += (rPts[i][0] + v.dirX * w).toFixed(1) + ' ' + (rPts[i][1] + v.dirY * w).toFixed(1) + 'L';
     }
     d = d.slice(0, -1) + 'Z';
+    const rectKey = render ? render.key : '';
+    if (d === v.lastD && rectKey === v.lastRectKey) {
+      if (target === 0 && !labelState) restore(v);
+      return;
+    }
+    v.lastD = d;
+    v.lastRectKey = rectKey;
     v.paths.forEach((el) => el.setAttribute('d', d));
     v.dirty = true;
     raf = requestAnimationFrame(step);
   }
 
-  /* While a menu label is expanded, the frame must stay one
-     piece with it: contour points near the label's junction
-     segment are held still, ramping back to full motion away
-     from it, so the swelling contour cannot tear the junction
-     open or grow fins along the label's edges. */
-  let junction = null;
-  function junctionFactor(v, x, y) {
-    const edgeX = (junction.edge === 'band' ? 1350 : 90) * v.scale;
-    const y0 = junction.top * v.vbH / window.innerHeight;
-    const y1 = junction.bottom * v.vbH / window.innerHeight;
-    const dy = y < y0 ? y0 - y : (y > y1 ? y - y1 : 0);
-    const dist = Math.hypot(x - edgeX, dy);
-    const core = 26 * v.scale, ramp = 75 * v.scale;
-    if (dist <= core) return 0;
-    if (dist >= core + ramp) return 1;
-    const t = (dist - core) / ramp;
-    return t * t * (3 - 2 * t);
-  }
-  function bindJunction(link, labelSelector, edge) {
-    if (!link) return;
-    const set = () => {
-      const label = link.querySelector(labelSelector);
-      if (!label) return;
-      const r = label.getBoundingClientRect();
-      junction = { edge, top: r.top, bottom: r.bottom };
-      wake();
-    };
-    const clear = () => { junction = null; wake(); };
-    link.addEventListener('pointerenter', set);
-    link.addEventListener('pointerleave', clear);
-    link.addEventListener('focus', set);
-    link.addEventListener('blur', clear);
-  }
-  document.querySelectorAll('#navArea .inner li a').forEach((a) => bindJunction(a, '.nav-label', 'band'));
-  document.querySelectorAll('.frame-initials a').forEach((a) => bindJunction(a, '.frame-label', 'tab'));
-
   function wake() { if (!raf) raf = requestAnimationFrame(step); }
+  document.querySelectorAll('#navArea .inner li a').forEach((a) => bindLabel(a, '.nav-label', 'band'));
+  document.querySelectorAll('.frame-initials a').forEach((a) => bindLabel(a, '.frame-label', 'tab'));
   window.addEventListener('pointermove', (e) => { pointer = { x: e.clientX, y: e.clientY }; wake(); }, { passive: true });
   window.addEventListener('pointerdown', (e) => { pointer = { x: e.clientX, y: e.clientY }; wake(); }, { passive: true });
   document.addEventListener('pointerleave', () => { pointer = null; wake(); });
   window.addEventListener('blur', () => { pointer = null; wake(); });
+  window.addEventListener('resize', wake);
   spMq.addEventListener('change', () => { restore(variants.pc); restore(variants.sp); wake(); });
 }
 
