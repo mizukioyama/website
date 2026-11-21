@@ -709,7 +709,11 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   #header-container #navArea:not(.is-compact) .inner ul li { display: block; }
   #header-container #navArea .inner ul li:nth-of-type(5) { margin-top: 0; }
   #navArea .inner ul {
-    height: 100%;
+    /* Menu group (Mizuki 2026-11-21): spread over 80% of
+       the band height and shifted 80px up (at the 900px
+       design height) from the band's centre. */
+    height: 80%;
+    margin-top: -0.53dvh;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;

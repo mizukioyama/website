@@ -791,13 +791,13 @@ body.back--anim .card__slide:not(.active) .date {
    glow behind it. Square corners. */
 .card-nav {
   position: absolute;
-  /* Position (Mizuki 2026-11-20): the button's right
-     edge sits 12px outside the card's right edge, and
-     its center 62px above the card's bottom edge on
+  /* Position (Mizuki 2026-11-21): the button's right
+     edge sits 8px outside the card's right edge, and
+     its center 115px above the card's bottom edge on
      wide screens (48px on phones, see the <=599px
      rule); the card's socket follows it. */
-  right: calc(50% - var(--card-width) / 2 - 12px);
-  bottom: calc(50% - var(--card-height) / 2 + 41px);
+  right: calc(50% - var(--card-width) / 2 - 8px);
+  bottom: calc(50% - var(--card-height) / 2 + 94px);
   z-index: 12;
   padding: 0.38em 0.95em;
   font-family: "Shippori Mincho", serif;
