@@ -796,7 +796,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        leftward from its right edge, not as a translucent
        wash spreading across. */
     transition:
-      width 0.18s ease,
+      width 0.13s ease,
       background-color 0.05s ease,
       box-shadow 0.3s ease,
       color 0.25s ease;
@@ -1028,7 +1028,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 .frame-initials {
   position: fixed;
   left: calc(3.125vw - 12px);
-  bottom: calc(15.8dvh - 12px);
+  bottom: calc(10.44dvh - 39px);
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -1106,7 +1106,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
     inset 0 -10px 12px -10px rgba(0, 0, 0, 0);
   pointer-events: none;
   transition:
-    width 0.18s ease,
+    width 0.13s ease,
     background-color 0.05s ease,
     box-shadow 0.3s ease,
     color 0.25s ease;
@@ -1219,7 +1219,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
 .frame-prev {
   position: fixed;
   left: calc(1.6667vw + 12px);
-  bottom: calc(12.22dvh - 52px);
+  bottom: calc(18.22dvh - 52px);
   z-index: 1000;
   padding: 0;
   color: var(--inv);

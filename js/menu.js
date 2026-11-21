@@ -61,10 +61,10 @@ const HEADER_MARKUP = `
        and looked blotchy.) -->
   <svg class="site-frame" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <g class="frame-dark">
-      <path fill-rule="evenodd" fill="#222527" d="M0 0H1440V900H0Z M24.0 862.0L24.5 865.6L25.9 869.0L28.1 871.9L31.0 874.1L34.4 875.5L38.0 876.0L1408.0 876.0L1410.1 875.7L1412.0 874.9L1413.7 873.7L1414.9 872.0L1415.7 870.1L1416.0 868.0L1416.0 826.0L1415.0 818.2L1412.0 811.0L1407.2 804.8L1401.0 800.0L1393.8 797.0L1386.0 796.0L1390.0 796.0L1379.6 794.6L1370.0 790.6L1361.7 784.3L1355.4 776.0L1351.4 766.4L1350.0 756.0L1350.0 84.0L1351.4 73.6L1355.4 64.0L1361.7 55.7L1370.0 49.4L1379.6 45.4L1390.0 44.0L1408.0 44.0L1410.1 43.7L1412.0 42.9L1413.7 41.7L1414.9 40.0L1415.7 38.1L1416.0 36.0L1416.0 32.0L1415.7 29.9L1414.9 28.0L1413.7 26.3L1412.0 25.1L1410.1 24.3L1408.0 24.0L356.0 24.0L352.4 24.5L349.0 25.9L346.1 28.1L343.9 31.0L342.5 34.4L342.0 38.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L38.0 128.0L34.4 128.5L31.0 129.9L28.1 132.1L25.9 135.0L24.5 138.4L24.0 142.0L24.0 620.0L25.0 627.8L28.0 635.0L32.8 641.2L39.0 646.0L46.2 649.0L54.0 650.0L50.0 650.0L60.4 651.4L70.0 655.4L78.3 661.7L84.6 670.0L88.6 679.6L90.0 690.0L90.0 750.0L88.6 760.4L84.6 770.0L78.3 778.3L70.0 784.6L60.4 788.6L50.0 790.0L54.0 790.0L46.2 791.0L39.0 794.0L32.8 798.8L28.0 805.0L25.0 812.2L24.0 820.0Z"/>
+      <path fill-rule="evenodd" fill="#222527" d="M0 0H1440V900H0Z M1408.0 876.0L1410.1 875.7L1412.0 874.9L1413.7 873.7L1414.9 872.0L1415.7 870.1L1416.0 868.0L1416.0 826.0L1415.0 818.2L1412.0 811.0L1407.2 804.8L1401.0 800.0L1393.8 797.0L1386.0 796.0L1390.0 796.0L1379.6 794.6L1370.0 790.6L1361.7 784.3L1355.4 776.0L1351.4 766.4L1350.0 756.0L1350.0 84.0L1351.4 73.6L1355.4 64.0L1361.7 55.7L1370.0 49.4L1379.6 45.4L1390.0 44.0L1408.0 44.0L1410.1 43.7L1412.0 42.9L1413.7 41.7L1414.9 40.0L1415.7 38.1L1416.0 36.0L1416.0 32.0L1415.7 29.9L1414.9 28.0L1413.7 26.3L1412.0 25.1L1410.1 24.3L1408.0 24.0L356.0 24.0L352.4 24.5L349.0 25.9L346.1 28.1L343.9 31.0L342.5 34.4L342.0 38.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L38.0 128.0L34.4 128.5L31.0 129.9L28.1 132.1L25.9 135.0L24.5 138.4L24.0 142.0L24.0 706.0L25.0 713.8L28.0 721.0L32.8 727.2L39.0 732.0L46.2 735.0L54.0 736.0L50.0 736.0L60.4 737.4L70.0 741.4L78.3 747.7L84.6 756.0L88.6 765.6L90.0 776.0L90.0 836.0L91.4 846.4L95.4 856.0L101.7 864.3L110.0 870.6L119.6 874.6L130.0 876.0Z"/>
     </g>
     <g class="frame-light">
-      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H1440V900H0Z M24.0 862.0L24.5 865.6L25.9 869.0L28.1 871.9L31.0 874.1L34.4 875.5L38.0 876.0L1408.0 876.0L1410.1 875.7L1412.0 874.9L1413.7 873.7L1414.9 872.0L1415.7 870.1L1416.0 868.0L1416.0 826.0L1415.0 818.2L1412.0 811.0L1407.2 804.8L1401.0 800.0L1393.8 797.0L1386.0 796.0L1390.0 796.0L1379.6 794.6L1370.0 790.6L1361.7 784.3L1355.4 776.0L1351.4 766.4L1350.0 756.0L1350.0 84.0L1351.4 73.6L1355.4 64.0L1361.7 55.7L1370.0 49.4L1379.6 45.4L1390.0 44.0L1408.0 44.0L1410.1 43.7L1412.0 42.9L1413.7 41.7L1414.9 40.0L1415.7 38.1L1416.0 36.0L1416.0 32.0L1415.7 29.9L1414.9 28.0L1413.7 26.3L1412.0 25.1L1410.1 24.3L1408.0 24.0L356.0 24.0L352.4 24.5L349.0 25.9L346.1 28.1L343.9 31.0L342.5 34.4L342.0 38.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L38.0 128.0L34.4 128.5L31.0 129.9L28.1 132.1L25.9 135.0L24.5 138.4L24.0 142.0L24.0 620.0L25.0 627.8L28.0 635.0L32.8 641.2L39.0 646.0L46.2 649.0L54.0 650.0L50.0 650.0L60.4 651.4L70.0 655.4L78.3 661.7L84.6 670.0L88.6 679.6L90.0 690.0L90.0 750.0L88.6 760.4L84.6 770.0L78.3 778.3L70.0 784.6L60.4 788.6L50.0 790.0L54.0 790.0L46.2 791.0L39.0 794.0L32.8 798.8L28.0 805.0L25.0 812.2L24.0 820.0Z"/>
+      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H1440V900H0Z M1408.0 876.0L1410.1 875.7L1412.0 874.9L1413.7 873.7L1414.9 872.0L1415.7 870.1L1416.0 868.0L1416.0 826.0L1415.0 818.2L1412.0 811.0L1407.2 804.8L1401.0 800.0L1393.8 797.0L1386.0 796.0L1390.0 796.0L1379.6 794.6L1370.0 790.6L1361.7 784.3L1355.4 776.0L1351.4 766.4L1350.0 756.0L1350.0 84.0L1351.4 73.6L1355.4 64.0L1361.7 55.7L1370.0 49.4L1379.6 45.4L1390.0 44.0L1408.0 44.0L1410.1 43.7L1412.0 42.9L1413.7 41.7L1414.9 40.0L1415.7 38.1L1416.0 36.0L1416.0 32.0L1415.7 29.9L1414.9 28.0L1413.7 26.3L1412.0 25.1L1410.1 24.3L1408.0 24.0L356.0 24.0L352.4 24.5L349.0 25.9L346.1 28.1L343.9 31.0L342.5 34.4L342.0 38.0L342.0 100.0L341.0 107.2L338.2 114.0L333.8 119.8L328.0 124.2L321.2 127.0L314.0 128.0L38.0 128.0L34.4 128.5L31.0 129.9L28.1 132.1L25.9 135.0L24.5 138.4L24.0 142.0L24.0 706.0L25.0 713.8L28.0 721.0L32.8 727.2L39.0 732.0L46.2 735.0L54.0 736.0L50.0 736.0L60.4 737.4L70.0 741.4L78.3 747.7L84.6 756.0L88.6 765.6L90.0 776.0L90.0 836.0L91.4 846.4L95.4 856.0L101.7 864.3L110.0 870.6L119.6 874.6L130.0 876.0Z"/>
     </g>
   </svg>
   <!-- Site frame for small screens (under 768px; shown by
@@ -76,10 +76,10 @@ const HEADER_MARKUP = `
        smaller radii because the step edge is only ~14px. -->
   <svg class="site-frame-sp" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <g class="frame-dark">
-      <path fill-rule="evenodd" fill="#222527" d="M0 0H390V844H0Z M6.5 807.5L7.0 811.1L8.4 814.5L10.6 817.4L13.5 819.6L16.9 821.0L20.5 821.5L375.5 821.5L377.6 821.2L379.5 820.4L381.2 819.2L382.4 817.5L383.2 815.6L383.5 813.5L383.5 754.5L383.2 752.4L382.4 750.5L381.2 748.8L379.5 747.6L377.6 746.8L375.5 746.5L376.6 746.5L373.8 746.1L371.1 745.0L368.8 743.3L367.1 741.0L366.0 738.3L365.6 735.5L365.6 52.3L366.0 49.5L367.1 46.8L368.8 44.5L371.1 42.8L373.8 41.7L376.6 41.3L379.5 41.3L380.5 41.2L381.5 40.8L382.3 40.1L383.0 39.3L383.4 38.3L383.5 37.3L383.5 30.5L383.2 28.4L382.4 26.5L381.2 24.8L379.5 23.6L377.6 22.8L375.5 22.5L106.6 22.5L103.0 23.0L99.6 24.4L96.7 26.6L94.5 29.5L93.1 32.9L92.6 36.5L92.6 92.0L91.6 99.2L88.8 106.0L84.4 111.8L78.6 116.2L71.8 119.0L64.6 120.0L20.5 120.0L16.9 120.5L13.5 121.9L10.6 124.1L8.4 127.0L7.0 130.4L6.5 134.0L6.5 601.6L6.8 603.7L7.6 605.6L8.8 607.3L10.5 608.5L12.4 609.3L14.5 609.6L13.4 609.6L16.2 610.0L18.9 611.1L21.2 612.8L22.9 615.1L24.0 617.8L24.4 620.6L24.4 729.8L24.0 732.6L22.9 735.3L21.2 737.6L18.9 739.3L16.2 740.4L13.4 740.8L14.5 740.8L12.4 741.1L10.5 741.9L8.8 743.1L7.6 744.8L6.8 746.7L6.5 748.8Z"/>
+      <path fill-rule="evenodd" fill="#222527" d="M0 0H390V844H0Z M375.5 821.5L377.6 821.2L379.5 820.4L381.2 819.2L382.4 817.5L383.2 815.6L383.5 813.5L383.5 754.5L383.2 752.4L382.4 750.5L381.2 748.8L379.5 747.6L377.6 746.8L375.5 746.5L376.6 746.5L373.8 746.1L371.1 745.0L368.8 743.3L367.1 741.0L366.0 738.3L365.6 735.5L365.6 52.3L366.0 49.5L367.1 46.8L368.8 44.5L371.1 42.8L373.8 41.7L376.6 41.3L379.5 41.3L380.5 41.2L381.5 40.8L382.3 40.1L383.0 39.3L383.4 38.3L383.5 37.3L383.5 30.5L383.2 28.4L382.4 26.5L381.2 24.8L379.5 23.6L377.6 22.8L375.5 22.5L106.6 22.5L103.0 23.0L99.6 24.4L96.7 26.6L94.5 29.5L93.1 32.9L92.6 36.5L92.6 92.0L91.6 99.2L88.8 106.0L84.4 111.8L78.6 116.2L71.8 119.0L64.6 120.0L20.5 120.0L16.9 120.5L13.5 121.9L10.6 124.1L8.4 127.0L7.0 130.4L6.5 134.0L6.5 682.2L6.8 684.3L7.6 686.2L8.8 687.9L10.5 689.1L12.4 689.9L14.5 690.2L13.4 690.2L16.2 690.6L18.9 691.7L21.2 693.4L22.9 695.7L24.0 698.4L24.4 701.2L24.4 810.5L24.8 813.3L25.9 816.0L27.6 818.3L29.9 820.0L32.6 821.1L35.4 821.5Z"/>
     </g>
     <g class="frame-light">
-      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H390V844H0Z M6.5 807.5L7.0 811.1L8.4 814.5L10.6 817.4L13.5 819.6L16.9 821.0L20.5 821.5L375.5 821.5L377.6 821.2L379.5 820.4L381.2 819.2L382.4 817.5L383.2 815.6L383.5 813.5L383.5 754.5L383.2 752.4L382.4 750.5L381.2 748.8L379.5 747.6L377.6 746.8L375.5 746.5L376.6 746.5L373.8 746.1L371.1 745.0L368.8 743.3L367.1 741.0L366.0 738.3L365.6 735.5L365.6 52.3L366.0 49.5L367.1 46.8L368.8 44.5L371.1 42.8L373.8 41.7L376.6 41.3L379.5 41.3L380.5 41.2L381.5 40.8L382.3 40.1L383.0 39.3L383.4 38.3L383.5 37.3L383.5 30.5L383.2 28.4L382.4 26.5L381.2 24.8L379.5 23.6L377.6 22.8L375.5 22.5L106.6 22.5L103.0 23.0L99.6 24.4L96.7 26.6L94.5 29.5L93.1 32.9L92.6 36.5L92.6 92.0L91.6 99.2L88.8 106.0L84.4 111.8L78.6 116.2L71.8 119.0L64.6 120.0L20.5 120.0L16.9 120.5L13.5 121.9L10.6 124.1L8.4 127.0L7.0 130.4L6.5 134.0L6.5 601.6L6.8 603.7L7.6 605.6L8.8 607.3L10.5 608.5L12.4 609.3L14.5 609.6L13.4 609.6L16.2 610.0L18.9 611.1L21.2 612.8L22.9 615.1L24.0 617.8L24.4 620.6L24.4 729.8L24.0 732.6L22.9 735.3L21.2 737.6L18.9 739.3L16.2 740.4L13.4 740.8L14.5 740.8L12.4 741.1L10.5 741.9L8.8 743.1L7.6 744.8L6.8 746.7L6.5 748.8Z"/>
+      <path fill-rule="evenodd" fill="#e1e1dc" d="M0 0H390V844H0Z M375.5 821.5L377.6 821.2L379.5 820.4L381.2 819.2L382.4 817.5L383.2 815.6L383.5 813.5L383.5 754.5L383.2 752.4L382.4 750.5L381.2 748.8L379.5 747.6L377.6 746.8L375.5 746.5L376.6 746.5L373.8 746.1L371.1 745.0L368.8 743.3L367.1 741.0L366.0 738.3L365.6 735.5L365.6 52.3L366.0 49.5L367.1 46.8L368.8 44.5L371.1 42.8L373.8 41.7L376.6 41.3L379.5 41.3L380.5 41.2L381.5 40.8L382.3 40.1L383.0 39.3L383.4 38.3L383.5 37.3L383.5 30.5L383.2 28.4L382.4 26.5L381.2 24.8L379.5 23.6L377.6 22.8L375.5 22.5L106.6 22.5L103.0 23.0L99.6 24.4L96.7 26.6L94.5 29.5L93.1 32.9L92.6 36.5L92.6 92.0L91.6 99.2L88.8 106.0L84.4 111.8L78.6 116.2L71.8 119.0L64.6 120.0L20.5 120.0L16.9 120.5L13.5 121.9L10.6 124.1L8.4 127.0L7.0 130.4L6.5 134.0L6.5 682.2L6.8 684.3L7.6 686.2L8.8 687.9L10.5 689.1L12.4 689.9L14.5 690.2L13.4 690.2L16.2 690.6L18.9 691.7L21.2 693.4L22.9 695.7L24.0 698.4L24.4 701.2L24.4 810.5L24.8 813.3L25.9 816.0L27.6 818.3L29.9 820.0L32.6 821.1L35.4 821.5Z"/>
     </g>
   </svg>
   <div class="header-inner">
@@ -741,12 +741,11 @@ function initializeFrameLiquid() {
   if (!window.matchMedia('(pointer: fine)').matches) return;
   document.documentElement.classList.add('frame-liquid-on');
 
-  const PC_VERTICES = [[24, 876], [1416, 876], [1416, 796], [1350, 796], [1350, 44], [1416, 44], [1416, 24], [342, 24], [342, 128], [24, 128], [24, 650], [90, 650], [90, 790], [24, 790]];
-  const PC_RADII = [14, 8, 30, 40, 40, 8, 8, 14, 28, 14, 30, 40, 40, 30];
-  const SP_RADII = [14, 8, 8, 11, 11, 4, 8, 14, 28, 14, 8, 11, 11, 8];
+  const PC_VERTICES = [[1416, 876], [1416, 796], [1350, 796], [1350, 44], [1416, 44], [1416, 24], [342, 24], [342, 128], [24, 128], [24, 736], [90, 736], [90, 876]];
+  const PC_RADII = [8, 30, 40, 40, 8, 8, 14, 28, 14, 30, 40, 40];
+  const SP_RADII = [8, 8, 11, 11, 4, 8, 14, 28, 14, 8, 11, 11];
   const SP_VERTICES = PC_VERTICES.map(([x, y]) => [Math.round(x * 390 / 1440 * 10) / 10, Math.round(y * 844 / 900 * 10) / 10]);
-  const AMP = 8;
-  const FILLET_R = 16, CORNER_R = 9;
+  const AMP = 12;
 
   function sampleContour(vertices, radii) {
     const pts = [];
@@ -815,9 +814,9 @@ function initializeFrameLiquid() {
       prefix: `M0 0H${vbW}V${vbH}H0Z `,
       pts, arc, total: arc[pts.length],
       vbW, vbH, scale,
-      tabI0: nearestIdx(vertices[10][0], vertices[10][1]),
-      tabI1: nearestIdx(vertices[13][0], vertices[13][1]),
-      amp: AMP * scale, sigma: 58 * scale, range: 190 * scale,
+      tabI0: nearestIdx(vertices[9][0], vertices[9][1]),
+      tabI1: nearestIdx(vertices[11][0], vertices[11][1]),
+      amp: AMP * scale, sigma: 180 * scale, range: 190 * scale,
       ampNow: 0, centreS: 0, centreInit: false, dirX: 0, dirY: 1, dirty: false,
     };
   }
@@ -835,7 +834,7 @@ function initializeFrameLiquid() {
 
   /* The open label: { edge: 'band' | 'tab', el, closing }.
      The label's width is set per label (text width + padding,
-     at least the frame edge + 52px) so the protrusion fits
+     at least the frame edge + 55 units) so the protrusion fits
      the text; the contour reads the label's animated rect
      each frame, so the protrusion grows and shrinks with
      the CSS width transition. */
@@ -848,10 +847,12 @@ function initializeFrameLiquid() {
       const range = document.createRange();
       range.selectNodeContents(label);
       const tw = range.getBoundingClientRect().width;
+      const padPx = 80 * window.innerWidth / 1440;
+      const minDepthPx = 55 * window.innerWidth / 1440;
       const base = edge === 'tab'
-        ? window.innerWidth * 0.09375 + 40
-        : window.innerWidth * 0.0625 + 52;
-      label.style.width = Math.max(tw + 72, base) + 'px';
+        ? window.innerWidth * 0.09375 - 12 + minDepthPx
+        : window.innerWidth * 0.0625 + minDepthPx;
+      label.style.width = Math.max(tw + 2 * padPx, base) + 'px';
       labelState = { edge, el: label, closing: false };
       wake();
     };
@@ -869,139 +870,61 @@ function initializeFrameLiquid() {
     link.addEventListener('blur', close);
   }
 
-  /* Protrusion outlines, built in 1440x900 frame space and
-     scaled by (sx, sy) into the variant's viewBox. */
-  function detourBand(y0, y1, depth, sx, sy) {
-    const pts = [];
-    const ex = 1350, R = FILLET_R, r = CORNER_R, d = depth;
-    const P = (x, y) => pts.push([x * sx, y * sy]);
-    for (let j = 0; j <= 6; j++) { const a = -Math.PI / 2 * j / 6; P(ex - R + R * Math.cos(a), y1 + R + R * Math.sin(a)); }
-    const n1 = Math.max(1, Math.round(((ex - R) - (ex - d + r)) / 12));
-    for (let j = 1; j < n1; j++) P((ex - R) + ((ex - d + r) - (ex - R)) * j / n1, y1);
-    P(ex - d + r, y1);
-    for (let j = 1; j <= 4; j++) { const a = Math.PI / 2 + Math.PI / 2 * j / 4; P(ex - d + r + r * Math.cos(a), y1 - r + r * Math.sin(a)); }
-    const n2 = Math.max(1, Math.round(((y1 - r) - (y0 + r)) / 12));
-    for (let j = 1; j < n2; j++) P(ex - d, (y1 - r) + ((y0 + r) - (y1 - r)) * j / n2);
-    P(ex - d, y0 + r);
-    for (let j = 1; j <= 4; j++) { const a = Math.PI + Math.PI / 2 * j / 4; P(ex - d + r + r * Math.cos(a), y0 + r + r * Math.sin(a)); }
-    const n3 = Math.max(1, Math.round(((ex - R) - (ex - d + r)) / 12));
-    for (let j = 1; j < n3; j++) P((ex - d + r) + ((ex - R) - (ex - d + r)) * j / n3, y0);
-    P(ex - R, y0);
-    for (let j = 1; j <= 6; j++) { const a = Math.PI / 2 - Math.PI / 2 * j / 6; P(ex - R + R * Math.cos(a), y0 - R + R * Math.sin(a)); }
-    return pts;
-  }
-  function tabFilletTop(y0, sx, sy) {
-    const pts = [];
-    const R = FILLET_R;
-    let cx;
-    if (y0 < 690) {
-      const cy = y0 - R;
-      cx = 50 + Math.sqrt((40 + R) * (40 + R) - (cy - 690) * (cy - 690));
-      const dx = cx - 50, dy = cy - 690, dl = Math.hypot(dx, dy);
-      const t1 = [50 + 40 * dx / dl, 690 + 40 * dy / dl];
-      const a1 = Math.atan2(t1[1] - cy, t1[0] - cx), a2 = Math.PI / 2;
-      for (let j = 0; j <= 6; j++) { const a = a1 + (a2 - a1) * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
-    } else {
-      cx = 90 + R;
-      const cy = y0 - R;
-      for (let j = 0; j <= 6; j++) { const a = Math.PI - Math.PI / 2 * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
-    }
-    return { pts, edgeX: cx };
-  }
-  function tabFilletBottom(y1, sx, sy) {
-    const pts = [];
-    const R = FILLET_R;
-    let cx;
-    if (y1 > 750) {
-      const cy = y1 + R;
-      cx = 50 + Math.sqrt((40 + R) * (40 + R) - (cy - 750) * (cy - 750));
-      const dx = cx - 50, dy = cy - 750, dl = Math.hypot(dx, dy);
-      const t1 = [50 + 40 * dx / dl, 750 + 40 * dy / dl];
-      const a1 = -Math.PI / 2, a2 = Math.atan2(t1[1] - cy, t1[0] - cx);
-      for (let j = 0; j <= 6; j++) { const a = a1 + (a2 - a1) * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
-    } else {
-      cx = 90 + R;
-      const cy = y1 + R;
-      for (let j = 0; j <= 6; j++) { const a = -Math.PI / 2 - Math.PI / 2 * j / 6; pts.push([(cx + R * Math.cos(a)) * sx, (cy + R * Math.sin(a)) * sy]); }
-    }
-    return { pts, edgeX: cx };
-  }
-  function detourTab(y0, y1, depth, sx, sy) {
-    const pts = [];
-    const exR = 90 + depth, r = CORNER_R;
-    const ft = tabFilletTop(y0, sx, sy);
-    ft.pts.forEach((p) => pts.push(p));
-    const n1 = Math.max(1, Math.round(((exR - r) - ft.edgeX) / 12));
-    for (let j = 1; j < n1; j++) pts.push([(ft.edgeX + ((exR - r) - ft.edgeX) * j / n1) * sx, y0 * sy]);
-    pts.push([(exR - r) * sx, y0 * sy]);
-    for (let j = 1; j <= 4; j++) { const a = -Math.PI / 2 + Math.PI / 2 * j / 4; pts.push([(exR - r + r * Math.cos(a)) * sx, (y0 + r + r * Math.sin(a)) * sy]); }
-    const n2 = Math.max(1, Math.round(((y1 - r) - (y0 + r)) / 12));
-    for (let j = 1; j < n2; j++) pts.push([exR * sx, (y0 + r + ((y1 - r) - (y0 + r)) * j / n2) * sy]);
-    pts.push([exR * sx, (y1 - r) * sy]);
-    for (let j = 1; j <= 4; j++) { const a = Math.PI / 2 * j / 4; pts.push([(exR - r + r * Math.cos(a)) * sx, (y1 - r + r * Math.sin(a)) * sy]); }
-    const fb = tabFilletBottom(y1, sx, sy);
-    const n3 = Math.max(1, Math.round(((exR - r) - fb.edgeX) / 12));
-    for (let j = 1; j < n3; j++) pts.push([(exR - r + (fb.edgeX - (exR - r)) * j / n3) * sx, y1 * sy]);
-    pts.push([fb.edgeX * sx, y1 * sy]);
-    fb.pts.slice(1).forEach((p) => pts.push(p));
-    return pts;
-  }
-
   /* Build the render point list: the static contour with the
-     open label's stretch replaced by its protrusion. Detour
-     points carry arc values interpolated across the replaced
-     stretch, so the swell's centre tracking stays in static
-     arc coordinates. Returns null when no protrusion. */
+     open label's stretch displaced outward. The displacement
+     is full across the label's span and eases to zero over
+     BLEND arc units beyond it, so the junction reads as the
+     edge itself deforming rather than a joint. Points keep
+     their static arc values, so the swell's centre tracking
+     is unaffected. Returns null when no protrusion. */
+  const BLEND = 220;
+  const smooth01 = (t) => t * t * (3 - 2 * t);
   function buildRender(v) {
     if (!labelState) return null;
     const rect = labelState.el.getBoundingClientRect();
     const sx = v.vbW / 1440, sy = v.vbH / 900;
     const y0 = rect.top * 900 / window.innerHeight;
     const y1 = rect.bottom * 900 / window.innerHeight;
-    let detour = null, iA = -1, iB = -1;
+    let depth;
     if (labelState.edge === 'band') {
-      const depth = (window.innerWidth * 1350 / 1440 - rect.left) * 1440 / window.innerWidth;
-      if (depth < 0.5) return null;
-      detour = detourBand(y0, y1, depth, sx, sy);
-      const edgeX = 1350 * sx;
-      for (let i = 0; i < v.pts.length; i++) {
-        const yy = v.pts[i][1] / sy;
-        if (Math.abs(v.pts[i][0] - edgeX) < 0.6 && yy < y1 + FILLET_R && yy > y0 - FILLET_R) {
-          if (iA < 0) iA = i;
-          iB = i;
-        }
-      }
+      depth = (window.innerWidth * 1350 / 1440 - rect.left) * 1440 / window.innerWidth;
     } else {
-      const depth = (rect.right - window.innerWidth * 90 / 1440) * 1440 / window.innerWidth;
-      if (depth < 0.5) return null;
-      detour = detourTab(y0, y1, depth, sx, sy);
-      let c0 = v.tabI0, c1 = v.tabI1, bd0 = Infinity, bd1 = Infinity;
-      for (let i = v.tabI0; i <= v.tabI1; i++) {
+      depth = (rect.right - window.innerWidth * 90 / 1440) * 1440 / window.innerWidth;
+    }
+    if (depth < 0.5) return null;
+    let sLo = null, sHi = null;
+    const i0 = labelState.edge === 'band' ? 0 : v.tabI0;
+    const i1 = labelState.edge === 'band' ? v.pts.length - 1 : v.tabI1;
+    for (let i = i0; i <= i1; i++) {
+      if (labelState.edge === 'band' && Math.abs(v.pts[i][0] - 1350 * sx) > 0.6) continue;
+      const yy = v.pts[i][1] / sy;
+      if (Math.abs(yy - y0) < 8) sLo = v.arc[i];
+      if (Math.abs(yy - y1) < 8) sHi = v.arc[i];
+    }
+    if (sLo === null || sHi === null) {
+      let bd0 = Infinity, bd1 = Infinity;
+      sLo = null; sHi = null;
+      for (let i = i0; i <= i1; i++) {
+        if (labelState.edge === 'band' && Math.abs(v.pts[i][0] - 1350 * sx) > 0.6) continue;
         const yy = v.pts[i][1] / sy;
         const d0 = Math.abs(yy - y0), d1 = Math.abs(yy - y1);
-        if (d0 < bd0) { bd0 = d0; c0 = i; }
-        if (d1 < bd1) { bd1 = d1; c1 = i; }
-      }
-      const win = 26 * sy;
-      for (let i = v.tabI0; i <= v.tabI1; i++) {
-        if (Math.abs(v.arc[i] - v.arc[c0]) <= win || Math.abs(v.arc[i] - v.arc[c1]) <= win || (i > c0 && i < c1)) {
-          if (iA < 0) iA = i;
-          iB = i;
-        }
+        if (d0 < bd0) { bd0 = d0; sLo = v.arc[i]; }
+        if (d1 < bd1) { bd1 = d1; sHi = v.arc[i]; }
       }
     }
-    if (iA < 0 || !detour) return null;
-    const sA = v.arc[iA], sB = v.arc[iB];
-    const cum = [0];
-    for (let j = 1; j < detour.length; j++) {
-      cum.push(cum[j - 1] + Math.hypot(detour[j][0] - detour[j - 1][0], detour[j][1] - detour[j - 1][1]));
+    if (sLo === null || sHi === null) return null;
+    const lo = Math.min(sLo, sHi), hi = Math.max(sLo, sHi);
+    const B = BLEND * sy;
+    const dir = labelState.edge === 'band' ? -1 : 1;
+    const rPts = new Array(v.pts.length);
+    for (let i = 0; i < v.pts.length; i++) {
+      const sv = v.arc[i];
+      let d = 0;
+      if (sv < lo) d = lo - sv; else if (sv > hi) d = sv - hi;
+      if (d >= B) { rPts[i] = v.pts[i]; continue; }
+      rPts[i] = [v.pts[i][0] + dir * depth * sx * smooth01(1 - d / B), v.pts[i][1]];
     }
-    const totalD = cum[cum.length - 1] || 1;
-    const rPts = [], rArc = [];
-    for (let i = 0; i < iA; i++) { rPts.push(v.pts[i]); rArc.push(v.arc[i]); }
-    detour.forEach((p, j) => { rPts.push(p); rArc.push(sA + (sB - sA) * (cum[j] / totalD)); });
-    for (let i = iB + 1; i < v.pts.length; i++) { rPts.push(v.pts[i]); rArc.push(v.arc[i]); }
-    return { pts: rPts, arc: rArc, key: Math.round(rect.width * 4) + ':' + Math.round(rect.height * 4) };
+    return { pts: rPts, arc: v.arc, key: Math.round(rect.width * 4) + ':' + Math.round(rect.height * 4) };
   }
 
   function restore(v) {
