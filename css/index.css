@@ -106,6 +106,17 @@ p {
   z-index: -1;
 }
 
+/* While a switch runs, the outgoing slide stays on top
+   and exits over the incoming one, which waits beneath
+   (Mizuki 2026-11-21). At rest the rules above apply. */
+body.bg-switching .back__slide {
+  z-index: -2;
+}
+
+body.bg-switching .back__slide.active {
+  z-index: -1;
+}
+
 /* The side label keeps its original crossfade timing;
    only the image layer switches by sliding. */
 .back__slide .creator {
