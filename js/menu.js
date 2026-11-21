@@ -847,7 +847,7 @@ function initializeFrameLiquid() {
       const range = document.createRange();
       range.selectNodeContents(label);
       const tw = range.getBoundingClientRect().width;
-      const padPx = 80 * window.innerWidth / 1440;
+      const padPx = 40;
       const minDepthPx = 55 * window.innerWidth / 1440;
       const base = edge === 'tab'
         ? window.innerWidth * 0.09375 - 12 + minDepthPx
