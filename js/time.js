@@ -71,7 +71,7 @@ waitForJQuery(function ($) {
                 // block, so set the element style directly
                 // and cover phone and portrait-tablet widths.
                 const inkCanvas = document.getElementById("selected-ink-field-canvas");
-                if (inkCanvas && window.matchMedia("(max-width: 1023px)").matches) {
+                if (inkCanvas && window.matchMedia("(max-width: 599px), (max-width: 1023px) and (orientation: portrait)").matches) {
                     inkCanvas.style.transition = "opacity 300ms ease";
                     inkCanvas.style.opacity = "0";
                     clearTimeout(goToSlide._inkTimer);
