@@ -819,8 +819,8 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     box-shadow: none;
   }
   /* Fillet shoulders where the expanded label crosses the band's
-     left edge: two quarter discs on the link fill the notches
-     above and below the label, tangent to both edges. */
+     left edge: each notch is filled by the corner triangle of an
+     inverted disc, tangent to the label edge and the band edge. */
   #navArea .inner li a::after {
     content: "";
     position: absolute;
@@ -829,9 +829,9 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     width: 2.22dvh;
     height: calc(52px + 4.44dvh);
     background-image:
-      radial-gradient(circle at 100% 100%, #222527 2.22dvh, transparent calc(2.22dvh + 1px)),
-      radial-gradient(circle at 100% 0%, #222527 2.22dvh, transparent calc(2.22dvh + 1px));
-    background-size: 2.22dvh 2.22dvh;
+      radial-gradient(circle at 0% 0%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px)),
+      radial-gradient(circle at 0% 100%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px));
+    background-size: 2.22dvh 2.22dvh, 2.22dvh 2.22dvh;
     background-position: left top, left bottom;
     background-repeat: no-repeat;
     opacity: 0;
@@ -840,12 +840,13 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   }
   .home #navArea .inner li a::after {
     background-image:
-      radial-gradient(circle at 100% 100%, #e1e1dc 2.22dvh, transparent calc(2.22dvh + 1px)),
-      radial-gradient(circle at 100% 0%, #e1e1dc 2.22dvh, transparent calc(2.22dvh + 1px));
+      radial-gradient(circle at 0% 0%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px)),
+      radial-gradient(circle at 0% 100%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px));
   }
   #navArea .inner li a:is(:hover, :focus-visible)::after {
     opacity: 1;
   }
+
   /* The label's underline sits on the tab's bottom edge
      and spans the tab's width, matching the tab background
      (the shared style offsets it by -10px and grows it to
@@ -1099,30 +1100,48 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 .frame-initials a:is(:hover, :focus-visible) > .frame-label::before { width: 100%; }
 .frame-initials a::before { content: none; }
 /* Fillet shoulders where the expanded label crosses the tab's
-   right edge, mirroring the band side. */
+   right edge. The notch side (bottom of the first label, top of
+   the second) gets a tangent fillet; the side where the label
+   meets the tab's own step curve gets a small tangent disc that
+   bridges the label edge and the curve. */
 .frame-initials a::after {
   content: "";
   position: absolute;
-  left: calc(3.125vw + 12px - 2.22dvh);
+  left: calc(3.125vw + 12px - 0.17vw - 1.11dvh);
   top: calc(50% - 26px - 2.22dvh);
-  width: 2.22dvh;
+  width: calc(2.22dvh + 0.17vw + 1.11dvh);
   height: calc(52px + 4.44dvh);
-  background-image:
-    radial-gradient(circle at 100% 100%, #222527 2.22dvh, transparent calc(2.22dvh + 1px)),
-      radial-gradient(circle at 100% 0%, #222527 2.22dvh, transparent calc(2.22dvh + 1px));
-  background-size: 2.22dvh 2.22dvh;
-  background-position: right top, right bottom;
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
-.home .frame-initials a::after {
+.frame-initials a:first-child::after {
   background-image:
-    radial-gradient(circle at 100% 100%, #e1e1dc 2.22dvh, transparent calc(2.22dvh + 1px)),
-      radial-gradient(circle at 100% 0%, #e1e1dc 2.22dvh, transparent calc(2.22dvh + 1px));
+    radial-gradient(circle at 100% 100%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px)),
+    radial-gradient(circle, #222527 1.11dvh, transparent calc(1.11dvh + 1px));
+  background-size: 2.22dvh 2.22dvh, 2.22dvh 2.22dvh;
+  background-position: right bottom, 0 0;
+}
+.frame-initials a:last-child::after {
+  background-image:
+    radial-gradient(circle at 100% 0%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px)),
+    radial-gradient(circle, #222527 1.11dvh, transparent calc(1.11dvh + 1px));
+  background-size: 2.22dvh 2.22dvh, 2.22dvh 2.22dvh;
+  background-position: right top, 0 bottom;
+}
+.home .frame-initials a:first-child::after {
+  background-image:
+    radial-gradient(circle at 100% 100%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px)),
+    radial-gradient(circle, #e1e1dc 1.11dvh, transparent calc(1.11dvh + 1px));
+}
+.home .frame-initials a:last-child::after {
+  background-image:
+    radial-gradient(circle at 100% 0%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px)),
+    radial-gradient(circle, #e1e1dc 1.11dvh, transparent calc(1.11dvh + 1px));
 }
 .frame-initials a:is(:hover, :focus-visible)::after { opacity: 1; }
+
 .frame-initials a:hover .frame-initial,
 .frame-initials a:focus-visible .frame-initial { opacity: 0; }
 .frame-initials a:hover .frame-label,
