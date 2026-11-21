@@ -83,12 +83,6 @@ const HEADER_MARKUP = `
     </g>
   </svg>
   <div class="header-inner">
-  <div class="head">
-    <a class="noise" href="${siteHref("index.html")}">
-      <!--<span>O.</span>MIZUKI-->
-      Mizuki Oyama.
-    </a>
-  </div>
 
   <!-- Nav -->
   <div id="navArea">
