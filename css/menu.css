@@ -769,6 +769,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     position: absolute;
     right: 0;
     top: 50%;
+    border-radius: 1.11dvh 0 0 1.11dvh;
     transform: translateY(-50%);
     width: 6.25vw;
     max-width: none;
@@ -809,19 +810,13 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     min-width: 168px;
     color: inherit;
     background-color: #222527;
-    box-shadow:
-      inset 10px 0 14px -8px rgba(0, 0, 0, 0.6),
-      inset 0 10px 12px -10px rgba(0, 0, 0, 0.55),
-      inset 0 -10px 12px -10px rgba(0, 0, 0, 0.55);
+    box-shadow: none;
     pointer-events: auto;
   }
   .home #navArea .inner li a:hover .nav-label,
   .home #navArea .inner li a:focus-visible .nav-label {
     background-color: #e1e1dc;
-    box-shadow:
-      inset 10px 0 14px -8px rgba(0, 0, 0, 0.28),
-      inset 0 10px 12px -10px rgba(0, 0, 0, 0.22),
-      inset 0 -10px 12px -10px rgba(0, 0, 0, 0.22);
+    box-shadow: none;
   }
   /* The label's underline sits on the tab's bottom edge
      and spans the tab's width, matching the tab background
@@ -1041,7 +1036,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   max-width: none;
   overflow: hidden;
   padding: 18px 24px 18px 3.125vw;
-  border-radius: 0 2.78dvh 2.78dvh 0;
+  border-radius: 0 1.11dvh 1.11dvh 0;
   box-sizing: border-box;
   font-size: 11px;
   letter-spacing: 0.14em;
