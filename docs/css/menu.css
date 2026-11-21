@@ -778,12 +778,12 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        uncovered from right to left. */
     overflow: hidden;
     clip-path: none;
-    padding: 18px 7.19vw 18px 1.67vw;
+    padding: 18px 12px;
     box-sizing: border-box;
     font-size: 11px;
     letter-spacing: 0.14em;
     white-space: nowrap;
-    text-align: right;
+    text-align: center;
     color: transparent;
     background-color: transparent;
     box-shadow:
@@ -796,7 +796,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        leftward from its right edge, not as a translucent
        wash spreading across. */
     transition:
-      width 0.3s ease,
+      width 0.18s ease,
       background-color 0.05s ease,
       box-shadow 0.3s ease,
       color 0.25s ease;
@@ -810,7 +810,6 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        7.19vw from the right edge, mirroring the left tab's
        text position (7.19vw from the left edge). */
     width: calc(8.86vw + 118px);
-    min-width: 190px;
     color: inherit;
     background-color: #222527;
     box-shadow: none;
@@ -1029,7 +1028,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 .frame-initials {
   position: fixed;
   left: calc(3.125vw - 12px);
-  bottom: calc(20dvh - 39px);
+  bottom: calc(15.8dvh - 12px);
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -1066,6 +1065,24 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 #header-container .frame-initials a:is(:hover, :focus-visible) {
   text-shadow: none;
 }
+
+/* While the liquid frame is live (menu.js adds .frame-liquid-on
+   to <html>), the frame's own contour draws the open label's
+   background and junctions: the label keeps only its text, and
+   the CSS fillet patches are hidden. Without the class (no JS,
+   reduced motion, touch), the labels keep their own
+   backgrounds and fillets. */
+html.frame-liquid-on #navArea .inner li a:hover .nav-label,
+html.frame-liquid-on #navArea .inner li a:focus-visible .nav-label,
+html.frame-liquid-on .frame-initials a:hover .frame-label,
+html.frame-liquid-on .frame-initials a:focus-visible .frame-label {
+  background-color: transparent;
+}
+html.frame-liquid-on #navArea .inner li a:is(:hover, :focus-visible)::after,
+html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible)::after,
+html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial::after {
+  opacity: 0;
+}
 .frame-label {
   position: absolute;
   left: calc(12px - 3.125vw);
@@ -1074,13 +1091,13 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   width: calc(24px + 3.125vw);
   max-width: none;
   overflow: hidden;
-  padding: 18px 24px 18px 7.19vw;
+  padding: 18px 12px;
   border-radius: 0 0.89dvh 0.89dvh 0;
   box-sizing: border-box;
   font-size: 11px;
   letter-spacing: 0.14em;
   white-space: nowrap;
-  text-align: left;
+  text-align: center;
   color: transparent;
   background-color: transparent;
   box-shadow:
@@ -1089,7 +1106,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     inset 0 -10px 12px -10px rgba(0, 0, 0, 0);
   pointer-events: none;
   transition:
-    width 0.3s ease,
+    width 0.18s ease,
     background-color 0.05s ease,
     box-shadow 0.3s ease,
     color 0.25s ease;
