@@ -1218,8 +1218,8 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
    the first page keeps it hidden. */
 .frame-prev {
   position: fixed;
-  left: calc(1.6667vw + 12px);
-  bottom: calc(18.22dvh - 52px);
+  left: calc(6.25vw + 28px);
+  bottom: calc(2.67dvh + 10px);
   z-index: 1000;
   padding: 0;
   color: var(--inv);
@@ -1259,7 +1259,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
 @media only screen and (max-width: 600px) {
   /* Phones: the gallery's category bar occupies the area above the
      strip, so PREV joins the copyright inside the strip, one line. */
-  .frame-prev { left: calc(1.667vw + 6px); bottom: 4px; }
+  .frame-prev { left: calc(6.25vw + 12px); bottom: 4px; }
   .frame-prev-tag { font-size: 11px; }
   .frame-prev-name { font-size: 14px; }
   .frame-prev small { display: none; }
