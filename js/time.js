@@ -39,18 +39,19 @@ waitForJQuery(function ($) {
                 // Auto switches run at 1.60x, manual ones at
                 // 0.85x (Mizuki 2026-11-21). The class selects
                 // the CSS timing set; T mirrors it for timers.
-                // T.total is when the class comes off: it must
-                // outlast the longest animation in the set
-                // (the date block, 3219ms at 1.60x), because
-                // removing the class mid-animation rescales
-                // the running animation and makes it jump.
+                // The class is LEFT ON after the switch: taking
+                // it off changes animation-name back to the
+                // manual set, which restarts both background
+                // animations and replays the whole switch with
+                // the old choreography (Mizuki 2026-11-21: two
+                // extra slides after the auto pair). The next
+                // goToSlide call sets the class for its own
+                // profile before flipping the slides.
                 const auto = speed === 'auto';
                 const T = auto
-                    ? { fog: 2062, exit: 938, lock: 1875, total: 3419, layer: 1438 }
-                    : { fog: 3882, exit: 1765, lock: 3529, total: 4024, layer: 2485 };
+                    ? { fog: 2062, exit: 938, lock: 1875, layer: 1438 }
+                    : { fog: 3882, exit: 1765, lock: 3529, layer: 2485 };
                 document.body.classList.toggle('auto-speed', auto);
-                clearTimeout(goToSlide._speedTimer);
-                goToSlide._speedTimer = setTimeout(() => document.body.classList.remove('auto-speed'), T.total + 100);
                 // Keep the outgoing background on the top
                 // layer until it has finished exiting.
                 document.body.classList.add('bg-switching');

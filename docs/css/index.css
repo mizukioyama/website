@@ -269,9 +269,10 @@ body.back--anim .back__slide:not(.active) .back__img {
 
 /* Auto switches run the choreography at 1.60x (Mizuki
    2026-11-21); manual switches keep the 0.85x timing above.
-   goToSlide puts .auto-speed on body only for auto switches,
-   and only while the switch starts, so running animations
-   keep the timing they started with. */
+   goToSlide puts .auto-speed on body for auto switches and
+   leaves it on afterwards: removing it would switch the
+   animation-name back to the manual set and restart both
+   background animations (a replay of the whole switch). */
 body.back--anim.auto-speed .back__slide.active .back__img {
   animation-name: bgSlideOutAuto;
   animation-duration: 1188ms;
