@@ -769,7 +769,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     position: absolute;
     right: 0;
     top: 50%;
-    border-radius: 1.11dvh 0 0 1.11dvh;
+    border-radius: 0.89dvh 0 0 0.89dvh;
     transform: translateY(-50%);
     width: 6.25vw;
     max-width: none;
@@ -778,7 +778,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        uncovered from right to left. */
     overflow: hidden;
     clip-path: none;
-    padding: 18px 1.67vw;
+    padding: 18px 2.81vw 18px 1.67vw;
     box-sizing: border-box;
     font-size: 11px;
     letter-spacing: 0.14em;
@@ -824,14 +824,14 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   #navArea .inner li a::after {
     content: "";
     position: absolute;
-    left: calc(-1 * 2.22dvh);
-    top: calc(50% - 26px - 2.22dvh);
-    width: 2.22dvh;
-    height: calc(52px + 4.44dvh);
+    left: calc(-1 * 1.59dvh);
+    top: calc(50% - 26px - 1.59dvh);
+    width: 1.59dvh;
+    height: calc(52px + 3.19dvh);
     background-image:
-      radial-gradient(circle at 0% 0%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px)),
-      radial-gradient(circle at 0% 100%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px));
-    background-size: 2.22dvh 2.22dvh, 2.22dvh 2.22dvh;
+      radial-gradient(circle at 0% 0%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px)),
+      radial-gradient(circle at 0% 100%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px));
+    background-size: 1.59dvh 1.59dvh, 1.59dvh 1.59dvh;
     background-position: left top, left bottom;
     background-repeat: no-repeat;
     opacity: 0;
@@ -840,8 +840,8 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   }
   .home #navArea .inner li a::after {
     background-image:
-      radial-gradient(circle at 0% 0%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px)),
-      radial-gradient(circle at 0% 100%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px));
+      radial-gradient(circle at 0% 0%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px)),
+      radial-gradient(circle at 0% 100%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px));
   }
   #navArea .inner li a:is(:hover, :focus-visible)::after {
     opacity: 1;
@@ -1064,8 +1064,8 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   width: calc(24px + 3.125vw);
   max-width: none;
   overflow: hidden;
-  padding: 18px 24px 18px 3.125vw;
-  border-radius: 0 1.11dvh 1.11dvh 0;
+  padding: 18px 24px 18px 7.19vw;
+  border-radius: 0 0.89dvh 0.89dvh 0;
   box-sizing: border-box;
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -1102,15 +1102,17 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 /* Fillet shoulders where the expanded label crosses the tab's
    right edge. The notch side (bottom of the first label, top of
    the second) gets a tangent fillet; the side where the label
-   meets the tab's own step curve gets a small tangent disc that
-   bridges the label edge and the curve. */
+   meets the tab's own step curve gets a tangent crescent: the
+   segment of the circle tangent to the label edge and to the
+   step curve, so the junction rounds the same way as the
+   band's fillets. */
 .frame-initials a::after {
   content: "";
   position: absolute;
-  left: calc(3.125vw + 12px - 0.17vw - 1.11dvh);
-  top: calc(50% - 26px - 2.22dvh);
-  width: calc(2.22dvh + 0.17vw + 1.11dvh);
-  height: calc(52px + 4.44dvh);
+  left: calc(3.125vw + 12px);
+  top: calc(50% - 26px - 1.59dvh);
+  width: 1.59dvh;
+  height: calc(52px + 3.19dvh);
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -1118,29 +1120,52 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 }
 .frame-initials a:first-child::after {
   background-image:
-    radial-gradient(circle at 100% 100%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px)),
-    radial-gradient(circle, #222527 1.11dvh, transparent calc(1.11dvh + 1px));
-  background-size: 2.22dvh 2.22dvh, 2.22dvh 2.22dvh;
-  background-position: right bottom, 0 0;
+    radial-gradient(circle at 100% 100%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px));
+  background-size: 1.59dvh 1.59dvh;
+  background-position: right bottom;
 }
 .frame-initials a:last-child::after {
   background-image:
-    radial-gradient(circle at 100% 0%, transparent 2.22dvh, #222527 calc(2.22dvh + 1px)),
-    radial-gradient(circle, #222527 1.11dvh, transparent calc(1.11dvh + 1px));
-  background-size: 2.22dvh 2.22dvh, 2.22dvh 2.22dvh;
-  background-position: right top, 0 bottom;
+    radial-gradient(circle at 100% 0%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px));
+  background-size: 1.59dvh 1.59dvh;
+  background-position: right top;
 }
 .home .frame-initials a:first-child::after {
   background-image:
-    radial-gradient(circle at 100% 100%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px)),
-    radial-gradient(circle, #e1e1dc 1.11dvh, transparent calc(1.11dvh + 1px));
+    radial-gradient(circle at 100% 100%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px));
 }
 .home .frame-initials a:last-child::after {
   background-image:
-    radial-gradient(circle at 100% 0%, transparent 2.22dvh, #e1e1dc calc(2.22dvh + 1px)),
-    radial-gradient(circle, #e1e1dc 1.11dvh, transparent calc(1.11dvh + 1px));
+    radial-gradient(circle at 100% 0%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px));
 }
 .frame-initials a:is(:hover, :focus-visible)::after { opacity: 1; }
+.frame-initials .frame-initial::after {
+  content: "";
+  position: absolute;
+  left: calc(3.09vw + 12px - 1.59dvh);
+  width: 3.19dvh;
+  height: 3.19dvh;
+  background-repeat: no-repeat;
+  background-size: 3.19dvh 3.19dvh;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.frame-initials a:first-child .frame-initial::after {
+  top: calc(50% - 26px - 3.19dvh);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 13.7 84.3 A 50 50 0 0 0 50 100 L 13.7 84.3 Z' fill='%23222527'/%3E%3C/svg%3E");
+}
+.frame-initials a:last-child .frame-initial::after {
+  top: calc(50% + 26px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 13.7 15.7 A 50 50 0 0 1 50 0 L 13.7 15.7 Z' fill='%23222527'/%3E%3C/svg%3E");
+}
+.home .frame-initials a:first-child .frame-initial::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 13.7 84.3 A 50 50 0 0 0 50 100 L 13.7 84.3 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
+}
+.home .frame-initials a:last-child .frame-initial::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 13.7 15.7 A 50 50 0 0 1 50 0 L 13.7 15.7 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
+}
+.frame-initials a:is(:hover, :focus-visible) .frame-initial::after { opacity: 1; }
 
 .frame-initials a:hover .frame-initial,
 .frame-initials a:focus-visible .frame-initial { opacity: 0; }
