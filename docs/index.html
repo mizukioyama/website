@@ -24,7 +24,7 @@
     <script src="js/three.r134.min.js?v=2d137d69ae99"></script>
     <script src="js/vanta.fog.min.js?v=902b0ec9cd38"></script>
 
-    <script src="js/time.js?v=5bb27ee3e63d"></script>
+    <script src="js/time.js?v=c7c28d4edb9c"></script>
     <script src="js/menu.js?v=ab011cd2e2c5"></script>
     <script src="js/lens-cursor.js?v=21a3cfac3489"></script>
     <script src="js/gate-fog.js?v=4a1aa70d0790"></script>
@@ -194,10 +194,10 @@
                  layer (background, liquid metal, noise, ink
                  glow) is clipped from this same outline. The
                  card's shadow is cast from a sibling path
-                 (#cardShadowPath) whose socket around the
-                 button is cut deeper, so the shadow is shaped
-                 away from the button's back; the filter
-                 outputs only the blurred shadow. -->
+                 (#cardShadowPath) with the same socket as
+                 the outline, so no extra dark mass pools
+                 around the button; the filter outputs only
+                 the blurred shadow. -->
             <svg class="card-shape" aria-hidden="true" focusable="false"><defs><filter id="cardShapeShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"></feGaussianBlur><feOffset in="blur" dx="0" dy="3" result="off"></feOffset><feFlood flood-color="#000" flood-opacity="0.65" result="flood"></feFlood><feComposite in="flood" in2="off" operator="in"></feComposite></filter></defs><path id="cardShadowPath" d="" fill="#000" filter="url(#cardShapeShadow)"></path><path id="cardShapePath" d="" fill="transparent"></path></svg>
 
             <!-- in item -->
