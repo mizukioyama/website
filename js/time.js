@@ -33,16 +33,26 @@ waitForJQuery(function ($) {
         };
         restartPing();
 
-        const goToSlide = (slideElements, index) => {
+        const goToSlide = (slideElements, index, speed) => {
             if (!inProgress) {
                 inProgress = true;
+                // Auto switches run at 1.60x, manual ones at
+                // 0.85x (Mizuki 2026-11-21). The class selects
+                // the CSS timing set; T mirrors it for timers.
+                const auto = speed === 'auto';
+                const T = auto
+                    ? { fog: 2062, exit: 938, lock: 1875, total: 2138 }
+                    : { fog: 3882, exit: 1765, lock: 3529, total: 4024 };
+                document.body.classList.toggle('auto-speed', auto);
+                clearTimeout(goToSlide._speedTimer);
+                goToSlide._speedTimer = setTimeout(() => document.body.classList.remove('auto-speed'), T.total + 100);
                 // Phones only: hide the fog glow while the
                 // switch runs (Mizuki 2026-11-20). Restored
-                // when the incoming background lands (3882ms).
+                // when the incoming background lands.
                 if (window.matchMedia("(max-width: 599px)").matches) {
                     document.body.classList.add("is-switching");
                     clearTimeout(goToSlide._fogTimer);
-                    goToSlide._fogTimer = setTimeout(() => document.body.classList.remove("is-switching"), 3882);
+                    goToSlide._fogTimer = setTimeout(() => document.body.classList.remove("is-switching"), T.fog);
                 }
                 // Belt and braces (Mizuki reported the glow
                 // still visible after PR #154): fade the
@@ -55,7 +65,7 @@ waitForJQuery(function ($) {
                     inkCanvas.style.transition = "opacity 300ms ease";
                     inkCanvas.style.opacity = "0";
                     clearTimeout(goToSlide._inkTimer);
-                    goToSlide._inkTimer = setTimeout(() => { inkCanvas.style.opacity = ""; }, 3882);
+                    goToSlide._inkTimer = setTimeout(() => { inkCanvas.style.opacity = ""; }, T.fog);
                 }
                 document.body.classList.add('back--anim');
                 restartPing();
@@ -68,8 +78,8 @@ waitForJQuery(function ($) {
 
                 syncContentControls();
 
-                setTimeout(() => $('.exit').removeClass('exit'), 1765);
-                setTimeout(() => inProgress = false, 3529);
+                setTimeout(() => $('.exit').removeClass('exit'), T.exit);
+                setTimeout(() => inProgress = false, T.lock);
             }
         };
 
@@ -78,8 +88,8 @@ waitForJQuery(function ($) {
         });
 
         const autoTimers = [
-            setTimeout(() => goToSlide(slideElements, 2), 2000),
-            setTimeout(() => goToSlide(slideElements, 1), 8024)
+            setTimeout(() => goToSlide(slideElements, 2, 'auto'), 2000),
+            setTimeout(() => goToSlide(slideElements, 1, 'auto'), 6138)
         ];
 
         $('[data-card-nav]').on('click', function () {

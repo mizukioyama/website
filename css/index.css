@@ -256,6 +256,43 @@ body.back--anim .back__slide:not(.active) .back__img {
   animation: bgSlideIn 4024ms linear both;
 }
 
+/* Auto switches run the choreography at 1.60x (Mizuki
+   2026-11-21); manual switches keep the 0.85x timing above.
+   goToSlide puts .auto-speed on body only for auto switches,
+   and only while the switch starts, so running animations
+   keep the timing they started with. */
+body.back--anim.auto-speed .back__slide.active .back__img {
+  animation-duration: 1188ms;
+}
+
+body.back--anim.auto-speed .back__slide:not(.active) .back__img {
+  animation-duration: 2138ms;
+}
+
+body.back--anim.auto-speed .card__slide.active .date {
+  animation-duration: 3219ms;
+}
+
+body.back--anim.auto-speed .card__slide:not(.active) .date {
+  animation-duration: 3219ms;
+}
+
+body.auto-speed .content__ping.play::after {
+  animation-duration: 1375ms;
+}
+
+body.auto-speed .content__slide.active .title__inner {
+  transition-delay: 1000ms;
+}
+
+body.auto-speed .content__slide.active .desc {
+  transition-delay: 1125ms;
+}
+
+body.auto-speed .content__slide.active .button-wrap {
+  transition-delay: 1063ms;
+}
+
 @keyframes bgSlideIn {
   0% {
     transform: translate3d(-100%, 0, 0);
