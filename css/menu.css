@@ -1142,28 +1142,28 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 .frame-initials .frame-initial::after {
   content: "";
   position: absolute;
-  left: calc(3.09vw + 12px - 1.59dvh);
-  width: 3.19dvh;
-  height: 3.19dvh;
+  left: calc(1.18vw + 12px);
+  width: 7.99dvh;
+  height: 7.99dvh;
   background-repeat: no-repeat;
-  background-size: 3.19dvh 3.19dvh;
+  background-size: 7.99dvh 7.99dvh;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
 .frame-initials a:first-child .frame-initial::after {
-  top: calc(50% - 26px - 3.19dvh);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 26.4 100 A 139.8 139.8 0 0 0 13.7 84.3 A 50 50 0 0 0 50 100 Z' fill='%23222527'/%3E%3C/svg%3E");
+  top: calc(50% - 26px - 7.99dvh);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 28.9 100 A 55.6 55.6 0 0 0 18.5 88.8 A 50 50 0 0 0 50 100 Z' fill='%23222527'/%3E%3C/svg%3E");
 }
 .frame-initials a:last-child .frame-initial::after {
   top: calc(50% + 26px);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 26.4 0 A 139.8 139.8 0 0 1 13.7 15.7 A 50 50 0 0 1 50 0 Z' fill='%23222527'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 28.9 0 A 55.6 55.6 0 0 1 18.5 11.2 A 50 50 0 0 1 50 0 Z' fill='%23222527'/%3E%3C/svg%3E");
 }
 .home .frame-initials a:first-child .frame-initial::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 26.4 100 A 139.8 139.8 0 0 0 13.7 84.3 A 50 50 0 0 0 50 100 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 28.9 100 A 55.6 55.6 0 0 0 18.5 88.8 A 50 50 0 0 0 50 100 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
 }
 .home .frame-initials a:last-child .frame-initial::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 26.4 0 A 139.8 139.8 0 0 1 13.7 15.7 A 50 50 0 0 1 50 0 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 28.9 0 A 55.6 55.6 0 0 1 18.5 11.2 A 50 50 0 0 1 50 0 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
 }
 .frame-initials a:is(:hover, :focus-visible) .frame-initial::after { opacity: 1; }
 
