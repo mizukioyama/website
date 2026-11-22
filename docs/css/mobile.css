@@ -43,6 +43,12 @@
   .art-page main {
     backdrop-filter: blur(10px);
   }
+  /* Full-bleed width, as in gallery.css (Mizuki
+     2026-11-22). */
+  body:not(.home) main {
+    margin-left: 0;
+    margin-right: 0;
+  }
   .h1-text {
     left: 2.5rem;
     top: 52%;
