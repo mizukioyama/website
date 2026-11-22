@@ -745,11 +745,11 @@ main {
   :is(.information-page, .exhibition-page) > .state-box > .content > :is(.information-intro, .lead) { width: auto; }
   :is(#state, #policy, .information-page, .order-page, .exhibition-page) > .content,
   :is(#state, .information-page, .order-page, .exhibition-page) > .state-box > .content {
-    width: 61%;
+    width: 52%;
     min-width: 0;
     max-width: 100%;
     margin-left: auto;
-    margin-right: 0;
+    margin-right: 6.25vw;
     flex-shrink: 1;
   }
   .gallery.statement > .state-box { flex-direction: column; }
