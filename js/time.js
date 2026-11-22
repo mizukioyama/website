@@ -632,14 +632,27 @@ waitForJQuery(function ($) {
                     const tR = { x: capRt + capR * (cfR.x - capRt) / (capR + f), y: ly + capR * (cfR.y - ly) / (capR + f) };
                     const tL = { x: capL + capR * (cfL.x - capL) / (capR + f), y: ly + capR * (cfL.y - ly) / (capR + f) };
                     const arc = (rr, sw, px, py) => " A " + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 0 " + sw + " " + px.toFixed(1) + " " + py.toFixed(1);
-                    veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + by.toFixed(1) +
+                    // Full-rect outline plus the dip as a
+                    // counter-wound hole (the crater
+                    // branch's construction). A single
+                    // folded outline cannot close here:
+                    // the plain Z ran diagonally from the
+                    // bottom right corner to the origin,
+                    // and closing up the right edge
+                    // retraced the top and right edges,
+                    // cancelling the top region's winding
+                    // so the grain survived only below the
+                    // card's bottom line (both seen by
+                    // Mizuki, 2026-11-22).
+                    veil.style.clipPath = "path('M 0 0 H " + r.width.toFixed(1) + " V " + r.height.toFixed(1) + " H 0 Z" +
+                        " M " + cfL.x.toFixed(1) + " " + by.toFixed(1) +
                         " H " + cfR.x.toFixed(1) +
                         arc(f, 1, tR.x, tR.y) +
                         arc(capR, 0, capRt, ly - capR) +
                         " H " + capL.toFixed(1) +
                         arc(capR, 0, tL.x, tL.y) +
                         arc(f, 1, cfL.x, by) +
-                        " H 0 V " + r.height.toFixed(1) + " H " + r.width.toFixed(1) + " Z')";
+                        " Z')";
                 } else if (cyB - capR < cr.bottom) {
                     // The socket is a crater inside the
                     // card: cut the capsule out of the veil
