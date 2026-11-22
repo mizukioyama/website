@@ -9,6 +9,7 @@
     movementStrength: 58,
     direction: -24,
     color: "#deded8",
+    colors: null,
     blendMode: "source-over"
   });
 
@@ -40,15 +41,18 @@
       return Number.isFinite(next) ? clamp(next, min, max) : base[key];
     };
     const color = typeof value.color === "string" && /^#[\da-f]{6}$/i.test(value.color) ? value.color : base.color;
+    const rawColors = Array.isArray(value.colors) ? value.colors.filter((c) => typeof c === "string" && /^#[\da-f]{6}$/i.test(c)) : null;
+    const colors = rawColors && rawColors.length >= 2 ? rawColors.slice(0, 5) : (base.colors || null);
     const blendMode = VALID_BLEND_MODES.includes(value.blendMode) ? value.blendMode : base.blendMode;
     return {
       speed: number("speed", 0, 1.4),
       lineWidth: number("lineWidth", 0.3, 2.4),
       opacity: number("opacity", 0.03, 0.42),
-      lineCount: Math.round(number("lineCount", 4, 32)),
+      lineCount: Math.round(number("lineCount", 4, 96)),
       movementStrength: Math.round(number("movementStrength", 0, 100)),
       direction: Math.round(number("direction", -180, 180)),
       color,
+      colors,
       blendMode
     };
   }
@@ -317,8 +321,29 @@
       return "rgba(" + red + "," + green + "," + blue + "," + alpha.toFixed(4) + ")";
     }
 
-    function setupStroke(alpha) {
-      context.strokeStyle = rgba(settings.color, alpha);
+    function hexToRgb(hex) {
+      const n = /^#[\da-f]{6}$/i.test(hex) ? hex.slice(1) : "555550";
+      return [parseInt(n.slice(0, 2), 16), parseInt(n.slice(2, 4), 16), parseInt(n.slice(4, 6), 16)];
+    }
+
+    function paletteColor(frac) {
+      const stops = Array.isArray(settings.colors) ? settings.colors : null;
+      if (!stops || stops.length < 2) return null;
+      const t = clamp(frac === undefined ? 0 : frac, 0, 1) * (stops.length - 1);
+      const i = Math.min(stops.length - 2, Math.floor(t));
+      const f = t - i;
+      const a = hexToRgb(stops[i]);
+      const b = hexToRgb(stops[i + 1]);
+      return [Math.round(lerp(a[0], b[0], f)), Math.round(lerp(a[1], b[1], f)), Math.round(lerp(a[2], b[2], f))];
+    }
+
+    function strokeRgba(alpha, frac) {
+      const pal = typeof frac === "number" ? paletteColor(frac) : null;
+      return pal ? "rgba(" + pal[0] + "," + pal[1] + "," + pal[2] + "," + alpha.toFixed(4) + ")" : rgba(settings.color, alpha);
+    }
+
+    function setupStroke(alpha, frac) {
+      context.strokeStyle = strokeRgba(alpha, frac);
       context.lineWidth = settings.lineWidth;
       context.lineCap = "round";
       context.lineJoin = "round";
@@ -334,7 +359,7 @@
         const fraction = count > 1 ? line / (count - 1) : 0.5;
         const radius = minSide * (0.14 + fraction * 0.37);
         const seed = seeded(line + 3);
-        setupStroke(alphaFor(line, count, 0.92, influence));
+        setupStroke(alphaFor(line, count, 0.92, influence), fraction);
         context.beginPath();
         for (let point = 0; point <= sampleCount; point += 1) {
           const angle = (point / sampleCount) * TAU;
@@ -365,7 +390,7 @@
       const amplitude = Math.min(width, height) * (0.018 + settings.movementStrength / 100 * 0.09) * (influence === undefined ? 1 : 0.62 + influence * 0.38);
       for (let line = 0; line < count; line += 1) {
         const lane = (line + 0.5) / count;
-        setupStroke(alphaFor(line, count, 0.84, influence));
+        setupStroke(alphaFor(line, count, 0.84, influence), lane);
         context.beginPath();
         for (let point = 0; point <= sampleCount; point += 1) {
           const u = point / sampleCount;
@@ -383,7 +408,7 @@
       }
     }
 
-    function drawBranch(x, y, heading, length, depth, seed, time, alpha, lineWidth) {
+    function drawBranch(x, y, heading, length, depth, seed, time, alpha, lineWidth, frac) {
       if (depth < 0 || length < 7) return;
       const segments = mobileQuality() ? 9 : 13;
       const points = [{ x, y }];
@@ -400,7 +425,7 @@
         points.push({ x: px, y: py });
       }
       context.globalCompositeOperation = settings.blendMode;
-      context.strokeStyle = rgba(settings.color, alpha);
+      context.strokeStyle = strokeRgba(alpha, frac);
       context.lineWidth = Math.max(0.3, lineWidth * (0.76 + depth * 0.16));
       context.lineCap = "round";
       context.lineJoin = "round";
@@ -418,8 +443,8 @@
         const end = points[points.length - 1];
         const split = 0.23 + seeded(seed * 71 + depth) * 0.18;
         const sway = smoothField(end.x / metrics.width, end.y / metrics.height, time, seed + 0.5) * 0.14;
-        drawBranch(end.x, end.y, direction - split + sway, length * 0.69, depth - 1, seed + 1.2, time, alpha * 0.86, lineWidth * 0.86);
-        drawBranch(end.x, end.y, direction + split + sway, length * 0.66, depth - 1, seed + 2.7, time, alpha * 0.79, lineWidth * 0.79);
+        drawBranch(end.x, end.y, direction - split + sway, length * 0.69, depth - 1, seed + 1.2, time, alpha * 0.86, lineWidth * 0.86, frac);
+        drawBranch(end.x, end.y, direction + split + sway, length * 0.66, depth - 1, seed + 2.7, time, alpha * 0.79, lineWidth * 0.79, frac);
       }
     }
 
@@ -436,7 +461,7 @@
         const y = metrics.height * (0.17 + spread * 0.66);
         const heading = (fromLeft ? 0 : Math.PI) + direction * 0.42;
         const length = Math.max(metrics.width, minSide) * (0.34 + seeded(root + 11) * 0.18);
-        drawBranch(x, y, heading, length, 2, seeded(root + 48), time, alphaFor(root, roots, 0.98, influence), settings.lineWidth);
+        drawBranch(x, y, heading, length, 2, seeded(root + 48), time, alphaFor(root, roots, 0.98, influence), settings.lineWidth, roots > 1 ? root / (roots - 1) : 0.5);
       }
     }
 
@@ -453,7 +478,7 @@
         const seed = seeded(line + 203);
         let x = width * (0.12 + seeded(line + 6) * 0.76);
         let y = height * (0.12 + seeded(line + 34) * 0.76);
-        setupStroke(alphaFor(line, count, 0.78, influence));
+        setupStroke(alphaFor(line, count, 0.78, influence), count > 1 ? line / (count - 1) : 0);
         context.beginPath();
         context.moveTo(x, y);
         for (let point = 0; point < lineSamples; point += 1) {
