@@ -700,6 +700,10 @@ main {
   min-width: 0;
 }
 
+.state-box .work {
+  width: 100%;
+}
+
 .state-box .work > p {
   width: 100%;
   white-space: normal;
