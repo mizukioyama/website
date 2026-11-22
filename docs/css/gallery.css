@@ -700,10 +700,6 @@ main {
   min-width: 0;
 }
 
-.state-box .work {
-  width: 100%;
-}
-
 .state-box .work > p {
   width: 100%;
   white-space: normal;
@@ -739,7 +735,7 @@ main {
 
 /* One width also reserves the matching sidebar and artwork space. */
 @media screen and (min-width: 1024px) {
-  :root { --reading-column-width: min(800px, calc(100vw - 4vmin - 2rem)); }
+  :root { --reading-column-width: 80%; }
   main:is(#state, #policy, .information-page, .order-page, .exhibition-page) { padding-right: 4vmin; }
   #state .content h3 { padding-inline: 0; }
   :is(.information-page, .exhibition-page) > .state-box > .content > :is(.information-intro, .lead) { width: auto; }
