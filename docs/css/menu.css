@@ -751,6 +751,14 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
      the same reason); show the band menu solid at every
      width so the initials stay legible. */
   #navArea .inner a.noise {
+    /* The band's text colour, on the links themselves
+       (the base link rule in all.css colours every <a>
+       directly, so inheritance from #navArea cannot win).
+       The >=1024px layout block had the only .home copy,
+       which left the initials - and the hover labels,
+       painted from the link colour - white on the home
+       page's light band below 1024px. */
+    color: var(--inv);
     background: none;
     background-clip: border-box;
     -webkit-background-clip: border-box;
@@ -759,6 +767,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     animation: none;
     text-shadow: none;
   }
+  .home #navArea .inner a.noise { color: var(--text); }
   /* The full label is a tab the width of the band (90px at
      the 1440px design width; vw units keep it matched to
      the band at any viewport width), transparent over the

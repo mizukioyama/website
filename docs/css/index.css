@@ -1201,7 +1201,7 @@ footer,
   :root {
     /* Match the card's actual width in this range (the
        .card rule below), so the side labels track it. */
-    --card-width: min(calc(100vw - 48px), calc(90svh / 1.61803398875));
+    --card-width: min(calc(100vw - 56px), calc(90svh / 1.61803398875));
   }
 
     #vanta-bg {
@@ -1232,7 +1232,12 @@ footer,
     line-height: 1;
   }
   .card {
-    width: calc(100% - 48px);
+    /* 56px total side margin (28px each side): the NEXT
+       button's centre sits 5.02% of the card width inside
+       the corner, so its right edge reaches about 26px
+       past the card; the wider margin keeps it inside
+       the viewport on 360-390px phones. */
+    width: calc(100% - 56px);
     height: auto;
     aspect-ratio: 1 / 1.618;
     max-width: calc(90svh / 1.618);
@@ -1245,7 +1250,7 @@ footer,
   }
 
   .content__slide {
-    width: calc(100% - 48px);
+    width: calc(100% - 56px);
     gap: 16px;
   }
 
@@ -1254,6 +1259,11 @@ footer,
        rotated label sits just inside the card's left edge. */
     left: calc(50% - var(--card-width) / 2 + 0.9rem);
     z-index: 3;
+    /* Inside the card the label lies over the (dark)
+       artwork, so it takes the light colour here; the
+       dark page colour only reads in the margin on wide
+       screens (Mizuki 2026-11-22: keep it, in light). */
+    color: var(--inv);
   }
 
   .card-nav {
