@@ -1,13 +1,12 @@
 /* Page-level background overlay (Organic Flow lines).
-   Above main (z-index 10 on the trunkSphere pages):
-   at z-index 5 the lines sat behind main's backdrop
-   blur and tinted sheet and were effectively invisible
-   (Mizuki 2026-11-22). Below every UI layer (header
-   2001, navigation 100, modal 1000). */
+   Same layer as the trunk sphere (#vanta-bg-bio,
+   z-index 0): both sit in the background stack behind
+   main and show through its backdrop together
+   (Mizuki 2026-11-22). */
 #portfolio-overlay-animation {
   position: fixed;
   inset: 0;
-  z-index: 15;
+  z-index: 0;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
