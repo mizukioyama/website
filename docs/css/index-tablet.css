@@ -49,7 +49,10 @@
     width: calc(100% - 48px);
     height: auto;
     aspect-ratio: 1 / 1.618;
-    max-width: calc(90svh / 1.618);
+    /* Height capped at 82svh (was 90svh): at 90 the
+       card's bottom edge crowded the frame's PREV link
+       in the bottom-left (Mizuki 2026-11-22). */
+    max-width: calc(82svh / 1.618);
   }
 
 
@@ -68,7 +71,7 @@
        below), so the rotated side labels track it. The
        labels themselves keep the base card-side placement
        from index.css. */
-    --card-width: min(calc(100vw - 48px), calc(90svh / 1.61803398875));
+    --card-width: min(calc(100vw - 48px), calc(82svh / 1.61803398875));
   }
 
   .home .card__slide:first-child .number,
