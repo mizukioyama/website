@@ -1208,6 +1208,13 @@ main {
   overflow-wrap: break-word;
 }
 #state.statement .biography-section + .biography-section { margin-top: clamp(4rem, 10vmin, 7rem); }
+
+/* Section headings that follow body text get the same top space
+   at every width (Mizuki 2026-11-23). This rule used to exist
+   only in the small-screen block in mobile.css, so on desktop
+   the headings sat directly against the preceding paragraph.
+   4rem matches the section gaps on Information / Yurayura. */
+#state.statement .statement-section-heading:not(:first-child) { margin-top: 4rem; }
 #state.statement :is(.work > p, .biography-section > p) {
   word-break: normal;
   overflow-wrap: break-word;
