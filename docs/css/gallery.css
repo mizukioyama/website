@@ -1193,12 +1193,16 @@ main {
 }
 #state.statement :is(.biography-section, .statement-section-heading) { scroll-margin-top: 7rem; }
 
-/* Heading separator bar (Mizuki 2026-11-22): the full-width bar
-   glyph renders taller than the text at 100%, so it is set at
-   70% and centred on the text height. */
-.statement-section-heading .sep-bar {
+
+/* Heading separator bar (Mizuki 2026-11-22): generated content on
+   the existing English span - no wrapper element. The full-width
+   bar glyph renders taller than the text at 100%, so it is set
+   at 70% and centred on the text height. */
+.statement-section-heading [lang="en"]::before {
+  content: "｜";
   font-size: 70%;
   vertical-align: middle;
+  margin-right: 0.94em;
 }
 #state.statement :is(.biography-section h2, .biography-section h3, .statement-section-heading) {
   margin-bottom: 2rem;
