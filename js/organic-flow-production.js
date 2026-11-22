@@ -51,13 +51,13 @@
     const nextChoice = validChoices.includes(choice) ? choice : chooseNext();
     const isHybridRandom = nextChoice === "hybrid-random";
     const nextContributions = isHybridRandom
-      ? { ...(contributions || engine.randomizeHybridContributions(Math.random)) }
+      ? { ...(contributions || HYBRID_BASE) }
       : { ...HYBRID_BASE };
     const canvas = document.createElement("canvas");
 
     try {
       const nextInstance = engine.create(canvas, window, null, {
-        settings: engine.DEFAULTS,
+        settings: { ...engine.DEFAULTS, lineCount: 40, lineWidth: 2.0, opacity: 0.40, color: "#53d5fd" },
         variant: isHybridRandom ? "contour" : nextChoice,
         mode: isHybridRandom ? "hybrid" : "manual",
         hybridContributions: nextContributions
@@ -100,11 +100,12 @@
     value: Object.freeze({ getState })
   });
 
-  const initialChoice = chooseNext();
-  const initialMix = initialChoice === "hybrid-random"
-    ? window.OrganicFlow.randomizeHybridContributions(Math.random)
-    : { ...HYBRID_BASE };
-  mount(initialChoice, initialMix, true);
+  // Fixed by Mizuki (2026-11-22): hybrid mix with tuned
+  // settings (lineCount 40, lineWidth 2.0, opacity 0.40,
+  // colour #53d5fd). No per-load random choice any more.
+  const initialChoice = "hybrid-random";
+  const initialMix = { ...HYBRID_BASE };
+  mount(initialChoice, initialMix, false);
 
   window.addEventListener("pageshow", (event) => {
     if (!event.persisted) return;

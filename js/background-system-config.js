@@ -39,7 +39,7 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 0.70,
-      color: 0xffffff,
+      color: 0xcaf0fe,
       chaos: 2.50
     });
     return trunkInstance;
