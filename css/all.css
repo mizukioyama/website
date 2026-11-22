@@ -266,19 +266,10 @@ body {
     text-shadow: 0 0 0px var(--text);
   }
 
-  .home #langChange .inner_label .noise {
-    mask: repeating-radial-gradient(
-      circle at center,
-      #000,
-      var(--lines),
-      #000,
-      0,
-      #0000,
-      calc(var(--lines) * 1.5),
-      #0000 0
-    );
-    background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
-  }
+  /* The language switch dropped its noise paint in 2026-11-22
+     (menu.css); the gradient/mask that used to paint it lived
+     here and outranked that override, leaving a dark band on
+     the right side of each pill. Removed. */
 }
 
 ::selection {
