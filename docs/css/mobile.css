@@ -389,5 +389,4 @@
     text-wrap: pretty;
   }
   #state.statement .content p.text { padding-top: 0.75rem; }
-  #state.statement .statement-section-heading:not(:first-child) { margin-top: 4rem; }
 }
