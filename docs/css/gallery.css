@@ -1256,6 +1256,5 @@ main,
    is centred on the inset box). */
 body:not(.home) main,
 body.art-page:not(.home) main.gallery {
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
 }
