@@ -743,22 +743,17 @@ main {
   main:is(#state, #policy, .information-page, .order-page, .exhibition-page) { padding-right: 4vmin; }
   #state .content h3 { padding-inline: 0; }
   :is(.information-page, .exhibition-page) > .state-box > .content > :is(.information-intro, .lead) { width: auto; }
+  /* Reading-column layout (Mizuki, 2026-11-22): width 50%, left edge at
+     30% of the container. First set on Statement/Biography, then unified
+     across Policy/Information/Order/Yurayura. */
   :is(#state, #policy, .information-page, .order-page, .exhibition-page) > .content,
   :is(#state, .information-page, .order-page, .exhibition-page) > .state-box > .content {
-    width: 52%;
+    width: 50%;
     min-width: 0;
     max-width: 100%;
-    margin-left: auto;
-    margin-right: 6.25vw;
-    flex-shrink: 1;
-  }
-
-  /* Statement/Biography text position (Mizuki, 2026-11-22): width 50%,
-     left edge at 30% of the box, now that the left artwork is gone. */
-  #state.gallery > .state-box > .content {
-    width: 50%;
     margin-left: 30%;
     margin-right: 0;
+    flex-shrink: 1;
   }
   .gallery.statement > .state-box { flex-direction: column; }
 }
