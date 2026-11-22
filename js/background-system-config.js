@@ -26,20 +26,10 @@
     if (trunkInstance) return trunkInstance;
 
     const element = document.querySelector("#vanta-bg-bio");
-    if (!element || element.querySelector("canvas")) {
+    if (!element || element.querySelector("canvas") || !window.VANTA || typeof window.VANTA.TRUNK !== "function") {
       return null;
     }
 
-    // Gradient rings (Mizuki 2026-11-22): VANTA TRUNK only
-    // supports a single colour, so the sphere is drawn by a
-    // small canvas renderer whose rings take the gradient
-    // stops #caf0fe -> #006d8f -> #caf0fe from centre to rim.
-    trunkInstance = mountGradientSphere(element);
-    if (trunkInstance) return trunkInstance;
-
-    if (!window.VANTA || typeof window.VANTA.TRUNK !== "function") {
-      return null;
-    }
     trunkInstance = window.VANTA.TRUNK({
       el: "#vanta-bg-bio",
       mouseControls: true,
@@ -49,105 +39,71 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 0.70,
-      color: 0x006d8f,
+      color: 0xffffff,
       chaos: 2.50
     });
+    startSphereTint(element, trunkInstance);
     return trunkInstance;
   }
 
-  const SPHERE_STOPS = ["#caf0fe", "#006d8f", "#caf0fe"].map(function (hex) {
-    const n = hex.slice(1);
-    return [parseInt(n.slice(0, 2), 16), parseInt(n.slice(2, 4), 16), parseInt(n.slice(4, 6), 16)];
-  });
+  // Gradient tint for the sphere (Mizuki 2026-11-22): TRUNK
+  // itself stays untouched (same rings, same animation,
+  // drawn in white); after each frame the rings are tinted
+  // in place with a radial gradient via source-atop, which
+  // only paints where the rings already are.
+  const TINT_STOPS = ["#caf0fe", "#006d8f", "#caf0fe"];
+  let tintStop = null;
 
-  function sphereColour(frac) {
-    const t = Math.min(1, Math.max(0, frac)) * (SPHERE_STOPS.length - 1);
-    const i = Math.min(SPHERE_STOPS.length - 2, Math.floor(t));
-    const f = t - i;
-    const a = SPHERE_STOPS[i];
-    const b = SPHERE_STOPS[i + 1];
-    return "rgb(" + Math.round(a[0] + (b[0] - a[0]) * f) + "," + Math.round(a[1] + (b[1] - a[1]) * f) + "," + Math.round(a[2] + (b[2] - a[2]) * f) + ")";
-  }
-
-  function mountGradientSphere(element) {
-    const canvas = document.createElement("canvas");
-    canvas.setAttribute("aria-hidden", "true");
-    canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block;";
-    const context = canvas.getContext("2d", { alpha: true });
-    if (!context) return null;
-    element.appendChild(canvas);
-
+  function startSphereTint(element, instance) {
     let rafId = 0;
-    let destroyed = false;
-    let width = 0;
-    let height = 0;
+    let stopped = false;
 
-    function resize() {
-      const dpr = Math.max(0.75, Math.min(window.devicePixelRatio || 1, window.innerWidth <= 768 ? 1.05 : 1.35));
-      width = Math.max(1, window.innerWidth);
-      height = Math.max(1, window.innerHeight);
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
-      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    function tintWith(ctx, canvas) {
+      if (stopped) return;
+      const w = canvas.width;
+      const h = canvas.height;
+      if (!w || !h) return;
+      const radius = Math.min(w, h) * 0.27;
+      const gradient = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, radius);
+      gradient.addColorStop(0, TINT_STOPS[0]);
+      gradient.addColorStop(0.5, TINT_STOPS[1]);
+      gradient.addColorStop(1, TINT_STOPS[2]);
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalCompositeOperation = "source-atop";
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, w, h);
+      ctx.restore();
     }
 
-    function draw(now) {
-      if (destroyed) return;
-      context.clearRect(0, 0, width, height);
-      const cx = width * 0.5;
-      const cy = height * 0.49;
-      const maxR = Math.min(width, height) * 0.34;
-      const step = Math.max(8, Math.min(width, height) * 0.0095);
-      context.lineWidth = 1.2;
-      context.globalAlpha = 0.85;
-      for (let r = step; r < maxR; r += step) {
-        const amp = 1.5 + (r / maxR) * 7;
-        context.strokeStyle = sphereColour(r / maxR);
-        context.beginPath();
-        for (let a = 0; a <= Math.PI * 2 + 0.1; a += 0.05) {
-          const wob = Math.sin(a * 3 + now * 0.00016 + r * 0.045) * amp * 0.6
-            + Math.sin(a * 7 - now * 0.00011 + r * 0.11) * amp * 0.3
-            + Math.sin(a * 13 + now * 0.00007 + r * 0.21) * amp * 0.18;
-          const rr = r + wob;
-          const x = cx + Math.cos(a) * rr;
-          const y = cy + Math.sin(a) * rr;
-          if (a === 0) context.moveTo(x, y);
-          else context.lineTo(x, y);
-        }
-        context.stroke();
+    function arm(attempts) {
+      if (stopped) return;
+      const canvas = element.querySelector("canvas");
+      const p5 = instance && instance.p5;
+      if (canvas && p5 && typeof p5.registerMethod === "function") {
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        // Runs after every p5 draw: guaranteed ordering.
+        p5.registerMethod("post", function () { tintWith(ctx, canvas); });
+        return;
       }
-      context.globalAlpha = 1;
-      rafId = window.requestAnimationFrame(draw);
-    }
-
-    function onVisibility() {
-      if (document.hidden) {
-        if (rafId) window.cancelAnimationFrame(rafId);
-        rafId = 0;
-      } else if (!destroyed && !rafId) {
-        rafId = window.requestAnimationFrame(draw);
+      if (attempts < 240) {
+        rafId = window.requestAnimationFrame(function () { arm(attempts + 1); });
       }
     }
-
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
-    document.addEventListener("visibilitychange", onVisibility);
-    rafId = window.requestAnimationFrame(draw);
-
-    return {
-      mode: "canvas2d",
-      destroy: function () {
-        destroyed = true;
-        if (rafId) window.cancelAnimationFrame(rafId);
-        rafId = 0;
-        window.removeEventListener("resize", resize);
-        document.removeEventListener("visibilitychange", onVisibility);
-        canvas.remove();
-      }
+    arm(0);
+    tintStop = function () {
+      stopped = true;
+      if (rafId) window.cancelAnimationFrame(rafId);
+      rafId = 0;
     };
   }
 
   function destroyTrunkSphere() {
+    if (tintStop) {
+      tintStop();
+      tintStop = null;
+    }
     const instance = trunkInstance;
     trunkInstance = null;
     if (instance && typeof instance.destroy === "function") instance.destroy();
