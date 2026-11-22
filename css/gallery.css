@@ -1248,3 +1248,14 @@ main,
   width: auto;
   margin: 4.44dvh 6.25vw 4.44dvh 2.78vw;
 }
+
+/* Full-bleed width (Mizuki 2026-11-22): on the non-home
+   pages main runs edge to edge and the frame and band
+   draw over it; the top and bottom inset stays. The
+   home page keeps the inset above (its card composition
+   is centred on the inset box). */
+body:not(.home) main,
+body.art-page:not(.home) main.gallery {
+  margin-left: 0;
+  margin-right: 0;
+}
