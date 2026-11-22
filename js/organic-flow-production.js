@@ -57,7 +57,7 @@
 
     try {
       const nextInstance = engine.create(canvas, window, null, {
-        settings: { ...engine.DEFAULTS, lineCount: 80, lineWidth: 2.0, opacity: 0.40, color: "#006d8f", colors: ["#caf0fe", "#006d8f", "#caf0fe"] },
+        settings: { ...engine.DEFAULTS, lineCount: 80, lineWidth: 2.0, opacity: 0.40, color: "#006d8f", colors: ["#caf0fe", "#006d8f", "#caf0fe"], shadowBlur: 7, shadowAlpha: 0.6 },
         variant: isHybridRandom ? "contour" : nextChoice,
         mode: isHybridRandom ? "hybrid" : "manual",
         hybridContributions: nextContributions

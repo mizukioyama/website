@@ -42,6 +42,8 @@
     };
     const color = typeof value.color === "string" && /^#[\da-f]{6}$/i.test(value.color) ? value.color : base.color;
     const rawColors = Array.isArray(value.colors) ? value.colors.filter((c) => typeof c === "string" && /^#[\da-f]{6}$/i.test(c)) : null;
+    const shadowBlur = Number.isFinite(Number(value.shadowBlur)) ? clamp(Number(value.shadowBlur), 0, 24) : (base.shadowBlur || 0);
+    const shadowAlpha = Number.isFinite(Number(value.shadowAlpha)) ? clamp(Number(value.shadowAlpha), 0, 1) : (base.shadowAlpha || 0);
     const colors = rawColors && rawColors.length >= 2 ? rawColors.slice(0, 5) : (base.colors || null);
     const blendMode = VALID_BLEND_MODES.includes(value.blendMode) ? value.blendMode : base.blendMode;
     return {
@@ -53,6 +55,8 @@
       direction: Math.round(number("direction", -180, 180)),
       color,
       colors,
+      shadowBlur,
+      shadowAlpha,
       blendMode
     };
   }
@@ -344,6 +348,8 @@
 
     function setupStroke(alpha, frac) {
       context.strokeStyle = strokeRgba(alpha, frac);
+      context.shadowColor = "rgba(255,255,255," + (settings.shadowAlpha || 0).toFixed(3) + ")";
+      context.shadowBlur = settings.shadowBlur || 0;
       context.lineWidth = settings.lineWidth;
       context.lineCap = "round";
       context.lineJoin = "round";
@@ -426,6 +432,8 @@
       }
       context.globalCompositeOperation = settings.blendMode;
       context.strokeStyle = strokeRgba(alpha, frac);
+      context.shadowColor = "rgba(255,255,255," + (settings.shadowAlpha || 0).toFixed(3) + ")";
+      context.shadowBlur = settings.shadowBlur || 0;
       context.lineWidth = Math.max(0.3, lineWidth * (0.76 + depth * 0.16));
       context.lineCap = "round";
       context.lineJoin = "round";
