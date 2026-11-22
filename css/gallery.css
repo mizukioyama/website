@@ -1172,6 +1172,12 @@ main {
   top: 0;
 }
 
+/* Temporary: hide the left artwork on Statement/Biography while Mizuki
+   judges the layout without it (2026-11-22). Remove this rule to restore. */
+.gallery.statement > .state-box > .state-img {
+  display: none;
+}
+
 @media screen and (max-width: 599px) {
   .state-img {
     width: auto;
