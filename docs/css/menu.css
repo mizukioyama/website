@@ -978,6 +978,28 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
 }
 
+/* Solid letters for the language switch (Mizuki
+   2026-11-22): the noise grain shreds the small Ja/En
+   letters exactly as it did the band initials, so the
+   switch drops the noise paint and takes a plain colour
+   - light on the dark frames, dark on the home page's
+   light frame. The glass pill itself (border, backdrop
+   blur, rim) is untouched. */
+#langChange .lang-button.ja,
+#langChange .lang-button.en {
+  background: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  mask: none;
+  animation: none;
+  color: var(--inv);
+}
+.home #langChange .lang-button.ja,
+.home #langChange .lang-button.en {
+  color: var(--text);
+}
+
 .lang-button::before {
   content: "";
   position: absolute;

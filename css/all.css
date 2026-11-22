@@ -259,14 +259,6 @@ body {
   opacity: 1;
 }
 
-/* On the home page the switch sits on the light frame,
-   so its letters take the dark noise paint at every
-   width (below 1299px the TOP stylesheet's pale --bg
-   paint otherwise reaches them). Other pages keep the
-   light paint for their dark frames. */
-.home #langChange .lang-button {
-  background-image: linear-gradient(to right, rgba(46, 46, 46, 0.75) 30%, var(--text) 100%);
-}
 
 @media screen and (min-width: 1299px) {
   .home #langChange .ja,
@@ -285,10 +277,7 @@ body {
       calc(var(--lines) * 1.5),
       #0000 0
     );
-    /* Dark paint on the home page's light frame (the
-       light gradient that was here read as white on
-       white; Mizuki 2026-11-22). */
-    background-image: linear-gradient(to right, rgba(46, 46, 46, 0.75) 30%, var(--text) 100%);
+    background-image: linear-gradient(to right, var(--inv) 80%, var(--text) 100%);
   }
 }
 
