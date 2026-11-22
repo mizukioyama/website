@@ -953,6 +953,9 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   #navArea .inner li a { min-width: 0; }
   #header-container header .head a { font-size: 11.5px; }
   #header-container header #langChange .inner_label { grid-template-columns: 34px 10px 34px; }
+  /* Small screens keep the 12px side padding: at 16px the two
+     pills (44/48px) would touch across the 10px separator slot. */
+  #header-container header #langChange .lang-button { padding: 3px 12px; }
   #header-container header #langChange .ja,
   #header-container header #langChange .en { font-size: 11px; }
 }
@@ -964,7 +967,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 3px 12px;
+  padding: 3px 16px;
   border-radius: 999px;
   /* background-color only: the .noise text paint lives
      in the background-image, and the shorthand would
@@ -973,7 +976,9 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   -webkit-backdrop-filter: blur(12px) saturate(1.25);
   backdrop-filter: blur(12px) saturate(1.25);
   border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 8px 20px rgba(0, 0, 0, 0.18);
+  /* No drop shadow behind the pill (Mizuki 2026-11-22);
+     the inset rim highlight stays, as on the NEXT button. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
   cursor: pointer;
   transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
 }
