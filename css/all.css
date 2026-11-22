@@ -228,7 +228,7 @@ body {
   align-items: center;
   position: relative;
 }
-#langChange .inner_label::before { content: "/"; grid-column: 2; grid-row: 1; text-align: center; pointer-events: none; }
+#langChange .inner_label::before { content: "｜"; grid-column: 2; grid-row: 1; text-align: center; pointer-events: none; }
 #langChange label + label { grid-column: 3; }
 
 #langChange label {
