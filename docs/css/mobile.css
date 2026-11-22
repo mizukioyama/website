@@ -379,7 +379,6 @@
   /* Flow content prevents long bilingual subtitles from overlapping artwork. */
   #state.statement .h1-text .subtext { line-height: 1.8; }
   #state.statement .h1-text .subtext span[lang="en"] { margin-top: 0.75rem; }
-  #state.statement .state-img { width: 100%; top: 0; }
   #state.statement .biography-section h3 { padding: 0; }
   #state.statement .content :is(.work > p, .biography-section > p, p.text) {
     line-height: 1.9;

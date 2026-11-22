@@ -753,21 +753,10 @@ main {
     flex-shrink: 1;
   }
   .gallery.statement > .state-box { flex-direction: column; }
-  .gallery.statement > .state-box > .state-img {
-    left: 0;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
 }
 
 @media screen and (min-width: 1299px) {
   .gallery.statement > .state-box { flex-direction: row; }
-  .gallery.statement > .state-box > .state-img {
-    left: 10vmin;
-    margin-left: 0;
-    max-width: calc(100% - var(--reading-column-width) - 10vmin - 2rem);
-  }
-
   #state h2 {
     align-items: end;
     margin-bottom: 1vmin;
@@ -1164,26 +1153,7 @@ main {
   height: 1px;
   margin: 15vmin 0;
 }
-.state-img {
-  position: relative;
-  width: 42vmin;
-  max-width: 100%;
-  left: 10vmin;
-  top: 0;
-}
-
-/* Temporary: hide the left artwork on Statement/Biography while Mizuki
-   judges the layout without it (2026-11-22). Remove this rule to restore. */
-.gallery.statement > .state-box > .state-img {
-  display: none;
-}
-
 @media screen and (max-width: 599px) {
-  .state-img {
-    width: auto;
-    left: 0;
-    top: -10px;
-  }
   .state-box {
     flex-direction: column;
     align-items: flex-start;
