@@ -492,3 +492,12 @@ input:-webkit-autofill:focus {
     padding-left: 90px;
   }
 }
+/* Wider than the landscape block above (PC): keep the same
+   clearance so the form never slides under the right frame band.
+   The PREV indent is not needed at these widths. */
+@media screen and (min-width: 1601px) and (orientation: landscape) {
+  #contact {
+    padding-right: calc(6.25vw + 24px);
+  }
+}
+
