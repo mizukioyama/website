@@ -54,10 +54,15 @@
       ? { ...(contributions || HYBRID_BASE) }
       : { ...HYBRID_BASE };
     const canvas = document.createElement("canvas");
+    // Smartphones and tablets skip the line shadow (drawing cost);
+    // PC keeps the tuned shadow (blur 7, alpha 0.6).
+    const shadowSettings = window.matchMedia("(max-width: 1199px)").matches
+      ? { shadowBlur: 0, shadowAlpha: 0 }
+      : { shadowBlur: 7, shadowAlpha: 0.6 };
 
     try {
       const nextInstance = engine.create(canvas, window, null, {
-        settings: { ...engine.DEFAULTS, lineCount: 80, lineWidth: 2.0, opacity: 0.40, color: "#006d8f", colors: ["#caf0fe", "#006d8f", "#caf0fe"], shadowBlur: 7, shadowAlpha: 0.6 },
+        settings: { ...engine.DEFAULTS, lineCount: 80, lineWidth: 2.0, opacity: 0.40, color: "#006d8f", colors: ["#caf0fe", "#006d8f", "#caf0fe"], ...shadowSettings },
         variant: isHybridRandom ? "contour" : nextChoice,
         mode: isHybridRandom ? "hybrid" : "manual",
         hybridContributions: nextContributions
