@@ -7,3 +7,6 @@ tests/visual/visual.spec.cjs-snapshots/*-darwin.png
 
 # macOS AppleDouble sidecar metadata
 ._*
+
+# Generated gallery thumbnails (build-time, deployed from the built tree)
+docs/img/thumb/
