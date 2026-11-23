@@ -296,9 +296,12 @@
 
   }
   .art-page #gallery-result-count {
-    /* Keep the count clear of the fixed 64px menu control. */
-    inset-inline-end: 68px;
-    width: calc(100% - 136px - 68px);
+    /* One line, right-aligned in the bar (2026-11-23): the old
+       calc() width squeezed the count into 40-64px under 400px
+       wide screens and it wrapped to 2-3 lines. */
+    inset-inline-end: 0;
+    width: max-content;
+    white-space: nowrap;
   }
   .gallery-box > #gallery-filter-selection {
     padding-inline: 5vmin;
