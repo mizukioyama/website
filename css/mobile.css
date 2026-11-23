@@ -186,6 +186,9 @@
        viewport and landed on the first rows' captions. */
     position: relative;
     z-index: 3000;
+    /* Align with the works grid, which is inset by the
+       .content padding (5vmin) inside the same box. */
+    margin-inline: 5vmin;
     display: block;
     width: auto;
     min-width: 0;
