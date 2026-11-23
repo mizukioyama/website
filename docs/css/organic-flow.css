@@ -1,6 +1,1 @@
-#portfolio-overlay-animation .organic-flow-canvas {
-  position: absolute;
-  inset: 0;
-  display: block;
-  pointer-events: none;
-}
+#portfolio-overlay-animation .organic-flow-canvas{position:absolute;inset:0;display:block;pointer-events:none}
