@@ -249,7 +249,7 @@ body.dark-theme .modal-box {
 h1 {
   font-size: var(--type-page-h1-size);
   width: fit-content;
-  line-height: 1.2;
+  line-height: 1.6;
   /*margin-left: 25vmin;
     margin-top: 20rem;
     position: relative;*/
