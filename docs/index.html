@@ -21,8 +21,6 @@
     <script src="https://cdn.jsdelivr.net/npm/shuffle-text@0.3.0/build/shuffle-text.min.js"
         crossorigin="anonymous"></script>
 
-    <script src="js/three.r134.min.js?v=2d137d69ae99"></script>
-    <script src="js/vanta.fog.min.js?v=902b0ec9cd38"></script>
 
     <script src="js/time.js?v=457263a47923"></script>
     <script src="js/menu.js?v=260fb2f97bb0"></script>
@@ -162,7 +160,6 @@
   <a href="/website/contact.html">CContact</a>
 </nav>
     </div>
-    <div id="vanta-bg"></div>
 
     <main class="top-page">
         <!--main-->
@@ -272,27 +269,7 @@
     </main>
 
     <!-- チェックボックスで状態制御 -->
-    <script>
-    if (window.__PORTFOLIO_BACKGROUND_SYSTEM__ !== "selectedInkField") {
-
-        VANTA.FOG({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            highlightColor: 0x181818,
-            midtoneColor: 0xb3b3b3,
-            lowlightColor: 0x3f3ff,
-            baseColor: 0xfafffc,
-            blurFactor: 0.50,
-            speed: 0.60,
-            zoom: 0.80
-        })
-
-    }
-  </script>
+    
 
     <script>
         function updateElapsedTime() {
