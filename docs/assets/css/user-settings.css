@@ -26,7 +26,7 @@
 
   /* 2. Standard pages — shared by Gallery, Biography, Statement, Information,
      Order, Contact, Policy and Yurayura. */
-  --type-page-h1-size: clamp(34.4px, calc(20px + 4vw), 82.4px);
+  --type-page-h1-size: clamp(34.4px, calc(20px + 4vw), 72px);
   --type-page-h2-size: clamp(1.25rem, 1.0375rem + 0.9vw, 2rem);
   --type-page-h3-size: clamp(1rem, 0.78125rem + 0.67vw, 1.5rem);
   --type-page-h4-size: clamp(14.4px, calc(8.8px + 0.5vw), 19.2px);
