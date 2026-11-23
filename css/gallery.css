@@ -287,6 +287,18 @@ h1 {
   z-index: 100;
 }
 
+/* The hero text block spans the whole first view; its empty
+   area must not swallow taps meant for content below it
+   (2026-11-23: it covered the Gallery category bar on
+   phones). Links inside stay tappable. */
+.h1-text {
+  pointer-events: none;
+}
+
+.h1-text a {
+  pointer-events: auto;
+}
+
 .h1-text p {
   font-size: var(--type-page-p-size);
 }

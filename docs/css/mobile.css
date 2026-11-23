@@ -181,10 +181,10 @@
   }
 
   #sidebar-container {
-    position: absolute;
-    top: calc(80svh + 10vmin - 3.25rem - 10px);
-    left: calc(5% + 5vmin);
-    right: calc(5% + 5vmin);
+    /* In flow at the top of the gallery box (2026-11-23): the
+       old absolute placement (80svh-based) drifted with the
+       viewport and landed on the first rows' captions. */
+    position: relative;
     z-index: 3000;
     display: block;
     width: auto;
