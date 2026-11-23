@@ -10,3 +10,7 @@ tests/visual/visual.spec.cjs-snapshots/*-darwin.png
 
 # Generated gallery thumbnails (build-time, deployed from the built tree)
 docs/img/thumb/
+
+# Generated frame iron textures (build-time, deployed from the built tree)
+docs/img/frame-iron-dark.webp
+docs/img/frame-iron-light.webp

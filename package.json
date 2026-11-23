@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npm run sync:components && webpack && node scripts/embed-gallery-captions.cjs && node scripts/minify-css.cjs && node scripts/generate-thumbs.cjs",
+    "build": "npm run sync:components && webpack && node scripts/embed-gallery-captions.cjs && node scripts/minify-css.cjs && node scripts/generate-thumbs.cjs && node scripts/generate-frame-texture.cjs",
     "check:js": "node scripts/check-js.cjs",
     "check:generated": "node scripts/check-generated.cjs",
     "test:organic-flow": "node --test tests/organic-flow-engine.test.cjs",
