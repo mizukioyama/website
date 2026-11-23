@@ -467,6 +467,9 @@ input:-webkit-autofill:focus {
     padding-right: calc(6.25vw + 4px);
     /* Start the column below the page title, like the other pages. */
     padding-top: 90vmin;
+    /* Pack the column from the top; the form follows the text
+       with a fixed gap instead of distributed leftover space. */
+    justify-content: flex-start;
   }
   #contact .content {
     width: 100%;
@@ -474,6 +477,7 @@ input:-webkit-autofill:focus {
   }
   #contact .contact-form {
     width: 100%;
+    margin-top: 4rem;
   }
   /* The form labels start inside the fixed PREV block's reach
      (its text runs to about x196); indent the column so the first
@@ -484,7 +488,7 @@ input:-webkit-autofill:focus {
     padding-left: 200px;
   }
 }
-@media screen and (min-width: 600px) and (max-width: 1199px) and (orientation: landscape) {
+@media screen and (min-width: 600px) and (max-width: 1600px) and (orientation: landscape) {
   #contact {
     padding-right: calc(6.25vw + 24px);
   }
