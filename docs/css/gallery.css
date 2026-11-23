@@ -1270,6 +1270,17 @@ body.art-page:not(.home) main.gallery {
 }
 @media screen and (min-width: 600px) and (max-width: 1199px) {
   .art-page main.gallery > .gallery-box {
-    width: min(calc(100% - 112px), var(--gallery-max-width));
+    width: 50%;
+  }
+}
+
+/* Reading columns on small tablets (Mizuki, 2026-11-23): every page's
+   column is 50% wide and centred, matching the >=1024 width. */
+@media screen and (min-width: 600px) and (max-width: 1023px) {
+  :is(#state, #policy, .information-page, .order-page, .exhibition-page) > .content,
+  :is(#state, .information-page, .order-page, .exhibition-page) > .state-box > .content {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

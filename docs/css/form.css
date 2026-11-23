@@ -462,9 +462,6 @@ input:-webkit-autofill:focus {
 @media screen and (min-width: 600px) and (max-width: 1199px) and (orientation: portrait) {
   #contact {
     flex-direction: column;
-    /* Like the smartphone layout, keep the column clear of the
-       right frame band. */
-    padding-right: calc(6.25vw + 4px);
     /* Start the column below the page title, like the other pages. */
     padding-top: 90vmin;
     /* Pack the column from the top; the form follows the text
@@ -472,20 +469,12 @@ input:-webkit-autofill:focus {
     justify-content: flex-start;
   }
   #contact .content {
-    width: 100%;
+    width: 50%;
     margin: 0 auto;
   }
   #contact .contact-form {
-    width: 100%;
-    margin-top: 4rem;
-  }
-  /* The form labels start inside the fixed PREV block's reach
-     (its text runs to about x196); indent the column so the first
-     lines clear it, mirroring the landscape fix. */
-  #contact .content,
-  #contact .contact-form {
-    box-sizing: border-box;
-    padding-left: 200px;
+    width: 50%;
+    margin: 4rem auto 0;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 1600px) and (orientation: landscape) {
