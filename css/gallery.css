@@ -1302,3 +1302,49 @@ body.art-page:not(.home) main.gallery {
     margin-right: auto;
   }
 }
+
+/* Reading pages: one shared spacing rhythm on PC (Mizuki,
+   2026-11-23). The reading group (Statement / Biography /
+   Information / Yurayura / Order / Policy) had drifted into
+   per-page values for the same roles; this block pins the
+   shared roles to one scale — prose line-height 2.4,
+   heading-to-body 32px, paragraph gap 16px, section gap
+   128px — and aligns Policy's column and the Gallery main
+   padding with the group. Scoped to >=1024px: smaller
+   displays keep their existing rules. */
+@media screen and (min-width: 1024px) {
+  /* Prose line-height: Biography sections and the two lead
+     paragraphs that had their own 1.8 / 2.2 join the shared 2.4. */
+  #state.statement .biography-section > p,
+  #state.statement :is(.biography-section, .work) > p.text { line-height: 2.4; }
+  main.information-page .information-intro p { line-height: 2.4; }
+  main.exhibition-page :is(.lead, .section-copy) p { line-height: 2.4; }
+
+  /* Heading to body: 32px under every h2 in the group. */
+  :is(.information-page, .order-page, .exhibition-page) h2,
+  #policy h2 { margin-bottom: 32px; }
+
+  /* Paragraph gap between consecutive prose paragraphs. */
+  :is(#state, #policy, .information-page, .order-page, .exhibition-page) .content p + p { margin-top: 16px; }
+
+  /* Section gap: 128px, replacing 90 / 135 / 144px variants. */
+  #state.statement .biography-section + .biography-section { margin-top: 8rem; }
+  .gallery.statement .page-line, #policy .page-line { margin-top: 8rem; margin-bottom: 8rem; }
+  main.exhibition-page .detail-section { margin-top: 8rem; }
+  #policy h3 { margin-top: 8rem; }
+
+  /* Policy's column takes the group's geometry (its content
+     has no .state-box wrapper, so the shared rule sized it
+     against the full main width instead). */
+  #policy.gallery > .content {
+    width: min(600px, 50%);
+    /* Policy's main is a flex row with space-around, which adds
+       half the leftover space before this item; the formula
+       compensates so the column lands exactly where the
+       .state-box pages put it. */
+    margin-left: max(10%, calc(100% - 1080px));
+  }
+
+  /* Gallery main padding matches the other pages. */
+  .art-page main { padding-top: 30vmin; padding-right: 4vmin; }
+}
