@@ -699,7 +699,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     height: 60.44dvh;
   }
   #navArea nav { height: 100%; }
-  #navArea .inner { height: 100%; padding: 0; }
+  #navArea .inner { height: 100%; width: 100%; padding: 0; }
   /* The >=1299px six-column grid for the old horizontal nav
      must not leak into the frame's vertical menu. */
   #header-container #navArea:not(.is-compact) .inner ul {
@@ -716,6 +716,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        letters keep their exact placement when the
        band's length changes. */
     height: 56.82dvh;
+    width: 100%;
     margin-top: 1.15dvh;
     flex-direction: column;
     justify-content: space-evenly;
