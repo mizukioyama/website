@@ -812,6 +812,16 @@ function setupCategoryFilter() {
     function renderGallery() {
         const lang = getLang();
         const container = document.getElementById("gallery-container");
+        if (!container.dataset.thumbFallbackBound) {
+            container.dataset.thumbFallbackBound = "1";
+            container.addEventListener("error", (event) => {
+                const target = event.target;
+                if (target && target.tagName === "IMG" && target.dataset.original && !target.dataset.fallback) {
+                    target.dataset.fallback = "1";
+                    target.src = target.dataset.original;
+                }
+            }, true);
+        }
         if (!container) return;
 
         container.classList.remove("show");
@@ -839,6 +849,11 @@ function setupCategoryFilter() {
             </div>
         `;
             container.appendChild(div);
+            const thumbImg = div.querySelector(".work-img img");
+            if (thumbImg) {
+                thumbImg.dataset.original = item.img;
+                thumbImg.src = item.img.replace(/^img\//, "img/thumb/").replace(/\.[a-z0-9]+$/i, ".webp");
+            }
         });
 
         renderPagination(filtered.length);
