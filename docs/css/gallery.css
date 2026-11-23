@@ -741,7 +741,6 @@ main {
 @media screen and (min-width: 1024px) {
   :root { --reading-column-width: min(800px, calc(100vw - 4vmin - 2rem)); }
   main:is(#state, #policy, .information-page, .order-page, .exhibition-page) { padding-right: 4vmin; }
-  #state .content h3 { padding-inline: 0; }
   :is(.information-page, .exhibition-page) > .state-box > .content > :is(.information-intro, .lead) { width: auto; }
   /* Reading-column layout (Mizuki, 2026-11-22): width 50%, left edge at
      30% of the container. First set on Statement/Biography, then unified
@@ -949,6 +948,13 @@ main {
 #state h3 {
   position: relative;
   padding: 3rem 4rem 0.5rem;
+}
+
+/* The name and other content headings start at the column's left
+   edge, like the paragraphs (Mizuki, 2026-11-23). This used to be
+   desktop-only, which left a 4rem inset on smaller screens. */
+#state .content h3 {
+  padding-inline: 0;
 }
 
 #state .work:nth-child(2) h3 {
