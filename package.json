@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npm run sync:components && webpack && node scripts/embed-gallery-captions.cjs",
+    "build": "npm run sync:components && webpack && node scripts/embed-gallery-captions.cjs && node scripts/minify-css.cjs",
     "check:js": "node scripts/check-js.cjs",
     "check:generated": "node scripts/check-generated.cjs",
     "test:organic-flow": "node --test tests/organic-flow-engine.test.cjs",
@@ -21,6 +21,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "clean-css": "^5.3.3",
     "copy-webpack-plugin": "^12.0.2",
     "html-minifier-terser": "^6.1.0",
     "webpack": "^5.98.0",
