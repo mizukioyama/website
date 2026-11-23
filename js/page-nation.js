@@ -831,7 +831,7 @@ function setupCategoryFilter() {
             div.className = "work";
             div.innerHTML = `
             <div class="work-img">
-                <img src="${item.img}" alt="${item.title[lang]}">
+                <img src="${item.img}" alt="${item.title[lang]}" loading="lazy" decoding="async">
                 <a href="#" class="button view-policy-button" data-index="${filtered.indexOf(item)}">
                     <p class="gallery-work-heading"><span>${item.title[lang]}</span>${year ? ` <time datetime="${year}">${year}</time>` : ""}</p>
                     <p class="gallery-work-category">${category}</p>
