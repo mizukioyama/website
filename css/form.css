@@ -454,3 +454,28 @@ input:-webkit-autofill:focus {
   background: transparent; border: 0;
 }
 #thanksModal .close:is(:hover,:focus-visible) { opacity: 1; outline: 1px solid currentColor; outline-offset: 2px; }
+
+/* Contact on tablets (Mizuki, 2026-11-23): portrait uses the same
+   single-column layout as smartphones; landscape keeps the two
+   columns but the wrapping main narrows so the form clears the
+   right frame band. */
+@media screen and (min-width: 600px) and (max-width: 1199px) and (orientation: portrait) {
+  #contact {
+    flex-direction: column;
+    /* Like the smartphone layout, keep the column clear of the
+       right frame band. */
+    padding-right: calc(6.25vw + 4px);
+  }
+  #contact .content {
+    width: 100%;
+    margin: 0 auto;
+  }
+  #contact .contact-form {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 1199px) and (orientation: landscape) {
+  #contact {
+    padding-right: calc(6.25vw + 24px);
+  }
+}

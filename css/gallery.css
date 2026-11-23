@@ -1255,3 +1255,21 @@ body:not(.home) main,
 body.art-page:not(.home) main.gallery {
   margin: 0;
 }
+
+/* Gallery grid width on smartphones and tablets (Mizuki, 2026-11-23):
+   side margin 44px on smartphones, 88px on tablets. The grid box is
+   narrowed by twice the added margin and stays centred. PC unchanged. */
+@media screen and (max-width: 599px) {
+  .art-page main.gallery > .gallery-box {
+    width: calc(100vw - 49px);
+    /* The centred box sits 10px right of the viewport centre
+       (asymmetric main padding); shift it back so the grid's
+       side margins are an even 44px. */
+    translate: -10px 0;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 1199px) {
+  .art-page main.gallery > .gallery-box {
+    width: min(calc(100% - 112px), var(--gallery-max-width));
+  }
+}
