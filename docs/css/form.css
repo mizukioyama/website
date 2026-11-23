@@ -478,4 +478,11 @@ input:-webkit-autofill:focus {
   #contact {
     padding-right: calc(6.25vw + 24px);
   }
+  /* The intro column starts inside the fixed PREV block's reach
+     (its text runs to about x270); indent the text so the first
+     lines clear it. */
+  #contact .content {
+    box-sizing: border-box;
+    padding-left: 90px;
+  }
 }
