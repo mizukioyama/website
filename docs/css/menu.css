@@ -620,7 +620,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
    width, so the drawer and the scroll-compact behaviour
    are retired: menu.js treats every width as the desktop
    (permanent) navigation. */
-.site-frame, .site-frame-sp { display: none; }
+.site-frame, .site-frame-sp, .site-frame-tp { display: none; }
 @media screen {
   .header-bar { display: none; }
   .site-frame {
@@ -1323,4 +1323,26 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   .frame-prev-name { font-size: 14px; }
   .frame-prev small { display: none; }
   .frame-copy { right: calc(1.667vw + 6px); bottom: 6px; }
+}
+
+/* Portrait tablets (2026-11-23): the frame is drawn in a
+   native 800x1280 space (.site-frame-tp in the header), so
+   the corner arcs stay circular instead of stretching into
+   tall ellipses in the 1440x900 space. */
+@media screen and (min-width: 768px) and (max-width: 1199px) and (orientation: portrait) {
+  .site-frame { display: none; }
+  .site-frame-tp {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    z-index: -1;
+    pointer-events: none;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));
+  }
+  .site-frame-tp .frame-light { display: none; }
+  .home .site-frame-tp { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5)); }
+  .home .site-frame-tp .frame-light { display: block; }
+  .home .site-frame-tp .frame-dark { display: none; }
 }
