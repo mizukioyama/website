@@ -224,7 +224,7 @@ body {
 
 #langChange .inner_label {
   display: grid;
-  grid-template-columns: 44px 12px 44px;
+  grid-template-columns: 54px 12px 54px;
   align-items: center;
   position: relative;
 }
@@ -233,6 +233,7 @@ body {
 
 #langChange label {
   cursor: pointer;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
