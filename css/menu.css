@@ -1337,7 +1337,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   transition: opacity 0.3s ease;
 }
 .frame-instagram:hover, .frame-instagram:focus-visible { opacity: 1; }
-.frame-instagram svg { width: 20px; height: 20px; display: block; }
+.frame-instagram svg { width: 20px; height: 20px; display: block; filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.45)); }
 .home .frame-instagram { color: var(--text); }
 @media only screen and (max-width: 600px) {
   /* Phones: the gallery's category bar occupies the area above the
