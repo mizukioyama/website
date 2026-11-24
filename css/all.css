@@ -740,3 +740,17 @@ body.lens-cursor-on * {
     animation: none;
   }
 }
+
+/* Gradient ring rotation on hover (Mizuki 2026-11-24):
+   the buttons' three-colour ring is a conic gradient whose
+   start angle lives in --ring-angle; registered as an
+   <angle> so keyframes can rotate it smoothly. Browsers
+   without @property keep the static 210deg ring. */
+@property --ring-angle {
+  syntax: "<angle>";
+  initial-value: 210deg;
+  inherits: false;
+}
+@keyframes ring-spin {
+  to { --ring-angle: 570deg; }
+}
