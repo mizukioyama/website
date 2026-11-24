@@ -696,11 +696,15 @@ body.lens-cursor-on * {
 .current-page-modal {
   position: fixed;
   inset: 0;
+  width: 100dvw;
+  height: 100dvh;
   z-index: 13040;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(18, 20, 22, 0.28);
+  background: rgba(18, 20, 22, 0.18);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .current-page-modal[hidden] {
