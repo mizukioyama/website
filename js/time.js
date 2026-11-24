@@ -504,6 +504,33 @@ waitForJQuery(function ($) {
                 }
                 return out;
             }
+            if (crossB && crossR) {
+                // Corner case: the capsule crosses the bottom
+                // and the right edge at once (the button sits
+                // in the card's bottom-right corner). The
+                // socket's top edge leaves through the right
+                // edge and its left cap meets the bottom edge:
+                // a fillet joins the right edge to the top
+                // edge, and the bottom join reuses the dip's
+                // fillet. (The right-edge detour and the dip
+                // constructions both overshoot the box here:
+                // the detour wraps the cap's full circle, the
+                // dip's right fillet lands past the corner.)
+                const fc = Math.min(16, r);
+                const dyC = by - ccy;
+                const dFC = Math.sqrt(Math.max(0, (r + fc) * (r + fc) - (dyC - fc) * (dyC - fc)));
+                const cfLC = { x: capL - dFC, y: by - fc };
+                const tLC = { x: capL + r * (cfLC.x - capL) / (r + fc), y: ccy + r * (cfLC.y - ccy) / (r + fc) };
+                const crBLC = Math.max(0, Math.min(cr, cfLC.x - x));
+                return head +
+                    " V " + (ccy - r + fc).toFixed(1) +
+                    arc(fc, 1, rx - fc, ccy - r) +
+                    " H " + capL.toFixed(1) +
+                    arc(r, 0, tLC.x, tLC.y) +
+                    arc(fc, 1, cfLC.x, by) +
+                    " H " + (x + crBLC).toFixed(1) + arc(crBLC, 1, x, by - crBLC) +
+                    " V " + (y + cr).toFixed(1) + arc(cr, 1, x + cr, y) + " Z";
+            }
             if (crossR) {
                 // The joins where the detour meets the
                 // right edge are rounded with fillet arcs
