@@ -180,7 +180,7 @@ waitForJQuery(function ($) {
         // artwork at 50% over it, grain on top) runs on
         // every viewport. The metal itself stays exactly
         // as tuned: still surface, bulge on contact.
-        const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false });
+        const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false, preserveDrawingBuffer: true });
         if (!gl) return;
         const VS = "attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }";
         const FS = [
@@ -349,6 +349,7 @@ waitForJQuery(function ($) {
         readRadius();
         window.addEventListener("resize", readRadius);
         window.addEventListener("resize", ensureLoop);
+        document.addEventListener("visibilitychange", () => { if (!document.hidden) ensureLoop(); });
         let rafOn = false;
         let idleFrames = 0;
         const ensureLoop = () => {
