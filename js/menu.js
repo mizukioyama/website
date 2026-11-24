@@ -1117,6 +1117,74 @@ function initializeFrameLiquid() {
   spMq.addEventListener('change', () => { restore(variants.pc); restore(variants.sp); wake(); });
 }
 
+
+// Current-page notice (Mizuki, 2026-11-24): a navigation
+// link that points at the page already on screen must not
+// reload it. The click is intercepted and a small modal
+// says the page is already being displayed. The modal
+// closes on any tap, on Escape, or by itself after a
+// moment.
+function initializeCurrentPageModal() {
+  if (document.querySelector('.current-page-modal')) return;
+  const modal = document.createElement('div');
+  modal.className = 'current-page-modal';
+  modal.hidden = true;
+  modal.setAttribute('role', 'alertdialog');
+  modal.setAttribute('aria-label', '現在表示してます。');
+  const card = document.createElement('div');
+  card.className = 'current-page-modal__card';
+  card.textContent = '現在表示してます。';
+  modal.appendChild(card);
+  document.body.appendChild(modal);
+
+  let timer = 0;
+  const hide = () => {
+    modal.hidden = true;
+    window.clearTimeout(timer);
+  };
+  const show = () => {
+    modal.hidden = false;
+    window.clearTimeout(timer);
+    timer = window.setTimeout(hide, 2600);
+  };
+  modal.addEventListener('click', hide);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !modal.hidden) hide();
+  });
+
+  const normalizePath = value => new URL(value, location.href).pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+  const currentPath = normalizePath(location.href);
+  document.addEventListener('click', event => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    let anchor = event.target?.closest?.('a[href]');
+    if (!anchor) {
+      // The nav panel's decorative grain layer can sit on
+      // top of a band link and swallow the tap (seen on the
+      // top page). If the tap point is inside the current
+      // page's link, treat it as a tap on that link.
+      anchor = [...document.querySelectorAll('header a[href], footer a[href]')].find(link => {
+        const rect = link.getBoundingClientRect();
+        return event.clientX >= rect.left && event.clientX <= rect.right
+          && event.clientY >= rect.top && event.clientY <= rect.bottom;
+      }) || null;
+    }
+    if (!anchor || !anchor.closest('header, footer')) return;
+    if (anchor.target && anchor.target !== '_self') return;
+    const href = anchor.getAttribute('href');
+    if (!href || href.startsWith('#')) return;
+    let target;
+    try {
+      target = normalizePath(anchor.href);
+    } catch {
+      return;
+    }
+    if (target !== currentPath) return;
+    event.preventDefault();
+    event.stopPropagation();
+    show();
+  }, { capture: true });
+}
+
 function initializeHeader() {
   try {
     if (!buildHeader()) return;
@@ -1129,6 +1197,7 @@ function initializeHeader() {
     new multi_language();
 
     initializeMenu();
+    initializeCurrentPageModal();
     initializePolicyControls();
     requestAnimationFrame(() => {
       if (typeof initializeTyping === 'function') initializeTyping();
