@@ -195,7 +195,7 @@
                  the outline, so no extra dark mass pools
                  around the button; the filter outputs only
                  the blurred shadow. -->
-            <svg class="card-shape" aria-hidden="true" focusable="false"><defs><filter id="cardShapeShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="10" result="blur"></feGaussianBlur><feOffset in="blur" dx="0" dy="3" result="off"></feOffset><feFlood flood-color="#000" flood-opacity="0.32" result="flood"></feFlood><feComposite in="flood" in2="off" operator="in"></feComposite></filter></defs><path id="cardShadowPath" d="" fill="#000" filter="url(#cardShapeShadow)"></path><path id="cardShapePath" d="" fill="transparent"></path></svg>
+            <svg class="card-shape" aria-hidden="true" focusable="false"><defs><filter id="cardShapeShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"></feGaussianBlur><feOffset in="blur" dx="0" dy="3" result="off"></feOffset><feFlood flood-color="#000" flood-opacity="0.32" result="flood"></feFlood><feComposite in="flood" in2="off" operator="in"></feComposite></filter></defs><path id="cardShadowPath" d="" fill="#000" filter="url(#cardShapeShadow)"></path><path id="cardShapePath" d="" fill="transparent"></path></svg>
 
             <!-- in item -->
             <canvas class="card-liquid-gl" aria-hidden="true"></canvas>
