@@ -702,7 +702,7 @@ body.lens-cursor-on * {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(18, 20, 22, 0.18);
+  background: transparent;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
