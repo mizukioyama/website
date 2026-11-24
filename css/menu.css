@@ -53,9 +53,6 @@ nav .noise {
   display: block;
   background-image: linear-gradient(to right, #878787, #2d2d2d);
 }
-.home .inner .noise {
-  background-image: linear-gradient(to right, rgba(46, 46, 46, 0.75) 30%, var(--text) 100%);
-}
 .toggle_btn {
   display: block;
   position: fixed;
@@ -828,6 +825,12 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     box-shadow: none;
     pointer-events: auto;
   }
+  .home #navArea .inner li a:hover .nav-label,
+  .home #navArea .inner li a:focus-visible .nav-label {
+    background-color: #e1e1dc;
+    box-shadow: none;
+    color: var(--text);
+  }
   /* Fillet shoulders where the expanded label crosses the band's
      left edge: each notch is filled by the corner triangle of an
      inverted disc, tangent to the label edge and the band edge. */
@@ -847,6 +850,11 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+  }
+  .home #navArea .inner li a::after {
+    background-image:
+      radial-gradient(circle at 0% 0%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px)),
+      radial-gradient(circle at 0% 100%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px));
   }
   #navArea .inner li a:is(:hover, :focus-visible)::after {
     opacity: 1;
@@ -1194,11 +1202,19 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   background-size: 1.59dvh 1.59dvh;
   background-position: right bottom;
 }
+.home .frame-initials a:first-child::after {
+  background-image:
+    radial-gradient(circle at 100% 100%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px));
+}
 .frame-initials a:last-child::after {
   background-image:
     radial-gradient(circle at 100% 0%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px));
   background-size: 1.59dvh 1.59dvh;
   background-position: right top;
+}
+.home .frame-initials a:last-child::after {
+  background-image:
+    radial-gradient(circle at 100% 0%, transparent 1.59dvh, #e1e1dc calc(1.59dvh + 1px));
 }
 .frame-initials a:is(:hover, :focus-visible)::after { opacity: 1; }
 .frame-initials .frame-initial::after {
@@ -1217,9 +1233,15 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   top: calc(50% - 26px - 7.99dvh);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 28.9 100 A 55.6 55.6 0 0 0 18.5 88.8 A 50 50 0 0 0 50 100 Z' fill='%23222527'/%3E%3C/svg%3E");
 }
+.home .frame-initials a:first-child .frame-initial::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 28.9 100 A 55.6 55.6 0 0 0 18.5 88.8 A 50 50 0 0 0 50 100 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
+}
 .frame-initials a:last-child .frame-initial::after {
   top: calc(50% + 26px);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 28.9 0 A 55.6 55.6 0 0 1 18.5 11.2 A 50 50 0 0 1 50 0 Z' fill='%23222527'/%3E%3C/svg%3E");
+}
+.home .frame-initials a:last-child .frame-initial::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 28.9 0 A 55.6 55.6 0 0 1 18.5 11.2 A 50 50 0 0 1 50 0 Z' fill='%23e1e1dc'/%3E%3C/svg%3E");
 }
 .frame-initials a:is(:hover, :focus-visible) .frame-initial::after { opacity: 1; }
 
@@ -1232,6 +1254,12 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   background-color: #222527;
   box-shadow: none;
   pointer-events: auto;
+}
+.home .frame-initials a:hover .frame-label,
+.home .frame-initials a:focus-visible .frame-label {
+  background-color: #e1e1dc;
+  box-shadow: none;
+  color: var(--text);
 }
 @media (prefers-reduced-motion: reduce) {
   .frame-label, .frame-initial, .frame-label::before { transition: none; }
