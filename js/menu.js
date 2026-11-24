@@ -1145,7 +1145,7 @@ function initializeCurrentPageModal() {
   const show = () => {
     modal.hidden = false;
     window.clearTimeout(timer);
-    timer = window.setTimeout(hide, 2600);
+    timer = window.setTimeout(hide, 1200);
   };
   modal.addEventListener('click', hide);
   document.addEventListener('keydown', event => {
