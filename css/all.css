@@ -165,13 +165,13 @@ body {
 :is(.gallery-modal-header, .policy-modal-header) {
   width: 100%; box-sizing: border-box; flex-shrink: 0;
   display: flex; align-items: start; justify-content: space-between; gap: 16px;
-  border-bottom: 1px solid rgba(255,255,255,.2);
+  border-bottom: 1px solid rgba(255,255,255,.28);
 }
 :is(.gallery-modal-body, #policy-modal-content) {
   width: 100%; box-sizing: border-box; min-height: 0; overflow-y: auto;
   overscroll-behavior: contain; line-height: 1.8;
 }
-.gallery-modal-header, .gallery-modal-body { padding: clamp(20px, 2vw, 32px); }
+.gallery-modal-header, .gallery-modal-body { padding: clamp(24px, 2.4vw, 40px); }
 #modalBox .modal-text p {
   font-size: var(--type-home-modal-body-size); margin: 0 0 24px; line-height: 1.8;
 }
