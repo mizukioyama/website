@@ -307,7 +307,7 @@ const HEADER_MARKUP = `
     <small>前のページへ</small>
   </a>
   <a class="frame-instagram" href="https://www.instagram.com/o.mizuki_1998" target="_blank" rel="noopener" aria-label="Instagram">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><defs><linearGradient id="frameIgGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5ddcff" stop-opacity="0.95"/><stop offset="0.33" stop-color="#f9fafb" stop-opacity="0.95"/><stop offset="0.66" stop-color="#3c67e3" stop-opacity="0.95"/><stop offset="1" stop-color="#101918" stop-opacity="0.95"/></linearGradient></defs><path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z" stroke="url(#frameIgGrad)"/><circle cx="12" cy="12" r="4" stroke="url(#frameIgGrad)"/><circle cx="17.2" cy="6.8" r="0.6" fill="url(#frameIgGrad)" stroke="none"/></svg>
   </a>
   <div class="frame-copy">&copy; <span id="frameYear"></span> Mizuki Oyama</div>
 </header>
