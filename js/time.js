@@ -160,6 +160,8 @@ waitForJQuery(function ($) {
     // x1.37) at the very back, the real artwork images
     // (cover) over it at the original 50% opacity, grain
     // on top (100%). Material softness 55%, sliminess 0%.
+    // Surface opacity 50% and pattern aspect 0.50
+    // (Mizuki, 2026-11-24, tuner values).
     // No automatic surface animation: the pattern is
     // frozen (fixed time phase, no drift); only the
     // pointer-driven bulge moves. Deformation
@@ -194,6 +196,7 @@ waitForJQuery(function ($) {
             "uniform float u_time;",
             "uniform float u_soft;",
             "uniform float u_opaque;",
+            "uniform float u_aspect;",
             "uniform float u_slim;",
             "uniform float u_wob;",
             "uniform float u_phase;",
@@ -255,7 +258,7 @@ waitForJQuery(function ($) {
             "  if (alpha <= 0.004) { gl_FragColor = vec4(0.0); return; }",
             "  vec2 uv = (p - u_card.xy) / u_card.zw;",
             "  float tm = u_time * 0.010;",
-            "  vec2 fp = uv * vec2(3.2, 2.1);",
+            "  vec2 fp = uv * vec2(3.2 * u_aspect, 2.1);",
             "  float w1 = fbm(fp + u_flow + fbm(fp * 1.4 - tm * 0.3) * mix(1.6, 2.7, u_slim) - u_vel * 0.010 * (0.4 + u_slim));",
             "  float ridge = 1.0 - abs(w1 * 2.0 - 1.0);",
             "  float streak = pow(ridge, mix(3.4, 2.0, u_soft)) * 1.37;",
@@ -297,7 +300,7 @@ waitForJQuery(function ($) {
         gl.enableVertexAttribArray(loc);
         gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
         const uni = {};
-        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_opaque", "u_notch", "u_radius"].forEach((name) => {
+        ["u_res", "u_card", "u_ptr", "u_q", "u_vel", "u_flow", "u_amp", "u_on", "u_time", "u_soft", "u_slim", "u_wob", "u_phase", "u_opaque", "u_aspect", "u_notch", "u_radius"].forEach((name) => {
             uni[name] = gl.getUniformLocation(prog, name);
         });
         gl.enable(gl.BLEND);
@@ -401,7 +404,8 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_on, on);
             gl.uniform1f(uni.u_time, 12.0);
             gl.uniform1f(uni.u_soft, SOFT);
-            gl.uniform1f(uni.u_opaque, 0.8);
+            gl.uniform1f(uni.u_opaque, 0.5);
+            gl.uniform1f(uni.u_aspect, 0.5);
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
             gl.uniform1f(uni.u_phase, phase);
