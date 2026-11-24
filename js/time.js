@@ -243,7 +243,7 @@ waitForJQuery(function ($) {
             "  vec2 p = vec2(gl_FragCoord.x, u_res.y - gl_FragCoord.y);",
             "  float d = field(p);",
             "  float body = smoothstep(1.6, -1.6, d);",
-            "  float shadow = smoothstep(26.0, 2.0, d) * 0.20;",
+            "  float shadow = smoothstep(26.0, 2.0, d) * 0.0;",
             "  float zone = 1.0;",
             "  if (u_notch.z > 0.0) {",
             "    vec2 zc = vec2(u_card.x + u_notch.x, u_card.y + u_card.w - u_notch.w);",
