@@ -62,7 +62,7 @@
 
     try {
       const nextInstance = engine.create(canvas, window, null, {
-        settings: { ...engine.DEFAULTS, lineCount: 80, lineWidth: 2.0, opacity: 0.40, color: "#006d8f", colors: ["#caf0fe", "#006d8f", "#caf0fe"], ...shadowSettings },
+        settings: { ...engine.DEFAULTS, lineCount: 32, lineWidth: 2.0, opacity: 0.40, color: "#006d8f", colors: ["#caf0fe", "#006d8f", "#caf0fe"], ...shadowSettings },
         variant: isHybridRandom ? "contour" : nextChoice,
         mode: isHybridRandom ? "hybrid" : "manual",
         hybridContributions: nextContributions
@@ -106,7 +106,7 @@
   });
 
   // Fixed by Mizuki (2026-11-22): hybrid mix with tuned
-  // settings (lineCount 80, lineWidth 2.0, opacity 0.40,
+  // settings (lineCount 32, lineWidth 2.0, opacity 0.40,
   // gradient #caf0fe -> #006d8f -> #caf0fe). No per-load
   // random choice any more.
   const initialChoice = "hybrid-random";
