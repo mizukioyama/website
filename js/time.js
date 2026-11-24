@@ -404,7 +404,7 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_on, on);
             gl.uniform1f(uni.u_time, 12.0);
             gl.uniform1f(uni.u_soft, SOFT);
-            gl.uniform1f(uni.u_opaque, 0.7);
+            gl.uniform1f(uni.u_opaque, 0.85);
             gl.uniform1f(uni.u_aspect, 0.5);
             gl.uniform1f(uni.u_slim, SLIM);
             gl.uniform1f(uni.u_wob, wob);
