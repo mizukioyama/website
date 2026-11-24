@@ -824,7 +824,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
        text position (7.19vw from the left edge). */
     width: calc(8.86vw + 118px);
     color: inherit;
-    background-color: rgba(16, 24, 25, 0.97);
+    background-color: #222527;
     box-shadow: none;
     pointer-events: auto;
   }
@@ -839,8 +839,8 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     width: 1.59dvh;
     height: calc(52px + 3.19dvh);
     background-image:
-      radial-gradient(circle at 0% 0%, transparent 1.59dvh, rgba(16, 24, 25, 0.97) calc(1.59dvh + 1px)),
-      radial-gradient(circle at 0% 100%, transparent 1.59dvh, rgba(16, 24, 25, 0.97) calc(1.59dvh + 1px));
+      radial-gradient(circle at 0% 0%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px)),
+      radial-gradient(circle at 0% 100%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px));
     background-size: 1.59dvh 1.59dvh, 1.59dvh 1.59dvh;
     background-position: left top, left bottom;
     background-repeat: no-repeat;
@@ -1190,13 +1190,13 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
 }
 .frame-initials a:first-child::after {
   background-image:
-    radial-gradient(circle at 100% 100%, transparent 1.59dvh, rgba(16, 24, 25, 0.97) calc(1.59dvh + 1px));
+    radial-gradient(circle at 100% 100%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px));
   background-size: 1.59dvh 1.59dvh;
   background-position: right bottom;
 }
 .frame-initials a:last-child::after {
   background-image:
-    radial-gradient(circle at 100% 0%, transparent 1.59dvh, rgba(16, 24, 25, 0.97) calc(1.59dvh + 1px));
+    radial-gradient(circle at 100% 0%, transparent 1.59dvh, #222527 calc(1.59dvh + 1px));
   background-size: 1.59dvh 1.59dvh;
   background-position: right top;
 }
@@ -1215,11 +1215,11 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
 }
 .frame-initials a:first-child .frame-initial::after {
   top: calc(50% - 26px - 7.99dvh);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 28.9 100 A 55.6 55.6 0 0 0 18.5 88.8 A 50 50 0 0 0 50 100 Z' fill='%23101819'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 100 L 28.9 100 A 55.6 55.6 0 0 0 18.5 88.8 A 50 50 0 0 0 50 100 Z' fill='%23222527'/%3E%3C/svg%3E");
 }
 .frame-initials a:last-child .frame-initial::after {
   top: calc(50% + 26px);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 28.9 0 A 55.6 55.6 0 0 1 18.5 11.2 A 50 50 0 0 1 50 0 Z' fill='%23101819'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 50 0 L 28.9 0 A 55.6 55.6 0 0 1 18.5 11.2 A 50 50 0 0 1 50 0 Z' fill='%23222527'/%3E%3C/svg%3E");
 }
 .frame-initials a:is(:hover, :focus-visible) .frame-initial::after { opacity: 1; }
 
@@ -1229,7 +1229,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
 .frame-initials a:focus-visible .frame-label {
   width: calc(156px + 3.125vw);
   color: inherit;
-  background-color: rgba(16, 24, 25, 0.97);
+  background-color: #222527;
   box-shadow: none;
   pointer-events: auto;
 }
@@ -1256,6 +1256,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   line-height: 1.5;
 }
 .frame-prev::before { content: none; }
+.home .frame-prev { color: var(--text); }
 .frame-prev-tag { font-size: 12px; letter-spacing: 0.35em; }
 .frame-prev-name { font-size: 17px; letter-spacing: 0.04em; margin-left: 0.7em; }
 .frame-prev small {
