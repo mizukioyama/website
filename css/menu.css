@@ -432,6 +432,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
     text-shadow: none;
   }
   .home #header-container header a.noise { color: var(--text); }
+  .home #header-container header #navArea .inner a.noise { color: var(--inv); }
   #header-container header .head a::after { display: none; }
 
   #header-container header .head { display: block; grid-area: brand; }
