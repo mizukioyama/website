@@ -953,7 +953,8 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
      the band rows are tall, so the width follows the band. */
   #navArea .inner li a { min-width: 0; }
   #header-container header .head a { font-size: 11.5px; }
-  #header-container header #langChange .inner_label { grid-template-columns: 34px 10px 34px; }
+  #header-container header #langChange { margin-left: 20px; }
+  #header-container header #langChange .inner_label { grid-template-columns: 44px 10px 44px; }
   /* Small screens keep the 12px side padding: at 16px the two
      pills (44/48px) would touch across the 10px separator slot. */
   #header-container header #langChange .lang-button { padding: 3px 12px; }
@@ -968,6 +969,9 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
   padding: 3px 16px;
   border-radius: 999px;
   /* background-color only: the .noise text paint lives
