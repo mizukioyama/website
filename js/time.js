@@ -156,8 +156,8 @@ waitForJQuery(function ($) {
     };
     // The card itself is rendered as a liquid-metal droplet
     // by a small WebGL shader (user settings, 2026-11-19):
-    // the flowing chrome (metal strength 150%: streak
-    // x1.37) at the very back, the real artwork images
+    // the flowing chrome (metal strength 180%: streak
+    // x1.64) at the very back, the real artwork images
     // (cover) over it at the original 50% opacity, grain
     // on top (100%). Material softness 55%, sliminess 0%.
     // Surface opacity 55% and pattern aspect 0.50
@@ -261,7 +261,7 @@ waitForJQuery(function ($) {
             "  vec2 fp = uv * vec2(3.2 * u_aspect, 2.1);",
             "  float w1 = fbm(fp + u_flow + fbm(fp * 1.4 - tm * 0.3) * mix(1.6, 2.7, u_slim) - u_vel * 0.010 * (0.4 + u_slim));",
             "  float ridge = 1.0 - abs(w1 * 2.0 - 1.0);",
-            "  float streak = pow(ridge, mix(3.4, 2.0, u_soft)) * 1.37;",
+            "  float streak = pow(ridge, mix(3.4, 2.0, u_soft)) * 1.64;",
             "  float w2 = fbm(fp * 0.8 - vec2(tm * 0.5, 0.0));",
             "  vec3 chrome = mix(vec3(0.028, 0.032, 0.042), vec3(0.105, 0.115, 0.135), u_soft);",
             "  chrome += vec3(0.88, 0.94, 1.05) * streak * mix(0.95, 0.55, u_soft);",
