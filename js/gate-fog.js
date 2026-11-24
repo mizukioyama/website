@@ -331,6 +331,13 @@
     if (!entry.isConnected) {
       return;
     }
+    if (window.getComputedStyle(entry).display === "none") {
+      /* The gate has been dismissed for good: stop the loop and
+         drop the resize listener instead of ticking forever
+         behind the page (performance, Mizuki 2026-11-24). */
+      window.removeEventListener("resize", sizeCanvas);
+      return;
+    }
     fog.raf = window.requestAnimationFrame(frame);
     if (!visible || !fogSprites) {
       fieldStart = null;
