@@ -10,7 +10,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/noise.css?v=b8f783b14583">
   <link rel="stylesheet" href="css/modal.css?v=069b2e076f69">
-  <link rel="stylesheet" href="css/all.css?v=9bbcf4208dbd">
+  <link rel="stylesheet" href="css/all.css?v=e17e60a56974">
   <link rel="stylesheet" href="css/gallery.css?v=13a434461abb">
   <link rel="stylesheet" href="css/mobile.css?v=a3aa610f184b">
   <link rel="stylesheet" href="css/form.css?v=f0294c03cfe0">
@@ -306,21 +306,21 @@
       border: 1px solid rgba(255,255,255,.35);
       border-radius: 10px;
       background: rgba(16,24,25,.97);
-      color: var(--inv);
+      color: rgba(244, 246, 249, .92);
       opacity: 0;
       visibility: hidden;
       transition: opacity .3s ease;
     }
     .policy-modal-header { align-items: center; }
-    .policy-modal-header, #policy-modal-content { padding: clamp(20px, 2.8vw, 32px); }
+    .policy-modal-header, #policy-modal-content { padding: clamp(24px, 2.4vw, 40px); }
     .policy-modal-header h2 { font-size: var(--type-home-modal-h2-size); margin: 0; }
     .policy-modal-header .modal-close-label { margin: 0; padding: 8px; display: inline-flex; gap: 8px; }
     /* Policy reading uses the existing 14-16px UI token; artwork/thanks retain their modal token. */
-    #policy-modal-content p { font-size: var(--font-ui-size); line-height: 1.8; margin: 0 0 18px; }
+    #policy-modal-content p { font-size: var(--font-ui-size); line-height: 1.8; margin: 0 0 20px; }
     #policy-modal-content > .content { width: 100%; min-width: 0; max-width: none; margin: 0; padding: 0; }
     #policy-modal-content :is(h2, h3) { color: inherit; background: none; background-clip: border-box; -webkit-text-fill-color: currentColor; mask: none; animation: none; text-shadow: none; }
-    #policy-modal-content h2 { font-size: var(--type-home-modal-h2-size); margin: 0 0 24px; }
-    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 28px 0 12px; font-weight: 500; line-height: 1.4; }
+    #policy-modal-content h2 { font-size: var(--type-home-modal-h2-size); margin: 0 0 24px; color: #f4f6f9; }
+    #policy-modal-content h3 { font-size: var(--type-home-modal-h3-size); margin: 32px 0 12px; font-weight: 500; line-height: 1.4; color: #f4f6f9; }
     #policy-modal-content .content > :last-child { margin-bottom: 0; }
     #modal-toggle:checked ~ .modal-overlay,
     #modal-toggle:checked ~ .modal-box { opacity: 1; visibility: visible; }
