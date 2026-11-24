@@ -1319,6 +1319,26 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   white-space: nowrap;
 }
 .home .frame-copy { color: var(--text); }
+/* Instagram icon above the copyright, on the frame's
+   bottom strip (Mizuki 2026-11-24). Right edge aligned
+   with the copyright; colours follow the frame copy. */
+.frame-instagram {
+  position: fixed;
+  right: calc(1.6667vw + 12px);
+  bottom: calc(1.333dvh + 20px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--inv);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+.frame-instagram:hover, .frame-instagram:focus-visible { opacity: 1; }
+.frame-instagram svg { width: 20px; height: 20px; display: block; }
+.home .frame-instagram { color: var(--text); }
 @media only screen and (max-width: 600px) {
   /* Phones: the gallery's category bar occupies the area above the
      strip, so PREV joins the copyright inside the strip, one line. */
@@ -1327,6 +1347,8 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   .frame-prev-name { font-size: 14px; }
   .frame-prev small { display: none; }
   .frame-copy { right: calc(1.667vw + 6px); bottom: 6px; }
+  .frame-instagram { right: calc(1.667vw + 6px); bottom: 32px; width: 32px; height: 32px; }
+  .frame-instagram svg { width: 18px; height: 18px; }
 }
 
 /* Portrait tablets (2026-11-23): the frame is drawn in a
