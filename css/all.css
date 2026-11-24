@@ -716,7 +716,8 @@ body.lens-cursor-on * {
   background: transparent;
   border: none;
   box-shadow: none;
-  color: #2e2e2e;
+  color: #f4f6f9;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45), 0 0 2px rgba(0, 0, 0, 0.35);
   font-size: 0.95rem;
   letter-spacing: 0.08em;
   animation: current-page-modal-in 0.22s ease-out;
