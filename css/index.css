@@ -291,10 +291,6 @@ body.back--anim.auto-speed .card__slide:not(.active) .date {
   animation-duration: 3219ms;
 }
 
-body.auto-speed .content__ping.play::after {
-  animation-duration: 1375ms;
-}
-
 body.auto-speed .content__slide.active .title__inner {
   transition-delay: 1000ms;
 }
@@ -733,7 +729,14 @@ body.back--anim .card__slide:not(.active) .date {
   width: 44px; height: 44px; padding: 0; border: 0;
   background: transparent; color: var(--inv); pointer-events: none;
   opacity: 0.7; z-index: 11;
+  transition: transform 1200ms cubic-bezier(0.22, 0.9, 0.24, 1);
 }
+/* The bar travels with the slides (Mizuki 2026-11-24):
+   slide 1 rests 24px left of its base position, slide 2
+   rests 24px right; the transition above animates the
+   move whenever a switch flips .active. */
+.card__slide:nth-child(1).active ~ .content__ping { transform: translateX(calc(-50% - 24px)); }
+.card__slide:nth-child(2).active ~ .content__ping { transform: translateX(calc(-50% + 24px)); }
 .content__ping::before, .content__ping::after {
   content: ""; display: block; position: absolute;
   width: 28px; height: 1px; left: 8px; top: 50%;
@@ -744,43 +747,7 @@ body.back--anim .card__slide:not(.active) .date {
   transition: background 350ms 800ms linear;
 }
 
-.content__ping.play::after {
-  animation: widenFromLeft 2588ms ease-out;
-}
 
-@keyframes widenFromLeft {
-  0% {
-    opacity: 1;
-    transform-origin: 0 50%;
-  }
-
-  20% {
-    transform: scaleX(1.9);
-    transform-origin: 0 50%;
-  }
-
-  100% {
-    opacity: 1;
-    transform-origin: 0 50%;
-  }
-}
-
-@keyframes widenFromRight {
-  0% {
-    opacity: 1;
-    transform-origin: 100% 50%;
-  }
-
-  20% {
-    transform: scaleX(1.9);
-    transform-origin: 100% 50%;
-  }
-
-  100% {
-    opacity: 1;
-    transform-origin: 100% 50%;
-  }
-}
 
 /* Manual card switch: a single Liquid Glass button at the
    card's bottom-right corner (flush right, 14px above the
