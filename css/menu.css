@@ -1320,6 +1320,10 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   white-space: nowrap;
 }
 .home .frame-copy { color: var(--text); }
+/* PC: a smaller copyright line (Mizuki 2026-11-24). */
+@media only screen and (min-width: 1024px) {
+  .frame-copy { font-size: 11px; }
+}
 /* Instagram icon above the copyright, on the frame's
    bottom strip (Mizuki 2026-11-24). Right edge aligned
    with the copyright; colours follow the frame copy. */
