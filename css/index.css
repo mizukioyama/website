@@ -740,11 +740,11 @@ body.back--anim .card__slide:not(.active) .date {
 .content__ping::before, .content__ping::after {
   content: ""; display: block; position: absolute;
   width: 28px; height: 1px; left: 8px; top: 50%;
-  background: currentColor; pointer-events: none;
+  background: linear-gradient(90deg, rgba(93, 220, 255, 0.95), rgba(249, 250, 251, 0.95), rgba(60, 103, 227, 0.95), rgba(16, 25, 24, 0.95));
+  pointer-events: none;
 }
 .content__ping::after {
-  background: var(--text); opacity: 0.7;
-  transition: background 350ms 800ms linear;
+  opacity: 0.7;
 }
 
 
@@ -757,6 +757,9 @@ body.back--anim .card__slide:not(.active) .date {
    #f9fafb, black #101918) at 35% intensity, with a soft
    glow behind it. Square corners. */
 .card-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   /* Position (Mizuki 2026-11-21): nestled into the
      card's bottom-right corner - the centre sits 5.02%
@@ -769,7 +772,7 @@ body.back--anim .card__slide:not(.active) .date {
   bottom: calc(50% - var(--card-height) / 2 + var(--card-height) * 0.0348);
   transform: translate(50%, 50%);
   z-index: 12;
-  padding: 0.38em 0.95em;
+  padding: 0.55em 0.95em;
   font-family: "Shippori Mincho", serif;
   font-size: 18px;
   letter-spacing: 0.18em;
@@ -782,7 +785,7 @@ body.back--anim .card__slide:not(.active) .date {
   border: 1px solid rgba(255, 255, 255, 0.65);
   /* Pill shape (Mizuki 2026-11-20). */
   border-radius: 999px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 8px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 3px 10px rgba(0, 0, 0, 0.28);
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 }
@@ -821,6 +824,8 @@ body.back--anim .card__slide:not(.active) .date {
 .card-nav-text {
   position: relative;
   z-index: 3;
+  line-height: 1;
+  padding-left: 0.18em;
 }
 @media (prefers-reduced-motion: reduce) {
   .card-liquid-gl {
@@ -1298,8 +1303,13 @@ footer,
     margin-top: 0;
   }
   .button {
-    font-size: var(--font-ui-size);
-    padding: 1rem 0.5rem;
+    font-size: 13px;
+    padding: 0.75rem 0.5rem;
+    width: min(100%, 180px);
+    min-height: 40px;
+  }
+  .card-nav {
+    font-size: 15px;
   }
 }
 
