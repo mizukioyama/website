@@ -335,6 +335,7 @@ waitForJQuery(function ($) {
             const outX = Math.max(0, -tx, tx - rect.width);
             const outY = Math.max(0, -ty, ty - rect.height);
             onTarget = Math.hypot(outX, outY) <= REACH ? 1 : 0;
+            ensureLoop();
         };
         wrap.addEventListener("pointermove", onMove);
         wrap.addEventListener("pointerdown", onMove);
@@ -347,8 +348,13 @@ waitForJQuery(function ($) {
         };
         readRadius();
         window.addEventListener("resize", readRadius);
+        window.addEventListener("resize", ensureLoop);
+        let rafOn = false;
+        let idleFrames = 0;
+        const ensureLoop = () => {
+            if (!rafOn) { rafOn = true; idleFrames = 0; lastT = 0; requestAnimationFrame(frame); }
+        };
         const frame = (t) => {
-            requestAnimationFrame(frame);
             const dt = Math.min(50, t - lastT || 16);
             lastT = t;
             const k = 1 - Math.exp(-dt / TAU);
@@ -390,7 +396,7 @@ waitForJQuery(function ($) {
             gl.viewport(0, 0, canvas.width, canvas.height);
             const cr = card.getBoundingClientRect();
             const cvr = canvas.getBoundingClientRect();
-            if (!cvr.width || !cvr.height) return;
+            if (!cvr.width || !cvr.height) { rafOn = false; return; }
             const sx = canvas.width / cvr.width;
             const sy = canvas.height / cvr.height;
             gl.uniform2f(uni.u_res, canvas.width, canvas.height);
@@ -411,8 +417,22 @@ waitForJQuery(function ($) {
             gl.uniform1f(uni.u_phase, phase);
             gl.uniform1f(uni.u_radius, radiusCss * sx);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
+            /* Idle stop (performance, Mizuki 2026-11-24): the metal
+               surface is static while the pointer is away and the
+               bulge has settled (u_time is fixed and u_phase only
+               acts through u_wob), so stop redrawing until the
+               pointer, a resize or a late layout shift wakes the
+               loop again via ensureLoop(). */
+            const idle = onTarget === 0 && on < 0.002 && Math.abs(ampS) < 0.002 && Math.abs(ampV) < 0.002 && wob < 0.002;
+            idleFrames = idle ? idleFrames + 1 : 0;
+            if (idleFrames > 30) { rafOn = false; return; }
+            requestAnimationFrame(frame);
         };
+        rafOn = true;
         requestAnimationFrame(frame);
+        setTimeout(ensureLoop, 600);
+        setTimeout(ensureLoop, 1800);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(ensureLoop);
     };
     document.addEventListener("portfolio:homeready", initializeHomeSlides, { once: true });
     document.addEventListener("portfolio:homeready", initializeCardLiquidGL, { once: true });
