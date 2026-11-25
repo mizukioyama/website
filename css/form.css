@@ -466,14 +466,14 @@ input:-webkit-autofill:focus {
   #contact {
     flex-direction: column;
     /* Start the column below the page title, like the other pages. */
-    padding-top: 82.5vmin;
+    padding-top: 28vmin;
     /* Pack the column from the top; the form follows the text
        with a fixed gap instead of distributed leftover space. */
     justify-content: flex-start;
   }
   #contact .content {
     width: 50%;
-    margin: 0 auto;
+    margin: 36vmin auto 0;
   }
   #contact .contact-form {
     width: 50%;
@@ -501,3 +501,13 @@ input:-webkit-autofill:focus {
   }
 }
 
+/* Hero in flow (Mizuki, 2026-11-25): the hero takes a full row,
+   then the intro text and the form start on the same line below
+   it (tops aligned). Tablet portrait is handled by its own block
+   above and stays a single column. */
+@media screen and (min-width: 600px) and (orientation: landscape), screen and (min-width: 1200px) {
+  #contact { flex-wrap: wrap; }
+  #contact .h1-text { flex: 0 0 100%; }
+  #contact .content { margin-top: 36vmin; }
+  #contact .contact-form { margin-top: 36vmin; flex: 1 1 0; min-width: 0; }
+}

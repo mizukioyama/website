@@ -281,9 +281,8 @@ h1 {
 }
 
 .h1-text {
-  position: absolute;
+  position: relative;
   left: 20vmin;
-  top: 28vmin;
   z-index: 100;
 }
 
@@ -1371,7 +1370,7 @@ body.art-page:not(.home) main.gallery {
      Gallery pagination 3.5rem -> 4rem, Order timeline list
      margins 1vmin / 2vmin -> 16px. PC pagination margins halved
      (Mizuki 2026-11-25): 4rem -> 2rem. */
-  .art-page main.gallery > .gallery-box > #pagination { margin-top: 2rem; margin-bottom: 2rem; }
+  .art-page main.gallery > .gallery-box > #pagination { margin-top: 1rem; margin-bottom: 1rem; }
 
   /* Inside the works list, the bottom space matches the top
      space (the container's top padding, 2.75rem). */
@@ -1409,4 +1408,19 @@ body.art-page:not(.home) main.gallery {
   #policy .page-line { margin-top: 8rem; margin-bottom: 8rem; }
   .art-page main.gallery > .gallery-box > .page-line { margin-top: 8rem !important; margin-bottom: 8rem; }
   #policy h3 { margin-top: 8rem; }
+}
+
+/* Hero in flow (Mizuki, 2026-11-25): the title starts at the main
+   top padding (28vmin) and every page's content follows the hero
+   with the same 36vmin gap. The per-page offsets that used to
+   fake this under the absolute hero are neutralised here. */
+@media screen and (min-width: 600px) {
+  main { padding-top: 28vmin; }
+  .art-page main { padding-top: 28vmin; }
+  .gallery.statement > .state-box { padding-top: 0; }
+  main .state-box { margin-top: 36vmin; }
+  .state-box > .content { margin-top: 0; }
+  #policy { flex-direction: column; }
+  #policy > .content { margin-top: 36vmin; }
+  .art-page main.gallery > .gallery-box { margin-top: 36vmin; }
 }
