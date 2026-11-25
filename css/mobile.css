@@ -368,6 +368,7 @@
   /* SP spacing unification (Mizuki 2026-11-25): divider lines and
      Policy subheads join the 64px / 32px rhythm. */
   main.order-page .page-line { margin-top: 64px; margin-bottom: 64px; }
+  .art-page main.gallery { padding-bottom: 6rem; }
   #policy .page-line { margin-top: 64px; margin-bottom: 64px; }
   #policy h3 { margin-top: 32px; }
   #state h3 {
