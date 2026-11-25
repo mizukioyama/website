@@ -962,6 +962,12 @@ main {
     max-width: 100%;
     margin: 4rem auto;
   }
+
+  /* The divider after the pagination is the last element:
+     its bottom margin would stack on the main bottom padding. */
+  .art-page main.gallery > .gallery-box > #pagination + .page-line {
+    margin-bottom: 0;
+  }
 }
 
 #policy h2 {

@@ -189,6 +189,12 @@
             }
         }
 
+        /* The last timeline item does not need the spacing that
+           separates items: the page ends at the main padding. */
+        #state .content .timeline-item:last-child .timeline-copy {
+            padding-bottom: 0;
+        }
+
     </style>
 </head>
 
