@@ -1016,6 +1016,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
   opacity: 0.3;
   pointer-events: none;
   transition: opacity 250ms ease;
+  animation: ring-spin 14s linear infinite;
 }
 
 .lang-button:hover {
@@ -1024,7 +1025,7 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
 
 .lang-button:hover::before {
   opacity: 0.55;
-  animation: ring-spin 2.8s linear infinite;
+ 
 }
 
 @media (hover: hover) and (pointer: fine) {
