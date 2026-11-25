@@ -76,7 +76,7 @@ form input[type="radio"]:checked::before {
    /*width: 65%;
    margin: 60vmin auto 0;*/
    width: min(50%, calc(100% - clamp(1rem, calc(0.5rem + 2vw), 2rem)));
-   margin-top: 60vmin;
+   margin-top: 42vmin;
 }
 
 /* PCではContact本文の左端をページ見出し（h1）の左端に揃える */

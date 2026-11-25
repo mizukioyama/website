@@ -283,7 +283,7 @@ h1 {
 .h1-text {
   position: absolute;
   left: 20vmin;
-  top: 40vmin;
+  top: 28vmin;
   z-index: 100;
 }
 
@@ -625,6 +625,9 @@ main {
   width: 100%;
   margin: 0 auto;
   padding: 30vmin 2rem;
+  /* Top spacing scaled to 70% (Mizuki 2026-11-25, with the
+     phone hero change): the first view starts higher. */
+  padding-top: 21vmin;
   backdrop-filter: blur(10px);
   background-color: rgba(0, 0, 0, 0.085);
   box-shadow: inset 0 0px 7px rgba(0, 0, 0, 1);
@@ -674,7 +677,7 @@ main {
 
 /* Keep the user-approved 5500 composition on Artist Statement and Biography only. */
 .gallery.statement > .state-box {
-  padding-top: 60vmin;
+  padding-top: 42vmin;
 }
 
 .gallery.statement > .state-box > .content {
@@ -803,7 +806,7 @@ main {
     width: min(100%, var(--gallery-max-width));
     max-width: var(--gallery-max-width);
     min-width: 0;
-    margin: 60vmin auto 0;
+    margin: 42vmin auto 0;
     box-sizing: border-box;
   }
 
@@ -1346,5 +1349,5 @@ body.art-page:not(.home) main.gallery {
   }
 
   /* Gallery main padding matches the other pages. */
-  .art-page main { padding-top: 30vmin; padding-right: 4vmin; }
+  .art-page main { padding-top: 21vmin; padding-right: 4vmin; }
 }
