@@ -509,5 +509,5 @@ input:-webkit-autofill:focus {
   #contact { flex-wrap: wrap; }
   #contact .h1-text { flex: 0 0 100%; }
   #contact .content { margin-top: 36vmin; }
-  #contact .contact-form { margin-top: 36vmin; flex: 1 1 0; min-width: 0; }
+  #contact .contact-form { margin-top: 36vmin; margin-left: 3rem; flex: 1 1 0; min-width: 0; max-width: 560px; }
 }
