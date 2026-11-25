@@ -1004,6 +1004,7 @@ body.card-liquid-on .card__slide::after {
 }
 
 .top-page .title {
+  background-image: linear-gradient(to right, #f4f6f9);
   position: relative;
   /*font-size: clamp(var(--legacy-px-4), calc(var(--legacy-px-4) + 0.5vw), var(--legacy-px-5));*/
   justify-content: flex-start;
