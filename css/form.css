@@ -466,7 +466,7 @@ input:-webkit-autofill:focus {
   #contact {
     flex-direction: column;
     /* Start the column below the page title, like the other pages. */
-    padding-top: 90vmin;
+    padding-top: 82.5vmin;
     /* Pack the column from the top; the form follows the text
        with a fixed gap instead of distributed leftover space. */
     justify-content: flex-start;

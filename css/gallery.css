@@ -652,6 +652,14 @@ main {
   min-width: 0;
 }
 
+@media screen and (min-width: 600px) {
+  /* Policy has no .state-box; align its content start with the
+     other reading pages (gap under the hero text: 36vmin). */
+  #policy > .content {
+    margin-top: 61.5vmin;
+  }
+}
+
 .gallery .content {
   container-type: inline-size;
   container-name: gallery;
@@ -677,7 +685,7 @@ main {
 
 /* Keep the user-approved 5500 composition on Artist Statement and Biography only. */
 .gallery.statement > .state-box {
-  padding-top: 42vmin;
+  padding-top: 61.5vmin;
 }
 
 .gallery.statement > .state-box > .content {
@@ -786,6 +794,12 @@ main {
 
 /* Tablet and desktop share one vertical Category → Artwork layout. */
 @media screen and (min-width: 600px) {
+  /* Align the Gallery top start with the other pages from
+     tablet widths up (phones keep their own padding). */
+  .art-page main {
+    padding-top: 21vmin;
+  }
+
   .art-page main.gallery {
     display: block;
     width: 100%;
@@ -806,7 +820,7 @@ main {
     width: min(100%, var(--gallery-max-width));
     max-width: var(--gallery-max-width);
     min-width: 0;
-    margin: 42vmin auto 0;
+    margin: 61.5vmin auto 0;
     box-sizing: border-box;
   }
 
