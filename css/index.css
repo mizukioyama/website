@@ -789,6 +789,12 @@ body.back--anim .card__slide:not(.active) .date {
   cursor: pointer;
 }
 
+/* NEXT size (Mizuki 2026-11-25): PC and SP were chosen
+   separately - PC larger (19px), tablet keeps 18px. */
+@media screen and (min-width: 1024px) {
+  .card-nav { font-size: 19px; }
+}
+
 .card-nav::before {
   content: "";
   position: absolute;
@@ -1313,7 +1319,7 @@ footer,
     min-height: 40px;
   }
   .card-nav {
-    font-size: 15px;
+    font-size: 16px;
   }
 }
 
