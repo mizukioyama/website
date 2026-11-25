@@ -1369,8 +1369,13 @@ body.art-page:not(.home) main.gallery {
 
   /* Small spacing values join the px scale (Mizuki 2026-11-25):
      Gallery pagination 3.5rem -> 4rem, Order timeline list
-     margins 1vmin / 2vmin -> 16px. */
-  .art-page main.gallery > .gallery-box > #pagination { margin-top: 4rem; margin-bottom: 4rem; }
+     margins 1vmin / 2vmin -> 16px. PC pagination margins halved
+     (Mizuki 2026-11-25): 4rem -> 2rem. */
+  .art-page main.gallery > .gallery-box > #pagination { margin-top: 2rem; margin-bottom: 2rem; }
+
+  /* Inside the works list, the bottom space matches the top
+     space (the container's top padding, 2.75rem). */
+  .art-page main.gallery > .gallery-box > #gallery-container { padding-bottom: 2.75rem; }
   main.order-page .timeline ul { margin-top: 16px; }
   main.order-page .timeline li { margin-bottom: 16px; }
   .art-page main.gallery > .gallery-box > .page-line { margin-top: 8rem !important; margin-bottom: 8rem; }
