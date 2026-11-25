@@ -813,12 +813,13 @@ body.back--anim .card__slide:not(.active) .date {
   opacity: 0.3;
   pointer-events: none;
   transition: opacity 250ms ease;
+  animation: ring-spin 14s linear infinite;
 }
 
 
 .card-nav:hover::before {
   opacity: 0.55;
-  animation: ring-spin 2.8s linear infinite;
+ 
 }
 
 .card-nav-text {
@@ -1127,11 +1128,12 @@ body.card-liquid-on .card__slide::after {
   opacity: 0.3;
   pointer-events: none;
   transition: opacity 250ms ease;
+  animation: ring-spin 14s linear infinite;
 }
 
 .button:hover::before {
   opacity: 0.55;
-  animation: ring-spin 2.8s linear infinite;
+ 
 }
 
 .content__slide:nth-child(even) .button {
@@ -1375,9 +1377,10 @@ footer,
   opacity: 0.3;
   pointer-events: none;
   transition: opacity 250ms ease;
+  animation: ring-spin 14s linear infinite;
 }
 #home-entry button:hover { border-color: rgba(255, 255, 255, 0.9); }
-#home-entry button:hover::before { opacity: 0.55; animation: ring-spin 2.8s linear infinite; }
+#home-entry button:hover::before { opacity: 0.55; }
 @media (hover: hover) and (pointer: fine) { #home-entry button:hover { transform: scale(1.05); } }
 #home-entry button:active { transform: scale(0.95); transition-duration: 100ms; }
 @media (prefers-reduced-motion: reduce) { #home-entry button { transition: none; } #home-entry button:hover, #home-entry button:active { transform: none; } }
