@@ -1330,6 +1330,11 @@ body.art-page:not(.home) main.gallery {
    padding with the group. Scoped to >=1024px: smaller
    displays keep their existing rules. */
 @media screen and (min-width: 1024px) {
+
+  /* Page title sits a little further right on PC (Mizuki 2026-11-25). */
+  .h1-text {
+    left: 24vmin;
+  }
   /* Prose line-height: Biography sections and the two lead
      paragraphs that had their own 1.8 / 2.2 join the shared 2.4. */
   #state.statement .biography-section > p,
