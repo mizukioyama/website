@@ -66,6 +66,13 @@
         }
     }
 
+    /* On tablet the Gallery bottom spacing also joins the other pages. */
+    @media only screen and (min-width:600px) and (max-width:1023px) {
+        .art-page main.gallery {
+            padding-bottom: 30vmin;
+        }
+    }
+
     /*security logo*/
     .grecaptcha-badge {
         visibility: hidden;
