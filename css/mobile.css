@@ -361,9 +361,15 @@
     letter-spacing: var(--letter-spacing-gallery-noise);
   }
   #pagination {
-    margin: 5vmin auto;
+    margin: 32px auto;
     gap: clamp(0.75rem, calc(0.5rem + 2vw), 1.5rem);
   }
+
+  /* SP spacing unification (Mizuki 2026-11-25): divider lines and
+     Policy subheads join the 64px / 32px rhythm. */
+  main.order-page .page-line { margin-top: 64px; margin-bottom: 64px; }
+  #policy .page-line { margin-top: 64px; margin-bottom: 64px; }
+  #policy h3 { margin-top: 32px; }
   #state h3 {
     padding: 2.5rem 2rem;
   }
