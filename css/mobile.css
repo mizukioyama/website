@@ -77,11 +77,8 @@
     margin-top: 1.5rem;
   }
   body.art-page .h1-text {
-    position: absolute;
-    top: 0;
     left: 2.5rem;
     width: calc(100% - 5rem);
-    margin-bottom: 0;
   }
   body:not(.home):not(.art-page) main .content {
     width: 100%;
@@ -150,7 +147,7 @@
   -- Art page
   ======================================== */
   .art-page .gallery {
-    padding: 10vmin 0 30vmin clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
+    padding: 0 0 30vmin clamp(1.25rem, calc(0.8rem + 2vw), 2.5rem);
     background-color: rgba(0, 0, 0, 0.55);
   }
 
@@ -290,7 +287,7 @@
     width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)));
     max-width: 100%;
     /* Reserve the first view independently of the filter toolbar. */
-    margin: 50svh auto 0;
+    margin: 0 auto;
   }
   .gallery .content {
     padding: 0 5vmin;
