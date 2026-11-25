@@ -1360,6 +1360,13 @@ body.art-page:not(.home) main.gallery {
   main.order-page .page-line { margin-top: 8rem; margin-bottom: 8rem; }
   main.information-page .page-line,
   main.exhibition-page .page-line { margin-top: 0; margin-bottom: 0; }
+
+  /* Small spacing values join the px scale (Mizuki 2026-11-25):
+     Gallery pagination 3.5rem -> 4rem, Order timeline list
+     margins 1vmin / 2vmin -> 16px. */
+  .art-page main.gallery > .gallery-box > #pagination { margin-top: 4rem; margin-bottom: 4rem; }
+  main.order-page .timeline ul { margin-top: 16px; }
+  main.order-page .timeline li { margin-bottom: 16px; }
   .art-page main.gallery > .gallery-box > .page-line { margin-top: 8rem !important; margin-bottom: 8rem; }
   main.exhibition-page .detail-section { margin-top: 8rem; }
   #policy h3 { margin-top: 8rem; }

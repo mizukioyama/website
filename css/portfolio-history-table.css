@@ -7,7 +7,7 @@
 
 .portfolio-history-table th,
 .portfolio-history-table td {
-    padding: 2vmin 0;
+    padding: 16px 0;
     border-bottom: 1px solid var(--text);
     vertical-align: top;
     overflow-wrap: anywhere;
@@ -23,6 +23,7 @@
 }
 
 .portfolio-history-table .year {
+    padding-right: 1rem;
     width: 20%;
     white-space: nowrap;
     font-size: var(--font-table-size);
