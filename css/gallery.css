@@ -1378,6 +1378,10 @@ body.art-page:not(.home) main.gallery {
   main.order-page .timeline ul { margin-top: 16px; }
   main.order-page .timeline li { margin-bottom: 16px; }
   .art-page main.gallery > .gallery-box > .page-line { margin-top: 8rem !important; margin-bottom: 8rem; }
+  /* Pagination band: the divider margins facing the pagination
+     are tighter than the outer section rhythm (Mizuki, 2026-11-25). */
+  .art-page main.gallery > .gallery-box > .page-line:has(+ #pagination) { margin-bottom: 2rem; }
+  .art-page main.gallery > .gallery-box > #pagination + .page-line { margin-top: 2rem !important; }
   main.exhibition-page .detail-section { margin-top: 8rem; }
   #policy h3 { margin-top: 8rem; }
 
