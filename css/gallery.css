@@ -1352,6 +1352,15 @@ body.art-page:not(.home) main.gallery {
   /* Section gap: 128px, replacing 90 / 135 / 144px variants. */
   #state.statement .biography-section + .biography-section { margin-top: 8rem; }
   .gallery.statement .page-line, #policy .page-line { margin-top: 8rem; margin-bottom: 8rem; }
+
+  /* Page-line spacing unified (Mizuki 2026-11-25): standalone
+     dividers take the section rhythm (8rem) on every page; the
+     lines that open a section on Information / Yurayura sit
+     flush so the heading starts at the section top. */
+  main.order-page .page-line { margin-top: 8rem; margin-bottom: 8rem; }
+  main.information-page .page-line,
+  main.exhibition-page .page-line { margin-top: 0; margin-bottom: 0; }
+  .art-page main.gallery > .gallery-box > .page-line { margin-top: 8rem !important; margin-bottom: 8rem; }
   main.exhibition-page .detail-section { margin-top: 8rem; }
   #policy h3 { margin-top: 8rem; }
 

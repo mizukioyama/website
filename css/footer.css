@@ -59,6 +59,13 @@
         }
     }
 
+    /* On PC the Gallery bottom spacing joins the other pages (30vmin). */
+    @media only screen and (min-width:1024px) {
+        .art-page main.gallery {
+            padding-bottom: 30vmin;
+        }
+    }
+
     /*security logo*/
     .grecaptcha-badge {
         visibility: hidden;
