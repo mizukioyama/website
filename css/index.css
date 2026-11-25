@@ -762,15 +762,13 @@ body.back--anim .card__slide:not(.active) .date {
   align-items: center;
   justify-content: center;
   position: absolute;
-  /* Position (Mizuki 2026-11-21): nestled into the
-     card's bottom-right corner - the centre sits 5.02%
-     of the card width left of the right edge and 3.48%
-     of the card height above the bottom edge (42px /
-     18px from the corner at the 1440x900 reference),
-     so the placement matches the tuner mock at any
-     screen size; the card's socket follows it. */
-  right: calc(50% - var(--card-width) / 2 + var(--card-width) * 0.0502);
-  bottom: calc(50% - var(--card-height) / 2 + var(--card-height) * 0.0348);
+  /* Position (Mizuki 2026-11-25): mostly on the card
+     at the bottom-right corner, protruding slightly -
+     the centre sits 9.3% of the card width left of the
+     right edge and 2.4% of the card height above the
+     bottom edge; the card's socket follows it. */
+  right: calc(50% - var(--card-width) / 2 + var(--card-width) * 0.093);
+  bottom: calc(50% - var(--card-height) / 2 + var(--card-height) * 0.024);
   transform: translate(50%, 50%);
   z-index: 12;
   padding: 0.55em 0.95em;
@@ -1248,7 +1246,7 @@ footer,
        golden ratio, not the shared --card-height. The
        centre stays the same fraction (3.48%) above the
        bottom edge as on wide screens. */
-    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + (var(--card-width) * 1.61803398875) * 0.0348);
+    bottom: calc(50% - (var(--card-width) * 1.61803398875) / 2 + (var(--card-width) * 1.61803398875) * 0.024);
   }
 
   .card-liquid-gl {

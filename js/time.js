@@ -539,7 +539,7 @@ waitForJQuery(function ($) {
                 const crBLC = Math.max(0, Math.min(cr, cfLC.x - x));
                 return head +
                     " V " + (ccy - r + fc).toFixed(1) +
-                    arc(fc, 1, rx - fc, ccy - r) +
+                    arc(fc, 0, rx - fc, ccy - r) +
                     " H " + capL.toFixed(1) +
                     arc(r, 0, tLC.x, tLC.y) +
                     arc(fc, 1, cfLC.x, by) +
