@@ -474,7 +474,7 @@ waitForJQuery(function ($) {
             " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (ccx + capA).toFixed(1) + " " + (ccy - r).toFixed(1) +
             " H " + (ccx - capA).toFixed(1) +
             " A " + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + (ccx - capA - r).toFixed(1) + " " + ccy.toFixed(1) + " Z";
-        const outlineAt = (x, y, w, h, ccx, ccy, rUse) => {
+        const outlineAt = (x, y, w, h, ccx, ccy, rUse, mode) => {
             const r = rUse === undefined ? capR : rUse;
             const by = y + h, rx = x + w;
             const capL = ccx - capA, capRt = ccx + capA;
@@ -505,6 +505,21 @@ waitForJQuery(function ($) {
                 return out;
             }
             if (crossB && crossR) {
+                if (mode === "cut") {
+                    // Shadow-only outline (Mizuki 2026-11-25:
+                    // remove the line behind NEXT). Instead of
+                    // wrapping the capsule's bottom, the path
+                    // drops straight down from the socket's
+                    // left end to the bottom edge, so no shadow
+                    // fill runs behind or under the button.
+                    const crBLcut = Math.max(0, Math.min(cr, capL - x));
+                    return head +
+                        " V " + (ccy - r - 12).toFixed(1) +
+                        " H " + capL.toFixed(1) +
+                        " V " + by.toFixed(1) +
+                        " H " + (x + crBLcut).toFixed(1) + arc(crBLcut, 1, x, by - crBLcut) +
+                        " V " + (y + cr).toFixed(1) + arc(cr, 1, x + cr, y) + " Z";
+                }
                 // Corner case: the capsule crosses the bottom
                 // and the right edge at once (the button sits
                 // in the card's bottom-right corner). The
@@ -612,7 +627,7 @@ waitForJQuery(function ($) {
                 // from the button's old position).
                 const shadowPath = document.getElementById("cardShadowPath");
                 if (shadowPath) {
-                    shadowPath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, cyB - kr.top, capR));
+                    shadowPath.setAttribute("d", outlineAt(0, 0, kr.width, kr.height, cx - kr.left, cyB - kr.top, capR, "cut"));
                 }
             }
         }
