@@ -59,7 +59,7 @@
     position: relative;
     inset: auto;
     width: 100%;
-    min-height: 100svh;
+    min-height: 70svh;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto minmax(max-content, 1fr);
     /* Long subtitles may grow the flow box; keep the H1 at the svh midpoint. */
@@ -290,7 +290,7 @@
     width: min(90%, calc(100vw - clamp(2rem, 8vw, 3rem)));
     max-width: 100%;
     /* Reserve the first view independently of the filter toolbar. */
-    margin: 80svh auto 0;
+    margin: 50svh auto 0;
   }
   .gallery .content {
     padding: 0 5vmin;
