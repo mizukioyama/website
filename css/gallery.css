@@ -959,7 +959,7 @@ main {
     align-self: center;
     width: max-content;
     max-width: 100%;
-    margin: 4rem auto;
+    margin: 1rem auto;
   }
 
   /* The divider after the pagination is the last element:
