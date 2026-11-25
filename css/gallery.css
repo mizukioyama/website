@@ -1411,6 +1411,8 @@ body.art-page:not(.home) main.gallery {
   main.order-page .page-line { margin-top: 8rem; margin-bottom: 8rem; }
   #policy .page-line { margin-top: 8rem; margin-bottom: 8rem; }
   .art-page main.gallery > .gallery-box > .page-line { margin-top: 8rem !important; margin-bottom: 8rem; }
+  .art-page main.gallery > .gallery-box > .page-line:has(+ #pagination) { margin-bottom: 2rem; }
+  .art-page main.gallery > .gallery-box > #pagination + .page-line { margin-top: 2rem !important; }
   #policy h3 { margin-top: 8rem; }
 }
 
