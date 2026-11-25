@@ -1094,11 +1094,13 @@ html:has(.page-transition-overlay) #header-container > .static-primary-navigatio
    the I/P, tablets grow the band and shrink the I/P. */
 @media screen and (max-width: 599px) {
   .frame-initial { font-size: 12px; }
-  /* Optical centring on phones (Mizuki 2026-11-25): the frame
-     initials read as left-shifted on the owner's device, so
-     nudge both sets 3px right. Visual only (transform). */
+  /* Optical centring on phones (Mizuki 2026-11-25): the right
+     band's initials read as left-shifted on the owner's device,
+     so nudge them 3px right. The I/P initials stay unshifted:
+     their box already sits at the tab's centre (the SP tab is
+     24.4 viewBox units wide, centre 11.3px at 360px), and the
+     3px nudge had pushed them right of centre. */
   #navArea .nav-initial { transform: translateX(3px); }
-  .frame-initial { transform: translateX(3px); }
 }
 @media screen and (min-width: 600px) and (max-width: 1199px) {
   .frame-initial { font-size: 14px; }
