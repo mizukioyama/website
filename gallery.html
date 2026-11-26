@@ -139,6 +139,11 @@
     @keyframes slideInBottom { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
     .modal-box.animate-bottom { animation: slideInBottom .4s ease-out forwards; }
     @media (prefers-reduced-motion: reduce) { .modal-box.animate-bottom { animation: none; } }
+    @media (max-width: 599px) {
+      .modal-box { height: 84svh; }
+      .modal-box .gallery-modal-header, .modal-box .gallery-modal-body { padding: 44px; }
+      .gallery-modal-body > img { max-width: 88%; max-height: 35svh; }
+    }
   </style>
   <link rel="stylesheet" href="css/background-overlay.css">
   <link rel="stylesheet" href="css/organic-flow.css">
