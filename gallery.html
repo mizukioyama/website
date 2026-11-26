@@ -117,20 +117,25 @@
     .modal-box .work-img { width: 100%; max-width: none; height: 100%; margin: 0; display: flex; flex-direction: column; }
     .modal-box .works { display: block; width: auto; min-width: 0; height: auto; }
     .modal-box .works :is(h2, p) { text-align: left; margin: 0; }
-    .modal-box .works h2 { font-size: var(--type-home-modal-h2-size); font-weight: 300; line-height: 1.4; }
+    .modal-box .works h2 { font-size: clamp(19px, calc(17px + 0.5vw), 24px); font-weight: 300; line-height: 1.4; }
     .modal-box .works p, .text-content { font-size: var(--font-metadata-size); line-height: 1.6; }
-    .gallery-modal-body > img { display: block; width: auto; max-width: 100%; height: auto; max-height: 65svh; object-fit: contain; margin: 0 auto 24px; opacity: .85; clip-path: none; }
-    .gallery-modal-metadata { inline-size: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-block-end: 20px; }
+    .gallery-modal-body > img { display: block; width: auto; max-width: 100%; height: auto; max-height: 50svh; object-fit: contain; margin: 0 auto 32px; opacity: .85; clip-path: none; }
+    .gallery-modal-metadata { inline-size: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-block-end: 28px; }
     .gallery-modal-metadata p { max-inline-size: 100%; font-size: var(--font-metadata-size); line-height: 1.6; margin: 0; overflow-wrap: anywhere; }
     .gallery-modal-metadata p:last-child { margin-inline-start: auto; text-align: right; }
     .gallery-modal-header .works { overflow-wrap: anywhere; }
     #modalBox .gallery-modal-inquiry { margin-block-start: 12px; }
     #modalBox .gallery-modal-contact { display: flex; margin-inline-start: auto; }
     .modal-text p { text-shadow: none; }
-    .modal-text a { font-size: var(--font-ui-size); margin: 0 0 24px; width: fit-content; }
+    .modal-text a { font-size: var(--font-ui-size); margin: 0 0 32px; width: fit-content; }
     #modalCloseBtn { flex-shrink: 0; position: static; font-size: var(--type-modal-mobile-close-size); padding: 8px; color: inherit; background: transparent; border: 0; }
     #modalCloseBtn:hover { mix-blend-mode: difference; }
     .modal-box a::before { display: none; }
+    .modal-box .gallery-modal-header, .modal-box .gallery-modal-body { padding: clamp(32px, 3.9vw, 40px); }
+    .modal-box .works p { font-size: 11px; }
+    .modal-box .gallery-modal-metadata p { font-size: 11px; }
+    #modalBox.modal-box .modal-text p { font-size: 15px; }
+    .modal-box .modal-text a { font-size: 13px; }
     @keyframes slideInBottom { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
     .modal-box.animate-bottom { animation: slideInBottom .4s ease-out forwards; }
     @media (prefers-reduced-motion: reduce) { .modal-box.animate-bottom { animation: none; } }
