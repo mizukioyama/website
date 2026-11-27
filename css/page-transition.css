@@ -56,6 +56,18 @@
   }
 }
 
+/* While the fog is up, hide the lens cursor. Its glass layer
+   carries an SVG backdrop-filter (the refraction) and sits
+   above the overlay; a filtered backdrop makes the browser
+   re-render the animating fog through the filter on every
+   frame, which on a slow phone can cap the whole transition
+   at a few frames per second. The lens is meaningless over
+   the covered page anyway, so this costs nothing visually. */
+html:has(.page-transition-overlay) #lensCursor,
+html:has(.page-transition-overlay) #lensBlend {
+  display: none !important;
+}
+
 /* === Transition inside the site frame ===
    The fog stays inside the frame's inner contour at every
    width. This used to be a CSS mask on the overlay; a mask

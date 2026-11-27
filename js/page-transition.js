@@ -599,15 +599,15 @@
     }
     if (hasTex) {
       /* Crossfade the flat start into the textured cover: the
-         wash and the depth layers fade in OVER the flat layer,
-         which stays at full opacity underneath until the
-         reveal. (Fading the flat out at the same time made the
-         composite dip about ten points below both endpoints
-         mid-crossfade — a pulse in the landing, measured from
-         the artist's recording.) Once the texture stack is at
-         full cover the flat contributes nothing, and
-         revealMotion fades it away with everything else. */
+         flat layer fades out while the wash and the depth
+         layers fade in. The composite dips below both endpoints
+         mid-crossfade (measured at about ten points from the
+         artist's recording) — a deepening of the fog just
+         before it clears, which the artist reviewed and asked
+         to keep (2026-11-27), so the dip is intentional. */
       var XFADE_MS = 400;
+      setTransition(fog.flat, XFADE_MS, 0);
+      fog.flat.style.opacity = "0";
       setTransition(fog.wash, XFADE_MS, 0);
       fog.wash.style.opacity = String(WASH_PEAK);
       for (var i = 0; i < 3; i++) {
