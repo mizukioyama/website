@@ -21,15 +21,18 @@
  * The slide panels of the previous design are gone (2026-11-27,
  * at the artist's request).
  *
- * Motion is compositor-driven: the three depth layers are
- * painted once at their full-cover pose and then moved purely
- * with CSS transitions (opacity and transform), which the
- * browser's compositor animates at the display's refresh rate
- * without touching the main thread. The earlier engine redrew
- * about seventy large sprites on a canvas every frame; on a
- * slow phone that ran at a few frames per second and the fog
- * brightened and cleared in visible steps — a flicker, as the
- * artist reported from a screen recording (2026-11-27).
+ * The motion is the gate's own, shared exactly: the fog is
+ * drawn per frame from the same particle field as js/gate-fog.js
+ * — three depths of cloud sprites that drift on a slow wind,
+ * wander on sine waves, breathe in alpha and size, and gather
+ * or dissipate with a per-particle stagger. Choreographed
+ * variants (painted layers slid around with CSS transitions)
+ * read as unnatural next to it, and a single static layer had
+ * no motion at all, so at the artist's request (2026-11-27)
+ * the transition simply runs the gate engine between clear
+ * and full cover. Its slowness is also its robustness: the
+ * picture changes so little between frames that a slow phone
+ * shows a smooth fog even at a modest frame rate.
  *
  * The script runs in <head>, before <body> exists, so the overlay
  * is attached to <html> (it is position:fixed, so this is
@@ -229,7 +232,7 @@
   }
 
   /* ---- Overlay: static layers, compositor-driven motion ---- */
-  var fog = null; /* { overlay, flat, wash, panels, pctxs, painted, w, h } */
+  var fog = null; /* { overlay, flat, canvas, ctx, field, phase, w, h } */
   var safetyTimers = [];
 
   function later(fn, ms) {
@@ -254,39 +257,68 @@
       "transform " + dur + "ms " + EASE + " " + delay + "ms";
   }
 
-  /* Panel motion. The fog is four banks, one per side. For
-     the cover each bank starts pushed out beyond its own edge
-     and slides in as it fades up, so the fog front visibly
-     sweeps in from the top, bottom, left and right and meets
-     in the middle (the artist asked for the fog to come from
-     all four sides, 2026-11-27); for the reveal the banks
-     retreat back out the same way while dissolving. Delays
-     stagger the sides so they do not move as one slab. */
-  var PANEL_FROM = [
-    "translateY(-52%)",
-    "translateY(52%)",
-    "translateX(-52%)",
-    "translateX(52%)"
-  ];
-  var PANEL_DELAY = [0, 70, 140, 210];
-  /* Each bank spans this fraction of the viewport from its
-     edge, so opposing banks overlap in the middle at full
-     cover. */
-  var PANEL_SPAN = 0.68;
+  /* Fog front lag: a particle's gather starts later the nearer
+     it sits to the centre (0 at an edge, FRONT_LAG at the
+     centre), so the fog visibly closes in from all four sides. */
+  var FRONT_LAG = 0.35;
 
-  /* ---- Frame contour, baked into the layers ----
-     The fog must stay inside the site frame's inner contour.
-     That used to be a CSS mask on the overlay, but a mask makes
-     the browser re-rasterise the whole overlay on every frame
-     of an animation — on the artist's phone both fog engines
-     (per-frame canvas, then CSS transitions) presented only
-     about seven frames per second, a visible flicker, and the
-     mask was the one expensive piece they shared. So the
-     contour (the same arc-sampled paths the mask used) is now
-     painted into each layer itself: solids are filled only
-     inside it, and the texture layers have everything outside
-     it erased once, before any motion starts. The animated
-     stack then needs no mask at all. */
+  function clamp01(x) {
+    return x < 0 ? 0 : x > 1 ? 1 : x;
+  }
+  /* The gate's viscous ease (smootherstep). */
+  function easeInOutViscous(t) {
+    t = clamp01(t);
+    return t * t * t * (t * (t * 6 - 15) + 10);
+  }
+
+  /* Three depths, exactly as the gate's field. Sizes are
+     fractions of the viewport width, drift is px/s at DPR 1,
+     opacity is the per-particle ceiling. */
+  var LAYERS = [
+    { count: 16, sizeMin: 0.9, sizeMax: 1.5, drift: 6, opacity: 0.50, wander: 16 },
+    { count: 24, sizeMin: 0.5, sizeMax: 0.9, drift: 12, opacity: 0.62, wander: 11 },
+    { count: 30, sizeMin: 0.2, sizeMax: 0.45, drift: 21, opacity: 0.50, wander: 7 }
+  ];
+
+  function makeField(w, h) {
+    var windAngle = Math.random() * Math.PI * 2;
+    var wind = { x: Math.cos(windAngle), y: Math.sin(windAngle) * 0.35 };
+    var small = w < 700;
+    var parts = [];
+    for (var li = 0; li < LAYERS.length; li++) {
+      var layer = LAYERS[li];
+      var n = small ? Math.round(layer.count * 0.62) : layer.count;
+      for (var i = 0; i < n; i++) {
+        var x = Math.random() * w;
+        var y = Math.random() * h;
+        /* Particles nearer an edge gather first. */
+        var edgeDist = Math.min(x / w, 1 - x / w, y / h, 1 - y / h) * 2;
+        parts.push({
+          x: x,
+          y: y,
+          size: (layer.sizeMin + Math.random() * (layer.sizeMax - layer.sizeMin)) * w,
+          spr: Math.floor(Math.random() * 6),
+          rot: Math.random() * Math.PI * 2,
+          rotV: (Math.random() - 0.5) * 0.05,
+          drift: layer.drift * (0.7 + Math.random() * 0.6),
+          opacity: layer.opacity * (0.7 + Math.random() * 0.5),
+          delay: edgeDist * FRONT_LAG,
+          ph1: Math.random() * Math.PI * 2,
+          ph2: Math.random() * Math.PI * 2,
+          f1: 0.25 + Math.random() * 0.3,
+          f2: 0.7 + Math.random() * 0.6,
+          wander: layer.wander * (0.7 + Math.random() * 0.6),
+          breathPh: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    return { parts: parts, wind: wind };
+  }
+
+  /* ---- Frame contour ----
+     The fog must stay inside the site frame's inner contour,
+     so every frame is clipped to it (the same arc-sampled
+     paths the site frame itself is drawn with). */
   var CONTOURS = [
     { maxW: 767, w: 390, h: 844, d: "M375.5 821.5L377.6 821.2L379.5 820.4L381.2 819.2L382.4 817.5L383.2 815.6L383.5 813.5L383.5 559.4L383.2 557.3L382.4 555.4L381.2 553.7L379.5 552.5L377.6 551.7L375.5 551.4L376.6 551.4L373.8 551.0L371.1 549.9L368.8 548.2L367.1 545.9L366.0 543.2L365.6 540.4L365.6 33.5L365.2 30.7L364.1 28.0L362.4 25.7L360.1 24.0L357.4 22.9L354.6 22.5L20.5 22.5L16.9 23.0L13.5 24.4L10.6 26.6L8.4 29.5L7.0 32.9L6.5 36.5L6.5 682.2L6.8 684.3L7.6 686.2L8.8 687.9L10.5 689.1L12.4 689.9L14.5 690.2L13.4 690.2L16.2 690.6L18.9 691.7L21.2 693.4L22.9 695.7L24.0 698.4L24.4 701.2L24.4 810.5L24.8 813.3L25.9 816.0L27.6 818.3L29.9 820.0L32.6 821.1L35.4 821.5Z" },
     { maxW: 1199, w: 800, h: 1280, d: "M778.7 1245.9L780.8 1245.6L782.7 1244.8L784.4 1243.6L785.6 1241.9L786.4 1240.0L786.7 1237.9L786.7 853.3L786.1 848.9L784.4 844.8L781.7 841.3L778.2 838.6L774.1 836.9L769.7 836.3L772.0 836.3L766.3 835.6L761.0 833.4L756.4 829.9L752.9 825.3L750.7 820.0L750.0 814.3L750.0 56.1L749.3 50.4L747.1 45.1L743.6 40.5L739.0 37.0L733.7 34.8L728.0 34.1L27.3 34.1L23.7 34.6L20.3 36.0L17.4 38.2L15.2 41.1L13.8 44.5L13.3 48.1L13.3 1029.8L13.9 1034.2L15.6 1038.3L18.3 1041.8L21.8 1044.5L25.9 1046.2L30.3 1046.8L28.0 1046.8L33.7 1047.5L39.0 1049.7L43.6 1053.2L47.1 1057.8L49.3 1063.1L50.0 1068.8L50.0 1223.9L50.7 1229.6L52.9 1234.9L56.4 1239.5L61.0 1243.0L66.3 1245.2L72.0 1245.9Z", portrait: true },
@@ -315,23 +347,6 @@
       ctx.fill(path);
     });
   }
-  function eraseOutsideContour(f, ctx) {
-    eraseOutsideContourAt(f, ctx, 0, 0);
-  }
-  /* Same, for a canvas that shows only part of the viewport
-     (a fog bank): ox/oy are the canvas's offset within the
-     viewport, in canvas pixels. */
-  function eraseOutsideContourAt(f, ctx, ox, oy) {
-    ctx.save();
-    ctx.setTransform(f.w / f.contour.w, 0, 0, f.h / f.contour.h, -ox, -oy);
-    var outer = new Path2D();
-    outer.rect(0, 0, f.contour.w, f.contour.h);
-    outer.addPath(new Path2D(f.contour.d));
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.fill(outer, "evenodd");
-    ctx.restore();
-  }
-
   /* ---- Background pause ----
      While the fog is up, the page's own background engines
      (the WebGL ink field, the flow lines, the VANTA sphere)
@@ -377,17 +392,12 @@
     var dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
     var cw = Math.max(1, Math.round((window.innerWidth || 1024) * dpr));
     var ch = Math.max(1, Math.round((window.innerHeight || 768) * dpr));
-    function makeCanvas(cls, w, h, css) {
+    function makeCanvas(cls) {
       var canvas = document.createElement("canvas");
       canvas.className = cls;
-      canvas.width = w;
-      canvas.height = h;
+      canvas.width = cw;
+      canvas.height = ch;
       canvas.style.opacity = "0";
-      if (css) {
-        for (var key in css) {
-          canvas.style[key] = css[key];
-        }
-      }
       var ctx = null;
       try {
         ctx = canvas.getContext("2d");
@@ -402,49 +412,31 @@
        landing page's guarantee that the page underneath is
        never seen uncovered: it is part of the overlay's very
        first frame. */
-    var flatC = makeCanvas("pt-flat", cw, ch, null);
-    /* Wash layer: the deep base tone under the cloud texture. */
-    var washC = makeCanvas("pt-wash", cw, ch, null);
-    /* The four fog banks: top, bottom, left, right. Each is a
-       canvas anchored to its edge and spanning PANEL_SPAN of
-       the viewport toward the centre. */
-    var spanW = Math.round(cw * PANEL_SPAN);
-    var spanH = Math.round(ch * PANEL_SPAN);
-    var panelCss = [
-      { left: "0", top: "0", width: "100%", height: (PANEL_SPAN * 100) + "%" },
-      { left: "0", bottom: "0", width: "100%", height: (PANEL_SPAN * 100) + "%" },
-      { left: "0", top: "0", width: (PANEL_SPAN * 100) + "%", height: "100%" },
-      { right: "0", top: "0", width: (PANEL_SPAN * 100) + "%", height: "100%" }
-    ];
-    var panelSize = [
-      [cw, spanH], [cw, spanH], [spanW, ch], [spanW, ch]
-    ];
-    var panelOrigin = [
-      [0, 0], [0, ch - spanH], [0, 0], [cw - spanW, 0]
-    ];
-    var panels = [];
-    var pctxs = [];
-    for (var i = 0; i < 4; i++) {
-      var pc = makeCanvas("pt-panel", panelSize[i][0], panelSize[i][1], panelCss[i]);
-      panels.push(pc.el);
-      pctxs.push(pc.ctx);
-    }
+    var flatC = makeCanvas("pt-flat");
+    /* The fog canvas: the gate's living fog, drawn per frame.
+       It starts transparent; the flat layer carries the cover
+       until the fog's first frames are on screen. */
+    var fogC = makeCanvas("ft-canvas");
+    fogC.el.style.opacity = "1";
     document.documentElement.appendChild(overlay);
     fog = {
-      overlay: overlay, flat: flatC.el, wash: washC.el,
-      flatCtx: flatC.ctx, washCtx: washC.ctx,
-      panels: panels, pctxs: pctxs, panelOrigin: panelOrigin,
-      painted: false, solidsPainted: false,
+      overlay: overlay, flat: flatC.el, flatCtx: flatC.ctx,
+      canvas: fogC.el, ctx: fogC.ctx,
+      field: null, raf: 0, phase: "", phaseStart: 0, timeStart: 0,
+      framesDrawn: 0, flatPending: false, solidsPainted: false,
       w: cw, h: ch,
       contour: contourFor(window.innerWidth || 1024, window.innerHeight || 768)
     };
-    paintSolids();
+    paintFlat();
     fogStart();
     return overlay;
   }
 
   function removeOverlay() {
     fogEnd();
+    if (fog && fog.raf) {
+      window.cancelAnimationFrame(fog.raf);
+    }
     clearTimers();
     /* The landing backing (see the landing block) must never
        outlive the overlay, whatever path removes it. */
@@ -456,69 +448,141 @@
     fog = null;
   }
 
-  /* Paint the two solid layers (flat cover colour, wash)
-     inside the frame contour. Done once, at build time. */
-  function paintSolids() {
+  /* Paint the flat cover colour inside the frame contour.
+     Done once, at build time. */
+  function paintFlat() {
     if (!fog || fog.solidsPainted) {
       return;
     }
     if (fog.flatCtx) {
       fillContour(fog, fog.flatCtx, "rgb(" + FLAT + ")");
     }
-    if (fog.washCtx) {
-      fillContour(fog, fog.washCtx, "rgb(" + WASH + ")");
-    }
     fog.solidsPainted = true;
   }
 
-  /* Paint the four fog banks once. Each bank gets its own
-     scatter of cloud sprites; a gradient then melts the bank's
-     inner edge (the fog front) so banks blend where they
-     overlap, and the frame contour is baked in as before. The
-     wash layer sits beneath, so the middle — where all four
-     fronts overlap — still reaches a full, even cover. */
-  function paintPanels() {
-    if (!fog || fog.painted || !fogSprites) {
+  /* Draw one frame of the gate's fog. mode 0 gathers toward
+     full cover (progress 0..1), mode 1 dissipates (progress
+     0..1 as it clears). timeSec runs continuously across the
+     phases, so the drift, wander and breathing never jump when
+     the phase changes — only the cover amount moves. */
+  function drawFog(mode, progress, timeSec) {
+    if (!fog || !fog.ctx || !fogSprites) {
       return;
     }
-    for (var pi = 0; pi < 4; pi++) {
-      var ctx = fog.pctxs[pi];
-      if (!ctx) {
+    var ctx = fog.ctx;
+    var w = fog.w;
+    var h = fog.h;
+    if (!fog.field) {
+      fog.field = makeField(w, h);
+    }
+    var field = fog.field;
+    ctx.clearRect(0, 0, w, h);
+    ctx.save();
+    ctx.setTransform(w / fog.contour.w, 0, 0, h / fog.contour.h, 0, 0);
+    ctx.clip(new Path2D(fog.contour.d));
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    /* Neutral wash underneath, guaranteeing an even cover at
+       the peak even where sprites happen to be thin. */
+    var washK = mode === 0 ? progress : 1 - progress;
+    if (washK > 0.003) {
+      ctx.fillStyle = "rgba(" + WASH + "," + (WASH_PEAK * washK).toFixed(3) + ")";
+      ctx.fillRect(0, 0, w, h);
+    }
+    var parts = field.parts;
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      var k;
+      var scale;
+      var driftBoost;
+      if (mode === 0) {
+        /* Cover: staggered gather, nearer an edge first. */
+        k = easeInOutViscous(clamp01((progress - p.delay) / (1 - FRONT_LAG)));
+        scale = 0.82 + 0.24 * k;
+        driftBoost = 1;
+      } else {
+        /* Reveal: staggered dissipation, expanding as it thins. */
+        k = 1 - easeInOutViscous(clamp01((progress - p.delay * 0.5) / (1 - 0.18)));
+        scale = 1.06 + 0.5 * (1 - k);
+        driftBoost = 1 + (1 - k) * 2.0;
+      }
+      var alpha = p.opacity * k * (0.92 + 0.08 * Math.sin(timeSec * 0.7 + p.breathPh));
+      if (alpha <= 0.004) {
         continue;
       }
-      var pw = fog.panels[pi].width;
-      var ph = fog.panels[pi].height;
-      ctx.clearRect(0, 0, pw, ph);
-      var count = 36;
-      for (var i = 0; i < count; i++) {
-        var x = Math.random() * pw;
-        var y = Math.random() * ph;
-        var sz = (0.30 + Math.random() * 0.55) * fog.w;
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(Math.random() * Math.PI * 2);
-        ctx.globalAlpha = 0.34 + Math.random() * 0.40;
-        ctx.drawImage(fogSprites[Math.floor(Math.random() * fogSprites.length)], -sz / 2, -sz / 2, sz, sz);
-        ctx.restore();
-      }
-      ctx.globalAlpha = 1;
-      /* Melt the front: erase with a gradient that is clear
-         until past the middle of the bank and rises toward the
-         inner edge, leaving about a quarter of the alpha there. */
-      var horizontal = pi >= 2;
-      var grad = horizontal
-        ? ctx.createLinearGradient(pi === 2 ? 0 : pw, 0, pi === 2 ? pw : 0, 0)
-        : ctx.createLinearGradient(0, pi === 0 ? 0 : ph, 0, pi === 0 ? ph : 0);
-      grad.addColorStop(0.55, "rgba(0,0,0,0)");
-      grad.addColorStop(1, "rgba(0,0,0,0.72)");
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, pw, ph);
-      ctx.globalCompositeOperation = "source-over";
-      /* Keep this bank inside the frame, once and for all. */
-      eraseOutsideContourAt(fog, ctx, fog.panelOrigin[pi][0], fog.panelOrigin[pi][1]);
+      var wx = Math.sin(timeSec * p.f1 + p.ph1) * p.wander
+             + Math.sin(timeSec * p.f2 + p.ph2) * p.wander * 0.35;
+      var wy = Math.cos(timeSec * p.f1 * 0.8 + p.ph2) * p.wander * 0.55
+             + Math.sin(timeSec * p.f2 * 0.9 + p.ph1) * p.wander * 0.2;
+      var px = p.x + field.wind.x * p.drift * driftBoost * timeSec + wx;
+      var py = p.y + field.wind.y * p.drift * driftBoost * timeSec + wy;
+      var sz = p.size * scale * (1 + 0.05 * Math.sin(timeSec * 0.4 + p.breathPh));
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(p.rot + p.rotV * timeSec);
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(fogSprites[p.spr % fogSprites.length], -sz / 2, -sz / 2, sz, sz);
+      ctx.restore();
     }
-    fog.painted = true;
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  }
+
+  /* The one animation loop. Phases: "cover" (progress runs
+     0..1), "hold" (full cover, still breathing), "reveal"
+     (dissipation runs 0..1), "done". Progress is computed from
+     the clock on every frame, so a stalled frame skips ahead
+     instead of stretching the motion. */
+  function startLoop(phase) {
+    if (!fog || fog.raf) {
+      return;
+    }
+    fog.phase = phase;
+    fog.phaseStart = performance.now();
+    if (!fog.timeStart) {
+      fog.timeStart = fog.phaseStart;
+    }
+    var step = function (now) {
+      if (!fog) {
+        return;
+      }
+      fog.raf = window.requestAnimationFrame(step);
+      var timeSec = (now - fog.timeStart) / 1000;
+      if (fog.phase === "cover") {
+        var raw = clamp01((now - fog.phaseStart) / COVER_MS);
+        drawFog(0, easeInOutViscous(raw), timeSec);
+        if (raw >= 1) {
+          fog.phase = "hold";
+        }
+      } else if (fog.phase === "hold") {
+        drawFog(0, 1, timeSec);
+        fog.framesDrawn++;
+        if (fog.flatPending && fog.framesDrawn >= 2) {
+          /* The living fog has been presented at full cover:
+             the flat scaffold underneath can go. (It sits
+             below the fog canvas, so this changes nothing
+             visible; it just retires the scaffold.) */
+          fog.flatPending = false;
+          setTransition(fog.flat, 250, 0);
+          fog.flat.style.opacity = "0";
+        }
+      } else if (fog.phase === "reveal") {
+        var raw2 = clamp01((now - fog.phaseStart) / REVEAL_MS);
+        drawFog(1, easeInOutViscous(raw2), timeSec);
+        if (raw2 >= 1) {
+          fog.phase = "done";
+        }
+      }
+    };
+    fog.raf = window.requestAnimationFrame(step);
+  }
+
+  function toReveal() {
+    if (!fog) {
+      return;
+    }
+    fog.phase = "reveal";
+    fog.phaseStart = performance.now();
+    later(removeOverlay, REVEAL_MS + 400);
   }
 
   /* ---- Enter (leaving page): fog gathers, then navigate ---- */
@@ -535,7 +599,6 @@
     }
     try {
       buildOverlay();
-      paintPanels();
     } catch (error) {
       go();
       return;
@@ -544,27 +607,8 @@
       go();
       return;
     }
-    var i;
-    if (fog.painted) {
-      for (i = 0; i < 4; i++) {
-        fog.panels[i].style.transform = PANEL_FROM[i];
-      }
-      /* Commit the initial states, then transition into the
-         covered state: the wash rises underneath and the four
-         banks stagger in from their edges, all finishing
-         together. */
-      void fog.overlay.offsetWidth;
-      /* The wash (the uniform base) holds back until the banks
-         are well in, so the gather reads as fog arriving from
-         the four sides rather than a veil thickening evenly;
-         it still reaches its peak with everything else. */
-      setTransition(fog.wash, Math.round(COVER_MS * 0.65), Math.round(COVER_MS * 0.35));
-      fog.wash.style.opacity = String(WASH_PEAK);
-      for (i = 0; i < 4; i++) {
-        setTransition(fog.panels[i], COVER_MS - PANEL_DELAY[i], PANEL_DELAY[i]);
-        fog.panels[i].style.opacity = "1";
-        fog.panels[i].style.transform = "none";
-      }
+    if (fogSprites && fog.ctx) {
+      startLoop("cover");
     } else {
       /* No cloud texture (its image failed): cover with the
          flat layer alone (it is already the flat colour, and
@@ -577,61 +621,30 @@
     later(go, NAV_FALLBACK_MS);
   }
 
-  /* ---- Exit (destination page): crossfade in, hold, clear ---- */
-  function revealMotion() {
-    if (!fog) {
-      return;
-    }
-    /* The wash lifts last, so the texture thins first and the
-       centre of the page breathes open before the base tone
-       goes. */
-    setTransition(fog.wash, REVEAL_MS, 150);
-    fog.wash.style.opacity = "0";
-    setTransition(fog.flat, REVEAL_MS, 150);
-    fog.flat.style.opacity = "0";
-    for (var i = 0; i < 4; i++) {
-      setTransition(fog.panels[i], REVEAL_MS, PANEL_DELAY[i]);
-      fog.panels[i].style.opacity = "0";
-      fog.panels[i].style.transform = PANEL_FROM[i];
-    }
-    later(removeOverlay, REVEAL_MS + 400);
-  }
-
+  /* ---- Exit (destination page): living cover, hold, clear ---- */
   function startReveal() {
     if (!fog) {
       removeOverlay();
       return;
     }
     later(removeOverlay, EXIT_SAFETY_MS);
-    var hasTex = false;
-    try {
-      paintPanels();
-      hasTex = fog.painted;
-    } catch (error) {
-      hasTex = false;
-    }
-    if (hasTex) {
-      /* Crossfade the flat start into the textured cover: the
-         flat layer fades out while the wash and the depth
-         layers fade in. The composite dips below both endpoints
-         mid-crossfade (measured at about ten points from the
-         artist's recording) — a deepening of the fog just
-         before it clears, which the artist reviewed and asked
-         to keep (2026-11-27), so the dip is intentional. */
-      var XFADE_MS = 400;
-      setTransition(fog.flat, XFADE_MS, 0);
-      fog.flat.style.opacity = "0";
-      setTransition(fog.wash, XFADE_MS, 0);
-      fog.wash.style.opacity = String(WASH_PEAK);
-      for (var i = 0; i < 4; i++) {
-        setTransition(fog.panels[i], XFADE_MS, i * 60);
-        fog.panels[i].style.opacity = "1";
-      }
-      later(revealMotion, XFADE_MS + HOLD_MS);
+    if (fogSprites && fog.ctx) {
+      /* Start the living fog at full cover — it breathes while
+         it holds, exactly like the gate — then dissipate. */
+      fog.flatPending = true;
+      startLoop("hold");
+      later(toReveal, HOLD_MS);
     } else {
       /* No texture: the flat layer already IS the whole cover
-         at full opacity; revealMotion fades it directly. */
-      later(revealMotion, HOLD_MS);
+         at full opacity; fade it directly. */
+      later(function () {
+        if (!fog) {
+          return;
+        }
+        setTransition(fog.flat, REVEAL_MS, 150);
+        fog.flat.style.opacity = "0";
+        later(removeOverlay, REVEAL_MS + 400);
+      }, HOLD_MS);
     }
   }
 
