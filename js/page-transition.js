@@ -49,12 +49,12 @@
      sits to the centre (0 at an edge, FRONT_LAG at the centre),
      so the fog visibly closes in from all four sides. */
   var FRONT_LAG = 0.5;
-  /* Peak strength of the neutral wash at full cover. */
-  var WASH_PEAK = 0.88;
+  /* Peak strength of the wash at full cover (sparse since 2026-11-27). */
+  var WASH_PEAK = 0.3;
 
   var MAX_DPR = 1.25;
-  /* Neutral fog wash colour (no tint). */
-  var WASH = "233,233,233";
+  /* The fog single colour (#8a8a8a). */
+  var WASH = "138,138,138";
 
   var reduceMotion = false;
   try {
@@ -136,8 +136,10 @@
       var sx = Math.random() * Math.max(1, img.width - sw);
       var sy = Math.random() * Math.max(1, img.height - sh);
       g.drawImage(img, sx, sy, sw, sh, 0, 0, S, S);
-      /* Neutral greys only: strip every trace of colour, with a
-         gentle contrast lift so the cloud shading survives. */
+      /* One colour for the whole fog (#8a8a8a, chosen 2026-11-27):
+         the photograph supplies only the cloud shapes. Its lifted
+         luminance becomes each pixel's alpha (density); the RGB
+         is the single fog colour everywhere. */
       try {
         var id = g.getImageData(0, 0, S, S);
         var d = id.data;
@@ -145,9 +147,12 @@
           var lum = 0.2126 * d[p] + 0.7152 * d[p + 1] + 0.0722 * d[p + 2];
           lum = (lum - 128) * 1.06 + 136;
           lum = lum < 0 ? 0 : lum > 255 ? 255 : lum;
-          d[p] = lum;
-          d[p + 1] = lum;
-          d[p + 2] = lum;
+          var dens = (lum - 40) / 195;
+          dens = dens < 0 ? 0 : dens > 1 ? 1 : dens;
+          d[p] = 138;
+          d[p + 1] = 138;
+          d[p + 2] = 138;
+          d[p + 3] = Math.round(Math.pow(dens, 0.8) * 255);
         }
         g.putImageData(id, 0, 0);
       } catch (error) {
@@ -190,9 +195,9 @@
   /* Three depths. Sizes are fractions of the viewport width, drift
      is px/s at DPR 1, opacity is the per-particle ceiling. */
   var LAYERS = [
-    { count: 16, sizeMin: 0.9, sizeMax: 1.5, drift: 6, opacity: 0.50, wander: 16 },
-    { count: 24, sizeMin: 0.5, sizeMax: 0.9, drift: 12, opacity: 0.62, wander: 11 },
-    { count: 30, sizeMin: 0.2, sizeMax: 0.45, drift: 21, opacity: 0.50, wander: 7 }
+    { count: 9, sizeMin: 0.77, sizeMax: 1.28, drift: 6, opacity: 0.43, wander: 16 },
+    { count: 13, sizeMin: 0.43, sizeMax: 0.77, drift: 12, opacity: 0.53, wander: 11 },
+    { count: 17, sizeMin: 0.17, sizeMax: 0.38, drift: 21, opacity: 0.43, wander: 7 }
   ];
 
   /* One fog field. Every particle knows its distance from the
