@@ -49,18 +49,18 @@
 
 @media screen and (max-width: 599px) {
     .portfolio-history-table th {
-        font-size: var(--font-table-size);
+        font-size: 11px; /* SP: unified table size (Mizuki 2026-11-27) */
         line-height: 1.45;
     }
 
     .portfolio-history-table .year {
         padding-right: 0.75rem;
-        font-size: var(--font-table-size);
+        font-size: 11px; /* SP: unified table size (Mizuki 2026-11-27) */
         line-height: 1.6;
     }
 
     .portfolio-history-table td.tb-content {
-        font-size: var(--font-table-size);
+        font-size: 11px; /* SP: unified table size (Mizuki 2026-11-27) */
         line-height: 1.65;
     }
 

@@ -219,6 +219,11 @@
   :root { --type-404-code-size: clamp(64px, 25vw, 112px); }
 }
 
+/* Page H4 is a flat 14px on small screens (Mizuki 2026-11-27). */
+@media screen and (max-width: 599px) {
+  :root { --type-page-h4-size: 14px; }
+}
+
 /* Menu selector bridges below keep the existing selectors and cascade. */
 /* 既存Menuのページ別上書きも、同じユーザー設定を参照する。 */
 .inner li a { font-size: var(--type-menu-secondary-size); }
