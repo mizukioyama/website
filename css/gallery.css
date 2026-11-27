@@ -1430,3 +1430,16 @@ body.art-page:not(.home) main.gallery {
   #policy > .content { margin-top: 36vmin; }
   .art-page main.gallery > .gallery-box { margin-top: 36vmin; }
 }
+
+/* Table text matches the body size on tablet and PC
+   (Mizuki 2026-11-27). Scoped to the table elements so
+   list-sized text elsewhere (timelines, stand-alone
+   links) keeps its own scale. */
+@media (min-width: 600px) {
+    .history-table,
+    .portfolio-history-table {
+        --font-list-size: var(--type-page-p-size);
+        --font-table-size: var(--type-page-p-size);
+        --font-metadata-size: var(--type-page-p-size);
+    }
+}
