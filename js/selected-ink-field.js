@@ -603,6 +603,13 @@
       rafCallbackCount += 1;
       rafId = 0;
       if (destroyed || paused || document.hidden || reducedMotion.matches) return;
+      /* While the page-transition fog is up, keep the loop
+         alive but skip the (WebGL) draw: the page is covered,
+         and the GPU budget belongs to the fog. */
+      if (window.__PORTFOLIO_FOG_ACTIVE__) {
+        rafId = window.requestAnimationFrame(loop);
+        return;
+      }
       if (lastFrameAt && now - lastFrameAt < targetFrameMs) {
         rafId = window.requestAnimationFrame(loop);
         return;

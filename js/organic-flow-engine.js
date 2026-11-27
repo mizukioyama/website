@@ -543,6 +543,13 @@
     function frame(now) {
       rafId = 0;
       if (destroyed || paused || !enabled || mediaReduced.matches) return;
+      /* While the page-transition fog is up, keep the loop
+         alive but skip the draw: the page is covered, and the
+         frame budget belongs to the fog. */
+      if (window.__PORTFOLIO_FOG_ACTIVE__) {
+        rafId = frameWindow.requestAnimationFrame(frame);
+        return;
+      }
       if (lastFrame) {
         const interval = now - lastFrame;
         metrics.frameTimes.push(interval);
