@@ -6,9 +6,10 @@
    in three depths over a neutral wash, with fine particles),
    driven between clear and full cover; see js/page-transition.js.
    The slide panels of the previous design were removed on
-   2026-11-27 at the artist's request. The layer is a single
-   canvas built entirely by that script; this file holds its
-   static styles.
+   2026-11-27 at the artist's request. The overlay is a stack of
+   static layers (a flat colour layer, a wash layer and three
+   painted depth canvases) built entirely by that script and
+   moved with CSS transitions; this file holds its static styles.
    z-index 13000: above the lens cursor, modals and the Home
    loading layer, so the whole screen is covered evenly while the
    next page loads.
@@ -27,6 +28,19 @@
 }
 
 .ft-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Flat colour and wash layers under the depth canvases. Like
+   .ft-canvas they must declare their size explicitly: the site
+   reset gives every div "width: fit-content". */
+.pt-flat,
+.pt-wash {
   position: absolute;
   left: 0;
   top: 0;
