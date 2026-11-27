@@ -323,6 +323,9 @@
       rafId = 0;
     }
     clearTimers();
+    /* The landing backing (see the landing block) must never
+       outlive the overlay, whatever path removes it. */
+    document.documentElement.style.background = "";
     var overlay = document.getElementById("page-transition-overlay");
     if (overlay && overlay.parentNode) {
       overlay.parentNode.removeChild(overlay);
@@ -515,7 +518,35 @@
   if (!reduceMotion && readFlag()) {
     clearFlag();
     try {
-      buildOverlay();
+      var landingOverlay = buildOverlay();
+      /* Back the cover with solid colour from the very first
+         paint. A canvas frame drawn synchronously still has to
+         be rasterised and composited before it shows; on slow
+         phones the page's own first paint can win that race and
+         flash through the not-yet-presented canvas for a frame
+         or two — the flicker at the swap. CSS backgrounds paint
+         immediately, so the overlay, the canvas and the root
+         surface all carry the wash colour (visually identical
+         to the full-cover fog frame) until the drawn frame has
+         been presented, proven by two animation frames. The
+         backings are cleared then, and again in removeOverlay
+         for the failsafe paths. */
+      var washColor = "rgb(" + WASH + ")";
+      landingOverlay.style.background = washColor;
+      if (landingOverlay.firstChild) {
+        landingOverlay.firstChild.style.background = washColor;
+      }
+      document.documentElement.style.background = washColor;
+      var clearBacking = function () {
+        landingOverlay.style.background = "";
+        if (landingOverlay.firstChild) {
+          landingOverlay.firstChild.style.background = "";
+        }
+        document.documentElement.style.background = "";
+      };
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(clearBacking);
+      });
       /* Paint the full cover synchronously, before the page's
          first frame, so the page is never seen uncovered. */
       drawFog(0, 1, 0);
