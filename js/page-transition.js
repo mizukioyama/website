@@ -40,8 +40,9 @@
   /* If navigation has still not happened this long after the
      cover should have finished, navigate anyway. */
   var NAV_FALLBACK_MS = 2800;
-  /* Destination pages start the reveal on DOMContentLoaded, but
-     do not wait longer than this. */
+  /* Destination pages start the reveal once the page is parsed
+     and its sprites are built, but do not wait longer than
+     this. */
   var REVEAL_FALLBACK_MS = 1500;
   /* Hard cap: the landing layer is removed by then at the latest. */
   var EXIT_SAFETY_MS = 4500;
@@ -529,9 +530,22 @@
          cloud sprites are built, so the sprite build (a visible
          main-thread block on slow phones) happens during the
          static hold instead of cutting into the moving reveal.
-         The fallback timer still caps the total wait. */
+         The reveal itself then waits for a calm beat — two
+         animation frames or a short timer, whichever comes
+         first — so heavy destination-page initialisation
+         (deferred scripts run before DOMContentLoaded, WebGL
+         setup on the TOP page) also finishes in the hold: a
+         timer cannot fire while the thread is jammed, and
+         frames only flow once it is responsive. The fallback
+         timer still caps the total wait. */
+      var calmQueued = false;
       var tryReveal = function () {
-        if (domReady && spritesSettled) reveal();
+        if (!domReady || !spritesSettled || revealed || calmQueued) return;
+        calmQueued = true;
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(reveal);
+        });
+        later(reveal, 120);
       };
       onSpritesSettled = tryReveal;
       if (
