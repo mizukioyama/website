@@ -110,6 +110,23 @@
             margin-top: 4rem;
         }
 
+        /* Remove the double-counted vertical offsets left over from
+           the absolute-hero era (Mizuki 2026-11-27): the shared
+           36vmin hero gap already positions the content. */
+        @media (min-width: 600px) {
+            .information-page .information-box {
+                padding-top: 0;
+            }
+
+            .information-page .content {
+                margin-top: 0;
+            }
+
+            .information-page .information-intro {
+                margin-top: 0;
+            }
+        }
+
         .information-page .information-intro p {
             line-height: 2.2;
         }
