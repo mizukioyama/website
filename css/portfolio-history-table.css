@@ -38,7 +38,7 @@
 
 /* Content lines follow the exhibition displays' subdued
    text treatment (Mizuki 2026-11-27: unified at opacity 0.8). */
-.portfolio-history-table td.tb-content span {
+.portfolio-history-table td.tb-content {
     opacity: 0.8;
 }
 
