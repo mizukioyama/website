@@ -178,6 +178,17 @@
     return sprites;
   }
 
+  var spritesSettled = false;
+  var onSpritesSettled = null;
+  function settleSprites() {
+    if (spritesSettled) return;
+    spritesSettled = true;
+    if (onSpritesSettled) {
+      var cb = onSpritesSettled;
+      onSpritesSettled = null;
+      cb();
+    }
+  }
   if (FOG_TEX_URL && !reduceMotion) {
     var fogImg = new Image();
     fogImg.onload = function () {
@@ -186,8 +197,14 @@
       } catch (error) {
         fogSprites = null;
       }
+      settleSprites();
+    };
+    fogImg.onerror = function () {
+      settleSprites();
     };
     fogImg.src = FOG_TEX_URL;
+  } else {
+    spritesSettled = true;
   }
 
   /* Three depths. Sizes are fractions of the viewport width, drift
@@ -332,7 +349,12 @@
        peak even where sprites happen to be thin. */
     var washK = mode === 0 ? easeInOutViscous(progress) : 1 - easeInOutViscous(progress);
     if (washK > 0.003) {
-      ctx.fillStyle = "rgba(" + WASH + "," + (WASH_PEAK * washK).toFixed(3) + ")";
+      /* Until the cloud sprites exist, cover with the solid wash
+         colour: the landing page's first frames then match the
+         leaving page's covered peak instead of showing a thin,
+         textureless veil the page ghosts through. */
+      var peak = fogSprites ? WASH_PEAK : 1;
+      ctx.fillStyle = "rgba(" + WASH + "," + (peak * washK).toFixed(3) + ")";
       ctx.fillRect(0, 0, w, h);
     }
 
@@ -497,20 +519,34 @@
          first frame, so the page is never seen uncovered. */
       drawFog(0, 1, 0);
       var revealed = false;
+      var domReady = false;
       var reveal = function () {
         if (revealed) return;
         revealed = true;
         startExit();
       };
+      /* Start the reveal only when the page is parsed AND the
+         cloud sprites are built, so the sprite build (a visible
+         main-thread block on slow phones) happens during the
+         static hold instead of cutting into the moving reveal.
+         The fallback timer still caps the total wait. */
+      var tryReveal = function () {
+        if (domReady && spritesSettled) reveal();
+      };
+      onSpritesSettled = tryReveal;
       if (
         document.readyState === "interactive" ||
         document.readyState === "complete"
       ) {
-        reveal();
+        domReady = true;
+        tryReveal();
       } else {
-        document.addEventListener("DOMContentLoaded", reveal);
-        later(reveal, REVEAL_FALLBACK_MS);
+        document.addEventListener("DOMContentLoaded", function () {
+          domReady = true;
+          tryReveal();
+        });
       }
+      later(reveal, REVEAL_FALLBACK_MS);
     } catch (error) {
       removeOverlay();
     }
