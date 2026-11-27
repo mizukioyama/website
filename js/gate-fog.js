@@ -10,7 +10,7 @@
 
   var MAX_DPR = 1.25;
   /* Neutral fog wash colour (no tint). */
-  var WASH = "138,138,138";
+  var WASH = "46,46,46";
 
   var fogSprites = null;
 
@@ -51,10 +51,10 @@
       var sx = Math.random() * Math.max(1, img.width - sw);
       var sy = Math.random() * Math.max(1, img.height - sh);
       g.drawImage(img, sx, sy, sw, sh, 0, 0, S, S);
-      /* One colour for the whole fog (#8a8a8a, chosen 2026-11-27):
-         the photograph supplies only the cloud shapes. Its lifted
-         luminance becomes each pixel's alpha (density); the RGB
-         is the single fog colour everywhere. */
+      /* Charcoal tones only (deep charcoal, chosen 2026-11-27):
+         strip every trace of colour, lift the contrast gently,
+         then remap the grey into the charcoal range 24..96 so the
+         cloud shading survives as a dark veil. */
       try {
         var id = g.getImageData(0, 0, S, S);
         var d = id.data;
@@ -62,12 +62,10 @@
           var lum = 0.2126 * d[p] + 0.7152 * d[p + 1] + 0.0722 * d[p + 2];
           lum = (lum - 128) * 1.06 + 136;
           lum = lum < 0 ? 0 : lum > 255 ? 255 : lum;
-          var dens = (lum - 40) / 195;
-          dens = dens < 0 ? 0 : dens > 1 ? 1 : dens;
-          d[p] = 138;
-          d[p + 1] = 138;
-          d[p + 2] = 138;
-          d[p + 3] = Math.round(Math.pow(dens, 0.8) * 255);
+          var v = Math.round(24 + (lum / 255) * 72);
+          d[p] = v;
+          d[p + 1] = v;
+          d[p + 2] = v;
         }
         g.putImageData(id, 0, 0);
       } catch (error) {
