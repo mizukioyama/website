@@ -56,6 +56,14 @@
   var MAX_DPR = 1.25;
   /* Neutral fog wash colour (no tint). */
   var WASH = "46,46,46";
+  /* The flat cover colour, brightness-matched to the average
+     of the textured cover (measured on the canvas: the textured
+     peak averages about 70, the wash alone is 46). The flat
+     state appears at every navigation boundary — the landing
+     page's first frames, and the leaving page's last frame
+     after the texture crossfade — so if it is darker than the
+     textured cover, the swap reads as a blink. */
+  var FLAT = "70,70,70";
 
   var reduceMotion = false;
   try {
@@ -133,6 +141,40 @@
 
   function buildSprites(img) {
     var S = 384;
+    /* Charcoal tones only (deep charcoal, chosen 2026-11-27):
+       strip every trace of colour, lift the contrast gently,
+       then remap the grey into the charcoal range 24..96 so the
+       cloud shading survives as a dark veil. The remap is
+       pointwise, so it runs ONCE on the source photo here and
+       every sprite below just slices the result with drawImage.
+       Running it per sprite (6 x 384x384 pixel passes) blocked
+       the main thread for hundreds of milliseconds on a slow
+       phone — long enough to freeze the fog animation into a
+       few bright steps, which reads as flicker. */
+    var srcC = document.createElement("canvas");
+    srcC.width = img.width;
+    srcC.height = img.height;
+    var sg = srcC.getContext("2d");
+    if (!sg) {
+      return null;
+    }
+    sg.drawImage(img, 0, 0);
+    try {
+      var sid = sg.getImageData(0, 0, srcC.width, srcC.height);
+      var sd = sid.data;
+      for (var p = 0; p < sd.length; p += 4) {
+        var lum = 0.2126 * sd[p] + 0.7152 * sd[p + 1] + 0.0722 * sd[p + 2];
+        lum = (lum - 128) * 1.06 + 136;
+        lum = lum < 0 ? 0 : lum > 255 ? 255 : lum;
+        var v = Math.round(24 + (lum / 255) * 72);
+        sd[p] = v;
+        sd[p + 1] = v;
+        sd[p + 2] = v;
+      }
+      sg.putImageData(sid, 0, 0);
+    } catch (error) {
+      /* If pixels are unreachable, the colour original still works. */
+    }
     var sprites = [];
     for (var i = 0; i < 6; i++) {
       var c = document.createElement("canvas");
@@ -146,27 +188,7 @@
       var sh = img.height * (0.42 + Math.random() * 0.2);
       var sx = Math.random() * Math.max(1, img.width - sw);
       var sy = Math.random() * Math.max(1, img.height - sh);
-      g.drawImage(img, sx, sy, sw, sh, 0, 0, S, S);
-      /* Charcoal tones only (deep charcoal, chosen 2026-11-27):
-         strip every trace of colour, lift the contrast gently,
-         then remap the grey into the charcoal range 24..96 so the
-         cloud shading survives as a dark veil. */
-      try {
-        var id = g.getImageData(0, 0, S, S);
-        var d = id.data;
-        for (var p = 0; p < d.length; p += 4) {
-          var lum = 0.2126 * d[p] + 0.7152 * d[p + 1] + 0.0722 * d[p + 2];
-          lum = (lum - 128) * 1.06 + 136;
-          lum = lum < 0 ? 0 : lum > 255 ? 255 : lum;
-          var v = Math.round(24 + (lum / 255) * 72);
-          d[p] = v;
-          d[p + 1] = v;
-          d[p + 2] = v;
-        }
-        g.putImageData(id, 0, 0);
-      } catch (error) {
-        /* If pixels are unreachable, the colour original still works. */
-      }
+      g.drawImage(srcC, sx, sy, sw, sh, 0, 0, S, S);
       /* Irregular soft edge: two offset radial masks multiplied. */
       g.globalCompositeOperation = "destination-in";
       var grad = g.createRadialGradient(S / 2, S / 2, S * 0.06, S / 2, S / 2, S * 0.5);
@@ -367,8 +389,17 @@
          colour: the landing page's first frames then match the
          leaving page's covered peak instead of showing a thin,
          textureless veil the page ghosts through. */
-      var peak = fogSprites ? 1 - (1 - WASH_PEAK) * texMix : 1;
-      ctx.fillStyle = "rgba(" + WASH + "," + (peak * washK).toFixed(3) + ")";
+      var peak;
+      var washCol;
+      if (fogSprites) {
+        peak = 1 - (1 - WASH_PEAK) * texMix;
+        var wv = Math.round(46 + (70 - 46) * (1 - texMix));
+        washCol = wv + "," + wv + "," + wv;
+      } else {
+        peak = 1;
+        washCol = FLAT;
+      }
+      ctx.fillStyle = "rgba(" + washCol + "," + (peak * washK).toFixed(3) + ")";
       ctx.fillRect(0, 0, w, h);
     }
 
@@ -551,7 +582,7 @@
          been presented, proven by two animation frames. The
          backings are cleared then, and again in removeOverlay
          for the failsafe paths. */
-      var washColor = "rgb(" + WASH + ")";
+      var washColor = "rgb(" + FLAT + ")";
       landingOverlay.style.background = washColor;
       if (landingOverlay.firstChild) {
         landingOverlay.firstChild.style.background = washColor;
