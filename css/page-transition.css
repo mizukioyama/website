@@ -50,6 +50,14 @@
   display: block;
 }
 
+/* The four fog banks: partial-size canvases anchored to their
+   edges; their geometry (side, span) is set inline by the
+   script. */
+.pt-panel {
+  position: absolute;
+  display: block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-transition-overlay {
     display: none !important;

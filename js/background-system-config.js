@@ -22,6 +22,10 @@
   function mountTrunkSphere() {
     const mode = window.__PORTFOLIO_BACKGROUND_SYSTEM__;
     if (!hasTrunkSphereProfile || (mode !== "selectedInkField" && mode !== "legacy")) return null;
+    /* While the page-transition fog is up, stay unmounted: the
+       fog-end listener below mounts the sphere once the fog
+       clears, and the page is covered until then anyway. */
+    if (window.__PORTFOLIO_FOG_ACTIVE__) return null;
     if (mode === "selectedInkField" && reducedMotion.matches) return null;
     if (trunkInstance) return trunkInstance;
 
@@ -93,6 +97,12 @@
 
   if (hasTrunkSphereProfile) {
     document.addEventListener("DOMContentLoaded", mountTrunkSphere, { once: true });
+    /* The WebGL sphere idles while the page-transition fog is
+       up: destroyed as the fog gathers, remounted as it clears. */
+    window.addEventListener("portfolio:fog-start", destroyTrunkSphere);
+    window.addEventListener("portfolio:fog-end", function () {
+      if (!reducedMotion.matches) mountTrunkSphere();
+    });
     window.addEventListener("pagehide", cleanup);
     window.addEventListener("pageshow", restoreAfterBackForwardCache);
     addMotionListener();
