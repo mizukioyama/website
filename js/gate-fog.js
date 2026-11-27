@@ -1,9 +1,10 @@
 /* Gate fog: the page-transition fog animation of 2026-11-17
    (PR #78, particles PR #79), restored from the repository history
    and looped as the entry gate's background. The engine below —
-   cloud sprites in three depths, the neutral wash and the fine
-   particles — is the original code; only the driver at the end is
-   new. */
+   cloud sprites in three depths and the neutral wash — is the
+   original code; only the driver at the end is new. (The fine
+   particles of the original were removed on 2026-11-27 at the
+   artist's request, here and in the page transition alike.) */
 (function () {
   "use strict";
 
@@ -34,24 +35,6 @@
   }
 
   /* ---- Overlay element (shared by the fog and flat paths) ---- */
-  var dotSprite = (function () {
-    var S = 64;
-    var c = document.createElement("canvas");
-    c.width = S;
-    c.height = S;
-    var g = c.getContext("2d");
-    if (!g) {
-      return null;
-    }
-    var grad = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
-    grad.addColorStop(0, "rgba(255,255,255,1)");
-    grad.addColorStop(0.4, "rgba(255,255,255,0.55)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
-    g.fillStyle = grad;
-    g.fillRect(0, 0, S, S);
-    return c;
-  })();
-
   function buildSprites(img) {
     var S = 384;
     var sprites = [];
@@ -162,31 +145,7 @@
         });
       }
     }
-    /* Fine particles: neutral specks riding inside the fog. Each
-       has its own size, brightness, twinkle rate and drift; a few
-       are larger motes, and some rise slightly as they drift. */
-    var dots = [];
-    var dotCount = small ? 82 : 130;
-    var dprF = w / Math.max(1, window.innerWidth);
-    for (var j = 0; j < dotCount; j++) {
-      dots.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: (0.7 + Math.random() * 1.9) * dprF * (Math.random() < 0.12 ? 2.6 : 1),
-        a: 0.16 + Math.random() * 0.42,
-        grey: Math.random() < 0.72,
-        tw: 0.6 + Math.random() * 1.8,
-        twPh: Math.random() * Math.PI * 2,
-        drift: 15 + Math.random() * 22,
-        rise: Math.random() * 5,
-        ph1: Math.random() * Math.PI * 2,
-        ph2: Math.random() * Math.PI * 2,
-        f1: 0.5 + Math.random() * 0.7,
-        wander: (5 + Math.random() * 9) * dprF,
-        delay: Math.random() * 0.3
-      });
-    }
-    return { parts: parts, dots: dots, wind: wind };
+    return { parts: parts, wind: wind };
   }
 
   var fog = null; /* { canvas, ctx, raf, field } */
@@ -248,41 +207,6 @@
       ctx.restore();
     }
 
-    /* Fine particles between the cloud masses. On the reveal they
-       scatter faster and fade slightly after the fog, so the last
-       specks linger a moment before they are gone. Grey specks are
-       multiplied into the fog; bright ones are laid over it. */
-    if (dotSprite && field.dots) {
-      for (var j = 0; j < field.dots.length; j++) {
-        var d = field.dots[j];
-        var dk;
-        var dBoost;
-        if (mode === 0) {
-          dk = easeInOutViscous(clamp01((progress - d.delay) / 0.7));
-          dBoost = 1;
-        } else {
-          dk = 1 - easeInOutViscous(clamp01((progress - 0.12 - d.delay * 0.4) / 0.8));
-          dBoost = 1 + (1 - dk) * 2.6;
-        }
-        var dAlpha = d.a * dk * (0.72 + 0.28 * Math.sin(timeSec * d.tw + d.twPh));
-        if (dAlpha <= 0.01) {
-          continue;
-        }
-        var dwx = Math.sin(timeSec * d.f1 + d.ph1) * d.wander
-                + Math.sin(timeSec * d.f1 * 2.3 + d.ph2) * d.wander * 0.3;
-        var dwy = Math.cos(timeSec * d.f1 * 0.9 + d.ph2) * d.wander * 0.6;
-        var dpx = d.x + field.wind.x * d.drift * dBoost * timeSec + dwx;
-        var dpy = d.y + (field.wind.y * d.drift * dBoost - d.rise) * timeSec + dwy;
-        var dsz = d.r * 4;
-        ctx.save();
-        ctx.globalAlpha = dAlpha;
-        if (d.grey) {
-          ctx.globalCompositeOperation = "multiply";
-        }
-        ctx.drawImage(dotSprite, dpx - dsz / 2, dpy - dsz / 2, dsz, dsz);
-        ctx.restore();
-      }
-    }
     ctx.globalAlpha = 1;
   }
 

@@ -15,8 +15,8 @@
  *
  * The fog is the same material as the entry gate's background
  * (js/gate-fog.js): cloud sprites in three depths built from one
- * neutral fog photograph, a neutral wash underneath, and fine
- * particles riding inside the fog. Only the driver differs — the
+ * neutral fog photograph and a neutral wash underneath. Only
+ * the driver differs — the
  * gate loops gently at 15% density, while the transition runs
  * between clear and full cover, with the fog front advancing
  * from the edges toward the centre (and retreating the same way
@@ -120,24 +120,6 @@
 
   var fogSprites = null;
 
-  var dotSprite = (function () {
-    var S = 64;
-    var c = document.createElement("canvas");
-    c.width = S;
-    c.height = S;
-    var g = c.getContext("2d");
-    if (!g) {
-      return null;
-    }
-    var grad = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
-    grad.addColorStop(0, "rgba(255,255,255,1)");
-    grad.addColorStop(0.4, "rgba(255,255,255,0.55)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
-    g.fillStyle = grad;
-    g.fillRect(0, 0, S, S);
-    return c;
-  })();
-
   function buildSprites(img) {
     var S = 384;
     var sprites = [];
@@ -237,7 +219,7 @@
       inx = inx * 0.65 + (cx / cl) * 0.35;
       iny = iny * 0.65 + (cy / cl) * 0.35;
       var il = Math.sqrt(inx * inx + iny * iny) || 1;
-      return { edgeDist: edgeDist, inx: inx / il, iny: iny / il };
+      return { edgeDist: edgeDist, edgePx: Math.min(x, w - x, y, h - y), inx: inx / il, iny: iny / il };
     }
     var parts = [];
     for (var li = 0; li < LAYERS.length; li++) {
@@ -257,6 +239,7 @@
           drift: layer.drift * (0.7 + Math.random() * 0.6),
           opacity: layer.opacity * (0.7 + Math.random() * 0.5),
           edgeDist: ei.edgeDist,
+          edgePx: ei.edgePx,
           inx: ei.inx,
           iny: ei.iny,
           travel: (30 + Math.random() * 52) * pxScale,
@@ -270,35 +253,7 @@
         });
       }
     }
-    /* Fine particles riding inside the fog. */
-    var dots = [];
-    var dotCount = small ? 82 : 130;
-    for (var j = 0; j < dotCount; j++) {
-      var dx = Math.random() * w;
-      var dy = Math.random() * h;
-      var dei = edgeInfo(dx, dy);
-      dots.push({
-        x: dx,
-        y: dy,
-        r: (0.7 + Math.random() * 1.9) * pxScale * (Math.random() < 0.12 ? 2.6 : 1),
-        a: 0.16 + Math.random() * 0.42,
-        grey: Math.random() < 0.72,
-        tw: 0.6 + Math.random() * 1.8,
-        twPh: Math.random() * Math.PI * 2,
-        drift: 15 + Math.random() * 22,
-        rise: Math.random() * 5,
-        ph1: Math.random() * Math.PI * 2,
-        ph2: Math.random() * Math.PI * 2,
-        f1: 0.5 + Math.random() * 0.7,
-        wander: (5 + Math.random() * 9) * pxScale,
-        edgeDist: dei.edgeDist,
-        inx: dei.inx,
-        iny: dei.iny,
-        travel: (16 + Math.random() * 30) * pxScale,
-        delay: Math.random() * 0.3
-      });
-    }
-    return { parts: parts, dots: dots };
+    return { parts: parts };
   }
 
   /* ---- Overlay and drawing ---- */
@@ -384,13 +339,17 @@
         var p = parts[i];
         var k;
         var scale;
+        var rlocal = 0;
         if (mode === 0) {
           k = easeInOutViscous(clamp01((progress - p.delay) / (1 - FRONT_LAG)));
           scale = 0.86 + 0.2 * k;
         } else {
           var rdelay = (1 - p.edgeDist) * FRONT_LAG * 0.8;
-          k = 1 - easeInOutViscous(clamp01((progress - rdelay) / (1 - FRONT_LAG * 0.8)));
-          scale = 1.06 + 0.4 * (1 - k);
+          rlocal = clamp01((progress - rdelay) / (1 - FRONT_LAG * 0.8));
+          /* Stay visible while streaming out, then dissolve near
+             the end of the run to the edge. */
+          k = 1 - easeInOutViscous(clamp01((rlocal - 0.15) / 0.85));
+          scale = 1.06 + 0.3 * easeInOutViscous(rlocal);
         }
         var alpha = p.opacity * k * (0.92 + 0.08 * Math.sin(timeSec * 0.7 + p.breathPh));
         if (alpha <= 0.004) {
@@ -402,9 +361,12 @@
                + Math.sin(timeSec * p.f2 * 0.9 + p.ph1) * p.wander * 0.2;
         /* While a particle is still gathering (k < 1) it sits
            displaced toward its own edge; it settles into place as
-           its gather completes, and drifts back out the same way
-           on the reveal. */
-        var off = (1 - k) * p.travel;
+           its gather completes. On the reveal it streams back out
+           the same way — all the way to its nearest edge and past
+           it, scattering to the four sides as it goes. */
+        var off = mode === 0
+          ? (1 - k) * p.travel
+          : easeInOutViscous(rlocal) * (p.edgePx + p.size * 0.35);
         var px = p.x - p.inx * off + p.inx * p.drift * timeSec * 0.4 + wx;
         var py = p.y - p.iny * off + p.iny * p.drift * timeSec * 0.4 + wy;
         var sz = p.size * scale * (1 + 0.05 * Math.sin(timeSec * 0.4 + p.breathPh));
@@ -417,37 +379,6 @@
       }
     }
 
-    /* Fine particles between the cloud masses. Grey specks are
-       multiplied into the fog; bright ones are laid over it. */
-    if (dotSprite && field.dots) {
-      for (var j = 0; j < field.dots.length; j++) {
-        var d = field.dots[j];
-        var dk;
-        if (mode === 0) {
-          dk = easeInOutViscous(clamp01((progress - d.edgeDist * FRONT_LAG * 0.8 - d.delay * 0.1) / (1 - FRONT_LAG * 0.8)));
-        } else {
-          dk = 1 - easeInOutViscous(clamp01((progress - (1 - d.edgeDist) * FRONT_LAG * 0.6 - d.delay * 0.08) / (1 - FRONT_LAG * 0.6)));
-        }
-        var dAlpha = d.a * dk * (0.72 + 0.28 * Math.sin(timeSec * d.tw + d.twPh));
-        if (dAlpha <= 0.01) {
-          continue;
-        }
-        var dwx = Math.sin(timeSec * d.f1 + d.ph1) * d.wander
-                + Math.sin(timeSec * d.f1 * 2.3 + d.ph2) * d.wander * 0.3;
-        var dwy = Math.cos(timeSec * d.f1 * 0.9 + d.ph2) * d.wander * 0.6;
-        var doff = (1 - dk) * d.travel;
-        var dpx = d.x - d.inx * doff + dwx;
-        var dpy = d.y - d.iny * doff + dwy;
-        var dsz = d.r * 4;
-        ctx.save();
-        ctx.globalAlpha = dAlpha;
-        if (d.grey) {
-          ctx.globalCompositeOperation = "multiply";
-        }
-        ctx.drawImage(dotSprite, dpx - dsz / 2, dpy - dsz / 2, dsz, dsz);
-        ctx.restore();
-      }
-    }
     ctx.globalAlpha = 1;
   }
 
