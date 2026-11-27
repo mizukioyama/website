@@ -404,19 +404,19 @@
   }
   #state.statement .content p.text { padding-top: 0.75rem; }
 
-  /* Body copy on small screens (Mizuki 2026-11-27): 12px
+  /* Body copy on small screens (Mizuki 2026-11-27): 11px
      with the line-height unified at the minimum value (1.9) —
      the reading pages that used the looser 2.4 join Biography
      / Statement. Hero text, timeline titles and the Gallery
      keep their own sizes. */
   body:not(.home):not(.art-page) main .content p:not(.timeline-title) {
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.9;
   }
   /* The timeline answer text carries its own ID-level size
      rule; match its weight so the Q&A body copy joins the
-     12px body size too. */
+     11px body size too. */
   main#state .content .timeline-copy > p {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
