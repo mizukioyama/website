@@ -12,7 +12,7 @@
   const PORTFOLIO_PATH = "/website/exhibitions/yurayura/";
   const ALLOWED_FIELDS = new Set([
     "id", "edition", "published", "city", "venue", "startsAt", "endsAt", "officialUrl",
-    "portfolioDetailUrl", "galleryUrl", "artists", "artworkCount", "copy", "recruitment"
+    "portfolioDetailUrl", "galleryUrl", "artists", "artworkCount", "artworkCountTotal", "copy", "recruitment"
   ]);
 
   function instant(value) {
@@ -91,6 +91,10 @@
       if (event.artworkCount !== undefined) {
         if (!Number.isInteger(event.artworkCount) || event.artworkCount < 0) throw new Error("Invalid artwork count");
         row.artworkCount = event.artworkCount;
+      }
+      if (event.artworkCountTotal !== undefined) {
+        if (!Number.isInteger(event.artworkCountTotal) || event.artworkCountTotal < 0) throw new Error("Invalid artwork count total");
+        row.artworkCountTotal = event.artworkCountTotal;
       }
       return row;
     });

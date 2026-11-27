@@ -419,4 +419,11 @@
   main#state .content .timeline-copy > p {
     font-size: 11px;
   }
+  /* Inline links inside body copy follow the body size on
+     small screens: the global link rule (14px floor) made
+     links swell inside the 11px body text, most visibly on
+     Information with its many in-text links. */
+  main .content p a {
+    font-size: inherit;
+  }
 }
