@@ -1,25 +1,27 @@
-/* Page transition (vertical tab panels).
+/* Page transition (fog).
  *
  * Plain browser navigation is kept as-is; this script only puts a
- * panel layer over the screen around it:
- *  - on an in-site link click, seven matte-iron panels slide in
- *    from the top and bottom edges (alternating), cover the
- *    screen, the destination page name appears, and the browser
- *    then navigates normally;
+ * fog layer over the screen around it:
+ *  - on an in-site link click, fog gathers in from all four edges
+ *    of the frame — left, right, top and bottom — until the
+ *    screen is covered, and the browser then navigates normally;
  *  - on the destination page, when (and only when) a
  *    sessionStorage flag says the visit came through that cover,
- *    the page starts covered by the same panels, which hold for a
- *    moment and then slide out through the opposite edge.
+ *    the page starts covered by the same fog, holds for a moment,
+ *    and the fog then streams back out to the four edges and is
+ *    gone.
  * Direct landings, reloads and external arrivals never get a
  * layer. No SPA-style content swapping is performed.
  *
- * The first panel is a black brand panel. The other six carry a
- * framed print of an artwork (the site's own gallery images) on
- * an iron plate, with a file-tab spine on the right edge; each
- * tab is labelled with a page title instead of a number. A thin
- * fog film (soft light gradients, a fine noise texture and a 1px
- * backdrop blur) lies over the panels. All design values were
- * tuned and approved in a GUI preview (2026-11-18).
+ * The fog is the same material as the entry gate's background
+ * (js/gate-fog.js): cloud sprites in three depths built from one
+ * neutral fog photograph and a neutral wash underneath. Only
+ * the driver differs — the
+ * gate loops gently at 15% density, while the transition runs
+ * between clear and full cover, with the fog front advancing
+ * from the edges toward the centre (and retreating the same way
+ * on the reveal). The slide panels of the previous design are
+ * gone (2026-11-27, at the artist's request).
  *
  * The script runs in <head>, before <body> exists, so the overlay
  * is attached to <html> (it is position:fixed, so this is
@@ -31,12 +33,10 @@
 
   var STORAGE_KEY = "portfolio-page-transition";
 
-  /* Motion (approved values; durations are for one panel). */
-  var IN_MS = 540;
-  var OUT_MS = 540;
-  var STAGGER_MS = 55;
-  var OUT_STAGGER_MS = 43;
-  var HOLD_MS = 500; /* pause after the snap, ~0.5s (2026-11-18) */
+  /* Motion. */
+  var COVER_MS = 1050; /* fog gathers from the edges to full cover */
+  var REVEAL_MS = 1050; /* fog streams back out to the edges */
+  var HOLD_MS = 260; /* pause at full cover after landing */
   /* If navigation has still not happened this long after the
      cover should have finished, navigate anyway. */
   var NAV_FALLBACK_MS = 2800;
@@ -45,94 +45,16 @@
   var REVEAL_FALLBACK_MS = 1500;
   /* Hard cap: the landing layer is removed by then at the latest. */
   var EXIT_SAFETY_MS = 4500;
-  /* Slide directions (decided 2026-11-18): every panel enters from
-     the bottom and exits back to the bottom, in both layouts.
-     Sign per panel: -1 = from top (landscape) / left (portrait),
-     +1 = from bottom / right. EXIT_BACK: exit returns to the entry
-     side instead of passing through to the opposite side. */
-  var DIRS_LAND = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-  var DIRS_PORT = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-  var EXIT_BACK = true;
-  /* The destination page's panel is special (decided 2026-11-18):
-     it sits directly after the brand panel; its print becomes a
-     leather cover (img/leather.svg, a photo the artist supplied)
-     carrying the page title, so the centred destination title is
-     suppressed for tabbed pages; and right after landing, the
-     panel itself — plate and image together as one set — snaps
-     wider to 1.5x while the other panels make room. The tab is
-     NOT enlarged; it reads "No.01 - Top". Every one of the nine
-     pages has a tab and a panel. */
-  var DEST_PANEL_SCALE = 1.5;
-  var SNAP_MS = 260;
-  var TAB_INDEX_BY_PAGE = {
-    "index.html": 0,
-    "gallery.html": 1,
-    "artist-statement.html": 2,
-    "biography.html": 3,
-    "information.html": 4,
-    "order.html": 6,
-    "contact.html": 7,
-    "policy.html": 8
-  };
-  function tabIndexFor(pathname) {
-    var p = pathname || "";
-    if (p.indexOf("/exhibitions/yurayura/") !== -1) return 5;
-    var name = p.split("/").pop() || "";
-    if (name === "") return 0;
-    return TAB_INDEX_BY_PAGE.hasOwnProperty(name)
-      ? TAB_INDEX_BY_PAGE[name]
-      : -1;
-  }
+  /* Fog front lag: a particle's gather starts later the nearer it
+     sits to the centre (0 at an edge, FRONT_LAG at the centre),
+     so the fog visibly closes in from all four sides. */
+  var FRONT_LAG = 0.5;
+  /* Peak strength of the wash at full cover (sparse since 2026-11-27). */
+  var WASH_PEAK = 0.3;
 
-  /* Composition (approved values). */
-  var WIDTHS = [20.5, 14, 14, 14, 14, 14, 14, 14, 14, 14];
-  var OVERLAP_PX = 40;
-  var RIGHT_BAND_PX = 66;
-  var BODY_W = 10; /* spine body width, px */
-  var TAB_W = 10; /* tab protrusion width, px */
-  var TAB_LEN = 25; /* tab length, % of panel height */
-  var TAB_SHOULDER = 1.5; /* straight shoulder slope, % */
-  var TAB_NOTCH = 0; /* concave fillet depth, % (0 = none) */
-  var TAB_TOPS = [5, 15, 5, 15, 5, 15, 5, 15, 5];
-  var TAB_TITLES = [
-    "TOP",
-    "ART INDEX",
-    "ARTIST STATEMENT",
-    "BIOGRAPHY",
-    "INFORMATION",
-    "YURAYURA",
-    "ORDER",
-    "CONTACT",
-    "POLICY"
-  ];
-  var TAB_TITLES_NICE = [
-    "Top",
-    "Art Index",
-    "Artist Statement",
-    "Biography",
-    "Information",
-    "Yurayura",
-    "Order",
-    "Contact",
-    "Policy"
-  ];
-  var CHEKI_PX = 8; /* plate margin around the print */
-  var NUM_SIZE = 10;
-  var NUM_POS = 55; /* tab title anchor, px from the panel bottom area */
-  var NUM_COLOR = "#232527";
-  var BRAND_SIZE = 14;
-
-  var PAGE_TITLES = {
-    "": "TOP",
-    "index.html": "TOP",
-    "gallery.html": "ART INDEX",
-    "artist-statement.html": "ARTIST STATEMENT",
-    "biography.html": "BIOGRAPHY",
-    "information.html": "INFORMATION",
-    "order.html": "ORDER",
-    "contact.html": "CONTACT",
-    "policy.html": "POLICY"
-  };
+  var MAX_DPR = 1.25;
+  /* The fog single colour (#8a8a8a). */
+  var WASH = "138,138,138";
 
   var reduceMotion = false;
   try {
@@ -141,8 +63,8 @@
     reduceMotion = false;
   }
 
-  /* ---- Asset base (this script's own URL, so the artwork paths
-     work from every page depth, including the 404 page). ---- */
+  /* ---- Asset base (this script's own URL, so the same-origin
+     path check works from every page depth, including 404). ---- */
   var base = "";
   try {
     var cs = document.currentScript;
@@ -157,9 +79,6 @@
     basePath = new URL(base || "/", window.location.href).pathname;
   } catch (error) {
     basePath = "/";
-  }
-  function artURL(name) {
-    return base + "img/" + name;
   }
 
   /* ---- Session flag ---- */
@@ -189,149 +108,161 @@
   function clamp01(x) {
     return x < 0 ? 0 : x > 1 ? 1 : x;
   }
-  function easeOutBack(x) {
-    var c1 = 1.4;
-    var c3 = c1 + 1;
-    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
-  }
-  function easeOutExpo(x) {
-    return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
-  }
-  function easeInCubic(x) {
-    return x * x * x;
+  /* Heavy, unhurried ease-in-out (smootherstep): a slow start, a
+     smooth middle and a soft settle, with no overshoot. */
+  function easeInOutViscous(t) {
+    t = clamp01(t);
+    return t * t * t * (t * (t * 6 - 15) + 10);
   }
 
-  /* Matte iron: one horizontal gradient shared by every plate and
-     spine, so the tab and its plate always read as one material.
-     Lightness follows the approved brightness (0.81). */
-  function ironGradient(vertical) {
-    var l = 0.6 * 0.81 * 100;
-    return (
-      "linear-gradient(" +
-      (vertical ? "180deg" : "90deg") +
-      ", hsl(220, 4%, " +
-      (l + 4).toFixed(1) +
-      "%) 0%, hsl(220, 4%, " +
-      l.toFixed(1) +
-      "%) 55%, hsl(220, 4%, " +
-      (l - 5).toFixed(1) +
-      "%) 100%)"
-    );
-  }
+  /* ---- Fog engine (same material as js/gate-fog.js) ---- */
+  var FOG_TEX_URL = "data:image/jpeg;base64,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";
 
-  /* Top-edge variant of the portrait spine outline: the tab
-     protrudes upward from the band's top edge. */
+  var fogSprites = null;
 
-  /* Spine outline for the stacked (portrait) layout: the desktop
-     outline transposed — the spine runs along the bottom edge of
-     each band, the tab protrudes downward, its left edge is the
-     straight sloped shoulder and its right edge returns flat. */
-  function spineClipH(zt, zr, tabW, bodyW, tabLen) {
-    var bw = bodyW || BODY_W;
-    var by = (bw / (bw + (tabW || TAB_W))) * 100;
-    var sh = Math.min(TAB_SHOULDER, (tabLen || TAB_LEN) / 3);
-    var pts = [];
-    pts.push("0% 0%");
-    pts.push("100% 0%");
-    pts.push("100% " + by.toFixed(1) + "%");
-    pts.push(zr.toFixed(1) + "% " + by.toFixed(1) + "%");
-    pts.push(zr.toFixed(1) + "% 100%");
-    pts.push(zt.toFixed(1) + "% 100%");
-    pts.push((zt - sh).toFixed(1) + "% " + by.toFixed(1) + "%");
-    pts.push("0% " + by.toFixed(1) + "%");
-    return "polygon(" + pts.join(", ") + ")";
-  }
-
-  /* Iron texture: large soft blotches plus a fine grain, drawn as
-     one SVG turbulence tile (black alpha only, so it shades any
-     iron colour the same way). */
-  function noiseURI() {
-    var svg =
-      "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>" +
-      "<filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.011 0.017' numOctaves='3'/>" +
-      "<feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.13 0'/></filter>" +
-      "<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2'/>" +
-      "<feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.18 0'/></filter>" +
-      "<rect width='300' height='300' filter='url(#b)'/>" +
-      "<rect width='300' height='300' filter='url(#n)'/></svg>";
-    return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
-  }
-
-
-  /* Spine outline: the tab leaves the body's right edge with a
-     straight sloped shoulder at the top, its bottom edge is
-     horizontal, and a concave fillet (depth TAB_NOTCH, 0 in the
-     approved design) returns it to the body. Percentages are of
-     the spine element (body + tab width, full height). */
-  function spineClip(zt, zb, tabW, bodyW, tabLen) {
-    var bw = bodyW || BODY_W;
-    var bx = (bw / (bw + (tabW || TAB_W))) * 100;
-    var sh = Math.min(TAB_SHOULDER, (tabLen || TAB_LEN) / 3);
-    var notchX = bx + TAB_NOTCH * 4;
-    function pt(p) {
-      return p[0].toFixed(1) + "% " + p[1].toFixed(1) + "%";
-    }
-    function qbez(p0, pc, p1, t) {
-      var u = 1 - t;
-      return [
-        u * u * p0[0] + 2 * u * t * pc[0] + t * t * p1[0],
-        u * u * p0[1] + 2 * u * t * pc[1] + t * t * p1[1]
-      ];
-    }
-    var pts = [];
-    pts.push("0% 0%");
-    pts.push(bx.toFixed(1) + "% 0%");
-    pts.push(bx.toFixed(1) + "% " + (zt - sh).toFixed(1) + "%");
-    pts.push("100% " + zt + "%");
-    pts.push("100% " + zb + "%");
-    pts.push(notchX.toFixed(1) + "% " + zb + "%");
-    var f0 = [notchX, zb];
-    var fc = [notchX, zb + TAB_NOTCH];
-    var f1 = [bx, zb + TAB_NOTCH];
-    [0.3, 0.6].forEach(function (t) {
-      pts.push(pt(qbez(f0, fc, f1, t)));
-    });
-    pts.push(bx.toFixed(1) + "% 100%");
-    pts.push("0% 100%");
-    return "polygon(" + pts.join(", ") + ")";
-  }
-
-  /* ---- Overlay construction ---- */
-  var panels = [];
-  var inners = [];
-  var motionX = false; /* true: panels travel along X (unused now) */
-  var curDirs = DIRS_LAND;
-  /* Portrait bands are short, so a percentage of their own height
-     cannot carry them off-screen. In portrait, panel offsets are
-     converted to pixels: the distance that puts each band fully
-     below the viewport's bottom edge. */
-  var portOffsets = null;
-  var centerJobs = [];
-  var layoutState = null;
-  function relayout(destScale) {
-    if (!layoutState || !panels.length) return;
-    var st = layoutState;
-    var sumW = 0;
-    var i;
-    for (i = 0; i < st.shares.length; i++) {
-      sumW += st.shares[i] * (i === st.destPos ? destScale : 1);
-    }
-    var left = 0;
-    for (i = 0; i < panels.length; i++) {
-      var colW =
-        (st.sumPx * st.shares[i] * (i === st.destPos ? destScale : 1)) / sumW;
-      if (st.portrait) {
-        panels[i].style.top = left + "px";
-        panels[i].style.height = colW + "px";
-      } else {
-        panels[i].style.left = left + "px";
-        panels[i].style.width = colW + "px";
+  function buildSprites(img) {
+    var S = 384;
+    var sprites = [];
+    for (var i = 0; i < 6; i++) {
+      var c = document.createElement("canvas");
+      c.width = S;
+      c.height = S;
+      var g = c.getContext("2d");
+      if (!g) {
+        return null;
       }
-      left += colW - OVERLAP_PX;
+      var sw = img.width * (0.42 + Math.random() * 0.2);
+      var sh = img.height * (0.42 + Math.random() * 0.2);
+      var sx = Math.random() * Math.max(1, img.width - sw);
+      var sy = Math.random() * Math.max(1, img.height - sh);
+      g.drawImage(img, sx, sy, sw, sh, 0, 0, S, S);
+      /* One colour for the whole fog (#8a8a8a, chosen 2026-11-27):
+         the photograph supplies only the cloud shapes. Its lifted
+         luminance becomes each pixel's alpha (density); the RGB
+         is the single fog colour everywhere. */
+      try {
+        var id = g.getImageData(0, 0, S, S);
+        var d = id.data;
+        for (var p = 0; p < d.length; p += 4) {
+          var lum = 0.2126 * d[p] + 0.7152 * d[p + 1] + 0.0722 * d[p + 2];
+          lum = (lum - 128) * 1.06 + 136;
+          lum = lum < 0 ? 0 : lum > 255 ? 255 : lum;
+          var dens = (lum - 40) / 195;
+          dens = dens < 0 ? 0 : dens > 1 ? 1 : dens;
+          d[p] = 138;
+          d[p + 1] = 138;
+          d[p + 2] = 138;
+          d[p + 3] = Math.round(Math.pow(dens, 0.8) * 255);
+        }
+        g.putImageData(id, 0, 0);
+      } catch (error) {
+        /* If pixels are unreachable, the colour original still works. */
+      }
+      /* Irregular soft edge: two offset radial masks multiplied. */
+      g.globalCompositeOperation = "destination-in";
+      var grad = g.createRadialGradient(S / 2, S / 2, S * 0.06, S / 2, S / 2, S * 0.5);
+      grad.addColorStop(0, "rgba(0,0,0,1)");
+      grad.addColorStop(0.55, "rgba(0,0,0,0.88)");
+      grad.addColorStop(1, "rgba(0,0,0,0)");
+      g.fillStyle = grad;
+      g.fillRect(0, 0, S, S);
+      var ox = (Math.random() - 0.5) * S * 0.3;
+      var oy = (Math.random() - 0.5) * S * 0.3;
+      var grad2 = g.createRadialGradient(S / 2 + ox, S / 2 + oy, S * 0.05, S / 2 + ox, S / 2 + oy, S * 0.46);
+      grad2.addColorStop(0, "rgba(0,0,0,1)");
+      grad2.addColorStop(0.7, "rgba(0,0,0,0.9)");
+      grad2.addColorStop(1, "rgba(0,0,0,0)");
+      g.fillStyle = grad2;
+      g.fillRect(0, 0, S, S);
+      g.globalCompositeOperation = "source-over";
+      sprites.push(c);
     }
+    return sprites;
   }
-  var destEl = null;
-  var destTextEl = null;
+
+  if (FOG_TEX_URL && !reduceMotion) {
+    var fogImg = new Image();
+    fogImg.onload = function () {
+      try {
+        fogSprites = buildSprites(fogImg);
+      } catch (error) {
+        fogSprites = null;
+      }
+    };
+    fogImg.src = FOG_TEX_URL;
+  }
+
+  /* Three depths. Sizes are fractions of the viewport width, drift
+     is px/s at DPR 1, opacity is the per-particle ceiling. */
+  var LAYERS = [
+    { count: 9, sizeMin: 0.77, sizeMax: 1.28, drift: 6, opacity: 0.43, wander: 16 },
+    { count: 13, sizeMin: 0.43, sizeMax: 0.77, drift: 12, opacity: 0.53, wander: 11 },
+    { count: 17, sizeMin: 0.17, sizeMax: 0.38, drift: 21, opacity: 0.43, wander: 7 }
+  ];
+
+  /* One fog field. Every particle knows its distance from the
+     nearest edge (0 at an edge, 1 at the centre) and its inward
+     direction (from that edge toward the centre, blended with the
+     direction to the centre point so corners flow diagonally). */
+  function makeField(w, h) {
+    var small = w < 700;
+    var pxScale = w / Math.max(1, window.innerWidth || w);
+    function edgeInfo(x, y) {
+      var ex = Math.min(x, w - x) / (w / 2);
+      var ey = Math.min(y, h - y) / (h / 2);
+      var edgeDist = Math.min(ex, ey);
+      var inx = 0;
+      var iny = 0;
+      if (ex <= ey) {
+        inx = x <= w / 2 ? 1 : -1;
+      } else {
+        iny = y <= h / 2 ? 1 : -1;
+      }
+      var cx = w / 2 - x;
+      var cy = h / 2 - y;
+      var cl = Math.sqrt(cx * cx + cy * cy) || 1;
+      inx = inx * 0.65 + (cx / cl) * 0.35;
+      iny = iny * 0.65 + (cy / cl) * 0.35;
+      var il = Math.sqrt(inx * inx + iny * iny) || 1;
+      return { edgeDist: edgeDist, edgePx: Math.min(x, w - x, y, h - y), inx: inx / il, iny: iny / il };
+    }
+    var parts = [];
+    for (var li = 0; li < LAYERS.length; li++) {
+      var layer = LAYERS[li];
+      var n = small ? Math.round(layer.count * 0.62) : layer.count;
+      for (var i = 0; i < n; i++) {
+        var x = Math.random() * w;
+        var y = Math.random() * h;
+        var ei = edgeInfo(x, y);
+        parts.push({
+          x: x,
+          y: y,
+          size: (layer.sizeMin + Math.random() * (layer.sizeMax - layer.sizeMin)) * w,
+          spr: Math.floor(Math.random() * 6),
+          rot: Math.random() * Math.PI * 2,
+          rotV: (Math.random() - 0.5) * 0.05,
+          drift: layer.drift * (0.7 + Math.random() * 0.6),
+          opacity: layer.opacity * (0.7 + Math.random() * 0.5),
+          edgeDist: ei.edgeDist,
+          edgePx: ei.edgePx,
+          inx: ei.inx,
+          iny: ei.iny,
+          travel: (30 + Math.random() * 52) * pxScale,
+          delay: ei.edgeDist * FRONT_LAG + Math.random() * 0.05,
+          ph1: Math.random() * Math.PI * 2,
+          ph2: Math.random() * Math.PI * 2,
+          f1: 0.25 + Math.random() * 0.3,
+          f2: 0.7 + Math.random() * 0.6,
+          wander: layer.wander * (0.7 + Math.random() * 0.6) * pxScale,
+          breathPh: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    return { parts: parts };
+  }
+
+  /* ---- Overlay and drawing ---- */
+  var fog = null; /* { canvas, ctx, field } */
   var rafId = 0;
   var safetyTimers = [];
 
@@ -347,280 +278,27 @@
     safetyTimers = [];
   }
 
-  function buildOverlay(destTitle, destIdx) {
+  function buildOverlay() {
     removeOverlay();
     var overlay = document.createElement("div");
     overlay.id = "page-transition-overlay";
     overlay.className = "page-transition-overlay";
     overlay.setAttribute("aria-hidden", "true");
-
-    var frameBg = document.createElement("div");
-    frameBg.className = "pt-framebg";
-    overlay.appendChild(frameBg);
-
-    var W = window.innerWidth || 1024;
-    var H = window.innerHeight || 768;
-    var portrait = W <= 768;
-    motionX = false; /* both layouts travel along Y */
-    curDirs = portrait ? DIRS_PORT : DIRS_LAND;
-    if (portrait) overlay.className += " pt-h";
-
-    var wrap = document.createElement("div");
-    wrap.className = portrait ? "pt-wrap pt-wrap-h" : "pt-wrap";
-    overlay.appendChild(wrap);
-
-    var grad = ironGradient(portrait);
-    var tex = noiseURI();
-    var wrapW = portrait ? H - RIGHT_BAND_PX : W - RIGHT_BAND_PX;
-    /* Panel order: brand panel first, the destination page's
-       panel directly after it, then the rest (decided 2026-11-18). */
-    var items = [{ kind: "brand", idx: -1, share: WIDTHS[0] }];
-    var kk;
-    for (kk = 0; kk < TAB_TITLES.length; kk++) {
-      items.push({ kind: "art", idx: kk, share: WIDTHS[kk + 1] });
-    }
-    if (destIdx >= 0) {
-      var destItem = null;
-      var restItems = [];
-      items.forEach(function (it) {
-        if (it.kind === "art" && it.idx === destIdx) destItem = it;
-        else restItems.push(it);
-      });
-      if (destItem && restItems.length) {
-        items = [restItems[0], destItem].concat(restItems.slice(1));
-      }
-    }
-    var sumW = 0;
-    var i;
-    for (i = 0; i < items.length; i++) sumW += items[i].share;
-    var sumPx = wrapW + OVERLAP_PX * (items.length - 1);
-    layoutState = {
-      portrait: portrait,
-      sumPx: sumPx,
-      shares: items.map(function (it) {
-        return it.share;
-      }),
-      destPos: destIdx >= 0 ? 1 : -1
-    };
-    panels = [];
-    inners = [];
-    centerJobs = [];
-    portOffsets = portrait ? [] : null;
-    var left = 0;
-
-    for (i = 0; i < items.length; i++) {
-      var item = items[i];
-      var colW = (sumPx * item.share) / sumW;
-      var d = document.createElement("div");
-      d.className = "pt-panel";
-      if (portrait) {
-        d.style.top = left + "px";
-        d.style.height = colW + "px";
-        d.style.left = "0px";
-        d.style.width = "100%";
-      } else {
-        d.style.left = left + "px";
-        d.style.width = colW + "px";
-      }
-      d.style.zIndex = items.length - i; /* earlier panels on top */
-
-      var plate = document.createElement("div");
-      plate.className = "pt-plate";
-      plate.style.background = grad;
-      var ptex = document.createElement("div");
-      ptex.className = "pt-tex";
-      ptex.style.backgroundImage = tex;
-      ptex.style.opacity = "1";
-      plate.appendChild(ptex);
-      d.appendChild(plate);
-
-      var img = document.createElement("div");
-      img.className = "pt-img";
-      if (item.kind === "brand") {
-        img.style.top = "0px";
-        img.style.left = "0px";
-        img.style.right = "0px";
-        img.style.bottom = "0px";
-        img.style.borderRadius = "0px";
-        img.style.boxShadow = "none";
-        var brand = document.createElement("div");
-        brand.className = portrait ? "pt-brand pt-brand-h" : "pt-brand";
-        brand.innerHTML =
-          '<div class="pt-sub">From Nature, To Inspiration</div>' +
-          '<div class="pt-name" style="font-size:' +
-          BRAND_SIZE +
-          'px">Mizuki Oyama</div>' +
-          '<div class="pt-foot">ABSTRACT ARTIST — PORTFOLIO</div>';
-        img.appendChild(brand);
-        inners.push(null);
-      } else {
-        img.style.top = CHEKI_PX + "px";
-        img.style.left = CHEKI_PX + "px";
-        /* PC tabs run a little larger (decided 2026-11-18). */
-        var bodyW = portrait ? BODY_W : 12;
-        var tabW = portrait ? TAB_W : 14;
-        var numSize = portrait ? NUM_SIZE : 12;
-        img.style.right = (portrait ? CHEKI_PX : bodyW + CHEKI_PX) + "px";
-        img.style.bottom = (portrait ? bodyW + CHEKI_PX : CHEKI_PX) + "px";
-        if (portrait) {
-          /* No print shadow in the stacked layout: the spill
-             onto the dark gap read as a step (2026-11-18). */
-          img.style.boxShadow = "none";
-        }
-        var photoIdx = item.idx;
-        var isDest = photoIdx === destIdx;
-        var title = TAB_TITLES[photoIdx] || "";
-        if (isDest) img.style.borderRadius = "0px";
-        var inner = document.createElement("div");
-        /* Every panel uses the same leather image (decided
-           2026-11-18), with its page title engraved on it. */
-        inner.className = "pt-inner pt-cover";
-        inner.style.backgroundImage = 'url("' + artURL("leather.svg") + '")';
-        inner.style.backgroundColor = "#17130f";
-        var coverTitle = document.createElement("div");
-        coverTitle.className = "pt-cover-title";
-        coverTitle.textContent = title;
-        inner.appendChild(coverTitle);
-        img.appendChild(inner);
-        inners.push(inner);
-
-        var zt = TAB_TOPS[photoIdx];
-        /* Every tab always carries its "No.XX - Title" label,
-           and the tab's length follows the label's length
-           (decided 2026-11-18). */
-        var tabText =
-          "No." +
-          (photoIdx + 1 < 10 ? "0" : "") +
-          (photoIdx + 1) +
-          " - " +
-          TAB_TITLES_NICE[photoIdx];
-        var tabLenPx = tabText.length * numSize * (portrait ? 0.73 : 0.8) + 30;
-        var tabLen = Math.max(
-          16,
-          Math.min(62, (tabLenPx / (portrait ? W : H)) * 100)
-        );
-        var zb = Math.min(96, zt + tabLen);
-        var spine = document.createElement("div");
-        var stex = document.createElement("div");
-        stex.className = "pt-tex";
-        stex.style.backgroundImage = tex;
-        stex.style.opacity = "1";
-        var num = document.createElement("div");
-        if (portrait) {
-          spine.className = "pt-spine-h";
-          spine.style.left = "0px";
-          spine.style.width = "100%";
-          spine.style.zIndex = 2;
-          spine.style.background = grad;
-          spine.appendChild(stex);
-          num.className = "pt-num-h";
-          num.textContent = tabText;
-          /* Centred in the tab on both axes (decided 2026-11-18):
-             the horizontal centre is set exactly after layout
-             (see centerJobs below); vertically it sits at the
-             middle of the spine strip. As a child of the panel
-             instead of the clipped spine, long labels stay
-             fully readable. */
-          num.style.left = "calc(" + zt + "% + 8px)";
-          centerJobs.push({ num: num, zt: zt, zb: zb, portrait: true });
-          num.style.fontSize = numSize + "px";
-          num.style.color = NUM_COLOR;
-          num.style.top = "calc(100% - 5px)";
-          num.style.zIndex = 3;
-          d.appendChild(num);
-          spine.style.height = bodyW + tabW + "px";
-          spine.style.bottom = -tabW + "px";
-          spine.style.clipPath = spineClipH(zt, zb, tabW, bodyW, tabLen);
-        } else {
-          spine.className = "pt-spine";
-          spine.style.zIndex = 2;
-          spine.style.background = grad;
-          spine.appendChild(stex);
-          num.className = "pt-num";
-          num.textContent = tabText;
-          /* The box is centred on the spine, minus 3px: in
-             vertical writing the glyph ink itself sits about
-             3px right of the box centre (measured 2026-11-18),
-             which made the label look right-shifted. */
-          num.style.left = (bodyW + tabW - numSize) / 2 - 3 + "px";
-          num.style.fontSize = numSize + "px";
-          num.style.color = NUM_COLOR;
-          spine.appendChild(num);
-          spine.style.width = bodyW + tabW + "px";
-          spine.style.right = -tabW + "px";
-          spine.style.clipPath = spineClip(zt, zb, tabW, bodyW, tabLen);
-          num.style.width = numSize + "px";
-          /* The label is centred in the tab on both axes
-             (decided 2026-11-18); its exact position is set
-             after layout via centerJobs below. */
-          centerJobs.push({ num: num, zt: zt, zb: zb, portrait: false });
-        }
-        d.appendChild(spine);
-      }
-      d.appendChild(img);
-      if (i > 0) {
-        var shade = document.createElement("div");
-        if (portrait) {
-          shade.className = "pt-shade-h";
-          shade.style.top = OVERLAP_PX + "px";
-        } else {
-          shade.className = "pt-shade";
-          shade.style.left = OVERLAP_PX + "px";
-        }
-        d.appendChild(shade);
-      }
-      wrap.appendChild(d);
-      panels.push(d);
-      if (portrait) portOffsets.push(H - left + 24);
-      left += colW - OVERLAP_PX;
-    }
-
-    var fog = document.createElement("div");
-    fog.className = "pt-fog";
-    var fogTex = document.createElement("div");
-    fogTex.className = "pt-fogtex";
-    fogTex.style.backgroundImage = tex;
-    fog.appendChild(fogTex);
-    overlay.appendChild(fog);
-
-    destEl = document.createElement("div");
-    destEl.className = "pt-dest";
-    destTextEl = document.createElement("div");
-    destTextEl.textContent = destIdx >= 0 ? "" : destTitle || "";
-    destEl.appendChild(destTextEl);
-    overlay.appendChild(destEl);
-
+    var canvas = document.createElement("canvas");
+    canvas.className = "ft-canvas";
+    overlay.appendChild(canvas);
     document.documentElement.appendChild(overlay);
-    /* Centre each tab label exactly, using its measured size:
-       horizontally/vertically at the middle of the tab. */
-    centerJobs.forEach(function (job) {
-      if (job.portrait) {
-        var nw = job.num.getBoundingClientRect().width;
-        job.num.style.left =
-          Math.round((((job.zt + job.zb) / 2) / 100) * W - nw / 2) + "px";
-      } else {
-        var nh = job.num.getBoundingClientRect().height;
-        var tabCentre = (((job.zt + job.zb) / 2) / 100) * H;
-        job.num.style.top =
-          Math.max(4, Math.round(tabCentre - nh / 2)) + "px";
-      }
-    });
+    var ctx = null;
+    try {
+      ctx = canvas.getContext("2d");
+    } catch (error) {
+      ctx = null;
+    }
+    var dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+    canvas.width = Math.max(1, Math.round((window.innerWidth || 1024) * dpr));
+    canvas.height = Math.max(1, Math.round((window.innerHeight || 768) * dpr));
+    fog = { canvas: canvas, ctx: ctx, field: null };
     return overlay;
-  }
-
-  function setPanel(i, offsetPercent, innerOffset) {
-    var fn = motionX ? "translateX" : "translateY";
-    if (panels[i]) {
-      if (portOffsets) {
-        panels[i].style.transform =
-          fn + "(" + ((offsetPercent / 106) * portOffsets[i]).toFixed(1) + "px)";
-      } else {
-        panels[i].style.transform = fn + "(" + offsetPercent + "%)";
-      }
-    }
-    if (inners[i]) {
-      inners[i].style.transform = fn + "(" + innerOffset + "px)";
-    }
   }
 
   function removeOverlay() {
@@ -633,15 +311,85 @@
     if (overlay && overlay.parentNode) {
       overlay.parentNode.removeChild(overlay);
     }
-    panels = [];
-    inners = [];
-    destEl = null;
-    destTextEl = null;
+    fog = null;
   }
 
-  /* ---- Enter (leaving page): panels gather, then navigate ---- */
+  /* Draw one frame. mode 0 = cover (fog gathering in from the
+     edges), mode 1 = reveal (fog streaming back out to them).
+     progress runs 0..1 across the phase. */
+  function drawFog(mode, progress, timeSec) {
+    if (!fog || !fog.ctx) {
+      return;
+    }
+    var ctx = fog.ctx;
+    var w = fog.canvas.width;
+    var h = fog.canvas.height;
+    if (!fog.field) {
+      fog.field = makeField(w, h);
+    }
+    var field = fog.field;
+    ctx.clearRect(0, 0, w, h);
+
+    /* Neutral wash underneath, guaranteeing an even cover at the
+       peak even where sprites happen to be thin. */
+    var washK = mode === 0 ? easeInOutViscous(progress) : 1 - easeInOutViscous(progress);
+    if (washK > 0.003) {
+      ctx.fillStyle = "rgba(" + WASH + "," + (WASH_PEAK * washK).toFixed(3) + ")";
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    if (fogSprites) {
+      var parts = field.parts;
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        var k;
+        var scale;
+        var rlocal = 0;
+        if (mode === 0) {
+          k = easeInOutViscous(clamp01((progress - p.delay) / (1 - FRONT_LAG)));
+          scale = 0.86 + 0.2 * k;
+        } else {
+          var rdelay = (1 - p.edgeDist) * FRONT_LAG * 0.8;
+          rlocal = clamp01((progress - rdelay) / (1 - FRONT_LAG * 0.8));
+          /* Stay visible while streaming out, then dissolve near
+             the end of the run to the edge. */
+          k = 1 - easeInOutViscous(clamp01((rlocal - 0.15) / 0.85));
+          scale = 1.06 + 0.3 * easeInOutViscous(rlocal);
+        }
+        var alpha = p.opacity * k * (0.92 + 0.08 * Math.sin(timeSec * 0.7 + p.breathPh));
+        if (alpha <= 0.004) {
+          continue;
+        }
+        var wx = Math.sin(timeSec * p.f1 + p.ph1) * p.wander
+               + Math.sin(timeSec * p.f2 + p.ph2) * p.wander * 0.35;
+        var wy = Math.cos(timeSec * p.f1 * 0.8 + p.ph2) * p.wander * 0.55
+               + Math.sin(timeSec * p.f2 * 0.9 + p.ph1) * p.wander * 0.2;
+        /* While a particle is still gathering (k < 1) it sits
+           displaced toward its own edge; it settles into place as
+           its gather completes. On the reveal it streams back out
+           the same way — all the way to its nearest edge and past
+           it, scattering to the four sides as it goes. */
+        var off = mode === 0
+          ? (1 - k) * p.travel
+          : easeInOutViscous(rlocal) * (p.edgePx + p.size * 0.35);
+        var px = p.x - p.inx * off + p.inx * p.drift * timeSec * 0.4 + wx;
+        var py = p.y - p.iny * off + p.iny * p.drift * timeSec * 0.4 + wy;
+        var sz = p.size * scale * (1 + 0.05 * Math.sin(timeSec * 0.4 + p.breathPh));
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.rotate(p.rot + p.rotV * timeSec);
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(fogSprites[p.spr % fogSprites.length], -sz / 2, -sz / 2, sz, sz);
+        ctx.restore();
+      }
+    }
+
+    ctx.globalAlpha = 1;
+  }
+
+  /* ---- Enter (leaving page): fog gathers, then navigate ---- */
   var navigating = false;
-  function startEnter(targetHref, destTitle) {
+  function startEnter(targetHref) {
     if (navigating) return;
     navigating = true;
     var navigated = false;
@@ -651,43 +399,19 @@
       setFlag();
       window.location.href = targetHref;
     }
-    var destIdx = -1;
     try {
-      destIdx = tabIndexFor(new URL(targetHref).pathname);
-    } catch (e2) {}
-    try {
-      buildOverlay(destTitle, destIdx);
+      buildOverlay();
     } catch (error) {
       go();
       return;
     }
-    var n = panels.length;
-    var inTotal = IN_MS + (n - 1) * STAGGER_MS;
-    var i;
-    for (i = 0; i < n; i++) {
-      setPanel(i, curDirs[i] * 106, -curDirs[i] * 14);
-    }
-    if (destEl) destEl.style.opacity = "0";
     var t0 = null;
     function step(now) {
       if (t0 === null) t0 = now;
       var el = now - t0;
-      for (var j = 0; j < n; j++) {
-        var dir = curDirs[j];
-        var local = el - j * STAGGER_MS;
-        if (local < 0) {
-          setPanel(j, dir * 106, -dir * 14);
-        } else if (local < IN_MS) {
-          var p = easeOutExpo(local / IN_MS);
-          setPanel(j, dir * 106 * (1 - p), -dir * 14 * (1 - p));
-        } else {
-          setPanel(j, 0, 0);
-        }
-      }
-      if (destEl) {
-        destEl.style.opacity = clamp01((el - inTotal + 60) / 240);
-      }
-      if (el >= inTotal) {
+      var progress = clamp01(el / COVER_MS);
+      drawFog(0, progress, el / 1000);
+      if (progress >= 1) {
         rafId = 0;
         go();
         return;
@@ -698,65 +422,31 @@
     later(go, NAV_FALLBACK_MS);
   }
 
-  /* ---- Exit (destination page): hold, then panels return ---- */
+  /* ---- Exit (destination page): hold, then fog clears ---- */
   function startExit() {
-    var n = panels.length;
-    if (!n) {
+    if (!fog) {
       removeOverlay();
       return;
     }
-    if (destEl) destEl.style.opacity = "1";
-    var outTotal = OUT_MS + (n - 1) * OUT_STAGGER_MS;
     var t0 = null;
     function step(now) {
       if (t0 === null) t0 = now;
       var el = now - t0;
-      /* Right after landing, the destination panel (plate and
-         image as one set) snaps wider (decided 2026-11-18) with
-         a short overshoot, then settles during the hold. The
-         tab itself is not enlarged. */
-      if (layoutState && layoutState.destPos >= 0) {
-        var sp = clamp01(el / SNAP_MS);
-        relayout(1 + (DEST_PANEL_SCALE - 1) * easeOutBack(sp));
-      }
-      var outEl = el - SNAP_MS - HOLD_MS;
-      if (outEl >= 0) {
-        for (var j = 0; j < n; j++) {
-          var dir = curDirs[j];
-          var es = EXIT_BACK ? dir : -dir;
-          var lo = outEl - j * OUT_STAGGER_MS;
-          if (lo < 0) {
-            setPanel(j, 0, 0);
-          } else if (lo < OUT_MS) {
-            var q = easeInCubic(lo / OUT_MS);
-            setPanel(j, es * 106 * q, -es * 12 * q);
-          } else {
-            setPanel(j, es * 106, -es * 12);
-          }
+      if (el < HOLD_MS) {
+        drawFog(0, 1, el / 1000);
+      } else {
+        var progress = clamp01((el - HOLD_MS) / REVEAL_MS);
+        drawFog(1, progress, el / 1000);
+        if (progress >= 1) {
+          rafId = 0;
+          removeOverlay();
+          return;
         }
-        if (destEl) {
-          destEl.style.opacity = 1 - clamp01((outEl + 40) / 200);
-        }
-      }
-      if (outEl >= outTotal) {
-        rafId = 0;
-        removeOverlay();
-        return;
       }
       rafId = window.requestAnimationFrame(step);
     }
     rafId = window.requestAnimationFrame(step);
     later(removeOverlay, EXIT_SAFETY_MS);
-  }
-
-  function titleFor(url, anchor) {
-    var name = url.pathname.split("/").pop() || "";
-    if (PAGE_TITLES.hasOwnProperty(name)) return PAGE_TITLES[name];
-    if (anchor && anchor.textContent) {
-      var t = anchor.textContent.replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
-      if (t && t.length <= 26) return t.toUpperCase();
-    }
-    return "";
   }
 
   /* ---- Click interception ---- */
@@ -789,7 +479,7 @@
       return; /* same page: let the browser handle any hash change */
     }
     ev.preventDefault();
-    startEnter(url.href, titleFor(url, anchor));
+    startEnter(url.href);
   });
 
   /* Back/forward cache restore: never leave a layer behind. */
@@ -800,24 +490,14 @@
     }
   });
 
-  /* Preload the panel artwork quietly after the page has loaded,
-     so a later click finds it in cache. */
-  window.addEventListener("load", function () {
-    window.setTimeout(function () {
-      var lim = new Image();
-      lim.src = artURL("leather.svg");
-    }, 1600);
-  });
-
-  /* ---- Landing: arrived through a cover, so start covered ---- */
+  /* ---- Landing: arrived through the fog, so start covered ---- */
   if (!reduceMotion && readFlag()) {
     clearFlag();
     try {
-      var here = window.location.pathname.split("/").pop() || "";
-      buildOverlay(PAGE_TITLES.hasOwnProperty(here) ? PAGE_TITLES[here] : "", tabIndexFor(window.location.pathname));
-      var i;
-      for (i = 0; i < panels.length; i++) setPanel(i, 0, 0);
-      if (destEl) destEl.style.opacity = "1";
+      buildOverlay();
+      /* Paint the full cover synchronously, before the page's
+         first frame, so the page is never seen uncovered. */
+      drawFog(0, 1, 0);
       var revealed = false;
       var reveal = function () {
         if (revealed) return;

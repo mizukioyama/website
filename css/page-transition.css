@@ -1,324 +1,38 @@
-/* Page transition overlay (vertical tab panels).
-   Around an in-site navigation, seven matte-iron panels slide in
-   from the top and bottom edges of the screen, cover it, and —
-   on the destination page — slide out through the opposite edge.
-   The first panel is a black brand panel; the other six carry a
-   framed print of an artwork on an iron plate, with a file-tab
-   spine on the right edge whose tab is labelled with a page
-   title (ART INDEX, ARTIST STATEMENT, BIOGRAPHY, INFORMATION,
-   ORDER, CONTACT). A thin fog film lies over the panels.
-   Plain browser navigation is kept as-is; the overlay only sits
-   on top of it (see js/page-transition.js). The layer is built
-   entirely by that script; this file holds its static styles.
-   z-index 13000: above the lens cursor (9000), modals
-   (10000/10001) and the Home loading layer (9998), so the whole
-   screen is covered evenly while the next page loads.
+/* Page transition overlay (fog).
+   Around an in-site navigation, fog gathers in from all four
+   edges of the frame until the screen is covered, and — on the
+   destination page — streams back out to the edges and is gone.
+   The fog is the entry gate's background material (cloud sprites
+   in three depths over a neutral wash, with fine particles),
+   driven between clear and full cover; see js/page-transition.js.
+   The slide panels of the previous design were removed on
+   2026-11-27 at the artist's request. The layer is a single
+   canvas built entirely by that script; this file holds its
+   static styles.
+   z-index 13000: above the lens cursor, modals and the Home
+   loading layer, so the whole screen is covered evenly while the
+   next page loads.
    Note: the site reset in css/all.css gives every div
    "width: fit-content", which defeats the usual left+right
-   stretch of absolutely positioned boxes. Every stretched
-   layer below therefore declares "width: auto" explicitly. */
+   stretch of absolutely positioned boxes. Stretched layers
+   below therefore declare "width: auto" explicitly. */
 .page-transition-overlay {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100dvh;
-  background: #0b0c0d;
   pointer-events: all;
   z-index: 13000;
   overflow: hidden;
 }
 
-.pt-framebg {
+.ft-canvas {
   position: absolute;
-  width: auto;
-  inset: 0;
-  background: #0b0c0d;
-}
-
-.pt-wrap {
-  position: absolute;
-  width: auto;
-  top: 0;
-  bottom: 0;
   left: 0;
-  right: 66px;
-}
-
-/* Stacked layout (portrait / narrow screens): the composition is
-   rotated — bands stack vertically, the black band moves to the
-   bottom, spines run along each band's bottom edge. */
-.pt-wrap-h {
-  left: 0;
-  right: 0;
   top: 0;
-  bottom: 66px;
-}
-
-.pt-panel {
-  position: absolute;
-  top: 0;
+  width: 100%;
   height: 100%;
-  will-change: transform;
-}
-
-/* The approved design separates overlapping panels with a soft
-   shadow (panel_shadow 0.7). A live drop-shadow filter over seven
-   full-height panels is too costly to animate, so the cast shadow
-   is drawn as a static gradient strip on the covered panel,
-   starting exactly where the panel above begins to overlap it. */
-.pt-shade {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 22px;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  z-index: 2;
-  pointer-events: none;
-}
-
-.pt-plate {
-  position: absolute;
-  width: auto;
-  inset: 0;
-  border-radius: 0px; /* plate and print stay square (2026-11-18) */
-  overflow: hidden;
-}
-
-.pt-tex {
-  position: absolute;
-  width: auto;
-  inset: 0;
-  pointer-events: none;
-}
-
-/* Fine vertical brush lines shared by the plate and the spine. */
-.pt-plate::after,
-.pt-spine::after {
-  content: "";
-  position: absolute;
-  width: auto;
-  inset: 0;
-  opacity: 0.4;
-  pointer-events: none;
-  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(0, 0, 0, 0.05) 1px 2px, transparent 2px 5px);
-}
-
-.pt-img {
-  position: absolute;
-  width: auto;
-  overflow: hidden;
-  background: #0e0f10;
-  z-index: 1;
-  border-radius: 0px; /* plate and print stay square (2026-11-18) */
-  box-shadow: 0 3px 30px rgba(0, 0, 0, 0.8), 0 14px 30px rgba(0, 0, 0, 0.56);
-}
-
-.pt-inner {
-  position: absolute;
-  width: auto;
-  inset: -14%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 50%;
-  opacity: 0.6;
-  will-change: transform;
-}
-.pt-cover {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.95;
-}
-.pt-cover-title {
-  writing-mode: vertical-rl;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  white-space: nowrap;
-  /* Engraved into the leather (decided 2026-11-18): black
-     darker than the leather itself so the letters read as
-     pressed into the surface, with a faint lit lower edge. */
-  color: rgba(5, 4, 3, 0.92);
-  text-shadow:
-    0 -1px 1px rgba(0, 0, 0, 0.4),
-    0 1px 0 rgba(255, 240, 210, 0.35);
-}
-.pt-h .pt-cover-title {
-  writing-mode: horizontal-tb;
-  font-size: 18px;
-  transform: translateY(14px);
-}
-
-.pt-spine {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  filter: drop-shadow(4px 0 5px rgba(8, 9, 11, 0.7));
-}
-
-.pt-num {
-  position: absolute;
-  text-align: center;
-  z-index: 2;
-  white-space: nowrap;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  letter-spacing: 0.18em;
-  font-weight: 700;
-}
-
-.pt-brand {
-  position: absolute;
-  width: auto;
-  inset: 0;
-  background: linear-gradient(180deg, #131416, #0c0d0e);
-  color: #e8e9ea;
-  overflow: hidden;
-}
-
-.pt-brand .pt-sub {
-  position: absolute;
-  top: 2.5%;
-  left: 16%;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 8px;
-  letter-spacing: 0.3em;
-  color: rgba(232, 233, 234, 0.55);
-  white-space: nowrap;
-}
-
-.pt-brand .pt-name {
-  position: absolute;
-  top: 7%;
-  left: 50%;
-  writing-mode: vertical-rl;
-  transform: translateX(-50%) rotate(180deg);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: #eceff1;
-  white-space: nowrap;
-}
-
-.pt-brand .pt-foot {
-  position: absolute;
-  bottom: 4%;
-  left: 50%;
-  writing-mode: vertical-rl;
-  transform: translateX(-50%) rotate(180deg);
-  font-size: 7.5px;
-  letter-spacing: 0.26em;
-  color: rgba(232, 233, 234, 0.5);
-  white-space: nowrap;
-}
-
-.pt-spine-h {
-  position: absolute;
-  width: auto;
-  filter: drop-shadow(0 4px 5px rgba(8, 9, 11, 0.7));
-}
-
-.pt-spine-h::after {
-  content: "";
-  position: absolute;
-  width: auto;
-  inset: 0;
-  opacity: 0.4;
-  pointer-events: none;
-  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(0, 0, 0, 0.05) 1px 2px, transparent 2px 5px);
-}
-
-
-.pt-num-h {
-  position: absolute;
-  line-height: 1;
-  white-space: nowrap;
-  letter-spacing: 0.18em;
-  font-weight: 700;
-  z-index: 2;
-}
-
-.pt-shade-h {
-  position: absolute;
-  width: auto;
-  left: 0;
-  right: 0;
-  height: 22px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Brand band in the stacked layout: horizontal text. */
-.pt-brand-h .pt-sub {
-  writing-mode: horizontal-tb;
-  transform: none;
-  top: 10px;
-  left: 14px;
-}
-
-.pt-brand-h .pt-name {
-  writing-mode: horizontal-tb;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-}
-
-.pt-brand-h .pt-foot {
-  writing-mode: horizontal-tb;
-  transform: none;
-  left: auto;
-  right: 14px;
-  bottom: 48px;
-}
-
-/* Thin fog film over the panels, under the destination title.
-   (The preview also blurred the panels by 1px through this film;
-   a full-screen backdrop blur over the animation is too costly
-   on phones, so the film is gradients and noise only.) */
-.pt-h .pt-plate::after {
-  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0 1px, rgba(0, 0, 0, 0.05) 1px 2px, transparent 2px 5px);
-}
-
-.pt-fog {
-  position: absolute;
-  width: auto;
-  inset: 0;
-  z-index: 40;
-  pointer-events: none;
-  opacity: 0.85;
-  background:
-    radial-gradient(115% 85% at 28% 18%, rgba(238, 243, 246, 0.34), rgba(238, 243, 246, 0.05) 55%, rgba(238, 243, 246, 0.18)),
-    linear-gradient(180deg, rgba(238, 243, 246, 0.10), rgba(238, 243, 246, 0.02) 45%, rgba(238, 243, 246, 0.12));
-}
-
-.pt-fogtex {
-  position: absolute;
-  width: auto;
-  inset: 0;
-  opacity: 0.22;
-}
-
-.pt-dest {
-  position: absolute;
-  width: auto;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0;
-}
-
-.pt-dest div {
-  color: #fff;
-  mix-blend-mode: difference;
-  font-weight: 200;
-  letter-spacing: 0.34em;
-  text-indent: 0.34em;
-  font-size: 24px;
-  white-space: nowrap;
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
