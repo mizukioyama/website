@@ -30,6 +30,10 @@
     font-weight: 400;
 }
 
+.portfolio-history-table tbody .year {
+    opacity: 0.8;
+}
+
 .portfolio-history-table td.tb-content {
     width: 80%;
     font-size: var(--font-table-size);
