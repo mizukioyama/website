@@ -371,6 +371,7 @@
   main.order-page .page-line { margin-top: 64px; margin-bottom: 64px; }
   .art-page main.gallery { padding-bottom: 6rem; }
   #policy .page-line { margin-top: 64px; margin-bottom: 64px; }
+  .gallery.statement .page-line { margin-top: 64px; margin-bottom: 64px; }
   #policy h3 { margin-top: 32px; }
   #state h3 {
     padding: 2.5rem 2rem;
