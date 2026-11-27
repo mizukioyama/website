@@ -16,7 +16,7 @@
 .portfolio-history-table th {
     text-align: left;
     font-size: var(--font-table-size);
-    color: #999;
+    color: var(--inv);
     text-transform: uppercase;
     letter-spacing: var(--tracking-table-005);
     font-weight: normal;
