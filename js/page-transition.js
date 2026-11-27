@@ -68,13 +68,15 @@
   /* Neutral fog wash colour (no tint). */
   var WASH = "46,46,46";
   /* The flat cover colour, brightness-matched to the average
-     of the textured cover (measured on the canvas: the textured
-     peak averages about 70, the wash alone is 46). The flat
-     state appears at every navigation boundary — the landing
-     page's first frames, and the leaving page's last frame
-     after the texture crossfade — so if it is darker than the
-     textured cover, the swap reads as a blink. */
-  var FLAT = "70,70,70";
+     of the textured cover as it appears on the artist's phone
+     screen (measured from his screen recordings: the textured
+     cover reads about 77.5, an earlier flat of 70 read 72.7,
+     so the flat is set to 75). The flat state appears at every
+     navigation boundary — the landing page's first frames, and
+     the leaving page's last frame after the texture crossfade
+     — so if it differs from the textured cover, the swap reads
+     as a blink. */
+  var FLAT = "75,75,75";
 
   var reduceMotion = false;
   try {
@@ -343,35 +345,69 @@
   ];
   var LAYER_DELAY = [0, 80, 160];
 
+  /* ---- Frame contour, baked into the layers ----
+     The fog must stay inside the site frame's inner contour.
+     That used to be a CSS mask on the overlay, but a mask makes
+     the browser re-rasterise the whole overlay on every frame
+     of an animation — on the artist's phone both fog engines
+     (per-frame canvas, then CSS transitions) presented only
+     about seven frames per second, a visible flicker, and the
+     mask was the one expensive piece they shared. So the
+     contour (the same arc-sampled paths the mask used) is now
+     painted into each layer itself: solids are filled only
+     inside it, and the texture layers have everything outside
+     it erased once, before any motion starts. The animated
+     stack then needs no mask at all. */
+  var CONTOURS = [
+    { maxW: 767, w: 390, h: 844, d: "M375.5 821.5L377.6 821.2L379.5 820.4L381.2 819.2L382.4 817.5L383.2 815.6L383.5 813.5L383.5 559.4L383.2 557.3L382.4 555.4L381.2 553.7L379.5 552.5L377.6 551.7L375.5 551.4L376.6 551.4L373.8 551.0L371.1 549.9L368.8 548.2L367.1 545.9L366.0 543.2L365.6 540.4L365.6 33.5L365.2 30.7L364.1 28.0L362.4 25.7L360.1 24.0L357.4 22.9L354.6 22.5L20.5 22.5L16.9 23.0L13.5 24.4L10.6 26.6L8.4 29.5L7.0 32.9L6.5 36.5L6.5 682.2L6.8 684.3L7.6 686.2L8.8 687.9L10.5 689.1L12.4 689.9L14.5 690.2L13.4 690.2L16.2 690.6L18.9 691.7L21.2 693.4L22.9 695.7L24.0 698.4L24.4 701.2L24.4 810.5L24.8 813.3L25.9 816.0L27.6 818.3L29.9 820.0L32.6 821.1L35.4 821.5Z" },
+    { maxW: 1199, w: 800, h: 1280, d: "M778.7 1245.9L780.8 1245.6L782.7 1244.8L784.4 1243.6L785.6 1241.9L786.4 1240.0L786.7 1237.9L786.7 853.3L786.1 848.9L784.4 844.8L781.7 841.3L778.2 838.6L774.1 836.9L769.7 836.3L772.0 836.3L766.3 835.6L761.0 833.4L756.4 829.9L752.9 825.3L750.7 820.0L750.0 814.3L750.0 56.1L749.3 50.4L747.1 45.1L743.6 40.5L739.0 37.0L733.7 34.8L728.0 34.1L27.3 34.1L23.7 34.6L20.3 36.0L17.4 38.2L15.2 41.1L13.8 44.5L13.3 48.1L13.3 1029.8L13.9 1034.2L15.6 1038.3L18.3 1041.8L21.8 1044.5L25.9 1046.2L30.3 1046.8L28.0 1046.8L33.7 1047.5L39.0 1049.7L43.6 1053.2L47.1 1057.8L49.3 1063.1L50.0 1068.8L50.0 1223.9L50.7 1229.6L52.9 1234.9L56.4 1239.5L61.0 1243.0L66.3 1245.2L72.0 1245.9Z", portrait: true },
+    { maxW: Infinity, w: 1440, h: 900, d: "M1408.0 876.0L1410.1 875.7L1412.0 874.9L1413.7 873.7L1414.9 872.0L1415.7 870.1L1416.0 868.0L1416.0 618.0L1415.0 610.2L1412.0 603.0L1407.2 596.8L1401.0 592.0L1393.8 589.0L1386.0 588.0L1390.0 588.0L1379.6 586.6L1370.0 582.6L1361.7 576.3L1355.4 568.0L1351.4 558.4L1350.0 548.0L1350.0 64.0L1348.6 53.6L1344.6 44.0L1338.3 35.7L1330.0 29.4L1320.4 25.4L1310.0 24.0L38.0 24.0L34.4 24.5L31.0 25.9L28.1 28.1L25.9 31.0L24.5 34.4L24.0 38.0L24.0 706.0L25.0 713.8L28.0 721.0L32.8 727.2L39.0 732.0L46.2 735.0L54.0 736.0L50.0 736.0L60.4 737.4L70.0 741.4L78.3 747.7L84.6 756.0L88.6 765.6L90.0 776.0L90.0 836.0L91.4 846.4L95.4 856.0L101.7 864.3L110.0 870.6L119.6 874.6L130.0 876.0Z" }
+  ];
+  function contourFor(vw, vh) {
+    for (var i = 0; i < CONTOURS.length; i++) {
+      var c = CONTOURS[i];
+      if (vw <= c.maxW && (!c.portrait || vh > vw)) {
+        return c;
+      }
+    }
+    return CONTOURS[CONTOURS.length - 1];
+  }
+  /* Run fn with the context transformed so the contour's
+     viewBox units map onto this canvas. */
+  function withContour(f, ctx, fn) {
+    ctx.save();
+    ctx.setTransform(f.w / f.contour.w, 0, 0, f.h / f.contour.h, 0, 0);
+    fn(new Path2D(f.contour.d));
+    ctx.restore();
+  }
+  function fillContour(f, ctx, color) {
+    withContour(f, ctx, function (path) {
+      ctx.fillStyle = color;
+      ctx.fill(path);
+    });
+  }
+  function eraseOutsideContour(f, ctx) {
+    withContour(f, ctx, function (path) {
+      var outer = new Path2D();
+      outer.rect(0, 0, f.contour.w, f.contour.h);
+      outer.addPath(path);
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fill(outer, "evenodd");
+    });
+  }
+
   function buildOverlay() {
     removeOverlay();
     var overlay = document.createElement("div");
     overlay.id = "page-transition-overlay";
     overlay.className = "page-transition-overlay";
     overlay.setAttribute("aria-hidden", "true");
-    /* Flat layer: the brightness-matched solid cover. It is a
-       plain div, so the compositor can show it in the very
-       first paint — the landing page's guarantee that the page
-       underneath is never seen uncovered. */
-    var flat = document.createElement("div");
-    flat.className = "pt-flat";
-    flat.style.background = "rgb(" + FLAT + ")";
-    flat.style.opacity = "0";
-    overlay.appendChild(flat);
-    /* Wash layer: the deep base tone under the cloud texture. */
-    var wash = document.createElement("div");
-    wash.className = "pt-wash";
-    wash.style.background = "rgb(" + WASH + ")";
-    wash.style.opacity = "0";
-    overlay.appendChild(wash);
     var dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
     var cw = Math.max(1, Math.round((window.innerWidth || 1024) * dpr));
     var ch = Math.max(1, Math.round((window.innerHeight || 768) * dpr));
-    var layers = [];
-    var ctxs = [];
-    for (var i = 0; i < 3; i++) {
+    function makeCanvas(cls) {
       var canvas = document.createElement("canvas");
-      canvas.className = "ft-canvas";
+      canvas.className = cls;
       canvas.width = cw;
       canvas.height = ch;
       canvas.style.opacity = "0";
@@ -382,15 +418,33 @@
         ctx = null;
       }
       overlay.appendChild(canvas);
-      layers.push(canvas);
-      ctxs.push(ctx);
+      return { el: canvas, ctx: ctx };
+    }
+    /* Flat layer: the brightness-matched solid cover, painted
+       only inside the frame contour. A painted canvas is the
+       landing page's guarantee that the page underneath is
+       never seen uncovered: it is part of the overlay's very
+       first frame. */
+    var flatC = makeCanvas("pt-flat");
+    /* Wash layer: the deep base tone under the cloud texture. */
+    var washC = makeCanvas("pt-wash");
+    var layers = [];
+    var ctxs = [];
+    for (var i = 0; i < 3; i++) {
+      var lc = makeCanvas("ft-canvas");
+      layers.push(lc.el);
+      ctxs.push(lc.ctx);
     }
     document.documentElement.appendChild(overlay);
     fog = {
-      overlay: overlay, flat: flat, wash: wash,
+      overlay: overlay, flat: flatC.el, wash: washC.el,
+      flatCtx: flatC.ctx, washCtx: washC.ctx,
       layers: layers, ctxs: ctxs,
-      field: null, painted: false, w: cw, h: ch
+      field: null, painted: false, solidsPainted: false,
+      w: cw, h: ch,
+      contour: contourFor(window.innerWidth || 1024, window.innerHeight || 768)
     };
+    paintSolids();
     return overlay;
   }
 
@@ -404,6 +458,21 @@
       overlay.parentNode.removeChild(overlay);
     }
     fog = null;
+  }
+
+  /* Paint the two solid layers (flat cover colour, wash)
+     inside the frame contour. Done once, at build time. */
+  function paintSolids() {
+    if (!fog || fog.solidsPainted) {
+      return;
+    }
+    if (fog.flatCtx) {
+      fillContour(fog, fog.flatCtx, "rgb(" + FLAT + ")");
+    }
+    if (fog.washCtx) {
+      fillContour(fog, fog.washCtx, "rgb(" + WASH + ")");
+    }
+    fog.solidsPainted = true;
   }
 
   /* Paint the three depth layers once, at the pose the old
@@ -438,6 +507,8 @@
         ctx.restore();
       }
       ctx.globalAlpha = 1;
+      /* Keep this depth inside the frame, once and for all. */
+      eraseOutsideContour(fog, ctx);
     }
     fog.painted = true;
   }
@@ -483,11 +554,11 @@
       }
     } else {
       /* No cloud texture (its image failed): cover with the
-         flat colour alone, at full opacity. */
+         flat layer alone (it is already the flat colour, and
+         already clipped to the frame). */
       void fog.overlay.offsetWidth;
-      fog.wash.style.background = "rgb(" + FLAT + ")";
-      setTransition(fog.wash, COVER_MS, 0);
-      fog.wash.style.opacity = "1";
+      setTransition(fog.flat, COVER_MS, 0);
+      fog.flat.style.opacity = "1";
     }
     later(go, COVER_MS + 40);
     later(go, NAV_FALLBACK_MS);
@@ -528,13 +599,15 @@
     }
     if (hasTex) {
       /* Crossfade the flat start into the textured cover: the
-         flat layer hands over to the wash and the depth layers
-         at a matched average brightness, then the fog holds
-         briefly at full cover before clearing. */
+         wash and the depth layers fade in OVER the flat layer,
+         which stays at full opacity underneath until the
+         reveal. (Fading the flat out at the same time made the
+         composite dip about ten points below both endpoints
+         mid-crossfade — a pulse in the landing, measured from
+         the artist's recording.) Once the texture stack is at
+         full cover the flat contributes nothing, and
+         revealMotion fades it away with everything else. */
       var XFADE_MS = 400;
-      fog.overlay.style.background = "";
-      setTransition(fog.flat, XFADE_MS, 0);
-      fog.flat.style.opacity = "0";
       setTransition(fog.wash, XFADE_MS, 0);
       fog.wash.style.opacity = String(WASH_PEAK);
       for (var i = 0; i < 3; i++) {
@@ -543,13 +616,8 @@
       }
       later(revealMotion, XFADE_MS + HOLD_MS);
     } else {
-      /* No texture: the flat colour is the whole cover. Swap it
-         onto the wash layer instantly (same colour, no visible
-         change) so revealMotion can fade it. */
-      fog.overlay.style.background = "";
-      fog.wash.style.background = "rgb(" + FLAT + ")";
-      fog.wash.style.opacity = "1";
-      fog.flat.style.opacity = "0";
+      /* No texture: the flat layer already IS the whole cover
+         at full opacity; revealMotion fades it directly. */
       later(revealMotion, HOLD_MS);
     }
   }
@@ -599,18 +667,17 @@
   if (!reduceMotion && readFlag()) {
     clearFlag();
     try {
-      var landingOverlay = buildOverlay();
-      /* Start covered by the flat colour on every surface, so
-         the page is never seen uncovered from the very first
-         paint: the flat layer is a plain div (painted by the
-         compositor immediately, unlike a canvas frame, which
-         must be rasterised first — on slow phones the page's
-         own first paint could win that race and flash through),
-         and the root background backs it until the overlay
-         itself is presented. The colour matches the covered
-         average of the textured fog, so the swap between pages
-         has no brightness step. */
-      landingOverlay.style.background = "rgb(" + FLAT + ")";
+      buildOverlay();
+      /* Start covered by the flat colour, so the page is never
+         seen uncovered from the very first paint: the flat
+         layer is painted into the overlay synchronously as it
+         is built, and the root background (the same colour)
+         backs the whole viewport until the overlay itself is
+         presented — on slow phones the page's own first paint
+         could otherwise win the race and flash through. The
+         colour matches the covered average of the textured
+         fog, so the swap between pages has no brightness
+         step. */
       document.documentElement.style.background = "rgb(" + FLAT + ")";
       fog.flat.style.opacity = "1";
       var revealed = false;
