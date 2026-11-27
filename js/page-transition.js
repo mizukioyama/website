@@ -229,7 +229,7 @@
   }
 
   /* ---- Overlay: static layers, compositor-driven motion ---- */
-  var fog = null; /* { overlay, group, flat, wash, tex, painted, w, h } */
+  var fog = null; /* { overlay, flat, wash, panels, pctxs, painted, w, h } */
   var safetyTimers = [];
 
   function later(fn, ms) {
@@ -254,19 +254,25 @@
       "transform " + dur + "ms " + EASE + " " + delay + "ms";
   }
 
-  /* Motion: ONE group opacity, nothing else. The fog is a
-     single painted stack (a wash base and a cloud texture,
-     grouped under one element), and the only thing that ever
-     animates is that group's opacity. Every multi-layer
-     variant — per-frame canvas, staggered depth layers, four
-     sliding banks — presented in steps on the artist's phone,
-     with lagging layers snapping in single large jumps
-     (measured from screen recordings, 2026-11-27); a single
-     opacity is the cheapest work a compositor can be given.
-     The "from all four sides" character comes from the
-     painting instead: the wash base and the cloud texture are
-     both weighted toward the edges, so as the group's opacity
-     rises the edges fog over first and the centre last. */
+  /* Panel motion. The fog is four banks, one per side. For
+     the cover each bank starts pushed out beyond its own edge
+     and slides in as it fades up, so the fog front visibly
+     sweeps in from the top, bottom, left and right and meets
+     in the middle (the artist asked for the fog to come from
+     all four sides, 2026-11-27); for the reveal the banks
+     retreat back out the same way while dissolving. Delays
+     stagger the sides so they do not move as one slab. */
+  var PANEL_FROM = [
+    "translateY(-52%)",
+    "translateY(52%)",
+    "translateX(-52%)",
+    "translateX(52%)"
+  ];
+  var PANEL_DELAY = [0, 70, 140, 210];
+  /* Each bank spans this fraction of the viewport from its
+     edge, so opposing banks overlap in the middle at full
+     cover. */
+  var PANEL_SPAN = 0.68;
 
   /* ---- Frame contour, baked into the layers ----
      The fog must stay inside the site frame's inner contour.
@@ -371,19 +377,24 @@
     var dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
     var cw = Math.max(1, Math.round((window.innerWidth || 1024) * dpr));
     var ch = Math.max(1, Math.round((window.innerHeight || 768) * dpr));
-    function makeCanvas(cls, parent) {
+    function makeCanvas(cls, w, h, css) {
       var canvas = document.createElement("canvas");
       canvas.className = cls;
-      canvas.width = cw;
-      canvas.height = ch;
+      canvas.width = w;
+      canvas.height = h;
       canvas.style.opacity = "0";
+      if (css) {
+        for (var key in css) {
+          canvas.style[key] = css[key];
+        }
+      }
       var ctx = null;
       try {
         ctx = canvas.getContext("2d");
       } catch (error) {
         ctx = null;
       }
-      parent.appendChild(canvas);
+      overlay.appendChild(canvas);
       return { el: canvas, ctx: ctx };
     }
     /* Flat layer: the brightness-matched solid cover, painted
@@ -391,24 +402,38 @@
        landing page's guarantee that the page underneath is
        never seen uncovered: it is part of the overlay's very
        first frame. */
-    var flatC = makeCanvas("pt-flat", overlay);
-    /* The fog group: a wash canvas and a texture canvas under
-       one element whose opacity is the only animated property.
-       Grouped, the two paintings are rendered once into a
-       single surface; fading the group re-blends that surface
-       instead of re-compositing the layers every frame. */
-    var group = document.createElement("div");
-    group.className = "pt-group";
-    group.style.opacity = "0";
-    overlay.appendChild(group);
-    var washC = makeCanvas("pt-wash", group);
-    washC.el.style.opacity = "1";
-    var texC = makeCanvas("ft-canvas", group);
-    texC.el.style.opacity = "1";
+    var flatC = makeCanvas("pt-flat", cw, ch, null);
+    /* Wash layer: the deep base tone under the cloud texture. */
+    var washC = makeCanvas("pt-wash", cw, ch, null);
+    /* The four fog banks: top, bottom, left, right. Each is a
+       canvas anchored to its edge and spanning PANEL_SPAN of
+       the viewport toward the centre. */
+    var spanW = Math.round(cw * PANEL_SPAN);
+    var spanH = Math.round(ch * PANEL_SPAN);
+    var panelCss = [
+      { left: "0", top: "0", width: "100%", height: (PANEL_SPAN * 100) + "%" },
+      { left: "0", bottom: "0", width: "100%", height: (PANEL_SPAN * 100) + "%" },
+      { left: "0", top: "0", width: (PANEL_SPAN * 100) + "%", height: "100%" },
+      { right: "0", top: "0", width: (PANEL_SPAN * 100) + "%", height: "100%" }
+    ];
+    var panelSize = [
+      [cw, spanH], [cw, spanH], [spanW, ch], [spanW, ch]
+    ];
+    var panelOrigin = [
+      [0, 0], [0, ch - spanH], [0, 0], [cw - spanW, 0]
+    ];
+    var panels = [];
+    var pctxs = [];
+    for (var i = 0; i < 4; i++) {
+      var pc = makeCanvas("pt-panel", panelSize[i][0], panelSize[i][1], panelCss[i]);
+      panels.push(pc.el);
+      pctxs.push(pc.ctx);
+    }
     document.documentElement.appendChild(overlay);
     fog = {
-      overlay: overlay, group: group, flat: flatC.el, wash: washC.el, tex: texC.el,
-      flatCtx: flatC.ctx, washCtx: washC.ctx, texCtx: texC.ctx,
+      overlay: overlay, flat: flatC.el, wash: washC.el,
+      flatCtx: flatC.ctx, washCtx: washC.ctx,
+      panels: panels, pctxs: pctxs, panelOrigin: panelOrigin,
       painted: false, solidsPainted: false,
       w: cw, h: ch,
       contour: contourFor(window.innerWidth || 1024, window.innerHeight || 768)
@@ -440,74 +465,58 @@
     if (fog.flatCtx) {
       fillContour(fog, fog.flatCtx, "rgb(" + FLAT + ")");
     }
+    if (fog.washCtx) {
+      fillContour(fog, fog.washCtx, "rgb(" + WASH + ")");
+    }
     fog.solidsPainted = true;
   }
 
-  /* Paint the fog stack once: the wash base and the cloud
-     texture, both weighted toward the edges of the frame.
-     The wash is a radial gradient that is fully opaque at the
-     edges and lighter toward the centre; the texture's sprites
-     are sampled with an edge bias and their alpha falls toward
-     the centre. Under a single group opacity this weighting is
-     what makes the fog read as arriving from all four sides:
-     the edges reach a visible cover long before the centre. */
-  function paintFog() {
+  /* Paint the four fog banks once. Each bank gets its own
+     scatter of cloud sprites; a gradient then melts the bank's
+     inner edge (the fog front) so banks blend where they
+     overlap, and the frame contour is baked in as before. The
+     wash layer sits beneath, so the middle — where all four
+     fronts overlap — still reaches a full, even cover. */
+  function paintPanels() {
     if (!fog || fog.painted || !fogSprites) {
       return;
     }
-    if (fog.washCtx) {
-      var wctx = fog.washCtx;
-      var grad = null;
-      try {
-        var cx = fog.contour.w / 2;
-        var cy = fog.contour.h / 2;
-        var rOuter = Math.sqrt(cx * cx + cy * cy);
-        grad = wctx.createRadialGradient(cx, cy, rOuter * 0.2, cx, cy, rOuter);
-        grad.addColorStop(0, "rgba(" + WASH + ",0.78)");
-        grad.addColorStop(1, "rgba(" + WASH + ",1)");
-      } catch (error) {
-        grad = null;
+    for (var pi = 0; pi < 4; pi++) {
+      var ctx = fog.pctxs[pi];
+      if (!ctx) {
+        continue;
       }
-      if (grad) {
-        withContour(fog, wctx, function (path) {
-          wctx.fillStyle = grad;
-          wctx.fill(path);
-        });
-      } else {
-        fillContour(fog, wctx, "rgb(" + WASH + ")");
-      }
-    }
-    var ctx = fog.texCtx;
-    if (ctx) {
-      ctx.clearRect(0, 0, fog.w, fog.h);
-      var half = Math.min(fog.w, fog.h) / 2;
-      var placed = 0;
-      var guard = 0;
-      while (placed < 90 && guard < 900) {
-        guard++;
-        var x = Math.random() * fog.w;
-        var y = Math.random() * fog.h;
-        var edgeDist = Math.min(x, fog.w - x, y, fog.h - y) / half;
-        if (edgeDist > 1) {
-          edgeDist = 1;
-        }
-        /* Edge bias: centre candidates are often rejected, so
-           the cloud body gathers toward the sides. */
-        if (Math.random() > 1 - 0.6 * edgeDist) {
-          continue;
-        }
-        var sz = (0.30 + Math.random() * 0.60) * fog.w;
+      var pw = fog.panels[pi].width;
+      var ph = fog.panels[pi].height;
+      ctx.clearRect(0, 0, pw, ph);
+      var count = 36;
+      for (var i = 0; i < count; i++) {
+        var x = Math.random() * pw;
+        var y = Math.random() * ph;
+        var sz = (0.30 + Math.random() * 0.55) * fog.w;
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(Math.random() * Math.PI * 2);
-        ctx.globalAlpha = (0.34 + Math.random() * 0.40) * (1 - 0.45 * edgeDist);
+        ctx.globalAlpha = 0.34 + Math.random() * 0.40;
         ctx.drawImage(fogSprites[Math.floor(Math.random() * fogSprites.length)], -sz / 2, -sz / 2, sz, sz);
         ctx.restore();
-        placed++;
       }
       ctx.globalAlpha = 1;
-      /* Keep the texture inside the frame, once and for all. */
-      eraseOutsideContour(fog, ctx);
+      /* Melt the front: erase with a gradient that is clear
+         until past the middle of the bank and rises toward the
+         inner edge, leaving about a quarter of the alpha there. */
+      var horizontal = pi >= 2;
+      var grad = horizontal
+        ? ctx.createLinearGradient(pi === 2 ? 0 : pw, 0, pi === 2 ? pw : 0, 0)
+        : ctx.createLinearGradient(0, pi === 0 ? 0 : ph, 0, pi === 0 ? ph : 0);
+      grad.addColorStop(0.55, "rgba(0,0,0,0)");
+      grad.addColorStop(1, "rgba(0,0,0,0.72)");
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, pw, ph);
+      ctx.globalCompositeOperation = "source-over";
+      /* Keep this bank inside the frame, once and for all. */
+      eraseOutsideContourAt(fog, ctx, fog.panelOrigin[pi][0], fog.panelOrigin[pi][1]);
     }
     fog.painted = true;
   }
@@ -526,7 +535,7 @@
     }
     try {
       buildOverlay();
-      paintFog();
+      paintPanels();
     } catch (error) {
       go();
       return;
@@ -535,12 +544,27 @@
       go();
       return;
     }
+    var i;
     if (fog.painted) {
-      /* Commit the initial state, then fade the one group in:
-         the only animated property in the whole transition. */
+      for (i = 0; i < 4; i++) {
+        fog.panels[i].style.transform = PANEL_FROM[i];
+      }
+      /* Commit the initial states, then transition into the
+         covered state: the wash rises underneath and the four
+         banks stagger in from their edges, all finishing
+         together. */
       void fog.overlay.offsetWidth;
-      setTransition(fog.group, COVER_MS, 0);
-      fog.group.style.opacity = "1";
+      /* The wash (the uniform base) holds back until the banks
+         are well in, so the gather reads as fog arriving from
+         the four sides rather than a veil thickening evenly;
+         it still reaches its peak with everything else. */
+      setTransition(fog.wash, Math.round(COVER_MS * 0.65), Math.round(COVER_MS * 0.35));
+      fog.wash.style.opacity = String(WASH_PEAK);
+      for (i = 0; i < 4; i++) {
+        setTransition(fog.panels[i], COVER_MS - PANEL_DELAY[i], PANEL_DELAY[i]);
+        fog.panels[i].style.opacity = "1";
+        fog.panels[i].style.transform = "none";
+      }
     } else {
       /* No cloud texture (its image failed): cover with the
          flat layer alone (it is already the flat colour, and
@@ -558,19 +582,19 @@
     if (!fog) {
       return;
     }
-    /* One fade: the group dissolves (its edge-weighted
-       painting means the centre breathes open first and the
-       edges lift last). The flat fade only matters on the
-       no-texture path, where the flat layer is the cover.
-       Removal waits well past the transition's end: on a slow
-       phone the presented fade can lag the wall clock, and an
-       early removal shows up as a final snap (measured from
-       the artist's recording, 2026-11-27). */
-    setTransition(fog.group, REVEAL_MS, 0);
-    fog.group.style.opacity = "0";
+    /* The wash lifts last, so the texture thins first and the
+       centre of the page breathes open before the base tone
+       goes. */
+    setTransition(fog.wash, REVEAL_MS, 150);
+    fog.wash.style.opacity = "0";
     setTransition(fog.flat, REVEAL_MS, 150);
     fog.flat.style.opacity = "0";
-    later(removeOverlay, REVEAL_MS + 700);
+    for (var i = 0; i < 4; i++) {
+      setTransition(fog.panels[i], REVEAL_MS, PANEL_DELAY[i]);
+      fog.panels[i].style.opacity = "0";
+      fog.panels[i].style.transform = PANEL_FROM[i];
+    }
+    later(removeOverlay, REVEAL_MS + 400);
   }
 
   function startReveal() {
@@ -581,24 +605,28 @@
     later(removeOverlay, EXIT_SAFETY_MS);
     var hasTex = false;
     try {
-      paintFog();
+      paintPanels();
       hasTex = fog.painted;
     } catch (error) {
       hasTex = false;
     }
     if (hasTex) {
-      /* Crossfade the flat start into the fog cover: the group
-         fades in while the flat layer fades out just behind it.
-         The composite dips below both endpoints mid-crossfade
-         (measured at about ten points from the artist's
-         recording) — a deepening of the fog just before it
-         clears, which the artist reviewed and asked to keep
-         (2026-11-27), so the dip is intentional. */
+      /* Crossfade the flat start into the textured cover: the
+         flat layer fades out while the wash and the depth
+         layers fade in. The composite dips below both endpoints
+         mid-crossfade (measured at about ten points from the
+         artist's recording) — a deepening of the fog just
+         before it clears, which the artist reviewed and asked
+         to keep (2026-11-27), so the dip is intentional. */
       var XFADE_MS = 400;
-      setTransition(fog.group, XFADE_MS, 0);
-      fog.group.style.opacity = "1";
-      setTransition(fog.flat, XFADE_MS, 150);
+      setTransition(fog.flat, XFADE_MS, 0);
       fog.flat.style.opacity = "0";
+      setTransition(fog.wash, XFADE_MS, 0);
+      fog.wash.style.opacity = String(WASH_PEAK);
+      for (var i = 0; i < 4; i++) {
+        setTransition(fog.panels[i], XFADE_MS, i * 60);
+        fog.panels[i].style.opacity = "1";
+      }
       later(revealMotion, XFADE_MS + HOLD_MS);
     } else {
       /* No texture: the flat layer already IS the whole cover

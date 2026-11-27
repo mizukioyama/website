@@ -50,14 +50,12 @@
   display: block;
 }
 
-/* The fog group: holds the wash and texture canvases. Only
-   this element's opacity ever animates. */
-.pt-group {
+/* The four fog banks: partial-size canvases anchored to their
+   edges; their geometry (side, span) is set inline by the
+   script. */
+.pt-panel {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
