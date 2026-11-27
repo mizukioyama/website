@@ -219,9 +219,16 @@
   :root { --type-404-code-size: clamp(64px, 25vw, 112px); }
 }
 
-/* Page H4 is a flat 14px on small screens (Mizuki 2026-11-27). */
+/* Page headings on small screens, scaled to sit with the
+   11px body copy (Mizuki 2026-11-27, plan A). The H4 value
+   supersedes the flat 14px set earlier the same day. */
 @media screen and (max-width: 599px) {
-  :root { --type-page-h4-size: 14px; }
+  :root {
+    --type-page-h2-size: 18px;
+    --type-page-h3-size: 15px;
+    --type-page-h4-size: 13px;
+    --type-page-h5-size: 12px;
+  }
 }
 
 /* Menu selector bridges below keep the existing selectors and cascade. */
