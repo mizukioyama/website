@@ -1310,7 +1310,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   transition: opacity 0.3s ease;
 }
 .frame-instagram:hover, .frame-instagram:focus-visible { opacity: 1; }
-.frame-instagram svg { width: 28px; height: 28px; display: block; filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.45)); }
+.frame-instagram svg { width: 32px; height: 32px; display: block; filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.45)); }
 .home .frame-instagram { color: var(--text); }
 @media only screen and (max-width: 600px) {
   /* Phones: the gallery's category bar occupies the area above the
@@ -1321,7 +1321,7 @@ html.frame-liquid-on .frame-initials a:is(:hover, :focus-visible) .frame-initial
   .frame-prev small { display: none; }
   .frame-copy { right: calc(1.667vw + 6px); bottom: 6px; }
   .frame-instagram { right: calc(1.667vw + 6px); bottom: 26px; width: 44px; height: 44px; }
-  .frame-instagram svg { width: 26px; height: 26px; }
+  .frame-instagram svg { width: 30px; height: 30px; }
 }
 
 /* Portrait tablets (2026-11-23): the frame is drawn in a
